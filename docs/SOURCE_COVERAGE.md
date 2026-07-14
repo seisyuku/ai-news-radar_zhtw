@@ -222,6 +222,84 @@ Recent candidates skipped from the built-in default set:
 - **Berkeley RDI Blog**: `/feed.xml` returned only a stale Jekyll placeholder
   item from 2021, so it is not useful as a default source yet.
 
+## 2026-07-14 Source Curation (feature/business-sources)
+
+Removed from the default task list in `collect_all()` (fetch functions kept in
+`scripts/update_news.py` for rollback, just not registered): `tophub`,
+`buzzing`, `aihot`, `newsnow`, `zeli`, `aibreakfast`, `aihubtoday`,
+`followbuilders`, `bestblogs`, `hackernews`. `waytoagi` is disabled the same
+way via `WAYTOAGI_ENABLED = False` since it has its own fetch/write path
+outside `collect_all()`.
+
+Added:
+
+- **NVIDIA Blog** (`blogs.nvidia.com/feed/`) — added to `OFFICIAL_AI_FEEDS`.
+  `nvidianews.nvidia.com` has no working `/rss` feed (200 but 0 parseable
+  entries), so this is NVIDIA's actual public blog feed instead; it mixes
+  GeForce/gaming posts with AI posts and relies on the shared downstream
+  `ai_relevance_score` gate, same as GitHub Changelog already does.
+- **Microsoft Blog** (`blogs.microsoft.com/feed/`) — added to
+  `OFFICIAL_AI_FEEDS`. The originally requested `news.microsoft.com/feed/`
+  ("Microsoft News") is stale (no item published since May 2025, so
+  everything fails the 45-day freshness window); `blogs.microsoft.com/ai/feed/`
+  returns 410 Gone. The corporate Blog feed is active and already
+  heavily AI-focused.
+- **AWS News** (`aws.amazon.com/about-aws/whats-new/recent/feed/`) — added to
+  `OFFICIAL_AI_FEEDS`. `cloud.google.com/blog/rss/` was probed for a matching
+  Google Cloud Blog source but returns 200 with 0 parseable entries and no
+  autodiscovery link; no working feed found, so it was skipped.
+- **CNBC Technology** (`cnbc.com` id `19854910` RSS) — added to
+  `CURATED_AI_MEDIA_FEEDS` with a strict title AI-keyword filter (general
+  tech/finance feed). TechCrunch AI was already present in
+  `CURATED_AI_MEDIA_FEEDS` before this change, so it was left as-is.
+- **LMArena Blog** (`blog.lmarena.ai/rss/`, redirects to `arena.ai/blog/rss/`)
+  — added to `CURATED_AI_MEDIA_FEEDS` and to `CURATED_MEDIA_TRUSTED_SOURCE_KEYWORDS`
+  in `scripts/ai_relevance.py` (whole feed is AI model evaluation content, so
+  it bypasses the per-title AI check like other narrow-topic trusted feeds).
+  Epoch AI was probed (`/rss.xml`, `/feed.xml`, `/blog/feed.xml`,
+  `/gradient-updates/rss.xml`, `/data-insights/rss.xml`, homepage
+  autodiscovery) with no working feed found anywhere, so it was skipped.
+- **Reuters AI (Google News)** — Reuters closed its own public RSS, so this
+  queries Google News (`news.google.com/rss/search?q=site:reuters.com AI...`)
+  instead, added to `CURATED_AI_MEDIA_FEEDS`. Links are Google News redirect
+  URLs that resolve back to the original Reuters article on click.
+- **The Information**: probed `/feed`, `/feed.rss`, and homepage autodiscovery;
+  all return `403 Forbidden` even with a browser user agent (Cloudflare/bot
+  block). No accessible public RSS endpoint found, so it was skipped.
+- **Artificial Analysis**: probed `/insights/rss.xml`, `/blog/rss.xml`,
+  `/rss.xml`, and homepage HTML for any `rss`/`atom`/`feed` reference; none
+  found. Skipped as instructed when no usable feed exists.
+- **`TW_MEDIA_FEEDS`** (new group, `site_id="tw_media"`, own source tier
+  `台灣繁中媒體`): **iThome** (`ithome.com.tw/rss`) and **TechNews 科技新報**
+  (`technews.tw/feed/`), both general Taiwan IT/tech feeds filtered by a
+  zh-TW/English AI keyword allowlist at fetch time (`fetch_tw_media`).
+  **數位時代 (Bnext)**: probed `/feed`, `/feed.xml`, `/articles/rss`, and
+  homepage autodiscovery; all 404 or no feed reference found. Skipped.
+- **36Kr AI** (`site_id="kr36_ai"`, watchlist tier `观察名单源`): 36Kr has no
+  dedicated AI-channel feed (`/feed-ai`, `/feed-motif/*`, `/information/AI`
+  all probed with no RSS), so the general `36kr.com/feed` is used with a
+  Simplified-Chinese AI-keyword title filter (`fetch_kr36_ai`), then titles
+  are converted from Simplified to Traditional Chinese with OpenCC (`s2twp`
+  mode). The conversion is scoped to this one fetcher and does not affect any
+  other source.
+
+zh-TW keyword support: `AI_KEYWORDS`/`TECH_KEYWORDS` in both
+`scripts/ai_relevance.py` (the gatekeeper used for `ai_is_related`/`ai_score`)
+and the mirrored copy in `scripts/update_news.py` (used by the local
+`ai_relevance_score()` ranking helper) were extended with Traditional
+Chinese/Taiwan-usage terms (人工智慧, 機器學習, 深度學習, 大型語言模型, 生成式人工智慧,
+智慧體/智能體, 演算法, 晶片, 機器人, etc.) alongside the existing Simplified forms, so
+zh-TW sources are not dropped purely because they use different wording for
+the same concepts.
+
+A related fix: `curated_feed_entry_allowed()`'s per-feed `include_keywords`
+matching treated the bare token `"ai"` as a plain substring, which
+false-matched inside ordinary English words (`AirPods`, `training`,
+`raising`, `maintain`, ...). It now requires a word boundary for that
+specific short token (`_feed_keyword_matches` / `_KEYWORD_WORD_BOUNDARY_ONLY`);
+longer/CJK keywords are unaffected. This also tightens the pre-existing
+`ai` keyword already used by The Verge's feed entry.
+
 ## Personal Source Workflow
 
 For a private custom setup:
