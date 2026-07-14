@@ -1,0 +1,64 @@
+{
+  "generated_at": "2026-07-14T06:07:42.848476Z",
+  "candidate": {
+    "site_id": "cnbc_tech_candidate",
+    "site_name": "CNBC Technology",
+    "url": "https://www.cnbc.com/id/19854910/device/rss/rss.html",
+    "item_count": 30,
+    "lookback_days": 7
+  },
+  "baseline": {
+    "source_count": 19,
+    "item_count": 44468,
+    "window_days": 7
+  },
+  "overlap": {
+    "duplicate_count": 2,
+    "possible_duplicate_count": 0,
+    "unique_count": 28,
+    "duplicate_rate": 0.067,
+    "unique_rate": 0.933
+  },
+  "top_overlapping_sources": [
+    {
+      "site_id": "iris",
+      "site_name": "Info Flow",
+      "matched_count": 1
+    },
+    {
+      "site_id": "zeli",
+      "site_name": "Zeli",
+      "matched_count": 1
+    }
+  ],
+  "recommendation": {
+    "decision": "accept_default",
+    "reason": "重复率较低，能为默认源补充明显新增信息。",
+    "sample_too_small": false
+  },
+  "matches": [
+    {
+      "candidate_title": "Elon Musk and Sam Altman spar on X after Apple files OpenAI lawsuit",
+      "candidate_url": "https://www.cnbc.com/2026/07/12/elon-musk-and-sam-altman-spar-.html",
+      "matched_title": "Elon Musk And Sam Altman Spar On X After Apple Files OpenAI Lawsuit",
+      "matched_url": "https://tech.slashdot.org/story/26/07/12/1842219/elon-musk-and-sam-altman-spar-on-x-after-apple-files-openai-lawsuit",
+      "matched_site_id": "iris",
+      "matched_site_name": "Info Flow",
+      "match_type": "title_exact",
+      "score": 1.0,
+      "hard_duplicate": true
+    },
+    {
+      "candidate_title": "Apple sues OpenAI alleging trade secret theft, says scheme was 'at every level'",
+      "candidate_url": "https://www.cnbc.com/2026/07/10/apple-openai-lawsuit-trade-secrets.html",
+      "matched_title": "Apple sues OpenAI alleging trade secret theft, says scheme was 'at every level'",
+      "matched_url": "https://www.cnbc.com/2026/07/10/apple-openai-lawsuit-trade-secrets.html",
+      "matched_site_id": "zeli",
+      "matched_site_name": "Zeli",
+      "match_type": "url_exact",
+      "score": 1.0,
+      "hard_duplicate": true
+    }
+  ],
+  "possible_matches": []
+}

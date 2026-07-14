@@ -1,0 +1,48 @@
+{
+  "generated_at": "2026-07-14T06:08:17.536229Z",
+  "candidate": {
+    "site_id": "reuters_googlenews_candidate",
+    "site_name": "Reuters AI (Google News)",
+    "url": "https://news.google.com/rss/search?q=site:reuters.com%20AI%20when:2d&hl=en-US&gl=US&ceid=US:en",
+    "item_count": 100,
+    "lookback_days": 7
+  },
+  "baseline": {
+    "source_count": 19,
+    "item_count": 44468,
+    "window_days": 7
+  },
+  "overlap": {
+    "duplicate_count": 1,
+    "possible_duplicate_count": 0,
+    "unique_count": 99,
+    "duplicate_rate": 0.01,
+    "unique_rate": 0.99
+  },
+  "top_overlapping_sources": [
+    {
+      "site_id": "zeli",
+      "site_name": "Zeli",
+      "matched_count": 1
+    }
+  ],
+  "recommendation": {
+    "decision": "accept_default",
+    "reason": "重复率较低，能为默认源补充明显新增信息。",
+    "sample_too_small": false
+  },
+  "matches": [
+    {
+      "candidate_title": "SK Hynix plunges after Nasdaq debut as memory chip euphoria cools - Reuters",
+      "candidate_url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxOb0RGSUR2QnZDb0VoSlZLUklaU0RqVEpseEtkZFZTQ0hzenRMcDRzdWFwNjJIMTZSN2xuYXZlcF9wQ0xPYTNhRTIzVElQUVZCUWZURjdYazJTU2NqNlgybkZJX1pCek5scjNpaUNpTGNSLXZndnZZZXpTQ0N3VGxZVnowYkNvbm80bWpDSW4wMVV1VUZKaEZacWF1WTN3MUJxY0dSdWpCdllvN2JIR3lfTGM3NnlOdw?oc=5",
+      "matched_title": "SK Hynix plunges after Nasdaq debut as memory chip euphoria cools",
+      "matched_url": "https://www.reuters.com/world/asia-pacific/sk-hynix-shares-fall-much-44-seoul-after-strong-nasdaq-debut-2026-07-13",
+      "matched_site_id": "zeli",
+      "matched_site_name": "Zeli",
+      "match_type": "title_similarity",
+      "score": 0.942,
+      "hard_duplicate": true
+    }
+  ],
+  "possible_matches": []
+}
