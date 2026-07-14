@@ -245,9 +245,14 @@ Added:
   returns 410 Gone. The corporate Blog feed is active and already
   heavily AI-focused.
 - **AWS News** (`aws.amazon.com/about-aws/whats-new/recent/feed/`) — added to
-  `OFFICIAL_AI_FEEDS`. `cloud.google.com/blog/rss/` was probed for a matching
-  Google Cloud Blog source but returns 200 with 0 parseable entries and no
-  autodiscovery link; no working feed found, so it was skipped.
+  `OFFICIAL_AI_FEEDS`.
+- **Google Gemini Blog** (`blog.google/products-and-platforms/products/gemini/rss/`)
+  — added to `OFFICIAL_AI_FEEDS`; more precise than the general Google AI
+  Blog/DeepMind feeds for Gemini-specific coverage.
+- **Google Cloud Blog (Google News)** — `cloud.google.com/blog/rss/` returns
+  200 with 0 parseable entries and no autodiscovery link (no working native
+  feed found), so this queries Google News scoped to `site:cloud.google.com/blog`
+  instead, added to `OFFICIAL_AI_FEEDS`.
 - **CNBC Technology** (`cnbc.com` id `19854910` RSS) — added to
   `CURATED_AI_MEDIA_FEEDS` with a strict title AI-keyword filter (general
   tech/finance feed). TechCrunch AI was already present in
@@ -256,25 +261,41 @@ Added:
   — added to `CURATED_AI_MEDIA_FEEDS` and to `CURATED_MEDIA_TRUSTED_SOURCE_KEYWORDS`
   in `scripts/ai_relevance.py` (whole feed is AI model evaluation content, so
   it bypasses the per-title AI check like other narrow-topic trusted feeds).
-  Epoch AI was probed (`/rss.xml`, `/feed.xml`, `/blog/feed.xml`,
-  `/gradient-updates/rss.xml`, `/data-insights/rss.xml`, homepage
-  autodiscovery) with no working feed found anywhere, so it was skipped.
 - **Reuters AI (Google News)** — Reuters closed its own public RSS, so this
   queries Google News (`news.google.com/rss/search?q=site:reuters.com AI...`)
   instead, added to `CURATED_AI_MEDIA_FEEDS`. Links are Google News redirect
   URLs that resolve back to the original Reuters article on click.
-- **The Information**: probed `/feed`, `/feed.rss`, and homepage autodiscovery;
-  all return `403 Forbidden` even with a browser user agent (Cloudflare/bot
-  block). No accessible public RSS endpoint found, so it was skipped.
+- **The Information (Google News)** — `/feed`, `/feed.rss`, and homepage
+  autodiscovery all return `403 Forbidden` even with a browser user agent
+  (Cloudflare/bot block); rescued via a `site:theinformation.com` Google News
+  query instead, added to `CURATED_AI_MEDIA_FEEDS`. Titles/summaries only, no
+  paywall bypass.
+- **Meta AI (Google News)** — `ai.meta.com/blog/` returns `400` to
+  non-browser requests (no working feed, and scraping is unreliable too), so
+  this is third-party `"Meta AI" OR "Meta FAIR"` coverage via Google News,
+  added to `CURATED_AI_MEDIA_FEEDS`.
+- **DeepSeek (Google News)** and **xAI / Grok (Google News)** — neither
+  vendor has an official blog RSS (`deepseek.com`, `x.ai/news` both checked,
+  no feed); added to `CURATED_AI_MEDIA_FEEDS` as third-party news coverage
+  via Google News.
+- **Epoch AI (Google News)** — probed `/rss.xml`, `/feed.xml`,
+  `/blog/feed.xml`, `/gradient-updates/rss.xml`, `/data-insights/rss.xml`,
+  and homepage autodiscovery; no working feed found anywhere. Rescued via a
+  `site:epoch.ai` Google News query, added to `CURATED_AI_MEDIA_FEEDS` and to
+  `CURATED_MEDIA_TRUSTED_SOURCE_KEYWORDS` (whole feed is AI
+  benchmark/forecasting research).
 - **Artificial Analysis**: probed `/insights/rss.xml`, `/blog/rss.xml`,
   `/rss.xml`, and homepage HTML for any `rss`/`atom`/`feed` reference; none
-  found. Skipped as instructed when no usable feed exists.
+  found. No Google News rescue was requested for this one either, so it
+  remains skipped.
 - **`TW_MEDIA_FEEDS`** (new group, `site_id="tw_media"`, own source tier
-  `台灣繁中媒體`): **iThome** (`ithome.com.tw/rss`) and **TechNews 科技新報**
+  `台灣繁中媒體`): **iThome** (`ithome.com.tw/rss`), **TechNews 科技新報**
   (`technews.tw/feed/`), both general Taiwan IT/tech feeds filtered by a
-  zh-TW/English AI keyword allowlist at fetch time (`fetch_tw_media`).
-  **數位時代 (Bnext)**: probed `/feed`, `/feed.xml`, `/articles/rss`, and
-  homepage autodiscovery; all 404 or no feed reference found. Skipped.
+  zh-TW/English AI keyword allowlist at fetch time (`fetch_tw_media`), and
+  **數位時代 (Google News)** — `bnext.com.tw` has no `/feed`, `/feed.xml`, or
+  `/articles/rss`, and no autodiscovery link either; rescued via a zh-TW
+  Google News query (`hl=zh-TW&gl=TW&ceid=TW:zh-Hant`) scoped to
+  `site:bnext.com.tw`, same tier and keyword filter as the other two.
 - **36Kr AI** (`site_id="kr36_ai"`, watchlist tier `观察名单源`): 36Kr has no
   dedicated AI-channel feed (`/feed-ai`, `/feed-motif/*`, `/information/AI`
   all probed with no RSS), so the general `36kr.com/feed` is used with a
