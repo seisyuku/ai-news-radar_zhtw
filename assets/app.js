@@ -81,47 +81,47 @@ const listSortToolsEl = document.getElementById("listSortTools");
 
 const SOURCE_KINDS = {
   official_ai: { label: "官方", tone: "official" },
-  curated_media: { label: "精选媒体", tone: "aihub" },
+  curated_media: { label: "精選媒體", tone: "aihub" },
   aihot: { label: "AI HOT", tone: "hot" },
-  aibreakfast: { label: "日报", tone: "newsletter" },
+  aibreakfast: { label: "日報", tone: "newsletter" },
   followbuilders: { label: "Builders/X", tone: "builders" },
   xapi: { label: "X API", tone: "builders" },
-  socialdata_x: { label: "X 搜索", tone: "builders" },
+  socialdata_x: { label: "X 搜尋", tone: "builders" },
   tikhub_douyin: { label: "抖音", tone: "creator" },
-  tikhub_xiaohongshu: { label: "小红书", tone: "creator" },
+  tikhub_xiaohongshu: { label: "小紅書", tone: "creator" },
   techurls: { label: "聚合", tone: "aggregate" },
   buzzing: { label: "聚合", tone: "aggregate" },
   iris: { label: "聚合", tone: "aggregate" },
-  bestblogs: { label: "博客", tone: "blogs" },
+  bestblogs: { label: "部落格", tone: "blogs" },
   tophub: { label: "聚合", tone: "aggregate" },
   zeli: { label: "聚合", tone: "aggregate" },
   hackernews: { label: "HN", tone: "aggregate" },
-  aihubtoday: { label: "AI站点", tone: "aihub" },
-  aibase: { label: "AI站点", tone: "aihub" },
-  waytoagi: { label: "社区", tone: "builders" },
+  aihubtoday: { label: "AI站點", tone: "aihub" },
+  aibase: { label: "AI站點", tone: "aihub" },
+  waytoagi: { label: "社群", tone: "builders" },
   newsnow: { label: "聚合", tone: "aggregate" },
   opmlrss: { label: "OPML", tone: "newsletter" },
 };
 
 const SECTION_DEFS = [
-  { id: "hot", label: "热点", short: "热点", description: "跨来源聚合后的优先阅读列表" },
-  { id: "models", label: "模型", short: "模型", description: "模型发布、能力升级、评测与开源权重" },
-  { id: "products", label: "产品", short: "产品", description: "AI 应用、Agent、生成工具和用户产品更新" },
-  { id: "devtools", label: "开发者", short: "开发者", description: "编程工具、API、开源项目、推理与工程实践" },
-  { id: "hn", label: "HN热议", short: "HN", description: "Hacker News 过去 24 小时的 AI 关键词讨论与高互动 story" },
-  { id: "industry", label: "行业", short: "行业", description: "公司战略、融资收购、监管、芯片与产业变化" },
-  { id: "research", label: "研究", short: "研究", description: "论文、基准、方法、数据集与研究团队动态" },
-  { id: "creator", label: "自媒体", short: "自媒体", description: "一周内互动热度优先，24 小时新内容额外加分" },
-  { id: "community", label: "社区", short: "社区", description: "WaytoAGI、中文社区、AIbase、公众号和 Builders/X 信号" },
+  { id: "hot", label: "熱點", short: "熱點", description: "跨來源聚合後的優先閱讀列表" },
+  { id: "models", label: "模型", short: "模型", description: "模型釋出、能力升級、評測與開源權重" },
+  { id: "products", label: "產品", short: "產品", description: "AI 應用、Agent、生成工具和使用者產品更新" },
+  { id: "devtools", label: "開發者", short: "開發者", description: "程式設計工具、API、開源專案、推理與工程實踐" },
+  { id: "hn", label: "HN熱議", short: "HN", description: "Hacker News 過去 24 小時的 AI 關鍵詞討論與高互動 story" },
+  { id: "industry", label: "行業", short: "行業", description: "公司戰略、融資收購、監管、晶片與產業變化" },
+  { id: "research", label: "研究", short: "研究", description: "論文、基準、方法、資料集與研究團隊動態" },
+  { id: "creator", label: "自媒體", short: "自媒體", description: "一週內互動熱度優先，24 小時新內容額外加分" },
+  { id: "community", label: "社群", short: "社群", description: "WaytoAGI、中文社群、AIbase、公眾號和 Builders/X 訊號" },
 ];
 
 const SECTION_BY_ID = Object.fromEntries(SECTION_DEFS.map((section) => [section.id, section]));
 
 const LIST_SORT_DEFS = [
-  { id: "priority", label: "综合" },
+  { id: "priority", label: "綜合" },
   { id: "latest", label: "最新" },
   { id: "ai", label: "高分" },
-  { id: "source", label: "来源" },
+  { id: "source", label: "來源" },
 ];
 
 function fmtNumber(n) {
@@ -132,7 +132,7 @@ const UNSAFE_HARD_PATTERNS = [
   /\bcreampie\b/i,
   /\bblowjob\b/i,
   /\bsuck (?:your|my) (?:dick|cock)\b/i,
-  /中出|婊子|吸你的鸡鸡|操虚拟女友/i,
+  /中出|婊子|吸你的鸡鸡|吸你的雞雞|操虚拟女友|操虛擬女友/i,
 ];
 
 const UNSAFE_PROMO_PATTERNS = [
@@ -140,7 +140,7 @@ const UNSAFE_PROMO_PATTERNS = [
   /\buncensored pictures?\b/i,
   /\bvirtual girlfriends?\b/i,
   /\bknock her up\b/i,
-  /未经审查的图片|虚拟女友|色情内容|成人内容/i,
+  /未经审查的图片|未經審查的圖片|虚拟女友|虛擬女友|色情内容|色情內容|成人内容|成人內容/i,
 ];
 
 function contentSafetyText(record) {
@@ -176,9 +176,9 @@ function isUnsafeStory(story) {
 }
 
 function fmtTime(iso) {
-  if (!iso) return "时间未知";
+  if (!iso) return "時間未知";
   const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return "时间未知";
+  if (Number.isNaN(d.getTime())) return "時間未知";
   return new Intl.DateTimeFormat("zh-CN", {
     month: "2-digit",
     day: "2-digit",
@@ -205,21 +205,21 @@ function setStats() {
   const status = state.sourceStatus;
   const totalSites = Array.isArray(status?.sites) ? status.sites.length : 0;
   const okSites = Number(status?.successful_sites || 0);
-  const health = totalSites ? `${fmtNumber(okSites)}/${fmtNumber(totalSites)}正常` : "加载中";
+  const health = totalSites ? `${fmtNumber(okSites)}/${fmtNumber(totalSites)}正常` : "載入中";
   const cards = [
-    ["AI", `${fmtNumber(items.length)}条`],
-    ["高优", `${fmtNumber(highCount)}条`],
-    ["故事", `${fmtNumber(curatedCount)}条`],
+    ["AI", `${fmtNumber(items.length)}條`],
+    ["高優", `${fmtNumber(highCount)}條`],
+    ["故事", `${fmtNumber(curatedCount)}條`],
     ["源", health],
   ];
   statsEl.setAttribute(
     "aria-label",
-    `过去 24 小时：AI 信号 ${fmtNumber(items.length)} 条，高优先级 ${fmtNumber(highCount)} 条，重点故事 ${fmtNumber(curatedCount)} 条，源状态 ${totalSites ? `${fmtNumber(okSites)}/${fmtNumber(totalSites)} 源正常` : "加载中"}`,
+    `過去 24 小時：AI 訊號 ${fmtNumber(items.length)} 條，高優先順序 ${fmtNumber(highCount)} 條，重點故事 ${fmtNumber(curatedCount)} 條，源狀態 ${totalSites ? `${fmtNumber(okSites)}/${fmtNumber(totalSites)} 源正常` : "載入中"}`,
   );
 
   const prefix = document.createElement("div");
   prefix.className = "stat-prefix";
-  prefix.textContent = "过去 24 小时：";
+  prefix.textContent = "過去 24 小時：";
   statsEl.appendChild(prefix);
 
   cards.forEach(([k, v]) => {
@@ -244,7 +244,7 @@ function renderSourceStatusPill(errorMessage = "") {
   const status = state.sourceStatus;
   sourceStatusPillEl.className = "source-status-pill";
   if (!status) {
-    sourceStatusPillEl.textContent = errorMessage || "源状态加载中";
+    sourceStatusPillEl.textContent = errorMessage || "源狀態載入中";
     if (errorMessage) sourceStatusPillEl.classList.add("bad");
     return;
   }
@@ -252,7 +252,7 @@ function renderSourceStatusPill(errorMessage = "") {
   const okSites = Number(status.successful_sites || 0);
   const failed = failedSourceCount(status);
   sourceStatusPillEl.textContent = failed
-    ? `${fmtNumber(okSites)}/${fmtNumber(totalSites)} 源正常 · 失败 ${fmtNumber(failed)}`
+    ? `${fmtNumber(okSites)}/${fmtNumber(totalSites)} 源正常 · 失敗 ${fmtNumber(failed)}`
     : `${fmtNumber(okSites)}/${fmtNumber(totalSites)} 源正常`;
   if (failed) sourceStatusPillEl.classList.add("warn");
 }
@@ -272,25 +272,25 @@ function renderStickySummary() {
     site,
     state.sourceTypeFilter ? sourceType : "",
     state.signalLevelFilter ? signalLevel : "",
-    query ? `搜索“${query}”` : "",
+    query ? `搜尋“${query}”` : "",
   ].filter(Boolean);
-  const mode = state.mode === "selected" ? "精选" : (state.mode === "all" ? "全量" : "全部 AI");
-  stickySummaryTextEl.textContent = `${fmtNumber(filteredCount)} 条 · ${mode}${filters.length ? ` · ${filters.join(" · ")}` : ""}`;
+  const mode = state.mode === "selected" ? "精選" : (state.mode === "all" ? "全量" : "全部 AI");
+  stickySummaryTextEl.textContent = `${fmtNumber(filteredCount)} 條 · ${mode}${filters.length ? ` · ${filters.join(" · ")}` : ""}`;
 }
 
 function sourceKind(siteId) {
-  return SOURCE_KINDS[siteId] || { label: "来源", tone: "default" };
+  return SOURCE_KINDS[siteId] || { label: "來源", tone: "default" };
 }
 
 function sourceSignalTone(signal) {
   const text = String(signal || "").toLowerCase();
   if (text.includes("官方") || text.includes("official")) return "official";
-  if (text.includes("ai hot") || text.includes("精选")) return "hot";
-  if (text.includes("自媒体") || text.includes("tikhub") || text.includes("douyin") || text.includes("xiaohongshu") || text.includes("抖音") || text.includes("小红书")) return "creator";
+  if (text.includes("ai hot") || text.includes("精選")) return "hot";
+  if (text.includes("自媒體") || text.includes("tikhub") || text.includes("douyin") || text.includes("xiaohongshu") || text.includes("抖音") || text.includes("小紅書")) return "creator";
   if (text.includes("builders") || text.includes("github") || text.includes("x")) return "builders";
-  if (text.includes("aihub") || text.includes("aibase") || text.includes("媒体")) return "aihub";
+  if (text.includes("aihub") || text.includes("aibase") || text.includes("媒體")) return "aihub";
   if (text.includes("hn") || text.includes("hacker") || text.includes("聚合")) return "aggregate";
-  if (text.includes("opml") || text.includes("日报")) return "newsletter";
+  if (text.includes("opml") || text.includes("日報")) return "newsletter";
   return "default";
 }
 
@@ -302,7 +302,7 @@ function sourceChip(label, tone = "default", className = "source-chip") {
   dot.setAttribute("aria-hidden", "true");
   const text = document.createElement("span");
   text.className = "source-chip-label";
-  text.textContent = label || "来源";
+  text.textContent = label || "來源";
   chip.append(dot, text);
   return chip;
 }
@@ -344,7 +344,7 @@ function siteRawPoolCount(siteId) {
 }
 
 function sourcePoolMeta(aiCount, rawCount, fallback) {
-  if (rawCount && rawCount !== aiCount) return `AI强相关 · 原始 ${fmtNumber(rawCount)} 条`;
+  if (rawCount && rawCount !== aiCount) return `AI強相關 · 原始 ${fmtNumber(rawCount)} 條`;
   return fallback;
 }
 
@@ -353,10 +353,10 @@ function paidSourceLabel(status, poolCount, activeLabel, idleLabel) {
   const liveCount = Number(status?.item_count || 0);
   const displayCount = liveCount || Number(poolCount || 0);
   if (connected) {
-    if (displayCount) return `${activeLabel} ${fmtNumber(displayCount)}条`;
-    return `${activeLabel} ${status?.skipped ? "待窗口" : "已连接暂无匹配"}`;
+    if (displayCount) return `${activeLabel} ${fmtNumber(displayCount)}條`;
+    return `${activeLabel} ${status?.skipped ? "待視窗" : "已連線暫無匹配"}`;
   }
-  if (displayCount) return `${activeLabel} ${fmtNumber(displayCount)}条`;
+  if (displayCount) return `${activeLabel} ${fmtNumber(displayCount)}條`;
   return idleLabel;
 }
 
@@ -400,7 +400,7 @@ function renderCoverageStrip(errorMessage = "") {
   const totalSites = rows.length;
   const okSites = Number(state.sourceStatus?.successful_sites || 0);
   const opmlValue = rss.enabled ? `${fmtNumber(rss.ok_feeds || 0)}/${fmtNumber(rss.effective_feed_total || 0)}` : "OPML";
-  const opmlMeta = rss.enabled ? "RSS示例/自定义订阅已接入" : "可用OPML批量接入RSS";
+  const opmlMeta = rss.enabled ? "RSS示例/自定義訂閱已接入" : "可用OPML批次接入RSS";
   const socialdataLabel = paidSourceLabel(socialdata, socialdataPoolCount, "SocialData", "");
   const xApiLabel = paidSourceLabel(xApi, xApiPoolCount, "X API", "");
   const xSourceLabel = socialdataLabel || xApiLabel || "X待配置";
@@ -409,19 +409,19 @@ function renderCoverageStrip(errorMessage = "") {
     ? `${xPoolCount ? `X ${fmtNumber(xPoolCount)}` : "X"} / ${mailCount ? `Mail ${fmtNumber(mailCount)}` : "Mail"}`
     : "X / Mail";
   const advancedMeta = socialdata.enabled || xApi.enabled || agentmail.enabled || xPoolCount
-    ? `额度保护 · ${xSourceLabel} / ${mailLabel}`
-    : "X API 与 AgentMail 默认关闭";
+    ? `額度保護 · ${xSourceLabel} / ${mailLabel}`
+    : "X API 與 AgentMail 預設關閉";
 
   const cards = [
-    ["源健康", totalSites ? `${fmtNumber(okSites)}/${fmtNumber(totalSites)}` : "加载中", failedSites.length ? `${fmtNumber(failedSites.length)} 个失败源` : (errorMessage || "内置源正常"), failedSites.length ? "warn" : "ok"],
-    ["今日覆盖池", `${fmtNumber(coverageCount)} 条`, allCount ? `全网抓取原始信号 · ${fmtNumber(allCount)} 条入池` : "全网抓取原始信号", "signal"],
-    ["AI强相关", `${fmtNumber(safeItems(state.itemsAi).length)} 条`, "24小时强相关信号", "signal"],
-    ["官方/日报源池", `${fmtNumber(officialCount + newsletterCount)} 条`, "官方节点 + AI Breakfast", "official"],
-    ["精选媒体源池", `${fmtNumber(curatedMediaCount)} 条`, "The Decoder / TC / Verge / MTP 等", "signal"],
-    ["Builders/X源池", `${fmtNumber(buildersCount)} 条`, "Follow Builders公开feed", "builders"],
-    ["自媒体源池", `${fmtNumber(creatorCount)} 条`, sourcePoolMeta(creatorCount, creatorRawCount, "TikHub · 抖音 + 小红书"), "creator"],
-    ["RSS/OPML扩展", opmlValue, opmlMeta, "private"],
-    ["高级源", advancedValue, advancedMeta, "private"],
+    ["源健康", totalSites ? `${fmtNumber(okSites)}/${fmtNumber(totalSites)}` : "載入中", failedSites.length ? `${fmtNumber(failedSites.length)} 個失敗源` : (errorMessage || "內建源正常"), failedSites.length ? "warn" : "ok"],
+    ["今日覆蓋池", `${fmtNumber(coverageCount)} 條`, allCount ? `全網抓取原始訊號 · ${fmtNumber(allCount)} 條入池` : "全網抓取原始訊號", "signal"],
+    ["AI強相關", `${fmtNumber(safeItems(state.itemsAi).length)} 條`, "24小時強相關訊號", "signal"],
+    ["官方/日報源池", `${fmtNumber(officialCount + newsletterCount)} 條`, "官方節點 + AI Breakfast", "official"],
+    ["精選媒體源池", `${fmtNumber(curatedMediaCount)} 條`, "The Decoder / TC / Verge / MTP 等", "signal"],
+    ["Builders/X源池", `${fmtNumber(buildersCount)} 條`, "Follow Builders公開feed", "builders"],
+    ["自媒體源池", `${fmtNumber(creatorCount)} 條`, sourcePoolMeta(creatorCount, creatorRawCount, "TikHub · 抖音 + 小紅書"), "creator"],
+    ["RSS/OPML擴充套件", opmlValue, opmlMeta, "private"],
+    ["高階源", advancedValue, advancedMeta, "private"],
   ];
 
   cards.forEach(([label, value, meta, tone]) => {
@@ -434,9 +434,9 @@ function renderAdvancedSummary() {
   const status = state.sourceStatus;
   const filteredCount = getFilteredItems().length;
   const adjustmentCount = activeAdjustmentCount();
-  const adjustmentText = adjustmentCount ? ` · ${fmtNumber(adjustmentCount)} 项调整` : "";
+  const adjustmentText = adjustmentCount ? ` · ${fmtNumber(adjustmentCount)} 項調整` : "";
   if (!status) {
-    advancedSummaryEl.textContent = `${fmtNumber(filteredCount)} 条结果${adjustmentText}`;
+    advancedSummaryEl.textContent = `${fmtNumber(filteredCount)} 條結果${adjustmentText}`;
     renderClearFiltersButton();
     return;
   }
@@ -444,7 +444,7 @@ function renderAdvancedSummary() {
   const totalSites = sites.length;
   const okSites = Number(status.successful_sites || 0);
   const failed = failedSourceCount(status);
-  advancedSummaryEl.textContent = `${fmtNumber(filteredCount)} 条结果${adjustmentText} · ${fmtNumber(okSites)}/${fmtNumber(totalSites)} 源正常${failed ? ` · 失败 ${fmtNumber(failed)}` : ""}`;
+  advancedSummaryEl.textContent = `${fmtNumber(filteredCount)} 條結果${adjustmentText} · ${fmtNumber(okSites)}/${fmtNumber(totalSites)} 源正常${failed ? ` · 失敗 ${fmtNumber(failed)}` : ""}`;
   renderClearFiltersButton();
 }
 
@@ -465,7 +465,7 @@ function renderClearFiltersButton() {
   if (!clearFiltersBtnEl) return;
   const count = activeAdjustmentCount();
   clearFiltersBtnEl.hidden = count === 0;
-  clearFiltersBtnEl.textContent = count ? `清除 ${fmtNumber(count)} 项调整` : "清除筛选";
+  clearFiltersBtnEl.textContent = count ? `清除 ${fmtNumber(count)} 項調整` : "清除篩選";
 }
 
 function clearAllFilters() {
@@ -615,10 +615,10 @@ function renderSectionSummary(filteredItems = null) {
   const highCount = items.filter((item) => isHighPriorityItem(item)).length;
   const sources = new Set(items.map((item) => item.source || item.site_name || item.site_id).filter(Boolean));
   const modeText = state.mode === "selected"
-    ? "高优先级精选"
+    ? "高優先順序精選"
     : (state.mode === "all" ? (state.allDedup ? "全量去重" : "全量原始") : "全部 AI");
-  const windowText = state.activeSection === "creator" ? `过去 ${fmtNumber(state.creatorWindowDays)} 天 · 热度优先` : "过去 24 小时";
-  sectionSummaryEl.textContent = `${windowText} · ${fmtNumber(items.length)} 条${section.id === "hot" ? "" : ` ${section.label}`}信号 · ${fmtNumber(highCount)} 条高优先级 · ${fmtNumber(sources.size)} 个来源 · ${modeText}`;
+  const windowText = state.activeSection === "creator" ? `過去 ${fmtNumber(state.creatorWindowDays)} 天 · 熱度優先` : "過去 24 小時";
+  sectionSummaryEl.textContent = `${windowText} · ${fmtNumber(items.length)} 條${section.id === "hot" ? "" : ` ${section.label}`}訊號 · ${fmtNumber(highCount)} 條高優先順序 · ${fmtNumber(sources.size)} 個來源 · ${modeText}`;
   renderStickySummary();
 }
 
@@ -627,18 +627,18 @@ function siteRatioText(siteStats) {
   const raw = Number(siteStats.raw_count ?? siteStats.count ?? 0);
   if (!raw) {
     const scanned = Number(siteRow(siteStats.site_id)?.item_count || 0);
-    if (!count && scanned) return `24h 0 · 已扫 ${fmtNumber(scanned)}`;
-    if (!count) return "已扫 0";
-    return `${fmtNumber(count)} 条`;
+    if (!count && scanned) return `24h 0 · 已掃 ${fmtNumber(scanned)}`;
+    if (!count) return "已掃 0";
+    return `${fmtNumber(count)} 條`;
   }
-  if (raw === count) return `${fmtNumber(count)} 条`;
+  if (raw === count) return `${fmtNumber(count)} 條`;
   return `${fmtNumber(count)}/${fmtNumber(raw)} · ${Math.round((count / raw) * 100)}%AI`;
 }
 
 function renderSiteFilters() {
   const stats = currentSiteStats();
 
-  siteSelectEl.innerHTML = '<option value="">全部站点</option>';
+  siteSelectEl.innerHTML = '<option value="">全部站點</option>';
   stats.forEach((s) => {
     const opt = document.createElement("option");
     opt.value = s.site_id;
@@ -664,7 +664,7 @@ function renderSiteFilters() {
     authorPill.type = "button";
     authorPill.className = "pill active author-filter-pill";
     authorPill.textContent = `X 博主 ${state.authorFilter} ×`;
-    authorPill.title = "清除博主筛选";
+    authorPill.title = "清除博主篩選";
     authorPill.onclick = () => {
       state.authorFilter = "";
       state.siteFilter = "";
@@ -700,15 +700,15 @@ function renderModeSwitch() {
   modeAllBtnEl.setAttribute("aria-pressed", state.mode === "all" ? "true" : "false");
   if (allDedupeWrapEl) allDedupeWrapEl.classList.toggle("show", state.mode === "all");
   if (allDedupeToggleEl) allDedupeToggleEl.checked = state.allDedup;
-  if (allDedupeLabelEl) allDedupeLabelEl.textContent = state.allDedup ? "去重开" : "去重关";
+  if (allDedupeLabelEl) allDedupeLabelEl.textContent = state.allDedup ? "去重開" : "去重關";
   const visibleCount = getFilteredItems().length;
   modeHintEl.textContent = state.mode === "selected"
-    ? `精选 ${fmtNumber(visibleCount)} 条`
-    : (state.mode === "ai" ? `全部 AI ${fmtNumber(visibleCount)} 条` : `全量 ${fmtNumber(visibleCount)} 条`);
+    ? `精選 ${fmtNumber(visibleCount)} 條`
+    : (state.mode === "ai" ? `全部 AI ${fmtNumber(visibleCount)} 條` : `全量 ${fmtNumber(visibleCount)} 條`);
   const modeLabel = state.mode === "selected"
-    ? "高优先级精选"
+    ? "高優先順序精選"
     : (state.mode === "ai" ? "全部 AI" : (state.allDedup ? "全量去重" : "全量原始"));
-  modeHintEl.setAttribute("aria-label", `当前结果 ${fmtNumber(visibleCount)} 条，${modeLabel}模式`);
+  modeHintEl.setAttribute("aria-label", `當前結果 ${fmtNumber(visibleCount)} 條，${modeLabel}模式`);
   if (listTitleEl) {
     listTitleEl.textContent = listTitleText();
   }
@@ -719,10 +719,10 @@ function renderModeSwitch() {
 function listTitleText() {
   const section = SECTION_BY_ID[state.activeSection] || SECTION_BY_ID.hot;
   const pool = state.mode === "selected"
-    ? "精选情报"
+    ? "精選情報"
     : (state.mode === "all"
-      ? (state.allDedup ? "情报流 · 全量去重" : "情报流 · 全量原始")
-      : "全部 AI 情报");
+      ? (state.allDedup ? "情報流 · 全量去重" : "情報流 · 全量原始")
+      : "全部 AI 情報");
   return state.activeSection === "hot" ? pool : `${section.label} · ${pool}`;
 }
 
@@ -742,7 +742,7 @@ function itemSourceSortKey(item) {
     sourceSignal(item),
     item.site_name || item.site_id || "",
     item.source || "",
-  ].join(" ").trim() || "来源";
+  ].join(" ").trim() || "來源";
 }
 
 function sortItemsForList(items) {
@@ -816,10 +816,10 @@ function repairDisplayedTitle(original, translated) {
   let result = String(translated || "").trim();
   const source = String(original || "");
   if (/\bCodex\b/i.test(source)) result = result.replaceAll("法典", "Codex");
-  if (/\bBug Bounty\b/i.test(source)) result = result.replaceAll("错误赏金", "漏洞悬赏").replaceAll("Bug 赏金", "漏洞悬赏");
-  if (/\bBio Bug Bounty\b/i.test(source)) result = result.replaceAll("生物漏洞悬赏", "生物安全漏洞悬赏");
-  if (/\brepositor(?:y|ies)\b/i.test(source)) result = result.replaceAll("存储库", "代码仓库");
-  if (/\bdesktop app\b/i.test(source)) result = result.replaceAll("桌面应用程序", "桌面应用");
+  if (/\bBug Bounty\b/i.test(source)) result = result.replaceAll("錯誤賞金", "漏洞懸賞").replaceAll("Bug 賞金", "漏洞懸賞");
+  if (/\bBio Bug Bounty\b/i.test(source)) result = result.replaceAll("生物漏洞懸賞", "生物安全漏洞懸賞");
+  if (/\brepositor(?:y|ies)\b/i.test(source)) result = result.replaceAll("儲存庫", "程式碼倉庫");
+  if (/\bdesktop app\b/i.test(source)) result = result.replaceAll("桌面應用程式", "桌面應用");
   return result;
 }
 
@@ -894,15 +894,15 @@ function itemTagTone(label) {
   const text = String(label || "");
   if (text.includes("多源")) return "strong";
   if (text.includes("官方")) return "official";
-  if (text.includes("精选") || text.includes("热点")) return "hot";
+  if (text.includes("精選") || text.includes("熱點")) return "hot";
   if (text.includes("HN")) return "aggregate";
   if (text.includes("模型")) return "models";
-  if (text.includes("开发")) return "devtools";
+  if (text.includes("開發")) return "devtools";
   if (text.includes("研究")) return "research";
-  if (text.includes("自媒体")) return "creator";
-  if (text.includes("社区")) return "community";
-  if (text.includes("产品")) return "products";
-  if (text.includes("行业")) return "industry";
+  if (text.includes("自媒體")) return "creator";
+  if (text.includes("社群")) return "community";
+  if (text.includes("產品")) return "products";
+  if (text.includes("行業")) return "industry";
   return "default";
 }
 
@@ -922,7 +922,7 @@ function setSourceBadge(el, label, tone = "default", title = "") {
   dot.setAttribute("aria-hidden", "true");
   const text = document.createElement("span");
   text.className = "source-chip-label";
-  text.textContent = label || "来源";
+  text.textContent = label || "來源";
   el.append(dot, text);
 }
 
@@ -963,21 +963,21 @@ function itemPriorityScore(item) {
 
 function labelText(item) {
   const labels = {
-    ai_general: "AI信号",
-    model_release: "模型发布",
+    ai_general: "AI訊號",
+    model_release: "模型釋出",
     agent_workflow: "Agent工作流",
-    ai_product_update: "产品更新",
-    developer_tooling: "开发工具",
-    developer_tool: "开发工具",
-    infrastructure: "基础设施",
-    infra_compute: "基础设施",
-    industry_business: "行业动态",
-    research_paper: "研究论文",
-    robotics: "机器人",
-    curated_hotlist: "热点",
-    ai_tech: "技术趋势",
+    ai_product_update: "產品更新",
+    developer_tooling: "開發工具",
+    developer_tool: "開發工具",
+    infrastructure: "基礎設施",
+    infra_compute: "基礎設施",
+    industry_business: "行業動態",
+    research_paper: "研究論文",
+    robotics: "機器人",
+    curated_hotlist: "熱點",
+    ai_tech: "技術趨勢",
   };
-  return labels[item.ai_label] || item.ai_label || "精选信号";
+  return labels[item.ai_label] || item.ai_label || "精選訊號";
 }
 
 function itemHaystack(item) {
@@ -1014,10 +1014,10 @@ function itemSections(item) {
   const label = item.ai_label || "";
   const source = `${item.source || ""} ${item.site_name || ""}`.toLowerCase();
   const hasExplicitModelTerm = matchesAny(contentHay, [
-    /gpt[-\s]?\d|claude|gemini|grok|llama|qwen|deepseek|mistral|kimi\s?k\d|glm|gemma|模型|model|weights|权重|多模态|视频生成|diffusion|sora|seedance|llm|大模型/,
+    /gpt[-\s]?\d|claude|gemini|grok|llama|qwen|deepseek|mistral|kimi\s?k\d|glm|gemma|模型|model|weights|权重|權重|多模态|多模態|视频生成|影片生成|diffusion|sora|seedance|llm|大模型/,
   ]);
   const looksLikeToolOrProduct = matchesAny(hay, [
-    /skill|copilot|codex|cli|api|sdk|dashboard|workflow|tool|工具|助手|应用|插件|工作流|支付宝|浏览器|搜索/,
+    /skill|copilot|codex|cli|api|sdk|dashboard|workflow|tool|工具|助手|应用|應用|插件|外掛|工作流|支付宝|支付寶|浏览器|瀏覽器|搜索|搜尋/,
   ]);
 
   if (
@@ -1030,7 +1030,7 @@ function itemSections(item) {
     label === "agent_workflow" ||
     label === "robotics" ||
     matchesAny(hay, [
-      /app|product|agent|workflow|siri|copilot|chatgpt|perplexity|runway|suno|支付宝|产品|应用|智能体|机器人|浏览器|搜索|助手|生成工具|办公|教育/,
+      /app|product|agent|workflow|siri|copilot|chatgpt|perplexity|runway|suno|支付宝|支付寶|产品|產品|应用|應用|智能体|智慧體|机器人|機器人|浏览器|瀏覽器|搜索|搜尋|助手|生成工具|办公|辦公|教育/,
     ])
   ) sections.add("products");
 
@@ -1039,7 +1039,7 @@ function itemSections(item) {
     label === "developer_tooling" ||
     label === "infra_compute" ||
     matchesAny(hay, [
-      /github|cursor|codex|copilot|openrouter|api|sdk|mcp|cli|framework|inference|推理|开发者|开源|代码|编程|算力|芯片|nvidia|cloud|部署|benchmarking|token/,
+      /github|cursor|codex|copilot|openrouter|api|sdk|mcp|cli|framework|inference|推理|开发者|開發者|开源|開源|代码|程式碼|编程|程式設計|算力|芯片|晶片|nvidia|cloud|部署|benchmarking|token/,
     ])
   ) sections.add("devtools");
 
@@ -1054,14 +1054,14 @@ function itemSections(item) {
   if (
     label === "industry_business" ||
     matchesAny(hay, [
-      /funding|raised|ipo|acquire|acquisition|lawsuit|regulation|policy|white house|pentagon|nvidia|salesforce|meta|microsoft|融资|收购|上市|监管|政策|裁员|估值|债券|芯片|公司|行业|政府|五角大楼|白宫/,
+      /funding|raised|ipo|acquire|acquisition|lawsuit|regulation|policy|white house|pentagon|nvidia|salesforce|meta|microsoft|融资|融資|收购|收購|上市|监管|監管|政策|裁员|裁員|估值|债券|債券|芯片|晶片|公司|行业|行業|政府|五角大楼|五角大樓|白宫|白宮/,
     ])
   ) sections.add("industry");
 
   if (
     label === "research_paper" ||
     matchesAny(hay, [
-      /paper|arxiv|research|benchmark|eval|dataset|lmsys|rdi|berkeley|huggingface daily papers|论文|研究|基准|评测|数据集|训练|k-means|speculative decoding/,
+      /paper|arxiv|research|benchmark|eval|dataset|lmsys|rdi|berkeley|huggingface daily papers|论文|論文|研究|基准|基準|评测|評測|数据集|資料集|训练|訓練|k-means|speculative decoding/,
     ])
   ) sections.add("research");
 
@@ -1070,7 +1070,7 @@ function itemSections(item) {
     item.site_id === "tikhub_xiaohongshu" ||
     source.includes("douyin") ||
     source.includes("xiaohongshu") ||
-    source.includes("小红书") ||
+    source.includes("小红书") || source.includes("小紅書") ||
     source.includes("抖音")
   ) sections.add("creator");
 
@@ -1083,12 +1083,12 @@ function itemSections(item) {
     source.includes("掘金") ||
     source.includes("readhub") ||
     source.includes("aibase") ||
-    source.includes("公众号") ||
-    source.includes("宝玉") ||
+    source.includes("公众号") || source.includes("公眾號") ||
+    source.includes("宝玉") || source.includes("寶玉") ||
     source.includes("小互") ||
     source.includes("ayi") ||
     matchesAny(hay, [
-      /waytoagi|社区|公众号|阿里|通义|千问|智谱|kimi|月之暗面|minimax|字节|火山|百度|腾讯|华为|蚂蚁|讯飞|国内|中文|开源中国|少数派|虎嗅/,
+      /waytoagi|社区|社群|公众号|公眾號|阿里|通义|通義|千问|千問|智谱|智譜|kimi|月之暗面|minimax|字节|字節|火山|百度|腾讯|騰訊|华为|華為|蚂蚁|螞蟻|讯飞|訊飛|国内|國內|中文|开源中国|開源中國|少数派|少數派|虎嗅/,
     ])
   ) sections.add("community");
 
@@ -1101,7 +1101,7 @@ function itemMatchesSection(item, sectionId) {
 }
 
 function sectionBadgeLabel(sectionId) {
-  return SECTION_BY_ID[sectionId]?.short || "栏目";
+  return SECTION_BY_ID[sectionId]?.short || "欄目";
 }
 
 function reasonText(item) {
@@ -1109,18 +1109,18 @@ function reasonText(item) {
   if (creatorScore && itemSections(item).has("creator")) {
     const metrics = item.creator_metrics || {};
     const parts = [
-      `赞 ${fmtNumber(metrics.likes)}`,
+      `贊 ${fmtNumber(metrics.likes)}`,
       `藏 ${fmtNumber(metrics.collects)}`,
-      `评 ${fmtNumber(metrics.comments)}`,
-      `转 ${fmtNumber(metrics.shares)}`,
+      `評 ${fmtNumber(metrics.comments)}`,
+      `轉 ${fmtNumber(metrics.shares)}`,
     ];
     if (Number(item.creator_freshness_bonus || 0) > 0) parts.push("24h 加分");
-    return `一周互动：${parts.join(" · ")}`;
+    return `一週互動：${parts.join(" · ")}`;
   }
   const signals = Array.isArray(item.ai_signals) ? item.ai_signals.filter(Boolean).slice(0, 3) : [];
   if (signals.length) return `命中方向：${signals.join(" / ")}`;
   if (item.ai_relevance_reason) return String(item.ai_relevance_reason).replaceAll("_", " ");
-  return "来源与标题信号通过筛选";
+  return "來源與標題訊號透過篩選";
 }
 
 function timelineIso(item) {
@@ -1224,27 +1224,27 @@ function sourceSignal(item) {
   const site = item.site_name || "";
   const source = item.source || "";
   const hay = `${site} ${source}`.toLowerCase();
-  if (site === "AI HOT") return "AI HOT精选";
-  if (hay.includes("hackernews") || hay.includes("hacker news")) return "HN热议";
-  if (source.includes("GitHub · Trending Today") || hay.includes("github")) return "GitHub趋势";
+  if (site === "AI HOT") return "AI HOT精選";
+  if (hay.includes("hackernews") || hay.includes("hacker news")) return "HN熱議";
+  if (source.includes("GitHub · Trending Today") || hay.includes("github")) return "GitHub趨勢";
   if (site === "Official AI Updates") return "官方更新";
   if (site === "Follow Builders") return "Builders";
-  if (site === "TikHub Douyin" || hay.includes("tikhub douyin")) return "抖音自媒体";
-  if (site === "TikHub Xiaohongshu" || hay.includes("tikhub xiaohongshu")) return "小红书自媒体";
+  if (site === "TikHub Douyin" || hay.includes("tikhub douyin")) return "抖音自媒體";
+  if (site === "TikHub Xiaohongshu" || hay.includes("tikhub xiaohongshu")) return "小紅書自媒體";
   if (site === "AIbase") return "AIbase";
   if (site === "OPML RSS") return "OPML";
-  return site || "来源";
+  return site || "來源";
 }
 
 function sourcePriority(item) {
   const signal = sourceSignal(item);
   if (signal === "官方更新") return 100;
-  if (signal === "AI HOT精选") return 90;
+  if (signal === "AI HOT精選") return 90;
   if (signal === "AIbase") return 82;
   if (signal === "Builders") return 74;
-  if (signal === "抖音自媒体" || signal === "小红书自媒体") return 70;
+  if (signal === "抖音自媒體" || signal === "小紅書自媒體") return 70;
   if (signal === "OPML") return 68;
-  if (signal === "HN热议" || signal === "GitHub趋势") return 62;
+  if (signal === "HN熱議" || signal === "GitHub趨勢") return 62;
   return 50;
 }
 
@@ -1266,8 +1266,8 @@ function clusterBoleEvents(rows) {
     const signals = Array.from(cluster.signals);
     const maxScore = Math.max(...cluster.rows.map((row) => row.score));
     const sourceBonus = Math.min(12, Math.max(0, signals.length - 1) * 6);
-    const candidateBonus = signals.some((s) => s === "AI HOT精选") ? 8
-      : signals.some((s) => s === "HN热议" || s === "GitHub趋势") ? 6
+    const candidateBonus = signals.some((s) => s === "AI HOT精選") ? 8
+      : signals.some((s) => s === "HN熱議" || s === "GitHub趨勢") ? 6
       : signals.some((s) => s === "官方更新") ? 5
       : 0;
     return {
@@ -1301,7 +1301,7 @@ function storyImportanceTone(label) {
   if (label.includes("重大")) return "hot";
   if (label.includes("官方")) return "official";
   if (label.includes("多源")) return "strong";
-  if (label.includes("行业")) return "watch";
+  if (label.includes("行業")) return "watch";
   return "watch";
 }
 
@@ -1344,11 +1344,11 @@ function storyDurationLabel(earliest, latest) {
   const end = new Date(latest).getTime();
   if (!Number.isFinite(start) || !Number.isFinite(end)) return "";
   const minutes = Math.round(Math.abs(end - start) / 60000);
-  if (minutes < 20) return "短时集中";
-  if (minutes < 60) return `发酵 ${minutes} 分钟`;
+  if (minutes < 20) return "短時集中";
+  if (minutes < 60) return `發酵 ${minutes} 分鐘`;
   const hours = Math.floor(minutes / 60);
   const rest = minutes % 60;
-  return rest ? `发酵 ${hours}小时${rest}分` : `发酵 ${hours}小时`;
+  return rest ? `發酵 ${hours}小時${rest}分` : `發酵 ${hours}小時`;
 }
 
 function formatStoryTime(story) {
@@ -1380,7 +1380,7 @@ function pickBoleItems(items) {
   const addPick = (cluster) => {
     if (cluster && !picked.includes(cluster) && picked.length < 8) picked.push(cluster);
   };
-  ["AI HOT精选", "HN热议", "GitHub趋势"].forEach((signal) => {
+  ["AI HOT精選", "HN熱議", "GitHub趨勢"].forEach((signal) => {
     addPick(sorted.find((cluster) => cluster.sourceSignals.includes(signal)));
   });
   sorted.forEach(addPick);
@@ -1389,8 +1389,8 @@ function pickBoleItems(items) {
 
 function boleReasonText(row) {
   const signals = row.sourceSignals || [];
-  const sourceText = signals.length ? `来源命中：${signals.join(" / ")}` : "来源命中：单源";
-  const mergeText = row.mergedCount > 1 ? `合并${row.mergedCount}条同事件` : "单条事件";
+  const sourceText = signals.length ? `來源命中：${signals.join(" / ")}` : "來源命中：單源";
+  const mergeText = row.mergedCount > 1 ? `合併${row.mergedCount}條同事件` : "單條事件";
   return `${sourceText} · ${mergeText} · ${reasonText(row.item)}`;
 }
 
@@ -1422,7 +1422,7 @@ function buildBoleLead(row) {
 
   const foot = document.createElement("div");
   foot.className = "bole-lead-foot";
-  foot.innerHTML = `<span>${item.site_name || "来源"}</span><span>${item.source || "未分区"}</span>`;
+  foot.innerHTML = `<span>${item.site_name || "來源"}</span><span>${item.source || "未分割槽"}</span>`;
 
   lead.append(top, title, reason, foot);
   return lead;
@@ -1444,7 +1444,7 @@ function buildBoleTimelineRow(row, rank) {
   body.className = "bole-row-body";
   const meta = document.createElement("div");
   meta.className = "bole-row-meta";
-  meta.innerHTML = `<span>#${rank}</span><span>${item.site_name || "来源"}</span><strong>${score}分</strong>`;
+  meta.innerHTML = `<span>#${rank}</span><span>${item.site_name || "來源"}</span><strong>${score}分</strong>`;
   (row.sourceSignals || []).slice(0, 4).forEach((signal) => {
     appendSourceChip(meta, signal, sourceSignalTone(signal), "source-chip source-hit");
   });
@@ -1461,7 +1461,7 @@ function buildBoleTimelineRow(row, rank) {
   reason.textContent = boleReasonText(row);
   const originalAction = document.createElement("span");
   originalAction.className = "original-action";
-  originalAction.textContent = "查看原文 ↗";
+  originalAction.textContent = "檢視原文 ↗";
   body.append(meta, title, original, reason, originalAction);
 
   link.append(time, body);
@@ -1490,7 +1490,7 @@ function buildStoryCard(story, rank) {
     const rangeEl = document.createElement("span");
     rangeEl.className = "story-time-range";
     rangeEl.textContent = rangeLabel;
-    rangeEl.title = "最早来源到最新来源的时间差，不是距离现在多久。";
+    rangeEl.title = "最早來源到最新來源的時間差，不是距離現在多久。";
     time.appendChild(rangeEl);
   }
 
@@ -1512,16 +1512,16 @@ function buildStoryCard(story, rank) {
   const sourceCount = storySourceCount(story);
   const countEl = document.createElement("span");
   countEl.className = "story-count";
-  countEl.textContent = `${sourceCount} 个来源`;
+  countEl.textContent = `${sourceCount} 個來源`;
   meta.appendChild(countEl);
   const displayScore = storySortScore(story);
   if (displayScore > 0) {
     const scoreEl = document.createElement("strong");
     scoreEl.className = `story-score ${state.boleView === "hot" ? "heat" : ""}`.trim();
     scoreEl.title = state.boleView === "hot"
-      ? "热度分 = 多源强度 × 时间衰减"
-      : "编辑重要性分";
-    scoreEl.innerHTML = `<span>${displayScore}</span><small>${state.boleView === "hot" ? "热度" : "分"}</small>`;
+      ? "熱度分 = 多源強度 × 時間衰減"
+      : "編輯重要性分";
+    scoreEl.innerHTML = `<span>${displayScore}</span><small>${state.boleView === "hot" ? "熱度" : "分"}</small>`;
     meta.appendChild(scoreEl);
   }
   body.appendChild(meta);
@@ -1532,7 +1532,7 @@ function buildStoryCard(story, rank) {
     sourcesEl.className = "story-sources";
     sources.slice(0, 6).forEach((src) => {
       const kind = sourceKind(src.site_id);
-      const label = src.source || src.source_name || "来源";
+      const label = src.source || src.source_name || "來源";
       const tag = sourceChip(label, kind.tone, "story-source-chip source-chip");
       sourcesEl.appendChild(tag);
     });
@@ -1564,7 +1564,7 @@ function buildStoryCard(story, rank) {
 
   const originalAction = document.createElement("span");
   originalAction.className = "original-action";
-  originalAction.textContent = "查看原文 ↗";
+  originalAction.textContent = "檢視原文 ↗";
   body.appendChild(originalAction);
 
   link.append(time, body);
@@ -1612,7 +1612,7 @@ function renderBoleBrief(stories) {
 
   const hot = hotStories(stories);
   const hotAvailable = hot.length >= 2;
-  // 宁缺毋滥: the hot view only exists when there is real multi-source heat.
+  // 寧缺毋濫: the hot view only exists when there is real multi-source heat.
   if (boleViewToggleEl) boleViewToggleEl.hidden = !hotAvailable;
   if (!hotAvailable) state.boleView = "timeline";
   if (boleHotBtnEl) boleHotBtnEl.classList.toggle("active", state.boleView === "hot");
@@ -1624,7 +1624,7 @@ function renderBoleBrief(stories) {
   let metaLabel;
   if (state.boleView === "hot") {
     sorted = hot;
-    metaLabel = `当前热点 · ${fmtNumber(sorted.length)} 簇 · 按热度分排序`;
+    metaLabel = `當前熱點 · ${fmtNumber(sorted.length)} 簇 · 按熱度分排序`;
   } else {
     sorted = [...stories].sort((a, b) => {
       const aLatest = storyTimeMs(a, "latest_at") || storyTimeMs(a, "earliest_at");
@@ -1634,8 +1634,8 @@ function renderBoleBrief(stories) {
     });
     const topScore = Math.max(...sorted.map((s) => storyScore(s)));
     metaLabel = topScore > 0
-      ? `故事时间线 · ${fmtNumber(sorted.length)} 条 · 最高 ${topScore} 分`
-      : `故事时间线 · ${fmtNumber(sorted.length)} 条`;
+      ? `故事時間線 · ${fmtNumber(sorted.length)} 條 · 最高 ${topScore} 分`
+      : `故事時間線 · ${fmtNumber(sorted.length)} 條`;
   }
 
   const list = document.createElement("div");
@@ -1653,7 +1653,7 @@ function renderBoleBrief(stories) {
     moreBtn.className = "bole-more-btn";
     moreBtn.textContent = state.boleExpanded
       ? "收起"
-      : (state.boleView === "hot" ? "展开全部热点" : "展开完整时间线");
+      : (state.boleView === "hot" ? "展開全部熱點" : "展開完整時間線");
     moreBtn.addEventListener("click", () => {
       state.boleExpanded = !state.boleExpanded;
       renderBolePicks();
@@ -1672,13 +1672,13 @@ function renderBoleFallback(picks) {
 
   const note = document.createElement("div");
   note.className = "bole-fallback-note";
-  note.textContent = "故事合并数据暂未生成，先展示伯乐候选信号。";
+  note.textContent = "故事合併資料暫未生成，先展示伯樂候選訊號。";
   bolePicksListEl.appendChild(note);
 
   if (!picks.length) {
     const empty = document.createElement("div");
     empty.className = "bole-empty";
-    empty.textContent = "当前数据里没有可展示的评分字段。";
+    empty.textContent = "當前資料裡沒有可展示的評分欄位。";
     bolePicksListEl.appendChild(empty);
     return;
   }
@@ -1699,7 +1699,7 @@ function renderBoleFallback(picks) {
     const moreBtn = document.createElement("button");
     moreBtn.type = "button";
     moreBtn.className = "bole-more-btn";
-    moreBtn.textContent = state.boleExpanded ? "收起" : "展开完整时间线";
+    moreBtn.textContent = state.boleExpanded ? "收起" : "展開完整時間線";
     moreBtn.addEventListener("click", () => {
       state.boleExpanded = !state.boleExpanded;
       renderBolePicks();
@@ -1805,8 +1805,8 @@ function renderStoryViewPanel(stories, excludedRows = []) {
   if (state.boleView === "hot") {
     baseSorted = hot;
     metaLabel = hot.length
-      ? `当前热点 · ${fmtNumber(hot.length)} 簇 · 按热度分排序`
-      : "当前热点 · 暂无多源聚簇";
+      ? `當前熱點 · ${fmtNumber(hot.length)} 簇 · 按熱度分排序`
+      : "當前熱點 · 暫無多源聚簇";
   } else {
     baseSorted = [...stories].sort((a, b) => {
       const aLatest = storyTimeMs(a, "latest_at") || storyTimeMs(a, "earliest_at");
@@ -1814,7 +1814,7 @@ function renderStoryViewPanel(stories, excludedRows = []) {
       if (aLatest !== bLatest) return bLatest - aLatest;
       return storyScore(b) - storyScore(a);
     });
-    metaLabel = `故事时间线 · ${fmtNumber(baseSorted.length)} 条 · 最新优先`;
+    metaLabel = `故事時間線 · ${fmtNumber(baseSorted.length)} 條 · 最新優先`;
   }
 
   const excludeKeys = excludedStoryKeySet(excludedRows);
@@ -1825,8 +1825,8 @@ function renderStoryViewPanel(stories, excludedRows = []) {
   const rankOffset = skippedCount > 0 ? excludedRows.length : 0;
   if (skippedCount > 0) {
     metaLabel = state.boleView === "hot"
-      ? `当前热点 · ${fmtNumber(baseSorted.length)} 簇 · 续看 #${rankOffset + 1} 起`
-      : `故事时间线 · ${fmtNumber(baseSorted.length)} 条 · Top3 后续`;
+      ? `當前熱點 · ${fmtNumber(baseSorted.length)} 簇 · 續看 #${rankOffset + 1} 起`
+      : `故事時間線 · ${fmtNumber(baseSorted.length)} 條 · Top3 後續`;
   }
 
   if (boleViewToggleEl) {
@@ -1846,10 +1846,10 @@ function renderStoryViewPanel(stories, excludedRows = []) {
     const empty = document.createElement("div");
     empty.className = "bole-empty";
     empty.textContent = skippedCount > 0
-      ? "Top3 已覆盖当前筛选下的故事，可切换筛选或时间线继续查看。"
+      ? "Top3 已覆蓋當前篩選下的故事，可切換篩選或時間線繼續檢視。"
       : state.boleView === "hot"
-      ? "当前筛选下没有多源热点，可切换到时间线查看最新故事。"
-      : "当前筛选下没有可展示的故事时间线。";
+      ? "當前篩選下沒有多源熱點，可切換到時間線檢視最新故事。"
+      : "當前篩選下沒有可展示的故事時間線。";
     panel.appendChild(empty);
     return panel;
   }
@@ -1870,8 +1870,8 @@ function renderStoryViewPanel(stories, excludedRows = []) {
     moreBtn.textContent = state.boleExpanded
       ? "收起"
       : (skippedCount > 0
-        ? (state.boleView === "hot" ? "展开后续热点" : "展开后续时间线")
-        : (state.boleView === "hot" ? "展开全部热点" : "展开完整时间线"));
+        ? (state.boleView === "hot" ? "展開後續熱點" : "展開後續時間線")
+        : (state.boleView === "hot" ? "展開全部熱點" : "展開完整時間線"));
     moreBtn.addEventListener("click", () => {
       state.boleExpanded = !state.boleExpanded;
       renderBolePicks();
@@ -1938,8 +1938,8 @@ function buildBoleFollowupPanel(rows, topCount, usesStories) {
   panel.className = "bole-story-panel";
   const heading = document.createElement("div");
   heading.className = "bole-story-panel-head";
-  const viewLabel = state.boleView === "hot" ? "当前热点" : "故事时间线";
-  heading.textContent = `${viewLabel} · ${fmtNumber(rows.length)} 条${usesStories ? "故事" : "候选"} · Top${topCount} 后续`;
+  const viewLabel = state.boleView === "hot" ? "當前熱點" : "故事時間線";
+  heading.textContent = `${viewLabel} · ${fmtNumber(rows.length)} 條${usesStories ? "故事" : "候選"} · Top${topCount} 後續`;
   panel.appendChild(heading);
 
   const list = document.createElement("div");
@@ -1959,8 +1959,8 @@ function buildBoleFollowupPanel(rows, topCount, usesStories) {
     moreBtn.type = "button";
     moreBtn.className = "bole-more-btn";
     moreBtn.textContent = state.boleExpanded
-      ? "收起后续"
-      : `展开后续 ${fmtNumber(remaining.length - followupLimit)} 条`;
+      ? "收起後續"
+      : `展開後續 ${fmtNumber(remaining.length - followupLimit)} 條`;
     moreBtn.addEventListener("click", () => {
       state.boleExpanded = !state.boleExpanded;
       renderBolePicks();
@@ -1995,10 +1995,10 @@ function renderBolePicks() {
     : rankedFallbackRows(filtered).slice(0, defaultLimit);
   const top = rows.slice(0, 3);
   const remainingCount = Math.max(0, rows.length - top.length);
-  if (topStoriesTitleEl) topStoriesTitleEl.textContent = state.activeSection === "hot" ? "今日重点信号" : `${section.label}重点信号`;
+  if (topStoriesTitleEl) topStoriesTitleEl.textContent = state.activeSection === "hot" ? "今日重點訊號" : `${section.label}重點訊號`;
   const storyMeta = usesStories
-    ? `可查看 ${fmtNumber(candidateCounts.hotTotal)} 个聚合热点 · ${fmtNumber(candidateCounts.timelineTotal)} 条最新故事`
-    : `可查看 ${fmtNumber(rows.length)} 条重点信号`;
+    ? `可檢視 ${fmtNumber(candidateCounts.hotTotal)} 個聚合熱點 · ${fmtNumber(candidateCounts.timelineTotal)} 條最新故事`
+    : `可檢視 ${fmtNumber(rows.length)} 條重點訊號`;
   bolePicksMetaEl.textContent = storyMeta;
   if (boleViewToggleEl) {
     boleViewToggleEl.hidden = usesStories ? !hotAvailable : true;
@@ -2006,14 +2006,14 @@ function renderBolePicks() {
     if (boleTimelineBtnEl) boleTimelineBtnEl.classList.toggle("active", state.boleView === "timeline");
     if (boleHotBtnEl) boleHotBtnEl.setAttribute("aria-pressed", state.boleView === "hot" ? "true" : "false");
     if (boleTimelineBtnEl) boleTimelineBtnEl.setAttribute("aria-pressed", state.boleView === "timeline" ? "true" : "false");
-    if (boleHotBtnEl) boleHotBtnEl.textContent = `当前热点 ${fmtNumber(candidateCounts.hot)}`;
-    if (boleTimelineBtnEl) boleTimelineBtnEl.textContent = `时间线 ${fmtNumber(candidateCounts.timeline)}`;
+    if (boleHotBtnEl) boleHotBtnEl.textContent = `當前熱點 ${fmtNumber(candidateCounts.hot)}`;
+    if (boleTimelineBtnEl) boleTimelineBtnEl.textContent = `時間線 ${fmtNumber(candidateCounts.timeline)}`;
   }
 
   if (!top.length) {
     const empty = document.createElement("div");
     empty.className = "bole-empty";
-    empty.textContent = "当前栏目和筛选条件下没有可展示的 Top 3。";
+    empty.textContent = "當前欄目和篩選條件下沒有可展示的 Top 3。";
     bolePicksListEl.appendChild(empty);
   } else {
     top.forEach((row, index) => {
@@ -2065,15 +2065,15 @@ function itemTagLabels(item, row = null) {
   const tags = [];
   const sections = itemSections(item);
   if (state.activeSection !== "hot") tags.push(sectionBadgeLabel(state.activeSection));
-  if (row && (row.sourceCount > 1 || row.mergedCount > 1)) tags.push("多源验证");
+  if (row && (row.sourceCount > 1 || row.mergedCount > 1)) tags.push("多源驗證");
   if (item.site_id === "official_ai") tags.push("官方");
   if (item.site_id === "aihot") tags.push("AI HOT");
-  if (sections.has("models")) tags.push("模型发布");
-  if (sections.has("devtools")) tags.push("开发者");
-  if (sections.has("hn")) tags.push("社区热议");
+  if (sections.has("models")) tags.push("模型釋出");
+  if (sections.has("devtools")) tags.push("開發者");
+  if (sections.has("hn")) tags.push("社群熱議");
   if (sections.has("research")) tags.push("研究");
-  if (sections.has("creator")) tags.push("自媒体");
-  if (sections.has("community")) tags.push("社区");
+  if (sections.has("creator")) tags.push("自媒體");
+  if (sections.has("community")) tags.push("社群");
   return Array.from(new Set(tags)).slice(0, 3);
 }
 
@@ -2102,7 +2102,7 @@ function itemSourceRefs(item, row = null) {
     add(item.source || item.site_name || kind.label, kind.tone);
   }
 
-  return refs.length ? refs : [{ label: "来源", tone: "default" }];
+  return refs.length ? refs : [{ label: "來源", tone: "default" }];
 }
 
 function priorityGrade(score) {
@@ -2127,10 +2127,10 @@ function signalSummaryText(row) {
   const label = story.importance_label || labelText(item);
   const sourceCount = rowSourceCount(row);
   const multi = row.sourceCount > 1 || row.mergedCount > 1;
-  if (multi && label) return `${label}信号，已被 ${fmtNumber(sourceCount)} 个来源验证，适合优先判断是否继续深挖。`;
+  if (multi && label) return `${label}訊號，已被 ${fmtNumber(sourceCount)} 個來源驗證，適合優先判斷是否繼續深挖。`;
   const reason = reasonText(item);
-  if (reason && !reason.startsWith("来源与标题")) return reason.replace(/^命中方向：/, "核心方向：");
-  return `${label}方向的新近更新，已进入 24 小时 AI 强相关池。`;
+  if (reason && !reason.startsWith("來源與標題")) return reason.replace(/^命中方向：/, "核心方向：");
+  return `${label}方向的新近更新，已進入 24 小時 AI 強相關池。`;
 }
 
 function whyImportantText(row) {
@@ -2139,36 +2139,36 @@ function whyImportantText(row) {
   const sections = itemSections(item);
   const reasons = Array.isArray(story.reasons) ? story.reasons : [];
   if (reasons.includes("official_source") && reasons.includes("multi_source")) {
-    return "一手来源和聚合来源同时出现，说明它既有事实起点，也正在被外部信息流放大。";
+    return "一手來源和聚合來源同時出現，說明它既有事實起點，也正在被外部資訊流放大。";
   }
   if (sections.has("models")) {
-    return "模型能力或训练/推理方式变化会影响后续产品路线、开发者选型和评测基准。";
+    return "模型能力或訓練/推理方式變化會影響後續產品路線、開發者選型和評測基準。";
   }
   if (sections.has("devtools")) {
-    return "开发者工具和基础设施变化通常会很快传导到团队工作流、成本和可实现能力。";
+    return "開發者工具和基礎設施變化通常會很快傳導到團隊工作流、成本和可實現能力。";
   }
   if (sections.has("industry")) {
-    return "公司、监管、芯片或资本动态会改变 AI 生态的资源分配和落地节奏。";
+    return "公司、監管、晶片或資本動態會改變 AI 生態的資源分配和落地節奏。";
   }
   if (sections.has("research")) {
-    return "研究信号可能还没产品化，但会提示下一轮模型、数据或方法的技术方向。";
+    return "研究訊號可能還沒產品化，但會提示下一輪模型、資料或方法的技術方向。";
   }
   if (sections.has("community") || sections.has("hn")) {
-    return "社区集中讨论代表开发者和早期用户正在形成共识，适合作为趋势验证入口。";
+    return "社群集中討論代表開發者和早期使用者正在形成共識，適合作為趨勢驗證入口。";
   }
-  return "它在当前 24 小时窗口里同时具备相关度、新鲜度和来源权重，值得先读原文确认。";
+  return "它在當前 24 小時視窗裡同時具備相關度、新鮮度和來源權重，值得先讀原文確認。";
 }
 
 function impactLabels(item) {
   const sections = itemSections(item);
   const labels = [];
-  if (sections.has("devtools")) labels.push("开发者");
-  if (sections.has("products")) labels.push("产品");
-  if (sections.has("industry")) labels.push("企业 / 投资");
+  if (sections.has("devtools")) labels.push("開發者");
+  if (sections.has("products")) labels.push("產品");
+  if (sections.has("industry")) labels.push("企業 / 投資");
   if (sections.has("research")) labels.push("研究");
-  if (sections.has("models")) labels.push("模型团队");
-  if (sections.has("community") || sections.has("hn")) labels.push("社区");
-  return labels.slice(0, 3).length ? labels.slice(0, 3) : ["AI 观察者"];
+  if (sections.has("models")) labels.push("模型團隊");
+  if (sections.has("community") || sections.has("hn")) labels.push("社群");
+  return labels.slice(0, 3).length ? labels.slice(0, 3) : ["AI 觀察者"];
 }
 
 function buildTopStoryCard(row, rank) {
@@ -2188,7 +2188,7 @@ function buildTopStoryCard(row, rank) {
   const time = document.createElement("time");
   // Brief stories keep their timeline on the story object rather than repeating
   // it on primary_item. Fall back to that aggregate time so Top 3 never shows
-  // "时间未知" when the story itself has a verified latest/earliest timestamp.
+  // "時間未知" when the story itself has a verified latest/earliest timestamp.
   const storyTimeline = row.story?.latest_at || row.story?.earliest_at || "";
   time.textContent = fmtTime(timelineIso(item) || storyTimeline);
   const primarySource = itemSourceRefs(item, row)[0];
@@ -2197,10 +2197,10 @@ function buildTopStoryCard(row, rank) {
     ? Math.max(row.score || 0, storyScore(row.story))
     : Math.max(row.score || 0, headlineClusterScore(row));
   score.className = `intel-score ${scoreTone(displayScore)}`;
-  score.textContent = `优先级 ${priorityGrade(displayScore)}`;
+  score.textContent = `優先順序 ${priorityGrade(displayScore)}`;
   const sourceCount = document.createElement("span");
   sourceCount.className = "source-count";
-  sourceCount.textContent = `${fmtNumber(rowSourceCount(row))} 个来源`;
+  sourceCount.textContent = `${fmtNumber(rowSourceCount(row))} 個來源`;
   meta.append(rankEl, sourceChip(primarySource.label, primarySource.tone, "source-chip intel-source"), sourceCount, score, time);
 
   const title = document.createElement("div");
@@ -2220,7 +2220,7 @@ function buildTopStoryCard(row, rank) {
   const why = document.createElement("div");
   why.className = "top-story-why";
   const whyLabel = document.createElement("span");
-  whyLabel.textContent = "为什么重要";
+  whyLabel.textContent = "為什麼重要";
   const whyText = document.createElement("p");
   whyText.textContent = whyImportantText(row);
   why.append(whyLabel, whyText);
@@ -2241,7 +2241,7 @@ function buildTopStoryCard(row, rank) {
 
   const originalAction = document.createElement("span");
   originalAction.className = "original-action";
-  originalAction.textContent = "查看原文 ↗";
+  originalAction.textContent = "檢視原文 ↗";
 
   link.append(meta, title, original, summary, why, tags, impact, originalAction);
   return link;
@@ -2261,7 +2261,7 @@ function buildIntelCard(item, rank) {
   const score = scorePercent(item);
   const scoreEl = document.createElement("strong");
   scoreEl.className = `intel-score ${scoreTone(score)}`;
-  scoreEl.textContent = score ? `AI ${score}分` : "AI观察";
+  scoreEl.textContent = score ? `AI ${score}分` : "AI觀察";
   meta.append(rankEl, time, scoreEl);
 
   const title = document.createElement("a");
@@ -2285,7 +2285,7 @@ function buildIntelCard(item, rank) {
   sources.className = "intel-card-sources";
   const refs = itemSourceRefs(item);
   const count = document.createElement("strong");
-  count.textContent = `${fmtNumber(refs.length)} 个来源`;
+  count.textContent = `${fmtNumber(refs.length)} 個來源`;
   sources.appendChild(count);
   refs.slice(0, 3).forEach((ref) => {
     sources.appendChild(sourceChip(ref.label, ref.tone, "source-chip"));
@@ -2299,10 +2299,10 @@ function feedSummaryText(item) {
   const editorialSummary = itemSummaryText(item);
   if (editorialSummary) return editorialSummary;
   const signals = Array.isArray(item.ai_signals) ? item.ai_signals.filter(Boolean).slice(0, 2) : [];
-  if (signals.length) return `相关线索：${signals.join(" / ")}。`;
+  if (signals.length) return `相關線索：${signals.join(" / ")}。`;
   const reason = reasonText(item);
-  if (reason && !reason.startsWith("来源与标题")) return reason.replace(/^命中方向：/, "相关线索：");
-  return `${labelText(item)} · AI 相关度 ${scorePercent(item) || "待评估"}。`;
+  if (reason && !reason.startsWith("來源與標題")) return reason.replace(/^命中方向：/, "相關線索：");
+  return `${labelText(item)} · AI 相關度 ${scorePercent(item) || "待評估"}。`;
 }
 
 function renderItemNode(item, context = {}) {
@@ -2322,13 +2322,13 @@ function renderItemNode(item, context = {}) {
   const tagEl = document.createElement("span");
   tagEl.className = `ai-tag tone-${itemLabelTone(item)}`;
   tagEl.textContent = creatorScore && itemSections(item).has("creator")
-    ? `自媒体热度 · ${creatorScore}分`
+    ? `自媒體熱度 · ${creatorScore}分`
     : `${labelText(item)} · ${score || "?"}分`;
   categoryEl.insertAdjacentElement("afterend", tagEl);
 
   const sourceEl = node.querySelector(".source");
   const sourceLabel = sourceSignal(item);
-  setSourceBadge(sourceEl, sourceLabel, sourceSignalTone(sourceLabel), item.source ? `分区: ${item.source}` : "");
+  setSourceBadge(sourceEl, sourceLabel, sourceSignalTone(sourceLabel), item.source ? `分割槽: ${item.source}` : "");
   if (context.source && context.source === item.source) {
     sourceEl.hidden = true;
   }
@@ -2347,7 +2347,7 @@ function renderItemNode(item, context = {}) {
   originalLink.href = item.url || "#";
   originalLink.target = "_blank";
   originalLink.rel = "noopener noreferrer";
-  originalLink.textContent = "查看原文 ↗";
+  originalLink.textContent = "檢視原文 ↗";
   metaRow.appendChild(originalLink);
 
   const titleEl = node.querySelector(".title");
@@ -2406,8 +2406,8 @@ function buildSourceGroupNode(source, items, rawCount = items.length) {
       const visibleItems = expanded ? items : items.slice(0, SOURCE_ITEM_INITIAL_LIMIT);
       visibleItems.forEach((item) => listEl.appendChild(renderItemNode(item, { source })));
       moreBtn.textContent = expanded
-        ? `收起，仅看前 ${SOURCE_ITEM_INITIAL_LIMIT} 条`
-        : `展开剩余 ${fmtNumber(items.length - SOURCE_ITEM_INITIAL_LIMIT)} 条`;
+        ? `收起，僅看前 ${SOURCE_ITEM_INITIAL_LIMIT} 條`
+        : `展開剩餘 ${fmtNumber(items.length - SOURCE_ITEM_INITIAL_LIMIT)} 條`;
     };
     moreBtn.addEventListener("click", () => {
       expanded = !expanded;
@@ -2457,20 +2457,20 @@ function subgroupSortValue(items) {
 }
 
 function subgroupSummary(items, rawCount = items.length) {
-  const count = `${fmtNumber(items.length)} 条`;
+  const count = `${fmtNumber(items.length)} 條`;
   const merged = rawCount - items.length;
   let ranking = "";
-  if (state.listSort === "priority") ranking = `综合 ${subgroupSortValue(items)}`;
+  if (state.listSort === "priority") ranking = `綜合 ${subgroupSortValue(items)}`;
   if (state.listSort === "latest") ranking = `最新 ${fmtTime(timelineIso(items[0]))}`;
   if (state.listSort === "ai") ranking = `最高 AI ${subgroupSortValue(items)}分`;
-  const mergedLabel = merged > 0 ? `合并 ${fmtNumber(merged)} 条重复` : "";
+  const mergedLabel = merged > 0 ? `合併 ${fmtNumber(merged)} 條重複` : "";
   return [count, ranking, mergedLabel].filter(Boolean).join(" · ");
 }
 
 function sourceGroupEntries(items) {
   const groupMap = new Map();
   items.forEach((item) => {
-    const key = item.source || "未分区";
+    const key = item.source || "未分割槽";
     if (!groupMap.has(key)) {
       groupMap.set(key, []);
     }
@@ -2532,8 +2532,8 @@ function buildSiteGroupNode(site) {
       moreBtn = addLoadMoreButton(
         siteSection,
         expanded
-          ? `收起，仅看前 ${SITE_SOURCE_GROUP_INITIAL_LIMIT} 个分区`
-          : `展开其余 ${fmtNumber(hiddenCount)} 个分区`,
+          ? `收起，僅看前 ${SITE_SOURCE_GROUP_INITIAL_LIMIT} 個分割槽`
+          : `展開其餘 ${fmtNumber(hiddenCount)} 個分割槽`,
         () => {
           expanded = !expanded;
           renderSourceGroups();
@@ -2548,7 +2548,7 @@ function buildSiteGroupNode(site) {
 function renderLoadingNotice(label, count) {
   const loading = document.createElement("div");
   loading.className = "list-loading";
-  loading.textContent = `正在整理 ${label} · ${fmtNumber(count)} 条`;
+  loading.textContent = `正在整理 ${label} · ${fmtNumber(count)} 條`;
   newsListEl.appendChild(loading);
 }
 
@@ -2615,8 +2615,8 @@ function renderSiteGroups(items) {
     addLoadMoreButton(
       newsListEl,
       state.siteGroupsExpanded
-        ? `收起，仅看前 ${SITE_GROUP_INITIAL_LIMIT} 个来源`
-        : `展开其余 ${fmtNumber(hiddenCount)} 个来源`,
+        ? `收起，僅看前 ${SITE_GROUP_INITIAL_LIMIT} 個來源`
+        : `展開其餘 ${fmtNumber(hiddenCount)} 個來源`,
       () => {
         state.siteGroupsExpanded = !state.siteGroupsExpanded;
         renderList();
@@ -2629,15 +2629,15 @@ function renderSiteGroups(items) {
 function renderList() {
   const filtered = getFilteredItems();
   renderListSortTools();
-  resultCountEl.textContent = `${fmtNumber(filtered.length)} 条`;
+  resultCountEl.textContent = `${fmtNumber(filtered.length)} 條`;
   if (modeHintEl) {
     modeHintEl.textContent = state.mode === "selected"
-      ? `精选 ${fmtNumber(filtered.length)} 条`
-      : (state.mode === "ai" ? `全部 AI ${fmtNumber(filtered.length)} 条` : `全量 ${fmtNumber(filtered.length)} 条`);
+      ? `精選 ${fmtNumber(filtered.length)} 條`
+      : (state.mode === "ai" ? `全部 AI ${fmtNumber(filtered.length)} 條` : `全量 ${fmtNumber(filtered.length)} 條`);
     const modeLabel = state.mode === "selected"
-      ? "高优先级精选"
+      ? "高優先順序精選"
       : (state.mode === "ai" ? "全部 AI" : (state.allDedup ? "全量去重" : "全量原始"));
-    modeHintEl.setAttribute("aria-label", `当前结果 ${fmtNumber(filtered.length)} 条，${modeLabel}模式`);
+    modeHintEl.setAttribute("aria-label", `當前結果 ${fmtNumber(filtered.length)} 條，${modeLabel}模式`);
   }
   renderSectionSummary(filtered);
   renderAdvancedSummary();
@@ -2650,15 +2650,15 @@ function renderList() {
     const empty = document.createElement("div");
     empty.className = "empty";
     const title = document.createElement("h3");
-    title.textContent = "没有找到匹配内容";
+    title.textContent = "沒有找到匹配內容";
     const message = document.createElement("p");
-    message.textContent = "可以换个关键词，或一键恢复默认视图。";
+    message.textContent = "可以換個關鍵詞，或一鍵恢復預設檢視。";
     empty.append(title, message);
     if (activeAdjustmentCount()) {
       const reset = document.createElement("button");
       reset.type = "button";
       reset.className = "empty-reset-btn";
-      reset.textContent = "清除筛选，查看全部";
+      reset.textContent = "清除篩選，檢視全部";
       reset.addEventListener("click", clearAllFilters);
       empty.appendChild(reset);
     }
@@ -2705,23 +2705,23 @@ function renderWaytoagi(waytoagi) {
   if (waytoagi7dBtnEl) waytoagi7dBtnEl.classList.toggle("active", state.waytoagiMode === "7d");
   if (waytoagiTodayBtnEl) waytoagiTodayBtnEl.setAttribute("aria-pressed", state.waytoagiMode === "today" ? "true" : "false");
   if (waytoagi7dBtnEl) waytoagi7dBtnEl.setAttribute("aria-pressed", state.waytoagiMode === "7d" ? "true" : "false");
-  waytoagiUpdatedAtEl.textContent = `更新时间：${fmtTime(waytoagi.generated_at)}`;
+  waytoagiUpdatedAtEl.textContent = `更新時間：${fmtTime(waytoagi.generated_at)}`;
 
   waytoagiMetaEl.innerHTML = "";
   const rootLink = document.createElement("a");
   rootLink.href = waytoagi.root_url || "#";
   rootLink.target = "_blank";
   rootLink.rel = "noopener noreferrer";
-  rootLink.textContent = "主页面";
+  rootLink.textContent = "主頁面";
   const historyLink = document.createElement("a");
   historyLink.href = waytoagi.history_url || "#";
   historyLink.target = "_blank";
   historyLink.rel = "noopener noreferrer";
-  historyLink.textContent = "历史更新页";
+  historyLink.textContent = "歷史更新頁";
   const todayCount = document.createElement("span");
-  todayCount.textContent = `最近更新日(${latestDate || "--"})：${fmtNumber(waytoagi.count_today || updatesToday.length)} 条`;
+  todayCount.textContent = `最近更新日(${latestDate || "--"})：${fmtNumber(waytoagi.count_today || updatesToday.length)} 條`;
   const weekCount = document.createElement("span");
-  weekCount.textContent = `近 7 日：${fmtNumber(waytoagi.count_7d || updates7d.length)} 条`;
+  weekCount.textContent = `近 7 日：${fmtNumber(waytoagi.count_7d || updates7d.length)} 條`;
   [rootLink, "·", historyLink, "·", todayCount, "·", weekCount].forEach((part) => {
     if (typeof part === "string") {
       const sep = document.createElement("span");
@@ -2736,7 +2736,7 @@ function renderWaytoagi(waytoagi) {
   if (waytoagi.has_error) {
     const div = document.createElement("div");
     div.className = "waytoagi-error";
-    div.textContent = waytoagi.error || "WaytoAGI 数据加载失败";
+    div.textContent = waytoagi.error || "WaytoAGI 資料載入失敗";
     waytoagiListEl.appendChild(div);
     return;
   }
@@ -2746,8 +2746,8 @@ function renderWaytoagi(waytoagi) {
     const div = document.createElement("div");
     div.className = "waytoagi-empty";
     div.textContent = state.waytoagiMode === "today"
-      ? "最近更新日没有更新，可切换到近7日查看。"
-      : (waytoagi.warning || "近 7 日没有更新");
+      ? "最近更新日沒有更新，可切換到近7日檢視。"
+      : (waytoagi.warning || "近 7 日沒有更新");
     waytoagiListEl.appendChild(div);
     return;
   }
@@ -2775,7 +2775,7 @@ function renderMetric(label, value, tone = "", options = {}) {
   node.className = `health-metric ${interactive ? "health-metric-button" : ""} ${tone}`.trim();
   if (interactive) {
     node.type = "button";
-    node.title = options.title || "查看详情";
+    node.title = options.title || "檢視詳情";
     node.setAttribute("aria-expanded", String(Boolean(options.expanded)));
     node.addEventListener("click", options.onClick);
   }
@@ -2818,17 +2818,17 @@ function renderSocialdataAuthorList(authors, itemCount) {
   panel.className = "health-author-list";
   const heading = document.createElement("div");
   heading.className = "health-author-list-title";
-  heading.textContent = "本轮 X 扫到的博主";
+  heading.textContent = "本輪 X 掃到的博主";
   const meta = document.createElement("div");
   meta.className = "health-author-list-meta";
-  meta.textContent = `${fmtNumber(authors.length)} 位博主 · ${fmtNumber(itemCount)} 条入池内容`;
+  meta.textContent = `${fmtNumber(authors.length)} 位博主 · ${fmtNumber(itemCount)} 條入池內容`;
   const list = document.createElement("div");
   list.className = "health-author-list-items";
   authors.forEach((author) => {
     const item = document.createElement("button");
     item.type = "button";
     item.textContent = author;
-    item.title = `查看 ${author} 的 X 内容`;
+    item.title = `檢視 ${author} 的 X 內容`;
     item.addEventListener("click", () => selectSocialdataAuthor(author));
     list.appendChild(item);
   });
@@ -2850,7 +2850,7 @@ function renderIssueList(title, items) {
   });
   if (items.length > 6) {
     const li = document.createElement("li");
-    li.textContent = `另有 ${fmtNumber(items.length - 6)} 项`;
+    li.textContent = `另有 ${fmtNumber(items.length - 6)} 項`;
     list.appendChild(li);
   }
   wrap.append(titleEl, list);
@@ -2862,7 +2862,7 @@ function renderSourceHealthSummaryNode(status, errorMessage = "") {
   node.className = "source-health-summary";
   if (!status) {
     node.classList.add(errorMessage ? "bad" : "warn");
-    node.innerHTML = `<strong>${errorMessage ? "源状态异常" : "源状态未生成"}</strong><span>${errorMessage || "等待 source-status.json"}</span>`;
+    node.innerHTML = `<strong>${errorMessage ? "源狀態異常" : "源狀態未生成"}</strong><span>${errorMessage || "等待 source-status.json"}</span>`;
     return node;
   }
   const sites = Array.isArray(status.sites) ? status.sites : [];
@@ -2870,7 +2870,7 @@ function renderSourceHealthSummaryNode(status, errorMessage = "") {
   const failed = failedSourceCount(status);
   const fetched = Number(status.fetched_raw_items || state.totalRaw || status.items_before_topic_filter || 0);
   node.classList.toggle("warn", failed > 0);
-  node.innerHTML = `<strong>${fmtNumber(okSites)}/${fmtNumber(sites.length)} 源正常</strong><span>今日采集 ${fmtNumber(fetched)} 条 · 失败 ${fmtNumber(failed)}</span>`;
+  node.innerHTML = `<strong>${fmtNumber(okSites)}/${fmtNumber(sites.length)} 源正常</strong><span>今日採集 ${fmtNumber(fetched)} 條 · 失敗 ${fmtNumber(failed)}</span>`;
   return node;
 }
 
@@ -2896,12 +2896,12 @@ function renderSourceStatusTable(status) {
   table.className = "source-table";
   const header = document.createElement("div");
   header.className = "source-table-row source-table-head";
-  header.innerHTML = "<span>来源</span><span>AI / 原始</span><span>AI占比</span><span>状态</span>";
+  header.innerHTML = "<span>來源</span><span>AI / 原始</span><span>AI佔比</span><span>狀態</span>";
   table.appendChild(header);
   rows.forEach((site) => {
     const row = document.createElement("div");
     row.className = "source-table-row";
-    const statusText = site.ok ? "正常" : "异常";
+    const statusText = site.ok ? "正常" : "異常";
     row.innerHTML = `
       <span>${site.site_name || site.site_id}</span>
       <span>${fmtNumber(site.aiCount)} / ${fmtNumber(site.rawCount)}</span>
@@ -2941,7 +2941,7 @@ function renderSourceHealth(errorMessage = "") {
   const replacedFeeds = Array.isArray(rss.replaced_feeds) ? rss.replaced_feeds : [];
   // Paid sources run on a protected interval. A skipped refresh can still have
   // usable records from the last successful run in today's data pool, so don't
-  // hide them behind a misleading "待窗口" status.
+  // hide them behind a misleading "待視窗" status.
   const socialdataLiveCount = Number(socialdata.item_count || 0);
   const socialdataPoolCount = siteAiPoolCount("socialdata_x");
   const socialdataDisplayCount = socialdataLiveCount || socialdataPoolCount;
@@ -2952,34 +2952,34 @@ function renderSourceHealth(errorMessage = "") {
   const xAuthors = socialdataAuthors();
 
   const xMetricValue = xDisplayCount
-    ? `已入池 ${fmtNumber(xDisplayCount)}条`
+    ? `已入池 ${fmtNumber(xDisplayCount)}條`
     : socialdata.enabled
     ? (socialdataDisplayCount
       ? "成功"
-      : (socialdata.skipped ? "待窗口" : "已连接，暂无匹配"))
+      : (socialdata.skipped ? "待視窗" : "已連線，暫無匹配"))
     : (xApi.enabled
       ? (xApiDisplayCount
         ? "成功"
-        : (xApi.skipped ? "待窗口" : "已连接，暂无匹配"))
-      : "未启用");
+        : (xApi.skipped ? "待視窗" : "已連線，暫無匹配"))
+      : "未啟用");
   const xMetricTone = socialdata.error || xApi.error ? "bad" : (xDisplayCount ? "ok" : (emptyAdvanced.length ? "warn" : ""));
 
   const metricGrid = document.createElement("div");
   metricGrid.className = "health-grid";
   metricGrid.append(
-    renderMetric("内置源", `${fmtNumber(status.successful_sites || 0)}/${fmtNumber(sites.length)}`, failedSites.length ? "warn" : "ok"),
-    renderMetric("RSS", rss.enabled ? `${fmtNumber(rss.ok_feeds || 0)}/${fmtNumber(rss.effective_feed_total || 0)}` : "未启用"),
-    renderMetric("X数据源", xMetricValue, xMetricTone, xAuthors.length ? {
+    renderMetric("內建源", `${fmtNumber(status.successful_sites || 0)}/${fmtNumber(sites.length)}`, failedSites.length ? "warn" : "ok"),
+    renderMetric("RSS", rss.enabled ? `${fmtNumber(rss.ok_feeds || 0)}/${fmtNumber(rss.effective_feed_total || 0)}` : "未啟用"),
+    renderMetric("X資料來源", xMetricValue, xMetricTone, xAuthors.length ? {
       expanded: state.xAuthorsExpanded,
-      title: "查看本轮扫描到的 X 博主",
+      title: "檢視本輪掃描到的 X 博主",
       onClick: () => {
         state.xAuthorsExpanded = !state.xAuthorsExpanded;
         renderSourceHealth();
       },
     } : {}),
-    renderMetric("AgentMail", agentmail.enabled ? `${fmtNumber(agentmail.item_count || 0)}封` : "可选 · 未配置", agentmail.error ? "bad" : ""),
-    renderMetric("失败源", fmtNumber(failedSites.length + failedFeeds.length), failedSites.length || failedFeeds.length ? "bad" : "ok"),
-    renderMetric("替换/跳过", `${fmtNumber(replacedFeeds.length)}/${fmtNumber(skippedFeeds.length)}`)
+    renderMetric("AgentMail", agentmail.enabled ? `${fmtNumber(agentmail.item_count || 0)}封` : "可選 · 未配置", agentmail.error ? "bad" : ""),
+    renderMetric("失敗源", fmtNumber(failedSites.length + failedFeeds.length), failedSites.length || failedFeeds.length ? "bad" : "ok"),
+    renderMetric("替換/跳過", `${fmtNumber(replacedFeeds.length)}/${fmtNumber(skippedFeeds.length)}`)
   );
   sourceHealthEl.appendChild(renderSourceHealthSummaryNode(status, errorMessage));
   const detailTarget = sourceHealthDetailsEl || sourceHealthEl;
@@ -2990,14 +2990,14 @@ function renderSourceHealth(errorMessage = "") {
 
   const issues = document.createElement("div");
   issues.className = "health-issues";
-  if (failedSites.length) issues.appendChild(renderIssueList("失败站点", failedSites));
-  if (zeroSites.length) issues.appendChild(renderIssueList("零结果站点", zeroSites));
+  if (failedSites.length) issues.appendChild(renderIssueList("失敗站點", failedSites));
+  if (zeroSites.length) issues.appendChild(renderIssueList("零結果站點", zeroSites));
   if (emptyAdvanced.length) {
-    issues.appendChild(renderIssueList("高级源暂无匹配", emptyAdvanced.map((item) => `${item.site_name || item.site_id} · 已连接，暂无匹配结果`)));
+    issues.appendChild(renderIssueList("高階源暫無匹配", emptyAdvanced.map((item) => `${item.site_name || item.site_id} · 已連線，暫無匹配結果`)));
   }
-  if (failedFeeds.length) issues.appendChild(renderIssueList("失败 RSS", failedFeeds));
+  if (failedFeeds.length) issues.appendChild(renderIssueList("失敗 RSS", failedFeeds));
   if (skippedFeeds.length) {
-    issues.appendChild(renderIssueList("跳过 RSS", skippedFeeds.map((item) => `${item.feed_url} · ${item.reason || "skipped"}`)));
+    issues.appendChild(renderIssueList("跳過 RSS", skippedFeeds.map((item) => `${item.feed_url} · ${item.reason || "skipped"}`)));
   }
 
   if (issues.childElementCount) {
@@ -3005,7 +3005,7 @@ function renderSourceHealth(errorMessage = "") {
   } else {
     const ok = document.createElement("div");
     ok.className = "health-ok";
-    ok.textContent = "详细源状态正常";
+    ok.textContent = "詳細源狀態正常";
     detailTarget.appendChild(ok);
   }
   renderSourceStatusTable(status);
@@ -3016,7 +3016,7 @@ function renderSourceHealth(errorMessage = "") {
 
 async function loadNewsData() {
   const res = await fetch(`./data/latest-24h.json?t=${Date.now()}`);
-  if (!res.ok) throw new Error(`加载 latest-24h.json 失败: ${res.status}`);
+  if (!res.ok) throw new Error(`載入 latest-24h.json 失敗: ${res.status}`);
   return res.json();
 }
 
@@ -3025,7 +3025,7 @@ async function loadAllModeData() {
   if (!state.allDataPromise) {
     state.allDataPromise = fetch(`./${state.allDataUrl}?t=${Date.now()}`)
       .then((res) => {
-        if (!res.ok) throw new Error(`加载 latest-24h-all.json 失败: ${res.status}`);
+        if (!res.ok) throw new Error(`載入 latest-24h-all.json 失敗: ${res.status}`);
         return res.json();
       })
       .then((payload) => {
@@ -3045,25 +3045,25 @@ async function loadAllModeData() {
 
 async function loadWaytoagiData() {
   const res = await fetch(`./data/waytoagi-7d.json?t=${Date.now()}`);
-  if (!res.ok) throw new Error(`加载 waytoagi-7d.json 失败: ${res.status}`);
+  if (!res.ok) throw new Error(`載入 waytoagi-7d.json 失敗: ${res.status}`);
   return res.json();
 }
 
 async function loadSourceStatusData() {
   const res = await fetch(`./data/source-status.json?t=${Date.now()}`);
-  if (!res.ok) throw new Error(`加载 source-status.json 失败: ${res.status}`);
+  if (!res.ok) throw new Error(`載入 source-status.json 失敗: ${res.status}`);
   return res.json();
 }
 
 async function loadDailyBriefData() {
   const res = await fetch(`./data/daily-brief.json?t=${Date.now()}`);
-  if (!res.ok) throw new Error(`加载 daily-brief.json 失败: ${res.status}`);
+  if (!res.ok) throw new Error(`載入 daily-brief.json 失敗: ${res.status}`);
   return res.json();
 }
 
 async function loadStoriesData() {
   const res = await fetch(`./${state.storiesDataUrl}?t=${Date.now()}`);
-  if (!res.ok) throw new Error(`加载 stories-merged.json 失败: ${res.status}`);
+  if (!res.ok) throw new Error(`載入 stories-merged.json 失敗: ${res.status}`);
   return res.json();
 }
 
@@ -3123,7 +3123,7 @@ async function init() {
     renderList();
     updatedAtEl.textContent = fmtTime(state.generatedAt);
   } else {
-    updatedAtEl.textContent = "新闻数据加载失败";
+    updatedAtEl.textContent = "新聞資料載入失敗";
     newsListEl.innerHTML = `<div class="empty">${newsResult.reason.message}</div>`;
     renderCoverageStrip(newsResult.reason.message);
   }
@@ -3142,7 +3142,7 @@ async function init() {
     renderWaytoagi(state.waytoagiData);
   } else {
     if (waytoagiWrapEl) waytoagiWrapEl.hidden = state.activeSection !== "community";
-    waytoagiUpdatedAtEl.textContent = "加载失败";
+    waytoagiUpdatedAtEl.textContent = "載入失敗";
     waytoagiListEl.innerHTML = `<div class="waytoagi-error">${waytoagiResult.reason.message}</div>`;
   }
 
@@ -3209,7 +3209,7 @@ modeAllBtnEl.addEventListener("click", async () => {
   newsListEl.innerHTML = "";
   const loading = document.createElement("div");
   loading.className = "empty";
-  loading.textContent = "正在加载全量更新...";
+  loading.textContent = "正在載入全量更新...";
   newsListEl.appendChild(loading);
   try {
     await loadAllModeData();
