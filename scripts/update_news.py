@@ -602,6 +602,56 @@ def maybe_fix_mojibake(text: str) -> str:
     return s
 
 
+_ZH_HANT_S2TWP = None  # Simplified -> Traditional (Taiwan idiom), does the real conversion
+_ZH_HANT_S2T = None  # Simplified -> Traditional, character-level only, used as a detector
+_ZH_HANT_CONVERTER_LOAD_FAILED = False
+
+
+def to_zh_hant(text: str) -> str:
+    """Convert Simplified Chinese to Traditional Chinese (Taiwan usage, OpenCC
+    s2twp). Applied at display-output assembly time only (latest-24h.json,
+    latest-24h-all.json, daily-brief.json, stories-merged.json); never used to
+    rewrite archive.json's stored history.
+
+    s2twp's phrase dictionary is not idempotent for some already-Traditional
+    Taiwan wording: converting "演算法" (already Taiwan usage) again yields
+    "演演算法" because "算法" is a phrase-substitution source pattern that also
+    matches inside its own target. Running this on every item every run
+    (including zh-TW sources like iThome that are already Traditional) would
+    otherwise corrupt those titles a little more on each run. To stay safe,
+    this only runs s2twp when the character-level s2t pass detects at least
+    one genuinely Simplified-only character; text with none (English,
+    already-Traditional, or script-neutral CJK) is returned unchanged. The
+    tradeoff: a handful of Simplified/Traditional word pairs that share every
+    character glyph (e.g. "算法" vs "演算法") won't get promoted to the fuller
+    Taiwan idiom when no other Simplified-only character is present in the
+    same string - a minor, non-corrupting under-conversion, not a defect.
+    """
+    global _ZH_HANT_S2TWP, _ZH_HANT_S2T, _ZH_HANT_CONVERTER_LOAD_FAILED
+    s = text or ""
+    if not s or _ZH_HANT_CONVERTER_LOAD_FAILED:
+        return s
+    if _ZH_HANT_S2TWP is None:
+        try:
+            from opencc import OpenCC
+
+            _ZH_HANT_S2TWP = OpenCC("s2twp")
+            _ZH_HANT_S2T = OpenCC("s2t")
+        except Exception:
+            _ZH_HANT_CONVERTER_LOAD_FAILED = True
+            return s
+    try:
+        if _ZH_HANT_S2T.convert(s) == s:
+            return s
+        converted = _ZH_HANT_S2TWP.convert(s)
+        # s2twp's own dictionary keeps these as character-only conversions;
+        # override to the Taiwan idiom, matching the UI-layer word choices.
+        converted = converted.replace("質量", "品質").replace("型別", "類型")
+        return converted
+    except Exception:
+        return s
+
+
 def has_cjk(text: str) -> bool:
     return bool(re.search(r"[\u4e00-\u9fff]", text or ""))
 
@@ -1058,7 +1108,7 @@ def waytoagi_updates_to_raw_items(payload: dict[str, Any], now: datetime) -> lis
         if not title or not url:
             continue
         update_date = str(update.get("date") or payload.get("latest_date") or "").strip()
-        source = f"社区更新 · {update_date}" if update_date else "社区更新"
+        source = f"社群更新 · {update_date}" if update_date else "社群更新"
         out.append(
             RawItem(
                 site_id="waytoagi",
@@ -1981,20 +2031,14 @@ def fetch_tw_media(session: requests.Session, now: datetime) -> list[RawItem]:
 
 def fetch_kr36_ai(session: requests.Session, now: datetime) -> list[RawItem]:
     """Watchlist source: 36Kr has no dedicated AI-channel feed, so the general
-    site feed is title-filtered for AI keywords, then converted from
-    Simplified to Traditional Chinese (OpenCC s2twp) for display. This
-    conversion is scoped to this fetcher only and does not affect other
-    sources.
+    site feed is title-filtered for AI keywords (matched against the raw
+    Simplified Chinese title). Simplified-to-Traditional conversion is no
+    longer done here: it happens uniformly for every source's title/summary
+    at output-assembly time (see to_zh_hant()), so this fetcher just returns
+    the raw title.
     """
     site_id = "kr36_ai"
     site_name = "36Kr AI (Watchlist)"
-
-    try:
-        from opencc import OpenCC
-
-        converter = OpenCC("s2twp")
-    except ModuleNotFoundError:
-        converter = None
 
     resp = session.get(
         KR36_AI_FEED_URL,
@@ -2032,19 +2076,17 @@ def fetch_kr36_ai(session: requests.Session, now: datetime) -> list[RawItem]:
             continue
         seen_urls.add(normalized_url)
 
-        display_title = converter.convert(title) if converter else title
         out.append(
             RawItem(
                 site_id=site_id,
                 site_name=site_name,
                 source="36Kr",
-                title=maybe_fix_mojibake(display_title),
+                title=maybe_fix_mojibake(title),
                 url=link,
                 published_at=published,
                 meta={
                     "feed_url": KR36_AI_FEED_URL,
                     "feed_home": "https://36kr.com/",
-                    "title_zh_conversion": "opencc_s2twp" if converter else "none",
                 },
             )
         )
@@ -3078,28 +3120,28 @@ def event_time(record: dict[str, Any]) -> datetime | None:
 
 SOURCE_TIER_BY_SITE: dict[str, tuple[str, str, int]] = {
     "official_ai": ("official", "官方一手源", 0),
-    "curated_media": ("ai_media", "精选AI媒体", 2),
+    "curated_media": ("ai_media", "精選AI媒體", 2),
     "aibreakfast": ("ai_vertical", "AI垂直源", 1),
     "aihubtoday": ("ai_vertical", "AI垂直源", 1),
     "aibase": ("ai_vertical", "AI垂直源", 1),
     "aihot": ("ai_vertical", "AI垂直源", 1),
     "bestblogs": ("ai_vertical", "AI垂直源", 1),
-    "waytoagi": ("community", "社区更新", 2),
+    "waytoagi": ("community", "社群更新", 2),
     "followbuilders": ("builders", "Builders/X源", 2),
     "opmlrss": ("user_opml", "RSS/OPML", 3),
-    "tikhub_douyin": ("self_media", "自媒体源", 4),
-    "tikhub_xiaohongshu": ("self_media", "自媒体源", 4),
-    "xapi": ("advanced", "高级源", 4),
-    "socialdata_x": ("advanced", "高级源", 4),
-    "techurls": ("discussion", "热议参考", 5),
-    "buzzing": ("discussion", "热议参考", 5),
-    "iris": ("discussion", "热议参考", 5),
-    "tophub": ("discussion", "热议参考", 5),
-    "zeli": ("discussion", "热议参考", 5),
-    "hackernews": ("discussion", "热议参考", 5),
-    "newsnow": ("discussion", "热议参考", 5),
+    "tikhub_douyin": ("self_media", "自媒體源", 4),
+    "tikhub_xiaohongshu": ("self_media", "自媒體源", 4),
+    "xapi": ("advanced", "高階源", 4),
+    "socialdata_x": ("advanced", "高階源", 4),
+    "techurls": ("discussion", "熱議參考", 5),
+    "buzzing": ("discussion", "熱議參考", 5),
+    "iris": ("discussion", "熱議參考", 5),
+    "tophub": ("discussion", "熱議參考", 5),
+    "zeli": ("discussion", "熱議參考", 5),
+    "hackernews": ("discussion", "熱議參考", 5),
+    "newsnow": ("discussion", "熱議參考", 5),
     "tw_media": ("tw_media", "台灣繁中媒體", 2),
-    "kr36_ai": ("watchlist", "观察名单源", 6),
+    "kr36_ai": ("watchlist", "觀察名單源", 6),
 }
 
 SOURCE_TIER_IMPORTANCE = {
@@ -3177,7 +3219,7 @@ def source_tier_for_site(site_id: str) -> dict[str, Any]:
     sid = str(site_id or "").strip().lower()
     if sid.startswith("opmlrss"):
         sid = "opmlrss"
-    tier, label, rank = SOURCE_TIER_BY_SITE.get(sid, ("other", "其他来源", 9))
+    tier, label, rank = SOURCE_TIER_BY_SITE.get(sid, ("other", "其他來源", 9))
     return {"source_tier": tier, "source_tier_label": label, "source_tier_rank": rank}
 
 
@@ -4993,6 +5035,7 @@ def add_bilingual_fields(
 
         if provided_en:
             zh_title = provided_zh if has_cjk(provided_zh) else (title if has_cjk(title) else "")
+            zh_title = to_zh_hant(zh_title) if zh_title else zh_title
             out["title_original"] = provided_en
             out["title_en"] = provided_en
             out["title_zh"] = zh_title or None
@@ -5022,6 +5065,11 @@ def add_bilingual_fields(
             zh_title = repair_zh_title_translation(title, zh_title)
             if cache.get(title) and cache.get(title) != zh_title:
                 cache[title] = zh_title
+            # cache[title] intentionally keeps whatever form was cached
+            # (may be pre-existing Simplified output from earlier runs);
+            # convert only the display value here, same "don't rewrite
+            # history" rule as archive.json.
+            zh_title = to_zh_hant(zh_title)
             out["title_zh"] = zh_title
             out["title_bilingual"] = f"{zh_title} / {title}"
         return out
@@ -5301,10 +5349,10 @@ def story_category(score: float, primary_item: dict[str, Any], duplicate_count: 
 def importance_label(category: str) -> str:
     return {
         "official": "官方更新",
-        "multi_source": "多源热议",
-        "industry": "行业动态",
-        "watch": "值得关注",
-    }.get(category, "值得关注")
+        "multi_source": "多源熱議",
+        "industry": "行業動態",
+        "watch": "值得關注",
+    }.get(category, "值得關注")
 
 
 def choose_primary_story_item(
@@ -5597,7 +5645,9 @@ def build_creator_hot_items(
         if not published or published < window_start or published > now:
             continue
         normalized = dict(record)
-        normalized["title"] = maybe_fix_mojibake(str(normalized.get("title") or ""))
+        normalized["title"] = to_zh_hant(maybe_fix_mojibake(str(normalized.get("title") or "")))
+        if normalized.get("summary"):
+            normalized["summary"] = to_zh_hant(str(normalized.get("summary") or ""))
         normalized["source"] = maybe_fix_mojibake(normalize_source_for_display(
             str(normalized.get("site_id") or ""),
             str(normalized.get("source") or ""),
@@ -5890,7 +5940,9 @@ def main() -> int:
             continue
         if ts >= window_start:
             normalized = dict(record)
-            normalized["title"] = maybe_fix_mojibake(str(normalized.get("title") or ""))
+            normalized["title"] = to_zh_hant(maybe_fix_mojibake(str(normalized.get("title") or "")))
+            if normalized.get("summary"):
+                normalized["summary"] = to_zh_hant(str(normalized.get("summary") or ""))
             normalized["source"] = maybe_fix_mojibake(normalize_source_for_display(
                 str(normalized.get("site_id") or ""),
                 str(normalized.get("source") or ""),
