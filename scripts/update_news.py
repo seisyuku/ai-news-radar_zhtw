@@ -51,6 +51,11 @@ WAYTOAGI_DEFAULT = (
     "https://waytoagi.feishu.cn/wiki/QPe5w5g7UisbEkkow8XcDmOpn8e?fromScene=spaceOverview"
 )
 WAYTOAGI_HISTORY_FALLBACK = "https://waytoagi.feishu.cn/wiki/FjiOwWp2giA7hRk6jjfcPioCnAc"
+# WaytoAGI is not part of collect_all()'s task list (it has its own fetch/write
+# path below and a dedicated data/waytoagi-7d.json output), so it is disabled
+# here instead. Flip back to True to roll back; fetch_waytoagi_recent_7d() and
+# waytoagi_updates_to_raw_items() are left untouched.
+WAYTOAGI_ENABLED = False
 
 RSS_FEED_REPLACEMENTS: dict[str, str] = {
     "https://rsshub.app/infoq/recommend": "https://www.infoq.cn/feed",
@@ -98,6 +103,13 @@ OFFICIAL_AI_FEEDS: tuple[dict[str, str], ...] = (
         "html_url": "https://blog.google/innovation-and-ai/technology/ai/",
     },
     {
+        # Gemini-specific channel RSS, more precise than the general Google AI
+        # Blog / DeepMind feeds above for Gemini product/model coverage.
+        "title": "Google Gemini Blog",
+        "xml_url": "https://blog.google/products-and-platforms/products/gemini/rss/",
+        "html_url": "https://blog.google/products/gemini/",
+    },
+    {
         "title": "Hugging Face Blog",
         "xml_url": "https://huggingface.co/blog/feed.xml",
         "html_url": "https://huggingface.co/blog",
@@ -117,6 +129,43 @@ OFFICIAL_AI_FEEDS: tuple[dict[str, str], ...] = (
         "xml_url": "https://github.com/openai/skills/commits/main.atom",
         "html_url": "https://github.com/openai/skills",
         "include_keywords": "hatch,pet,migrate-to-codex",
+    },
+    {
+        # Official NVIDIA blog RSS (nvidianews.nvidia.com does not expose a
+        # working /rss feed; this is NVIDIA's actual public feed and mixes
+        # GeForce/gaming posts with AI posts, so it relies on the shared
+        # downstream ai_relevance_score gate like GitHub Changelog does.
+        "title": "NVIDIA Blog",
+        "xml_url": "https://blogs.nvidia.com/feed/",
+        "html_url": "https://blogs.nvidia.com/",
+    },
+    {
+        # news.microsoft.com/feed/ ("Microsoft News") was probed first but its
+        # RSS has not published a new item since May 2025 (stale/inactive), so
+        # every entry fails the OFFICIAL_AI_MAX_AGE_DAYS window. Using the
+        # actively updated Microsoft (corporate) Blog feed instead, which is
+        # heavily AI-focused already and filtered downstream like NVIDIA Blog.
+        "title": "Microsoft Blog",
+        "xml_url": "https://blogs.microsoft.com/feed/",
+        "html_url": "https://blogs.microsoft.com/",
+    },
+    {
+        # AWS "What's New" feed (aws.amazon.com/new). Broad service-update
+        # firehose; AI-relevant entries (Bedrock, SageMaker, etc.) are kept
+        # by the downstream ai_relevance_score gate.
+        "title": "AWS News",
+        "xml_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/",
+        "html_url": "https://aws.amazon.com/new/",
+    },
+    {
+        # cloud.google.com/blog/rss/ returns 200 with 0 parseable entries and
+        # no autodiscovery link (no working native feed found), so this
+        # queries Google News scoped to Google's own blog domain instead,
+        # same rescue pattern as the Reuters entry below.
+        "title": "Google Cloud Blog (Google News)",
+        "xml_url": "https://news.google.com/rss/search?q=site%3Acloud.google.com%2Fblog+AI+when%3A7d&hl=en-US&gl=US&ceid=US%3Aen",
+        "html_url": "https://cloud.google.com/blog/",
+        "include_keywords": "ai",
     },
 )
 OFFICIAL_AI_MAX_AGE_DAYS = 45
@@ -171,6 +220,145 @@ CURATED_AI_MEDIA_FEEDS: tuple[dict[str, Any], ...] = (
         "html_url": "https://github.com/anthropics/claude-code/releases",
         "max_entries": 6,
     },
+    {
+        "title": "CNBC Technology",
+        "xml_url": "https://www.cnbc.com/id/19854910/device/rss/rss.html",
+        "html_url": "https://www.cnbc.com/technology/",
+        "include_keywords": "ai,artificial intelligence,openai,anthropic,claude,chatgpt,gpt,llm,machine learning,ai chip,ai chips,nvidia,deepseek,gemini",
+        "max_entries": 6,
+        "strict_title_filter": True,
+    },
+    {
+        # lmarena.ai (formerly LMSYS Chatbot Arena) blog; redirects to
+        # arena.ai/blog/rss/. Entire feed is AI model evaluation content, so
+        # it is listed in CURATED_MEDIA_TRUSTED_SOURCE_KEYWORDS to bypass the
+        # per-title AI keyword check like other narrow-topic trusted feeds.
+        "title": "LMArena Blog",
+        "xml_url": "https://blog.lmarena.ai/rss/",
+        "html_url": "https://lmarena.ai/blog",
+        "max_entries": 6,
+    },
+    {
+        # Reuters closed its own public RSS; this queries Google News for
+        # Reuters AI coverage instead. Titles/links point back to the
+        # original Reuters article via Google News's redirect link.
+        "title": "Reuters AI (Google News)",
+        "xml_url": "https://news.google.com/rss/search?q=site:reuters.com%20AI%20when:2d&hl=en-US&gl=US&ceid=US:en",
+        "html_url": "https://www.reuters.com/technology/artificial-intelligence/",
+        "include_keywords": "ai",
+        "max_entries": 10,
+        "strict_title_filter": True,
+    },
+    {
+        # The Information's own /feed and /feed.rss return 403 Forbidden even
+        # with a browser UA (Cloudflare/bot block); rescued via Google News,
+        # same pattern as Reuters. Titles/summaries only, no paywall bypass.
+        "title": "The Information (Google News)",
+        "xml_url": "https://news.google.com/rss/search?q=site%3Atheinformation.com+AI+when%3A7d&hl=en-US&gl=US&ceid=US%3Aen",
+        "html_url": "https://www.theinformation.com/",
+        "include_keywords": "ai",
+        "max_entries": 10,
+        "strict_title_filter": True,
+    },
+    {
+        # ai.meta.com/blog/ returns 400 to non-browser requests (no working
+        # feed, scraping is also unreliable), so this is third-party coverage
+        # of Meta AI/Meta FAIR via Google News, not Meta's own blog content.
+        "title": "Meta AI (Google News)",
+        "xml_url": "https://news.google.com/rss/search?q=%28%22Meta+AI%22+OR+%22Meta+FAIR%22%29+when%3A7d&hl=en-US&gl=US&ceid=US%3Aen",
+        "html_url": "https://ai.meta.com/",
+        "include_keywords": "ai",
+        "max_entries": 8,
+        "strict_title_filter": True,
+    },
+    {
+        # DeepSeek has no official blog RSS; third-party news coverage via
+        # Google News instead.
+        "title": "DeepSeek (Google News)",
+        "xml_url": "https://news.google.com/rss/search?q=DeepSeek+AI+model+when%3A3d&hl=en-US&gl=US&ceid=US%3Aen",
+        "html_url": "https://www.deepseek.com/",
+        "include_keywords": "ai,deepseek",
+        "max_entries": 8,
+        "strict_title_filter": True,
+    },
+    {
+        # docs.x.ai has no RSS changelog/release feed; third-party news
+        # coverage of xAI/Grok via Google News instead.
+        "title": "xAI / Grok (Google News)",
+        "xml_url": "https://news.google.com/rss/search?q=%28xAI+OR+%22Elon+Musk%22+Grok+OR+%22Grok+4%22+OR+%22Grok+5%22%29+when%3A7d&hl=en-US&gl=US&ceid=US%3Aen",
+        "html_url": "https://x.ai/news",
+        "include_keywords": "xai,grok",
+        "max_entries": 8,
+        "strict_title_filter": True,
+    },
+    {
+        # epoch.ai has no RSS/Atom feed (probed /rss.xml, /feed.xml,
+        # /blog/feed.xml, /gradient-updates/rss.xml, /data-insights/rss.xml,
+        # homepage autodiscovery: none found); rescued via Google News scoped
+        # to their own domain. Listed in CURATED_MEDIA_TRUSTED_SOURCE_KEYWORDS
+        # since the whole feed is AI benchmark/forecasting research.
+        "title": "Epoch AI (Google News)",
+        "xml_url": "https://news.google.com/rss/search?q=site%3Aepoch.ai+when%3A14d&hl=en-US&gl=US&ceid=US%3Aen",
+        "html_url": "https://epoch.ai/",
+        "max_entries": 8,
+    },
+)
+TW_MEDIA_MAX_AGE_DAYS = 5
+# Taiwan zh-TW tech media, own site_id/source tier so they are tracked
+# separately from the Simplified-Chinese-leaning CURATED_AI_MEDIA_FEEDS group.
+# Both are general tech/IT outlets, not AI-only, so entries are pre-filtered
+# by title keyword here and re-checked by the shared ai_relevance_score gate,
+# which needs the zh-TW AI_KEYWORDS additions (see AI_KEYWORDS above) to
+# recognize terms such as 人工智慧/機器學習 instead of only Simplified forms.
+TW_MEDIA_INCLUDE_KEYWORDS = (
+    "ai,openai,anthropic,claude,chatgpt,gpt,gemini,llm,人工智慧,人工智能,大型語言模型,"
+    "大模型,語言模型,機器學習,深度學習,生成式ai,生成式人工智慧,智慧體,智能體,演算法,"
+    "晶片,輝達,nvidia,英偉達"
+)
+TW_MEDIA_FEEDS: tuple[dict[str, Any], ...] = (
+    {
+        "title": "iThome",
+        "xml_url": "https://www.ithome.com.tw/rss",
+        "html_url": "https://www.ithome.com.tw/",
+        "include_keywords": TW_MEDIA_INCLUDE_KEYWORDS,
+        "max_entries": 8,
+        "strict_title_filter": True,
+    },
+    {
+        "title": "TechNews 科技新報",
+        "xml_url": "https://technews.tw/feed/",
+        "html_url": "https://technews.tw/",
+        "include_keywords": TW_MEDIA_INCLUDE_KEYWORDS,
+        "max_entries": 8,
+        "strict_title_filter": True,
+    },
+    {
+        # bnext.com.tw ("數位時代") has no RSS/Atom feed (probed /feed,
+        # /feed.xml, /articles/rss, homepage autodiscovery: none found);
+        # rescued via a zh-TW Google News query scoped to their own domain,
+        # same pattern as Reuters/The Information above.
+        "title": "數位時代 (Google News)",
+        "xml_url": (
+            "https://news.google.com/rss/search?q=site%3Abnext.com.tw+"
+            "%28AI+OR+%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7+OR+%E5%A4%A7%E6%A8%A1%E5%9E%8B+OR+ChatGPT%29"
+            "+when%3A7d&hl=zh-TW&gl=TW&ceid=TW%3Azh-Hant"
+        ),
+        "html_url": "https://www.bnext.com.tw/",
+        "include_keywords": TW_MEDIA_INCLUDE_KEYWORDS,
+        "max_entries": 8,
+        "strict_title_filter": True,
+    },
+)
+KR36_AI_FEED_URL = "https://36kr.com/feed"
+KR36_AI_MAX_AGE_DAYS = 3
+KR36_AI_MAX_ENTRIES = 10
+# 36Kr has no dedicated AI-channel feed (probed /feed-ai, /feed-motif/*,
+# /information/AI: none expose RSS/Atom), so the general site feed is used
+# with a Simplified-Chinese title pre-filter, then converted to Traditional
+# Chinese (OpenCC s2twp) for display. Watchlist tier: observed, not yet
+# promoted to a trusted default source.
+KR36_AI_INCLUDE_KEYWORDS = (
+    "ai,人工智能,大模型,大语言模型,智能体,机器人,算力,大模型,生成式ai,深度学习,机器学习,芯片,英伟达,nvidia"
 )
 AIBREAKFAST_JINA_URL = "https://r.jina.ai/https://aibreakfast.beehiiv.com/"
 AIHOT_ITEMS_API_URL = "https://aihot.virxact.com/api/public/items"
@@ -1547,7 +1735,7 @@ def fetch_feed_as_official_items(
             continue
         if include_keywords:
             haystack = f"{title} {link}".lower()
-            if not any(keyword in haystack for keyword in include_keywords):
+            if not any(_feed_keyword_matches(keyword, haystack) for keyword in include_keywords):
                 continue
         published = (
             parse_date_any(entry.get("published"), now)
@@ -1596,6 +1784,19 @@ def feed_keywords(feed: dict[str, Any]) -> list[str]:
     ]
 
 
+# Short ASCII keywords whose plain substring match false-positives on common
+# English words (e.g. "ai" inside "training", "raising", "AirPods"). These are
+# matched with word boundaries instead; longer/CJK keywords keep substring
+# matching since they are not prone to the same collision.
+_KEYWORD_WORD_BOUNDARY_ONLY = {"ai"}
+
+
+def _feed_keyword_matches(keyword: str, haystack: str) -> bool:
+    if keyword in _KEYWORD_WORD_BOUNDARY_ONLY:
+        return re.search(rf"(?<![a-z0-9]){re.escape(keyword)}(?![a-z0-9])", haystack) is not None
+    return keyword in haystack
+
+
 def curated_feed_entry_allowed(feed: dict[str, Any], title: str, link: str) -> bool:
     include_keywords = feed_keywords(feed)
     if not include_keywords:
@@ -1603,7 +1804,7 @@ def curated_feed_entry_allowed(feed: dict[str, Any], title: str, link: str) -> b
     haystack = title.lower()
     if not feed.get("strict_title_filter"):
         haystack = f"{haystack} {link.lower()} {feed.get('title', '').lower()}"
-    return any(keyword in haystack for keyword in include_keywords)
+    return any(_feed_keyword_matches(keyword, haystack) for keyword in include_keywords)
 
 
 def parse_curated_ai_media_feed_items(
@@ -1710,6 +1911,148 @@ def fetch_official_ai_updates(session: requests.Session, now: datetime) -> list[
     if not out:
         raise ValueError("No official AI update sources returned items")
 
+    return out
+
+
+def fetch_tw_media(session: requests.Session, now: datetime) -> list[RawItem]:
+    site_id = "tw_media"
+    site_name = "TW Media"
+    out: list[RawItem] = []
+    failures: list[str] = []
+
+    for feed in TW_MEDIA_FEEDS:
+        try:
+            resp = session.get(
+                str(feed["xml_url"]),
+                timeout=20,
+                headers={
+                    "User-Agent": BROWSER_UA,
+                    "Accept-Language": "zh-TW,zh;q=0.9,en;q=0.8",
+                    "Accept": "application/rss+xml, application/atom+xml, application/xml, text/xml, */*",
+                },
+            )
+            resp.raise_for_status()
+            if feedparser is not None:
+                parsed = feedparser.parse(resp.content)
+                entries = list(parsed.entries)
+            else:
+                entries = parse_feed_entries_via_xml(resp.content)
+
+            feed_title = str(feed["title"])
+            max_entries = max(1, int(feed.get("max_entries") or 8))
+            seen_urls: set[str] = set()
+            count = 0
+            for entry in entries:
+                title, link, published = feed_entry_title_link_published(entry, now)
+                if not title or not link or not published:
+                    continue
+                if published < now - timedelta(days=TW_MEDIA_MAX_AGE_DAYS):
+                    continue
+                if not curated_feed_entry_allowed(feed, title, link):
+                    continue
+                normalized_url = normalize_url(link)
+                if normalized_url in seen_urls:
+                    continue
+                seen_urls.add(normalized_url)
+                out.append(
+                    RawItem(
+                        site_id=site_id,
+                        site_name=site_name,
+                        source=feed_title,
+                        title=title,
+                        url=link,
+                        published_at=published,
+                        meta={
+                            "feed_url": str(feed["xml_url"]),
+                            "feed_home": feed.get("html_url") or "",
+                        },
+                    )
+                )
+                count += 1
+                if count >= max_entries:
+                    break
+        except Exception:
+            failures.append(str(feed.get("title") or feed.get("xml_url") or "unknown"))
+
+    if not out and failures:
+        raise ValueError(f"No TW media items parsed; failed feeds: {', '.join(failures[:4])}")
+    return out
+
+
+def fetch_kr36_ai(session: requests.Session, now: datetime) -> list[RawItem]:
+    """Watchlist source: 36Kr has no dedicated AI-channel feed, so the general
+    site feed is title-filtered for AI keywords, then converted from
+    Simplified to Traditional Chinese (OpenCC s2twp) for display. This
+    conversion is scoped to this fetcher only and does not affect other
+    sources.
+    """
+    site_id = "kr36_ai"
+    site_name = "36Kr AI (Watchlist)"
+
+    try:
+        from opencc import OpenCC
+
+        converter = OpenCC("s2twp")
+    except ModuleNotFoundError:
+        converter = None
+
+    resp = session.get(
+        KR36_AI_FEED_URL,
+        timeout=20,
+        headers={
+            "User-Agent": BROWSER_UA,
+            "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+            "Accept": "application/rss+xml, application/xml, text/xml, */*",
+        },
+    )
+    resp.raise_for_status()
+
+    if feedparser is not None:
+        parsed = feedparser.parse(resp.content)
+        entries = list(parsed.entries)
+    else:
+        entries = parse_feed_entries_via_xml(resp.content)
+
+    include_keywords = [
+        keyword.strip().lower() for keyword in KR36_AI_INCLUDE_KEYWORDS.split(",") if keyword.strip()
+    ]
+
+    out: list[RawItem] = []
+    seen_urls: set[str] = set()
+    for entry in entries:
+        title, link, published = feed_entry_title_link_published(entry, now)
+        if not title or not link or not published:
+            continue
+        if published < now - timedelta(days=KR36_AI_MAX_AGE_DAYS):
+            continue
+        if not any(_feed_keyword_matches(keyword, title.lower()) for keyword in include_keywords):
+            continue
+        normalized_url = normalize_url(link)
+        if normalized_url in seen_urls:
+            continue
+        seen_urls.add(normalized_url)
+
+        display_title = converter.convert(title) if converter else title
+        out.append(
+            RawItem(
+                site_id=site_id,
+                site_name=site_name,
+                source="36Kr",
+                title=maybe_fix_mojibake(display_title),
+                url=link,
+                published_at=published,
+                meta={
+                    "feed_url": KR36_AI_FEED_URL,
+                    "feed_home": "https://36kr.com/",
+                    "title_zh_conversion": "opencc_s2twp" if converter else "none",
+                },
+            )
+        )
+        if len(out) >= KR36_AI_MAX_ENTRIES:
+            break
+
+    if not out:
+        raise ValueError("No 36Kr AI items parsed")
     return out
 
 
@@ -2289,19 +2632,15 @@ def collect_all(session: requests.Session, now: datetime) -> tuple[list[RawItem]
     tasks = [
         ("official_ai", "Official AI Updates", fetch_official_ai_updates),
         ("curated_media", "Curated Media", fetch_curated_ai_media),
-        ("aibreakfast", "AI Breakfast", fetch_ai_breakfast),
-        ("followbuilders", "Follow Builders", fetch_follow_builders),
         ("techurls", "TechURLs", fetch_techurls),
-        ("buzzing", "Buzzing", fetch_buzzing),
         ("iris", "Info Flow", fetch_iris),
-        ("bestblogs", "BestBlogs", fetch_bestblogs),
-        ("tophub", "TopHub", fetch_tophub),
-        ("zeli", "Zeli", fetch_zeli),
-        ("hackernews", "Hacker News", fetch_hacker_news_algolia),
-        ("aihubtoday", "AI HubToday", fetch_ai_hubtoday),
         ("aibase", "AIbase", fetch_aibase),
-        ("aihot", "AI HOT", fetch_aihot),
-        ("newsnow", "NewsNow", fetch_newsnow),
+        ("tw_media", "TW Media", fetch_tw_media),
+        ("kr36_ai", "36Kr AI (Watchlist)", fetch_kr36_ai),
+        # Removed from the default task list by source curation (2026-07-14):
+        # tophub, buzzing, aihot, newsnow, zeli, aibreakfast, aihubtoday,
+        # followbuilders, bestblogs, hackernews. Their fetch_*() functions are
+        # kept intact above for rollback; re-add the tuple line to restore.
     ]
 
     raw_items: list[RawItem] = []
@@ -2759,6 +3098,8 @@ SOURCE_TIER_BY_SITE: dict[str, tuple[str, str, int]] = {
     "zeli": ("discussion", "热议参考", 5),
     "hackernews": ("discussion", "热议参考", 5),
     "newsnow": ("discussion", "热议参考", 5),
+    "tw_media": ("tw_media", "台灣繁中媒體", 2),
+    "kr36_ai": ("watchlist", "观察名单源", 6),
 }
 
 SOURCE_TIER_IMPORTANCE = {
@@ -2771,6 +3112,8 @@ SOURCE_TIER_IMPORTANCE = {
     "self_media": 0.48,
     "advanced": 0.45,
     "discussion": 0.32,
+    "tw_media": 0.56,
+    "watchlist": 0.3,
     "other": 0.25,
 }
 
@@ -2878,6 +3221,25 @@ AI_KEYWORDS = [
     "算力",
     "推理",
     "微调",
+    # Traditional Chinese / Taiwan usage variants, mirrored from
+    # scripts/ai_relevance.py so zh-TW sources like iThome/TechNews are
+    # scored consistently between the gatekeeper filter and this ranking copy.
+    "人工智慧",
+    "機器學習",
+    "深度學習",
+    "大型語言模型",
+    "語言模型",
+    "生成式人工智慧",
+    "生成式ai",
+    "智慧體",
+    "智能體",
+    "多模態",
+    "基礎模型",
+    "視覺語言模型",
+    "具身智慧",
+    "演算法",
+    "微調",
+    "神經網路",
 ]
 
 TECH_KEYWORDS = [
@@ -2900,6 +3262,14 @@ TECH_KEYWORDS = [
     "芯片",
     "机器人",
     "具身",
+    # Traditional Chinese / Taiwan usage variants.
+    "開源",
+    "技術",
+    "編程",
+    "程式設計",
+    "軟體",
+    "晶片",
+    "機器人",
 ]
 
 NOISE_KEYWORDS = [
@@ -5368,21 +5738,7 @@ def main() -> int:
             )
 
     waytoagi_started = time.perf_counter()
-    try:
-        waytoagi_payload = fetch_waytoagi_recent_7d(session, now, WAYTOAGI_DEFAULT)
-        waytoagi_items = waytoagi_updates_to_raw_items(waytoagi_payload, now)
-        raw_items.extend(waytoagi_items)
-        statuses.append(
-            {
-                "site_id": "waytoagi",
-                "site_name": "WaytoAGI",
-                "ok": True,
-                "item_count": len(waytoagi_items),
-                "duration_ms": int((time.perf_counter() - waytoagi_started) * 1000),
-                "error": None,
-            }
-        )
-    except Exception as exc:
+    if not WAYTOAGI_ENABLED:
         waytoagi_payload = {
             "generated_at": iso(now),
             "timezone": "Asia/Shanghai",
@@ -5391,20 +5747,60 @@ def main() -> int:
             "window_days": 7,
             "count_7d": 0,
             "updates_7d": [],
-            "warning": "WaytoAGI 近7日更新抓取失败",
-            "has_error": True,
-            "error": str(exc),
+            "warning": "WaytoAGI disabled by source curation (WAYTOAGI_ENABLED=False)",
+            "has_error": False,
+            "error": None,
         }
         statuses.append(
             {
                 "site_id": "waytoagi",
                 "site_name": "WaytoAGI",
-                "ok": False,
+                "ok": True,
                 "item_count": 0,
-                "duration_ms": int((time.perf_counter() - waytoagi_started) * 1000),
-                "error": str(exc),
+                "duration_ms": 0,
+                "error": None,
+                "skipped": True,
+                "skip_reason": "disabled_by_source_curation",
             }
         )
+    else:
+        try:
+            waytoagi_payload = fetch_waytoagi_recent_7d(session, now, WAYTOAGI_DEFAULT)
+            waytoagi_items = waytoagi_updates_to_raw_items(waytoagi_payload, now)
+            raw_items.extend(waytoagi_items)
+            statuses.append(
+                {
+                    "site_id": "waytoagi",
+                    "site_name": "WaytoAGI",
+                    "ok": True,
+                    "item_count": len(waytoagi_items),
+                    "duration_ms": int((time.perf_counter() - waytoagi_started) * 1000),
+                    "error": None,
+                }
+            )
+        except Exception as exc:
+            waytoagi_payload = {
+                "generated_at": iso(now),
+                "timezone": "Asia/Shanghai",
+                "root_url": WAYTOAGI_DEFAULT,
+                "history_url": None,
+                "window_days": 7,
+                "count_7d": 0,
+                "updates_7d": [],
+                "warning": "WaytoAGI 近7日更新抓取失败",
+                "has_error": True,
+                "error": str(exc),
+            }
+            statuses.append(
+                {
+                    "site_id": "waytoagi",
+                    "site_name": "WaytoAGI",
+                    "ok": False,
+                    "item_count": 0,
+                    "duration_ms": int((time.perf_counter() - waytoagi_started) * 1000),
+                    "error": str(exc),
+                }
+            )
 
     if args.rss_opml:
         opml_path = Path(args.rss_opml).expanduser()
