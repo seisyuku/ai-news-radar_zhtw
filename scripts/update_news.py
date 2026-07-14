@@ -652,6 +652,116 @@ def to_zh_hant(text: str) -> str:
         return s
 
 
+# --- Business-event tagging (feature/business-signal) ---
+# Category codes are stable, machine-facing identifiers written to
+# `business_events`; display labels (\u8ca1\u5831/\u5e02\u4f54/\u8cc7\u5b89/\u50f9\u683c/\u8a55\u6e2c) live in
+# assets/app.js's BUSINESS_EVENT_LABELS, not here, so the JSON output stays
+# language-neutral for API consumers.
+BUSINESS_EVENT_KEYWORDS: dict[str, tuple[str, ...]] = {
+    "earnings": (
+        "\u8ca1\u5831", "\u71df\u6536", "\u5b63\u5831", "\u5b63\u5ea6\u8ca1\u5831", "\u8ca1\u6e2c", "\u8ca1\u52d9\u696d\u7e3e", "\u696d\u7e3e", "\u7372\u5229", "\u6de8\u5229",
+        "\u6de8\u5229\u6f64", "\u6bdb\u5229", "\u6bdb\u5229\u7387", "\u8667\u640d", "\u71df\u904b\u8667\u640d", "\u5e02\u503c", "\u80a1\u50f9", "\u80a1\u6771", "\u80a1\u6771\u5927\u6703",
+        "\u5e74\u5831", "\u8ca1\u653f\u5e74\u5ea6", "\u8ca1\u5e74", "\u6bcf\u80a1\u76c8\u9918", "\u8ca1\u5831\u96fb\u8a71\u6703\u8b70", "\u8ca1\u5831\u6703\u8b70",
+        "earnings", "revenue", "guidance", "quarter", "quarterly", "fiscal",
+        "profit", "net income", "gross margin", "operating loss", "market cap",
+        "market capitalization", "stock price", "eps", "earnings call",
+        "earnings report", "financial results", "q1", "q2", "q3", "q4",
+        "fiscal year", "shareholder",
+    ),
+    "market": (
+        "\u5e02\u4f54\u7387", "\u5e02\u4f54", "\u5e02\u5834\u4efd\u984d", "\u4f75\u8cfc", "\u6536\u8cfc", "\u6536\u8cfc\u6848", "\u4f75\u8cfc\u6848", "\u5408\u4f75",
+        "\u53cd\u58df\u65b7", "\u53cd\u6258\u62c9\u65af", "\u58df\u65b7", "\u58df\u65b7\u8abf\u67e5", "\u7368\u4f54", "\u5be1\u4f54", "\u5e02\u5834\u683c\u5c40",
+        "\u7522\u696d\u6574\u5408", "\u76e3\u7ba1\u8abf\u67e5", "\u4ea4\u6613\u6848", "\u7af6\u722d\u683c\u5c40",
+        "market share", "acquisition", "merger", "m&a", "antitrust", "monopoly",
+        "anti-competitive", "regulatory probe", "market dominance", "consolidation",
+        "takeover", "buyout", "hostile takeover", "competition watchdog",
+    ),
+    "security": (
+        "\u6f0f\u6d1e", "\u8cc7\u5b89", "\u8cc7\u5b89\u4e8b\u4ef6", "\u8cc7\u5b89\u6f0f\u6d1e", "\u8cc7\u6599\u5916\u6d29", "\u6d29\u9732", "\u99ed\u5ba2", "\u99ed\u5ba2\u653b\u64ca",
+        "\u653b\u64ca", "\u96f6\u6642\u5dee", "\u96f6\u65e5\u6f0f\u6d1e", "\u5165\u4fb5", "\u60e1\u610f\u8edf\u9ad4", "\u52d2\u7d22\u8edf\u9ad4", "\u8cc7\u5b89\u98a8\u96aa",
+        "\u5b89\u5168\u6027\u6f0f\u6d1e", "\u4fee\u88dc\u7a0b\u5f0f", "\u5b89\u5168\u6f0f\u6d1e", "\u8cc7\u5b89\u901a\u5831", "\u63d0\u793a\u6ce8\u5165", "\u8d8a\u7344",
+        "cve", "vulnerability", "vulnerabilities", "exploit", "breach", "zero-day",
+        "hacker", "hacking", "malware", "ransomware", "data breach",
+        "security flaw", "patch", "security incident", "remote code execution",
+        "rce", "prompt injection", "jailbreak",
+    ),
+    "pricing": (
+        "\u964d\u50f9", "\u6f32\u50f9", "\u8abf\u6f32", "\u8abf\u964d", "\u5b9a\u50f9", "\u514d\u8cbb\u65b9\u6848", "\u6536\u8cbb\u65b9\u6848", "\u8a02\u95b1\u65b9\u6848",
+        "\u8cc7\u8cbb", "\u50f9\u683c\u65b9\u6848", "\u50f9\u683c\u8abf\u6574", "\u65b9\u6848\u8abf\u6574", "\u512a\u60e0\u65b9\u6848", "\u6298\u6263", "\u8a08\u8cbb\u65b9\u5f0f",
+        "api \u50f9\u683c", "api\u5b9a\u50f9",
+        "price cut", "price increase", "price hike", "pricing", "discount",
+        "free tier", "subscription plan", "pricing plan", "api pricing",
+        "billing", "price drop", "price change",
+    ),
+    "benchmark": (
+        "\u8a55\u6e2c", "\u8dd1\u5206", "\u6392\u884c\u699c", "\u52dd\u7387", "\u57fa\u6e96\u6e2c\u8a66", "\u8a55\u6bd4", "\u5c0d\u6c7a", "\u7af6\u6280\u5834",
+        "\u6392\u540d", "\u6e2c\u8a66\u7d50\u679c", "\u8a55\u6e2c\u7d50\u679c", "\u8dd1\u5206\u6210\u7e3e",
+        "benchmark", "benchmarks", "sota", "state of the art", "leaderboard",
+        "win rate", "eval", "evaluation", "arena", "top score", "ranking",
+    ),
+}
+
+# Short ASCII tokens in BUSINESS_EVENT_KEYWORDS prone to false substring
+# matches inside unrelated words (mirrors _KEYWORD_WORD_BOUNDARY_ONLY below).
+_BUSINESS_KEYWORD_WORD_BOUNDARY_ONLY = {
+    "q1", "q2", "q3", "q4", "eps", "rce", "cve", "sota", "eval", "arena",
+    "m&a",
+}
+
+_BUSINESS_EVENT_S2T = None
+_BUSINESS_EVENT_S2T_LOAD_FAILED = False
+
+
+def _business_event_normalize(text: str) -> str:
+    """Character-level Simplified->Traditional normalization (OpenCC s2t,
+    not s2twp) so BUSINESS_EVENT_KEYWORDS (written in Traditional) match
+    both Simplified- and Traditional-sourced titles/summaries. s2t only
+    remaps individual character glyphs, not phrases, so unlike to_zh_hant()
+    it is safe to run on already-Traditional or English text without the
+    s2twp phrase-duplication risk.
+    """
+    global _BUSINESS_EVENT_S2T, _BUSINESS_EVENT_S2T_LOAD_FAILED
+    s = (text or "").lower()
+    if not s or _BUSINESS_EVENT_S2T_LOAD_FAILED:
+        return s
+    if _BUSINESS_EVENT_S2T is None:
+        try:
+            from opencc import OpenCC
+
+            _BUSINESS_EVENT_S2T = OpenCC("s2t")
+        except Exception:
+            _BUSINESS_EVENT_S2T_LOAD_FAILED = True
+            return s
+    try:
+        return _BUSINESS_EVENT_S2T.convert(s)
+    except Exception:
+        return s
+
+
+def _business_keyword_matches(keyword: str, haystack: str) -> bool:
+    if keyword in _BUSINESS_KEYWORD_WORD_BOUNDARY_ONLY:
+        return re.search(rf"(?<![a-z0-9]){re.escape(keyword)}(?![a-z0-9])", haystack) is not None
+    return keyword in haystack
+
+
+def business_event_score(item: dict[str, Any]) -> list[str]:
+    """Return the sorted list of BUSINESS_EVENT_KEYWORDS category codes
+    whose keywords appear in this item's title+summary. Empty list means no
+    business-event category matched.
+    """
+    title = str(item.get("title") or "")
+    summary = str(item.get("summary") or "")
+    haystack = _business_event_normalize(f"{title} {summary}")
+    if not haystack.strip():
+        return []
+    hits = [
+        category
+        for category, keywords in BUSINESS_EVENT_KEYWORDS.items()
+        if any(_business_keyword_matches(kw, haystack) for kw in keywords)
+    ]
+    return hits
+
+
 def has_cjk(text: str) -> bool:
     return bool(re.search(r"[\u4e00-\u9fff]", text or ""))
 
@@ -5417,6 +5527,11 @@ def build_story_record(
     source_names = sorted({str(item.get("source") or item.get("site_name") or "") for item in sorted_items if item.get("source") or item.get("site_name")})
     title = primary.get("title_bilingual") or primary.get("title")
     url = primary.get("url")
+    business_events = sorted({
+        category
+        for item in sorted_items
+        for category in (item.get("business_events") or [])
+    })
     return {
         "story_id": story_id,
         "title": title,
@@ -5427,6 +5542,7 @@ def build_story_record(
         "sources": source_refs,
         "source_count": len(source_refs),
         "source_names": source_names,
+        "business_events": business_events,
         "items": source_refs,
         "item_count": len(sorted_items),
         "duplicate_count": len(sorted_items),
@@ -5653,6 +5769,7 @@ def build_creator_hot_items(
             str(normalized.get("source") or ""),
             str(normalized.get("url") or ""),
         ))
+        normalized["business_events"] = business_event_score(normalized)
         normalized = add_ai_relevance_fields(normalized)
         if ai_only and not normalized.get("ai_is_related", is_ai_related_record(normalized)):
             continue
@@ -5952,6 +6069,7 @@ def main() -> int:
                 str(normalized.get("title") or "")
             ):
                 continue
+            normalized["business_events"] = business_event_score(normalized)
             normalized = add_ai_relevance_fields(normalized)
             normalized = add_source_tier_fields(normalized)
             latest_items_all.append(normalized)
