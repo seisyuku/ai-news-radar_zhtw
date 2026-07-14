@@ -399,7 +399,7 @@ class TopicFilterTests(unittest.TestCase):
             "url": "https://example.com/codex",
         }
         ai_items, _, _ = add_bilingual_fields([item], [item], NoNetworkSession(), {}, 80)
-        self.assertEqual(ai_items[0]["title_zh"], "Codex 加入 ChatGPT 桌面应用")
+        self.assertEqual(ai_items[0]["title_zh"], "Codex 加入 ChatGPT 桌面應用")
         self.assertEqual(ai_items[0]["title_en"], "Codex joins the ChatGPT desktop app")
         self.assertEqual(ai_items[0]["title_original"], "Codex joins the ChatGPT desktop app")
         self.assertEqual(ai_items[0]["summary"], "中文编辑摘要")
@@ -893,7 +893,7 @@ class TopicFilterTests(unittest.TestCase):
         self.assertEqual(source_tier_for_site("socialdata_x")["source_tier"], "advanced")
         self.assertEqual(source_tier_for_site("tikhub_xiaohongshu")["source_tier"], "self_media")
         self.assertEqual(source_tier_for_site("zeli")["source_tier"], "discussion")
-        self.assertEqual(source_tier_for_site("newsnow")["source_tier_label"], "热议参考")
+        self.assertEqual(source_tier_for_site("newsnow")["source_tier_label"], "熱議參考")
 
     def test_source_tier_fields_and_sort_put_discussion_after_core_sources(self):
         official = add_source_tier_fields(
@@ -917,7 +917,7 @@ class TopicFilterTests(unittest.TestCase):
             }
         )
         self.assertEqual(official["source_tier_label"], "官方一手源")
-        self.assertEqual(discussion["source_tier_label"], "热议参考")
+        self.assertEqual(discussion["source_tier_label"], "熱議參考")
         self.assertLess(source_tier_sort_key(official), source_tier_sort_key(discussion))
 
     def test_dedupe_prefers_core_source_over_newer_discussion_duplicate(self):

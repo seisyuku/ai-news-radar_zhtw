@@ -77,7 +77,7 @@ def test_waytoagi_latest_updates_become_community_raw_items():
     assert len(items) == 1
     assert items[0].site_id == "waytoagi"
     assert items[0].site_name == "WaytoAGI"
-    assert items[0].source == "社区更新 · 2026-06-15"
+    assert items[0].source == "社群更新 · 2026-06-15"
     assert items[0].published_at == NOW
 
 
