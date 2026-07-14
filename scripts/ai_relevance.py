@@ -50,6 +50,25 @@ AI_KEYWORDS = [
     "算力",
     "推理",
     "微调",
+    # Traditional Chinese / Taiwan usage variants (OpenCC s2twp targets and
+    # native zh-TW tech media wording), kept alongside the Simplified forms
+    # above so zh-TW sources like iThome/TechNews are not dropped on language.
+    "人工智慧",
+    "機器學習",
+    "深度學習",
+    "大型語言模型",
+    "語言模型",
+    "生成式人工智慧",
+    "生成式ai",
+    "智慧體",
+    "智能體",
+    "多模態",
+    "基礎模型",
+    "視覺語言模型",
+    "具身智慧",
+    "演算法",
+    "微調",
+    "神經網路",
 ]
 
 TECH_KEYWORDS = [
@@ -80,6 +99,14 @@ TECH_KEYWORDS = [
     "芯片",
     "机器人",
     "具身",
+    # Traditional Chinese / Taiwan usage variants.
+    "開源",
+    "技術",
+    "編程",
+    "程式設計",
+    "軟體",
+    "晶片",
+    "機器人",
 ]
 
 NOISE_KEYWORDS = [
@@ -172,6 +199,8 @@ SOURCE_PRIORS = {
     "opmlrss": 0.15,
     "xapi": 0.15,
     "socialdata_x": 0.15,
+    "tw_media": 0.15,
+    "kr36_ai": 0.1,
 }
 AI_DEFAULT_SOURCES = {"aibase", "aihot", "aihubtoday"}
 CURATED_MEDIA_TRUSTED_SOURCE_KEYWORDS = [
@@ -180,6 +209,8 @@ CURATED_MEDIA_TRUSTED_SOURCE_KEYWORDS = [
     "venturebeat ai",
     "artificial intelligence news",
     "claude code releases",
+    "lmarena blog",
+    "epoch ai",
 ]
 CURATED_MEDIA_RESEARCH_SOURCE_KEYWORDS = [
     "marktechpost research",
