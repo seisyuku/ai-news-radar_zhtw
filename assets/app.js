@@ -117,6 +117,46 @@ const SECTION_DEFS = [
 
 const SECTION_BY_ID = Object.fromEntries(SECTION_DEFS.map((section) => [section.id, section]));
 
+// feature/business-signal: category codes match scripts/update_news.py's
+// BUSINESS_EVENT_KEYWORDS keys exactly. Tones reuse existing tone-* CSS
+// classes (see itemTagTone/story-importance) instead of introducing new ones.
+const BUSINESS_EVENT_LABELS = {
+  earnings: { label: "財報", tone: "industry" },
+  market: { label: "市佔", tone: "industry" },
+  security: { label: "資安", tone: "strong" },
+  pricing: { label: "價格", tone: "products" },
+  benchmark: { label: "評測", tone: "research" },
+};
+
+function businessEventBadges(events) {
+  return (Array.isArray(events) ? events : [])
+    .map((code) => BUSINESS_EVENT_LABELS[code])
+    .filter(Boolean);
+}
+
+// Union of the story-level business_events (all merged sources) and the
+// primary item's own business_events (covers fallback rows built directly
+// from raw items rather than merged story objects).
+function storyBusinessEvents(story) {
+  const storyEvents = Array.isArray(story?.business_events) ? story.business_events : [];
+  const itemEvents = Array.isArray(story?.primary_item?.business_events) ? story.primary_item.business_events : [];
+  return businessEventBadges(Array.from(new Set([...storyEvents, ...itemEvents])));
+}
+
+function businessEventChip(badge) {
+  const chip = document.createElement("span");
+  chip.className = `signal-tag tone-${badge.tone}`;
+  chip.textContent = badge.label;
+  return chip;
+}
+
+// Works for both story-backed rows (row.story set by storyToBoleRow) and the
+// no-story fallback rows built straight from raw items (rankedFallbackRows).
+function rowBusinessEvents(row) {
+  if (row?.story) return storyBusinessEvents(row.story);
+  return businessEventBadges(row?.item?.business_events);
+}
+
 const LIST_SORT_DEFS = [
   { id: "priority", label: "綜合" },
   { id: "latest", label: "最新" },
@@ -1503,6 +1543,9 @@ function buildStoryCard(story, rank) {
   rankEl.className = "story-rank";
   rankEl.textContent = `#${rank}`;
   meta.appendChild(rankEl);
+  storyBusinessEvents(story).forEach((badge) => {
+    meta.appendChild(businessEventChip(badge));
+  });
   if (story.importance_label) {
     const imp = document.createElement("span");
     imp.className = `story-importance ${storyImportanceTone(story.importance_label)}`;
@@ -1592,12 +1635,36 @@ function storySortScore(story) {
   return state.boleView === "hot" ? storyHotScore(story) : storyScore(story);
 }
 
+// feature/business-signal: a story counts as a business-event hit if its own
+// business_events array (union of all merged items, see build_story_record()
+// in scripts/update_news.py) or its primary_item's business_events is
+// non-empty - the latter covers fallback rows built straight from raw items
+// rather than merged story objects.
+function storyHasBusinessEvent(story) {
+  return storyBusinessEvents(story).length > 0;
+}
+
+// Shared four-level sort key for the 今日重點訊號 block, applied to both the
+// "hot" and "timeline" views: business-event hit dominates, then hot score,
+// then backend importance score, then recency as the final tiebreak.
+function boleStorySortCompare(a, b) {
+  const byBusiness = (storyHasBusinessEvent(b) ? 1 : 0) - (storyHasBusinessEvent(a) ? 1 : 0);
+  if (byBusiness !== 0) return byBusiness;
+  const byHotScore = storyHotScore(b) - storyHotScore(a);
+  if (byHotScore !== 0) return byHotScore;
+  const byImportance = storyScore(b) - storyScore(a);
+  if (byImportance !== 0) return byImportance;
+  const aLatest = storyTimeMs(a, "latest_at") || storyTimeMs(a, "earliest_at");
+  const bLatest = storyTimeMs(b, "latest_at") || storyTimeMs(b, "earliest_at");
+  return bLatest - aLatest;
+}
+
 function hotStories(stories) {
   return stories
     .filter((story) => storyHotness(story) > 0)
     .sort((a, b) => {
-      const byHotScore = storyHotScore(b) - storyHotScore(a);
-      if (byHotScore !== 0) return byHotScore;
+      const byShared = boleStorySortCompare(a, b);
+      if (byShared !== 0) return byShared;
       const byHotRaw = storyHotness(b) - storyHotness(a);
       if (byHotRaw !== 0) return byHotRaw;
       const byEditorial = storyScore(b) - storyScore(a);
@@ -1787,12 +1854,7 @@ function storyCandidateCounts(stories) {
 }
 
 function latestStories(stories) {
-  return [...(Array.isArray(stories) ? stories : [])].sort((a, b) => {
-    const aLatest = storyTimeMs(a, "latest_at") || storyTimeMs(a, "earliest_at");
-    const bLatest = storyTimeMs(b, "latest_at") || storyTimeMs(b, "earliest_at");
-    if (aLatest !== bLatest) return bLatest - aLatest;
-    return storyScore(b) - storyScore(a);
-  });
+  return [...(Array.isArray(stories) ? stories : [])].sort(boleStorySortCompare);
 }
 
 function renderStoryViewPanel(stories, excludedRows = []) {
@@ -1808,12 +1870,7 @@ function renderStoryViewPanel(stories, excludedRows = []) {
       ? `當前熱點 · ${fmtNumber(hot.length)} 簇 · 按熱度分排序`
       : "當前熱點 · 暫無多源聚簇";
   } else {
-    baseSorted = [...stories].sort((a, b) => {
-      const aLatest = storyTimeMs(a, "latest_at") || storyTimeMs(a, "earliest_at");
-      const bLatest = storyTimeMs(b, "latest_at") || storyTimeMs(b, "earliest_at");
-      if (aLatest !== bLatest) return bLatest - aLatest;
-      return storyScore(b) - storyScore(a);
-    });
+    baseSorted = latestStories(stories);
     metaLabel = `故事時間線 · ${fmtNumber(baseSorted.length)} 條 · 最新優先`;
   }
 
@@ -2227,6 +2284,9 @@ function buildTopStoryCard(row, rank) {
 
   const tags = document.createElement("div");
   tags.className = "intel-tags";
+  rowBusinessEvents(row).forEach((badge) => {
+    tags.appendChild(businessEventChip(badge));
+  });
   itemTagLabels(item, row).forEach((label) => {
     tags.appendChild(itemTagChip(label));
   });
