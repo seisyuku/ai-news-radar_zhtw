@@ -11,9 +11,14 @@ on:
   schedule:
     - cron: "*/30 * * * *"
 
+# Queue runs instead of cancelling: a schedule tick that starts while a
+# manual dispatch (or a previous tick) is still pushing must wait its turn,
+# not race it or kill it mid-push. cancel-in-progress: true previously let a
+# newer trigger cancel an in-flight run partway through git push, which is
+# how the concurrent-run race happened.
 concurrency:
-  group: update-ai-news-${{ github.ref }}
-  cancel-in-progress: true
+  group: update-news
+  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -125,4 +130,22 @@ jobs:
             exit 0
           fi
           git commit -m "chore: update ai news snapshot"
-          git push
+
+          max_attempts=3
+          attempt=1
+          until git push; do
+            if [ "$attempt" -ge "$max_attempts" ]; then
+              echo "::error::git push failed after $max_attempts attempts"
+              exit 1
+            fi
+            echo "::warning::git push failed (attempt $attempt/$max_attempts), rebasing onto origin/master and retrying"
+            git fetch origin master
+            # Rebase's ours/theirs is inverted from merge: "ours" is the
+            # branch being rebased onto (origin/master), "theirs" is the
+            # commit being replayed (this run's own commit). -X theirs keeps
+            # this run's freshly generated data/*.json snapshot and lets the
+            # older remote snapshot step aside on conflict, which is the
+            # correct outcome since data/ is fully regenerated every run.
+            git rebase origin/master -X theirs
+            attempt=$((attempt + 1))
+          done
