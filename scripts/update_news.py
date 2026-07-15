@@ -360,6 +360,18 @@ KR36_AI_MAX_ENTRIES = 10
 KR36_AI_INCLUDE_KEYWORDS = (
     "ai,人工智能,大模型,大语言模型,智能体,机器人,算力,大模型,生成式ai,深度学习,机器学习,芯片,英伟达,nvidia"
 )
+# Watchlist source: 橘鴉AI早報 (Juya AI Daily), self-hosted (not GitHub Pages -
+# the original imjuya/juya-ai-daily GitHub channel is gone). One entry per
+# day, title is just the date ("2026-07-15"), summary is a short truncated
+# preview of that day's full roundup (not the full digest). Every entry is
+# inherently AI-relevant by the source's own editorial scope, so no keyword
+# pre-filter is needed here. Excluded from business_events scoring in the
+# output-assembly stage (see JUYA_DAILY_SITE_ID below): a whole-day digest
+# preview mixes many unrelated stories, so keyword matches against it would
+# be noisy/misleading rather than about one specific event.
+JUYA_DAILY_FEED_URL = "https://daily.juya.uk/rss.xml"
+JUYA_DAILY_SITE_ID = "juya_daily"
+JUYA_DAILY_MAX_AGE_DAYS = 5
 AIBREAKFAST_JINA_URL = "https://r.jina.ai/https://aibreakfast.beehiiv.com/"
 AIHOT_ITEMS_API_URL = "https://aihot.virxact.com/api/public/items"
 AIHOT_MIN_SCORE = 60
@@ -717,6 +729,11 @@ BUSINESS_EVENT_EXCLUDE_KEYWORDS: dict[str, tuple[str, ...]] = {
     "benchmark": ("遊戲", "手遊", "版本推送", "rivals"),
 }
 
+# Sources whose title/summary text is not about a single event, so keyword
+# matches against it would be noisy/misleading rather than informative.
+# juya_daily's entries are a whole day's news roundup preview in one string.
+BUSINESS_EVENT_EXCLUDED_SITE_IDS: frozenset[str] = frozenset({JUYA_DAILY_SITE_ID})
+
 # market's "merger"/"併購"/"合併" need same-sentence co-occurrence with a
 # business-context term to count, instead of a blanket keyword match (see
 # BUSINESS_EVENT_KEYWORDS["market"] comment above for why).
@@ -794,6 +811,9 @@ def business_event_score(item: dict[str, Any]) -> list[str]:
     whose keywords appear in this item's title+summary. Empty list means no
     business-event category matched.
     """
+    if str(item.get("site_id") or "") in BUSINESS_EVENT_EXCLUDED_SITE_IDS:
+        return []
+
     title = str(item.get("title") or "")
     summary = str(item.get("summary") or "")
     haystack = _business_event_normalize(f"{title} {summary}")
@@ -2260,6 +2280,73 @@ def fetch_kr36_ai(session: requests.Session, now: datetime) -> list[RawItem]:
     return out
 
 
+def fetch_juya_daily(session: requests.Session, now: datetime) -> list[RawItem]:
+    """Watchlist source: 橘鴉AI早報 (Juya AI Daily), self-hosted RSS. No
+    retry/fallback logic here by design (high-churn hobby feed, kept simple
+    on purpose) - a fetch failure just surfaces as a normal failed entry in
+    source-status.json, same as any other source.
+    """
+    site_id = JUYA_DAILY_SITE_ID
+    site_name = "橘鴉AI早報 (Watchlist)"
+
+    resp = session.get(
+        JUYA_DAILY_FEED_URL,
+        timeout=20,
+        headers={
+            "User-Agent": BROWSER_UA,
+            "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+            "Accept": "application/rss+xml, application/xml, text/xml, */*",
+        },
+    )
+    resp.raise_for_status()
+
+    if feedparser is not None:
+        parsed = feedparser.parse(resp.content)
+        entries = list(parsed.entries)
+    else:
+        entries = parse_feed_entries_via_xml(resp.content)
+
+    feed_title = str(parsed.feed.get("title") or "橘鸦AI早报") if feedparser is not None else "橘鸦AI早报"
+
+    out: list[RawItem] = []
+    seen_urls: set[str] = set()
+    for entry in entries:
+        raw_title, link, published = feed_entry_title_link_published(entry, now)
+        if not raw_title or not link or not published:
+            continue
+        if published < now - timedelta(days=JUYA_DAILY_MAX_AGE_DAYS):
+            continue
+        normalized_url = normalize_url(link)
+        if normalized_url in seen_urls:
+            continue
+        seen_urls.add(normalized_url)
+
+        summary = str(entry.get("summary") or "").strip()
+        # Entry titles from this feed are bare dates ("2026-07-15"); prefix
+        # with the digest name so it reads as a headline in the item list.
+        title = f"{feed_title} {raw_title}" if raw_title and raw_title not in feed_title else feed_title
+
+        out.append(
+            RawItem(
+                site_id=site_id,
+                site_name=site_name,
+                source="橘鴉AI早報",
+                title=maybe_fix_mojibake(title),
+                url=link,
+                published_at=published,
+                meta={
+                    "feed_url": JUYA_DAILY_FEED_URL,
+                    "feed_home": "https://daily.juya.uk/",
+                    "summary": maybe_fix_mojibake(summary),
+                },
+            )
+        )
+
+    if not out:
+        raise ValueError("No Juya AI Daily items parsed")
+    return out
+
+
 def parse_ai_breakfast_items(markdown_text: str, now: datetime) -> list[RawItem]:
     site_id = "aibreakfast"
     site_name = "AI Breakfast"
@@ -2841,6 +2928,7 @@ def collect_all(session: requests.Session, now: datetime) -> tuple[list[RawItem]
         ("aibase", "AIbase", fetch_aibase),
         ("tw_media", "TW Media", fetch_tw_media),
         ("kr36_ai", "36Kr AI (Watchlist)", fetch_kr36_ai),
+        (JUYA_DAILY_SITE_ID, "橘鴉AI早報 (Watchlist)", fetch_juya_daily),
         # Removed from the default task list by source curation (2026-07-14):
         # tophub, buzzing, aihot, newsnow, zeli, aibreakfast, aihubtoday,
         # followbuilders, bestblogs, hackernews. Their fetch_*() functions are
@@ -3304,6 +3392,7 @@ SOURCE_TIER_BY_SITE: dict[str, tuple[str, str, int]] = {
     "newsnow": ("discussion", "熱議參考", 5),
     "tw_media": ("tw_media", "台灣繁中媒體", 2),
     "kr36_ai": ("watchlist", "觀察名單源", 6),
+    "juya_daily": ("watchlist", "觀察名單源", 6),
 }
 
 SOURCE_TIER_IMPORTANCE = {
