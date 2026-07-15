@@ -669,12 +669,17 @@ BUSINESS_EVENT_KEYWORDS: dict[str, tuple[str, ...]] = {
         "fiscal year", "shareholder",
     ),
     "market": (
-        "\u5e02\u4f54\u7387", "\u5e02\u4f54", "\u5e02\u5834\u4efd\u984d", "\u4f75\u8cfc", "\u6536\u8cfc", "\u6536\u8cfc\u6848", "\u4f75\u8cfc\u6848", "\u5408\u4f75",
+        "\u5e02\u4f54\u7387", "\u5e02\u4f54", "\u5e02\u5834\u4efd\u984d", "\u6536\u8cfc", "\u6536\u8cfc\u6848", "\u4f75\u8cfc\u6848",
         "\u53cd\u58df\u65b7", "\u53cd\u6258\u62c9\u65af", "\u58df\u65b7", "\u58df\u65b7\u8abf\u67e5", "\u7368\u4f54", "\u5be1\u4f54", "\u5e02\u5834\u683c\u5c40",
         "\u7522\u696d\u6574\u5408", "\u76e3\u7ba1\u8abf\u67e5", "\u4ea4\u6613\u6848", "\u7af6\u722d\u683c\u5c40",
-        "market share", "acquisition", "merger", "m&a", "antitrust", "monopoly",
+        "market share", "acquisition", "m&a", "antitrust", "monopoly",
         "anti-competitive", "regulatory probe", "market dominance", "consolidation",
         "takeover", "buyout", "hostile takeover", "competition watchdog",
+        # "merger"/"\u4f75\u8cfc"/"\u5408\u4f75" are deliberately NOT here: they
+        # need same-sentence co-occurrence with a business-context term (see
+        # MARKET_MERGER_TERMS / MARKET_MERGER_CONTEXT_TERMS below) to exclude
+        # product-feature merges ("merge branches") and non-business mergers
+        # (e.g. a military alliance "merger").
     ),
     "security": (
         "\u6f0f\u6d1e", "\u8cc7\u5b89", "\u8cc7\u5b89\u4e8b\u4ef6", "\u8cc7\u5b89\u6f0f\u6d1e", "\u8cc7\u6599\u5916\u6d29", "\u6d29\u9732", "\u99ed\u5ba2", "\u99ed\u5ba2\u653b\u64ca",
@@ -700,6 +705,27 @@ BUSINESS_EVENT_KEYWORDS: dict[str, tuple[str, ...]] = {
         "win rate", "eval", "evaluation", "arena", "top score", "ranking",
     ),
 }
+
+# Whole-haystack exclusion terms per category: if any of these appear
+# alongside an otherwise-matching keyword, the category match is suppressed.
+# security: "駭客"/"黑客" (hacker) matches inside "駭客馬拉松"/"黑客马拉松"
+# (hackathon), which is an event-naming convention, not a security incident.
+# benchmark: "排行榜"/"leaderboard" also describe in-game leaderboards/patch
+# notes, not model evaluation, when clearly in a gaming context.
+BUSINESS_EVENT_EXCLUDE_KEYWORDS: dict[str, tuple[str, ...]] = {
+    "security": ("駭客馬拉松", "黑客馬拉松", "駭客松", "黑客松", "hackathon"),
+    "benchmark": ("遊戲", "手遊", "版本推送", "rivals"),
+}
+
+# market's "merger"/"併購"/"合併" need same-sentence co-occurrence with a
+# business-context term to count, instead of a blanket keyword match (see
+# BUSINESS_EVENT_KEYWORDS["market"] comment above for why).
+MARKET_MERGER_TERMS: tuple[str, ...] = ("merger", "併購", "合併")
+MARKET_MERGER_CONTEXT_TERMS: tuple[str, ...] = (
+    "公司", "企業", "收購", "acquisition", "acquire", "company", "corp",
+    "corporation", "startup", "buyout", "takeover", "m&a", "deal", "股權",
+    "股份", "control of",
+)
 
 # Short ASCII tokens in BUSINESS_EVENT_KEYWORDS prone to false substring
 # matches inside unrelated words (mirrors _KEYWORD_WORD_BOUNDARY_ONLY below).
@@ -744,6 +770,25 @@ def _business_keyword_matches(keyword: str, haystack: str) -> bool:
     return keyword in haystack
 
 
+_SENTENCE_SPLIT_RE = re.compile(r"[。！？.!?\n]+")
+
+
+def _market_merger_cooccurs(haystack: str) -> bool:
+    """merger/併購/合併 only count as a market hit within a sentence that
+    also carries a business-context term (see MARKET_MERGER_TERMS /
+    MARKET_MERGER_CONTEXT_TERMS), so a code "merge" or a non-business
+    "merger" elsewhere in the item doesn't trigger the category alone.
+    """
+    for sentence in _SENTENCE_SPLIT_RE.split(haystack):
+        if not sentence.strip():
+            continue
+        if not any(_business_keyword_matches(term, sentence) for term in MARKET_MERGER_TERMS):
+            continue
+        if any(_business_keyword_matches(term, sentence) for term in MARKET_MERGER_CONTEXT_TERMS):
+            return True
+    return False
+
+
 def business_event_score(item: dict[str, Any]) -> list[str]:
     """Return the sorted list of BUSINESS_EVENT_KEYWORDS category codes
     whose keywords appear in this item's title+summary. Empty list means no
@@ -754,11 +799,18 @@ def business_event_score(item: dict[str, Any]) -> list[str]:
     haystack = _business_event_normalize(f"{title} {summary}")
     if not haystack.strip():
         return []
-    hits = [
-        category
-        for category, keywords in BUSINESS_EVENT_KEYWORDS.items()
-        if any(_business_keyword_matches(kw, haystack) for kw in keywords)
-    ]
+
+    hits: list[str] = []
+    for category, keywords in BUSINESS_EVENT_KEYWORDS.items():
+        matched = any(_business_keyword_matches(kw, haystack) for kw in keywords)
+        if category == "market" and not matched:
+            matched = _market_merger_cooccurs(haystack)
+        if not matched:
+            continue
+        exclude_terms = BUSINESS_EVENT_EXCLUDE_KEYWORDS.get(category)
+        if exclude_terms and any(_business_keyword_matches(term, haystack) for term in exclude_terms):
+            continue
+        hits.append(category)
     return hits
 
 
