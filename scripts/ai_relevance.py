@@ -215,6 +215,7 @@ SOURCE_PRIORS = {
     "socialdata_x": 0.15,
     "tw_media": 0.15,
     "kr36_ai": 0.1,
+    "juya_daily": 0.1,
 }
 AI_DEFAULT_SOURCES = {"aibase", "aihot", "aihubtoday"}
 CURATED_MEDIA_TRUSTED_SOURCE_KEYWORDS = [
