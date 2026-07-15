@@ -74,7 +74,7 @@ class TopicFilterTests(unittest.TestCase):
         rec = {
             "site_id": "techurls",
             "site_name": "TechURLs",
-            "source": "Hacker News",
+            "source": "V2EX",
             "title": "OpenAI releases new GPT model",
             "url": "https://example.com/ai",
         }
@@ -134,7 +134,7 @@ class TopicFilterTests(unittest.TestCase):
         keep = {
             "site_id": "zeli",
             "site_name": "Zeli",
-            "source": "Hacker News · 24h最热",
+            "source": "V2EX · 24h最热",
             "title": "AI Agent for code search",
             "url": "https://example.com/a",
         }
@@ -147,6 +147,31 @@ class TopicFilterTests(unittest.TestCase):
         }
         self.assertTrue(is_ai_related_record(keep))
         self.assertFalse(is_ai_related_record(drop))
+
+    def test_hn_forwarded_source_excluded_even_via_zeli_24h_hot(self):
+        # feature/noise-gate: forwarded Hacker News content is excluded
+        # regardless of which aggregator relays it, even when it would
+        # otherwise qualify for zeli's 24h-hot allowlist.
+        rec = {
+            "site_id": "zeli",
+            "site_name": "Zeli",
+            "source": "Hacker News · 24h最热",
+            "title": "AI Agent for code search",
+            "url": "https://example.com/a",
+        }
+        self.assertFalse(is_ai_related_record(rec))
+
+    def test_hn_forwarded_source_excluded_across_variants(self):
+        variants = ["Hacker News", "hackernews", "Hacker News (黑客新闻)", "黑客新闻热榜"]
+        for source in variants:
+            rec = {
+                "site_id": "techurls",
+                "site_name": "TechURLs",
+                "source": source,
+                "title": "OpenAI releases new GPT model",
+                "url": f"https://example.com/{source}",
+            }
+            self.assertFalse(is_ai_related_record(rec), f"expected {source!r} to be excluded")
 
     def test_hn_algolia_keyword_score_requires_multiple_signals(self):
         self.assertGreaterEqual(hn_algolia_keyword_score("OpenAI releases Codex agent tools"), 0.38)
