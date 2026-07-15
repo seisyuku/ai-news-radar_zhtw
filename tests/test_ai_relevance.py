@@ -8,7 +8,7 @@ class AiRelevanceScoringTests(unittest.TestCase):
         rec = {
             "site_id": "techurls",
             "site_name": "TechURLs",
-            "source": "Hacker News",
+            "source": "V2EX",
             "title": "OpenAI releases new GPT model",
             "url": "https://example.com/ai",
         }

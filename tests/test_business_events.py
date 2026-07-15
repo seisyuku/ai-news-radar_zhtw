@@ -82,6 +82,48 @@ class BusinessEventScoreTests(unittest.TestCase):
         item = {"title": "Company beats Q1 guidance on strong cloud demand", "summary": ""}
         self.assertEqual(business_event_score(item), ["earnings"])
 
+    # --- feature/noise-gate: keyword tuning regressions ---
+    def test_hackathon_does_not_trigger_security(self):
+        item = {"title": "騰訊舉辦AI黑客松活動，吸引上千名開發者參加", "summary": ""}
+        self.assertEqual(business_event_score(item), [])
+
+    def test_hackathon_marathon_spelling_does_not_trigger_security(self):
+        item = {"title": "公司舉辦駭客馬拉松活動慶祝十週年", "summary": ""}
+        self.assertEqual(business_event_score(item), [])
+
+    def test_genuine_security_still_matches_despite_hacker_substring(self):
+        item = {"title": "Google被爆重大資安漏洞，CVE編號已公布", "summary": ""}
+        self.assertEqual(business_event_score(item), ["security"])
+
+    def test_gaming_leaderboard_does_not_trigger_benchmark(self):
+        item = {"title": "《Marvel Rivals》最新版本推送，新增遊戲角色與排行榜賽季重置", "summary": ""}
+        self.assertEqual(business_event_score(item), [])
+
+    def test_genuine_leaderboard_still_matches_benchmark(self):
+        item = {"title": "新模型在LMArena排行榜奪冠，勝率大幅提升", "summary": ""}
+        self.assertEqual(business_event_score(item), ["benchmark"])
+
+    def test_non_business_merger_does_not_trigger_market(self):
+        item = {
+            "title": "Section 219, the US-Israel Military Merger, Would Thwart American Democracy",
+            "summary": "",
+        }
+        self.assertEqual(business_event_score(item), [])
+
+    def test_code_merge_does_not_trigger_market(self):
+        item = {"title": "我们合并了两个分支后重新部署", "summary": ""}
+        self.assertEqual(business_event_score(item), [])
+
+    def test_merger_with_business_context_triggers_market(self):
+        item = {"title": "科技公司宣布合併計畫，雙方股東已批准這筆交易", "summary": ""}
+        self.assertIn("market", business_event_score(item))
+
+    def test_acquisition_keyword_alone_still_triggers_market(self):
+        # "收购" ("acquisition") was never gated behind co-occurrence, only
+        # merger/併購/合併 were - this pins that distinction.
+        item = {"title": "Bun 被 Anthropic 收购后用 Rust 重写，月下载超 2200 万", "summary": ""}
+        self.assertEqual(business_event_score(item), ["market"])
+
 
 class BusinessEventStoryRecordTests(unittest.TestCase):
     def _item(self, idx, *, business_events=(), site_id="official_ai"):

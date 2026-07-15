@@ -135,6 +135,20 @@ COMMERCE_NOISE_KEYWORDS = [
     "首发价",
 ]
 
+# feature/noise-gate: direct Hacker News fetching is already disabled
+# (hackernews removed from collect_all()'s task list), but aggregators
+# (techurls, iris, zeli, newsnow, buzzing, aihot, ...) still relay the same
+# HN stories under a "source" label naming Hacker News. Apply the same
+# exclusion decision to that forwarded content instead of letting it back in
+# through a different site_id.
+HN_FORWARDED_SOURCE_KEYWORDS = [
+    "hacker news",
+    "hackernews",
+    "黑客新闻",
+    "黑客新聞",
+    "駭客新聞",
+]
+
 UNSAFE_HARD_PATTERNS = [
     re.compile(r"\bcreampie\b", re.I),
     re.compile(r"\bblowjob\b", re.I),
@@ -344,6 +358,16 @@ def score_ai_relevance(record: dict[str, Any]) -> dict[str, Any]:
             reason="unsafe_promotional_content",
             signals=[],
             noise=["unsafe_promotional_content"],
+        )
+
+    if contains_any_keyword(source, HN_FORWARDED_SOURCE_KEYWORDS):
+        return _result(
+            is_ai_related=False,
+            score=0.1,
+            label="source_scope_drop",
+            reason="hn_forwarded_source_excluded",
+            signals=ai_signals + tech_signals,
+            noise=noise,
         )
 
     if site_id == "zeli":
