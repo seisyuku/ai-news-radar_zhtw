@@ -2078,7 +2078,7 @@ def parse_curated_ai_media_feed_items(
     now: datetime,
 ) -> list[RawItem]:
     site_id = "curated_media"
-    site_name = "Curated Media"
+    site_name = "精選媒體"
     feed_url = str(feed["xml_url"])
     feed_title = str(feed["title"])
 
@@ -2955,7 +2955,7 @@ def fetch_newsnow(session: requests.Session, now: datetime) -> list[RawItem]:
 def collect_all(session: requests.Session, now: datetime) -> tuple[list[RawItem], list[dict[str, Any]]]:
     tasks = [
         ("official_ai", "Official AI Updates", fetch_official_ai_updates),
-        ("curated_media", "Curated Media", fetch_curated_ai_media),
+        ("curated_media", "精選媒體", fetch_curated_ai_media),
         ("techurls", "TechURLs", fetch_techurls),
         ("iris", "Info Flow", fetch_iris),
         ("aibase", "AIbase", fetch_aibase),

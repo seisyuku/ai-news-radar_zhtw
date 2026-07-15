@@ -2395,7 +2395,7 @@ function renderItemNode(item, context = {}) {
 
   const primaryLabel = labelText(item);
   itemTagLabels(item)
-    .filter((label) => label !== primaryLabel)
+    .filter((label) => label !== primaryLabel && label !== kind.label)
     .slice(0, 3)
     .forEach((label) => {
       metaRow.insertBefore(itemTagChip(label), sourceEl);

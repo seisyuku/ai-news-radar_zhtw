@@ -98,7 +98,7 @@ class AiRelevanceScoringTests(unittest.TestCase):
     def test_curated_media_keeps_trusted_ai_feed(self):
         rec = {
             "site_id": "curated_media",
-            "site_name": "Curated Media",
+            "site_name": "精選媒體",
             "source": "TechCrunch AI",
             "title": "Startup raises funding for enterprise workflow automation",
             "url": "https://techcrunch.com/example",
@@ -111,7 +111,7 @@ class AiRelevanceScoringTests(unittest.TestCase):
     def test_curated_general_feed_requires_title_signal(self):
         rec = {
             "site_id": "curated_media",
-            "site_name": "Curated Media",
+            "site_name": "精選媒體",
             "source": "The Verge",
             "title": "A new phone accessory launches this week",
             "url": "https://www.theverge.com/example",
@@ -123,7 +123,7 @@ class AiRelevanceScoringTests(unittest.TestCase):
     def test_curated_research_feed_is_research_labeled_and_capped(self):
         rec = {
             "site_id": "curated_media",
-            "site_name": "Curated Media",
+            "site_name": "精選媒體",
             "source": "MarkTechPost Research",
             "title": "A new benchmark evaluates multimodal LLM reasoning",
             "url": "https://www.marktechpost.com/example",
