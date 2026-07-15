@@ -664,6 +664,24 @@ def to_zh_hant(text: str) -> str:
         return s
 
 
+# Generic English pool/category labels that leaked into item-level `site_name`
+# from fetcher code (as opposed to actual proper-noun brand names like
+# "TechURLs" or "AIbase", which are left as-is). Applied at output-assembly
+# time only (same layer as to_zh_hant()); archive.json's stored history is
+# never rewritten. Add new entries here instead of hand-editing every
+# statuses.append()/fetcher site_name= call site.
+SITE_NAME_ALIASES: dict[str, str] = {
+    "Curated Media": "精選媒體",
+    "Official AI Updates": "官方更新",
+    "TW Media": "台灣媒體",
+    "OPML RSS": "OPML",
+}
+
+
+def apply_site_name_alias(site_name: str) -> str:
+    return SITE_NAME_ALIASES.get(site_name, site_name)
+
+
 # --- Business-event tagging (feature/business-signal) ---
 # Category codes are stable, machine-facing identifiers written to
 # `business_events`; display labels (\u8ca1\u5831/\u5e02\u4f54/\u8cc7\u5b89/\u50f9\u683c/\u8a55\u6e2c) live in
@@ -5963,6 +5981,7 @@ def build_creator_hot_items(
             str(normalized.get("source") or ""),
             str(normalized.get("url") or ""),
         ))
+        normalized["site_name"] = apply_site_name_alias(str(normalized.get("site_name") or ""))
         normalized["business_events"] = business_event_score(normalized)
         normalized = add_ai_relevance_fields(normalized)
         if ai_only and not normalized.get("ai_is_related", is_ai_related_record(normalized)):
@@ -6259,6 +6278,7 @@ def main() -> int:
                 str(normalized.get("source") or ""),
                 str(normalized.get("url") or ""),
             ))
+            normalized["site_name"] = apply_site_name_alias(str(normalized.get("site_name") or ""))
             if str(normalized.get("site_id") or "") == "aihubtoday" and is_hubtoday_placeholder_title(
                 str(normalized.get("title") or "")
             ):
@@ -6296,6 +6316,13 @@ def main() -> int:
     daily_brief_payload = build_daily_brief_payload(stories, generated_at=generated_at, window_hours=args.window_hours)
     stories_merged_payload = build_stories_payload(stories, generated_at=generated_at, window_hours=args.window_hours)
     merge_log_payload = build_merge_log_payload(merge_events, generated_at=generated_at)
+
+    # source-status.json embeds `statuses` (fetch-time site_name, set by
+    # collect_all()/individual fetchers) directly - normalize in place here so
+    # every downstream reader (site_name_by_id fallback, empty_advanced_sources,
+    # status_payload["sites"]) sees the aliased name without needing its own fix.
+    for s in statuses:
+        s["site_name"] = apply_site_name_alias(str(s.get("site_name") or ""))
 
     # site stats
     site_stat: dict[str, dict[str, Any]] = {}
