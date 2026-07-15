@@ -734,6 +734,39 @@ BUSINESS_EVENT_EXCLUDE_KEYWORDS: dict[str, tuple[str, ...]] = {
 # juya_daily's entries are a whole day's news roundup preview in one string.
 BUSINESS_EVENT_EXCLUDED_SITE_IDS: frozenset[str] = frozenset({JUYA_DAILY_SITE_ID})
 
+# feature/signal-gate (Plan B): sources in the same ecosystem group tend to
+# relay/re-aggregate the same underlying Chinese tech-news wire rather than
+# independently confirming a story, so N of them reporting the same merged
+# story is not N independent confirmations. Cross-source counting for
+# story_heat (calculate_item_importance) and frontend hotness (which reads
+# the story's "duplicate_count" field) collapses each group to at most one
+# vote via _group_aware_duplicate_count() below. Sites not listed here are
+# unaffected - each still counts on its own, same as before this change.
+SOURCE_ECOSYSTEM_GROUPS: dict[str, str] = {
+    "aibase": "cn_aggregator",
+    "iris": "cn_aggregator",
+    "kr36_ai": "cn_aggregator",
+    "juya_daily": "cn_aggregator",
+}
+
+
+def _source_group_key(item: dict[str, Any], index: int) -> str:
+    site_id = str(item.get("site_id") or "")
+    group = SOURCE_ECOSYSTEM_GROUPS.get(site_id)
+    if group:
+        return group
+    # Not in a defined ecosystem group: every item still counts as its own
+    # independent source, same as before this change. Keyed uniquely (not by
+    # site_id) because one internal site_id such as "official_ai",
+    # "curated_media", or "tw_media" covers many genuinely distinct outlets
+    # (OpenAI News vs. Anthropic News are both site_id="official_ai"), so
+    # grouping by bare site_id would wrongly collapse those too.
+    return f"item:{item.get('id') or item.get('url') or index}"
+
+
+def _group_aware_duplicate_count(items: list[dict[str, Any]]) -> int:
+    return len({_source_group_key(item, index) for index, item in enumerate(items)})
+
 # market's "merger"/"併購"/"合併" need same-sentence co-occurrence with a
 # business-context term to count, instead of a blanket keyword match (see
 # BUSINESS_EVENT_KEYWORDS["market"] comment above for why).
@@ -5611,9 +5644,11 @@ def choose_primary_story_item(
     now: datetime,
     window_hours: int,
 ) -> dict[str, Any]:
+    duplicate_count = _group_aware_duplicate_count(items)
+
     def key(item: dict[str, Any]) -> tuple[int, float, float, str]:
         tier_rank = int(source_tier_for_site(str(item.get("site_id") or "")).get("source_tier_rank", 9))
-        importance = calculate_item_importance(item, now, window_hours, duplicate_count=len(items))["score"]
+        importance = calculate_item_importance(item, now, window_hours, duplicate_count=duplicate_count)["score"]
         ts = event_time(item)
         return (tier_rank, -importance, -(ts.timestamp() if ts else 0), str(item.get("title") or ""))
 
@@ -5660,9 +5695,10 @@ def build_story_record(
 ) -> dict[str, Any]:
     sorted_items = sorted(items, key=source_tier_sort_key)
     primary = choose_primary_story_item(sorted_items, now, window_hours)
-    importance = calculate_item_importance(primary, now, window_hours, duplicate_count=len(items))
+    duplicate_count = _group_aware_duplicate_count(sorted_items)
+    importance = calculate_item_importance(primary, now, window_hours, duplicate_count=duplicate_count)
     score = importance["score"]
-    category = story_category(score, primary, len(items))
+    category = story_category(score, primary, duplicate_count)
     times = [ts for ts in (event_time(item) for item in sorted_items) if ts]
     source_refs = [story_item_link(item) for item in sorted_items]
     source_names = sorted({str(item.get("source") or item.get("site_name") or "") for item in sorted_items if item.get("source") or item.get("site_name")})
@@ -5686,14 +5722,14 @@ def build_story_record(
         "business_events": business_events,
         "items": source_refs,
         "item_count": len(sorted_items),
-        "duplicate_count": len(sorted_items),
+        "duplicate_count": duplicate_count,
         "score": score,
         "importance": score,
         "importance_score": score,
         "importance_label": importance_label(category),
         "importance_breakdown": importance["breakdown"],
         "category": category,
-        "reasons": story_reasons(primary, score, len(sorted_items)),
+        "reasons": story_reasons(primary, score, duplicate_count),
         "earliest_at": iso(min(times)) if times else None,
         "latest_at": iso(max(times)) if times else None,
         "primary_item": {
@@ -5784,7 +5820,24 @@ BRIEF_SCORE_GATE = 0.72
 def story_passes_brief_gate(story: dict[str, Any]) -> bool:
     """宁缺毋滥: a story earns a brief slot via multi-source confirmation or a
     strong score. Quiet days produce a short (possibly empty) brief instead of
-    a padded one."""
+    a padded one.
+
+    feature/signal-gate investigated whether this gate was blocking
+    business_events-tagged stories from the reader-facing "今日重點訊號"
+    ranking. It does block them from daily-brief.json's own membership (16/16
+    badge items failed this gate on the sampled day), but that has no visible
+    effect: the frontend's hotStories()/latestStories() render the union of
+    briefStories() and mergedStories() minus briefStories() (i.e. effectively
+    all of stories-merged.json regardless of gate outcome), and
+    boleStorySortCompare() already ranks any business_events hit above any
+    non-hit story there. Confirmed on real data: all 16 badge items occupied
+    ranks #1-16 of that live ranking, correctly ahead of every non-badge
+    story. daily-brief.json's own internal order (select_diverse_stories,
+    score-only, no badge awareness) is never rendered by itself -
+    renderBoleBrief(), the only function that would display it directly, has
+    no call site in assets/app.js. So exempting business_events stories from
+    this gate would only reorder a data structure nothing reads on its own;
+    left unchanged here."""
     try:
         sources = int(story.get("source_count") or 1)
     except Exception:
