@@ -1,8 +1,13 @@
+<div align="center">
+
 # AI 商業情報雷達
 
-**每 30 分鐘自動更新的 AI 產業商業事件儀表板，繁體中文，聚焦決策所需的訊號而非技術噪音。**
+**每 30 分鐘自動更新的 AI 產業商業事件儀表板 · 繁體中文特化 · 排除噪音看清事實**
 
-👉 **免登入、直接使用：https://seisyuku.github.io/ai-news-radar_zhtw/**
+[![直接使用](https://img.shields.io/badge/📡_直接使用-AI新聞儀表板-2d8f8f?style=for-the-badge)](https://seisyuku.github.io/ai-news-radar_zhtw/) 
+[![GitHub stars](https://img.shields.io/github/stars/seisyuku/ai-news-radar_zhtw?style=for-the-badge&logo=github&color=f5b942)](https://github.com/seisyuku/ai-news-radar_zhtw/stargazers)
+
+</div>
 
 ---
 
@@ -43,13 +48,17 @@
 
 ## 運作方式
 
-全站為純靜態網頁，由排程自動化驅動：每 30 分鐘抓取所有來源、過濾 AI 相關性、識別商業事件、統一轉換為臺灣正體中文後發布。無伺服器、無資料庫、無追蹤，你看到的就是全部。
+全站為純靜態網頁，由排程自動化驅動：每 30 分鐘抓取所有來源、過濾 AI 相關性、識別商業事件、統一轉換為臺灣繁體中文後發布。無伺服器、無資料庫、無追蹤，你看到的就是全部。
 
 ## 回饋（內測期間）
 
 發現分類錯誤、不該出現的內容、或你認為漏掉的重大事件，歡迎回報。**回報時請附上頁面最底部的版號**（如 `taste-ui-0716a`），這能幫助快速判斷問題成因。
-
 > 回報管道：[提交 Issue](https://github.com/seisyuku/ai-news-radar_zhtw/issues/new?template=feedback.md)
+
+> [!TIP]
+> **覺得這個儀表板有用？點顆 ⭐ 讓我知道！**
+> Star 數是我判斷「該不該投入更多維護與新功能」的主要訊號——
+> 你的一顆星，直接影響台灣媒體源擴充與 LLM 智慧排序的開發優先序。
 
 ## 致謝與授權
 
