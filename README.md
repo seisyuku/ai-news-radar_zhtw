@@ -49,7 +49,7 @@
 
 發現分類錯誤、不該出現的內容、或你認為漏掉的重大事件，歡迎回報。**回報時請附上頁面最底部的版號**（如 `taste-ui-0716a`），這能幫助快速判斷問題成因。
 
-> 回報管道：（待補——內測邀請時提供）
+> 回報管道：[提交 Issue](https://github.com/seisyuku/ai-news-radar_zhtw/issues/new?template=feedback.md)
 
 ## 致謝與授權
 
