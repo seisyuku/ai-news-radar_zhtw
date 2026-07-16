@@ -5956,6 +5956,11 @@ def build_merge_log_payload(events: list[dict[str, Any]], generated_at: str) -> 
     }
 
 
+# Not called from main() as of 2026-07: TikHub (douyin/xiaohongshu) source
+# was never activated in production, so this always produced an empty
+# "自媒體" section. Kept in place (and still covered by
+# tests/test_topic_filter.py + tests/test_site_name_alias.py) so it can be
+# wired back into main()'s payload assembly if TikHub is ever turned on.
 def build_creator_hot_items(
     archive: dict[str, dict[str, Any]],
     now: datetime,
@@ -6300,15 +6305,6 @@ def main() -> int:
         title_cache,
         max_new_translations=max(0, args.translate_max_new),
     )
-    creator_items_ai = build_creator_hot_items(archive, now, ai_only=True)
-    creator_items_all = build_creator_hot_items(archive, now, ai_only=False)
-    creator_items_ai, creator_items_all, title_cache = add_bilingual_fields(
-        creator_items_ai,
-        creator_items_all,
-        session,
-        title_cache,
-        max_new_translations=0,
-    )
     latest_items_ai_dedup = suppress_near_duplicate_items(dedupe_items_by_title_url(latest_items, random_pick=False))
     latest_items_all_dedup = dedupe_items_by_title_url(latest_items_all, random_pick=True)
     stories, merge_events = merge_story_items(latest_items_ai_dedup, now=now, window_hours=args.window_hours)
@@ -6373,10 +6369,6 @@ def main() -> int:
         "site_count": len(site_stat),
         "source_count": len({f"{i['site_id']}::{i['source']}" for i in latest_items_ai_dedup}),
         "site_stats": sorted(site_stat.values(), key=lambda x: x["count"], reverse=True),
-        "creator_window_days": CREATOR_HOT_WINDOW_DAYS,
-        "creator_ranking": "engagement_85_fresh_24h_bonus_15_v1",
-        "creator_items_ai": creator_items_ai,
-        "creator_items_all": creator_items_all,
         "items": latest_items_ai_dedup,
         "items_ai": latest_items_ai_dedup,
         "items_all_raw": latest_items_all,

@@ -389,10 +389,6 @@ button {
   border-color: rgba(181, 82, 49, 0.32);
 }
 
-.coverage-card.creator {
-  border-color: rgba(135, 72, 96, 0.3);
-}
-
 .coverage-card.aggregate {
   border-color: rgba(102, 100, 95, 0.32);
 }
@@ -1643,13 +1639,6 @@ summary:focus-visible {
   background: rgba(138, 91, 32, 0.08);
 }
 
-.signal-tag.tone-creator,
-.ai-tag.tone-creator {
-  color: #874860;
-  border-color: rgba(135, 72, 96, 0.3);
-  background: rgba(135, 72, 96, 0.08);
-}
-
 .signal-tag.tone-industry,
 .ai-tag.tone-industry {
   color: #5c6258;
@@ -1744,12 +1733,6 @@ summary:focus-visible {
   background: rgba(154, 103, 0, 0.07);
 }
 
-.kind-creator {
-  color: #874860;
-  border-color: rgba(135, 72, 96, 0.28);
-  background: rgba(135, 72, 96, 0.07);
-}
-
 .kind-aggregate,
 .kind-blogs,
 .kind-default {
@@ -1781,12 +1764,6 @@ summary:focus-visible {
   color: var(--warn);
   border-color: rgba(154, 103, 0, 0.28);
   background: rgba(154, 103, 0, 0.07);
-}
-
-.source-chip.kind-creator {
-  color: #874860;
-  border-color: rgba(135, 72, 96, 0.28);
-  background: rgba(135, 72, 96, 0.07);
 }
 
 .source-chip.kind-aggregate,
@@ -2086,11 +2063,6 @@ summary:focus-visible {
   border-color: rgba(154, 103, 0, 0.26);
 }
 
-.story-source-chip.kind-creator {
-  color: #874860;
-  border-color: rgba(135, 72, 96, 0.26);
-}
-
 .story-source-more {
   color: var(--accent);
   font-weight: 760;
@@ -2249,11 +2221,6 @@ summary:focus-visible {
 .category.kind-builders {
   border-color: rgba(181, 82, 49, 0.36);
   color: var(--accent-warm);
-}
-
-.category.kind-creator {
-  border-color: rgba(135, 72, 96, 0.32);
-  color: #874860;
 }
 
 .category.kind-aihub {
@@ -2919,4 +2886,11 @@ summary:focus-visible {
   .coverage-card:hover {
     box-shadow: none;
   }
+}
+
+.app-footer {
+  padding: 20px 0 32px;
+  text-align: center;
+  font-size: 11px;
+  color: var(--muted-soft);
 }

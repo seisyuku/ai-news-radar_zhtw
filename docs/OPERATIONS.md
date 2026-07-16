@@ -6,9 +6,9 @@
 `assets/app.js` with a `?v=<tag>` query parameter, e.g.:
 
 ```html
-<link rel="stylesheet" href="./assets/styles.css?v=taste-ui-0715b" />
-<script src="./assets/motion.js?v=taste-ui-0715b" defer></script>
-<script src="./assets/app.js?v=taste-ui-0715b" defer></script>
+<link rel="stylesheet" href="./assets/styles.css?v=taste-ui-0716a" />
+<script src="./assets/motion.js?v=taste-ui-0716a" defer></script>
+<script src="./assets/app.js?v=taste-ui-0716a" defer></script>
 ```
 
 **Rule: any PR that changes `assets/app.js`, `assets/styles.css`, or
@@ -43,7 +43,7 @@ reference in `index.html` (`styles.css`, `motion.js`, `app.js` - keep them in
 sync even if only one file actually changed, so there is only ever one tag to
 reason about). The existing convention is `taste-ui-MMDDx` (month, day, and a
 letter suffix for same-day revisions, e.g. `taste-ui-0715a`, then
-`taste-ui-0715b` for a second bump the same day) - keep using it unless there
+`taste-ui-0716a` for a second bump the same day) - keep using it unless there
 is a reason to switch.
 
 Standard workflow, in order: **1) change the asset file(s) → 2) bump the
