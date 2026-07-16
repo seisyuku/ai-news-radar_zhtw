@@ -2,9 +2,6 @@ const state = {
   itemsAi: [],
   itemsAll: [],
   itemsAllRaw: [],
-  creatorItemsAi: [],
-  creatorItemsAll: [],
-  creatorWindowDays: 7,
   statsAi: [],
   totalAi: 0,
   totalRaw: 0,
@@ -87,8 +84,6 @@ const SOURCE_KINDS = {
   followbuilders: { label: "Builders/X", tone: "builders" },
   xapi: { label: "X API", tone: "builders" },
   socialdata_x: { label: "X 搜尋", tone: "builders" },
-  tikhub_douyin: { label: "抖音", tone: "creator" },
-  tikhub_xiaohongshu: { label: "小紅書", tone: "creator" },
   techurls: { label: "聚合", tone: "aggregate" },
   buzzing: { label: "聚合", tone: "aggregate" },
   iris: { label: "聚合", tone: "aggregate" },
@@ -111,7 +106,6 @@ const SECTION_DEFS = [
   { id: "hn", label: "HN熱議", short: "HN", description: "Hacker News 過去 24 小時的 AI 關鍵詞討論與高互動 story" },
   { id: "industry", label: "行業", short: "行業", description: "公司戰略、融資收購、監管、晶片與產業變化" },
   { id: "research", label: "研究", short: "研究", description: "論文、基準、方法、資料集與研究團隊動態" },
-  { id: "creator", label: "自媒體", short: "自媒體", description: "一週內互動熱度優先，24 小時新內容額外加分" },
   { id: "community", label: "社群", short: "社群", description: "WaytoAGI、中文社群、AIbase、公眾號和 Builders/X 訊號" },
 ];
 
@@ -326,7 +320,6 @@ function sourceSignalTone(signal) {
   const text = String(signal || "").toLowerCase();
   if (text.includes("官方") || text.includes("official")) return "official";
   if (text.includes("ai hot") || text.includes("精選")) return "hot";
-  if (text.includes("自媒體") || text.includes("tikhub") || text.includes("douyin") || text.includes("xiaohongshu") || text.includes("抖音") || text.includes("小紅書")) return "creator";
   if (text.includes("builders") || text.includes("github") || text.includes("x")) return "builders";
   if (text.includes("aihub") || text.includes("aibase") || text.includes("媒體")) return "aihub";
   if (text.includes("hn") || text.includes("hacker") || text.includes("聚合")) return "aggregate";
@@ -378,16 +371,6 @@ function siteAiPoolCount(siteId) {
   return Number(aiSiteStat(siteId)?.count || 0);
 }
 
-function siteRawPoolCount(siteId) {
-  const stat = aiSiteStat(siteId);
-  return Number(stat?.raw_count ?? stat?.count ?? 0);
-}
-
-function sourcePoolMeta(aiCount, rawCount, fallback) {
-  if (rawCount && rawCount !== aiCount) return `AI強相關 · 原始 ${fmtNumber(rawCount)} 條`;
-  return fallback;
-}
-
 function paidSourceLabel(status, poolCount, activeLabel, idleLabel) {
   const connected = Boolean(status?.enabled);
   const liveCount = Number(status?.item_count || 0);
@@ -431,8 +414,6 @@ function renderCoverageStrip(errorMessage = "") {
   const newsletterCount = Number(siteRow("aibreakfast")?.item_count || 0);
   const curatedMediaCount = Number(siteRow("curated_media")?.item_count || 0);
   const buildersCount = Number(siteRow("followbuilders")?.item_count || 0);
-  const creatorCount = state.creatorItemsAi.length || (siteAiPoolCount("tikhub_douyin") + siteAiPoolCount("tikhub_xiaohongshu"));
-  const creatorRawCount = state.creatorItemsAll.length || (siteRawPoolCount("tikhub_douyin") + siteRawPoolCount("tikhub_xiaohongshu"));
   const socialdataPoolCount = siteAiPoolCount("socialdata_x");
   const xApiPoolCount = siteAiPoolCount("xapi");
   const xPoolCount = socialdataPoolCount + xApiPoolCount;
@@ -459,7 +440,6 @@ function renderCoverageStrip(errorMessage = "") {
     ["官方/日報源池", `${fmtNumber(officialCount + newsletterCount)} 條`, "官方節點 + AI Breakfast", "official"],
     ["精選媒體源池", `${fmtNumber(curatedMediaCount)} 條`, "The Decoder / TC / Verge / MTP 等", "signal"],
     ["Builders/X源池", `${fmtNumber(buildersCount)} 條`, "Follow Builders公開feed", "builders"],
-    ["自媒體源池", `${fmtNumber(creatorCount)} 條`, sourcePoolMeta(creatorCount, creatorRawCount, "TikHub · 抖音 + 小紅書"), "creator"],
     ["RSS/OPML擴充套件", opmlValue, opmlMeta, "private"],
     ["高階源", advancedValue, advancedMeta, "private"],
   ];
@@ -544,20 +524,11 @@ function computeSiteStats(items) {
 }
 
 function currentSiteStats() {
-  if (state.activeSection === "creator") {
-    const creatorItems = safeItems(state.mode === "all" ? state.creatorItemsAll : state.creatorItemsAi);
-    return computeSiteStats(state.mode === "selected" ? creatorItems.filter((item) => isHighPriorityItem(item)) : creatorItems);
-  }
   if (state.mode === "ai") return safeAiSiteStats().filter((site) => site.count > 0);
   return computeSiteStats(modeItems());
 }
 
-function creatorHotScore(item) {
-  return normalizedPercent(item?.creator_hot_score);
-}
-
 function highPriorityScore(item) {
-  if (itemSections(item).has("creator") && creatorHotScore(item)) return creatorHotScore(item);
   return scorePercent(item);
 }
 
@@ -576,7 +547,6 @@ function itemSourceType(item) {
   if (siteId === "curated_media" || siteId === "aibreakfast" || siteId === "aihot") return "media";
   if (siteId === "opmlrss" || tier === "user_opml") return "rss";
   if (siteId === "waytoagi" || siteId === "followbuilders" || siteId === "hackernews" || siteId === "zeli" || siteId === "aibase") return "community";
-  if (siteId === "tikhub_douyin" || siteId === "tikhub_xiaohongshu") return "creator";
   if (siteId === "socialdata_x" || siteId === "xapi" || siteId === "agentmail") return "advanced";
   return "aggregate";
 }
@@ -657,8 +627,7 @@ function renderSectionSummary(filteredItems = null) {
   const modeText = state.mode === "selected"
     ? "高優先順序精選"
     : (state.mode === "all" ? (state.allDedup ? "全量去重" : "全量原始") : "全部 AI");
-  const windowText = state.activeSection === "creator" ? `過去 ${fmtNumber(state.creatorWindowDays)} 天 · 熱度優先` : "過去 24 小時";
-  sectionSummaryEl.textContent = `${windowText} · ${fmtNumber(items.length)} 條${section.id === "hot" ? "" : ` ${section.label}`}訊號 · ${fmtNumber(highCount)} 條高優先順序 · ${fmtNumber(sources.size)} 個來源 · ${modeText}`;
+  sectionSummaryEl.textContent = `過去 24 小時 · ${fmtNumber(items.length)} 條${section.id === "hot" ? "" : ` ${section.label}`}訊號 · ${fmtNumber(highCount)} 條高優先順序 · ${fmtNumber(sources.size)} 個來源 · ${modeText}`;
   renderStickySummary();
 }
 
@@ -823,14 +792,6 @@ function modeItems() {
 }
 
 function sectionItems(items = modeItems(), sectionId = state.activeSection) {
-  if (sectionId === "creator") {
-    const creatorSource = state.mode === "all" ? state.creatorItemsAll : state.creatorItemsAi;
-    const visibleCreatorItems = safeItems(creatorSource);
-    const selectedCreatorItems = state.mode === "selected"
-      ? visibleCreatorItems.filter((item) => isHighPriorityItem(item))
-      : visibleCreatorItems;
-    return selectedCreatorItems.sort((a, b) => creatorHotScore(b) - creatorHotScore(a) || timelineMs(b) - timelineMs(a));
-  }
   const source = Array.isArray(items) ? items : [];
   if (sectionId === "hot") {
     return [...source].sort((a, b) => itemPriorityScore(b) - itemPriorityScore(a) || timelineMs(b) - timelineMs(a));
@@ -920,7 +881,6 @@ function itemLabelTone(item) {
   const label = item.ai_label || "";
   if (item.site_id === "official_ai") return "official";
   if (item.site_id === "aihot" || label === "curated_hotlist") return "hot";
-  if (itemSections(item).has("creator")) return "creator";
   if (label === "model_release") return "models";
   if (label === "developer_tool" || label === "developer_tooling" || label === "infrastructure" || label === "infra_compute") return "devtools";
   if (label === "research_paper") return "research";
@@ -939,7 +899,6 @@ function itemTagTone(label) {
   if (text.includes("模型")) return "models";
   if (text.includes("開發")) return "devtools";
   if (text.includes("研究")) return "research";
-  if (text.includes("自媒體")) return "creator";
   if (text.includes("社群")) return "community";
   if (text.includes("產品")) return "products";
   if (text.includes("行業")) return "industry";
@@ -991,8 +950,6 @@ function freshnessPercent(item, halfLifeHours = 48) {
 }
 
 function itemPriorityScore(item) {
-  const creatorScore = creatorHotScore(item);
-  if (creatorScore && itemSections(item).has("creator")) return creatorScore;
   const internal = scorePercent(item);
   const editorial = editorialPercent(item);
   const source = sourceTierPercent(item);
@@ -1106,15 +1063,6 @@ function itemSections(item) {
   ) sections.add("research");
 
   if (
-    item.site_id === "tikhub_douyin" ||
-    item.site_id === "tikhub_xiaohongshu" ||
-    source.includes("douyin") ||
-    source.includes("xiaohongshu") ||
-    source.includes("小红书") || source.includes("小紅書") ||
-    source.includes("抖音")
-  ) sections.add("creator");
-
-  if (
     item.site_id === "waytoagi" ||
     item.site_id === "followbuilders" ||
     item.site_id === "aibase" ||
@@ -1145,18 +1093,6 @@ function sectionBadgeLabel(sectionId) {
 }
 
 function reasonText(item) {
-  const creatorScore = creatorHotScore(item);
-  if (creatorScore && itemSections(item).has("creator")) {
-    const metrics = item.creator_metrics || {};
-    const parts = [
-      `贊 ${fmtNumber(metrics.likes)}`,
-      `藏 ${fmtNumber(metrics.collects)}`,
-      `評 ${fmtNumber(metrics.comments)}`,
-      `轉 ${fmtNumber(metrics.shares)}`,
-    ];
-    if (Number(item.creator_freshness_bonus || 0) > 0) parts.push("24h 加分");
-    return `一週互動：${parts.join(" · ")}`;
-  }
   const signals = Array.isArray(item.ai_signals) ? item.ai_signals.filter(Boolean).slice(0, 3) : [];
   if (signals.length) return `命中方向：${signals.join(" / ")}`;
   if (item.ai_relevance_reason) return String(item.ai_relevance_reason).replaceAll("_", " ");
@@ -1269,8 +1205,6 @@ function sourceSignal(item) {
   if (source.includes("GitHub · Trending Today") || hay.includes("github")) return "GitHub趨勢";
   if (site === "Official AI Updates") return "官方更新";
   if (site === "Follow Builders") return "Builders";
-  if (site === "TikHub Douyin" || hay.includes("tikhub douyin")) return "抖音自媒體";
-  if (site === "TikHub Xiaohongshu" || hay.includes("tikhub xiaohongshu")) return "小紅書自媒體";
   if (site === "AIbase") return "AIbase";
   if (site === "OPML RSS") return "OPML";
   return site || "來源";
@@ -1282,7 +1216,6 @@ function sourcePriority(item) {
   if (signal === "AI HOT精選") return 90;
   if (signal === "AIbase") return 82;
   if (signal === "Builders") return 74;
-  if (signal === "抖音自媒體" || signal === "小紅書自媒體") return 70;
   if (signal === "OPML") return 68;
   if (signal === "HN熱議" || signal === "GitHub趨勢") return 62;
   return 50;
@@ -1659,9 +1592,15 @@ function boleStorySortCompare(a, b) {
   return bLatest - aLatest;
 }
 
+// feature/business-signal: a business-event hit earns hot-pool eligibility on
+// its own merit, even as a single source - storyHotness()'s sources>=2 floor
+// exists to keep purely-recency noise out, not to suppress confirmed
+// earnings/security/pricing/etc. events that haven't been corroborated yet.
+// boleStorySortCompare's four-tier order (business hit first) is unchanged;
+// this only widens who is allowed into the pool it sorts.
 function hotStories(stories) {
   return stories
-    .filter((story) => storyHotness(story) > 0)
+    .filter((story) => storyHotness(story) > 0 || storyHasBusinessEvent(story))
     .sort((a, b) => {
       const byShared = boleStorySortCompare(a, b);
       if (byShared !== 0) return byShared;
@@ -1820,7 +1759,6 @@ function uniqueStories(stories, excludeKeys = new Set(), excludeIdentityKeys = n
 }
 
 function currentStoryPools(filteredItems) {
-  if (state.activeSection === "creator") return { brief: [], merged: [], followup: [] };
   const brief = briefStories().filter((story) => storyMatchesFilteredItems(story, filteredItems));
   const merged = mergedStories().filter((story) => storyMatchesFilteredItems(story, filteredItems));
   const briefKeys = new Set(brief.map(storyStableKey).filter(Boolean));
@@ -2090,9 +2028,7 @@ function rankedClustersForItems(items) {
     .map((item, index) => ({
       item,
       index,
-      score: state.activeSection === "creator"
-        ? creatorHotScore(item)
-        : (scorePercent(item) || Math.round(itemPriorityScore(item))),
+      score: scorePercent(item) || Math.round(itemPriorityScore(item)),
     }))
     .filter((row) => row.item && (row.score > 0 || row.item.title))
     .sort((a, b) => itemPriorityScore(b.item) - itemPriorityScore(a.item) || timelineMs(b.item) - timelineMs(a.item));
@@ -2129,7 +2065,6 @@ function itemTagLabels(item, row = null) {
   if (sections.has("devtools")) tags.push("開發者");
   if (sections.has("hn")) tags.push("社群熱議");
   if (sections.has("research")) tags.push("研究");
-  if (sections.has("creator")) tags.push("自媒體");
   if (sections.has("community")) tags.push("社群");
   return Array.from(new Set(tags)).slice(0, 3);
 }
@@ -2230,8 +2165,15 @@ function impactLabels(item) {
 
 function buildTopStoryCard(row, rank) {
   const item = row.item;
+  // The lead slot renders larger than secondary cards, which looks sparse
+  // when there's neither real editorial copy nor other sources corroborating
+  // it to fill that space. Fall back to the secondary spec in that case even
+  // at rank 1; #2/#3 always use secondary regardless.
+  const hasEditorialSummary = Boolean(itemSummaryText(item) || itemSummaryText(row.story?.primary_item || {}));
+  const hasCompanionSources = row.sourceCount > 1 || row.mergedCount > 1;
+  const isLead = rank === 1 && (hasEditorialSummary || hasCompanionSources);
   const link = document.createElement("a");
-  link.className = `top-story-card ${rank === 1 ? "lead" : "secondary"}`;
+  link.className = `top-story-card ${isLead ? "lead" : "secondary"}`;
   link.href = item.url || "#";
   link.target = "_blank";
   link.rel = "noopener noreferrer";
@@ -2378,12 +2320,9 @@ function renderItemNode(item, context = {}) {
   categoryEl.textContent = kind.label;
   categoryEl.classList.add(`kind-${kind.tone}`);
   const score = scorePercent(item);
-  const creatorScore = creatorHotScore(item);
   const tagEl = document.createElement("span");
   tagEl.className = `ai-tag tone-${itemLabelTone(item)}`;
-  tagEl.textContent = creatorScore && itemSections(item).has("creator")
-    ? `自媒體熱度 · ${creatorScore}分`
-    : `${labelText(item)} · ${score || "?"}分`;
+  tagEl.textContent = `${labelText(item)} · ${score || "?"}分`;
   categoryEl.insertAdjacentElement("afterend", tagEl);
 
   const sourceEl = node.querySelector(".source");
@@ -3154,9 +3093,6 @@ async function init() {
     state.itemsAi = payload.items_ai || payload.items || [];
     state.itemsAllRaw = payload.items_all_raw || payload.items_all || [];
     state.itemsAll = payload.items_all || [];
-    state.creatorItemsAi = payload.creator_items_ai || [];
-    state.creatorItemsAll = payload.creator_items_all || state.creatorItemsAi;
-    state.creatorWindowDays = Number(payload.creator_window_days || 7);
     state.statsAi = payload.site_stats || [];
     state.totalAi = payload.total_items || state.itemsAi.length;
     state.totalRaw = payload.total_items_raw || state.itemsAllRaw.length;
