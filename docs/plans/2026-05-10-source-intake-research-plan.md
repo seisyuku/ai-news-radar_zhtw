@@ -6,7 +6,7 @@
 
 **Architecture:** Treat each target as an upstream intelligence source, not as code to copy. First identify its source list and ingestion pipeline; then classify each candidate source into built-in default, example OPML, advanced/private adapter, or skip. Prefer stable public RSS/Atom/JSON/GitHub-generated feeds over scraping, login-bound sources, or fragile social bridges.
 
-**Repo:** `~/Downloads/ai-news-radar`
+**Repo:** `<repo-root>`
 
 **Targets:**
 

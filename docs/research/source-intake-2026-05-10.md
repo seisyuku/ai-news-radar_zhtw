@@ -2,7 +2,7 @@
 
 > Status: research report only. No source fetcher, OPML, workflow, or data snapshot implementation has been changed.
 >
-> Repo: `~/Downloads/ai-news-radar`
+> Repo: `<repo-root>`
 
 ## 0. Baseline
 
