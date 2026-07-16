@@ -2,7 +2,7 @@
 
 **每 30 分鐘自動更新的 AI 產業商業事件儀表板，繁體中文，聚焦決策所需的訊號而非技術噪音。**
 
-👉 **線上瀏覽：https://seisyuku.github.io/ai-news-radar_zhtw/**
+👉 **免登入、直接使用：https://seisyuku.github.io/ai-news-radar_zhtw/**
 
 ---
 
