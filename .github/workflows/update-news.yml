@@ -9,7 +9,16 @@ on:
         default: false
         type: boolean
   schedule:
-    - cron: "*/30 * * * *"
+    # GitHub drops (not just delays) a meaningful fraction of schedule
+    # events during high load, and load peaks hardest exactly on the
+    # hour/half-hour because that's where most repos' cron jobs land.
+    # Offsetting off those round minutes cuts the drop rate. Confirmed via
+    # `gh run list`: with "*/30 * * * *", of 9 ticks expected between
+    # 17:00-21:23 (Asia/Taipei) only 2 actually fired, and neither landed
+    # on :00/:30 (delayed to :19 and :04). Runs that did fire completed in
+    # under 2 minutes with no queued/stuck runs in between, so execution
+    # wasn't the bottleneck — the schedule ticks themselves were dropped.
+    - cron: "7,37 * * * *"
 
 # Queue runs instead of cancelling: a schedule tick that starts while a
 # manual dispatch (or a previous tick) is still pushing must wait its turn,
