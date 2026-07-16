@@ -133,6 +133,58 @@ class AiRelevanceScoringTests(unittest.TestCase):
         self.assertEqual(result["label"], "research_paper")
         self.assertLessEqual(result["score"], 0.76)
 
+    def test_english_tutorial_title_is_excluded_even_from_trusted_source(self):
+        rec = {
+            "site_id": "curated_media",
+            "site_name": "精選媒體",
+            "source": "TechCrunch AI",
+            "title": (
+                "Patter SDK Guide to Building a Restaurant Booking Phone Agent "
+                "with Dynamic Variables, Guardrails, Latency Dashboards, and Eval Checks"
+            ),
+            "url": "https://example.com/patter-sdk-guide",
+        }
+        result = score_ai_relevance(rec)
+        self.assertFalse(result["is_ai_related"])
+        self.assertEqual(result["reason"], "tutorial_title_pattern")
+        self.assertEqual(result["label"], "tutorial_excluded")
+
+    def test_how_to_tutorial_is_excluded_even_from_default_ai_source(self):
+        rec = {
+            "site_id": "aihot",
+            "site_name": "AI HOT",
+            "source": "AI HOT",
+            "title": "How to fine-tune your own LLM in five easy steps",
+            "url": "https://aihot.virxact.com/post/2",
+        }
+        result = score_ai_relevance(rec)
+        self.assertFalse(result["is_ai_related"])
+        self.assertEqual(result["reason"], "tutorial_title_pattern")
+
+    def test_chinese_tutorial_title_is_excluded(self):
+        rec = {
+            "site_id": "tw_media",
+            "site_name": "台灣媒體",
+            "source": "數位時代",
+            "title": "ChatGPT Skills怎麼用？3種建立方式教學、6組好用範例一次看",
+            "url": "https://example.com/chatgpt-skills-tutorial",
+        }
+        result = score_ai_relevance(rec)
+        self.assertFalse(result["is_ai_related"])
+        self.assertEqual(result["reason"], "tutorial_title_pattern")
+
+    def test_non_tutorial_ai_news_is_not_caught_by_tutorial_filter(self):
+        rec = {
+            "site_id": "techurls",
+            "site_name": "TechURLs",
+            "source": "V2EX",
+            "title": "OpenAI releases new GPT model",
+            "url": "https://example.com/ai",
+        }
+        result = score_ai_relevance(rec)
+        self.assertTrue(result["is_ai_related"])
+        self.assertNotEqual(result["reason"], "tutorial_title_pattern")
+
     def test_adds_public_debug_fields(self):
         rec = {
             "site_id": "official_ai",

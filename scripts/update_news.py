@@ -732,7 +732,7 @@ BUSINESS_EVENT_KEYWORDS: dict[str, tuple[str, ...]] = {
         "\u8a55\u6e2c", "\u8dd1\u5206", "\u6392\u884c\u699c", "\u52dd\u7387", "\u57fa\u6e96\u6e2c\u8a66", "\u8a55\u6bd4", "\u5c0d\u6c7a", "\u7af6\u6280\u5834",
         "\u6392\u540d", "\u6e2c\u8a66\u7d50\u679c", "\u8a55\u6e2c\u7d50\u679c", "\u8dd1\u5206\u6210\u7e3e",
         "benchmark", "benchmarks", "sota", "state of the art", "leaderboard",
-        "win rate", "eval", "evaluation", "arena", "top score", "ranking",
+        "win rate", "eval", "evals", "evaluation", "arena", "top score", "ranking",
     ),
 }
 
@@ -798,8 +798,8 @@ MARKET_MERGER_CONTEXT_TERMS: tuple[str, ...] = (
 # Short ASCII tokens in BUSINESS_EVENT_KEYWORDS prone to false substring
 # matches inside unrelated words (mirrors _KEYWORD_WORD_BOUNDARY_ONLY below).
 _BUSINESS_KEYWORD_WORD_BOUNDARY_ONLY = {
-    "q1", "q2", "q3", "q4", "eps", "rce", "cve", "sota", "eval", "arena",
-    "m&a",
+    "q1", "q2", "q3", "q4", "eps", "rce", "cve", "sota", "eval", "evals",
+    "arena", "m&a", "sdk",
 }
 
 _BUSINESS_EVENT_S2T = None
@@ -857,6 +857,35 @@ def _market_merger_cooccurs(haystack: str) -> bool:
     return False
 
 
+# benchmark's "eval"/"evals" are ambiguous: a model-performance benchmark
+# result ("passed the SWE-bench eval") vs. a dev-tooling testing/CI step in
+# a developer guide ("...with Guardrails, Latency Dashboards, and Eval
+# Checks"). feature/tutorial-filter's title-pattern gate (is_tutorial_title
+# in ai_relevance.py) drops most how-to/tutorial titles before they ever
+# reach this scoring stage, but "eval" can still false-trigger inside a
+# non-tutorial dev-news headline that merely mentions building/an SDK. When
+# eval/evals is the *only* benchmark keyword that matched (a stronger signal
+# like "sota"/"leaderboard"/"benchmark" itself is untouched by this guard),
+# same-sentence co-occurrence with developer-guide language suppresses the
+# match instead of counting it as a benchmark business event.
+BENCHMARK_EVAL_TERMS: tuple[str, ...] = ("eval", "evals")
+BENCHMARK_DEV_CONTEXT_TERMS: tuple[str, ...] = (
+    "sdk", "guide", "how to", "tutorial", "building", "build a", "build an",
+    "教學", "教程", "手把手", "指南",
+)
+
+
+def _benchmark_eval_dev_context_cooccurs(haystack: str) -> bool:
+    for sentence in _SENTENCE_SPLIT_RE.split(haystack):
+        if not sentence.strip():
+            continue
+        if not any(_business_keyword_matches(term, sentence) for term in BENCHMARK_EVAL_TERMS):
+            continue
+        if any(_business_keyword_matches(term, sentence) for term in BENCHMARK_DEV_CONTEXT_TERMS):
+            return True
+    return False
+
+
 def business_event_score(item: dict[str, Any]) -> list[str]:
     """Return the sorted list of BUSINESS_EVENT_KEYWORDS category codes
     whose keywords appear in this item's title+summary. Empty list means no
@@ -873,10 +902,18 @@ def business_event_score(item: dict[str, Any]) -> list[str]:
 
     hits: list[str] = []
     for category, keywords in BUSINESS_EVENT_KEYWORDS.items():
-        matched = any(_business_keyword_matches(kw, haystack) for kw in keywords)
+        matched_kws = [kw for kw in keywords if _business_keyword_matches(kw, haystack)]
+        matched = bool(matched_kws)
         if category == "market" and not matched:
             matched = _market_merger_cooccurs(haystack)
         if not matched:
+            continue
+        if (
+            category == "benchmark"
+            and matched_kws
+            and set(matched_kws) <= set(BENCHMARK_EVAL_TERMS)
+            and _benchmark_eval_dev_context_cooccurs(haystack)
+        ):
             continue
         exclude_terms = BUSINESS_EVENT_EXCLUDE_KEYWORDS.get(category)
         if exclude_terms and any(_business_keyword_matches(term, haystack) for term in exclude_terms):
@@ -5286,6 +5323,31 @@ def translate_to_zh_cn(session: requests.Session, text: str) -> str | None:
     return None
 
 
+# feature/tutorial-filter: fixed display renderings for brand/proper-noun
+# terms, independent of whatever the MT engine happens to output for them.
+# Google Translate usually leaves short proper nouns like "Morning Squawk"
+# untouched inside the translated string (verified against this project's
+# real title-zh-cache.json entries), so the default strategy is "find the
+# still-English term inside the translated result and swap it for the
+# glossary rendering." To add a future brand term, add ONE entry to this
+# dict - no other code changes needed.
+BRAND_GLOSSARY: dict[str, str] = {
+    "Morning Squawk": "晨間快評(Morning Squawk)",
+}
+
+
+def _apply_brand_glossary(source: str, result: str) -> str:
+    for term, zh in BRAND_GLOSSARY.items():
+        pattern = re.compile(rf"(?<!\w){re.escape(term)}(?!\w)", re.I)
+        if not pattern.search(source):
+            continue
+        if pattern.search(result):
+            result = pattern.sub(zh, result)
+        elif zh not in result:
+            result = f"{result} {zh}" if result else zh
+    return result
+
+
 def repair_zh_title_translation(original: str, translated: str) -> str:
     """Repair recurring machine-translation errors in AI product/news titles."""
     source = str(original or "")
@@ -5302,6 +5364,7 @@ def repair_zh_title_translation(original: str, translated: str) -> str:
         result = result.replace("存储库", "代码仓库")
     if re.search(r"\bdesktop app\b", source, re.I):
         result = result.replace("桌面应用程序", "桌面应用")
+    result = _apply_brand_glossary(source, result)
     return result
 
 

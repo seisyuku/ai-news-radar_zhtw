@@ -149,6 +149,28 @@ HN_FORWARDED_SOURCE_KEYWORDS = [
     "駭客新聞",
 ]
 
+# feature/tutorial-filter: how-to/tutorial content is not a business-event
+# news story regardless of how strong its AI keyword signal is, so this is
+# checked as a title-only hard exclusion ahead of every other collection-gate
+# rule (including the AI_DEFAULT_SOURCES/curated_media trusted-source
+# bypasses below) rather than folded into NOISE_KEYWORDS scoring.
+TUTORIAL_TITLE_KEYWORDS = [
+    "guide to",
+    "how to",
+    "tutorial",
+    "hands-on",
+    "hands on",
+    "step-by-step",
+    "step by step",
+    "a coding guide",
+    "教學",
+    "教学",
+    "教程",
+    "手把手",
+    "實作指南",
+    "实作指南",
+]
+
 UNSAFE_HARD_PATTERNS = [
     re.compile(r"\bcreampie\b", re.I),
     re.compile(r"\bblowjob\b", re.I),
@@ -290,6 +312,10 @@ def contains_unsafe_promotional_content(text: str) -> bool:
     return sum(bool(pattern.search(text)) for pattern in UNSAFE_PROMO_PATTERNS) >= 2
 
 
+def is_tutorial_title(title: str) -> bool:
+    return contains_any_keyword(title, TUTORIAL_TITLE_KEYWORDS)
+
+
 def matched_keywords(haystack: str, keywords: list[str]) -> list[str]:
     h = haystack.lower()
     return sorted({k for k in keywords if k in h})
@@ -359,6 +385,16 @@ def score_ai_relevance(record: dict[str, Any]) -> dict[str, Any]:
             reason="unsafe_promotional_content",
             signals=[],
             noise=["unsafe_promotional_content"],
+        )
+
+    if is_tutorial_title(title):
+        return _result(
+            is_ai_related=False,
+            score=0.15,
+            label="tutorial_excluded",
+            reason="tutorial_title_pattern",
+            signals=ai_signals + tech_signals,
+            noise=matched_keywords(title, TUTORIAL_TITLE_KEYWORDS),
         )
 
     if contains_any_keyword(source, HN_FORWARDED_SOURCE_KEYWORDS):
