@@ -1,3 +1,11 @@
+// Captured synchronously at parse time (works for defer'd scripts too, as
+// long as it happens before any await yields control) - this is the single
+// source of truth for the footer version tag. Deliberately not a second
+// hardcoded string: if a visitor's browser has an old app.js cached, this
+// reads that old script tag's own ?v=, so the footer honestly shows the
+// stale version instead of quietly claiming to be current.
+const APP_SCRIPT_EL = document.currentScript;
+
 const state = {
   itemsAi: [],
   itemsAll: [],
@@ -3269,4 +3277,13 @@ if (boleTimelineBtnEl) {
   });
 }
 
+function renderAppVersion() {
+  const el = document.getElementById("appVersionTag");
+  if (!el) return;
+  const src = APP_SCRIPT_EL ? APP_SCRIPT_EL.getAttribute("src") || "" : "";
+  const match = src.match(/[?&]v=([^&]+)/);
+  el.textContent = match ? `版本 ${decodeURIComponent(match[1])}` : "";
+}
+
+renderAppVersion();
 init();
