@@ -33,7 +33,7 @@
     <link rel="icon" href="./assets/icons/favicon-32.png" sizes="32x32" type="image/png" />
     <link rel="apple-touch-icon" href="./assets/icons/apple-touch-icon.png" sizes="180x180" />
     <link rel="manifest" href="./site.webmanifest" />
-    <link rel="stylesheet" href="./assets/styles.css?v=taste-ui-0716a" />
+    <link rel="stylesheet" href="./assets/styles.css?v=taste-ui-0716b" />
   </head>
   <body>
     <a class="skip-link" href="#bolePicksWrap">跳到今日重點訊號</a>
@@ -49,17 +49,14 @@
           </div>
         </div>
         <div class="hero-meta">
+          <a
+            class="hero-link"
+            href="https://github.com/seisyuku/ai-news-radar_zhtw"
+            target="_blank"
+            rel="noopener noreferrer"
+          >GitHub</a>
           <span class="updated-label">更新時間</span>
           <span class="updated" id="updatedAt">載入中...</span>
-          <span class="source-status-pill" id="sourceStatusPill">源狀態載入中</span>
-          <div class="hero-links" aria-label="專案入口">
-            <a
-              class="hero-link"
-              href="https://github.com/seisyuku/ai-news-radar_zhtw"
-              target="_blank"
-              rel="noopener noreferrer"
-            >GitHub</a>
-          </div>
         </div>
 
         <section class="stats" id="stats"></section>
@@ -73,83 +70,75 @@
 
       <section class="primary-controls">
         <input id="searchInput" type="search" placeholder="搜尋 AI 訊號 / 來源" aria-label="搜尋 AI 訊號或來源" />
-        <div class="mode-hint" id="modeHint">精選載入中</div>
+        <details class="advanced-panel">
+          <summary>
+            <span>高階篩選</span>
+          </summary>
+          <div class="advanced-content">
+            <div class="advanced-controls">
+              <label class="field">
+                <span>時間範圍</span>
+                <select id="timeRangeSelect" aria-label="時間範圍">
+                  <option value="24h">過去 24 小時</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>來源型別</span>
+                <select id="sourceTypeSelect">
+                  <option value="">全部來源</option>
+                  <option value="official">官方 / 一手</option>
+                  <option value="media">精選媒體 / 日報</option>
+                  <option value="community">社群 / HN / Builders</option>
+                  <option value="rss">RSS / OPML</option>
+                  <option value="aggregate">聚合源</option>
+                  <option value="advanced">進階源</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>內容型別</span>
+                <select id="sectionSelect"></select>
+              </label>
+              <label class="field">
+                <span>訊號等級</span>
+                <select id="signalLevelSelect">
+                  <option value="">全部訊號</option>
+                  <option value="high">高優先順序</option>
+                  <option value="curated">精選 / 官方</option>
+                  <option value="multi">多源驗證</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>具體來源</span>
+                <select id="siteSelect">
+                  <option value="">全部站點</option>
+                </select>
+              </label>
+              <div class="field">
+                <span>內容範圍</span>
+                <div class="mode-switch">
+                  <button id="modeSelectedBtn" class="mode-btn active" type="button" aria-pressed="true">精選</button>
+                  <button id="modeAiBtn" class="mode-btn" type="button" aria-pressed="false">全部 AI</button>
+                  <button id="modeAllBtn" class="mode-btn" type="button" aria-pressed="false">全量原始</button>
+                </div>
+              </div>
+              <label id="allDedupeWrap" class="all-dedupe" for="allDedupeToggle">
+                <input id="allDedupeToggle" type="checkbox" checked />
+                <span class="all-dedupe-dot"></span>
+                <span id="allDedupeLabel">去重開</span>
+              </label>
+            </div>
+            <div class="source-health" id="sourceHealth">源狀態載入中...</div>
+            <details class="source-detail-panel">
+              <summary>檢視源狀態詳情</summary>
+              <div class="source-health-details" id="sourceHealthDetails"></div>
+              <section class="coverage-strip" id="coverageStrip" aria-label="Source coverage status"></section>
+              <section class="source-status-table" id="sourceStatusTable" aria-label="源狀態詳情"></section>
+              <section class="site-pills" id="sitePills"></section>
+            </details>
+          </div>
+        </details>
         <button class="clear-filters-btn" id="clearFiltersBtn" type="button" hidden>清除篩選</button>
       </section>
-
-      <div class="sticky-summary-bar" aria-label="當前檢視摘要" aria-live="polite">
-        <strong>AI News Radar</strong>
-        <span id="stickySummaryText">正在整理 24 小時訊號...</span>
-      </div>
-
-      <details class="advanced-panel">
-        <summary>
-          <span>高階篩選</span>
-          <span class="advanced-summary" id="advancedSummary">載入中...</span>
-        </summary>
-        <div class="advanced-content">
-          <div class="advanced-controls">
-            <label class="field">
-              <span>時間範圍</span>
-              <select id="timeRangeSelect" aria-label="時間範圍">
-                <option value="24h">過去 24 小時</option>
-              </select>
-            </label>
-            <label class="field">
-              <span>來源型別</span>
-              <select id="sourceTypeSelect">
-                <option value="">全部來源</option>
-                <option value="official">官方 / 一手</option>
-                <option value="media">精選媒體 / 日報</option>
-                <option value="community">社群 / HN / Builders</option>
-                <option value="rss">RSS / OPML</option>
-                <option value="aggregate">聚合源</option>
-                <option value="advanced">進階源</option>
-              </select>
-            </label>
-            <label class="field">
-              <span>內容型別</span>
-              <select id="sectionSelect"></select>
-            </label>
-            <label class="field">
-              <span>訊號等級</span>
-              <select id="signalLevelSelect">
-                <option value="">全部訊號</option>
-                <option value="high">高優先順序</option>
-                <option value="curated">精選 / 官方</option>
-                <option value="multi">多源驗證</option>
-              </select>
-            </label>
-            <label class="field">
-              <span>具體來源</span>
-              <select id="siteSelect">
-                <option value="">全部站點</option>
-              </select>
-            </label>
-            <div class="field">
-              <span>內容範圍</span>
-              <div class="mode-switch">
-                <button id="modeSelectedBtn" class="mode-btn active" type="button" aria-pressed="true">精選</button>
-                <button id="modeAiBtn" class="mode-btn" type="button" aria-pressed="false">全部 AI</button>
-                <button id="modeAllBtn" class="mode-btn" type="button" aria-pressed="false">全量原始</button>
-              </div>
-            </div>
-            <label id="allDedupeWrap" class="all-dedupe" for="allDedupeToggle">
-              <input id="allDedupeToggle" type="checkbox" checked />
-              <span class="all-dedupe-dot"></span>
-              <span id="allDedupeLabel">去重開</span>
-            </label>
-          </div>
-          <div class="source-health" id="sourceHealth">源狀態載入中...</div>
-          <details class="source-detail-panel">
-            <summary>檢視源狀態詳情</summary>
-            <div class="source-health-details" id="sourceHealthDetails"></div>
-            <section class="coverage-strip" id="coverageStrip" aria-label="Source coverage status"></section>
-            <section class="source-status-table" id="sourceStatusTable" aria-label="源狀態詳情"></section>
-            <section class="site-pills" id="sitePills"></section>
-          </details>
-        </div>
-      </details>
 
       <section class="bole-picks-wrap" aria-label="今日 Top 3" id="bolePicksWrap">
         <div class="bole-picks-head">
@@ -219,7 +208,7 @@
     </template>
 
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" integrity="sha384-HOvlOYPIs/zjoIkWUGXkVmXsjr8GuZLV+Q+rcPwmJOVZVpvTSXQChiN4t9Euv9Vc" crossorigin="anonymous" defer></script>
-    <script src="./assets/motion.js?v=taste-ui-0716a" defer></script>
-    <script src="./assets/app.js?v=taste-ui-0716a" defer></script>
+    <script src="./assets/motion.js?v=taste-ui-0716b" defer></script>
+    <script src="./assets/app.js?v=taste-ui-0716b" defer></script>
   </body>
 </html>

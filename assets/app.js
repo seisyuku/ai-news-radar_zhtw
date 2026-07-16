@@ -44,8 +44,6 @@ const siteSelectEl = document.getElementById("siteSelect");
 const sitePillsEl = document.getElementById("sitePills");
 const newsListEl = document.getElementById("newsList");
 const updatedAtEl = document.getElementById("updatedAt");
-const sourceStatusPillEl = document.getElementById("sourceStatusPill");
-const stickySummaryTextEl = document.getElementById("stickySummaryText");
 const searchInputEl = document.getElementById("searchInput");
 const resultCountEl = document.getElementById("resultCount");
 const listTitleEl = document.getElementById("listTitle");
@@ -53,11 +51,9 @@ const itemTpl = document.getElementById("itemTpl");
 const modeSelectedBtnEl = document.getElementById("modeSelectedBtn");
 const modeAiBtnEl = document.getElementById("modeAiBtn");
 const modeAllBtnEl = document.getElementById("modeAllBtn");
-const modeHintEl = document.getElementById("modeHint");
 const allDedupeWrapEl = document.getElementById("allDedupeWrap");
 const allDedupeToggleEl = document.getElementById("allDedupeToggle");
 const allDedupeLabelEl = document.getElementById("allDedupeLabel");
-const advancedSummaryEl = document.getElementById("advancedSummary");
 const sourceHealthEl = document.getElementById("sourceHealth");
 const sourceHealthDetailsEl = document.getElementById("sourceHealthDetails");
 const sourceStatusTableEl = document.getElementById("sourceStatusTable");
@@ -270,8 +266,6 @@ function setStats() {
     node.innerHTML = `<div class="k">${k}</div><div class="v">${v}</div>`;
     statsEl.appendChild(node);
   });
-  renderStickySummary();
-  renderSourceStatusPill();
 }
 
 function failedSourceCount(status = state.sourceStatus) {
@@ -279,45 +273,6 @@ function failedSourceCount(status = state.sourceStatus) {
   const rss = status?.rss_opml || {};
   const failedFeeds = Array.isArray(rss.failed_feeds) ? rss.failed_feeds.length : 0;
   return failedSites + failedFeeds;
-}
-
-function renderSourceStatusPill(errorMessage = "") {
-  if (!sourceStatusPillEl) return;
-  const status = state.sourceStatus;
-  sourceStatusPillEl.className = "source-status-pill";
-  if (!status) {
-    sourceStatusPillEl.textContent = errorMessage || "源狀態載入中";
-    if (errorMessage) sourceStatusPillEl.classList.add("bad");
-    return;
-  }
-  const totalSites = Array.isArray(status.sites) ? status.sites.length : 0;
-  const okSites = Number(status.successful_sites || 0);
-  const failed = failedSourceCount(status);
-  sourceStatusPillEl.textContent = failed
-    ? `${fmtNumber(okSites)}/${fmtNumber(totalSites)} 源正常 · 失敗 ${fmtNumber(failed)}`
-    : `${fmtNumber(okSites)}/${fmtNumber(totalSites)} 源正常`;
-  if (failed) sourceStatusPillEl.classList.add("warn");
-}
-
-function renderStickySummary() {
-  if (!stickySummaryTextEl) return;
-  const filteredCount = getFilteredItems().length;
-  const section = SECTION_BY_ID[state.activeSection] || SECTION_BY_ID.hot;
-  const query = state.query.trim();
-  const site = state.siteFilter
-    ? (currentSiteStats().find((row) => row.site_id === state.siteFilter)?.site_name || state.siteFilter)
-    : "";
-  const sourceType = sourceTypeSelectEl?.selectedOptions?.[0]?.textContent || "";
-  const signalLevel = signalLevelSelectEl?.selectedOptions?.[0]?.textContent || "";
-  const filters = [
-    state.activeSection === "hot" ? "" : section.label,
-    site,
-    state.sourceTypeFilter ? sourceType : "",
-    state.signalLevelFilter ? signalLevel : "",
-    query ? `搜尋“${query}”` : "",
-  ].filter(Boolean);
-  const mode = state.mode === "selected" ? "精選" : (state.mode === "all" ? "全量" : "全部 AI");
-  stickySummaryTextEl.textContent = `${fmtNumber(filteredCount)} 條 · ${mode}${filters.length ? ` · ${filters.join(" · ")}` : ""}`;
 }
 
 function sourceKind(siteId) {
@@ -455,25 +410,6 @@ function renderCoverageStrip(errorMessage = "") {
   cards.forEach(([label, value, meta, tone]) => {
     coverageStripEl.appendChild(renderCoverageCard(label, value, meta, tone));
   });
-}
-
-function renderAdvancedSummary() {
-  if (!advancedSummaryEl) return;
-  const status = state.sourceStatus;
-  const filteredCount = getFilteredItems().length;
-  const adjustmentCount = activeAdjustmentCount();
-  const adjustmentText = adjustmentCount ? ` · ${fmtNumber(adjustmentCount)} 項調整` : "";
-  if (!status) {
-    advancedSummaryEl.textContent = `${fmtNumber(filteredCount)} 條結果${adjustmentText}`;
-    renderClearFiltersButton();
-    return;
-  }
-  const sites = Array.isArray(status.sites) ? status.sites : [];
-  const totalSites = sites.length;
-  const okSites = Number(status.successful_sites || 0);
-  const failed = failedSourceCount(status);
-  advancedSummaryEl.textContent = `${fmtNumber(filteredCount)} 條結果${adjustmentText} · ${fmtNumber(okSites)}/${fmtNumber(totalSites)} 源正常${failed ? ` · 失敗 ${fmtNumber(failed)}` : ""}`;
-  renderClearFiltersButton();
 }
 
 function activeAdjustmentCount() {
@@ -636,7 +572,6 @@ function renderSectionSummary(filteredItems = null) {
     ? "高優先順序精選"
     : (state.mode === "all" ? (state.allDedup ? "全量去重" : "全量原始") : "全部 AI");
   sectionSummaryEl.textContent = `過去 24 小時 · ${fmtNumber(items.length)} 條${section.id === "hot" ? "" : ` ${section.label}`}訊號 · ${fmtNumber(highCount)} 條高優先順序 · ${fmtNumber(sources.size)} 個來源 · ${modeText}`;
-  renderStickySummary();
 }
 
 function siteRatioText(siteStats) {
@@ -718,18 +653,10 @@ function renderModeSwitch() {
   if (allDedupeWrapEl) allDedupeWrapEl.classList.toggle("show", state.mode === "all");
   if (allDedupeToggleEl) allDedupeToggleEl.checked = state.allDedup;
   if (allDedupeLabelEl) allDedupeLabelEl.textContent = state.allDedup ? "去重開" : "去重關";
-  const visibleCount = getFilteredItems().length;
-  modeHintEl.textContent = state.mode === "selected"
-    ? `精選 ${fmtNumber(visibleCount)} 條`
-    : (state.mode === "ai" ? `全部 AI ${fmtNumber(visibleCount)} 條` : `全量 ${fmtNumber(visibleCount)} 條`);
-  const modeLabel = state.mode === "selected"
-    ? "高優先順序精選"
-    : (state.mode === "ai" ? "全部 AI" : (state.allDedup ? "全量去重" : "全量原始"));
-  modeHintEl.setAttribute("aria-label", `當前結果 ${fmtNumber(visibleCount)} 條，${modeLabel}模式`);
   if (listTitleEl) {
     listTitleEl.textContent = listTitleText();
   }
-  renderAdvancedSummary();
+  renderClearFiltersButton();
   renderSectionSummary();
 }
 
@@ -2637,17 +2564,8 @@ function renderList() {
   const filtered = getFilteredItems();
   renderListSortTools();
   resultCountEl.textContent = `${fmtNumber(filtered.length)} 條`;
-  if (modeHintEl) {
-    modeHintEl.textContent = state.mode === "selected"
-      ? `精選 ${fmtNumber(filtered.length)} 條`
-      : (state.mode === "ai" ? `全部 AI ${fmtNumber(filtered.length)} 條` : `全量 ${fmtNumber(filtered.length)} 條`);
-    const modeLabel = state.mode === "selected"
-      ? "高優先順序精選"
-      : (state.mode === "ai" ? "全部 AI" : (state.allDedup ? "全量去重" : "全量原始"));
-    modeHintEl.setAttribute("aria-label", `當前結果 ${fmtNumber(filtered.length)} 條，${modeLabel}模式`);
-  }
   renderSectionSummary(filtered);
-  renderAdvancedSummary();
+  renderClearFiltersButton();
 
   newsListEl.innerHTML = "";
   _renderListToken += 1;           // invalidate any in-flight render
@@ -2929,8 +2847,7 @@ function renderSourceHealth(errorMessage = "") {
   const status = state.sourceStatus;
   if (!status) {
     sourceHealthEl.appendChild(renderSourceHealthSummaryNode(null, errorMessage));
-    renderSourceStatusPill(errorMessage);
-    renderAdvancedSummary();
+    renderClearFiltersButton();
     setStats();
     return;
   }
@@ -3016,8 +2933,7 @@ function renderSourceHealth(errorMessage = "") {
     detailTarget.appendChild(ok);
   }
   renderSourceStatusTable(status);
-  renderSourceStatusPill(errorMessage);
-  renderAdvancedSummary();
+  renderClearFiltersButton();
   setStats();
 }
 
