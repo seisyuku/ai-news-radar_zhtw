@@ -44,6 +44,7 @@ const siteSelectEl = document.getElementById("siteSelect");
 const sitePillsEl = document.getElementById("sitePills");
 const newsListEl = document.getElementById("newsList");
 const updatedAtEl = document.getElementById("updatedAt");
+const staleBannerEl = document.getElementById("staleBanner");
 const searchInputEl = document.getElementById("searchInput");
 const resultCountEl = document.getElementById("resultCount");
 const listTitleEl = document.getElementById("listTitle");
@@ -268,6 +269,37 @@ function fmtDate(iso) {
     month: "2-digit",
     day: "2-digit",
   }).format(d);
+}
+
+// feature/stale-banner: thresholds in hours. Kept as named constants (not
+// inlined) so a future retune only touches this one spot.
+const STALE_DATA_WARN_HOURS = 2;
+const STALE_DATA_BAD_HOURS = 6;
+
+// generated_at is an ISO 8601 string with an explicit UTC "Z" suffix (see
+// scripts/update_news.py's payload assembly), and Date.now() is UTC epoch ms
+// by definition - subtracting the two is timezone-safe regardless of the
+// viewer's local clock, no manual offset math needed.
+function renderStaleBanner() {
+  if (!staleBannerEl) return;
+  const generatedAt = state.generatedAt;
+  const generatedMs = generatedAt ? new Date(generatedAt).getTime() : NaN;
+  if (!generatedAt || Number.isNaN(generatedMs)) {
+    staleBannerEl.hidden = true;
+    return;
+  }
+  const ageHours = (Date.now() - generatedMs) / 3600000;
+  if (ageHours < STALE_DATA_WARN_HOURS) {
+    staleBannerEl.hidden = true;
+    staleBannerEl.textContent = "";
+    staleBannerEl.className = "stale-banner";
+    return;
+  }
+  const tier = ageHours >= STALE_DATA_BAD_HOURS ? "bad" : "warn";
+  const roundedHours = Math.floor(ageHours);
+  staleBannerEl.hidden = false;
+  staleBannerEl.className = `stale-banner ${tier}`;
+  staleBannerEl.textContent = `資料已 ${roundedHours} 小時未更新，可能為排程異常`;
 }
 
 function setStats() {
@@ -3029,6 +3061,7 @@ async function init() {
     state.generatedAt = payload.generated_at;
 
     setStats();
+    renderStaleBanner();
     renderSectionTabs();
     renderModeSwitch();
     renderListSortTools();

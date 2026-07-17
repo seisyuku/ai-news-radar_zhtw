@@ -158,6 +158,32 @@ button {
   background: rgba(18, 106, 115, 0.1);
 }
 
+/* feature/stale-banner: hidden by default (index.html sets [hidden]);
+   app.js toggles this class + [hidden] based on data age. ".warn" is the
+   >2h low-key tier, ".bad" is the >6h prominent tier (see
+   STALE_DATA_THRESHOLDS_HOURS in app.js). */
+.stale-banner {
+  grid-column: 1 / -1;
+  margin-top: 2px;
+  border-radius: var(--radius);
+  padding: 8px 12px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.stale-banner.warn {
+  border: 1px solid rgba(154, 103, 0, 0.28);
+  color: var(--warn);
+  background: rgba(154, 103, 0, 0.08);
+}
+
+.stale-banner.bad {
+  border: 1px solid rgba(180, 35, 24, 0.32);
+  color: var(--bad);
+  background: rgba(180, 35, 24, 0.1);
+  font-weight: 720;
+}
+
 .stats {
   grid-column: 1 / -1;
   display: flex;
