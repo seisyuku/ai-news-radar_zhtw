@@ -135,6 +135,15 @@ class BusinessEventScoreTests(unittest.TestCase):
         }
         self.assertEqual(business_event_score(item), [])
 
+    def test_chatgpt_skills_tutorial_residual_carries_no_badge(self):
+        # Companion to test_chatgpt_skills_tutorial_is_a_known_accepted_residual
+        # in test_ai_relevance.py: this title is now collected (task 2
+        # decision) instead of hard-excluded, but it must still carry no
+        # business-event badge and therefore never reach the featured
+        # section - that's what makes the residual low-severity.
+        item = {"title": "ChatGPT Skills怎麼用？3種建立方式教學、6組好用範例一次看", "summary": ""}
+        self.assertEqual(business_event_score(item), [])
+
     def test_evals_with_building_does_not_trigger_benchmark(self):
         item = {"title": "Build an SDK eval harness for your agent", "summary": ""}
         self.assertEqual(business_event_score(item), [])

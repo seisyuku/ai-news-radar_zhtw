@@ -161,7 +161,32 @@ class AiRelevanceScoringTests(unittest.TestCase):
         self.assertFalse(result["is_ai_related"])
         self.assertEqual(result["reason"], "tutorial_title_pattern")
 
-    def test_chinese_tutorial_title_is_excluded(self):
+    def test_bare_jiaoxue_no_longer_hard_excludes_a_business_headline(self):
+        # feature/tutorial-filter task 2: bare "教學"/"教学" was deliberately
+        # dropped from the ZH keyword list because it also means "teaching"
+        # as a plain noun, which was hard-killing real product/business news
+        # like this one (a free-program announcement, not a how-to piece).
+        rec = {
+            "site_id": "aibase",
+            "site_name": "AIbase",
+            "source": "AIbase",
+            "title": "Anthropic 免费推出 Claude for Teachers，助力美国教师智慧教学！",
+            "url": "https://example.com/claude-for-teachers",
+        }
+        result = score_ai_relevance(rec)
+        self.assertTrue(result["is_ai_related"])
+        self.assertNotEqual(result["reason"], "tutorial_title_pattern")
+
+    def test_chatgpt_skills_tutorial_is_a_known_accepted_residual(self):
+        # feature/tutorial-filter task 2 decision: strict start-anchoring for
+        # English phrases plus the compound-only ZH keyword list means this
+        # genuine how-to article (教學 appears mid-title, not as one of the
+        # compound forms, and no English anchor matches a Chinese-language
+        # title) is no longer hard-excluded. Accepted as a known residual
+        # rather than re-widening bare "教學"/"教学" (which would resurrect
+        # the false-kill in the test above): it carries no business-event
+        # keyword, so it gets no badge and never reaches the featured
+        # section - just ordinary noise in the general list.
         rec = {
             "site_id": "tw_media",
             "site_name": "台灣媒體",
@@ -170,8 +195,8 @@ class AiRelevanceScoringTests(unittest.TestCase):
             "url": "https://example.com/chatgpt-skills-tutorial",
         }
         result = score_ai_relevance(rec)
-        self.assertFalse(result["is_ai_related"])
-        self.assertEqual(result["reason"], "tutorial_title_pattern")
+        self.assertTrue(result["is_ai_related"])
+        self.assertNotEqual(result["reason"], "tutorial_title_pattern")
 
     def test_non_tutorial_ai_news_is_not_caught_by_tutorial_filter(self):
         rec = {
