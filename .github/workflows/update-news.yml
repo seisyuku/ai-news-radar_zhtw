@@ -28,6 +28,13 @@ on:
     # completed in under 2 minutes with none queued/stuck), so the ticks
     # themselves are still what's being dropped, not run execution.
     - cron: "7,22,37,52 * * * *"
+    # 2026-07-17T05:47Z re-registration touch: this cron value shipped at
+    # 03:12Z but produced zero schedule triggers in the ~2.5h since (vs. ~10
+    # expected ticks), while workflow state=active, no queued/in_progress
+    # runs stuck in the concurrency group, actionlint reports 0 issues on
+    # this file, and githubstatus.com shows Actions fully operational - none
+    # of the other failure modes apply. Touching the file again to force
+    # GitHub to re-read the schedule definition.
 
 # Queue runs instead of cancelling: a schedule tick that starts while a
 # manual dispatch (or a previous tick) is still pushing must wait its turn,
