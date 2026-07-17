@@ -11,10 +11,10 @@ NOW = datetime(2026, 7, 14, 12, 0, tzinfo=timezone.utc)
 
 
 class BusinessEventScoreTests(unittest.TestCase):
-    def test_all_five_categories_have_keywords(self):
+    def test_all_six_categories_have_keywords(self):
         self.assertEqual(
             set(BUSINESS_EVENT_KEYWORDS.keys()),
-            {"earnings", "market", "security", "pricing", "benchmark"},
+            {"earnings", "market", "security", "pricing", "benchmark", "model_release"},
         )
         for category, keywords in BUSINESS_EVENT_KEYWORDS.items():
             self.assertTrue(keywords, f"{category} keyword list is empty")
@@ -160,6 +160,62 @@ class BusinessEventScoreTests(unittest.TestCase):
             "summary": "",
         }
         self.assertEqual(business_event_score(item), ["benchmark"])
+
+    # --- feature/model-release-badge: model_release subject×verb×context gate ---
+    def test_english_model_release_with_parameter_context(self):
+        item = {
+            "title": (
+                "Ex-OpenAI CTO Murati's Thinking Machines drops Inkling, a 975B "
+                "parameter model that leads US labs but trails China"
+            ),
+            "summary": "",
+        }
+        self.assertEqual(business_event_score(item), ["model_release"])
+
+    def test_traditional_chinese_model_release(self):
+        item = {"title": "Thinking Machines Lab釋出首款開放權重AI模型Inkling", "summary": ""}
+        self.assertEqual(business_event_score(item), ["model_release"])
+
+    def test_simplified_chinese_model_release_via_s2t_fabu_variant(self):
+        # OpenCC s2t converts Simplified "发布" to "發佈" (not "發布") - this
+        # pins that both Traditional spellings are matched.
+        item = {"title": "穆拉蒂重磅回归：思维机器实验室发布首款多模态开源模型 Inkling", "summary": ""}
+        self.assertEqual(business_event_score(item), ["model_release"])
+
+    def test_lab_name_alone_without_release_verb_does_not_trigger_model_release(self):
+        item = {
+            "title": (
+                "Thinking Machines amps up its bet against one-size-fits-all AI "
+                "with its first open model, Inkling"
+            ),
+            "summary": "",
+        }
+        self.assertEqual(business_event_score(item), [])
+
+    def test_release_verb_alone_without_model_context_does_not_trigger_model_release(self):
+        item = {"title": "Inkling: Our open-weights model", "summary": ""}
+        self.assertEqual(business_event_score(item), [])
+
+    def test_lab_name_plus_verb_without_model_context_is_rejected(self):
+        # Known adversarial pattern flagged during review: a lab-name
+        # substring ("Grok") plus a release verb ("Open-Sources") in a
+        # headline that isn't actually about a model release. The third-layer
+        # MODEL_RELEASE_CONTEXT_TERMS guard exists specifically for this.
+        item = {"title": "SpaceXAI Open-Sources Grok Build", "summary": ""}
+        self.assertEqual(business_event_score(item), [])
+
+    def test_model_release_only_scans_title_not_summary(self):
+        # Unlike every other category, model_release deliberately does not
+        # scan the summary - a lab name mentioned somewhere in a longer
+        # summary isn't the same signal as being the subject of the headline.
+        # (The summary text still legitimately triggers "benchmark" here,
+        # since that category scans title+summary as normal - the point of
+        # this test is that "model_release" specifically stays absent.)
+        item = {
+            "title": "Weekly AI roundup",
+            "summary": "OpenAI releases a new flagship model with strong benchmark results.",
+        }
+        self.assertNotIn("model_release", business_event_score(item))
 
 
 class BusinessEventStoryRecordTests(unittest.TestCase):

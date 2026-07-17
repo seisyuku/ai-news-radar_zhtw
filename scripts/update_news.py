@@ -131,6 +131,15 @@ OFFICIAL_AI_FEEDS: tuple[dict[str, str], ...] = (
         "include_keywords": "hatch,pet,migrate-to-codex",
     },
     {
+        # feature/model-release-badge: probed 2026-07 - no /feed, /rss.xml or
+        # /atom.xml, but thinkingmachines.ai is a Hugo site and exposes the
+        # standard Hugo RSS output at /index.xml (verified: valid RSS 2.0,
+        # "Thinking Machines Lab" channel, includes the Inkling launch post).
+        "title": "Thinking Machines Lab",
+        "xml_url": "https://thinkingmachines.ai/index.xml",
+        "html_url": "https://thinkingmachines.ai/blog/",
+    },
+    {
         # Official NVIDIA blog RSS (nvidianews.nvidia.com does not expose a
         # working /rss feed; this is NVIDIA's actual public feed and mixes
         # GeForce/gaming posts with AI posts, so it relies on the shared
@@ -682,6 +691,28 @@ def apply_site_name_alias(site_name: str) -> str:
     return SITE_NAME_ALIASES.get(site_name, site_name)
 
 
+# feature/model-release-badge: major AI labs (~15, with common aliases /
+# Chinese names) used as the "subject" half of model_release's subject\u00d7verb
+# title co-occurrence gate below - defined ahead of BUSINESS_EVENT_KEYWORDS
+# because that dict references it directly.
+MAJOR_AI_LABS: tuple[str, ...] = (
+    "openai",
+    "anthropic", "claude",
+    "google deepmind", "deepmind", "gemini",
+    "meta ai", "llama",
+    "xai", "grok",
+    "deepseek", "\u6df1\u5ea6\u6c42\u7d22",
+    "mistral",
+    "thinking machines", "思維機器",
+    "\u963f\u91cc", "qwen", "\u901a\u7fa9",
+    "nvidia", "\u82f1\u5049\u9054",
+    "microsoft", "phi", "\u5fae\u8edf",
+    "moonshot", "kimi", "\u6708\u4e4b\u6697\u9762",
+    "\u667a\u8b5c", "glm",
+    "minimax",
+    "amazon", "titan", "\u4e9e\u99ac\u905c",
+)
+
 # --- Business-event tagging (feature/business-signal) ---
 # Category codes are stable, machine-facing identifiers written to
 # `business_events`; display labels (\u8ca1\u5831/\u5e02\u4f54/\u8cc7\u5b89/\u50f9\u683c/\u8a55\u6e2c) live in
@@ -734,6 +765,11 @@ BUSINESS_EVENT_KEYWORDS: dict[str, tuple[str, ...]] = {
         "benchmark", "benchmarks", "sota", "state of the art", "leaderboard",
         "win rate", "eval", "evals", "evaluation", "arena", "top score", "ranking",
     ),
+    # model_release doesn't use this tuple as a plain keyword list (see
+    # _model_release_title_cooccurs below) - it's kept here only so the
+    # category is enumerable via BUSINESS_EVENT_KEYWORDS.keys(), matching
+    # every other category and what tests/the frontend badge map key off.
+    "model_release": MAJOR_AI_LABS,
 }
 
 # Whole-haystack exclusion terms per category: if any of these appear
@@ -800,6 +836,10 @@ MARKET_MERGER_CONTEXT_TERMS: tuple[str, ...] = (
 _BUSINESS_KEYWORD_WORD_BOUNDARY_ONLY = {
     "q1", "q2", "q3", "q4", "eps", "rce", "cve", "sota", "eval", "evals",
     "arena", "m&a", "sdk",
+    # MAJOR_AI_LABS short/ambiguous tokens: "phi" and "titan" in particular
+    # are ordinary English words/product-name collisions ("philosophy",
+    # "Titan rocket") without a boundary check.
+    "xai", "grok", "glm", "kimi", "phi", "titan", "qwen",
 }
 
 _BUSINESS_EVENT_S2T = None
@@ -886,6 +926,70 @@ def _benchmark_eval_dev_context_cooccurs(haystack: str) -> bool:
     return False
 
 
+# model_release: a plain MAJOR_AI_LABS keyword-presence match (like the other
+# five categories) would fire on nearly every AI headline, since lab names
+# are ubiquitous. Requires MAJOR_AI_LABS (subject) AND a release verb
+# co-occurring in the TITLE ONLY (not summary - unlike every other category,
+# which scans title+summary) - a lab name showing up somewhere in a longer
+# summary isn't the same signal as it being the subject of the headline
+# itself. "debuts" is not in the task's original verb list but was added
+# after replay against real Inkling (Thinking Machines) coverage, which uses
+# it in 2 of its titles.
+MODEL_RELEASE_VERBS: tuple[str, ...] = (
+    "releases", "released", "releasing",
+    "launches", "launched", "launching",
+    "unveils", "unveiled",
+    "introduces", "introduced",
+    "open-sources", "open sources", "open-sourced",
+    "drops", "dropped",
+    "debuts", "debuted",
+    # "發布"/"發佈" are both valid Traditional renderings of the same word;
+    # OpenCC's s2t always converts Simplified "发布" to "發佈" (not "發布"),
+    # so both must be listed or every Simplified-sourced "发布" title misses.
+    "發布", "發佈", "釋出", "推出", "開源", "登場",
+)
+
+# Third-layer guard: replay against real coverage (Inkling/Thinking Machines,
+# 13 title variants that pass the subject×verb gate) shows every single one
+# also carries a model-context term, so requiring one here costs zero recall
+# on real data while blocking the known adversarial pattern of a lab-name
+# substring + release verb in a non-model-release headline (e.g. "SpaceXAI
+# Open-Sources Grok Build" - "Grok" + "open-sources" but no model context).
+MODEL_RELEASE_CONTEXT_TERMS: tuple[str, ...] = (
+    "model", "models", "parameter", "parameters",
+    "open-weights", "open weights", "multimodal",
+    "模型", "參數", "多模態",
+)
+
+
+# Digest/roundup-style "titles" from community sources (waytoagi weekly
+# roundups, aibase/tophub "AI日報" digests) pack several unrelated clauses
+# into one string separated by semicolons, not just periods - found via 7-day
+# replay: a title could mention a lab name + "model" in one clause and an
+# unrelated "released" verb (e.g. about a paper, in a different clause) later
+# in the same string, which _SENTENCE_SPLIT_RE's period-only split would not
+# separate. Splitting on semicolons too keeps the co-occurrence requirement
+# meaningful for these multi-clause titles without affecting ordinary
+# single-clause headlines.
+_MODEL_RELEASE_CLAUSE_SPLIT_RE = re.compile(r"[。！？；;.!?\n]+")
+
+
+def _model_release_title_cooccurs(title: str) -> bool:
+    haystack = _business_event_normalize(title)
+    if not haystack.strip():
+        return False
+    for clause in _MODEL_RELEASE_CLAUSE_SPLIT_RE.split(haystack):
+        if not clause.strip():
+            continue
+        if not any(_business_keyword_matches(kw, clause) for kw in MAJOR_AI_LABS):
+            continue
+        if not any(_business_keyword_matches(kw, clause) for kw in MODEL_RELEASE_VERBS):
+            continue
+        if any(_business_keyword_matches(kw, clause) for kw in MODEL_RELEASE_CONTEXT_TERMS):
+            return True
+    return False
+
+
 def business_event_score(item: dict[str, Any]) -> list[str]:
     """Return the sorted list of BUSINESS_EVENT_KEYWORDS category codes
     whose keywords appear in this item's title+summary. Empty list means no
@@ -902,6 +1006,10 @@ def business_event_score(item: dict[str, Any]) -> list[str]:
 
     hits: list[str] = []
     for category, keywords in BUSINESS_EVENT_KEYWORDS.items():
+        if category == "model_release":
+            if _model_release_title_cooccurs(title):
+                hits.append(category)
+            continue
         matched_kws = [kw for kw in keywords if _business_keyword_matches(kw, haystack)]
         matched = bool(matched_kws)
         if category == "market" and not matched:

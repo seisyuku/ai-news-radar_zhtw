@@ -124,12 +124,47 @@ const BUSINESS_EVENT_LABELS = {
   security: { label: "資安", tone: "strong" },
   pricing: { label: "價格", tone: "products" },
   benchmark: { label: "評測", tone: "research" },
+  model_release: { label: "模型發布", tone: "models" },
+};
+
+// feature/model-release-badge: a business-event badge is a verified,
+// higher-precision signal than the plainer content-classification tags from
+// itemTagLabels() (section membership only). When both would appear in the
+// same card's tag row and say near enough the same thing, the event badge
+// wins and the content tag is dropped instead of showing both ("模型發布"
+// event badge vs. "模型釋出" content tag for the same models-section item).
+const TAG_SYNONYM_SUPPRESS = {
+  model_release: ["模型釋出"],
 };
 
 function businessEventBadges(events) {
   return (Array.isArray(events) ? events : [])
     .map((code) => BUSINESS_EVENT_LABELS[code])
     .filter(Boolean);
+}
+
+// Shared tag row for cards that show both business-event badges and
+// content-classification tags (currently only the 重點訊號 Top 3 card via
+// buildTopStoryCard). Exact-text duplicates and defined near-synonyms
+// (TAG_SYNONYM_SUPPRESS) are deduped so the row never repeats the same idea
+// twice.
+function buildIntelTagRow(item, row) {
+  const events = rowBusinessEvents(row);
+  const shownLabels = new Set(events.map((badge) => badge.label));
+  const suppressed = new Set();
+  Object.entries(BUSINESS_EVENT_LABELS).forEach(([code, badge]) => {
+    if (shownLabels.has(badge.label)) {
+      (TAG_SYNONYM_SUPPRESS[code] || []).forEach((syn) => suppressed.add(syn));
+    }
+  });
+
+  const tags = document.createElement("div");
+  tags.className = "intel-tags";
+  events.forEach((badge) => tags.appendChild(businessEventChip(badge)));
+  itemTagLabels(item, row)
+    .filter((label) => !shownLabels.has(label) && !suppressed.has(label))
+    .forEach((label) => tags.appendChild(itemTagChip(label)));
+  return tags;
 }
 
 // Union of the story-level business_events (all merged sources) and the
@@ -2032,13 +2067,6 @@ function itemSourceRefs(item, row = null) {
   return refs.length ? refs : [{ label: "來源", tone: "default" }];
 }
 
-function priorityGrade(score) {
-  if (score >= 92) return "A+";
-  if (score >= 82) return "A";
-  if (score >= 70) return "B";
-  return "C";
-}
-
 function rowSourceCount(row) {
   const item = row.item || {};
   const refs = itemSourceRefs(item, row);
@@ -2086,18 +2114,6 @@ function whyImportantText(row) {
   return "它在當前 24 小時視窗裡同時具備相關度、新鮮度和來源權重，值得先讀原文確認。";
 }
 
-function impactLabels(item) {
-  const sections = itemSections(item);
-  const labels = [];
-  if (sections.has("devtools")) labels.push("開發者");
-  if (sections.has("products")) labels.push("產品");
-  if (sections.has("industry")) labels.push("企業 / 投資");
-  if (sections.has("research")) labels.push("研究");
-  if (sections.has("models")) labels.push("模型團隊");
-  if (sections.has("community") || sections.has("hn")) labels.push("社群");
-  return labels.slice(0, 3).length ? labels.slice(0, 3) : ["AI 觀察者"];
-}
-
 function buildTopStoryCard(row, rank) {
   const item = row.item;
   // The lead slot renders larger than secondary cards, which looks sparse
@@ -2126,16 +2142,10 @@ function buildTopStoryCard(row, rank) {
   const storyTimeline = row.story?.latest_at || row.story?.earliest_at || "";
   time.textContent = fmtTime(timelineIso(item) || storyTimeline);
   const primarySource = itemSourceRefs(item, row)[0];
-  const score = document.createElement("strong");
-  const displayScore = row.story
-    ? Math.max(row.score || 0, storyScore(row.story))
-    : Math.max(row.score || 0, headlineClusterScore(row));
-  score.className = `intel-score ${scoreTone(displayScore)}`;
-  score.textContent = `優先順序 ${priorityGrade(displayScore)}`;
   const sourceCount = document.createElement("span");
   sourceCount.className = "source-count";
   sourceCount.textContent = `${fmtNumber(rowSourceCount(row))} 個來源`;
-  meta.append(rankEl, sourceChip(primarySource.label, primarySource.tone, "source-chip intel-source"), sourceCount, score, time);
+  meta.append(rankEl, sourceChip(primarySource.label, primarySource.tone, "source-chip intel-source"), sourceCount, time);
 
   const title = document.createElement("div");
   title.className = "top-story-title";
@@ -2159,28 +2169,13 @@ function buildTopStoryCard(row, rank) {
   whyText.textContent = whyImportantText(row);
   why.append(whyLabel, whyText);
 
-  const tags = document.createElement("div");
-  tags.className = "intel-tags";
-  rowBusinessEvents(row).forEach((badge) => {
-    tags.appendChild(businessEventChip(badge));
-  });
-  itemTagLabels(item, row).forEach((label) => {
-    tags.appendChild(itemTagChip(label));
-  });
-
-  const impact = document.createElement("div");
-  impact.className = "impact-row";
-  impactLabels(item).forEach((label) => {
-    const chip = document.createElement("span");
-    chip.textContent = label;
-    impact.appendChild(chip);
-  });
+  const tags = buildIntelTagRow(item, row);
 
   const originalAction = document.createElement("span");
   originalAction.className = "original-action";
   originalAction.textContent = "檢視原文 ↗";
 
-  link.append(meta, title, original, summary, why, tags, impact, originalAction);
+  link.append(meta, title, original, summary, why, tags, originalAction);
   return link;
 }
 
