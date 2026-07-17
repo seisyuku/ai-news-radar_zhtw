@@ -66,6 +66,6 @@
 
 ## 致謝與授權
 
-本專案 fork 自 [LearnPrompt/ai-news-radar](https://github.com/LearnPrompt/ai-news-radar)（MIT License），在其基礎上重新設計了信息源結構、商業事件識別與排序、以及全站繁體中文化。感謝原作者的開源貢獻。
+本專案 fork 自 [LearnPrompt/ai-news-radar](https://github.com/LearnPrompt/ai-news-radar)（MIT License），在其基礎上重新自主設計了情報源結構、商業事件識別、虛假買榜排除與文章排序演算法，並對全站繁體中文化及加強資訊安全防護。感謝原作者的開源貢獻。
 
 維運與協作細節見 [docs/OPERATIONS.md](docs/OPERATIONS.md)。
