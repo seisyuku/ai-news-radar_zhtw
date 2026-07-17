@@ -12,13 +12,22 @@ on:
     # GitHub drops (not just delays) a meaningful fraction of schedule
     # events during high load, and load peaks hardest exactly on the
     # hour/half-hour because that's where most repos' cron jobs land.
-    # Offsetting off those round minutes cuts the drop rate. Confirmed via
-    # `gh run list`: with "*/30 * * * *", of 9 ticks expected between
-    # 17:00-21:23 (Asia/Taipei) only 2 actually fired, and neither landed
-    # on :00/:30 (delayed to :19 and :04). Runs that did fire completed in
-    # under 2 minutes with no queued/stuck runs in between, so execution
-    # wasn't the bottleneck — the schedule ticks themselves were dropped.
-    - cron: "7,37 * * * *"
+    # Offsetting off those round minutes cuts the drop rate, but does not
+    # eliminate it - re-measured 2026-07-17 via `gh run list
+    # --workflow=update-news.yml --json createdAt,event,conclusion` filtered
+    # to event=schedule (only ~13.8h of run history survives an earlier
+    # security-driven log cleanup, so this is the full available window, not
+    # a sample): with the once-offset "7,37 * * * *" (nominal 30 min /
+    # 48-a-day), the 10 schedule runs between 2026-07-16T11:19Z and
+    # 2026-07-17T01:04Z produced 9 gaps with a 91.2 min median (P90 105 min,
+    # max 134 min) - actual throughput ~17-18 runs/day vs the 48/day the
+    # cron nominally implies, i.e. still a chronic ~2-3x under-delivery, not
+    # a one-off incident. Moving to 4 ticks/hour (15 min nominal spacing)
+    # trades more wasted ticks for a shorter worst-case gap under the same
+    # drop rate; execution itself remains fast (all runs in this window
+    # completed in under 2 minutes with none queued/stuck), so the ticks
+    # themselves are still what's being dropped, not run execution.
+    - cron: "7,22,37,52 * * * *"
 
 # Queue runs instead of cancelling: a schedule tick that starts while a
 # manual dispatch (or a previous tick) is still pushing must wait its turn,
