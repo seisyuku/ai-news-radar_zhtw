@@ -35,6 +35,15 @@ on:
     # this file, and githubstatus.com shows Actions fully operational - none
     # of the other failure modes apply. Touching the file again to force
     # GitHub to re-read the schedule definition.
+    #
+    # 2026-07-17T12:45Z second touch, same diagnosis repeated: schedule ticks
+    # since the first touch had grown to 92-147 min gaps (vs. the ~91 min
+    # baseline median), no queued/in_progress runs, workflow state=active,
+    # and githubstatus.com's incident history shows nothing covering this
+    # window (the one relevant incident, "Degraded REST API Availability",
+    # ran 22:21-23:50 UTC on 07-16 and was long resolved). Ruled out every
+    # external cause twice in one day - see watchdog.yml for the permanent
+    # fix instead of relying on a third manual touch.
 
 # Queue runs instead of cancelling: a schedule tick that starts while a
 # manual dispatch (or a previous tick) is still pushing must wait its turn,

@@ -1,0 +1,70 @@
+name: Update News Watchdog
+
+# 2026-07-17: update-news.yml's own `schedule` registration has silently
+# stopped firing twice in one day (each time with no external cause - not a
+# disabled workflow, not a stuck concurrency group, not a GitHub incident
+# covering the window; see the "second touch" comment in update-news.yml for
+# the second occurrence's evidence). Manually diagnosing and re-touching the
+# file each time doesn't scale. This workflow is a second, INDEPENDENT
+# `schedule` registration whose only job is to check whether the main
+# workflow's schedule has gone stale and, if so, kick it via
+# `workflow_dispatch`.
+#
+# Why a second registration helps: the failure mode observed so far is a
+# single cron registration silently decaying - GitHub stops delivering ticks
+# for that specific `on.schedule` entry until the workflow file is touched
+# again. Two independently-registered schedules decaying at the same time is
+# far less likely than one. Even if this watchdog's own hourly tick
+# occasionally drops too (the same background drop-rate that affects every
+# `schedule` trigger on the platform), checking once an hour still bounds
+# the worst case: the main workflow can go stale for at most ~90 minutes
+# before this notices, plus at most one more dropped watchdog tick before it
+# fires - in practice that keeps the worst-case outage within ~2 hours,
+# which lines up with the front-end stale-data banner's own 2-hour "low-key
+# warning" threshold (see STALE_DATA_WARN_HOURS in assets/app.js). The two
+# mechanisms are meant to fail gracefully together: if the watchdog can't
+# recover it in time, readers see the warning banner instead of stale data
+# passing silently.
+
+on:
+  schedule:
+    - cron: "0 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  watchdog:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check update-news.yml's last schedule run and re-trigger if stale
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          STALE_THRESHOLD_MINUTES: 90
+        run: |
+          set -euo pipefail
+
+          last_created_at=$(gh api \
+            "repos/${{ github.repository }}/actions/workflows/update-news.yml/runs?event=schedule&per_page=1" \
+            --jq '.workflow_runs[0].created_at // empty')
+
+          if [ -z "$last_created_at" ]; then
+            echo "::warning::No prior schedule run found for update-news.yml; skipping this tick."
+            exit 0
+          fi
+
+          last_epoch=$(date -u -d "$last_created_at" +%s)
+          now_epoch=$(date -u +%s)
+          age_minutes=$(( (now_epoch - last_epoch) / 60 ))
+
+          echo "update-news.yml last schedule run: $last_created_at ($age_minutes minutes ago; threshold ${STALE_THRESHOLD_MINUTES} min)"
+
+          if [ "$age_minutes" -gt "$STALE_THRESHOLD_MINUTES" ]; then
+            echo "::warning::watchdog 代觸發: update-news.yml 最後一筆 schedule run 已 ${age_minutes} 分鐘未出現(門檻 ${STALE_THRESHOLD_MINUTES} 分鐘),改用 workflow_dispatch 補跑一次。"
+            gh workflow run update-news.yml
+          else
+            echo "update-news.yml schedule run is within threshold; no action needed."
+          fi
