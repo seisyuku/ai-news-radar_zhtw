@@ -69,3 +69,51 @@ would pull a source file into that same automated commit and create merge
 conflicts between the bot's commits and any concurrent front-end PR touching
 the same line. Bump the tag by hand, as part of the PR that changes the
 asset, same as any other source change.
+
+## Schedule (cron) health
+
+### Rule: verify every cron edit actually starts firing
+
+**After any change to `on.schedule.cron` in `update-news.yml`, confirm a
+schedule-triggered run appears within 30-60 minutes of the push:**
+
+```sh
+gh run list --workflow=update-news.yml -L 8 --json event,createdAt,conclusion,status
+```
+
+If no `event=="schedule"` run shows up in that window, GitHub has not
+re-registered the new cron definition (a known platform quirk, not specific
+to this repo). Fix: make one more substantive touch to the workflow file
+(e.g. append an explanatory comment - not whitespace-only, some editors
+diff-suppress those) and commit + push to force GitHub to re-read the
+schedule. This is an infrastructure fix and does not need to wait for
+feature-branch review.
+
+**Case on record (2026-07-17):** the cron was changed to
+`"7,22,37,52 * * * *"` at `03:12:29Z` (commit `30417f0`). By `05:47Z` (2.5h
+later, ~10 expected ticks) zero schedule runs had fired, while every other
+health signal was clean: workflow `state == "active"`, no `queued`/
+`in_progress` runs stuck in the `concurrency` group, `actionlint` reported 0
+issues on the file, and githubstatus.com showed Actions `operational` (no
+platform incident). That combination - everything green except the schedule
+itself - is the signature of the re-registration issue. A touch-only commit
+(`65e4111`) was pushed at `05:47Z`; the first schedule run after it fired at
+`05:58:04Z` (`success`), confirming the fix.
+
+### Baseline: what "normal" drop looks like vs. an actual outage
+
+GitHub's `schedule` trigger drops (not just delays) a meaningful fraction of
+ticks under platform load - this is expected background behavior, not a bug
+to chase every time a tick is late. Measured baseline (`gh run list`
+filtered to `event=="schedule"`, see the cron comment in `update-news.yml`
+for the underlying numbers): nominal spacing is 15 minutes (4 ticks/hour),
+but the **actual observed median interval is ~45-91 minutes**, with P90 in
+the 90-135 minute range. Individual gaps in that range are normal drop, not
+an incident - don't page/investigate on a single late tick.
+
+**Escalation threshold: 3 consecutive hours with zero schedule runs.** That
+is roughly 4-6x the observed median gap and well outside normal drop
+variance - treat it as an actual stall and work through the diagnosis in
+"Rule: verify every cron edit actually starts firing" above (workflow state
+→ stuck queued/in_progress runs → `actionlint` → githubstatus.com → schedule
+re-registration touch), in that order, before assuming a code-level cause.
