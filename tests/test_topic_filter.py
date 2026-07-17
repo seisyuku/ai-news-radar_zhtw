@@ -450,6 +450,27 @@ class TopicFilterTests(unittest.TestCase):
             "GPT-5.5 生物安全漏洞悬赏",
         )
 
+    def test_brand_glossary_relabels_morning_squawk_left_untranslated_by_mt(self):
+        self.assertEqual(
+            repair_zh_title_translation(
+                "Grocery sales, United earnings, Anthropic's IPO prep and more in Morning Squawk",
+                "Morning Squawk 中的杂货销售、美联航盈利、Anthropic 的 IPO 准备等更多内容",
+            ),
+            "晨間快評(Morning Squawk) 中的杂货销售、美联航盈利、Anthropic 的 IPO 准备等更多内容",
+        )
+
+    def test_brand_glossary_appends_when_term_missing_from_translated_result(self):
+        self.assertEqual(
+            repair_zh_title_translation("Morning Squawk: markets open lower", "市场开盘走低"),
+            "市场开盘走低 晨間快評(Morning Squawk)",
+        )
+
+    def test_brand_glossary_leaves_unrelated_titles_untouched(self):
+        self.assertEqual(
+            repair_zh_title_translation("OpenAI releases new GPT model", "OpenAI 发布新的 GPT 模型"),
+            "OpenAI 发布新的 GPT 模型",
+        )
+
     def test_fetch_aihot_uses_public_items_api_with_score_filter(self):
         page_1 = {
             "items": [

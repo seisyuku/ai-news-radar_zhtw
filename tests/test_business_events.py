@@ -124,6 +124,43 @@ class BusinessEventScoreTests(unittest.TestCase):
         item = {"title": "Bun 被 Anthropic 收购后用 Rust 重写，月下载超 2200 万", "summary": ""}
         self.assertEqual(business_event_score(item), ["market"])
 
+    # --- feature/tutorial-filter: eval/evals dev-context co-occurrence guard ---
+    def test_eval_in_dev_guide_title_does_not_trigger_benchmark(self):
+        item = {
+            "title": (
+                "Patter SDK Guide to Building a Restaurant Booking Phone Agent "
+                "with Dynamic Variables, Guardrails, Latency Dashboards, and Eval Checks"
+            ),
+            "summary": "",
+        }
+        self.assertEqual(business_event_score(item), [])
+
+    def test_chatgpt_skills_tutorial_residual_carries_no_badge(self):
+        # Companion to test_chatgpt_skills_tutorial_is_a_known_accepted_residual
+        # in test_ai_relevance.py: this title is now collected (task 2
+        # decision) instead of hard-excluded, but it must still carry no
+        # business-event badge and therefore never reach the featured
+        # section - that's what makes the residual low-severity.
+        item = {"title": "ChatGPT Skills怎麼用？3種建立方式教學、6組好用範例一次看", "summary": ""}
+        self.assertEqual(business_event_score(item), [])
+
+    def test_evals_with_building_does_not_trigger_benchmark(self):
+        item = {"title": "Build an SDK eval harness for your agent", "summary": ""}
+        self.assertEqual(business_event_score(item), [])
+
+    def test_eval_alone_without_dev_context_still_triggers_benchmark(self):
+        item = {"title": "New model tops the leaderboard in latest eval run", "summary": ""}
+        self.assertEqual(business_event_score(item), ["benchmark"])
+
+    def test_evals_alongside_benchmark_keyword_still_triggers_benchmark(self):
+        # A stronger signal (benchmark/sota/leaderboard/...) in the same title
+        # means the eval-dev-context guard should not suppress the match.
+        item = {
+            "title": "OpenAI publishes new evals for coding agents, sparking benchmark debate",
+            "summary": "",
+        }
+        self.assertEqual(business_event_score(item), ["benchmark"])
+
 
 class BusinessEventStoryRecordTests(unittest.TestCase):
     def _item(self, idx, *, business_events=(), site_id="official_ai"):

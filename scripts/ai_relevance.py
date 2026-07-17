@@ -149,6 +149,79 @@ HN_FORWARDED_SOURCE_KEYWORDS = [
     "駭客新聞",
 ]
 
+# feature/tutorial-filter: how-to/tutorial content is not a business-event
+# news story regardless of how strong its AI keyword signal is, so this is
+# checked as a title-only hard exclusion ahead of every other collection-gate
+# rule (including the AI_DEFAULT_SOURCES/curated_media trusted-source
+# bypasses below) rather than folded into NOISE_KEYWORDS scoring.
+#
+# English patterns are anchored to the start of the title (not a bare
+# substring match): "how to"/"guide to"/etc. appearing mid-headline is
+# usually real news phrased as an action hook ("Here's how to stop Meta's AI
+# from using your photos"), not a tutorial. A title that *opens* with one of
+# these is reliably a how-to/tutorial piece.
+TUTORIAL_TITLE_PATTERNS_EN: tuple[tuple[str, re.Pattern[str]], ...] = tuple(
+    (phrase, re.compile(rf"^{re.escape(phrase)}\b", re.I))
+    for phrase in (
+        "how to",
+        "guide to",
+        "tutorial",
+        "hands-on",
+        "step-by-step",
+        "a coding guide",
+    )
+)
+
+# Bare "教學"/"教学" is dropped: it also means "teaching" as a plain noun
+# (e.g. a product-news headline about a free program "助力教師智慧教學"),
+# not necessarily "tutorial". Compound forms below are the ones that
+# reliably signal a how-to piece; "教程" is unambiguous on its own and kept
+# as-is. "手把手"/實作指南 are unambiguous compounds too.
+TUTORIAL_TITLE_KEYWORDS_ZH = [
+    "使用教學",
+    "使用教学",
+    "教學文",
+    "教学文",
+    "入門教學",
+    "入门教学",
+    "新手教學",
+    "新手教学",
+    "保姆級",
+    "保姆级",
+    "教程",
+    "手把手",
+    "實作指南",
+    "实作指南",
+]
+
+# High-precision compound phrases allowed to match anywhere in the title
+# (not start-anchored): unlike bare "how to"/"guide to", a two-word phrase
+# like "SDK guide" or "coding guide" doesn't occur in ordinary news-hook
+# phrasing ("Here's how to..."), so a mid-title hit is still reliably a
+# tutorial. This exists specifically to recover product-name-first titles
+# such as "Patter SDK Guide to Building a Restaurant Booking Phone Agent
+# with... Eval Checks", which the start-anchored "^guide to" above cannot
+# reach because "Patter SDK" precedes it.
+TUTORIAL_TITLE_KEYWORDS_EN_UNANCHORED = [
+    "sdk guide",
+    "coding guide",
+]
+
+# Known, accepted residuals of the start-anchoring above (decision:
+# feature/tutorial-filter task 2) - titles that ARE genuine tutorials but
+# don't open with an anchor phrase and don't hit a compound 教學 keyword,
+# so they slip through as regular (non-featured, non-badged) items instead
+# of being hard-excluded:
+#   - "ChatGPT Skills怎麼用？3種建立方式教學、6組好用範例一次看" (教學 only
+#     appears mid-title, after the ？, not as one of the compound forms)
+#   - a socialdata_x numbered step-by-step tweet with no keyword hit at all
+# Both carry no business-event keywords, so they get no badge and never
+# reach the featured section - judged low-severity enough to leave as
+# ordinary list noise rather than re-widening bare "教學"/"教学" (which
+# would resurrect the "助力美國教師智慧教學" business-news false-kill from
+# task 2 point 1). See tests/test_ai_relevance.py and
+# tests/test_business_events.py for the pinned expected behavior.
+
 UNSAFE_HARD_PATTERNS = [
     re.compile(r"\bcreampie\b", re.I),
     re.compile(r"\bblowjob\b", re.I),
@@ -290,6 +363,23 @@ def contains_unsafe_promotional_content(text: str) -> bool:
     return sum(bool(pattern.search(text)) for pattern in UNSAFE_PROMO_PATTERNS) >= 2
 
 
+def matched_tutorial_title_signals(title: str) -> list[str]:
+    t = (title or "").strip()
+    signals = [phrase for phrase, pattern in TUTORIAL_TITLE_PATTERNS_EN if pattern.match(t)]
+    signals += matched_keywords(t, TUTORIAL_TITLE_KEYWORDS_ZH)
+    signals += matched_keywords(t, TUTORIAL_TITLE_KEYWORDS_EN_UNANCHORED)
+    return signals
+
+
+def is_tutorial_title(title: str) -> bool:
+    t = (title or "").strip()
+    if any(pattern.match(t) for _, pattern in TUTORIAL_TITLE_PATTERNS_EN):
+        return True
+    if contains_any_keyword(t, TUTORIAL_TITLE_KEYWORDS_ZH):
+        return True
+    return contains_any_keyword(t, TUTORIAL_TITLE_KEYWORDS_EN_UNANCHORED)
+
+
 def matched_keywords(haystack: str, keywords: list[str]) -> list[str]:
     h = haystack.lower()
     return sorted({k for k in keywords if k in h})
@@ -359,6 +449,16 @@ def score_ai_relevance(record: dict[str, Any]) -> dict[str, Any]:
             reason="unsafe_promotional_content",
             signals=[],
             noise=["unsafe_promotional_content"],
+        )
+
+    if is_tutorial_title(title):
+        return _result(
+            is_ai_related=False,
+            score=0.15,
+            label="tutorial_excluded",
+            reason="tutorial_title_pattern",
+            signals=ai_signals + tech_signals,
+            noise=matched_tutorial_title_signals(title),
         )
 
     if contains_any_keyword(source, HN_FORWARDED_SOURCE_KEYWORDS):

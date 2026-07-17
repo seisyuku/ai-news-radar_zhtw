@@ -133,6 +133,83 @@ class AiRelevanceScoringTests(unittest.TestCase):
         self.assertEqual(result["label"], "research_paper")
         self.assertLessEqual(result["score"], 0.76)
 
+    def test_english_tutorial_title_is_excluded_even_from_trusted_source(self):
+        rec = {
+            "site_id": "curated_media",
+            "site_name": "精選媒體",
+            "source": "TechCrunch AI",
+            "title": (
+                "Patter SDK Guide to Building a Restaurant Booking Phone Agent "
+                "with Dynamic Variables, Guardrails, Latency Dashboards, and Eval Checks"
+            ),
+            "url": "https://example.com/patter-sdk-guide",
+        }
+        result = score_ai_relevance(rec)
+        self.assertFalse(result["is_ai_related"])
+        self.assertEqual(result["reason"], "tutorial_title_pattern")
+        self.assertEqual(result["label"], "tutorial_excluded")
+
+    def test_how_to_tutorial_is_excluded_even_from_default_ai_source(self):
+        rec = {
+            "site_id": "aihot",
+            "site_name": "AI HOT",
+            "source": "AI HOT",
+            "title": "How to fine-tune your own LLM in five easy steps",
+            "url": "https://aihot.virxact.com/post/2",
+        }
+        result = score_ai_relevance(rec)
+        self.assertFalse(result["is_ai_related"])
+        self.assertEqual(result["reason"], "tutorial_title_pattern")
+
+    def test_bare_jiaoxue_no_longer_hard_excludes_a_business_headline(self):
+        # feature/tutorial-filter task 2: bare "教學"/"教学" was deliberately
+        # dropped from the ZH keyword list because it also means "teaching"
+        # as a plain noun, which was hard-killing real product/business news
+        # like this one (a free-program announcement, not a how-to piece).
+        rec = {
+            "site_id": "aibase",
+            "site_name": "AIbase",
+            "source": "AIbase",
+            "title": "Anthropic 免费推出 Claude for Teachers，助力美国教师智慧教学！",
+            "url": "https://example.com/claude-for-teachers",
+        }
+        result = score_ai_relevance(rec)
+        self.assertTrue(result["is_ai_related"])
+        self.assertNotEqual(result["reason"], "tutorial_title_pattern")
+
+    def test_chatgpt_skills_tutorial_is_a_known_accepted_residual(self):
+        # feature/tutorial-filter task 2 decision: strict start-anchoring for
+        # English phrases plus the compound-only ZH keyword list means this
+        # genuine how-to article (教學 appears mid-title, not as one of the
+        # compound forms, and no English anchor matches a Chinese-language
+        # title) is no longer hard-excluded. Accepted as a known residual
+        # rather than re-widening bare "教學"/"教学" (which would resurrect
+        # the false-kill in the test above): it carries no business-event
+        # keyword, so it gets no badge and never reaches the featured
+        # section - just ordinary noise in the general list.
+        rec = {
+            "site_id": "tw_media",
+            "site_name": "台灣媒體",
+            "source": "數位時代",
+            "title": "ChatGPT Skills怎麼用？3種建立方式教學、6組好用範例一次看",
+            "url": "https://example.com/chatgpt-skills-tutorial",
+        }
+        result = score_ai_relevance(rec)
+        self.assertTrue(result["is_ai_related"])
+        self.assertNotEqual(result["reason"], "tutorial_title_pattern")
+
+    def test_non_tutorial_ai_news_is_not_caught_by_tutorial_filter(self):
+        rec = {
+            "site_id": "techurls",
+            "site_name": "TechURLs",
+            "source": "V2EX",
+            "title": "OpenAI releases new GPT model",
+            "url": "https://example.com/ai",
+        }
+        result = score_ai_relevance(rec)
+        self.assertTrue(result["is_ai_related"])
+        self.assertNotEqual(result["reason"], "tutorial_title_pattern")
+
     def test_adds_public_debug_fields(self):
         rec = {
             "site_id": "official_ai",
