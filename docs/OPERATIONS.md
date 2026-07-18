@@ -117,3 +117,47 @@ variance - treat it as an actual stall and work through the diagnosis in
 "Rule: verify every cron edit actually starts firing" above (workflow state
 → stuck queued/in_progress runs → `actionlint` → githubstatus.com → schedule
 re-registration touch), in that order, before assuming a code-level cause.
+
+### 看門狗首次實測代觸發事件（2026-07-18）
+
+`watchdog.yml`（獨立 schedule 註冊，每小時整點檢查 update-news.yml
+最後一筆 schedule run，超過 90 分鐘未出現則 `workflow_dispatch`
+代觸發）上線後第一次真正該出手的案例：
+
+**事件經過**：update-news.yml 於 `01:02:23Z→04:10:23Z` 出現 188
+分鐘寬間隔。看門狗 `03:21:10Z` 那筆 schedule run **正確偵測**到
+138 分鐘缺口（已超過 90 分鐘門檻），log 也正確印出代觸發告警，
+但緊接著執行 `gh workflow run update-news.yml` 時**崩潰**——該行
+未帶 `-R` 旗標，job 又沒有 `actions/checkout` 步驟建立 `.git`
+目錄，`gh` CLI 嘗試從本地 git 環境推斷 repo 失敗，`fatal: not a
+git repository`，job exit 1。代觸發從未真正送出。最終是主排程
+自己在 `04:10:23Z` 靠下一個 schedule tick 恢復（event 仍是
+`schedule`，不是 `workflow_dispatch`）——不是被看門狗救援回來的。
+
+**修法**：commit `387d27c`，單行補 `-R "${{ github.repository
+}}"`，讓 `gh` 不需依賴本地 git context 即可指定目標 repo。
+actionlint 0 issues。
+
+**現況判準（修好 ≠ 驗證過）**：這個修法目前**尚未實測過任何一次
+成功的代觸發案例**——看門狗上線至今的實戰成功率是 0/1（唯一一次
+真正觸發即失敗）。驗證標準：
+
+```sh
+gh run list --workflow=update-news.yml --event=workflow_dispatch \
+  --json createdAt,conclusion,databaseId
+```
+
+要看到一筆時間點對得上看門狗告警的 `workflow_dispatch` run，才算
+驗證通過；在那之前，不能只看「主排程有沒有恢復」就認定看門狗有效
+——本次事件正是「主排程自己晚到恢復、看門狗其實沒起作用」的活生
+生反例。
+
+**裁決記錄**：
+- cron 密度維持 4 tick/hr（`7,22,37,52 * * * *`）不變：本次的零
+  觸發是看門狗**執行邏輯**的 bug，與 cron 密度無關，調密度修不到
+  這個洞。
+- 外部心跳（第三方 ping 服務代觸發等）降級為觀察項、非立即必要：
+  本次事件證明「兩層獨立 schedule 註冊」設計**部分生效**——看門狗
+  確實正確偵測到了異常，兩層排程並未同時全滅；問題出在偵測之後的
+  執行環節，而非偵測機制本身。優先把現有兩層的執行正確性修好、
+  實測驗證，比起再疊一層外部觸發機制更划算。
