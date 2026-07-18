@@ -42,9 +42,25 @@
    已測試釘住接受
 8. 官方源接入：Thinking Machines Lab（thinkingmachines.ai/index.xml，
    Hugo 標準 RSS，非常見 /feed 路徑）
-9. 翻譯品牌詞彙表機制：BRAND_GLOSSARY 單一擴充點，掛在既有
-   repair_zh_title_translation() 後處理流程，首條 Morning Squawk →
-   晨間快評(Morning Squawk)
+9. 翻譯正典名稱表（CANONICAL_NAMES，2026-07-18 Step 1 上線，取代舊
+   BRAND_GLOSSARY 單一擴充點）：單一實體→zh-TW 正典寫法表，涵蓋
+   AI 廠商（Table A-1 英文保留 / A-2 中譯，含 Moonshot AI／Moonshot
+   裸詞語境防護、Z.ai 詞界防護）、模型/產品家族（Table B，一律英文，
+   FAMILY_SUFFIX_TOKENS 常數化）、中國用語反向修正（Table C：谷歌→
+   Google、英偉達/英伟达→輝達、克勞德/克劳德（含寓言/十四行詩/俳句/
+   神話/傑作等子系衍生誤譯）→Claude）。三層防線：a. 遮罩回填（Step 2，
+   未上線）b. 出口修正 `_apply_canonical_names_exit_fix()`（掛在既有
+   `repair_zh_title_translation()`，僅在英文來源含該詞條時觸發，
+   Morning Squawk → 晨間快評(Morning Squawk) 沿用不變）c. 反向修正
+   `apply_canonical_reverse_fix()`（無條件套用於任何中文文字，掛在
+   `add_bilingual_fields()` 三個 title_zh 組裝點、且都在 `to_zh_hant()`
+   之後執行，故只需處理正體變體）。**掛載點與快取先後關係結論**：
+   `title-zh-cache.json` 內已存在的錯誤譯文（含 2026-07-18 前緣故的
+   「克勞德寓言」殘留）**不需要手動修補**，因為 exit-fix／reverse-fix
+   都在「讀快取值之後、組裝顯示值之前」重新套用（沿用 to_zh_hant()
+   同一層「不改寫歷史」設計）——reverse-fix 只修正顯示值、不回寫
+   cache；exit-fix 命中 Table A/B 詞條時才回寫 cache。已測試釘住
+   （tests/test_topic_filter.py 快取殘留案例）
 10. 資料時效警示帶（2026-07-17 上線）：前端讀 generated_at 與瀏覽當下
     UTC 時間比較，2 小時內不顯示、2-6 小時低調樣式、6 小時以上明顯
     樣式，門檻常數化（STALE_DATA_WARN_HOURS/STALE_DATA_BAD_HOURS）
@@ -60,7 +76,7 @@
   A/B/C」chip 已移除（importance_label 後端欄位與排序引用不動），
   上排業務事件徽章與內容標籤統一去重、近義詞讓位（model_release
   抑制「模型釋出」內容標籤）
-- 測試基線：199 pytest
+- 測試基線：208 pytest（2026-07-18 CANONICAL_NAMES Step 1 由 199 增至 208）
 - 排程健康：cron 已從每 30 分鐘加密至每小時 4 tick（7,22,37,52）；
   2026-07-17 同一日內註冊衰變（schedule 觸發完全停止、無外部原因）
   發生兩次（03:12Z 起 166 分鐘零 tick、12:45Z 前累積多段 92-147
