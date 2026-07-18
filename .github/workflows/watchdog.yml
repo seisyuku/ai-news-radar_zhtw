@@ -64,7 +64,15 @@ jobs:
 
           if [ "$age_minutes" -gt "$STALE_THRESHOLD_MINUTES" ]; then
             echo "::warning::watchdog 代觸發: update-news.yml 最後一筆 schedule run 已 ${age_minutes} 分鐘未出現(門檻 ${STALE_THRESHOLD_MINUTES} 分鐘),改用 workflow_dispatch 補跑一次。"
-            gh workflow run update-news.yml
+            # 2026-07-18: this job has no actions/checkout step, so there is
+            # no local .git directory for `gh` to infer the repo from - the
+            # bare `gh workflow run update-news.yml` call failed with "fatal:
+            # not a git repository" and the whole job errored out *after*
+            # correctly detecting the stale schedule (confirmed via run
+            # 29628666459's log: it printed the staleness warning, then died
+            # on this line). -R makes the target repo explicit so no git
+            # context is needed.
+            gh workflow run update-news.yml -R "${{ github.repository }}"
           else
             echo "update-news.yml schedule run is within threshold; no action needed."
           fi
