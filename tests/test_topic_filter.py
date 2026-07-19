@@ -177,6 +177,52 @@ class TopicFilterTests(unittest.TestCase):
             }
             self.assertFalse(is_ai_related_record(rec), f"expected {source!r} to be excluded")
 
+    def test_v2ex_domain_excluded_even_via_iris_aggregator(self):
+        # feature/noise-gate (2026-07-19): iris (Info Flow) relays a full
+        # V2EX community-board feed with no AI-specific curation; excluded
+        # by URL domain regardless of the aggregator's own source label,
+        # same shape as the HN-forwarded-source keyword check above.
+        rec = {
+            "site_id": "iris",
+            "site_name": "Info Flow",
+            "source": "V2EX (创意工作者社区)",
+            "title": "[分享創造] 用 AI 給我基於真的終端搓了個假的終端",
+            "url": "https://www.v2ex.com/t/1228366",
+        }
+        self.assertFalse(is_ai_related_record(rec))
+
+    def test_v2ex_domain_exclusion_is_host_anchored_not_a_substring_match(self):
+        # A URL host that merely contains "v2ex.com" as a substring (not the
+        # actual domain or a subdomain of it) must not be excluded.
+        rec = {
+            "site_id": "iris",
+            "site_name": "Info Flow",
+            "source": "Info Flow",
+            "title": "OpenAI releases new GPT model",
+            "url": "https://not-v2ex.com.example.net/article",
+        }
+        self.assertTrue(is_ai_related_record(rec))
+
+    def test_v2ex_subdomain_also_excluded(self):
+        rec = {
+            "site_id": "iris",
+            "site_name": "Info Flow",
+            "source": "Info Flow",
+            "title": "OpenAI releases new GPT model",
+            "url": "https://www.v2ex.com/go/ai",
+        }
+        self.assertFalse(is_ai_related_record(rec))
+
+    def test_v2ex_exclusion_does_not_affect_other_iris_content(self):
+        rec = {
+            "site_id": "iris",
+            "site_name": "Info Flow",
+            "source": "Info Flow",
+            "title": "OpenAI releases new GPT model",
+            "url": "https://example.com/openai-gpt-model",
+        }
+        self.assertTrue(is_ai_related_record(rec))
+
     def test_hn_algolia_keyword_score_requires_multiple_signals(self):
         self.assertGreaterEqual(hn_algolia_keyword_score("OpenAI releases Codex agent tools"), 0.38)
         self.assertLess(hn_algolia_keyword_score("OpenAI announces a policy update"), 0.38)
