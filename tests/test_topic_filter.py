@@ -26,6 +26,7 @@ from scripts.update_news import (
     maybe_fetch_tikhub_updates,
     maybe_fetch_x_api_updates,
     maybe_fix_mojibake,
+    apply_canonical_reverse_fix,
     normalize_source_for_display,
     parse_ai_breakfast_items,
     parse_aihot_api_items,
@@ -470,6 +471,105 @@ class TopicFilterTests(unittest.TestCase):
             repair_zh_title_translation("OpenAI releases new GPT model", "OpenAI 发布新的 GPT 模型"),
             "OpenAI 发布新的 GPT 模型",
         )
+
+    # --- CANONICAL_NAMES: 出口修正 (exit-fix) ---------------------------
+
+    def test_canonical_names_mixed_vendor_and_family_rendering(self):
+        result = repair_zh_title_translation(
+            "NVIDIA unveils Nemotron models for enterprise customers",
+            "NVIDIA 推出面向企业客户的 Nemotron 模型",
+        )
+        self.assertIn("輝達", result)
+        self.assertIn("Nemotron", result)
+        self.assertNotIn("NVIDIA", result)
+
+    def test_canonical_names_moonshot_ai_compound_always_converts(self):
+        result = repair_zh_title_translation(
+            "Moonshot AI launches Kimi K2 update",
+            "Moonshot AI 推出 Kimi K2 更新",
+        )
+        self.assertIn("月之暗面", result)
+        self.assertNotIn("Moonshot AI", result)
+
+    def test_canonical_names_bare_moonshot_requires_ai_lab_context(self):
+        with_context = repair_zh_title_translation(
+            "Moonshot doubles down on Kimi's agent roadmap",
+            "Moonshot 加倍投入 Kimi 的智能体路线图",
+        )
+        self.assertIn("月之暗面", with_context)
+
+        without_context = repair_zh_title_translation(
+            "Moonshot mission control approves next launch window",
+            "Moonshot 任务控制中心批准下一个发射窗口",
+        )
+        self.assertNotIn("月之暗面", without_context)
+        self.assertIn("Moonshot", without_context)
+
+    def test_canonical_names_case_sensitive_false_positive_guards(self):
+        lowercase_grok = repair_zh_title_translation(
+            "Users grok the new onboarding flow quickly",
+            "用户很快就 grok 了新的引导流程",
+        )
+        self.assertNotIn("Grok", lowercase_grok)
+
+        lowercase_moonshot_with_lab_context = repair_zh_title_translation(
+            "a moonshot bet by OpenAI on AGI safety",
+            "OpenAI 押注 AGI 安全的一次 moonshot 豪赌",
+        )
+        self.assertNotIn("月之暗面", lowercase_moonshot_with_lab_context)
+
+    # --- CANONICAL_NAMES: 反向修正 (reverse-fix, Table C) ----------------
+
+    def test_canonical_reverse_fix_regresses_claude_fable_mistranslation(self):
+        traditional = apply_canonical_reverse_fix("《克勞德寓言5》正式發表,不再只是模型代號")
+        self.assertNotIn("克勞德", traditional)
+        self.assertNotIn("寓言", traditional)
+        self.assertNotIn("《", traditional)
+        self.assertNotIn("》", traditional)
+        self.assertIn("Claude Fable 5", traditional)
+
+        simplified_cache_residual = apply_canonical_reverse_fix("《克劳德寓言5》正式发表")
+        self.assertNotIn("克劳德", simplified_cache_residual)
+        self.assertNotIn("寓言", simplified_cache_residual)
+        self.assertIn("Claude Fable 5", simplified_cache_residual)
+
+    def test_canonical_reverse_fix_prc_vendor_terms_to_taiwan_canonical(self):
+        result = apply_canonical_reverse_fix("谷歌与英偉達同场竞技,英伟达股价大涨")
+        self.assertNotIn("谷歌", result)
+        self.assertNotIn("英偉達", result)
+        self.assertNotIn("英伟达", result)
+        self.assertIn("Google", result)
+        self.assertEqual(result.count("輝達"), 2)
+
+    def test_canonical_reverse_fix_bare_claude_without_subbrand(self):
+        self.assertEqual(apply_canonical_reverse_fix("克勞德發布最新安全報告"), "Claude發布最新安全報告")
+
+    def test_canonical_reverse_fix_leaves_unrelated_text_untouched(self):
+        self.assertEqual(apply_canonical_reverse_fix("OpenAI 發布新的 GPT 模型"), "OpenAI 發布新的 GPT 模型")
+
+    # --- 快取殘留 repair 掛載點：每次執行皆對快取值重新套用 exit-fix/
+    # reverse-fix,但只有 exit-fix 的輸出會回寫快取（沿用既有「不改寫歷史」
+    # 規則);reverse-fix 只作用於顯示值,不回寫快取。--------------------
+
+    def test_cached_bad_translation_is_repaired_at_display_time_every_run(self):
+        class NoNetworkSession:
+            def get(self, *args, **kwargs):
+                raise AssertionError("cache hit must not trigger a network translate call")
+
+        title = "Claude Fable 5 launches new safety benchmark"
+        cache = {title: "《克劳德寓言5》发布新的安全基准"}
+        item = {"title": title, "url": "https://example.com/claude-fable-5"}
+
+        ai_items, _, returned_cache = add_bilingual_fields([item], [item], NoNetworkSession(), cache, 80)
+
+        title_zh = ai_items[0]["title_zh"]
+        self.assertNotIn("克劳德", title_zh)
+        self.assertNotIn("寓言", title_zh)
+        self.assertIn("Claude Fable 5", title_zh)
+        # Table C reverse-fix is display-only; the cached raw value (no
+        # CANONICAL_NAMES Table A/B term for exit-fix to match on) is left
+        # as-is, matching the pre-existing "don't rewrite history" rule.
+        self.assertEqual(returned_cache[title], "《克劳德寓言5》发布新的安全基准")
 
     def test_fetch_aihot_uses_public_items_api_with_score_filter(self):
         page_1 = {

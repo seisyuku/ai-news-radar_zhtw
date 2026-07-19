@@ -5431,29 +5431,256 @@ def translate_to_zh_cn(session: requests.Session, text: str) -> str | None:
     return None
 
 
-# feature/tutorial-filter: fixed display renderings for brand/proper-noun
-# terms, independent of whatever the MT engine happens to output for them.
-# Google Translate usually leaves short proper nouns like "Morning Squawk"
-# untouched inside the translated string (verified against this project's
-# real title-zh-cache.json entries), so the default strategy is "find the
-# still-English term inside the translated result and swap it for the
-# glossary rendering." To add a future brand term, add ONE entry to this
-# dict - no other code changes needed.
-BRAND_GLOSSARY: dict[str, str] = {
+# ---------------------------------------------------------------------------
+# CANONICAL_NAMES: single source of truth for zh-TW display of AI-industry
+# brand/product proper nouns. Feeds three defense layers against MT mangling
+# (工單「CANONICAL_NAMES 正典名稱表」，見 docs/HANDOVER.md):
+#   a. mask-and-backfill - pre-translation placeholder swap (Step 2, not yet
+#      wired)
+#   b. exit-fix - post-translation known-error repair; see
+#      repair_zh_title_translation() / _apply_canonical_names_exit_fix()
+#   c. reverse-fix - PRC-term -> Taiwan canonical, applied to any Chinese
+#      text regardless of whether it went through machine translation; see
+#      apply_canonical_reverse_fix()
+# Replaces the former single-purpose BRAND_GLOSSARY dict; "Morning Squawk"
+# carries over unchanged (see _APPEND_FALLBACK_TERMS below).
+#
+# Matching rule: case-sensitive, word-boundary anchored for Latin-script
+# keys (CJK Table C entries below match as plain substrings instead, since
+# Chinese prose has no inter-word spaces for \b to anchor on).
+CANONICAL_NAMES: dict[str, str] = {
+    # --- Table A-1: vendor names, canonical = English ------------------
+    "OpenAI": "OpenAI",
+    "Anthropic": "Anthropic",
+    "xAI": "xAI",
+    "DeepSeek": "DeepSeek",
+    "Mistral AI": "Mistral AI",
+    "Cohere": "Cohere",
+    "Google DeepMind": "Google DeepMind",
+    "DeepMind": "Google DeepMind",
+    "Meta": "Meta",
+    "Google": "Google",
+    "MiniMax": "MiniMax",
+    "StepFun": "StepFun",
+    "Liquid AI": "Liquid AI",
+    "Thinking Machines Lab": "Thinking Machines Lab",
+    "Safe Superintelligence": "Safe Superintelligence",
+    "SSI": "Safe Superintelligence",
+    "Black Forest Labs": "Black Forest Labs",
+    "Perplexity": "Perplexity",
+    "Midjourney": "Midjourney",
+    "Runway": "Runway",
+    "Suno": "Suno",
+    "Hugging Face": "Hugging Face",
+    "Stability AI": "Stability AI",
+    "IBM": "IBM",
+    "AMD": "AMD",
+    # --- Table A-2: vendor names, canonical = Chinese -------------------
+    "Microsoft": "微軟",
+    "NVIDIA": "輝達",
+    "Apple": "蘋果",
+    "Amazon": "亞馬遜",
+    "Intel": "英特爾",
+    "Samsung": "三星",
+    "Alibaba": "阿里巴巴",
+    "Tencent": "騰訊",
+    "Baidu": "百度",
+    "ByteDance": "字節跳動",
+    "Huawei": "華為",
+    "Moonshot AI": "月之暗面",
+    "Moonshot": "月之暗面",  # bare form gated, see _moonshot_bare_context_ok()
+    "Zhipu AI": "智譜",
+    "Zhipu": "智譜",
+    "Z.ai": "智譜",
+    # --- Table B: model/product families, canonical = English ----------
+    # High-false-positive-risk bare forms (Muse/Nova/Wan/Sonar/Genie/o3/o4)
+    # are deliberately NOT gated here: their canonical form equals the
+    # literal English key, so exit-fix substitution is a textual no-op
+    # either way. HIGH_RISK_BARE_TERMS below records the required
+    # vendor/lab co-occurrence for Step 2's mask layer, where it will
+    # actually change behavior.
+    "GPT-OSS": "GPT-OSS",
+    "GPT": "GPT",
+    "ChatGPT": "ChatGPT",
+    "o3": "o3",
+    "o4": "o4",
+    "Sora": "Sora",
+    "Codex": "Codex",
+    "Claude Code": "Claude Code",
+    "Claude Design": "Claude Design",
+    "Claude": "Claude",
+    "Gemini": "Gemini",
+    "Gemma": "Gemma",
+    "Veo": "Veo",
+    "Imagen": "Imagen",
+    "Nano Banana": "Nano Banana",
+    "Genie": "Genie",
+    "AlphaFold": "AlphaFold",
+    "Llama": "Llama",
+    "Muse Spark": "Muse Spark",
+    "Grok Build": "Grok Build",
+    "Grok": "Grok",
+    "Qwen": "Qwen",
+    "QwQ": "QwQ",
+    "Wan": "Wan",
+    "Kimi": "Kimi",
+    "Codestral": "Codestral",
+    "Magistral": "Magistral",
+    "Devstral": "Devstral",
+    "Pixtral": "Pixtral",
+    "Mistral": "Mistral",
+    "Doubao": "Doubao",
+    "Seedream": "Seedream",
+    "Seedance": "Seedance",
+    "Hunyuan": "Hunyuan",
+    "ERNIE": "ERNIE",
+    "GLM": "GLM",
+    "Hailuo": "Hailuo",
+    "Phi": "Phi",
+    "Copilot": "Copilot",
+    "MAI": "MAI",
+    "Nemotron": "Nemotron",
+    "Nova": "Nova",
+    "LFM": "LFM",
+    "Flux": "Flux",
+    "Stable Diffusion": "Stable Diffusion",
+    "Sonar": "Sonar",
+    # --- Legacy BRAND_GLOSSARY migration (append-fallback term) ---------
     "Morning Squawk": "晨間快評(Morning Squawk)",
 }
 
+# Family suffix tokens a version tail may spell out (e.g. "Claude Sonnet 4.5
+# Thinking"), reused by the Claude sub-brand reverse-fix regex below.
+# Expandable constant per spec.
+FAMILY_SUFFIX_TOKENS: tuple[str, ...] = (
+    "Pro", "Max", "Plus", "Mini", "Nano", "Ultra", "Flash", "Lite", "Turbo",
+    "Instant", "Thinking", "Deep Think", "Preview", "Sol", "Terra", "Luna",
+)
 
-def _apply_brand_glossary(source: str, result: str) -> str:
-    for term, zh in BRAND_GLOSSARY.items():
-        pattern = re.compile(rf"(?<!\w){re.escape(term)}(?!\w)", re.I)
+# Documented for Step 2 (mask-and-backfill): bare tokens that only denote
+# the AI product when one of these vendor/lab terms co-occurs in the same
+# source title. See the CANONICAL_NAMES Table B comment for why this isn't
+# consumed by exit-fix today.
+HIGH_RISK_BARE_TERMS: dict[str, tuple[str, ...]] = {
+    "Nova": ("Amazon",),
+    "Muse": ("Meta",),
+    "Wan": ("Alibaba", "Qwen"),
+    "Sonar": ("Perplexity",),
+    "Genie": ("Google", "DeepMind"),
+    "o3": ("OpenAI",),
+    "o4": ("OpenAI",),
+}
+
+# Entries where MT tends to drop the term entirely rather than leave it
+# untranslated in-line (unlike Table A/B brand tokens, which MT usually
+# keeps verbatim) - only these get the old BRAND_GLOSSARY "append if
+# missing" fallback.
+_APPEND_FALLBACK_TERMS: frozenset[str] = frozenset({"Morning Squawk"})
+
+
+def _moonshot_bare_context_ok(source: str) -> bool:
+    """Bare 'Moonshot' only converts when the title also carries AI-lab
+    context (Kimi, or another MAJOR_AI_LABS term) - otherwise leave English
+    words like 'a moonshot bet' untouched."""
+    if re.search(r"(?<!\w)Kimi(?!\w)", source):
+        return True
+    lowered = source.lower()
+    return any(lab in lowered for lab in MAJOR_AI_LABS if lab not in ("moonshot", "月之暗面"))
+
+
+_ALL_CANONICAL_KEYS_BY_LEN: tuple[str, ...] = tuple(sorted(CANONICAL_NAMES, key=len, reverse=True))
+_FAMILY_TAIL_ALT = "|".join(re.escape(t) for t in FAMILY_SUFFIX_TOKENS)
+_BRACKET_STRIP_RE = re.compile(
+    r"《("
+    + "|".join(re.escape(k) for k in _ALL_CANONICAL_KEYS_BY_LEN)
+    + r")([ \-]*(?:\d+(?:\.\d+)*|"
+    + _FAMILY_TAIL_ALT
+    + r"))?》"
+)
+
+
+def _strip_canonical_brackets(text: str) -> str:
+    """MT occasionally wraps a proper-noun run in book-title marks (《…》),
+    treating it as a work title. Drop the marks once the content inside is a
+    known-canonical brand/product term."""
+    return _BRACKET_STRIP_RE.sub(lambda m: m.group(1) + (m.group(2) or ""), text)
+
+
+def _apply_canonical_names_exit_fix(source: str, result: str) -> str:
+    """Second line of defense (spec 'b. 出口修正'): if a CANONICAL_NAMES
+    term appears verbatim in the English source title and either survives
+    translation untouched, or is a term MT tends to drop rather than
+    mistranslate, normalize it to its canonical zh-TW rendering."""
+    for term, zh in CANONICAL_NAMES.items():
+        if term == "Moonshot" and not _moonshot_bare_context_ok(source):
+            continue
+        pattern = re.compile(rf"(?<!\w){re.escape(term)}(?!\w)")
         if not pattern.search(source):
             continue
         if pattern.search(result):
             result = pattern.sub(zh, result)
-        elif zh not in result:
+        elif term in _APPEND_FALLBACK_TERMS and zh not in result:
             result = f"{result} {zh}" if result else zh
-    return result
+    return _strip_canonical_brackets(result)
+
+
+# Table C (reverse-fix): known erroneous already-Chinese forms -> Taiwan
+# canonical, matched as plain substrings (no \b anchoring - Chinese prose
+# has no inter-word spaces). Applied unconditionally to any Chinese text,
+# translated or native, and covers both Simplified/Traditional character
+# variants since call sites may run this before or after to_zh_hant().
+_CLAUDE_SUBBRAND_ZH_TO_EN: dict[str, str] = {
+    "寓言": "Fable",
+    "十四行詩": "Sonnet",
+    "十四行诗": "Sonnet",
+    "俳句": "Haiku",
+    "神話": "Mythos",
+    "神话": "Mythos",
+    "傑作": "Opus",
+    "杰作": "Opus",
+    "作品": "Opus",
+}
+_CLAUDE_SUBBRAND_ALT = "|".join(re.escape(k) for k in sorted(_CLAUDE_SUBBRAND_ZH_TO_EN, key=len, reverse=True))
+_CLAUDE_REVERSE_RE = re.compile(
+    r"《?(?:克勞德|克劳德)(?:的)?(" + _CLAUDE_SUBBRAND_ALT + r")"
+    r"([ \-]*(?:\d+(?:\.\d+)*|" + _FAMILY_TAIL_ALT + r"))?》?"
+)
+
+
+def _claude_reverse_sub(match: re.Match) -> str:
+    sub_en = _CLAUDE_SUBBRAND_ZH_TO_EN[match.group(1)]
+    tail = (match.group(2) or "").strip(" -")
+    pieces = ["Claude", sub_en]
+    if tail:
+        pieces.append(tail)
+    return " ".join(pieces)
+
+
+# Bare vendor/entity forms (no sub-brand suffix). Processed after the Claude
+# sub-brand regex above so any "克勞德/克劳德" occurrences it already
+# consumed aren't double-handled by the plain literal pass.
+_REVERSE_FIX_LITERALS: tuple[tuple[str, str], ...] = (
+    ("英偉達", "輝達"),
+    ("英伟达", "輝達"),
+    ("谷歌", "Google"),
+    ("克勞德", "Claude"),
+    ("克劳德", "Claude"),
+)
+
+
+def apply_canonical_reverse_fix(text: str) -> str:
+    """Third mode (spec 'c. 反向修正'): rewrite Chinese-source proper nouns
+    that leaked in from PRC usage (谷歌/英偉達) or recurring MT
+    mistranslation of Claude's sub-brand names (克勞德寓言 -> Claude Fable)
+    to their zh-TW canonical form. Idempotent and safe on any Chinese text,
+    including text that never went through machine translation."""
+    s = text or ""
+    if not s:
+        return s
+    s = _CLAUDE_REVERSE_RE.sub(_claude_reverse_sub, s)
+    for bad, good in _REVERSE_FIX_LITERALS:
+        s = s.replace(bad, good)
+    return _strip_canonical_brackets(s)
 
 
 def repair_zh_title_translation(original: str, translated: str) -> str:
@@ -5472,7 +5699,7 @@ def repair_zh_title_translation(original: str, translated: str) -> str:
         result = result.replace("存储库", "代码仓库")
     if re.search(r"\bdesktop app\b", source, re.I):
         result = result.replace("桌面应用程序", "桌面应用")
-    result = _apply_brand_glossary(source, result)
+    result = _apply_canonical_names_exit_fix(source, result)
     return result
 
 
@@ -5509,6 +5736,7 @@ def add_bilingual_fields(
         if provided_en:
             zh_title = provided_zh if has_cjk(provided_zh) else (title if has_cjk(title) else "")
             zh_title = to_zh_hant(zh_title) if zh_title else zh_title
+            zh_title = apply_canonical_reverse_fix(zh_title) if zh_title else zh_title
             out["title_original"] = provided_en
             out["title_en"] = provided_en
             out["title_zh"] = zh_title or None
@@ -5516,7 +5744,7 @@ def add_bilingual_fields(
             return out
 
         if has_cjk(title):
-            out["title_zh"] = title
+            out["title_zh"] = apply_canonical_reverse_fix(title)
             return out
 
         if not is_mostly_english(title):
@@ -5543,6 +5771,7 @@ def add_bilingual_fields(
             # convert only the display value here, same "don't rewrite
             # history" rule as archive.json.
             zh_title = to_zh_hant(zh_title)
+            zh_title = apply_canonical_reverse_fix(zh_title)
             out["title_zh"] = zh_title
             out["title_bilingual"] = f"{zh_title} / {title}"
         return out
