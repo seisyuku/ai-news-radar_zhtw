@@ -1958,6 +1958,64 @@ function buildBoleFollowupPanel(rows, topCount, usesStories) {
   return panel;
 }
 
+// feature/signal-gate (Step 3): site_ids whose content is inherently
+// community/forum discussion rather than edited news - ineligible for the
+// no-badge backfill slots in "今日重點訊號" (see featuredCandidatesGate()
+// below). iris (Info Flow) is the current carrier of forum-aggregator
+// content (see AGGREGATOR_BACKDOOR_EXCLUDED_DOMAINS in
+// scripts/ai_relevance.py for the backend-side V2EX domain exclusion this
+// complements at the display layer); waytoagi/followbuilders/aibase are
+// community/creator feeds by design (the same set itemSourceType() already
+// tags "community"); hackernews/zeli are currently-inactive fetchers, kept
+// here in case they are ever re-enabled.
+const COMMUNITY_SOURCE_TYPES = new Set([
+  "iris",
+  "waytoagi",
+  "followbuilders",
+  "aibase",
+  "hackernews",
+  "zeli",
+]);
+
+// feature/signal-gate (Step 3): eligibility pre-filter for "今日重點訊號"'s
+// candidate pool - applied before either the story-pool path (hotStories/
+// latestStories) or the no-story-data fallback path (rankedFallbackRows)
+// runs its own ranking, so this narrows *what's eligible*, not *the order*
+// (boleStorySortCompare's badge-first four-tier sort is unchanged). Primary
+// rule: a confirmed business-event badge earns a seat on its own merit.
+// Backfill rule: once badged candidates are exhausted, badge-less
+// candidates may still fill remaining seats UNLESS their site_id is a
+// community/forum source (COMMUNITY_SOURCE_TYPES) - this is what actually
+// stops V2EX-shaped forum chatter from padding out a thin-supply day.
+// "寧缺勿濫" falls out for free: this never pads the result, it only
+// removes ineligible candidates, so a short list stays short instead of
+// being backfilled with disqualified ones.
+//
+// Deliberately does NOT also try to exclude "only cleared via the has_ai
+// floor" candidates: the backend's score_ai_relevance() overwrites the raw
+// score with max(score, AI_RELEVANCE_THRESHOLD) before it ever reaches this
+// JSON (see scripts/ai_relevance.py), so there is no signal left here that
+// reliably tells a genuine ~0.65 score apart from a floor-boosted one -
+// ai_score === 0.65 exactly would be a guess dressed up as a fact, not a
+// real distinction, so this gate is source-type-only as scoped by the
+// ticket rather than attempting a score-based cut too.
+function featuredCandidatesGate(candidates, getBusinessEventCount, getSiteId) {
+  const badged = [];
+  const backfillEligible = [];
+  (Array.isArray(candidates) ? candidates : []).forEach((candidate) => {
+    if (getBusinessEventCount(candidate) > 0) {
+      badged.push(candidate);
+    } else if (!COMMUNITY_SOURCE_TYPES.has(getSiteId(candidate))) {
+      backfillEligible.push(candidate);
+    }
+  });
+  return [...badged, ...backfillEligible];
+}
+
+function storyCandidateSiteId(story) {
+  return (story && (story.primary_item || story).site_id) || "";
+}
+
 function renderBolePicks() {
   if (!bolePicksListEl || !bolePicksMetaEl) return;
   bolePicksListEl.innerHTML = "";
@@ -1968,9 +2026,14 @@ function renderBolePicks() {
   const section = SECTION_BY_ID[state.activeSection] || SECTION_BY_ID.hot;
   const filtered = getFilteredItems();
   const storyPools = currentStoryPools(filtered);
-  const availableStoryPool = storyPools.brief.length
+  const rawStoryPool = storyPools.brief.length
     ? [...storyPools.brief, ...storyPools.followup]
     : storyPools.merged;
+  const availableStoryPool = featuredCandidatesGate(
+    rawStoryPool,
+    (story) => storyBusinessEvents(story).length,
+    storyCandidateSiteId,
+  );
   const usesStories = availableStoryPool.length > 0;
   const candidateCounts = storyCandidateCounts(availableStoryPool);
   const hotAvailable = usesStories && candidateCounts.hot >= 2;
@@ -1978,9 +2041,14 @@ function renderBolePicks() {
     state.boleView = "timeline";
   }
   const defaultLimit = state.boleView === "hot" ? BOLE_HOT_LIMIT : BOLE_TIMELINE_LIMIT;
+  const gatedItems = featuredCandidatesGate(
+    filtered,
+    (item) => (Array.isArray(item?.business_events) ? item.business_events.length : 0),
+    (item) => item?.site_id || "",
+  );
   const rows = usesStories
     ? storyRowsForPool(availableStoryPool)
-    : rankedFallbackRows(filtered).slice(0, defaultLimit);
+    : rankedFallbackRows(gatedItems).slice(0, defaultLimit);
   const top = rows.slice(0, 3);
   const remainingCount = Math.max(0, rows.length - top.length);
   if (topStoriesTitleEl) topStoriesTitleEl.textContent = state.activeSection === "hot" ? "今日重點訊號" : `${section.label}重點訊號`;
