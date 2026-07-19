@@ -149,6 +149,25 @@ HN_FORWARDED_SOURCE_KEYWORDS = [
     "駭客新聞",
 ]
 
+# feature/noise-gate (2026-07-19): same "aggregator backdoor" shape as
+# HN_FORWARDED_SOURCE_KEYWORDS above, but keyed on the article's own URL
+# domain instead of the aggregator's "source" label text - the aggregator
+# label can be renamed/regeneric ("Info Flow"), but the publisher domain a
+# forwarded article resolves to is a hard fact. First entry: iris (Info
+# Flow) relays a full V2EX "创意工作者社区" board feed with no AI-specific
+# curation of its own; diagnosed 2026-07-19 at ~62% of that day's items_ai,
+# effectively all riding the has_ai floor (AI_RELEVANCE_THRESHOLD) with
+# almost no business-event badges - forum chatter that happens to name-drop
+# an AI tool, not AI news. iris itself is left untouched (a 7/21 source
+# review subject; this window's post-exclusion output is evidence for that
+# review), and this only blocks items_ai (see is_ai_related_record) - the
+# items_all raw view still shows excluded domains for transparency, same as
+# HN_FORWARDED_SOURCE_KEYWORDS. Expandable list: add a domain here (not a
+# new gate) if another aggregator backdoor surfaces.
+AGGREGATOR_BACKDOOR_EXCLUDED_DOMAINS = [
+    "v2ex.com",
+]
+
 # feature/tutorial-filter: how-to/tutorial content is not a business-event
 # news story regardless of how strong its AI keyword signal is, so this is
 # checked as a title-only hard exclusion ahead of every other collection-gate
@@ -467,6 +486,16 @@ def score_ai_relevance(record: dict[str, Any]) -> dict[str, Any]:
             score=0.1,
             label="source_scope_drop",
             reason="hn_forwarded_source_excluded",
+            signals=ai_signals + tech_signals,
+            noise=noise,
+        )
+
+    if any(url_host == d or url_host.endswith(f".{d}") for d in AGGREGATOR_BACKDOOR_EXCLUDED_DOMAINS):
+        return _result(
+            is_ai_related=False,
+            score=0.1,
+            label="source_scope_drop",
+            reason="aggregator_backdoor_domain_excluded",
             signals=ai_signals + tech_signals,
             noise=noise,
         )

@@ -108,7 +108,6 @@ const SECTION_DEFS = [
   { id: "models", label: "模型", short: "模型", description: "模型釋出、能力升級、評測與開源權重" },
   { id: "products", label: "產品", short: "產品", description: "AI 應用、Agent、生成工具和使用者產品更新" },
   { id: "devtools", label: "開發者", short: "開發者", description: "程式設計工具、API、開源專案、推理與工程實踐" },
-  { id: "hn", label: "HN熱議", short: "HN", description: "Hacker News 過去 24 小時的 AI 關鍵詞討論與高互動 story" },
   { id: "industry", label: "行業", short: "行業", description: "公司戰略、融資收購、監管、晶片與產業變化" },
   { id: "research", label: "研究", short: "研究", description: "論文、基準、方法、資料集與研究團隊動態" },
   { id: "community", label: "社群", short: "社群", description: "WaytoAGI、中文社群、AIbase、公眾號和 Builders/X 訊號" },
@@ -1041,14 +1040,6 @@ function itemSections(item) {
       /github|cursor|codex|copilot|openrouter|api|sdk|mcp|cli|framework|inference|推理|开发者|開發者|开源|開源|代码|程式碼|编程|程式設計|算力|芯片|晶片|nvidia|cloud|部署|benchmarking|token/,
     ])
   ) sections.add("devtools");
-
-  if (
-    item.site_id === "hackernews" ||
-    item.site_id === "zeli" ||
-    source.includes("hacker news") ||
-    source.includes("hackernews") ||
-    source.includes("hn algolia")
-  ) sections.add("hn");
 
   if (
     label === "industry_business" ||
@@ -2065,7 +2056,6 @@ function itemTagLabels(item, row = null) {
   if (item.site_id === "aihot") tags.push("AI HOT");
   if (sections.has("models")) tags.push("模型釋出");
   if (sections.has("devtools")) tags.push("開發者");
-  if (sections.has("hn")) tags.push("社群熱議");
   if (sections.has("research")) tags.push("研究");
   if (sections.has("community")) tags.push("社群");
   return Array.from(new Set(tags)).slice(0, 3);
@@ -2140,7 +2130,7 @@ function whyImportantText(row) {
   if (sections.has("research")) {
     return "研究訊號可能還沒產品化，但會提示下一輪模型、資料或方法的技術方向。";
   }
-  if (sections.has("community") || sections.has("hn")) {
+  if (sections.has("community")) {
     return "社群集中討論代表開發者和早期使用者正在形成共識，適合作為趨勢驗證入口。";
   }
   return "它在當前 24 小時視窗裡同時具備相關度、新鮮度和來源權重，值得先讀原文確認。";
