@@ -118,6 +118,23 @@ variance - treat it as an actual stall and work through the diagnosis in
 → stuck queued/in_progress runs → `actionlint` → githubstatus.com → schedule
 re-registration touch), in that order, before assuming a code-level cause.
 
+### 2026-07-18 深度診斷複測：看門狗上線後的排程間隔改善幅度
+
+看門狗（12:49:44Z 07-17 上線）之後約 13 小時（至 01:52Z 07-18）的
+唯讀複測：schedule 間隔中位數從基線 91-147 分鐘降到 **69 分鐘**
+（9 個間隔，max 92.2 分鐘），且期間**零次**需要看門狗代觸發——主
+排程每次都在 90 分鐘門檻內自行恢復，看門狗當時僅作為未觸發的安全
+網。同時查核：無 queued/in_progress 幽靈 run 卡在 concurrency
+group；`update-news.yml` 與 `watchdog.yml` 的 workflow state 均為
+`active`；githubstatus.com 近 48 小時事故史與兩次衰變窗口完全不
+重合。結論：病因維持「無外因、schedule 註冊反覆靜默衰變」，touch
+重註冊（見上方「Rule: verify every cron edit actually starts
+firing」）仍是唯一已知處方。附帶發現：看門狗自身的 hourly schedule
+也曾出現過同型態丟包（單次 113 分鐘未見新 tick，未造成主排程失
+覆蓋）——這個「連兩層 schedule 可能同時衰變」的風險後續在
+2026-07-19 真的被觀察到（見下方「External heartbeat」章節背景），
+是外部心跳最終被接入的直接原因。
+
 ### 看門狗首次實測代觸發事件（2026-07-18）
 
 `watchdog.yml`（獨立 schedule 註冊，每小時整點檢查 update-news.yml
@@ -138,7 +155,7 @@ git repository`，job exit 1。代觸發從未真正送出。最終是主排程
 }}"`，讓 `gh` 不需依賴本地 git context 即可指定目標 repo。
 actionlint 0 issues。
 
-**現況判準（修好 ≠ 驗證過）**：這個修法目前**尚未實測過任何一次
+**現況判準（修好 ≠ 驗證過）**：這個修法上線當下**尚未實測過任何一次
 成功的代觸發案例**——看門狗上線至今的實戰成功率是 0/1（唯一一次
 真正觸發即失敗）。驗證標準：
 
@@ -151,6 +168,13 @@ gh run list --workflow=update-news.yml --event=workflow_dispatch \
 驗證通過；在那之前，不能只看「主排程有沒有恢復」就認定看門狗有效
 ——本次事件正是「主排程自己晚到恢復、看門狗其實沒起作用」的活生
 生反例。
+
+**2026-07-19 驗證更新**：修法之後又觀察到 2 次看門狗真正代觸發，
+皆成功——`03:40:35Z`（watchdog run）→ `03:40:42Z`（update-news.yml
+`workflow_dispatch`，時間點幾乎重合，確認因果）、`09:07:06Z`（同型
+態代觸發，`freshness-check` 正確放行全量執行）。**累計實戰戰績
+2/3**（1 次因 `-R` 缺漏失敗、已修正；之後 2 次成功），符合上方驗證
+標準，判定通過。
 
 **裁決記錄**：
 - cron 密度維持 4 tick/hr（`7,22,37,52 * * * *`）不變：本次的零

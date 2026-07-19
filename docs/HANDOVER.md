@@ -3,117 +3,47 @@
 ## 專案身份
 - Fork：seisyuku/ai-news-radar_zhtw（上游 LearnPrompt/ai-news-radar，MIT）
 - 線上：https://seisyuku.github.io/ai-news-radar_zhtw/
-- 架構：GitHub Actions 排程（cron 已加密至每小時 4 tick，含 concurrency
-  排隊 + push rebase 重試）+ 獨立 watchdog.yml（每小時整點檢查代觸發）
-  + Pages 靜態頁，零伺服器零月費
+- 架構：GitHub Actions 排程 + watchdog + 外部心跳三層（見下方「排程
+  健康」）+ Pages 靜態頁，零伺服器零月費
 - 目標：六類商業事件情報（財報/市佔/資安漏洞/價格/benchmark/模型發布），
   排除程式技巧與社群意見；全站繁中（zh-TW）
 
 ## 協作協議
 - Chat = 規劃/決策/驗收裁決；Claude Code（Sonnet 5:high）= 執行
 - 一次一步，執行後回報再進下一步
-- Git：GitHub Flow 極簡版，feature branch 短命速合；
-  data/*.json 為機器產物不手改，衝突取遠端；shallow clone 屬預期
+- Git：GitHub Flow 極簡版，feature branch 短命速合，文件類變動經
+  明示授權可直接 commit master；data/*.json 為機器產物不手改，衝突
+  取遠端；shallow clone 屬預期
 
 ## 已落地的關鍵改造
-1. 信息源置換：砍 11 個社群熱榜源；接入廠商一手（含 Gemini RSS）、
-   財經（Reuters/CNBC 走 Google News RSS 查詢式接法）、benchmark 第三方、
-   台灣繁中三媒體、36Kr（OpenCC 轉繁）、橘鴉日報（daily.juya.uk，對照源）
-2. 繁中化：UI 全繁中 + 全管線 to_zh_hant()（含 s2t 冪等性防護）
-   + SITE_NAME_ALIASES 出口正規化（含 source-status 旁路）
-3. 商業事件加權：BUSINESS_EVENT_KEYWORDS 六類雙語規則 → business_events
-   欄位 → 前端四級排序（徽章優先）+ 類別徽章；importance 公式未動
-   （2026-07-17 定版：新增第六類「模型發布」，判定=主體白名單
-   （MAJOR_AI_LABS 15 家）× 發布詞 × 模型語境詞三重防護，僅掃標題不
-   掃摘要，子句層級共現避免 AI 日報類多主題長標題跨子句誤配）
-4. 噪音閘門：HN 轉發過濾（聚合器後門）；關鍵字誤判修正
-   （merger 共現要求、hackathon 排除、遊戲排行榜排除、eval/evals
-   開發語境共現防護）
-5. 生態群組去重：SOURCE_ECOSYSTEM_GROUPS（中國聚合器群），
+1. 信息源置換：砍 11 個社群熱榜源；接入廠商一手、財經（GNews 查詢式）、
+   benchmark 第三方、台灣繁中媒體、36Kr、橘鴉日報（對照源）
+2. 繁中化：UI 全繁中 + 全管線 `to_zh_hant()`（含冪等性防護）+
+   `SITE_NAME_ALIASES` 出口正規化
+3. 商業事件加權：`BUSINESS_EVENT_KEYWORDS` 六類雙語規則 → 前端排序
+   + 徽章；第六類「模型發布」為主體×發布詞×語境詞三重防護，規則
+   詳見程式碼
+4. 噪音閘門：HN 轉發過濾（聚合器後門）+ 關鍵字誤判修正（merger/
+   hackathon/遊戲排行榜/eval 語境防護，規則詳見程式碼）
+5. 生態群組去重：`SOURCE_ECOSYSTEM_GROUPS`（中國聚合器群），
    story_heat 同群多源只計一次
-6. 基礎設施：前端資產 ?v= 版號由 tests/test_asset_versions.py
-   （manifest hash 雙向鎖）強制；規則見 docs/OPERATIONS.md
-7. 教學文收錄過濾（2026-07-17 定版）：收錄階段標題模式硬性排除，
-   英文句首錨定（^how to/^guide to/^tutorial/^hands-on/
-   ^step-by-step/^a coding guide + sdk guide/coding guide 不錨定
-   高精度白名單）、中文複合詞（使用教學/教學文/入門教學/新手教學/
-   保姆級/教程/手把手/實作指南，裸詞「教學/教学」已移除避免誤殺
-   商業新聞）；已知殘差 2 條真教學文外洩但無徽章、不進重點區，
-   已測試釘住接受
+6. 基礎設施：前端資產 `?v=` 版號由 `tests/test_asset_versions.py`
+   強制；規則見 `docs/OPERATIONS.md`
+7. 教學文收錄過濾：標題模式硬性排除（英文句首錨定 + 中文複合詞，
+   規則詳見程式碼）；已知殘差 2 條無徽章教學文，已測試釘住接受
 8. 官方源接入：Thinking Machines Lab（thinkingmachines.ai/index.xml，
    Hugo 標準 RSS，非常見 /feed 路徑）
-9. 翻譯正典名稱表（CANONICAL_NAMES，取代舊 BRAND_GLOSSARY 單一擴充
-   點，Step 1/2/3 分別於 2026-07-18／07-19／07-19 上線，全案已結案）：
-   單一實體→zh-TW 正典寫法表，涵蓋 AI 廠商（Table A-1 英文保留 / A-2
-   中譯）、模型/產品家族（Table B，一律英文）、中國用語反向修正
-   （Table C，開放清單）。詳見 `scripts/update_news.py` 內
-   `CANONICAL_NAMES` 上方大段註解；此處只記機制摘要與踩過的坑。
-
-   **a. 三種作用模式**：
-   - 遮罩回填（主防線，`mask_canonical_names()`/`backfill_canonical_names()`）：
-     英文標題送翻譯 API **之前**掃描命中詞、抽出為 `QCANON<n>Q` 佔位符
-     （連同吞尾的子系/版本 token 一併抽出），MT 引擎完全看不到品牌
-     原文，任意詞條組合皆能正確回填。佔位符三層防呆防外洩：精確比對
-     →容錯比對（MT 加空格/變大小寫仍可辨識）→兩者皆失敗則補回正典
-     文字於句尾＋清除殘餘 `QCANON` 前綴
-   - 出口修正（exit-fix，`_apply_canonical_names_exit_fix()`，掛在既有
-     `repair_zh_title_translation()`）：命中 Table A/B 詞條時**會回寫
-     cache**；Morning Squawk → 晨間快評(Morning Squawk) 沿用不變。有
-     遮罩回填後，這層對新翻譯多半是保底 no-op，主要服務舊快取殘留與
-     非 CANONICAL_NAMES 的既有修法（Codex/Bug Bounty 等）
-   - 反向修正（Table C，`apply_canonical_reverse_fix()`）：無條件套用
-     於任何中文文字（含原生中文源、選填英文 source 參數輔助語境判定），
-     掛在 `add_bilingual_fields()` 三個 title_zh 組裝點、皆在
-     `to_zh_hant()` 之後執行；**只修正顯示值、不回寫 cache**
-
-   **b. 分層設計 / 掛載點與快取先後關係結論**：`title-zh-cache.json`
-   內已存在的錯誤譯文不需要手動修補——exit-fix/reverse-fix 都在
-   「讀快取值之後、組裝顯示值之前」重新套用（沿用 to_zh_hant() 同一層
-   「不改寫歷史」設計），每次執行自動對快取殘留自癒；遮罩回填只作用於
-   **尚未進快取**的全新翻譯（快取命中路徑不重新遮罩，維持原樣）
-
-   **c. 匹配規則**：大小寫敏感、詞界錨定（CJK 內容用純子字串比對，
-   無空格可錨）；家族名命中後向右吞尾（版本號 + `FAMILY_SUFFIX_TOKENS`
-   常數，如 Pro/Max/Flash/Thinking/Preview 等）；高風險裸詞
-   （`HIGH_RISK_BARE_TERMS`：Nova/Muse/Wan/Sonar/Genie/o3/o4）與裸詞
-   Moonshot 僅在同標題有對應廠商/實驗室詞共現時才觸發，否則留給 MT
-   照常處理
-
-   **d. 非相鄰共現通道（Step 3，2026-07-19）**：實測線上「Claude make
-   Fable 5 permanent」標題中 Claude 與子系詞 Fable 被其他字隔開、不
-   相鄰，Step 1/2 的相鄰規則對此完全不作用，殘留「神鬼寓言」「《》」。
-   修法：遮罩層與反向修正層皆新增「同標題/同文字偵測到 Claude 裸詞即
-   各自獨立遮罩/修正子系詞（Sonnet/Opus/Haiku/Fable/Mythos）」的通道。
-   **泛化取捨結論（重要，勿重複調查）**：**刻意不泛化**到 Gemini
-   （Pro/Flash/Deep Think）、GPT（Sol/Terra/Luna）等其他家族的尾綴詞。
-   理由：這些尾綴詞是常見、語意開放的英文單字，若不要求緊鄰家族詞就
-   允許遮罩/修正，會誤傷 MT 原本能正確翻譯的無關句子（例如句子裡剛好
-   出現的普通 "Pro"/"Flash"）；反觀 Claude 的五個子系詞是封閉、無歧義
-   的專有名詞集合，且 `title-zh-cache.json` 實測掃出數百筆已存在的
-   誤譯證據（Mythos 85 筆＋Fable 系 97 筆同文字命中），資料面明確支持
-   只鎖定 Claude 子系。未來若要幫 Gemini/GPT 也做非相鄰保護，需先蒐集
-   類似的實測誤譯證據，不能只憑理論對稱性泛化
-
-   **e. Table C 雙向共現閘門**：獨立出現的子系誤譯詞（神鬼寓言/寓言/
-   十四行詩/俳句/神話/傑作）只在同文字（或選填的英文原文 source，涵蓋
-   MT 把「Anthropic」譯成「人擇/人类」導致同文字比對落空的情況）偵測
-   到 Claude/克勞德/克劳德/Anthropic 任一詞共現時才轉換為正典子系名；
-   無共現一律不動——已測試釘住純遊戲新聞《神鬼寓言》、通用詞「神話」
-   「傑作」不受影響，避免誤殺
-
-   **f. 維護方式**：BRAND_GLOSSARY 機制已完全併入 CANONICAL_NAMES 並
-   退役（`scripts/update_news.py` 內已無 BRAND_GLOSSARY 定義）。日常
-   新增詞條（Table C 開放清單新增中國用語對應、新家族名、新子系詞）
-   屬例行維護，直接編輯 `CANONICAL_NAMES`/相關字典並補測試即可，
-   **不需要為此開工單**；只有匹配演算法本身（吞尾規則、共現閘門邏輯）
-   的變更才需要走工單流程
-
-   已測試釘住：tests/test_topic_filter.py 共 30 案例，涵蓋遮罩/回填/
-   出口修正/反向修正/快取殘留自癒/非相鄰共現/誤殺防護（pytest 基線
-   199 → 208 → 217 → 226）
-10. 資料時效警示帶（2026-07-17 上線）：前端讀 generated_at 與瀏覽當下
-    UTC 時間比較，2 小時內不顯示、2-6 小時低調樣式、6 小時以上明顯
-    樣式，門檻常數化（STALE_DATA_WARN_HOURS/STALE_DATA_BAD_HOURS）
+9. 翻譯正典名稱表（`CANONICAL_NAMES`，取代舊 BRAND_GLOSSARY，全案
+   已結案）：三層防線——遮罩回填（翻譯前，主防線）/ 出口修正
+   （exit-fix，命中 Table A/B 回寫 cache）/ 反向修正（Table C，只修
+   顯示不回寫）。Claude 五子系詞另有非相鄰共現通道，刻意不泛化到
+   Gemini/GPT 等其他家族尾綴詞——那些是語意開放的常見英文字，緊鄰
+   要求才能避免誤傷無關句子，Claude 子系則有大量實測誤譯證據支撐。
+   機制全文、匹配規則、日常維護方式見 `docs/OPERATIONS.md`「翻譯
+   管線」章節。pytest 30 案例（199→226）
+10. 資料時效警示帶：前端讀 `generated_at` 與瀏覽當下比較，2 小時內
+    不顯示、2-6 小時低調樣式、6 小時以上明顯樣式，門檻常數化
+    （`STALE_DATA_WARN_HOURS`/`STALE_DATA_BAD_HOURS`）
 
 ## 已知設計事實（避免重複調查）
 - 收錄門檻 = ai_relevance ≥ 0.65；六類只主宰重點區排序，非收錄條件
@@ -122,83 +52,36 @@
 - BRIEF_SCORE_GATE/daily-brief 原始排序不影響使用者所見
   （調查結論在 story_passes_brief_gate() docstring）
 - renderBoleBrief() 是死代碼
-- 重點卡片減噪（2026-07-17）：下排內容分類標籤列與「優先順序
-  A/B/C」chip 已移除（importance_label 後端欄位與排序引用不動），
-  上排業務事件徽章與內容標籤統一去重、近義詞讓位（model_release
-  抑制「模型釋出」內容標籤）
-- 測試基線：226 pytest（2026-07-18 CANONICAL_NAMES Step 1 由 199 增至
-  208；2026-07-19 Step 2 遮罩回填再增至 217、Step 3 非相鄰共現防護
-  再增至 226，全案結案）
-- 排程健康：cron 已從每 30 分鐘加密至每小時 4 tick（7,22,37,52）；
-  2026-07-17 同一日內註冊衰變（schedule 觸發完全停止、無外部原因）
-  發生兩次（03:12Z 起 166 分鐘零 tick、12:45Z 前累積多段 92-147
-  分鐘寬間隔），處方皆為對 workflow 檔 touch 重新註冊；watchdog.yml
-  已於 12:49:44Z 上線作為結構性解法（獨立 schedule 註冊、每小時整點
-  檢查 update-news.yml 最後一筆 schedule run，超過 90 分鐘未出現則
-  workflow_dispatch 代觸發），設計上與前端警示帶 2 小時門檻銜接
-  （兩次衰變 + 看門狗防線詳見 docs/OPERATIONS.md「Schedule (cron)
-  health」章節）
-  - **2026-07-18 深度診斷複測（唯讀，全程時間軸重建）結論**：
-    看門狗上線後（12:49:44Z 07-17 → 01:52Z 07-18，約 13 小時）
-    實測間隔中位數從基線 91-147 分鐘降到 **69 分鐘**（9 個間隔，
-    max 92.2 分鐘），且期間 **零次**需要看門狗 workflow_dispatch
-    代觸發——主排程每次都在 90 分鐘門檻內自行恢復，看門狗目前僅
-    作為未觸發的安全網。同時查核：無 queued/in_progress 幽靈 run
-    佔用 concurrency group；update-news.yml 與 watchdog.yml 的
-    workflow state 均為 active，從未被 GitHub 自動 disable；比對
-    githubstatus.com 近 48 小時事故史（僅三筆，最近一筆
-    「Degraded REST API Availability」22:51Z-00:14Z 07-16 已於
-    03:12Z cron 改制前結束），**兩次衰變的停擺窗口與任何平台事故
-    完全不重合**，判定病因維持「無外因、註冊反覆衰變」，現有處方
-    （touch + 看門狗）已對症，本次未再變更結構。附帶發現：
-    看門狗自身的 hourly schedule 也出現過同型態丟包（最後一筆
-    23:58:49Z，複測當下 01:52Z 已間隔 113 分鐘未見新 tick），
-    驗證了看門狗設計文件裡「連兩層 schedule 同時衰變機率遠低於
-    單一註冊」的前提本身會被觀察到、但目前未造成主排程失覆蓋。
-  - **2026-07-18 複測後續（當天稍晚，同一輪對話追蹤）**：看門狗真正
-    第一次該出手的案例出現——update-news.yml 於 01:02:23Z→04:10:23Z
-    出現 188 分鐘寬間隔，看門狗 03:21:10Z 那筆 schedule run **抓對
-    了**（log 印出「138 分鐘未出現，改用 workflow_dispatch 補跑」），
-    但緊接著執行失敗（`fatal: not a git repository`）、整個 job
-    exit 1，代觸發從未真正送出；最終是主排程自己在 04:10:23Z
-    （event 仍是 schedule）晚到恢復，不是被看門狗救回來的。根因：
-    `gh workflow run update-news.yml` 那行沒帶 `-R` 指定 repo，
-    job 又沒有 checkout 步驟、無 `.git` 目錄可供 `gh` 推斷 repo。
-    已修正為 `gh workflow run update-news.yml -R "${{
-    github.repository }}"`，actionlint 0 issues。**這代表看門狗
-    上線後到這次修復前的窗口（12:49:44Z-04:32Z 07-17~18，約 16
-    小時）安全網其實是形同虛設的**，只是這段期間主排程剛好每次
-    都在門檻內自行恢復，沒有真正需要看門狗接手的情境曝露這個
-    bug，7/21 覆核務必實測至少一次真正的代觸發成功案例。
+- 重點卡片減噪：下排內容分類標籤列與「優先順序 A/B/C」chip 已移除
+  （importance_label 後端欄位與排序引用不動），上排業務事件徽章與
+  內容標籤統一去重、近義詞讓位（model_release 抑制「模型釋出」
+  內容標籤）
+- 測試基線：226 pytest
+- 排程健康 = 三層架構，已將停擺風險吸收掉（完整事故時間軸與診斷
+  記錄見 `docs/OPERATIONS.md`「Schedule (cron) health」/「External
+  heartbeat」章節）：
+  - **內部 cron**（4 tick/hr）：會不定期靜默註冊衰變，不可靠層
+  - **watchdog**（90 分鐘門檻代觸發）：機率性防線，實績 2/3（首次
+    因 `-R` 旗標缺漏而失敗、已修正；之後 2 次代觸發皆成功）
+  - **外部心跳**（cron-job.org，`:05`/`:35` + 25 分鐘 freshness
+    guard，2026-07-19 上線）：脫離 GitHub schedule 機制的結構性解
+    法，上線後段二驗證 5 筆 heartbeat run 行為全數符合預期，已結案
+  - **定調**：停擺已由三層架構吸收；若之後又看到前端 2 小時警示帶
+    浮現，代表連心跳層都失效了，排查入口 =
+    `docs/OPERATIONS.md`「External heartbeat」章節「失效排查順序」
 
 ## 待辦檢查點
-- 【最高優先】archive.json 容量治理（2026-07-16 唯讀診斷）：
-  - 現況：52.5MB（55,032,022 bytes）、128,527 條、最舊
-    first_seen_at 2026-02-19——但 last_seen_at 只要條目被來源
-    重複回傳就會刷新，21 天 archive_days 保留窗對「反覆被抓到
-    的舊條目」形同虛設，並非真的每 21 天清一輪
-  - git 歷史僅回溯到 2026-07-14（repo 當天重新匯入/壓縮歷史，
-    無完整 7 天資料），以現有約 2.1 天窗口量測：archive.json
-    從 59.5MB／138,818 條降到 52.5MB／128,527 條，即 **-2.12
-    MB/日、-4,892 條/日**（目前是淨縮小，不是成長）
-  - 判讀：這段淨縮小很可能是「初始匯入挾帶的一次性歷史積壓」
-    正隨 21 天視窗持續退場，屬過渡期而非穩態；積壓何時清空、
-    清空後的真實穩態成長/縮小速率都還不知道，**現有資料不足
-    以外推撞上 100MB 的日期**，不要用這段負斜率下結論，需持續
-    量測（建議積壓期過後，即匯入日 + 21 天 ≈ 2026-08-04 前後
-    再測一次）
-  - 已知風險：目前已超過 GitHub 建議的 50MB 軟上限（近期每次
-    push 都會印警告），但仍遠低於 100MB 硬限（超過會直接拒絕
-    push，屬於會擋線上更新的等級）
-  - 第二個成長型檔案：title-zh-cache.json——**沒有任何
-    prune/淘汰機制**，單調成長，同一 2.1 天窗口 +0.084MB
-    （約 0.04 MB/日）；目前僅 4.4MB，照此速率離出事還很久，
-    但因為完全零治理機制，長期仍列待辦，且風險型態跟
-    archive.json 不同（archive.json 有時間窗設計但被繞過，
-    title-zh-cache.json 是壓根沒設計）
-  - data/ 其他檔案量測（2026-07-16，均非成長型隱憂）：
-    latest-24h-all.json 3.2MB、stories-merged.json 1.2MB、
-    latest-24h.json 1.1MB、daily-brief.json 72KB、其餘 < 15KB
+- 【最高優先】archive.json 容量治理：現況 52.5MB／128,527 條（已超
+  GitHub 50MB 軟上限、push 時會印警告，遠低於 100MB 硬限）；21 天
+  保留窗對「反覆被抓到的舊條目」形同虛設（last_seen_at 會被刷新）。
+  2026-07-16 量測顯示淨縮小，判讀為初始匯入積壓正隨保留窗退場的
+  過渡期、非穩態，現有資料不足以外推撞上 100MB 的日期——建議
+  2026-08-04 前後（積壓退場窗口過後）再測一次。title-zh-cache.json
+  為第二個成長型檔案（無 prune 機制，目前 4.4MB，成長速率低但零
+  治理，長期仍列待辦）
+- PAT 到期追蹤：外部心跳用的 fine-grained PAT 約 **2026-10-17**
+  前需續期（90 天效期），續期步驟見 `docs/OPERATIONS.md`「External
+  heartbeat」章節
 - 7/21 覆核議程：
   - 四源審判：techurls / iris(Info Flow) / 36Kr / xAI 查詢詞
     - 三指標：事件命中率 / 獨占性 / 噪音型態（可修 vs 瀰漫）
@@ -206,19 +89,10 @@
       1shotchallenge 與 Thinking Machines 宣言均為 HN 後門流入（已堵）、
       Info Flow 參與 OPPO 回聲室；techurls 舉證責任已反轉（預設砍）
     - juya_daily 不參審（對照源定位）
-  - 排程間隔複測（含看門狗成效）：**2026-07-18 已有結果**（見上方
-    「已知設計事實」排程健康小節）——中位數 69 分鐘；但同一天稍晚
-    也實測到看門狗第一次真正需要代觸發的案例，結果是 `-R` 缺漏
-    bug 導致代觸發本身失敗（已修正），16 小時的「安全網」窗口
-    其實形同虛設，只是剛好沒被撞見。7/21 覆核**必須**在 bug 修復
-    後的資料裡再抓到至少一次成功的代觸發案例，確認修法真的補上了
-    這個洞，不能只看「主排程有沒有恢復」（恢復可能是主排程自己晚
-    到，不代表看門狗真的起作用，這次就是活生生的例子）
-  - 警示帶與看門狗門檻銜接檢視：看門狗 90 分鐘門檻 + 最壞情況下的
-    watchdog 自身丟包（2026-07-18 診斷已觀察到看門狗自身 hourly
-    tick 也丟包過一次，達 113 分鐘未出現，但未造成主排程失覆蓋），
-    實際能否把停擺壓在前端警示帶 2 小時門檻內，需拿 7/17-7/21 這段
-    實測資料驗證，而非只憑設計推論
+  - 排程項：確認 7/17-7/21 這段期間前端 2 小時警示帶未曾擊穿即可
+    ——三層防線已結案，不需再拆解個別 tick 間隔複測
+  - watchdog.yml 去留裁決：保留，傾向留（零成本縱深防禦，外部心跳
+    上線不代表 watchdog 該退役，三層互為備援）
 - 8 月中複評：changelog 缺口（六廠 SOTA release notes 層，暫緩中）、
   財經查詢漏接蒐集（預案=AI 概念股+財報詞 GNews 查詢）、
   juya_daily 查漏價值、LLM 重排層觸發評估（影響範圍誤排已有證據 #1）
