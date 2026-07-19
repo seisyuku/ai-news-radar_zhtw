@@ -44,6 +44,14 @@ on:
     # ran 22:21-23:50 UTC on 07-16 and was long resolved). Ruled out every
     # external cause twice in one day - see watchdog.yml for the permanent
     # fix instead of relying on a third manual touch.
+    #
+    # 2026-07-19T06:08Z third touch: last schedule run 04:39:40Z, 88.6 min
+    # gap at check time (just under the 90 min watchdog threshold, but
+    # trending the same way as the prior two incidents); watchdog.yml's own
+    # hourly tick was also stalled at a 147.7 min gap (last run 03:40:35Z),
+    # so the safety net was not positioned to catch this even if the gap
+    # crossed 90 min. Touching both workflow files together to force
+    # re-registration of both schedule layers at once.
 
 # Queue runs instead of cancelling: a schedule tick that starts while a
 # manual dispatch (or a previous tick) is still pushing must wait its turn,

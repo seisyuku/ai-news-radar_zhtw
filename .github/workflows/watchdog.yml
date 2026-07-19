@@ -29,6 +29,12 @@ name: Update News Watchdog
 on:
   schedule:
     - cron: "0 * * * *"
+    # 2026-07-19T06:08Z re-registration touch: this workflow's own hourly
+    # tick had stalled to a 147.7 min gap (last run 03:40:35Z at check time),
+    # over 2x its normal ~60 min cadence - the exact same silent-decay
+    # pattern update-news.yml's schedule has hit before (see the touch
+    # comments in that file). Touching both files together in the same
+    # commit to re-register both schedule layers.
   workflow_dispatch: {}
 
 permissions:
