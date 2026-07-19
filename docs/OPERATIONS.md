@@ -161,3 +161,67 @@ gh run list --workflow=update-news.yml --event=workflow_dispatch \
   確實正確偵測到了異常，兩層排程並未同時全滅；問題出在偵測之後的
   執行環節，而非偵測機制本身。優先把現有兩層的執行正確性修好、
   實測驗證，比起再疊一層外部觸發機制更划算。
+
+## 翻譯管線（title_zh 產生機制）
+
+英文標題的 zh-TW 顯示值（`title_zh`）由 `scripts/update_news.py` 的
+`add_bilingual_fields()` 產生，經過 Google Translate（`translate_to_zh_cn()`）
+與 `CANONICAL_NAMES` 正典名稱表兩層機制共同組成。完整規格與程式碼註解在
+`scripts/update_news.py` 內 `CANONICAL_NAMES` 定義上方，這裡只記操作面
+摘要（新增詞條、除錯時該看哪裡）。
+
+### 三種作用模式
+
+1. **遮罩回填**（`mask_canonical_names()` / `backfill_canonical_names()`）：
+   英文標題送 Google Translate **之前**，先把 `CANONICAL_NAMES` 命中的
+   品牌/產品詞抽出為 `QCANON<n>Q` 佔位符，翻譯完成後再把佔位符換回正典
+   zh-TW 寫法。這是主防線——因為 MT 引擎從頭到尾沒看過品牌原文，不受限
+   於「已知會被翻錯的樣式」，任意詞條組合都能正確處理。
+2. **出口修正**（`_apply_canonical_names_exit_fix()`，掛在
+   `repair_zh_title_translation()`）：對翻譯結果做已知錯誤樣式的事後
+   修補，命中時**會回寫** `title-zh-cache.json`。主要服務兩種情況：
+   舊快取（在遮罩回填上線前翻譯、已存在錯誤譯文的殘留）、以及非品牌類
+   的既有修法（Codex/Bug Bounty/repository 等固定字串修正）。
+3. **反向修正**（`apply_canonical_reverse_fix()`，Table C）：無條件套用
+   於任何 zh-TW 顯示文字（不論是否經過機器翻譯），**只修正顯示值、不
+   回寫 cache**，掛在 `add_bilingual_fields()` 每個組裝 `title_zh` 的
+   位置、且都在 `to_zh_hant()` 之後執行。用途是把中國用語專名（谷歌→
+   Google、英偉達→輝達）與 Claude 子系詞常見誤譯（寓言/神話/十四行詩/
+   俳句/傑作 → Fable/Mythos/Sonnet/Haiku/Opus）拉回正典形式；子系詞
+   轉換有共現閘門保護（見下）。
+
+### 快取殘留為何不用手動修
+
+`title-zh-cache.json` 內已存在的錯誤譯文**不需要手動修補或跑一次性
+腳本**——出口修正與反向修正都掛在「讀快取值之後、組裝顯示值之前」，
+每次排程執行都會重新套用，等同 `to_zh_hant()` 既有的「不改寫歷史、
+只修正顯示值」設計的延伸。差別只在於：出口修正命中 Table A/B 詞條時
+會順手把 cache 也修正掉；反向修正（Table C）則永遠只修顯示值，cache
+原始殘留會一直留著（不影響顯示正確性）。遮罩回填只作用於**尚未進
+快取**的全新翻譯，快取命中路徑不會重新遮罩。
+
+### 高風險詞與共現閘門（誤殺防護）
+
+短英文單字/常見詞彙（Nova、Muse、Wan、Sonar、Genie、o3、o4、裸詞
+Moonshot）只在同標題有對應廠商/實驗室詞共現時才觸發遮罩或修正，否則
+交給 MT 照常翻譯——避免把「Amazon 之外語境下的 Nova」這類無關內容
+誤判成品牌詞。
+
+Claude 的五個子系詞（Sonnet/Opus/Haiku/Fable/Mythos）額外有「非相鄰
+共現」通道：即使子系詞沒有緊貼在 "Claude" 後面（例如 "Claude make
+Fable 5 permanent"），只要同一句/同一標題裡有 Claude/Anthropic 語境，
+遮罩層與反向修正層都會個別處理該子系詞。**這個通道刻意沒有泛化到
+Gemini（Pro/Flash/Deep Think）、GPT（Sol/Terra/Luna）等其他家族的
+尾綴詞**——那些是語意開放的常見英文單字，若不要求緊鄰家族詞就處理，
+會誤傷 MT 本來翻得動的無關句子；Claude 子系詞是封閉、無歧義的專有
+名詞集合，且有實測的大量誤譯證據支撐，才值得做這層特殊處理。反向
+修正的子系詞轉換一律要求 Claude/Anthropic 語境共現才觸發，純遊戲新聞
+（如《神鬼寓言》系列）或一般詞彙用法（神話、傑作）在無共現時不動。
+
+### 日常維護：新增詞條不用開工單
+
+在 `CANONICAL_NAMES`（廠商/家族名）或 Table C 對應字典裡新增一條
+entry、並補上對應 pytest 案例，屬於例行維護，不需要為此開工單。只有
+匹配演算法本身（吞尾規則、共現閘門邏輯、佔位符格式）的變更才需要走
+完整的工單/驗收流程。BRAND_GLOSSARY 舊機制已完全併入 CANONICAL_NAMES
+並移除，程式碼內不再有雙軌並存。

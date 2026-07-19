@@ -43,49 +43,74 @@
 8. 官方源接入：Thinking Machines Lab（thinkingmachines.ai/index.xml，
    Hugo 標準 RSS，非常見 /feed 路徑）
 9. 翻譯正典名稱表（CANONICAL_NAMES，取代舊 BRAND_GLOSSARY 單一擴充
-   點）：單一實體→zh-TW 正典寫法表，涵蓋 AI 廠商（Table A-1 英文保留
-   / A-2 中譯，含 Moonshot AI／Moonshot 裸詞語境防護、Z.ai 詞界防護）、
-   模型/產品家族（Table B，一律英文，FAMILY_SUFFIX_TOKENS 常數化）、
-   中國用語反向修正（Table C：谷歌→Google、英偉達/英伟达→輝達、
-   克勞德/克劳德（含寓言/十四行詩/俳句/神話/傑作等子系衍生誤譯）→
-   Claude）。三層防線，Step 1（2026-07-18）+ Step 2（2026-07-19）皆已
-   上線：
-   - a. 遮罩回填（主防線，Step 2）：`mask_canonical_names()` 在英文
-     標題送翻譯 API **之前**掃描 CANONICAL_NAMES 命中詞、抽出為
-     `QCANON<n>Q` 佔位符（連同吞尾的子系/版本 token 一併抽出，如
-     「Claude Fable 5」抽成一個佔位符），MT 引擎完全不會看到品牌
-     原文，因此不受限於已知錯誤樣式，任意詞條組合皆能正確回填；
-     `HIGH_RISK_BARE_TERMS`（Nova/Muse/Wan/Sonar/Genie/o3/o4）與裸詞
-     Moonshot 僅在同標題有對應廠商/實驗室詞共現時才遮罩，否則留給
-     MT 照常處理。`backfill_canonical_names()` 在翻譯結果中把佔位符
-     換回正典文字；三層防呆保證佔位符語法絕不外洩：(1) 精確比對
-     (2) 容錯比對（MT 對 token 加空格/變大小寫仍可辨識）(3) 精確與
-     容錯都比對不到者，補回正典文字於句尾（呼應舊 BRAND_GLOSSARY
-     append-fallback），最後再跑一次殘餘 `QCANON` 前綴清除，確保
-     即使 token 被譯到面目全非也不會露出原始佔位符字串。掛在
-     `add_bilingual_fields()` 呼叫 `translate_to_zh_cn()` 之前；若
-     遮罩後的查詢字串整段都是佔位符導致 MT 判定「輸出與輸入相同=
-     翻譯失敗」，會退回用未遮罩原標題重試一次（犧牲該次品牌精準度
-     換取仍有 zh_title，exit-fix/reverse-fix 仍是這條退回路徑的
-     安全網——已測試釘住：Claude Fable 5 全遮罩退回案例最終仍靠
-     reverse-fix 修正）
-   - b. 出口修正 `_apply_canonical_names_exit_fix()`（Step 1，掛在既有
-     `repair_zh_title_translation()`，僅在英文來源含該詞條時觸發，
-     Morning Squawk → 晨間快評(Morning Squawk) 沿用不變；有了 Step 2
-     遮罩回填後，這層對新翻譯多半是保底 no-op，主要仍服務舊快取
-     殘留與非 CANONICAL_NAMES 的既有修法）
-   - c. 反向修正 `apply_canonical_reverse_fix()`（Step 1，無條件套用於
-     任何中文文字，掛在 `add_bilingual_fields()` 三個 title_zh 組裝點、
-     且都在 `to_zh_hant()` 之後執行，故只需處理正體變體）
+   點，Step 1/2/3 分別於 2026-07-18／07-19／07-19 上線，全案已結案）：
+   單一實體→zh-TW 正典寫法表，涵蓋 AI 廠商（Table A-1 英文保留 / A-2
+   中譯）、模型/產品家族（Table B，一律英文）、中國用語反向修正
+   （Table C，開放清單）。詳見 `scripts/update_news.py` 內
+   `CANONICAL_NAMES` 上方大段註解；此處只記機制摘要與踩過的坑。
 
-   **掛載點與快取先後關係結論**：`title-zh-cache.json` 內已存在的
-   錯誤譯文（含 2026-07-18 前緣故的「克勞德寓言」殘留）**不需要手動
-   修補**，因為 exit-fix／reverse-fix 都在「讀快取值之後、組裝顯示值
-   之前」重新套用（沿用 to_zh_hant() 同一層「不改寫歷史」設計）——
-   reverse-fix 只修正顯示值、不回寫 cache；exit-fix 命中 Table A/B
-   詞條時才回寫 cache；遮罩回填只作用於**尚未進快取**的全新翻譯（快取
-   命中路徑不會重新遮罩，維持原樣）。已測試釘住（tests/test_topic_filter.py
-   快取殘留案例 + Step 2 遮罩/回填/佔位符不洩漏案例）
+   **a. 三種作用模式**：
+   - 遮罩回填（主防線，`mask_canonical_names()`/`backfill_canonical_names()`）：
+     英文標題送翻譯 API **之前**掃描命中詞、抽出為 `QCANON<n>Q` 佔位符
+     （連同吞尾的子系/版本 token 一併抽出），MT 引擎完全看不到品牌
+     原文，任意詞條組合皆能正確回填。佔位符三層防呆防外洩：精確比對
+     →容錯比對（MT 加空格/變大小寫仍可辨識）→兩者皆失敗則補回正典
+     文字於句尾＋清除殘餘 `QCANON` 前綴
+   - 出口修正（exit-fix，`_apply_canonical_names_exit_fix()`，掛在既有
+     `repair_zh_title_translation()`）：命中 Table A/B 詞條時**會回寫
+     cache**；Morning Squawk → 晨間快評(Morning Squawk) 沿用不變。有
+     遮罩回填後，這層對新翻譯多半是保底 no-op，主要服務舊快取殘留與
+     非 CANONICAL_NAMES 的既有修法（Codex/Bug Bounty 等）
+   - 反向修正（Table C，`apply_canonical_reverse_fix()`）：無條件套用
+     於任何中文文字（含原生中文源、選填英文 source 參數輔助語境判定），
+     掛在 `add_bilingual_fields()` 三個 title_zh 組裝點、皆在
+     `to_zh_hant()` 之後執行；**只修正顯示值、不回寫 cache**
+
+   **b. 分層設計 / 掛載點與快取先後關係結論**：`title-zh-cache.json`
+   內已存在的錯誤譯文不需要手動修補——exit-fix/reverse-fix 都在
+   「讀快取值之後、組裝顯示值之前」重新套用（沿用 to_zh_hant() 同一層
+   「不改寫歷史」設計），每次執行自動對快取殘留自癒；遮罩回填只作用於
+   **尚未進快取**的全新翻譯（快取命中路徑不重新遮罩，維持原樣）
+
+   **c. 匹配規則**：大小寫敏感、詞界錨定（CJK 內容用純子字串比對，
+   無空格可錨）；家族名命中後向右吞尾（版本號 + `FAMILY_SUFFIX_TOKENS`
+   常數，如 Pro/Max/Flash/Thinking/Preview 等）；高風險裸詞
+   （`HIGH_RISK_BARE_TERMS`：Nova/Muse/Wan/Sonar/Genie/o3/o4）與裸詞
+   Moonshot 僅在同標題有對應廠商/實驗室詞共現時才觸發，否則留給 MT
+   照常處理
+
+   **d. 非相鄰共現通道（Step 3，2026-07-19）**：實測線上「Claude make
+   Fable 5 permanent」標題中 Claude 與子系詞 Fable 被其他字隔開、不
+   相鄰，Step 1/2 的相鄰規則對此完全不作用，殘留「神鬼寓言」「《》」。
+   修法：遮罩層與反向修正層皆新增「同標題/同文字偵測到 Claude 裸詞即
+   各自獨立遮罩/修正子系詞（Sonnet/Opus/Haiku/Fable/Mythos）」的通道。
+   **泛化取捨結論（重要，勿重複調查）**：**刻意不泛化**到 Gemini
+   （Pro/Flash/Deep Think）、GPT（Sol/Terra/Luna）等其他家族的尾綴詞。
+   理由：這些尾綴詞是常見、語意開放的英文單字，若不要求緊鄰家族詞就
+   允許遮罩/修正，會誤傷 MT 原本能正確翻譯的無關句子（例如句子裡剛好
+   出現的普通 "Pro"/"Flash"）；反觀 Claude 的五個子系詞是封閉、無歧義
+   的專有名詞集合，且 `title-zh-cache.json` 實測掃出數百筆已存在的
+   誤譯證據（Mythos 85 筆＋Fable 系 97 筆同文字命中），資料面明確支持
+   只鎖定 Claude 子系。未來若要幫 Gemini/GPT 也做非相鄰保護，需先蒐集
+   類似的實測誤譯證據，不能只憑理論對稱性泛化
+
+   **e. Table C 雙向共現閘門**：獨立出現的子系誤譯詞（神鬼寓言/寓言/
+   十四行詩/俳句/神話/傑作）只在同文字（或選填的英文原文 source，涵蓋
+   MT 把「Anthropic」譯成「人擇/人类」導致同文字比對落空的情況）偵測
+   到 Claude/克勞德/克劳德/Anthropic 任一詞共現時才轉換為正典子系名；
+   無共現一律不動——已測試釘住純遊戲新聞《神鬼寓言》、通用詞「神話」
+   「傑作」不受影響，避免誤殺
+
+   **f. 維護方式**：BRAND_GLOSSARY 機制已完全併入 CANONICAL_NAMES 並
+   退役（`scripts/update_news.py` 內已無 BRAND_GLOSSARY 定義）。日常
+   新增詞條（Table C 開放清單新增中國用語對應、新家族名、新子系詞）
+   屬例行維護，直接編輯 `CANONICAL_NAMES`/相關字典並補測試即可，
+   **不需要為此開工單**；只有匹配演算法本身（吞尾規則、共現閘門邏輯）
+   的變更才需要走工單流程
+
+   已測試釘住：tests/test_topic_filter.py 共 30 案例，涵蓋遮罩/回填/
+   出口修正/反向修正/快取殘留自癒/非相鄰共現/誤殺防護（pytest 基線
+   199 → 208 → 217 → 226）
 10. 資料時效警示帶（2026-07-17 上線）：前端讀 generated_at 與瀏覽當下
     UTC 時間比較，2 小時內不顯示、2-6 小時低調樣式、6 小時以上明顯
     樣式，門檻常數化（STALE_DATA_WARN_HOURS/STALE_DATA_BAD_HOURS）
@@ -101,8 +126,9 @@
   A/B/C」chip 已移除（importance_label 後端欄位與排序引用不動），
   上排業務事件徽章與內容標籤統一去重、近義詞讓位（model_release
   抑制「模型釋出」內容標籤）
-- 測試基線：217 pytest（2026-07-18 CANONICAL_NAMES Step 1 由 199 增至
-  208；2026-07-19 Step 2 遮罩回填再增至 217）
+- 測試基線：226 pytest（2026-07-18 CANONICAL_NAMES Step 1 由 199 增至
+  208；2026-07-19 Step 2 遮罩回填再增至 217、Step 3 非相鄰共現防護
+  再增至 226，全案結案）
 - 排程健康：cron 已從每 30 分鐘加密至每小時 4 tick（7,22,37,52）；
   2026-07-17 同一日內註冊衰變（schedule 觸發完全停止、無外部原因）
   發生兩次（03:12Z 起 166 分鐘零 tick、12:45Z 前累積多段 92-147
