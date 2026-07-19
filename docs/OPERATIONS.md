@@ -226,6 +226,14 @@ update-news.yml: freshness-check job
 
 **2. cron-job.org 設定模板**（登入後新增一個 cron job，逐欄照抄）
 
+> **UI 對應**：cron-job.org 的建立表單預設在「Common」分頁，只有
+> Title/URL/排程；**Method、Headers、Request body 這三個欄位要切到
+> 「Advanced」分頁才看得到**，別在 Common 分頁裡找。排程也不要用
+> 「Common」分頁的「Every 30 minutes」預設選項——那個選項不保證會
+> 落在特定分鐘數，無法確保跟內部 cron 錯開；要在排程設定裡選
+> **Custom**，勾選 **Minutes: 5 和 35**（其餘 Hours/Days/Months 全選
+> 「every」），才能精確對到下面表格建議的 `:05`/`:35`。
+
 | 欄位 | 值 |
 |---|---|
 | URL | `https://api.github.com/repos/seisyuku/ai-news-radar_zhtw/actions/workflows/update-news.yml/dispatches` |
@@ -242,20 +250,46 @@ update-news.yml: freshness-check job
 本文件、commit、issue 或任何 repo 內的檔案**，只填在 cron-job.org 的
 表單欄位裡。
 
-**3. 失效排查順序**（心跳看起來沒作用時，依序檢查）
+**3. 設定完成後驗證速查**（cron-job.org 表單內通常有「Test run」
+按鈕，設定完直接點一次，看回應碼判斷）：
+
+| 回應碼 | 意義 | 排查方向 |
+|---|---|---|
+| **204** | 成功，dispatch 已送達 GitHub | 正常，不用管 |
+| **401** | 未授權 | 檢查 Authorization header 格式是不是
+`Bearer <PAT>`（`Bearer` 後面一個空格，PAT 本體不要多貼到空白或
+換行） |
+| **403** | 授權格式對但權限不夠 | PAT 的 Permissions 是否確實勾了
+`Actions: Read and write`；90 天效期是否已過期 |
+| **404** | 找不到資源 | URL 有沒有打錯；PAT 的 Repository access
+是否包含 `seisyuku/ai-news-radar_zhtw` |
+| **422** | 請求格式錯誤 | Body 是否為合法 JSON、`ref`/`inputs` 拼字
+是否正確（照抄上面模板即可） |
+
+**4. 失效排查順序**（上線一段時間後心跳看起來沒作用時，依序檢查）
 
 1. **cron-job.org 執行紀錄**：登入該服務看這個 cron job 的執行歷史，
    確認排程本身有沒有按時觸發、有沒有連續失敗
-2. **API 回應碼**：執行紀錄裡看 GitHub API 回的 HTTP 狀態碼——204 是
-   成功；401/403 通常是 PAT 過期或權限不對；404 通常是 URL 打錯或
-   PAT 沒有這個 repo 的存取權；422 通常是 body 格式錯（檢查
-   `ref`/`inputs` 拼字、JSON 是否合法）
+2. **API 回應碼**：執行紀錄裡看 GitHub API 回的 HTTP 狀態碼，對照
+   上面「設定完成後驗證速查」表格排查
 3. **guard 行為**：確認 API 有成功送達後，去
    `gh run list --workflow=update-news.yml -L 10 --json event,createdAt,conclusion`
    看有沒有出現 `workflow_dispatch` 的 run；如果有 run 但
    `freshness-check` job 一直判定 `should_run=false`（因為內部排程
    剛好一直健康），這是**設計上的正常行為**，不是故障——心跳本來
    就只在內部排程衰變時才接管
+
+**5. PAT 到期續期操作**（90 天到期前）
+
+1. 到 GitHub Settings → Developer settings → Fine-grained tokens
+   重新產生一個新 PAT，範圍設定同「1. 建立 PAT」（僅限本 repo、僅
+   `Actions: Read and write`、效期再設 90 天）
+2. 到 cron-job.org 該 cron job 的 Advanced 分頁，把 Headers 裡
+   `Authorization: Bearer <PAT>` 的 `<PAT>` 換成新 token，儲存
+3. 點一次「Test run」確認回應碼是 204
+4. 舊 PAT 可以直接在 GitHub 上撤銷（Revoke）
+5. **repo 端（workflow YAML、docs）完全不用改**——PAT 只存在
+   cron-job.org 的表單欄位裡，跟 repo 程式碼無關
 
 ## 翻譯管線（title_zh 產生機制）
 
