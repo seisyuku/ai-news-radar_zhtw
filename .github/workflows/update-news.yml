@@ -107,7 +107,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SOURCE: ${{ inputs.source || 'manual' }}
-          FRESHNESS_THRESHOLD_MINUTES: 25
+          FRESHNESS_THRESHOLD_MINUTES: 0
         run: |
           set -euo pipefail
 
