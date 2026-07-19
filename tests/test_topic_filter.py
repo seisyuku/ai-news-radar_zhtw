@@ -707,6 +707,127 @@ class TopicFilterTests(unittest.TestCase):
         self.assertNotIn("QCANON", title_zh)
         self.assertIn("輝達", title_zh)
 
+    # --- CANONICAL_NAMES Step 3: 非相鄰共現防護 ---------------------------
+
+    def test_mask_canonical_names_masks_non_adjacent_claude_and_subbrand_separately(self):
+        masked, placeholders = mask_canonical_names("Claude make Fable 5 permanent")
+        self.assertNotIn("Claude", masked)
+        self.assertNotIn("Fable", masked)
+        self.assertEqual(len(placeholders), 2)
+        self.assertEqual(set(placeholders.values()), {"Claude", "Fable 5"})
+
+    def test_mask_canonical_names_adjacent_claude_subbrand_still_one_placeholder(self):
+        # Regression: the Step 3 non-adjacent pass must not double-mask the
+        # already-adjacent case handled by _MASK_SCAN_RE.
+        masked, placeholders = mask_canonical_names("Claude Fable 5 launches new safety benchmark")
+        self.assertEqual(len(placeholders), 1)
+        self.assertEqual(list(placeholders.values()), ["Claude Fable 5"])
+
+    def test_mask_canonical_names_does_not_mask_subbrand_word_without_claude_context(self):
+        masked, placeholders = mask_canonical_names(
+            "Fable 5 vs. GPT-5.6 Sol on an NP-Hard Problem: Does /goal help?"
+        )
+        self.assertIn("Fable", masked)
+        self.assertEqual(set(placeholders.values()), {"GPT-5.6 Sol"})
+
+    def test_reverse_fix_repairs_non_adjacent_claude_subbrand_mistranslation(self):
+        # Exact cache residual observed on the live site for "Claude make
+        # Fable 5 permanent": Claude and its mistranslated sub-brand word
+        # are in the same sentence but not adjacent.
+        result = apply_canonical_reverse_fix("克劳德将《神鬼寓言5》永久化")
+        self.assertNotIn("克劳德", result)
+        self.assertNotIn("寓言", result)
+        self.assertNotIn("神鬼", result)
+        self.assertNotIn("《", result)
+        self.assertIn("Claude", result)
+        self.assertIn("Fable 5", result)
+
+    def test_reverse_fix_non_adjacent_mythos_with_claude_context_elsewhere(self):
+        result = apply_canonical_reverse_fix(
+            "Anthropic 声称其新人工智能模型、神话是网络安全的清算"
+        )
+        self.assertNotIn("神话", result)
+        self.assertIn("Mythos", result)
+
+    def test_reverse_fix_uses_english_source_when_translation_drops_anthropic(self):
+        # MT sometimes renders "Anthropic" as "人类"/"人择" instead of
+        # keeping it literal, so the in-text context check alone would miss
+        # it; the English source (when available) is a second signal.
+        result = apply_canonical_reverse_fix(
+            "尽管列入黑名单，美国国家安全局仍利用人类的神话",
+            source="NSA Using Anthropic's Mythos Despite Blacklist",
+        )
+        self.assertNotIn("神话", result)
+        self.assertIn("Mythos", result)
+
+    def test_reverse_fix_leaves_unrelated_game_and_generic_word_usage_untouched(self):
+        # False-positive guard (spec item 2): a real "Fable" game-franchise
+        # headline, and generic "myth"/"masterpiece" vocabulary, must not be
+        # rewritten when there is no Claude/Anthropic context at all.
+        self.assertEqual(apply_canonical_reverse_fix("Xbox 公布《神鬼寓言》新作"), "Xbox 公布《神鬼寓言》新作")
+        self.assertEqual(apply_canonical_reverse_fix("這是一部曠世傑作"), "這是一部曠世傑作")
+        self.assertEqual(
+            apply_canonical_reverse_fix("打破人工智慧經濟的最大神話"),
+            "打破人工智慧經濟的最大神話",
+        )
+
+    def test_end_to_end_cached_non_adjacent_claude_fable_bug_self_heals(self):
+        # The exact live regression this Step 3 ticket was opened for.
+        class NoNetworkSession:
+            def get(self, *args, **kwargs):
+                raise AssertionError("cache hit must not trigger a network translate call")
+
+        title = "Claude make Fable 5 permanent"
+        cache = {title: "克劳德将《神鬼寓言5》永久化"}
+        item = {"title": title, "url": "https://simonwillison.net/2026/Jul/18/claude-make-fable-5-permanent"}
+
+        ai_items, _, _ = add_bilingual_fields([item], [item], NoNetworkSession(), cache, 80)
+
+        title_zh = ai_items[0]["title_zh"]
+        self.assertNotIn("寓言", title_zh)
+        self.assertNotIn("神鬼", title_zh)
+        self.assertNotIn("《", title_zh)
+        self.assertIn("Claude", title_zh)
+        self.assertIn("Fable 5", title_zh)
+
+    def test_end_to_end_fresh_translation_masks_non_adjacent_claude_and_fable(self):
+        class FakeResponse:
+            def __init__(self, payload):
+                self.payload = payload
+
+            def raise_for_status(self):
+                return None
+
+            def json(self):
+                return self.payload
+
+        class FakeSession:
+            def __init__(self):
+                self.queries = []
+
+            def get(self, url, params=None, **kwargs):
+                q = params["q"]
+                self.queries.append(q)
+                translated = q.replace("make", "讓").replace("permanent", "永久化")
+                return FakeResponse([[[translated, q, None, None, 0]]])
+
+        session = FakeSession()
+        item = {
+            "title": "Claude make Fable 5 permanent",
+            "url": "https://simonwillison.net/2026/Jul/18/claude-make-fable-5-permanent",
+        }
+        ai_items, _, _ = add_bilingual_fields([item], [item], session, {}, 80)
+
+        self.assertTrue(session.queries)
+        self.assertNotIn("Claude", session.queries[0])
+        self.assertNotIn("Fable", session.queries[0])
+
+        title_zh = ai_items[0]["title_zh"]
+        self.assertNotIn("寓言", title_zh)
+        self.assertNotIn("《", title_zh)
+        self.assertIn("Claude", title_zh)
+        self.assertIn("Fable 5", title_zh)
+
     def test_fetch_aihot_uses_public_items_api_with_score_filter(self):
         page_1 = {
             "items": [
