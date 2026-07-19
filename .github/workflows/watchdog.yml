@@ -78,6 +78,14 @@ jobs:
             # 29628666459's log: it printed the staleness warning, then died
             # on this line). -R makes the target repo explicit so no git
             # context is needed.
+            #
+            # 2026-07-19: no -f source=... here is intentional. update-news.yml's
+            # freshness-check job only special-cases inputs.source=="heartbeat";
+            # every other value (including the "manual" default this call gets)
+            # always runs the update job in full. This dispatch fires precisely
+            # when the internal schedule has already crossed the 90 min stale
+            # threshold, so it must never be skipped by the heartbeat's 25 min
+            # freshness guard - it isn't, because it never sets that input.
             gh workflow run update-news.yml -R "${{ github.repository }}"
           else
             echo "update-news.yml schedule run is within threshold; no action needed."

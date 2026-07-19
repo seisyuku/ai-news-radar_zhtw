@@ -8,6 +8,11 @@ on:
         required: false
         default: false
         type: boolean
+      source:
+        description: "Trigger source. 'heartbeat' is the only value with special handling - see the freshness-check job below."
+        required: false
+        default: "manual"
+        type: string
   schedule:
     # GitHub drops (not just delays) a meaningful fraction of schedule
     # events during high load, and load peaks hardest exactly on the
@@ -66,7 +71,79 @@ permissions:
   contents: write
 
 jobs:
+  # External heartbeat backstop (2026-07-19): watchdog.yml's own hourly
+  # `schedule` registration has been observed decaying independently of
+  # update-news.yml's (a 147.7 min gap on 2026-07-19, over 2x its normal
+  # cadence - see the watchdog.yml touch comment), so a two-layer defense
+  # built entirely out of GitHub `schedule` triggers is not fully
+  # independent of the platform-level failure mode both layers are trying
+  # to protect against. An external cron service (cron-job.org, outside
+  # GitHub's scheduler entirely) calls workflow_dispatch with
+  # inputs.source=heartbeat every 30 min as a third, structurally
+  # independent tick source - see docs/OPERATIONS.md "External heartbeat"
+  # for the operator-facing setup.
+  #
+  # This job is a no-op for every other trigger (schedule, plain manual
+  # dispatch, watchdog's dispatch - none of which set source=heartbeat, so
+  # they fall through the `!= "heartbeat"` branch immediately below and
+  # always run the full job). It only does real work when source==heartbeat:
+  # check whether a successful run has landed in the last
+  # FRESHNESS_THRESHOLD_MINUTES regardless of who triggered it. If the
+  # internal schedule (or watchdog) is healthy, the heartbeat tick is a
+  # deliberate no-op - it must not stack extra work on top of an
+  # already-healthy 4-ticks/hour internal cadence. If nothing successful has
+  # landed inside the threshold, the internal layers have likely decayed and
+  # the heartbeat takes over, running the job in full.
+  freshness-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    permissions:
+      actions: read
+    outputs:
+      should_run: ${{ steps.guard.outputs.should_run }}
+    steps:
+      - name: Heartbeat freshness guard
+        id: guard
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SOURCE: ${{ inputs.source || 'manual' }}
+          FRESHNESS_THRESHOLD_MINUTES: 25
+        run: |
+          set -euo pipefail
+
+          if [ "$SOURCE" != "heartbeat" ]; then
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
+            echo "Trigger source is '$SOURCE' (not heartbeat) - running normally, no freshness check applies."
+            exit 0
+          fi
+
+          last_created_at=$(gh api \
+            "repos/${{ github.repository }}/actions/workflows/update-news.yml/runs?status=success&per_page=1" \
+            --jq '.workflow_runs[0].created_at // empty')
+
+          if [ -z "$last_created_at" ]; then
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
+            echo "::warning::No prior successful update-news.yml run found; heartbeat running the full job."
+            exit 0
+          fi
+
+          last_epoch=$(date -u -d "$last_created_at" +%s)
+          now_epoch=$(date -u +%s)
+          age_minutes=$(( (now_epoch - last_epoch) / 60 ))
+
+          echo "Last successful update-news.yml run: $last_created_at ($age_minutes minutes ago; heartbeat freshness threshold ${FRESHNESS_THRESHOLD_MINUTES} min)"
+
+          if [ "$age_minutes" -lt "$FRESHNESS_THRESHOLD_MINUTES" ]; then
+            echo "should_run=false" >> "$GITHUB_OUTPUT"
+            echo "Internal schedule looks healthy ($age_minutes min < $FRESHNESS_THRESHOLD_MINUTES min) - heartbeat tick is a no-op backstop, skipping the update job."
+          else
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
+            echo "::warning::heartbeat 接管: 最近一次成功 run 已 ${age_minutes} 分鐘(門檻 ${FRESHNESS_THRESHOLD_MINUTES} 分鐘),內部排程可能已衰變,heartbeat 執行完整更新。"
+          fi
+
   update:
+    needs: freshness-check
+    if: needs.freshness-check.outputs.should_run == 'true'
     timeout-minutes: 15
     runs-on: ubuntu-latest
     steps:
