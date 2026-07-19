@@ -161,6 +161,101 @@ gh run list --workflow=update-news.yml --event=workflow_dispatch \
   確實正確偵測到了異常，兩層排程並未同時全滅；問題出在偵測之後的
   執行環節，而非偵測機制本身。優先把現有兩層的執行正確性修好、
   實測驗證，比起再疊一層外部觸發機制更划算。
+  - **2026-07-19 裁決更新**：實測到 watchdog.yml **自身**的 hourly
+    schedule 也曾缺口 147.7 分鐘（見下方「External heartbeat」章節
+    背景），證明兩層防線都是用 GitHub `schedule` 觸發器建的，並非
+    真正結構獨立——兩層同時（或先後）衰變的機率比原先估計的高。
+    因此把外部心跳從觀察項升級為正式接入，見下方新章節。
+
+## External heartbeat
+
+### 背景
+
+`update-news.yml`（4 tick/hr 內部 cron）與 `watchdog.yml`（每小時檢查
+`update-news.yml` 是否逾 90 分鐘未跑、逾時則 `workflow_dispatch` 代
+觸發）兩層防線都依賴 GitHub 的 `schedule` 觸發器。2026-07-19 實測發現
+watchdog.yml **自身**的 hourly tick 也缺口達 147.7 分鐘（超出正常
+週期兩倍以上）——代表兩層防線共享同一個底層失效模式（GitHub
+schedule 註冊不定期靜默丟包），並非真正結構獨立。
+
+裁決：接入 cron-job.org（免費第三方 cron 服務）作為第三層心跳，完全
+脫離 GitHub 的 schedule 註冊機制，每 30 分鐘透過 GitHub REST API 呼叫
+`workflow_dispatch` 觸發 `update-news.yml`。
+
+### 機制圖
+
+```
+cron-job.org（每 30 分鐘，GitHub schedule 機制之外）
+    │  POST .../actions/workflows/update-news.yml/dispatches
+    │  body: {"inputs":{"source":"heartbeat"}}
+    ▼
+update-news.yml: freshness-check job
+    │  只在 inputs.source == "heartbeat" 時查詢
+    │  「任何觸發來源」最近一次成功 run 距今幾分鐘
+    │
+    ├─ < 25 分鐘（內部排程健康）──▶ should_run=false
+    │                              update job 整個跳過（needs+if）
+    │                              心跳這次只留一筆輕量 run 足跡
+    │
+    └─ ≥ 25 分鐘（內部排程疑似衰變）──▶ should_run=true
+                                       update job 全量執行，等同
+                                       接管一次排程 tick
+```
+
+`schedule` 觸發、一般手動 `workflow_dispatch`（不帶 `source` 或帶
+`source=manual`）、watchdog.yml 的代觸發（同樣不帶 `source`，見該檔
+案內註解）一律落在 `!= "heartbeat"` 分支，`freshness-check` 直接
+`should_run=true`、完全不查 API，行為與心跳接入前完全相同。
+
+### 使用者交接材料
+
+以下由使用者人工完成（repo 端已備妥、無需再改程式碼）。
+
+**1. 建立 PAT（fine-grained personal access token）**
+
+- Repository access：**僅限** `seisyuku/ai-news-radar_zhtw`（不要選
+  「All repositories」）
+- Permissions：**Actions → Read and write**（觸發 workflow_dispatch
+  所需的最小權限；不要多勾其他權限）
+- Expiration：**90 天**
+- **到期提醒**：建立時把到期日記在自己的行事曆/提醒工具（GitHub 對
+  fine-grained PAT 到期前會寄信到帳號 email，但不要只依賴這封信——
+  心跳失效不會立刻造成資料錯誤，只會讓「第三道防線」悄悄失能，很
+  容易被忽略）。到期前需重新產生新 PAT 並更新 cron-job.org 的
+  Authorization header。
+
+**2. cron-job.org 設定模板**（登入後新增一個 cron job，逐欄照抄）
+
+| 欄位 | 值 |
+|---|---|
+| URL | `https://api.github.com/repos/seisyuku/ai-news-radar_zhtw/actions/workflows/update-news.yml/dispatches` |
+| Method | `POST` |
+| Headers | `Authorization: Bearer <PAT>`<br>`Accept: application/vnd.github+json`<br>`X-GitHub-Api-Version: 2022-11-28` |
+| Body（raw JSON） | `{"ref":"master","inputs":{"source":"heartbeat"}}` |
+| 排程 | 每 30 分鐘，建議錯開內部 cron 的整點分鐘數（內部 cron 落在
+`:07/:22/:37/:52`，心跳建議設在 `:05` 與 `:35`，兩者不互相卡在同一
+分鐘觸發） |
+| 成功判定 | HTTP **204**（GitHub 對 workflow_dispatch 的標準成功
+回應，沒有回應 body） |
+
+`<PAT>` 是佔位符——把上一步產生的 PAT 貼進去，**絕對不要把 PAT 貼進
+本文件、commit、issue 或任何 repo 內的檔案**，只填在 cron-job.org 的
+表單欄位裡。
+
+**3. 失效排查順序**（心跳看起來沒作用時，依序檢查）
+
+1. **cron-job.org 執行紀錄**：登入該服務看這個 cron job 的執行歷史，
+   確認排程本身有沒有按時觸發、有沒有連續失敗
+2. **API 回應碼**：執行紀錄裡看 GitHub API 回的 HTTP 狀態碼——204 是
+   成功；401/403 通常是 PAT 過期或權限不對；404 通常是 URL 打錯或
+   PAT 沒有這個 repo 的存取權；422 通常是 body 格式錯（檢查
+   `ref`/`inputs` 拼字、JSON 是否合法）
+3. **guard 行為**：確認 API 有成功送達後，去
+   `gh run list --workflow=update-news.yml -L 10 --json event,createdAt,conclusion`
+   看有沒有出現 `workflow_dispatch` 的 run；如果有 run 但
+   `freshness-check` job 一直判定 `should_run=false`（因為內部排程
+   剛好一直健康），這是**設計上的正常行為**，不是故障——心跳本來
+   就只在內部排程衰變時才接管
 
 ## 翻譯管線（title_zh 產生機制）
 
