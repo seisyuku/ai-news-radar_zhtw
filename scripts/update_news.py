@@ -5557,10 +5557,10 @@ FAMILY_SUFFIX_TOKENS: tuple[str, ...] = (
     "Instant", "Thinking", "Deep Think", "Preview", "Sol", "Terra", "Luna",
 )
 
-# Documented for Step 2 (mask-and-backfill): bare tokens that only denote
-# the AI product when one of these vendor/lab terms co-occurs in the same
-# source title. See the CANONICAL_NAMES Table B comment for why this isn't
-# consumed by exit-fix today.
+# Bare tokens that only denote the AI product when one of these vendor/lab
+# terms co-occurs in the same source title. Consumed by mask_canonical_names()
+# (Step 2's mask-and-backfill layer); a no-op for exit-fix (Step 1), whose
+# Table B substitution is textually a no-op regardless (canonical == key).
 HIGH_RISK_BARE_TERMS: dict[str, tuple[str, ...]] = {
     "Nova": ("Amazon",),
     "Muse": ("Meta",),
@@ -5588,6 +5588,12 @@ def _moonshot_bare_context_ok(source: str) -> bool:
     return any(lab in lowered for lab in MAJOR_AI_LABS if lab not in ("moonshot", "月之暗面"))
 
 
+def _term_has_context(source: str, context_terms: tuple[str, ...]) -> bool:
+    """Generic version of the Moonshot gate above: True when any of
+    context_terms appears (word-boundary anchored) anywhere in source."""
+    return any(re.search(rf"(?<!\w){re.escape(t)}(?!\w)", source) for t in context_terms)
+
+
 _ALL_CANONICAL_KEYS_BY_LEN: tuple[str, ...] = tuple(sorted(CANONICAL_NAMES, key=len, reverse=True))
 _FAMILY_TAIL_ALT = "|".join(re.escape(t) for t in FAMILY_SUFFIX_TOKENS)
 _BRACKET_STRIP_RE = re.compile(
@@ -5604,6 +5610,110 @@ def _strip_canonical_brackets(text: str) -> str:
     treating it as a work title. Drop the marks once the content inside is a
     known-canonical brand/product term."""
     return _BRACKET_STRIP_RE.sub(lambda m: m.group(1) + (m.group(2) or ""), text)
+
+
+# ---------------------------------------------------------------------------
+# Mask-and-backfill (spec 'a. 遮罩回填', 主防線; Step 2). English titles are
+# scanned BEFORE translation; each CANONICAL_NAMES hit is pulled out into an
+# opaque placeholder token so the MT engine never sees (and so can never
+# mangle) the brand/product text at all - unlike exit-fix/reverse-fix, which
+# only repair already-known error *patterns* after the fact, masking makes
+# rendering correct for arbitrary title combinations the repair layers have
+# never seen. High-risk bare terms (HIGH_RISK_BARE_TERMS, plus bare
+# "Moonshot") are only masked when their required vendor/lab context term
+# co-occurs elsewhere in the same title; otherwise the token is left as
+# plain English for MT to handle normally.
+_CLAUDE_SUBBRAND_EN: tuple[str, ...] = ("Sonnet", "Opus", "Haiku", "Fable", "Mythos")
+_CLAUDE_SUBBRAND_EN_ALT = "|".join(_CLAUDE_SUBBRAND_EN)
+_MASK_TAIL_ALT = r"(?:\d+(?:\.\d+)*|" + _FAMILY_TAIL_ALT + r")"
+_MASK_SCAN_RE = re.compile(
+    r"(?<!\w)(" + "|".join(re.escape(k) for k in _ALL_CANONICAL_KEYS_BY_LEN) + r")"
+    r"((?:\s(?:" + _CLAUDE_SUBBRAND_EN_ALT + r"))?"
+    r"(?:[\s\-]" + _MASK_TAIL_ALT + r")*)"
+    r"(?!\w)"
+)
+
+_MASK_TOKEN_PREFIX = "QCANON"
+_MASK_TOKEN_SUFFIX = "Q"
+_MASK_TOKEN_RE = re.compile(re.escape(_MASK_TOKEN_PREFIX) + r"(\d+)" + re.escape(_MASK_TOKEN_SUFFIX))
+# Recovery pattern for a token MT nudged (extra/changed whitespace, case
+# folding) but didn't destroy outright - still recognizable by prefix/digits/
+# suffix.
+_MASK_TOKEN_LOOSE_RE = re.compile(
+    re.escape(_MASK_TOKEN_PREFIX) + r"\s*(\d+)\s*" + re.escape(_MASK_TOKEN_SUFFIX), re.I
+)
+# Last-resort sweep: strip any fragment still starting with the token prefix
+# so a maximally-mangled placeholder can never leak into public output, even
+# when its index can't be recovered.
+_MASK_TOKEN_ORPHAN_RE = re.compile(re.escape(_MASK_TOKEN_PREFIX) + r"\S*", re.I)
+
+
+def mask_canonical_names(title: str) -> tuple[str, dict[str, str]]:
+    """Pre-translation half of the mask-and-backfill layer. Returns the
+    masked title (CANONICAL_NAMES hits replaced by opaque tokens) plus a
+    token -> canonical-zh-TW-text map for backfill_canonical_names()."""
+    placeholders: dict[str, str] = {}
+    counter = 0
+
+    def _replace(match: re.Match) -> str:
+        nonlocal counter
+        key = match.group(1)
+        whole = match.group(0)
+        if key == "Moonshot" and not _moonshot_bare_context_ok(title):
+            return whole
+        if key in HIGH_RISK_BARE_TERMS and not _term_has_context(title, HIGH_RISK_BARE_TERMS[key]):
+            return whole
+        canonical_root = CANONICAL_NAMES[key]
+        # Table A-2 (canonical differs from the English key): backfill with
+        # the Chinese rendering. Table A-1/B (canonical == key): backfill
+        # with the original matched span verbatim, preserving any swallowed
+        # sub-brand/version tail exactly as written (e.g. "Claude Fable 5").
+        backfill = whole if canonical_root == key else canonical_root
+        token = f"{_MASK_TOKEN_PREFIX}{counter}{_MASK_TOKEN_SUFFIX}"
+        counter += 1
+        placeholders[token] = backfill
+        return token
+
+    masked = _MASK_SCAN_RE.sub(_replace, title)
+    return masked, placeholders
+
+
+def backfill_canonical_names(translated: str, placeholders: dict[str, str]) -> str:
+    """Post-translation half: restore each placeholder token to its
+    canonical zh-TW text. A token MT drops falls back to appending the
+    canonical text (mirrors the exit-fix append-fallback); a token MT
+    mangles beyond recognition is stripped, never shown to users raw."""
+    s = translated or ""
+    if not placeholders:
+        return s
+
+    found: set[str] = set()
+
+    def _exact_sub(match: re.Match) -> str:
+        token = match.group(0)
+        found.add(token)
+        return placeholders.get(token, "")
+
+    s = _MASK_TOKEN_RE.sub(_exact_sub, s)
+
+    remaining = {tok: val for tok, val in placeholders.items() if tok not in found}
+    if remaining:
+
+        def _loose_sub(match: re.Match) -> str:
+            token = f"{_MASK_TOKEN_PREFIX}{match.group(1)}{_MASK_TOKEN_SUFFIX}"
+            if token in remaining:
+                found.add(token)
+                return remaining[token]
+            return match.group(0)
+
+        s = _MASK_TOKEN_LOOSE_RE.sub(_loose_sub, s)
+        remaining = {tok: val for tok, val in placeholders.items() if tok not in found}
+
+    for val in remaining.values():
+        if val not in s:
+            s = f"{s} {val}" if s else val
+
+    return _MASK_TOKEN_ORPHAN_RE.sub("", s)
 
 
 def _apply_canonical_names_exit_fix(source: str, result: str) -> str:
@@ -5756,8 +5866,18 @@ def add_bilingual_fields(
         if not zh_title:
             zh_title = cache.get(title)
         if not zh_title and allow_translate and translated_now < max_new_translations:
-            tr = translate_to_zh_cn(session, title)
-            if tr and has_cjk(tr):
+            masked_title, placeholders = mask_canonical_names(title)
+            tr = translate_to_zh_cn(session, masked_title)
+            if not tr and placeholders:
+                # Masking collapsed the title to content MT considered
+                # untranslatable (translate_to_zh_cn treats "unchanged
+                # output" as failure) - retry on the unmasked title so a
+                # near-all-brand-name title still gets a zh_title; exit-fix/
+                # reverse-fix remain the safety net for brand accuracy here.
+                tr = translate_to_zh_cn(session, title)
+                placeholders = {}
+            if tr and (has_cjk(tr) or placeholders):
+                tr = backfill_canonical_names(tr, placeholders)
                 zh_title = repair_zh_title_translation(title, tr)
                 cache[title] = zh_title
                 translated_now += 1
