@@ -1,3 +1,4 @@
+import re
 import unittest
 from datetime import datetime, timezone
 from unittest.mock import patch
@@ -27,6 +28,8 @@ from scripts.update_news import (
     maybe_fetch_x_api_updates,
     maybe_fix_mojibake,
     apply_canonical_reverse_fix,
+    backfill_canonical_names,
+    mask_canonical_names,
     normalize_source_for_display,
     parse_ai_breakfast_items,
     parse_aihot_api_items,
@@ -570,6 +573,139 @@ class TopicFilterTests(unittest.TestCase):
         # CANONICAL_NAMES Table A/B term for exit-fix to match on) is left
         # as-is, matching the pre-existing "don't rewrite history" rule.
         self.assertEqual(returned_cache[title], "《克劳德寓言5》发布新的安全基准")
+
+    # --- CANONICAL_NAMES Step 2: 遮罩回填 (mask-and-backfill) ------------
+
+    def test_mask_canonical_names_masks_vendor_and_family_hits(self):
+        masked, placeholders = mask_canonical_names(
+            "NVIDIA unveils Nemotron models for enterprise customers"
+        )
+        self.assertNotIn("NVIDIA", masked)
+        self.assertNotIn("Nemotron", masked)
+        self.assertEqual(len(placeholders), 2)
+        self.assertEqual(set(placeholders.values()), {"輝達", "Nemotron"})
+
+    def test_mask_canonical_names_swallows_claude_subbrand_and_version_as_one_span(self):
+        masked, placeholders = mask_canonical_names("Claude Fable 5 launches new safety benchmark")
+        self.assertNotIn("Claude", masked)
+        self.assertEqual(len(placeholders), 1)
+        self.assertEqual(list(placeholders.values()), ["Claude Fable 5"])
+
+    def test_mask_canonical_names_gates_high_risk_bare_terms_on_vendor_context(self):
+        with_context, ph_with = mask_canonical_names("Amazon reveals Nova voice assistant upgrade")
+        self.assertNotIn("Nova", with_context)
+        self.assertIn("Nova", ph_with.values())
+
+        without_context, ph_without = mask_canonical_names("Startup unveils Nova voice assistant upgrade")
+        self.assertIn("Nova", without_context)
+        self.assertEqual(ph_without, {})
+
+    def test_mask_canonical_names_gates_bare_moonshot_on_ai_lab_context(self):
+        with_context, ph_with = mask_canonical_names("Moonshot doubles down on Kimi's agent roadmap")
+        self.assertNotIn("Moonshot", with_context)
+        self.assertIn("月之暗面", ph_with.values())
+
+        without_context, ph_without = mask_canonical_names(
+            "Moonshot mission control approves next launch window"
+        )
+        self.assertIn("Moonshot", without_context)
+        self.assertEqual(ph_without, {})
+
+    def test_backfill_canonical_names_restores_untouched_placeholders(self):
+        masked, placeholders = mask_canonical_names("Alibaba's Qwen team open-sources QwQ reasoning model")
+        # Simulate MT translating the surrounding English but leaving the
+        # opaque placeholder tokens untouched (the same MT behavior the old
+        # BRAND_GLOSSARY comment already documented for short proper nouns).
+        fake_translated = masked.replace("open-sources", "开源了").replace("reasoning model", "推理模型")
+        result = backfill_canonical_names(fake_translated, placeholders)
+        self.assertNotIn("QCANON", result)
+        self.assertIn("阿里巴巴", result)
+        self.assertIn("Qwen", result)
+        self.assertIn("QwQ", result)
+
+    def test_backfill_canonical_names_never_leaks_a_dropped_placeholder(self):
+        masked, placeholders = mask_canonical_names("NVIDIA unveils Nemotron models")
+        token = next(iter(placeholders))
+        mt_dropped_token = masked.replace(token, "")
+        result = backfill_canonical_names(mt_dropped_token, placeholders)
+        self.assertNotIn("QCANON", result)
+        self.assertIn(placeholders[token], result)
+
+    def test_backfill_canonical_names_never_leaks_a_mangled_placeholder(self):
+        masked, placeholders = mask_canonical_names("NVIDIA unveils Nemotron models")
+        token = next(iter(placeholders))
+        mt_mangled = masked.replace(token, "xyz-garbled-123")
+        result = backfill_canonical_names(mt_mangled, placeholders)
+        self.assertNotIn("QCANON", result)
+
+    def test_add_bilingual_fields_masks_before_network_call_and_backfills_arbitrary_combo(self):
+        class FakeResponse:
+            def __init__(self, payload):
+                self.payload = payload
+
+            def raise_for_status(self):
+                return None
+
+            def json(self):
+                return self.payload
+
+        class FakeSession:
+            def __init__(self):
+                self.queries = []
+
+            def get(self, url, params=None, **kwargs):
+                q = params["q"]
+                self.queries.append(q)
+                translated = q.replace("unveils", "推出").replace(
+                    "models for enterprise customers", "面向企业客户的模型"
+                )
+                return FakeResponse([[[translated, q, None, None, 0]]])
+
+        session = FakeSession()
+        item = {
+            "title": "NVIDIA unveils Nemotron models for enterprise customers",
+            "url": "https://example.com/nvidia-nemotron",
+        }
+        ai_items, _, _ = add_bilingual_fields([item], [item], session, {}, 80)
+
+        # The network call must never have seen the raw brand tokens at all.
+        self.assertTrue(session.queries)
+        self.assertNotIn("NVIDIA", session.queries[0])
+        self.assertNotIn("Nemotron", session.queries[0])
+
+        title_zh = ai_items[0]["title_zh"]
+        self.assertIn("輝達", title_zh)
+        self.assertIn("Nemotron", title_zh)
+        self.assertNotIn("QCANON", title_zh)
+
+    def test_add_bilingual_fields_placeholder_never_leaks_when_mt_drops_it(self):
+        class FakeResponse:
+            def __init__(self, payload):
+                self.payload = payload
+
+            def raise_for_status(self):
+                return None
+
+            def json(self):
+                return self.payload
+
+        class FakeSession:
+            def get(self, url, params=None, **kwargs):
+                q = params["q"]
+                # Simulate MT dropping the opaque placeholder token entirely
+                # while still translating the surrounding English.
+                translated = re.sub(r"QCANON\d+Q", "", q).replace("unveils", "推出").strip()
+                return FakeResponse([[[translated, q, None, None, 0]]])
+
+        item = {
+            "title": "NVIDIA unveils a new chip",
+            "url": "https://example.com/nvidia-chip",
+        }
+        ai_items, _, _ = add_bilingual_fields([item], [item], FakeSession(), {}, 80)
+
+        title_zh = ai_items[0]["title_zh"]
+        self.assertNotIn("QCANON", title_zh)
+        self.assertIn("輝達", title_zh)
 
     def test_fetch_aihot_uses_public_items_api_with_score_filter(self):
         page_1 = {
