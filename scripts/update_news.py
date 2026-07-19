@@ -5633,6 +5633,29 @@ _MASK_SCAN_RE = re.compile(
     r"(?!\w)"
 )
 
+# Step 3: when "Claude" and one of its sub-brand words co-occur in a title
+# but aren't adjacent (e.g. "Claude make Fable 5 permanent"), _MASK_SCAN_RE
+# above only masks the bare "Claude" and leaves "Fable 5" exposed to MT,
+# which independently mistranslates it as ordinary vocabulary (see
+# apply_canonical_reverse_fix's Step 3 comment for the observed real-world
+# cache evidence). This second, narrower pass masks the standalone
+# sub-brand word too, but only in that co-occurrence case - it is
+# deliberately NOT generalized to other families' suffix tokens (Gemini's
+# Pro/Flash/Deep Think, GPT's Sol/Terra/Luna): those are short, common
+# English words with legitimate everyday meanings, so masking them
+# unconditionally anywhere they appear (not glued to their family root)
+# risks corrupting unrelated sentences MT would otherwise translate fine.
+# Claude's five sub-brand words are a closed, unambiguous proper-noun set,
+# and this repo's real title-zh-cache.json shows hundreds of already-mangled
+# examples for them specifically - a data-backed reason to scope the fix
+# there and not further.
+_CLAUDE_ROOT_MASK_RE = re.compile(r"(?<!\w)Claude(?!\w)")
+_CLAUDE_SUBBRAND_STANDALONE_MASK_RE = re.compile(
+    r"(?<!\w)(" + _CLAUDE_SUBBRAND_EN_ALT + r")"
+    r"((?:[\s\-]" + _MASK_TAIL_ALT + r")*)"
+    r"(?!\w)"
+)
+
 _MASK_TOKEN_PREFIX = "QCANON"
 _MASK_TOKEN_SUFFIX = "Q"
 _MASK_TOKEN_RE = re.compile(re.escape(_MASK_TOKEN_PREFIX) + r"(\d+)" + re.escape(_MASK_TOKEN_SUFFIX))
@@ -5675,6 +5698,18 @@ def mask_canonical_names(title: str) -> tuple[str, dict[str, str]]:
         return token
 
     masked = _MASK_SCAN_RE.sub(_replace, title)
+
+    if _CLAUDE_ROOT_MASK_RE.search(title):
+
+        def _replace_subbrand(match: re.Match) -> str:
+            nonlocal counter
+            token = f"{_MASK_TOKEN_PREFIX}{counter}{_MASK_TOKEN_SUFFIX}"
+            counter += 1
+            placeholders[token] = match.group(0)
+            return token
+
+        masked = _CLAUDE_SUBBRAND_STANDALONE_MASK_RE.sub(_replace_subbrand, masked)
+
     return masked, placeholders
 
 
@@ -5740,6 +5775,9 @@ def _apply_canonical_names_exit_fix(source: str, result: str) -> str:
 # translated or native, and covers both Simplified/Traditional character
 # variants since call sites may run this before or after to_zh_hant().
 _CLAUDE_SUBBRAND_ZH_TO_EN: dict[str, str] = {
+    "神鬼寓言": "Fable",  # official zh localization of the unrelated "Fable"
+    # game franchise - kept as the longer/priority alternative so it's
+    # consumed whole instead of leaving a dangling "神鬼" prefix.
     "寓言": "Fable",
     "十四行詩": "Sonnet",
     "十四行诗": "Sonnet",
@@ -5766,8 +5804,35 @@ def _claude_reverse_sub(match: re.Match) -> str:
     return " ".join(pieces)
 
 
+# Step 3: MT frequently mistranslates a Claude sub-brand word as ordinary
+# vocabulary (神話="myth", 寓言="fable/allegory", 傑作="masterpiece", ...)
+# even when it isn't sitting directly next to "Claude"/"克勞德" in the
+# sentence (e.g. "Claude make Fable 5 permanent" -> "Claude將《神鬼寓言5》
+# 永久化" - Fable 5 translated on its own). _CLAUDE_REVERSE_RE above only
+# catches the adjacent case; this second pass catches a standalone
+# sub-brand word anywhere in the text, but ONLY when Claude/Anthropic
+# context co-occurs somewhere in the same text (or the original English
+# source, passed in separately since translation sometimes drops "Anthropic"
+# entirely, e.g. rendering it as "人擇"/"人类"). Without that gate this
+# would misfire on real, unrelated usage - genuine game-franchise headlines
+# ("Xbox 公布《神鬼寓言》新作") or the plain English words "myth"/
+# "masterpiece" have no Claude/Anthropic context and are correctly left
+# untouched.
+_CLAUDE_CONTEXT_RE = re.compile(r"Claude|克勞德|克劳德|Anthropic", re.I)
+_CLAUDE_SUBBRAND_STANDALONE_RE = re.compile(
+    r"《?(" + _CLAUDE_SUBBRAND_ALT + r")"
+    r"([ \-]*(?:\d+(?:\.\d+)*|" + _FAMILY_TAIL_ALT + r"))?》?"
+)
+
+
+def _claude_subbrand_standalone_sub(match: re.Match) -> str:
+    sub_en = _CLAUDE_SUBBRAND_ZH_TO_EN[match.group(1)]
+    tail = (match.group(2) or "").strip(" -")
+    return f"{sub_en} {tail}".strip()
+
+
 # Bare vendor/entity forms (no sub-brand suffix). Processed after the Claude
-# sub-brand regex above so any "克勞德/克劳德" occurrences it already
+# sub-brand regexes above so any "克勞德/克劳德" occurrences they already
 # consumed aren't double-handled by the plain literal pass.
 _REVERSE_FIX_LITERALS: tuple[tuple[str, str], ...] = (
     ("英偉達", "輝達"),
@@ -5778,16 +5843,22 @@ _REVERSE_FIX_LITERALS: tuple[tuple[str, str], ...] = (
 )
 
 
-def apply_canonical_reverse_fix(text: str) -> str:
+def apply_canonical_reverse_fix(text: str, source: str = "") -> str:
     """Third mode (spec 'c. 反向修正'): rewrite Chinese-source proper nouns
     that leaked in from PRC usage (谷歌/英偉達) or recurring MT
-    mistranslation of Claude's sub-brand names (克勞德寓言 -> Claude Fable)
-    to their zh-TW canonical form. Idempotent and safe on any Chinese text,
+    mistranslation of Claude's sub-brand names (克勞德寓言 -> Claude Fable,
+    or - Step 3 - a non-adjacent "神鬼寓言"/"神話"/... elsewhere in the same
+    title when Claude/Anthropic context co-occurs) to their zh-TW canonical
+    form. `source` is the original English title, if available, used only to
+    widen the Step 3 context check for cases where translation dropped the
+    literal word "Anthropic". Idempotent and safe on any Chinese text,
     including text that never went through machine translation."""
     s = text or ""
     if not s:
         return s
     s = _CLAUDE_REVERSE_RE.sub(_claude_reverse_sub, s)
+    if _CLAUDE_CONTEXT_RE.search(s) or (source and _CLAUDE_CONTEXT_RE.search(source)):
+        s = _CLAUDE_SUBBRAND_STANDALONE_RE.sub(_claude_subbrand_standalone_sub, s)
     for bad, good in _REVERSE_FIX_LITERALS:
         s = s.replace(bad, good)
     return _strip_canonical_brackets(s)
@@ -5846,7 +5917,7 @@ def add_bilingual_fields(
         if provided_en:
             zh_title = provided_zh if has_cjk(provided_zh) else (title if has_cjk(title) else "")
             zh_title = to_zh_hant(zh_title) if zh_title else zh_title
-            zh_title = apply_canonical_reverse_fix(zh_title) if zh_title else zh_title
+            zh_title = apply_canonical_reverse_fix(zh_title, source=provided_en) if zh_title else zh_title
             out["title_original"] = provided_en
             out["title_en"] = provided_en
             out["title_zh"] = zh_title or None
@@ -5891,7 +5962,7 @@ def add_bilingual_fields(
             # convert only the display value here, same "don't rewrite
             # history" rule as archive.json.
             zh_title = to_zh_hant(zh_title)
-            zh_title = apply_canonical_reverse_fix(zh_title)
+            zh_title = apply_canonical_reverse_fix(zh_title, source=title)
             out["title_zh"] = zh_title
             out["title_bilingual"] = f"{zh_title} / {title}"
         return out
