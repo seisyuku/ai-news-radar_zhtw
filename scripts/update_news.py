@@ -5571,6 +5571,18 @@ HIGH_RISK_BARE_TERMS: dict[str, tuple[str, ...]] = {
     "o4": ("OpenAI",),
 }
 
+# Step 4: vendors that also ship games/consumer products under their own
+# name, so their mere presence in a title doesn't establish AI-industry
+# context ("Microsoft sets Fable release date" is genuinely about the Fable
+# game, not an AI story). Excluded from the "does any other CANONICAL_NAMES
+# entity co-occur" checks used by the isolated-sub-brand-word protections
+# below (mask_canonical_names Step 4 / apply_canonical_reverse_fix's widened
+# gate) - NOT excluded anywhere else (e.g. Microsoft still masks to 微軟
+# normally when it's the actual subject).
+_GENERALIST_CONGLOMERATE_EXCLUSIONS: frozenset[str] = frozenset(
+    {"Microsoft", "Google", "Apple", "Amazon", "Samsung", "Tencent"}
+)
+
 # Entries where MT tends to drop the term entirely rather than leave it
 # untranslated in-line (unlike Table A/B brand tokens, which MT usually
 # keeps verbatim) - only these get the old BRAND_GLOSSARY "append if
@@ -5592,6 +5604,28 @@ def _term_has_context(source: str, context_terms: tuple[str, ...]) -> bool:
     """Generic version of the Moonshot gate above: True when any of
     context_terms appears (word-boundary anchored) anywhere in source."""
     return any(re.search(rf"(?<!\w){re.escape(t)}(?!\w)", source) for t in context_terms)
+
+
+# Step 4: "does at least one CANONICAL_NAMES entity (other than
+# _GENERALIST_CONGLOMERATE_EXCLUSIONS) co-occur" - used to gate protecting a
+# Claude sub-brand word that has NO "Claude"/"Anthropic" text anywhere in
+# the same title (see mask_canonical_names / apply_canonical_reverse_fix).
+# English keys are checked word-boundary anchored (Latin script); Table A-2
+# Chinese renderings are checked as plain substrings (same reasoning as the
+# rest of Table C - Chinese prose has no inter-word spaces to anchor on).
+_AI_CONTEXT_ENTITY_KEYS: tuple[str, ...] = tuple(
+    k for k in CANONICAL_NAMES if k not in _GENERALIST_CONGLOMERATE_EXCLUSIONS
+)
+_AI_CONTEXT_ENTITY_VALUES: tuple[str, ...] = tuple(
+    v for k, v in CANONICAL_NAMES.items() if v != k and k not in _GENERALIST_CONGLOMERATE_EXCLUSIONS
+)
+
+
+def _has_ai_context_entity(text: str, source: str = "") -> bool:
+    haystack_en = f"{text} {source}" if source else text
+    if any(re.search(rf"(?<!\w){re.escape(k)}(?!\w)", haystack_en) for k in _AI_CONTEXT_ENTITY_KEYS):
+        return True
+    return any(v in text for v in _AI_CONTEXT_ENTITY_VALUES)
 
 
 _ALL_CANONICAL_KEYS_BY_LEN: tuple[str, ...] = tuple(sorted(CANONICAL_NAMES, key=len, reverse=True))
@@ -5626,10 +5660,18 @@ def _strip_canonical_brackets(text: str) -> str:
 _CLAUDE_SUBBRAND_EN: tuple[str, ...] = ("Sonnet", "Opus", "Haiku", "Fable", "Mythos")
 _CLAUDE_SUBBRAND_EN_ALT = "|".join(_CLAUDE_SUBBRAND_EN)
 _MASK_TAIL_ALT = r"(?:\d+(?:\.\d+)*|" + _FAMILY_TAIL_ALT + r")"
+# A trailing English possessive ('s / 's / bare ' after a plural) is
+# deliberately included in the match (not left for MT to handle on its own)
+# so it never ends up glued onto a Chinese backfill value with no
+# translation of its own (see the possessive handling in mask_canonical_names
+# below - "Moonshot's Kimi K3..." -> without this, "'s" survives translation
+# stuck onto the masked term's backfill value, e.g. "月之暗面's").
+_POSSESSIVE_ALT = r"(?:['’]s|['’])"
 _MASK_SCAN_RE = re.compile(
     r"(?<!\w)(" + "|".join(re.escape(k) for k in _ALL_CANONICAL_KEYS_BY_LEN) + r")"
     r"((?:\s(?:" + _CLAUDE_SUBBRAND_EN_ALT + r"))?"
     r"(?:[\s\-]" + _MASK_TAIL_ALT + r")*)"
+    r"(" + _POSSESSIVE_ALT + r")?"
     r"(?!\w)"
 )
 
@@ -5653,6 +5695,33 @@ _CLAUDE_ROOT_MASK_RE = re.compile(r"(?<!\w)Claude(?!\w)")
 _CLAUDE_SUBBRAND_STANDALONE_MASK_RE = re.compile(
     r"(?<!\w)(" + _CLAUDE_SUBBRAND_EN_ALT + r")"
     r"((?:[\s\-]" + _MASK_TAIL_ALT + r")*)"
+    r"(?!\w)"
+)
+
+# Step 4: a sub-brand word can appear with NO "Claude"/"Anthropic" text
+# anywhere in the title at all - e.g. a head-to-head comparison headline
+# like "Moonshot's Kimi K3 outperforms Fable 5 in frontend code..." that
+# only names the rival lab's model and the bare sub-brand name. Neither the
+# adjacent match (_MASK_SCAN_RE) nor the Step 3 co-occurrence channel above
+# requires "Claude" at all, so this slips through both untouched. This
+# third, narrowest channel protects a sub-brand word standalone, but only
+# when ALL of:
+#   a. uppercase word form (case-sensitive match, same as everywhere else -
+#      lowercase "fable"/"haiku" as ordinary words never trigger)
+#   b. immediately followed by a version tail - REQUIRED here, unlike the
+#      Step 3 channel above where the tail is optional. A bare "Fable" with
+#      no version number is far more likely to be the actual "Fable" game
+#      franchise than an unannounced/informally-referenced Claude model.
+#   c. at least one other CANONICAL_NAMES entity co-occurs anywhere in the
+#      title (proves this is an AI-industry headline at all), excluding
+#      _GENERALIST_CONGLOMERATE_EXCLUSIONS - see that constant's comment.
+# Scope is unchanged from Step 3: still Claude's five sub-brand words only,
+# not generalized to Gemini/GPT's suffix tokens (Pro/Flash/Sol/... are an
+# open, ambiguous English word set; Claude's sub-brand words are a closed,
+# unambiguous proper-noun set with real measured mistranslation evidence).
+_CLAUDE_SUBBRAND_ISOLATED_MASK_RE = re.compile(
+    r"(?<!\w)(" + _CLAUDE_SUBBRAND_EN_ALT + r")"
+    r"([\s\-]" + _MASK_TAIL_ALT + r"(?:[\s\-]" + _MASK_TAIL_ALT + r")*)"
     r"(?!\w)"
 )
 
@@ -5681,6 +5750,7 @@ def mask_canonical_names(title: str) -> tuple[str, dict[str, str]]:
     def _replace(match: re.Match) -> str:
         nonlocal counter
         key = match.group(1)
+        possessive = match.group(3) or ""
         whole = match.group(0)
         if key == "Moonshot" and not _moonshot_bare_context_ok(title):
             return whole
@@ -5688,10 +5758,17 @@ def mask_canonical_names(title: str) -> tuple[str, dict[str, str]]:
             return whole
         canonical_root = CANONICAL_NAMES[key]
         # Table A-2 (canonical differs from the English key): backfill with
-        # the Chinese rendering. Table A-1/B (canonical == key): backfill
-        # with the original matched span verbatim, preserving any swallowed
-        # sub-brand/version tail exactly as written (e.g. "Claude Fable 5").
-        backfill = whole if canonical_root == key else canonical_root
+        # the Chinese rendering, dropping any trailing English possessive
+        # and appending 的 instead (Chinese has no apostrophe-s; "Moonshot's
+        # Kimi" -> "月之暗面的 Kimi", not "月之暗面's Kimi"). Table A-1/B
+        # (canonical == key): backfill with the original matched span
+        # verbatim, including the possessive - it already reads fine glued
+        # onto English text, and preserves any swallowed sub-brand/version
+        # tail exactly as written (e.g. "Claude Fable 5").
+        if canonical_root == key:
+            backfill = whole
+        else:
+            backfill = canonical_root + ("的" if possessive else "")
         token = f"{_MASK_TOKEN_PREFIX}{counter}{_MASK_TOKEN_SUFFIX}"
         counter += 1
         placeholders[token] = backfill
@@ -5699,16 +5776,17 @@ def mask_canonical_names(title: str) -> tuple[str, dict[str, str]]:
 
     masked = _MASK_SCAN_RE.sub(_replace, title)
 
+    def _replace_subbrand(match: re.Match) -> str:
+        nonlocal counter
+        token = f"{_MASK_TOKEN_PREFIX}{counter}{_MASK_TOKEN_SUFFIX}"
+        counter += 1
+        placeholders[token] = match.group(0)
+        return token
+
     if _CLAUDE_ROOT_MASK_RE.search(title):
-
-        def _replace_subbrand(match: re.Match) -> str:
-            nonlocal counter
-            token = f"{_MASK_TOKEN_PREFIX}{counter}{_MASK_TOKEN_SUFFIX}"
-            counter += 1
-            placeholders[token] = match.group(0)
-            return token
-
         masked = _CLAUDE_SUBBRAND_STANDALONE_MASK_RE.sub(_replace_subbrand, masked)
+    elif _has_ai_context_entity(title):
+        masked = _CLAUDE_SUBBRAND_ISOLATED_MASK_RE.sub(_replace_subbrand, masked)
 
     return masked, placeholders
 
@@ -5819,8 +5897,37 @@ def _claude_reverse_sub(match: re.Match) -> str:
 # "masterpiece" have no Claude/Anthropic context and are correctly left
 # untouched.
 _CLAUDE_CONTEXT_RE = re.compile(r"Claude|克勞德|克劳德|Anthropic", re.I)
-_CLAUDE_SUBBRAND_STANDALONE_RE = re.compile(
-    r"《?(" + _CLAUDE_SUBBRAND_ALT + r")"
+
+# Step 4: 寓言/神鬼寓言 ("Fable") specifically can appear with no
+# "Claude"/"Anthropic" text anywhere at all - not even the erroneous Chinese
+# mistranslation forms 克勞德/克劳德 (see mask_canonical_names's Step 4
+# comment for the "Moonshot's Kimi K3 outperforms Fable 5..." case this
+# fixes - the same headline shape shows up post-translation here for titles
+# that were translated before this fix existed, or that reached
+# apply_canonical_reverse_fix() via a path that skipped masking). Gets an
+# ADDITIONAL, wider pass below that fires on ANY CANONICAL_NAMES entity
+# co-occurring (via _has_ai_context_entity, same
+# _GENERALIST_CONGLOMERATE_EXCLUSIONS as the mask-layer version) - on top
+# of, not instead of, the narrow Claude/Anthropic-only gate above (kept in
+# _CLAUDE_SUBBRAND_NARROW_ALT below so the "克劳德...《神鬼寓言5》" case,
+# where the erroneous Chinese "克劳德" form is present but not recognized
+# as a CANONICAL_NAMES value, still gets fixed by the narrow pass). This
+# widened pass is deliberately NOT extended to the other four sub-brand
+# mistranslation words (十四行詩/俳句/神話/傑作) - 神話("myth")/傑作
+# ("masterpiece") in particular are far too common as ordinary vocabulary
+# to safely widen without a real Claude/Anthropic anchor; they keep only
+# the narrower gate.
+_CLAUDE_SUBBRAND_WIDENED_GATE_WORDS: frozenset[str] = frozenset({"神鬼寓言", "寓言"})
+_CLAUDE_SUBBRAND_NARROW_ALT = _CLAUDE_SUBBRAND_ALT
+_CLAUDE_SUBBRAND_WIDENED_ALT = "|".join(
+    re.escape(k) for k in sorted(_CLAUDE_SUBBRAND_WIDENED_GATE_WORDS, key=len, reverse=True)
+)
+_CLAUDE_SUBBRAND_STANDALONE_NARROW_RE = re.compile(
+    r"《?(" + _CLAUDE_SUBBRAND_NARROW_ALT + r")"
+    r"([ \-]*(?:\d+(?:\.\d+)*|" + _FAMILY_TAIL_ALT + r"))?》?"
+)
+_CLAUDE_SUBBRAND_STANDALONE_WIDENED_RE = re.compile(
+    r"《?(" + _CLAUDE_SUBBRAND_WIDENED_ALT + r")"
     r"([ \-]*(?:\d+(?:\.\d+)*|" + _FAMILY_TAIL_ALT + r"))?》?"
 )
 
@@ -5847,18 +5954,22 @@ def apply_canonical_reverse_fix(text: str, source: str = "") -> str:
     """Third mode (spec 'c. 反向修正'): rewrite Chinese-source proper nouns
     that leaked in from PRC usage (谷歌/英偉達) or recurring MT
     mistranslation of Claude's sub-brand names (克勞德寓言 -> Claude Fable,
-    or - Step 3 - a non-adjacent "神鬼寓言"/"神話"/... elsewhere in the same
-    title when Claude/Anthropic context co-occurs) to their zh-TW canonical
-    form. `source` is the original English title, if available, used only to
-    widen the Step 3 context check for cases where translation dropped the
-    literal word "Anthropic". Idempotent and safe on any Chinese text,
-    including text that never went through machine translation."""
+    a non-adjacent "神鬼寓言"/"神話"/... elsewhere in the same title when
+    Claude/Anthropic context co-occurs, or - Step 4 - "神鬼寓言"/"寓言"
+    specifically when ANY other CANONICAL_NAMES entity co-occurs) to their
+    zh-TW canonical form. `source` is the original English title, if
+    available, used only to widen the context checks for cases where
+    translation dropped the literal word "Anthropic". Idempotent and safe
+    on any Chinese text, including text that never went through machine
+    translation."""
     s = text or ""
     if not s:
         return s
     s = _CLAUDE_REVERSE_RE.sub(_claude_reverse_sub, s)
     if _CLAUDE_CONTEXT_RE.search(s) or (source and _CLAUDE_CONTEXT_RE.search(source)):
-        s = _CLAUDE_SUBBRAND_STANDALONE_RE.sub(_claude_subbrand_standalone_sub, s)
+        s = _CLAUDE_SUBBRAND_STANDALONE_NARROW_RE.sub(_claude_subbrand_standalone_sub, s)
+    if _has_ai_context_entity(s, source):
+        s = _CLAUDE_SUBBRAND_STANDALONE_WIDENED_RE.sub(_claude_subbrand_standalone_sub, s)
     for bad, good in _REVERSE_FIX_LITERALS:
         s = s.replace(bad, good)
     return _strip_canonical_brackets(s)

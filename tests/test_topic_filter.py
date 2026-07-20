@@ -769,12 +769,15 @@ class TopicFilterTests(unittest.TestCase):
         self.assertEqual(len(placeholders), 1)
         self.assertEqual(list(placeholders.values()), ["Claude Fable 5"])
 
-    def test_mask_canonical_names_does_not_mask_subbrand_word_without_claude_context(self):
+    def test_mask_canonical_names_does_not_mask_subbrand_word_with_no_ai_context_at_all(self):
+        # True negative: no other CANONICAL_NAMES entity anywhere in the
+        # title (as opposed to the Step 4 case below, where a co-occurring
+        # entity like GPT-5.6 now DOES protect the isolated sub-brand word).
         masked, placeholders = mask_canonical_names(
-            "Fable 5 vs. GPT-5.6 Sol on an NP-Hard Problem: Does /goal help?"
+            "Fable 5 review: is it worth the hype on an NP-Hard Problem?"
         )
         self.assertIn("Fable", masked)
-        self.assertEqual(set(placeholders.values()), {"GPT-5.6 Sol"})
+        self.assertEqual(placeholders, {})
 
     def test_reverse_fix_repairs_non_adjacent_claude_subbrand_mistranslation(self):
         # Exact cache residual observed on the live site for "Claude make
@@ -872,6 +875,120 @@ class TopicFilterTests(unittest.TestCase):
         self.assertNotIn("寓言", title_zh)
         self.assertNotIn("《", title_zh)
         self.assertIn("Claude", title_zh)
+        self.assertIn("Fable 5", title_zh)
+
+    # --- CANONICAL_NAMES Step 4: 子系詞獨立出現防護 -------------------------
+
+    def test_mask_canonical_names_protects_isolated_subbrand_with_other_entity_context(self):
+        masked, placeholders = mask_canonical_names(
+            "Moonshot's Kimi K3 outperforms Fable 5 in frontend code but lags far behind in complex math"
+        )
+        self.assertNotIn("Moonshot", masked)
+        self.assertNotIn("Kimi", masked)
+        self.assertNotIn("Fable", masked)
+        self.assertEqual(set(placeholders.values()), {"月之暗面的", "Kimi", "Fable 5"})
+
+    def test_mask_canonical_names_protects_isolated_subbrand_generalized_case(self):
+        masked, placeholders = mask_canonical_names("Opus 4.8 tops coding benchmark against GPT-5.6")
+        self.assertNotIn("Opus", masked)
+        self.assertIn("Opus 4.8", placeholders.values())
+
+    def test_mask_canonical_names_isolated_subbrand_excludes_generalist_conglomerates(self):
+        masked, placeholders = mask_canonical_names("Microsoft sets Fable release date")
+        self.assertIn("Fable", masked)
+        # Microsoft itself still masks normally - only the co-occurrence
+        # check for the *sub-brand word* excludes conglomerate entities.
+        self.assertEqual(set(placeholders.values()), {"微軟"})
+
+    def test_mask_canonical_names_isolated_subbrand_requires_a_version_tail(self):
+        masked, placeholders = mask_canonical_names("Kimi and Fable are both popular names")
+        self.assertIn("Fable", masked)
+        self.assertEqual(set(placeholders.values()), {"Kimi"})
+
+    def test_mask_canonical_names_possessive_suffix_never_leaks_onto_backfill(self):
+        masked, placeholders = mask_canonical_names("Moonshot's Kimi K3 announcement")
+        self.assertNotIn("'s", masked)
+        self.assertIn("月之暗面的", placeholders.values())
+
+    def test_reverse_fix_widened_gate_repairs_isolated_fable_with_other_entity(self):
+        # Exact cache residual observed on the live site for "Moonshot's
+        # Kimi K3 outperforms Fable 5..." - no Claude/Anthropic text
+        # anywhere, but Kimi/Moonshot establish AI-industry context.
+        cached = "月之暗面 的 Kimi K3 在前端代码方面优于《神鬼寓言 5》，但在复杂数学方面远远落后"
+        result = apply_canonical_reverse_fix(cached)
+        self.assertNotIn("寓言", result)
+        self.assertNotIn("神鬼", result)
+        self.assertNotIn("《", result)
+        self.assertIn("Fable 5", result)
+        self.assertIn("Kimi K3", result)
+
+    def test_reverse_fix_widened_gate_still_requires_narrow_gate_for_other_subbrand_words(self):
+        # 神話("myth")/傑作("masterpiece") keep the narrow Claude/Anthropic-
+        # only gate even under Step 4 - widening to any entity would be far
+        # too permissive for such common everyday vocabulary.
+        result = apply_canonical_reverse_fix("Kimi K3 是一部曠世傑作")
+        self.assertEqual(result, "Kimi K3 是一部曠世傑作")
+
+    def test_reverse_fix_widened_gate_leaves_unrelated_game_news_untouched(self):
+        self.assertEqual(apply_canonical_reverse_fix("Xbox 公布神鬼寓言新作"), "Xbox 公布神鬼寓言新作")
+
+    def test_end_to_end_cached_isolated_fable_bug_self_heals(self):
+        class NoNetworkSession:
+            def get(self, *args, **kwargs):
+                raise AssertionError("cache hit must not trigger a network translate call")
+
+        title = "Moonshot's Kimi K3 outperforms Fable 5 in frontend code but lags far behind in complex math"
+        cache = {title: "月之暗面 的 Kimi K3 在前端代码方面优于《神鬼寓言 5》，但在复杂数学方面远远落后"}
+        item = {"title": title, "url": "https://example.com/moonshot-kimi-k3-vs-fable-5"}
+
+        ai_items, _, _ = add_bilingual_fields([item], [item], NoNetworkSession(), cache, 80)
+
+        title_zh = ai_items[0]["title_zh"]
+        self.assertNotIn("寓言", title_zh)
+        self.assertNotIn("《", title_zh)
+        self.assertIn("Fable 5", title_zh)
+
+    def test_end_to_end_fresh_translation_masks_isolated_kimi_and_fable(self):
+        class FakeResponse:
+            def __init__(self, payload):
+                self.payload = payload
+
+            def raise_for_status(self):
+                return None
+
+            def json(self):
+                return self.payload
+
+        class FakeSession:
+            def __init__(self):
+                self.queries = []
+
+            def get(self, url, params=None, **kwargs):
+                q = params["q"]
+                self.queries.append(q)
+                translated = (
+                    q.replace("outperforms", "表现优于")
+                    .replace("in frontend code but lags far behind in complex math", "在前端代码方面，但在复杂数学方面远远落后")
+                )
+                return FakeResponse([[[translated, q, None, None, 0]]])
+
+        session = FakeSession()
+        item = {
+            "title": "Moonshot's Kimi K3 outperforms Fable 5 in frontend code but lags far behind in complex math",
+            "url": "https://example.com/moonshot-kimi-k3-vs-fable-5-fresh",
+        }
+        ai_items, _, _ = add_bilingual_fields([item], [item], session, {}, 80)
+
+        self.assertTrue(session.queries)
+        self.assertNotIn("Moonshot", session.queries[0])
+        self.assertNotIn("Kimi", session.queries[0])
+        self.assertNotIn("Fable", session.queries[0])
+
+        title_zh = ai_items[0]["title_zh"]
+        self.assertNotIn("寓言", title_zh)
+        self.assertNotIn("《", title_zh)
+        self.assertIn("月之暗面的", title_zh)
+        self.assertIn("Kimi", title_zh)
         self.assertIn("Fable 5", title_zh)
 
     def test_fetch_aihot_uses_public_items_api_with_score_filter(self):
