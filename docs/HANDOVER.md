@@ -1,4 +1,4 @@
-# AI 商業情報儀表板 — 交接摘要（截至 2026-07-19）
+# AI 商業情報儀表板 — 交接摘要（截至 2026-07-20）
 
 ## 專案身份
 - Fork：seisyuku/ai-news-radar_zhtw（上游 LearnPrompt/ai-news-radar，MIT）
@@ -23,7 +23,10 @@
 3. 商業事件加權：`BUSINESS_EVENT_KEYWORDS` 六類雙語規則 → 前端排序
    + 徽章；第六類「模型發布」為主體×發布詞×語境詞三重防護，規則
    詳見程式碼
-4. 噪音閘門：HN 轉發過濾（聚合器後門）+ 關鍵字誤判修正（merger/
+4. 噪音閘門：HN 轉發過濾（聚合器後門）+ V2EX 網域級排除
+   （`AGGREGATOR_BACKDOOR_EXCLUDED_DOMAINS`，同聚合器後門機制形狀但
+   鍵值為網域非來源標籤，掛在 `score_ai_relevance()`，只影響收錄層
+   `items_ai`，`items_all` 透明度視圖不變）+ 關鍵字誤判修正（merger/
    hackathon/遊戲排行榜/eval 語境防護，規則詳見程式碼）
 5. 生態群組去重：`SOURCE_ECOSYSTEM_GROUPS`（中國聚合器群），
    story_heat 同群多源只計一次
@@ -33,30 +36,49 @@
    規則詳見程式碼）；已知殘差 2 條無徽章教學文，已測試釘住接受
 8. 官方源接入：Thinking Machines Lab（thinkingmachines.ai/index.xml，
    Hugo 標準 RSS，非常見 /feed 路徑）
-9. 翻譯正典名稱表（`CANONICAL_NAMES`，取代舊 BRAND_GLOSSARY，全案
-   已結案）：三層防線——遮罩回填（翻譯前，主防線）/ 出口修正
+9. 翻譯正典名稱表（`CANONICAL_NAMES`，取代舊 BRAND_GLOSSARY，四階段
+   全案已結案）：三層防線——遮罩回填（翻譯前，主防線）/ 出口修正
    （exit-fix，命中 Table A/B 回寫 cache）/ 反向修正（Table C，只修
-   顯示不回寫）。Claude 五子系詞另有非相鄰共現通道，刻意不泛化到
-   Gemini/GPT 等其他家族尾綴詞——那些是語意開放的常見英文字，緊鄰
-   要求才能避免誤傷無關句子，Claude 子系則有大量實測誤譯證據支撐。
-   機制全文、匹配規則、日常維護方式見 `docs/OPERATIONS.md`「翻譯
-   管線」章節。pytest 30 案例（199→226）
+   顯示不回寫）。Claude 五子系詞另有兩條擴充通道：非相鄰共現（同標題
+   有 Claude/Anthropic 即保護）、與第四階段「無 Claude 共現也保護」
+   （大寫詞形 + 緊鄰版號 + 同標題任一 CANONICAL_NAMES 實體共現，
+   排除微軟/Google/蘋果/亞馬遜/三星/騰訊等綜合巨頭，防遊戲/消費品
+   誤中）。範圍刻意維持 Claude 五子系封閉集，不泛化到 Gemini/GPT 等
+   其他家族尾綴詞——那些是語意開放的常見英文字，Claude 子系則有大量
+   實測誤譯證據支撐。機制全文、匹配規則、日常維護方式見
+   `docs/OPERATIONS.md`「翻譯管線」章節；專屬 pytest 約 37 案例
 10. 資料時效警示帶：前端讀 `generated_at` 與瀏覽當下比較，2 小時內
     不顯示、2-6 小時低調樣式、6 小時以上明顯樣式，門檻常數化
     （`STALE_DATA_WARN_HOURS`/`STALE_DATA_BAD_HOURS`）
+11. 重點訊號區資格閘門：`featuredCandidatesGate()` 前置過濾（不重排，
+    既有徽章優先四級排序 `boleStorySortCompare` 不動）——徽章
+    （`business_events` 非空）直接入選；無徽章僅在非
+    `COMMUNITY_SOURCE_TYPES`（iris/waytoagi/followbuilders/aibase/
+    hackernews/zeli）來源時才能補位，寧缺勿濫不硬湊。**未做**地板值
+    排除：後端分數已被 `max(score, 0.65)` 覆寫，前端 JSON 無欄位能
+    可靠區分真實分與地板值，判斷不可行後只做源類型排除（已回報此
+    限制，非遺漏）。掛在 story-pool 與 no-story-data fallback 兩條
+    候選池入口
+12. 前端死代碼清理：`HN熱議` 分頁/計數器整組移除（背後 hackernews/
+    zeli 抓取器已於 07-14 源置換移除，此為孤兒 UI，非過濾結果）
 
 ## 已知設計事實（避免重複調查）
 - 收錄門檻 = ai_relevance ≥ 0.65；六類只主宰重點區排序，非收錄條件
 - ai_relevance 有 has_ai 地板值 max(score, 0.65)——上游設計，
-  動它需 14 天回測（治理規則），未動；聚合器條目多靠地板值過關
+  動它需 14 天回測（治理規則），未動；聚合器條目多靠地板值過關，且
+  此覆寫使前端無法回推真實分（見「重點訊號區資格閘門」的地板值排除
+  限制）
 - BRIEF_SCORE_GATE/daily-brief 原始排序不影響使用者所見
   （調查結論在 story_passes_brief_gate() docstring）
-- renderBoleBrief() 是死代碼
+- `renderBoleBrief()` 是死代碼；另發現同批未被呼叫的死代碼：
+  `pickBoleItems()`、`clusterBoleEvents()` 的獨立呼叫路徑、
+  `renderStoryViewPanel()`——皆僅定義未被任何即時渲染路徑呼叫，
+  未清除（非本輪範圍），供未來清理參考
 - 重點卡片減噪：下排內容分類標籤列與「優先順序 A/B/C」chip 已移除
   （importance_label 後端欄位與排序引用不動），上排業務事件徽章與
   內容標籤統一去重、近義詞讓位（model_release 抑制「模型釋出」
   內容標籤）
-- 測試基線：230 pytest
+- 測試基線：240 pytest
 - 排程健康 = 三層架構，已將停擺風險吸收掉（完整事故時間軸與診斷
   記錄見 `docs/OPERATIONS.md`「Schedule (cron) health」/「External
   heartbeat」章節）：
@@ -98,20 +120,29 @@
       0.65**、僅 5 條有徽章（7.7%）——代表 iris 的噪音問題不只
       V2EX 一項，此為審判時的量化基準。附帶記錄：同一輪「重點訊號」
       當前熱點 Top 10（`mode=ai`／`hot` 排序）零 iris/V2EX 條目、
-      2/10 有徽章，此為 Step 3 資格閘門上線前的 before 基線一併留存
+      2/10 有徽章，此為 Step 3 資格閘門上線前的 before 基線；閘門
+      上線後 iris 裸露規模同批用 fallback 路徑實測，65 條中僅 5 條
+      有徽章者存活，卷宗證據齊備可審
     - juya_daily 不參審（對照源定位）
   - 排程項：確認 7/17-7/21 這段期間前端 2 小時警示帶未曾擊穿即可
     ——三層防線已結案，不需再拆解個別 tick 間隔複測
   - watchdog.yml 去留裁決：保留，傾向留（零成本縱深防禦，外部心跳
     上線不代表 watchdog 該退役，三層互為備援）
-- 8 月中複評：changelog 缺口（六廠 SOTA release notes 層，暫緩中）、
-  財經查詢漏接蒐集（預案=AI 概念股+財報詞 GNews 查詢）、
-  juya_daily 查漏價值、LLM 重排層觸發評估（影響範圍誤排已有證據 #1）
+- 財經查詢擴充（GNews AI 概念股+財報詞）：**否決關閉**——重點訊號區
+  已於資格閘門上線時選定「寧缺勿濫」為取捨（供給不足寧可顯示較少
+  條數，不擴大信源換取湊數），供給面擴張的迫切性降低；查詢詞組
+  設計與三廠 GitHub Releases 評估已完成唯讀評估（結論：三廠 Releases
+  皆不足以填補官方一手空缺），changelog 缺口改在 8 月中複評時視情況
+  升值重提，不在本輪動作
 - 個資案已結案，僅剩桌面兩份 bundle 到期銷毀（追蹤銷毀完成即可關閉
   此項）
 
 ## 已知限制
-- Meta AI / DeepSeek / xAI 為第三方報導非官方一手
-- Artificial Analysis 未接入（每月手動看 leaderboard）
+- Meta AI / DeepSeek / xAI 為第三方報導非官方一手（2026-07-19/20
+  已評估 GitHub Releases 作為升級路徑：三廠皆不足——Meta/DeepSeek
+  幾乎不用 Releases 機制發布模型，xAI 的 xai-sdk-python 雖活躍但
+  屬 SDK 版本紀錄非模型公告，維持現狀）
+- Artificial Analysis 未接入（每月手動看 leaderboard；已評估
+  changelog 頁面可靜態抓取，成本中等，暫不實作）
 - 繁簡混排標題理論上可能疊字（極罕見，觀察中）
 - 內測回報管道待補進說明文案
