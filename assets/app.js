@@ -101,6 +101,16 @@ const SOURCE_KINDS = {
   waytoagi: { label: "社群", tone: "builders" },
   newsnow: { label: "聚合", tone: "aggregate" },
   opmlrss: { label: "OPML", tone: "newsletter" },
+  // feature/source-kinds-gap-fix-0721: these three are active in
+  // scripts/update_news.py's collect_all() task list but were never added
+  // here, so sourceKind() fell through to its "來源"/"default" placeholder
+  // for every card from them. tone values are new, unused strings (no
+  // matching .category.kind-*/.source-chip.kind-* CSS rule exists for
+  // them) - they render with the plain default badge look rather than a
+  // color that's already claimed by another source type.
+  tw_media: { label: "台灣媒體", tone: "regional" },
+  kr36_ai: { label: "36Kr", tone: "watchlist" },
+  juya_daily: { label: "橘鴉日報", tone: "watchlist" },
 };
 
 // feature/badge-system-audit-0721: site_ids where renderItemNode()'s
@@ -122,6 +132,16 @@ const SOURCE_KINDS = {
 // Left out (checked, not redundant - different text, kept visible):
 // aibreakfast, socialdata_x, bestblogs, tophub, zeli, techurls, buzzing,
 // iris, newsnow, waytoagi. xapi 目前資料窗口內無樣本可驗證,保守不列入。
+//
+// feature/source-kinds-gap-fix-0721: tw_media (site_name 傘狀值「台灣媒體」
+// 逐字等於 sourceSignal() 回傳給 .source 的文字) 曾經因為這個文字重複被
+// 短暫加進這份清單,但 .source[hidden] 那次修復已經讓 .source 在現行巢狀
+// 分組渲染下對幾乎所有卡片恆為 hidden(context.source === item.source 恆
+// 成立,見 docs/HANDOVER.md)。把 tw_media 也放進這裡等於同時關掉
+// .category 和已經隱形的 .source,兩個徽章一起消失,跟 kr36_ai/juya_daily
+// (不在此清單、只隱藏 .source、保留 .category 顯示品牌名)行為不一致。
+// 故不將 tw_media 列入 - 讓它跟 kr36_ai/juya_daily 走同一條路徑:
+// .category 顯示「台灣媒體」,.source 依既有機制自然隱藏。
 const CATEGORY_REDUNDANT_WITH_SOURCE = new Set([
   "official_ai",
   "curated_media",
