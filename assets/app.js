@@ -101,6 +101,16 @@ const SOURCE_KINDS = {
   waytoagi: { label: "社群", tone: "builders" },
   newsnow: { label: "聚合", tone: "aggregate" },
   opmlrss: { label: "OPML", tone: "newsletter" },
+  // feature/source-kinds-gap-fix-0721: these three are active in
+  // scripts/update_news.py's collect_all() task list but were never added
+  // here, so sourceKind() fell through to its "來源"/"default" placeholder
+  // for every card from them. tone values are new, unused strings (no
+  // matching .category.kind-*/.source-chip.kind-* CSS rule exists for
+  // them) - they render with the plain default badge look rather than a
+  // color that's already claimed by another source type.
+  tw_media: { label: "台灣媒體", tone: "regional" },
+  kr36_ai: { label: "36Kr", tone: "watchlist" },
+  juya_daily: { label: "橘鴉日報", tone: "watchlist" },
 };
 
 // feature/badge-system-audit-0721: site_ids where renderItemNode()'s
@@ -122,6 +132,13 @@ const SOURCE_KINDS = {
 // Left out (checked, not redundant - different text, kept visible):
 // aibreakfast, socialdata_x, bestblogs, tophub, zeli, techurls, buzzing,
 // iris, newsnow, waytoagi. xapi 目前資料窗口內無樣本可驗證,保守不列入。
+//
+// feature/source-kinds-gap-fix-0721: tw_media 補登記後加入此清單 - 跟
+// curated_media 同型態的傘狀來源,site_name 逐字就是「台灣媒體」,
+// sourceSignal() fallback 直接回傳同一個字串給 .source,兩者逐字重複。
+// kr36_ai/juya_daily 不加入:.source 顯示的是各自的具體來源名
+// (site_name 分別是「36Kr AI (Watchlist)」/「橘鴉AI早報 (Watchlist)」),
+// 不是像 tw_media 那樣一個 site_id 底下裝著多家不同媒體的傘狀泛稱。
 const CATEGORY_REDUNDANT_WITH_SOURCE = new Set([
   "official_ai",
   "curated_media",
@@ -131,6 +148,7 @@ const CATEGORY_REDUNDANT_WITH_SOURCE = new Set([
   "hackernews",
   "aihubtoday",
   "aibase",
+  "tw_media",
 ]);
 
 const SECTION_DEFS = [
