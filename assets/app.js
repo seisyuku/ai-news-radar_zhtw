@@ -133,12 +133,15 @@ const SOURCE_KINDS = {
 // aibreakfast, socialdata_x, bestblogs, tophub, zeli, techurls, buzzing,
 // iris, newsnow, waytoagi. xapi 目前資料窗口內無樣本可驗證,保守不列入。
 //
-// feature/source-kinds-gap-fix-0721: tw_media 補登記後加入此清單 - 跟
-// curated_media 同型態的傘狀來源,site_name 逐字就是「台灣媒體」,
-// sourceSignal() fallback 直接回傳同一個字串給 .source,兩者逐字重複。
-// kr36_ai/juya_daily 不加入:.source 顯示的是各自的具體來源名
-// (site_name 分別是「36Kr AI (Watchlist)」/「橘鴉AI早報 (Watchlist)」),
-// 不是像 tw_media 那樣一個 site_id 底下裝著多家不同媒體的傘狀泛稱。
+// feature/source-kinds-gap-fix-0721: tw_media (site_name 傘狀值「台灣媒體」
+// 逐字等於 sourceSignal() 回傳給 .source 的文字) 曾經因為這個文字重複被
+// 短暫加進這份清單,但 .source[hidden] 那次修復已經讓 .source 在現行巢狀
+// 分組渲染下對幾乎所有卡片恆為 hidden(context.source === item.source 恆
+// 成立,見 docs/HANDOVER.md)。把 tw_media 也放進這裡等於同時關掉
+// .category 和已經隱形的 .source,兩個徽章一起消失,跟 kr36_ai/juya_daily
+// (不在此清單、只隱藏 .source、保留 .category 顯示品牌名)行為不一致。
+// 故不將 tw_media 列入 - 讓它跟 kr36_ai/juya_daily 走同一條路徑:
+// .category 顯示「台灣媒體」,.source 依既有機制自然隱藏。
 const CATEGORY_REDUNDANT_WITH_SOURCE = new Set([
   "official_ai",
   "curated_media",
@@ -148,7 +151,6 @@ const CATEGORY_REDUNDANT_WITH_SOURCE = new Set([
   "hackernews",
   "aihubtoday",
   "aibase",
-  "tw_media",
 ]);
 
 const SECTION_DEFS = [
