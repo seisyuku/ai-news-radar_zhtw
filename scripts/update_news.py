@@ -3119,8 +3119,6 @@ def collect_all(session: requests.Session, now: datetime) -> tuple[list[RawItem]
     tasks = [
         ("official_ai", "Official AI Updates", fetch_official_ai_updates),
         ("curated_media", "精選媒體", fetch_curated_ai_media),
-        ("techurls", "TechURLs", fetch_techurls),
-        ("iris", "Info Flow", fetch_iris),
         ("aibase", "AIbase", fetch_aibase),
         ("tw_media", "TW Media", fetch_tw_media),
         ("kr36_ai", "36Kr AI (Watchlist)", fetch_kr36_ai),
@@ -3129,6 +3127,22 @@ def collect_all(session: requests.Session, now: datetime) -> tuple[list[RawItem]
         # tophub, buzzing, aihot, newsnow, zeli, aibreakfast, aihubtoday,
         # followbuilders, bestblogs, hackernews. Their fetch_*() functions are
         # kept intact above for rollback; re-add the tuple line to restore.
+        #
+        # Removed by 7/21 four-source trial verdict (2026-07-21): techurls,
+        # iris. Both showed diffuse non-AI noise as the dominant character
+        # (techurls 60.6% / iris 59.6% of items were plain
+        # missing_meaningful_ai_signal drops) and, after correcting for
+        # business_event_score()'s independence from ai_is_related, a true
+        # AI-relevant business-event rate of only ~1.1% (techurls) / ~0.65%
+        # (iris) of total fetched volume - most of their raw keyword "hits"
+        # were non-AI false positives (e.g. Samsung layoffs, Apple Music
+        # price hikes tagged earnings/pricing). iris additionally showed
+        # 99.5% of its ai_is_related items pinned exactly at the 0.65 floor
+        # and, across the full window, only 2 items ever competed against a
+        # higher-tier source in a story cluster (losing both by tier rank).
+        # fetch_techurls()/fetch_iris() are kept intact above for rollback;
+        # re-add the tuple line to restore. See docs/HANDOVER.md's 7/21
+        # section for the full trial record.
     ]
 
     raw_items: list[RawItem] = []

@@ -321,6 +321,55 @@ specific short token (`_feed_keyword_matches` / `_KEYWORD_WORD_BOUNDARY_ONLY`);
 longer/CJK keywords are unaffected. This also tightens the pre-existing
 `ai` keyword already used by The Verge's feed entry.
 
+## 2026-07-21 Four-Source Trial (feature/source-removal-0721)
+
+Removed from the default task list in `collect_all()` (fetch functions kept in
+`scripts/update_news.py` for rollback, just not registered): `techurls`,
+`iris`. `36kr_ai` and the curated-media xAI/Grok Google News query were
+evaluated in the same trial and kept unchanged.
+
+A read-only forensic audit over 2026-07-17 through 2026-07-21 (recomputing
+`ai_relevance`/`business_events` from archived raw items with the actual
+scoring functions, since `data/archive.json` does not retain those derived
+fields) found:
+
+- **techurls**: 990 new items in the window, but only ~1.1% were both
+  business-event-tagged *and* actually AI-relevant (most raw keyword "hits"
+  were non-AI false positives — `business_event_score()` does not check
+  `ai_is_related`, so e.g. a Samsung layoffs headline or an Apple Music price
+  hike gets tagged `earnings`/`pricing` despite having nothing to do with AI).
+  60.6% of all items were plain diffuse non-AI noise
+  (`missing_meaningful_ai_signal`), not fixable by a keyword rule.
+- **iris**: 3,536 new items in the window, ~0.65% true AI-relevant business
+  events. 99.5% of items that cleared the 0.65 `ai_is_related` gate were
+  pinned exactly at the floor value (`max(score, AI_RELEVANCE_THRESHOLD)`),
+  not a real score. Across the full window, iris items landed in a
+  cross-source story cluster only 326/3536 times, and competed against a
+  genuinely higher-tier source (`source_tier_rank` 0-4) only twice — losing
+  both times by tier rank. v2ex.com (excluded via
+  `AGGREGATOR_BACKDOOR_EXCLUDED_DOMAINS`, see `85d2ebf`) still accounted for
+  19.5% of iris's raw fetch volume even after exclusion took effect.
+- **36Kr AI**: kept. OpenCC `s2twp` conversion verified clean (0 residual
+  Simplified characters via `s2t` cross-check on the sampled window) and its
+  fetch-time keyword pre-filter means 100% of its business-event hits are
+  genuinely AI-relevant — no false positives, unlike techurls/iris. However,
+  0 of its 4 business-event hits in the window were exclusive: all 4 were
+  also covered by iris. With iris now removed, 36Kr's marginal coverage value
+  increases correspondingly (kept for this reason, not because its own
+  standalone signal changed).
+- **xAI/Grok query** (curated-media Google News query): kept, unchanged. Only
+  4 new items in the window (too small a sample to fully characterize), but a
+  manual review of the full 21-day retention window (29 items) found the
+  query terms precise with no noise from over-broad matching.
+
+`AGGREGATOR_BACKDOOR_EXCLUDED_DOMAINS` (`v2ex.com`) and the
+`SOURCE_TIER_BY_SITE`/`SOURCE_ECOSYSTEM_GROUPS` entries for `iris`/`techurls`
+were deliberately left in place, matching the same rollback-friendly pattern
+used for the 2026-07-14 removals above: the domain exclusion is generic
+(keyed by URL host, not site_id, so it still protects against a future/OPML
+source relaying v2ex links) and the tier/group entries are inert once the
+fetchers are unregistered.
+
 ## Personal Source Workflow
 
 For a private custom setup:
