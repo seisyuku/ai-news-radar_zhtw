@@ -103,6 +103,36 @@ const SOURCE_KINDS = {
   opmlrss: { label: "OPML", tone: "newsletter" },
 };
 
+// feature/badge-system-audit-0721: site_ids where renderItemNode()'s
+// .category badge (SOURCE_KINDS label, above) restates information the
+// .source badge (sourceSignal(), below) already says in the same or fuller
+// wording on the same card. sourceSignal()'s own return values stay
+// untouched here (sourcePriority/clusterBoleEvents key off them for bole
+// ranking) - this only suppresses the redundant .category render. Verified
+// against real site_name/source values in data/archive.json:
+//   official_ai   官方      vs 官方更新        (site_name is literally "官方更新")
+//   curated_media 精選媒體  vs 精選媒體        (site_name is literally "精選媒體", exact dup)
+//   aihot         AI HOT    vs AI HOT精選
+//   followbuilders Builders/X vs Builders
+//   opmlrss       OPML      vs OPML            (site_name "OPML RSS" -> sourceSignal() "OPML", exact dup)
+//   hackernews    HN        vs Hacker News     (abbreviation vs full name, same site)
+//   aihubtoday/aibase AI站點 vs 已由 .site/.source 顯示的實際站名
+//     (tone "aihub" 是刻意共用的來源類型分類,不是誤譯;但站名已在
+//     同張卡片的 .site/.source 顯示,這個型別泛稱不再提供辨識資訊)
+// Left out (checked, not redundant - different text, kept visible):
+// aibreakfast, socialdata_x, bestblogs, tophub, zeli, techurls, buzzing,
+// iris, newsnow, waytoagi. xapi 目前資料窗口內無樣本可驗證,保守不列入。
+const CATEGORY_REDUNDANT_WITH_SOURCE = new Set([
+  "official_ai",
+  "curated_media",
+  "aihot",
+  "followbuilders",
+  "opmlrss",
+  "hackernews",
+  "aihubtoday",
+  "aibase",
+]);
+
 const SECTION_DEFS = [
   { id: "hot", label: "熱點", short: "熱點", description: "跨來源聚合後的優先閱讀列表" },
   { id: "models", label: "模型", short: "模型", description: "模型釋出、能力升級、評測與開源權重" },
@@ -133,8 +163,11 @@ const BUSINESS_EVENT_LABELS = {
 // same card's tag row and say near enough the same thing, the event badge
 // wins and the content tag is dropped instead of showing both ("模型發布"
 // event badge vs. "模型釋出" content tag for the same models-section item).
+// "模型" is itemTagLabels()'s echo of the currently active section tab
+// (sectionBadgeLabel) - it shows up here too whenever someone is browsing
+// the 模型 tab, which reads as the same word repeated next to "模型發布".
 const TAG_SYNONYM_SUPPRESS = {
-  model_release: ["模型釋出"],
+  model_release: ["模型釋出", "模型"],
 };
 
 function businessEventBadges(events) {
@@ -2112,7 +2145,16 @@ function pickTopHeadlineClusters(clusters, limit = 3) {
 function itemTagLabels(item, row = null) {
   const tags = [];
   const sections = itemSections(item);
-  if (state.activeSection !== "hot") tags.push(sectionBadgeLabel(state.activeSection));
+  const onModelsTab = state.activeSection === "models" && sections.has("models");
+  // feature/badge-system-audit-0721: sectionBadgeLabel() echoes the active
+  // tab's own name (熱點/模型/產品/開發者/行業/研究/社群). For 開發者/研究/
+  // 社群 that string is identical to the content tag pushed below for the
+  // same section, so Array.from(new Set(...)) already collapses the repeat.
+  // 模型 is the one section whose tab label ("模型") and content tag
+  // ("模型釋出") use different wording, so the Set dedup can't catch it -
+  // skip the tab echo here instead of renaming "模型釋出" (still used
+  // elsewhere as its own, more specific "release" label).
+  if (state.activeSection !== "hot" && !onModelsTab) tags.push(sectionBadgeLabel(state.activeSection));
   if (row && (row.sourceCount > 1 || row.mergedCount > 1)) tags.push("多源驗證");
   if (item.site_id === "official_ai") tags.push("官方");
   if (item.site_id === "aihot") tags.push("AI HOT");
@@ -2331,8 +2373,17 @@ function renderItemNode(item, context = {}) {
   }
   const kind = sourceKind(item.site_id);
   const categoryEl = node.querySelector(".category");
-  categoryEl.textContent = kind.label;
-  categoryEl.classList.add(`kind-${kind.tone}`);
+  // feature/badge-system-audit-0721: skip the .category badge entirely when
+  // it just restates the .source badge below (see CATEGORY_REDUNDANT_WITH_SOURCE
+  // for the verified case list) - keeps sourceKind()/sourceSignal() and their
+  // ranking consumers (sourcePriority, clusterBoleEvents) untouched, this is
+  // display-only.
+  if (CATEGORY_REDUNDANT_WITH_SOURCE.has(item.site_id)) {
+    categoryEl.hidden = true;
+  } else {
+    categoryEl.textContent = kind.label;
+    categoryEl.classList.add(`kind-${kind.tone}`);
+  }
   const score = scorePercent(item);
   const tagEl = document.createElement("span");
   tagEl.className = `ai-tag tone-${itemLabelTone(item)}`;
