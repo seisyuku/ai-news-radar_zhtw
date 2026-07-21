@@ -97,6 +97,27 @@
   （importance_label 後端欄位與排序引用不動），上排業務事件徽章與
   內容標籤統一去重、近義詞讓位（model_release 抑制「模型釋出」
   內容標籤）
+- `to_zh_hant()` 詞彙保護層裁決與已知限制（2026-07-21，
+  `ZH_HANT_PROTECTED_TERMS`/`ZH_HANT_BARE_TERM_CONTEXT`，見
+  `scripts/update_news.py` 常數上方註解）：`参数` 無條件保護為
+  `參數`，前提是本站產品定位排除程式技巧/開發者社群內容（若未來
+  納入此類內容，需重新評估）；已知限制是 CLI 引數（argument）語境
+  的 `参数` 也會被誤改為 `參數` 而非技術正確的 `引數`——2026-07-21
+  全量回溯（`archive.json` 90,826 筆唯一標題）基準：131 筆 diff／
+  128 筆修正／3 筆接受誤傷（0.0033%，皆出自已移除的 Show HN／開發者
+  社群來源）；曾評估改為 AI/模型語境共現閘門（比照裸詞「字節」）但
+  已否決，因為會讓規格參數類標題（手機/鏡頭/晶片/Kubernetes 設定）
+  退回錯誤的「引數」，得不償失——**不得未來善意重新引入此共現閘門**
+- Python `re` 模組在 Unicode 模式下 `\w`/`\b` 會匹配 CJK 表意文字，
+  因此 `(?<!\w)term(?!\w)` 形式的 Latin 詞界錨定，在中英混排標題
+  （本站最常見的標題形態）下對緊鄰 CJK 字元的英文詞恆為匹配失敗。
+  Latin 詞界必須改用 ASCII-only 邊界
+  `(?<![A-Za-z0-9])...(?![A-Za-z0-9])`。此類 bug 的特徵是**單元測試
+  全綠但實際場景全滅**（純英文測試字串不會觸發，只有真實中英混排
+  語料才會曝露），不會自行浮現，日後任何用到 `\w`/`\b` 做 Latin 詞
+  境判斷的程式碼都要留意此陷阱（實際案例見
+  `_zh_hant_bare_term_context_ok()` 的開發過程，
+  `.claude-reports/2026-07-21-zh-hant-term-protection.md`）
 - 測試基線：240 pytest
 - 排程健康 = 三層架構，已將停擺風險吸收掉（完整事故時間軸與診斷
   記錄見 `docs/OPERATIONS.md`「Schedule (cron) health」/「External

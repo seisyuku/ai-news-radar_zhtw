@@ -628,6 +628,131 @@ _ZH_HANT_S2T = None  # Simplified -> Traditional, character-level only, used as 
 _ZH_HANT_CONVERTER_LOAD_FAILED = False
 
 
+# --- to_zh_hant() term protection (fix/zh-hant-term-protection-0721) ------
+# s2twp is a phrase-level dictionary with zero brand-name awareness. Several
+# CS-technical words it correctly promotes to Taiwan usage in ordinary prose
+# (线程->執行緒, 字节->位元組, 参数->引數) also happen to be substrings of
+# real AI-industry proper nouns, or denote a different concept than the one
+# it assumes - corrupting them whenever s2twp fires: 摩尔线程/字节跳动 (Moore
+# Threads / ByteDance, real vendor names) become 摩爾執行緒/位元組跳動; 参数
+# used for an AI model's parameter count becomes 引數 (the Taiwan CS term for
+# a function/procedure "argument" - a different concept from "parameter").
+# CANONICAL_NAMES's mask-and-backfill layer (mask_canonical_names, below)
+# does not cover this: it only masks English text before MT translation, a
+# different pipeline stage from to_zh_hant()'s CJK-native s2twp conversion.
+# This is a narrower, parallel mask-and-restore pass scoped specifically to
+# the s2twp call in to_zh_hant(), protecting only the compounds diagnosed as
+# actually damaged (see docs/HANDOVER.md and
+# .claude-reports/2026-07-21-oos-triage-diagnosis.md, section D) rather than
+# attempting a general-purpose brand-name gate on this path.
+#
+# Unconditional: each compound is unambiguous standalone, no co-occurrence
+# gate needed.
+#
+# 2026-07-21 decision record (see .claude-reports/2026-07-21-zh-hant-corpus-
+# backtest.md for the full backtest this is based on):
+#
+# 1. Product-assumption "参数" unconditional protection relies on: this
+#    site's product scope explicitly excludes programming-technique/
+#    developer-community content (see CLAUDE.md/README's positioning), so
+#    "参数" in this corpus is almost always an AI model's parameter count or
+#    a hardware/product spec value, essentially never a function/procedure
+#    "argument". If developer-oriented content is ever added to scope, this
+#    assumption - and this rule - needs re-evaluating.
+# 2. Known limitation: "参数" in genuine CLI-argument contexts (e.g. "带参数
+#    命令" = "commands carrying arguments", "附加 --reflink=always 参数" =
+#    "appending a --reflink=always argument") is also converted to 參數
+#    instead of the technically-correct 引數. The 2026-07-21 full-corpus
+#    backtest (90,826 unique archive.json titles) measured exactly 3 such
+#    cases, all from since-removed Hacker News/developer-community sources,
+#    0.0033% of the corpus - accepted as-is by decision, not a defect to
+#    silently fix later.
+# 3. Rejected alternative: gating "参数" behind an AI/model-context
+#    co-occurrence check (mirroring the bare "字节" gate below) was
+#    considered and rejected - it would push spec-value headlines (phone/
+#    camera/chip specs, Kubernetes config fields, none of which reliably
+#    co-occur with an AI/model term) back to the wrong 引數, trading a
+#    3-instance edge case for a much larger regression. Do not reintroduce
+#    this gate in a future "improvement" without re-running the full-corpus
+#    backtest first.
+ZH_HANT_PROTECTED_TERMS: dict[str, str] = {
+    "摩尔线程": "摩爾線程",
+    "字节跳动": "字節跳動",
+    "参数": "參數",
+}
+
+# Bare "字节" (ByteDance's common short form in Chinese tech press) is
+# genuinely ambiguous alone - it is also the ordinary CS term for a computer
+# "byte" (correctly 位元組 in that sense, e.g. "16 位元組"), so it is only
+# protected when a ByteDance product name or an industry-peer company name
+# co-occurs in the same title - the same high-risk-bare-word co-occurrence
+# pattern as HIGH_RISK_BARE_TERMS above, scoped to this path instead. Context
+# terms are checked against the pre-conversion (Simplified-sourced) text, so
+# the Chinese entries below are written in Simplified form to match what
+# actually appears in the source text at this pipeline stage.
+ZH_HANT_BARE_TERM_CONTEXT: dict[str, tuple[str, ...]] = {
+    "字节": ("Seedance", "Doubao", "豆包", "即梦", "腾讯", "阿里", "百度", "美团", "快手"),
+}
+
+_ZH_HANT_PROTECT_MASK_PREFIX = "ZHPROT"
+_ZH_HANT_PROTECT_MASK_SUFFIX = "X"
+_ZH_HANT_PROTECT_TERMS_BY_LEN: tuple[str, ...] = tuple(
+    sorted(
+        list(ZH_HANT_PROTECTED_TERMS) + list(ZH_HANT_BARE_TERM_CONTEXT),
+        key=len,
+        reverse=True,
+    )
+)
+_ZH_HANT_PROTECT_RE = re.compile(
+    "|".join(re.escape(t) for t in _ZH_HANT_PROTECT_TERMS_BY_LEN)
+)
+
+
+def _zh_hant_bare_term_context_ok(source: str, context_terms: tuple[str, ...]) -> bool:
+    """Same co-occurrence idea as _term_has_context() (defined further below
+    for CANONICAL_NAMES), but plain-substring for CJK context terms (Chinese
+    prose has no inter-word spaces to anchor a boundary on - same reasoning
+    as _has_ai_context_entity's Table A-2 handling). Latin-script terms use
+    an ASCII-only boundary (not \\w/\\b - those also match CJK ideographs
+    under Python's Unicode regex, so a real mixed-script title like "字节旗下
+    Seedance模型發布" would otherwise fail the boundary check against the
+    adjacent CJK characters and never match at all)."""
+    for term in context_terms:
+        if re.search(r"[A-Za-z]", term):
+            if re.search(rf"(?<![A-Za-z0-9])" + re.escape(term) + r"(?![A-Za-z0-9])", source, re.I):
+                return True
+        elif term in source:
+            return True
+    return False
+
+
+def _mask_zh_hant_protected_terms(s: str) -> tuple[str, dict[str, str]]:
+    placeholders: dict[str, str] = {}
+    counter = 0
+
+    def _replace(match: re.Match) -> str:
+        nonlocal counter
+        term = match.group(0)
+        if term in ZH_HANT_BARE_TERM_CONTEXT and not _zh_hant_bare_term_context_ok(
+            s, ZH_HANT_BARE_TERM_CONTEXT[term]
+        ):
+            return term
+        canonical = ZH_HANT_PROTECTED_TERMS.get(term, "字節")
+        token = f"{_ZH_HANT_PROTECT_MASK_PREFIX}{counter}{_ZH_HANT_PROTECT_MASK_SUFFIX}"
+        placeholders[token] = canonical
+        counter += 1
+        return token
+
+    masked = _ZH_HANT_PROTECT_RE.sub(_replace, s)
+    return masked, placeholders
+
+
+def _restore_zh_hant_protected_terms(s: str, placeholders: dict[str, str]) -> str:
+    for token, canonical in placeholders.items():
+        s = s.replace(token, canonical)
+    return s
+
+
 def to_zh_hant(text: str) -> str:
     """Convert Simplified Chinese to Traditional Chinese (Taiwan usage, OpenCC
     s2twp). Applied at display-output assembly time only (latest-24h.json,
@@ -647,6 +772,11 @@ def to_zh_hant(text: str) -> str:
     character glyph (e.g. "算法" vs "演算法") won't get promoted to the fuller
     Taiwan idiom when no other Simplified-only character is present in the
     same string - a minor, non-corrupting under-conversion, not a defect.
+
+    Before s2twp runs, ZH_HANT_PROTECTED_TERMS/ZH_HANT_BARE_TERM_CONTEXT
+    compounds are masked out to opaque placeholders and restored to their
+    correct Taiwan form afterward, so s2twp's phrase dictionary never gets a
+    chance to mangle them (see the block above this function for why).
     """
     global _ZH_HANT_S2TWP, _ZH_HANT_S2T, _ZH_HANT_CONVERTER_LOAD_FAILED
     s = text or ""
@@ -662,13 +792,14 @@ def to_zh_hant(text: str) -> str:
             _ZH_HANT_CONVERTER_LOAD_FAILED = True
             return s
     try:
-        if _ZH_HANT_S2T.convert(s) == s:
-            return s
-        converted = _ZH_HANT_S2TWP.convert(s)
+        masked, placeholders = _mask_zh_hant_protected_terms(s)
+        if _ZH_HANT_S2T.convert(masked) == masked:
+            return _restore_zh_hant_protected_terms(masked, placeholders)
+        converted = _ZH_HANT_S2TWP.convert(masked)
         # s2twp's own dictionary keeps these as character-only conversions;
         # override to the Taiwan idiom, matching the UI-layer word choices.
         converted = converted.replace("質量", "品質").replace("型別", "類型")
-        return converted
+        return _restore_zh_hant_protected_terms(converted, placeholders)
     except Exception:
         return s
 
