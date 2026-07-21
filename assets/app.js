@@ -1191,11 +1191,7 @@ function storyHasAnyKey(story, keys) {
 
 function sourceSignal(item) {
   const site = item.site_name || "";
-  const source = item.source || "";
-  const hay = `${site} ${source}`.toLowerCase();
   if (site === "AI HOT") return "AI HOT精選";
-  if (hay.includes("hackernews") || hay.includes("hacker news")) return "HN熱議";
-  if (source.includes("GitHub · Trending Today") || hay.includes("github")) return "GitHub趨勢";
   if (site === "Official AI Updates") return "官方更新";
   if (site === "Follow Builders") return "Builders";
   if (site === "AIbase") return "AIbase";
@@ -1210,7 +1206,6 @@ function sourcePriority(item) {
   if (signal === "AIbase") return 82;
   if (signal === "Builders") return 74;
   if (signal === "OPML") return 68;
-  if (signal === "HN熱議" || signal === "GitHub趨勢") return 62;
   return 50;
 }
 
@@ -1233,7 +1228,6 @@ function clusterBoleEvents(rows) {
     const maxScore = Math.max(...cluster.rows.map((row) => row.score));
     const sourceBonus = Math.min(12, Math.max(0, signals.length - 1) * 6);
     const candidateBonus = signals.some((s) => s === "AI HOT精選") ? 8
-      : signals.some((s) => s === "HN熱議" || s === "GitHub趨勢") ? 6
       : signals.some((s) => s === "官方更新") ? 5
       : 0;
     return {
