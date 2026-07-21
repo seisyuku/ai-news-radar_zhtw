@@ -1610,6 +1610,21 @@ summary:focus-visible {
   background: rgba(102, 100, 95, 0.06);
 }
 
+/* 商業事件徽章：資料標記而非可點擊按鈕，扁平化去除膠囊/實心/立體感，
+   僅保留 tone-* 文字色以維持類別辨識（見上方 tone 規則的 color）。 */
+span.signal-tag.signal-tag--event {
+  border: none;
+  border-radius: 3px;
+  padding: 0 1px;
+  background: transparent;
+  box-shadow: none;
+  font-weight: 650;
+  text-decoration: underline;
+  text-decoration-color: currentColor;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
 .top-story-card .intel-tags {
   align-items: flex-end;
   align-content: flex-end;

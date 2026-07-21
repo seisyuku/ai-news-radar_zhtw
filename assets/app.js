@@ -178,7 +178,7 @@ function storyBusinessEvents(story) {
 
 function businessEventChip(badge) {
   const chip = document.createElement("span");
-  chip.className = `signal-tag tone-${badge.tone}`;
+  chip.className = `signal-tag signal-tag--event tone-${badge.tone}`;
   chip.textContent = badge.label;
   return chip;
 }
