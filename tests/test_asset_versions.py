@@ -47,6 +47,16 @@ class AssetVersionManifestTests(unittest.TestCase):
             "- add an entry recording the sha256 of each asset file for this version.",
         )
 
+    def test_manifest_holds_exactly_one_entry(self):
+        self.assertEqual(
+            len(self.manifest), 1,
+            f"tests/asset_manifest.json has {len(self.manifest)} entries: {sorted(self.manifest)} - "
+            "it must hold only the current ?v= tag's entry. When bumping the ?v= tag, REPLACE the "
+            "existing entry with the new one instead of adding a new key alongside it; historical "
+            "audit belongs to `git log -- tests/asset_manifest.json`, not to old entries left in "
+            "this file.",
+        )
+
     def test_asset_hashes_match_manifest_for_current_version(self):
         version = next(iter(self.refs.values()))
         entry = self.manifest.get(version, {})

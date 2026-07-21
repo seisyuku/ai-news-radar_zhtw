@@ -16,12 +16,25 @@
 `index.html`, in the same PR, and say why in the PR description.**
 
 This rule is enforced by `tests/test_asset_versions.py`, backed by
-`tests/asset_manifest.json` (a `{tag: {file: sha256}}` record of what each
-asset looked like at each released tag). `pytest` fails red if the three
-assets' content doesn't match the manifest entry for the `?v=` tag currently
-referenced in `index.html` - whether because a file changed without a version
-bump, or a version was bumped without updating the manifest. There is no way
-to silently violate the rule and still pass CI.
+`tests/asset_manifest.json` (a `{tag: {file: sha256}}` record of the current
+`?v=` tag's asset content). `pytest` fails red if the three assets' content
+doesn't match the manifest entry for the `?v=` tag currently referenced in
+`index.html` - whether because a file changed without a version bump, or a
+version was bumped without updating the manifest. There is no way to
+silently violate the rule and still pass CI.
+
+**Retention policy (2026-07-21):** `tests/asset_manifest.json` holds
+**exactly one entry** - the current `?v=` tag - enforced by
+`test_manifest_holds_exactly_one_entry()`. It is not a version history; past
+tags accumulated here (15 entries by 2026-07-21, going back to
+`taste-ui-0715b`, only 6 days) were never read by any test beyond the
+current tag (`test_asset_hashes_match_manifest_for_current_version()` only
+ever looks up `self.manifest.get(version, {})` for the single tag
+`index.html` currently references), so they carried no verification value
+and only grew unbounded. Historical audit of past `?v=` tags and their
+asset content belongs to `git log -- tests/asset_manifest.json` /
+`git show <commit>:tests/asset_manifest.json`, not to entries kept in this
+file.
 
 ### Why this matters
 
@@ -47,10 +60,12 @@ letter suffix for same-day revisions, e.g. `taste-ui-0715a`, then
 is a reason to switch.
 
 Standard workflow, in order: **1) change the asset file(s) → 2) bump the
-`?v=` tag in `index.html` → 3) add a new entry to
-`tests/asset_manifest.json` with the sha256 of each of the three asset files
-at their new content → 4) run `pytest tests/test_asset_versions.py`** to
-confirm it's green before committing. Compute the hashes with:
+`?v=` tag in `index.html` → 3) REPLACE the single entry in
+`tests/asset_manifest.json` with the new tag and the sha256 of each of the
+three asset files at their new content (do not keep the old tag's entry
+alongside it - see the retention policy above) → 4) run
+`pytest tests/test_asset_versions.py`** to confirm it's green before
+committing. Compute the hashes with:
 
 ```sh
 python3 -c "
