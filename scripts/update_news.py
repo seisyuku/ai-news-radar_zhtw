@@ -648,6 +648,33 @@ _ZH_HANT_CONVERTER_LOAD_FAILED = False
 #
 # Unconditional: each compound is unambiguous standalone, no co-occurrence
 # gate needed.
+#
+# 2026-07-21 decision record (see .claude-reports/2026-07-21-zh-hant-corpus-
+# backtest.md for the full backtest this is based on):
+#
+# 1. Product-assumption "参数" unconditional protection relies on: this
+#    site's product scope explicitly excludes programming-technique/
+#    developer-community content (see CLAUDE.md/README's positioning), so
+#    "参数" in this corpus is almost always an AI model's parameter count or
+#    a hardware/product spec value, essentially never a function/procedure
+#    "argument". If developer-oriented content is ever added to scope, this
+#    assumption - and this rule - needs re-evaluating.
+# 2. Known limitation: "参数" in genuine CLI-argument contexts (e.g. "带参数
+#    命令" = "commands carrying arguments", "附加 --reflink=always 参数" =
+#    "appending a --reflink=always argument") is also converted to 參數
+#    instead of the technically-correct 引數. The 2026-07-21 full-corpus
+#    backtest (90,826 unique archive.json titles) measured exactly 3 such
+#    cases, all from since-removed Hacker News/developer-community sources,
+#    0.0033% of the corpus - accepted as-is by decision, not a defect to
+#    silently fix later.
+# 3. Rejected alternative: gating "参数" behind an AI/model-context
+#    co-occurrence check (mirroring the bare "字节" gate below) was
+#    considered and rejected - it would push spec-value headlines (phone/
+#    camera/chip specs, Kubernetes config fields, none of which reliably
+#    co-occur with an AI/model term) back to the wrong 引數, trading a
+#    3-instance edge case for a much larger regression. Do not reintroduce
+#    this gate in a future "improvement" without re-running the full-corpus
+#    backtest first.
 ZH_HANT_PROTECTED_TERMS: dict[str, str] = {
     "摩尔线程": "摩爾線程",
     "字节跳动": "字節跳動",
