@@ -1626,6 +1626,15 @@ summary:focus-visible {
   gap: 5px;
 }
 
+/* feature/badge-system-audit-0721: .source-chip's own display:inline-flex
+   above beats the UA stylesheet's [hidden]{display:none} (author styles
+   always win over UA styles), so renderItemNode()'s existing
+   `sourceEl.hidden = true` dedup-with-parent-group logic was silently
+   inert. Restate hidden here at matching specificity so it actually hides. */
+.source-chip[hidden] {
+  display: none;
+}
+
 .source-dot {
   width: 6px;
   height: 6px;
