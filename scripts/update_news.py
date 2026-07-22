@@ -675,10 +675,28 @@ _ZH_HANT_CONVERTER_LOAD_FAILED = False
 #    3-instance edge case for a much larger regression. Do not reintroduce
 #    this gate in a future "improvement" without re-running the full-corpus
 #    backtest first.
+#
+# 2026-07-21 context-collision decision record (see .claude-reports/
+# 2026-07-21-s2twp-substitution-audit.md for the full-corpus audit this is
+# based on, and .claude-reports/2026-07-21-zh-hant-context-collision.md for
+# this round's backtest):
+#
+# 4. "循环"/"回调"/"图像" join the unconditional list on the same product-
+#    assumption as "参数" above: this site's product scope excludes
+#    programming-technique content, so in this corpus "循环"/"回调" are
+#    overwhelmingly RNN/pullback-in-finance usage, not a program "loop"/UI
+#    "refresh callback" - and "图像" is simply s2twp's dictionary shipping a
+#    typo ("影象", with 象 instead of 像) for the ordinary "image" word, not
+#    a genuine word-choice difference. Same accepted trade-off as "参数": a
+#    handful of genuine loop/callback-in-code titles will read wrong; see the
+#    backtest report for the measured count.
 ZH_HANT_PROTECTED_TERMS: dict[str, str] = {
     "摩尔线程": "摩爾線程",
     "字节跳动": "字節跳動",
     "参数": "參數",
+    "循环": "循環",
+    "回调": "回調",
+    "图像": "圖像",
 }
 
 # Bare "字节" (ByteDance's common short form in Chinese tech press) is
@@ -690,15 +708,52 @@ ZH_HANT_PROTECTED_TERMS: dict[str, str] = {
 # terms are checked against the pre-conversion (Simplified-sourced) text, so
 # the Chinese entries below are written in Simplified form to match what
 # actually appears in the source text at this pipeline stage.
+#
+# "BAT" (the Baidu/Alibaba/Tencent industry-peer initialism) and the
+# announcement verbs 发现/推出/发布/宣布 were added in the 2026-07-21
+# context-collision round to close a residual gap ("字节发现Agent的Scaling
+# Law", "BAT抱团阻击字节") the original co-occurrence list didn't cover. The
+# verbs were only added after confirming against the full archive.json corpus
+# that they never co-occur with a genuine byte-quantity title (16字节/字节数/
+# 字节流/字节序/字节数组) - see the backtest report for the check.
 ZH_HANT_BARE_TERM_CONTEXT: dict[str, tuple[str, ...]] = {
-    "字节": ("Seedance", "Doubao", "豆包", "即梦", "腾讯", "阿里", "百度", "美团", "快手"),
+    "字节": (
+        "Seedance", "Doubao", "豆包", "即梦", "腾讯", "阿里", "百度", "美团", "快手",
+        "BAT", "发现", "推出", "发布", "宣布",
+    ),
 }
+
+# Bare "对象" is the mirror-image problem of "字节" above, with the gate
+# direction reversed: s2twp's default here is context-blind - it converts
+# EVERY bare "对象" to 物件 regardless of context, so the common "person one
+# is dating/considering" or "subject under review" sense (续约对象, 相亲对象,
+# 调查对象...) gets mistranslated into the programming/storage term on every
+# occurrence. The correct default is therefore the opposite of "字节"'s:
+# protect (mask to 對象) unless an object-storage co-occurrence term is
+# present, in which case let s2twp's 物件 stand. See
+# _mask_zh_hant_protected_terms's reverse-gate branch below - this is
+# _zh_hant_bare_term_context_ok() used backwards (context_ok means "do NOT
+# protect") compared to the "字节" gate's forward use (context_ok means "do
+# protect").
+#
+# Known gap (see docs/HANDOVER.md's 2026-07-21 s2twp context-collision
+# decision record for the full backtest): titles describing an object-storage
+# context in words outside this list (e.g. 云/localStorage/标签 alone) fall
+# back to the default 對象. Left as-is deliberately - widening this list now
+# would be guesswork without real samples; revisit once category-7 ships and
+# object-storage content becomes a real items_ai-visible sample to tune against.
+ZH_HANT_REVERSE_BARE_TERM_CONTEXT: dict[str, tuple[str, ...]] = {
+    "对象": ("存储", "存儲", "数据库", "資料庫", "database", "storage", "S3", "OSS", "bucket"),
+}
+_ZH_HANT_REVERSE_GATE_CANONICAL: dict[str, str] = {"对象": "對象"}
 
 _ZH_HANT_PROTECT_MASK_PREFIX = "ZHPROT"
 _ZH_HANT_PROTECT_MASK_SUFFIX = "X"
 _ZH_HANT_PROTECT_TERMS_BY_LEN: tuple[str, ...] = tuple(
     sorted(
-        list(ZH_HANT_PROTECTED_TERMS) + list(ZH_HANT_BARE_TERM_CONTEXT),
+        list(ZH_HANT_PROTECTED_TERMS)
+        + list(ZH_HANT_BARE_TERM_CONTEXT)
+        + list(ZH_HANT_REVERSE_BARE_TERM_CONTEXT),
         key=len,
         reverse=True,
     )
@@ -737,7 +792,15 @@ def _mask_zh_hant_protected_terms(s: str) -> tuple[str, dict[str, str]]:
             s, ZH_HANT_BARE_TERM_CONTEXT[term]
         ):
             return term
-        canonical = ZH_HANT_PROTECTED_TERMS.get(term, "字節")
+        if term in ZH_HANT_REVERSE_BARE_TERM_CONTEXT and _zh_hant_bare_term_context_ok(
+            s, ZH_HANT_REVERSE_BARE_TERM_CONTEXT[term]
+        ):
+            return term
+        canonical = (
+            ZH_HANT_PROTECTED_TERMS.get(term)
+            or _ZH_HANT_REVERSE_GATE_CANONICAL.get(term)
+            or "字節"
+        )
         token = f"{_ZH_HANT_PROTECT_MASK_PREFIX}{counter}{_ZH_HANT_PROTECT_MASK_SUFFIX}"
         placeholders[token] = canonical
         counter += 1
@@ -773,10 +836,11 @@ def to_zh_hant(text: str) -> str:
     Taiwan idiom when no other Simplified-only character is present in the
     same string - a minor, non-corrupting under-conversion, not a defect.
 
-    Before s2twp runs, ZH_HANT_PROTECTED_TERMS/ZH_HANT_BARE_TERM_CONTEXT
-    compounds are masked out to opaque placeholders and restored to their
-    correct Taiwan form afterward, so s2twp's phrase dictionary never gets a
-    chance to mangle them (see the block above this function for why).
+    Before s2twp runs, ZH_HANT_PROTECTED_TERMS/ZH_HANT_BARE_TERM_CONTEXT/
+    ZH_HANT_REVERSE_BARE_TERM_CONTEXT compounds are masked out to opaque
+    placeholders and restored to their correct Taiwan form afterward, so
+    s2twp's phrase dictionary never gets a chance to mangle them (see the
+    block above this function for why).
     """
     global _ZH_HANT_S2TWP, _ZH_HANT_S2T, _ZH_HANT_CONVERTER_LOAD_FAILED
     s = text or ""
