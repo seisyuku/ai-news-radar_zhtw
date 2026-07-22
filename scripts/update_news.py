@@ -735,6 +735,13 @@ ZH_HANT_BARE_TERM_CONTEXT: dict[str, tuple[str, ...]] = {
 # _zh_hant_bare_term_context_ok() used backwards (context_ok means "do NOT
 # protect") compared to the "字节" gate's forward use (context_ok means "do
 # protect").
+#
+# Known gap (see docs/HANDOVER.md's 2026-07-21 s2twp context-collision
+# decision record for the full backtest): titles describing an object-storage
+# context in words outside this list (e.g. 云/localStorage/标签 alone) fall
+# back to the default 對象. Left as-is deliberately - widening this list now
+# would be guesswork without real samples; revisit once category-7 ships and
+# object-storage content becomes a real items_ai-visible sample to tune against.
 ZH_HANT_REVERSE_BARE_TERM_CONTEXT: dict[str, tuple[str, ...]] = {
     "对象": ("存储", "存儲", "数据库", "資料庫", "database", "storage", "S3", "OSS", "bucket"),
 }
