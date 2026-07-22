@@ -156,6 +156,17 @@
   來源識別文字，並非「去重」。重點訊號區（`buildTopStoryCard()`／
   `buildStoryCard()`）完全不使用 `renderItemNode()`，沒有 `.category`／
   `.source` 元素，此常數的設計前提在該區塊亦無從復活
+- `SOURCE_KINDS` 的 `aihubtoday`／`aibase` label 由「AI站點」改為
+  「AI網站」（2026-07-21，`fix/retire-category-v2-0721`）：純語言規範
+  修正，「站點」為中國大陸用語，違反本站 zh-TW 用語規範；「網站」為
+  對應臺灣用語，語義不變。僅改 label 字串，`tone: "aihub"` 與其他
+  site_id 不動
+- `SOURCE_KINDS` 的 `opmlrss` label「OPML」對一般讀者是技術縮寫，
+  可理解性存疑（2026-07-21 隨上一項一併檢視時發現，**本輪不改**）：
+  `opmlrss` 目前屬進階層 site_id，實際曝光範圍（是否觸及一般讀者
+  可見的預設層卡片）未經證實，貿然改字可能是無的放矢，也可能改壞
+  已熟悉「OPML」一詞的進階使用者的預期用語，留待獨立工單評估曝光
+  範圍後再裁決是否修改
 - 測試基線：240 pytest
 - 排程健康 = 三層架構，已將停擺風險吸收掉（完整事故時間軸與診斷
   記錄見 `docs/OPERATIONS.md`「Schedule (cron) health」/「External
