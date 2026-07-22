@@ -140,6 +140,22 @@
   境判斷的程式碼都要留意此陷阱（實際案例見
   `_zh_hant_bare_term_context_ok()` 的開發過程，
   `.claude-reports/2026-07-21-zh-hant-term-protection.md`）
+- `.site`／`.source`／`.category` 三個徽章的隱藏邏輯彼此獨立，互不
+  依賴（2026-07-21，`CATEGORY_REDUNDANT_WITH_SOURCE` 整組退役後）：
+  `.site`／`.source` 的隱藏各自由 `renderItemNode()` 內兩個獨立的
+  `context.source === item.source` 判斷式負責，在 `buildSourceGroupNode()`
+  的巢狀分組渲染情境下對幾乎所有卡片恆為真（該來源子分組內所有項目
+  的 `item.source` 本就等於分組鍵本身）；`.category` 現為一般分組
+  列表中**唯一**的來源識別徽章，無條件依 `SOURCE_KINDS` 渲染，與
+  `.source`/`.site` 是否隱藏完全無關。已刪除的
+  `CATEGORY_REDUNDANT_WITH_SOURCE` 常數原意是「避免 `.category` 與
+  `.source` 重複顯示同一段文字」，但這個前提在現行渲染架構下從未
+  成立——`.source` 早被前述獨立機制恆常隱藏，該常數的實際效果只是
+  把碩果僅存的 `.category` 也一併關掉，讓 `official_ai`／
+  `curated_media`／`opmlrss`／`aibase` 四個 site_id 的卡片完全沒有
+  來源識別文字，並非「去重」。重點訊號區（`buildTopStoryCard()`／
+  `buildStoryCard()`）完全不使用 `renderItemNode()`，沒有 `.category`／
+  `.source` 元素，此常數的設計前提在該區塊亦無從復活
 - 測試基線：240 pytest
 - 排程健康 = 三層架構，已將停擺風險吸收掉（完整事故時間軸與診斷
   記錄見 `docs/OPERATIONS.md`「Schedule (cron) health」/「External

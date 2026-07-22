@@ -113,46 +113,6 @@ const SOURCE_KINDS = {
   juya_daily: { label: "橘鴉日報", tone: "watchlist" },
 };
 
-// feature/badge-system-audit-0721: site_ids where renderItemNode()'s
-// .category badge (SOURCE_KINDS label, above) restates information the
-// .source badge (sourceSignal(), below) already says in the same or fuller
-// wording on the same card. sourceSignal()'s own return values stay
-// untouched here (sourcePriority/clusterBoleEvents key off them for bole
-// ranking) - this only suppresses the redundant .category render. Verified
-// against real site_name/source values in data/archive.json:
-//   official_ai   官方      vs 官方更新        (site_name is literally "官方更新")
-//   curated_media 精選媒體  vs 精選媒體        (site_name is literally "精選媒體", exact dup)
-//   aihot         AI HOT    vs AI HOT精選
-//   followbuilders Builders/X vs Builders
-//   opmlrss       OPML      vs OPML            (site_name "OPML RSS" -> sourceSignal() "OPML", exact dup)
-//   hackernews    HN        vs Hacker News     (abbreviation vs full name, same site)
-//   aihubtoday/aibase AI站點 vs 已由 .site/.source 顯示的實際站名
-//     (tone "aihub" 是刻意共用的來源類型分類,不是誤譯;但站名已在
-//     同張卡片的 .site/.source 顯示,這個型別泛稱不再提供辨識資訊)
-// Left out (checked, not redundant - different text, kept visible):
-// aibreakfast, socialdata_x, bestblogs, tophub, zeli, techurls, buzzing,
-// iris, newsnow, waytoagi. xapi 目前資料窗口內無樣本可驗證,保守不列入。
-//
-// feature/source-kinds-gap-fix-0721: tw_media (site_name 傘狀值「台灣媒體」
-// 逐字等於 sourceSignal() 回傳給 .source 的文字) 曾經因為這個文字重複被
-// 短暫加進這份清單,但 .source[hidden] 那次修復已經讓 .source 在現行巢狀
-// 分組渲染下對幾乎所有卡片恆為 hidden(context.source === item.source 恆
-// 成立,見 docs/HANDOVER.md)。把 tw_media 也放進這裡等於同時關掉
-// .category 和已經隱形的 .source,兩個徽章一起消失,跟 kr36_ai/juya_daily
-// (不在此清單、只隱藏 .source、保留 .category 顯示品牌名)行為不一致。
-// 故不將 tw_media 列入 - 讓它跟 kr36_ai/juya_daily 走同一條路徑:
-// .category 顯示「台灣媒體」,.source 依既有機制自然隱藏。
-const CATEGORY_REDUNDANT_WITH_SOURCE = new Set([
-  "official_ai",
-  "curated_media",
-  "aihot",
-  "followbuilders",
-  "opmlrss",
-  "hackernews",
-  "aihubtoday",
-  "aibase",
-]);
-
 const SECTION_DEFS = [
   { id: "hot", label: "熱點", short: "熱點", description: "跨來源聚合後的優先閱讀列表" },
   { id: "models", label: "模型", short: "模型", description: "模型釋出、能力升級、評測與開源權重" },
@@ -2393,17 +2353,8 @@ function renderItemNode(item, context = {}) {
   }
   const kind = sourceKind(item.site_id);
   const categoryEl = node.querySelector(".category");
-  // feature/badge-system-audit-0721: skip the .category badge entirely when
-  // it just restates the .source badge below (see CATEGORY_REDUNDANT_WITH_SOURCE
-  // for the verified case list) - keeps sourceKind()/sourceSignal() and their
-  // ranking consumers (sourcePriority, clusterBoleEvents) untouched, this is
-  // display-only.
-  if (CATEGORY_REDUNDANT_WITH_SOURCE.has(item.site_id)) {
-    categoryEl.hidden = true;
-  } else {
-    categoryEl.textContent = kind.label;
-    categoryEl.classList.add(`kind-${kind.tone}`);
-  }
+  categoryEl.textContent = kind.label;
+  categoryEl.classList.add(`kind-${kind.tone}`);
   const score = scorePercent(item);
   const tagEl = document.createElement("span");
   tagEl.className = `ai-tag tone-${itemLabelTone(item)}`;
