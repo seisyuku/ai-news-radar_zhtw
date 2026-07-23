@@ -80,6 +80,35 @@
     皆為 0，`data/source-status.json` 亦不再出現任一源
 14. 內測回報管道文案上線：頁尾新增引導至 GitHub Issues 的說明文字
     （`.app-footer-note`），沿用既有頁尾樣式
+15. **7/21 重點訊號區來源多樣性上限（N=2,僅退化層生效）**：診斷
+    （`.claude-reports/2026-07-21-aibase-signal-area-diagnosis.md`）
+    定位 aibase 佔重點訊號區 39.5%（近期 66%）之成因——非品質問題，
+    而是絕大多數合格候選為單源（`storyHotScore=0`），
+    `boleStorySortCompare` 前兩層（徽章、熱度）恆平手，勝負落在
+    `storyScore` 的 22% `source_tier` 分量，使 aibase（`ai_vertical`,
+    0.78）系統性擊敗供貨量更大但 tier 較低的來源。裁決：不動
+    `source_tier`、不動 `storyScore` 權重（aibase 品質乾淨，壓 tier
+    是錯誤懲罰；動權重逼近紅線）；改在選卡層加來源多樣性上限——新增
+    `applyFeaturedSourceDiversityCap()`（`assets/app.js`），套用於
+    `storyRowsForPool()` 產出的已排序 rows、切片為預設可見 5 席
+    （Top3+展開2）之前。上限**只在「純靠 source_tier 決勝」的退化
+    情形生效**：某來源已佔 2 席時，若其下一條與「下一個不同來源
+    候選」在前兩層（徽章、熱度）平手才讓出席位；`hotScore` 有真實
+    優勢者，或無不同來源候選可比較者，不受上限約束，仍保留席位
+    （寧缺勿濫優先於多樣性，但不因多樣性規則反而剔除合格內容）。
+    讓出的席位只由排序中「原本就在候選池」的其他合格候選（有
+    `business_events` 徽章）自然遞補，不引入候選池外的內容。回測
+    （復用診斷 40 次快照）：aibase 佔比 39.5% → 26.5%（近 10 次快照
+    66.0% → 40.0%），40 次快照中無一次因上限造成 <5 席（既有資料
+    供給充足，寧缺勿濫分支未被觸發，`applyFeaturedSourceDiversityCap`
+    亦從不減少候選總數，只重排順序）；26 個因上限讓出而變更的席位
+    100% 由有徽章候選遞補、0 例降級納入無徽章/社群類條目；40 次快照
+    樣本中無 aibase 真實熱度豁免案例（該窗口 aibase `duplicate_count`
+    100%=1，單源為主下豁免路徑未被觸發，符合診斷 D1 既有發現），
+    豁免邏輯正確性改由合成案例的單元測試
+    （`tests/test_featured_source_diversity_cap.py`）驗證。細節與
+    上限前後完整對照表見
+    `.claude-reports/2026-07-21-featured-diversity-cap.md`
 
 ## 已知設計事實（避免重複調查）
 - 收錄門檻 = ai_relevance ≥ 0.65；六類只主宰重點區排序，非收錄條件

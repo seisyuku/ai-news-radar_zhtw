@@ -1771,11 +1771,76 @@ function currentStoryPools(filteredItems) {
   };
 }
 
+// feature/featured-source-diversity-cap: default visible slot count (Top3 +
+// the 2 default-visible follow-up cards) and per-source seat cap for 今日
+// 重點訊號. See applyFeaturedSourceDiversityCap() below.
+const FEATURED_DIVERSITY_VISIBLE_SLOTS = 5;
+const FEATURED_DIVERSITY_SOURCE_CAP = 2;
+
+// feature/featured-source-diversity-cap: caps how many of the default
+// FEATURED_DIVERSITY_VISIBLE_SLOTS (5) 今日重點訊號 seats a single source
+// can take - but ONLY in the degenerate case diagnosed in
+// .claude-reports/2026-07-21-aibase-signal-area-diagnosis.md: most badged
+// candidates are single-source (storyHotScore=0), so boleStorySortCompare's
+// first two tiers (business-event badge, hotScore) tie between them and the
+// ranking falls through to storyScore's 22%-weighted source_tier component
+// - a structural, not quality-driven, advantage. A seat is only withheld
+// from a same-source row when it ties the next different-source candidate
+// on both of those first two tiers; a genuine hotScore edge (real
+// multi-source corroborated heat) always keeps its seat regardless of the
+// cap ("真訊號優先"). When a withheld seat has no same-tier
+// different-source candidate left to hand it to, the seat is simply left
+// empty rather than backfilled with a lower-quality candidate ("寧缺勿濫"
+// outranks diversity). Does not touch boleStorySortCompare itself, nor any
+// of source_tier/storyScore's weights - this only reorders/withholds seats
+// after that shared sort has already run.
+function applyFeaturedSourceDiversityCap(sortedRows, capacity = FEATURED_DIVERSITY_VISIBLE_SLOTS, maxPerSource = FEATURED_DIVERSITY_SOURCE_CAP) {
+  const rows = Array.isArray(sortedRows) ? sortedRows : [];
+  const selected = [];
+  const consumed = new Array(rows.length).fill(false);
+  const perSourceCount = new Map();
+
+  for (let i = 0; i < rows.length && selected.length < capacity; i++) {
+    const row = rows[i];
+    const siteId = storyCandidateSiteId(row);
+    const count = perSourceCount.get(siteId) || 0;
+    if (count < maxPerSource) {
+      selected.push(row);
+      consumed[i] = true;
+      perSourceCount.set(siteId, count + 1);
+      continue;
+    }
+    // Source already at cap: find the next not-yet-consumed candidate with
+    // a different site_id further down the shared sort order.
+    let nextDiffIndex = -1;
+    for (let j = i + 1; j < rows.length; j++) {
+      if (consumed[j]) continue;
+      if (storyCandidateSiteId(rows[j]) !== siteId) {
+        nextDiffIndex = j;
+        break;
+      }
+    }
+    const tiedWithAlternative = nextDiffIndex >= 0
+      && storyHasBusinessEvent(row) === storyHasBusinessEvent(rows[nextDiffIndex])
+      && storyHotScore(row) === storyHotScore(rows[nextDiffIndex]);
+    if (tiedWithAlternative) continue; // diversity applies - defer this row, let the alternative take the seat
+    selected.push(row);
+    consumed[i] = true;
+    perSourceCount.set(siteId, count + 1);
+  }
+
+  // Deferred/unreached rows keep their original relative order at the tail,
+  // so expanding past the default slots still shows everything, just with
+  // the first FEATURED_DIVERSITY_VISIBLE_SLOTS re-ordered for diversity.
+  const tail = rows.filter((_, idx) => !consumed[idx]);
+  return [...selected, ...tail];
+}
+
 function storyRowsForPool(stories) {
   const source = Array.isArray(stories) ? stories : [];
   const pool = state.boleView === "hot"
-    ? hotStories(source).slice(0, BOLE_HOT_LIMIT)
-    : latestStories(source).slice(0, BOLE_TIMELINE_LIMIT);
+    ? applyFeaturedSourceDiversityCap(hotStories(source)).slice(0, BOLE_HOT_LIMIT)
+    : applyFeaturedSourceDiversityCap(latestStories(source)).slice(0, BOLE_TIMELINE_LIMIT);
   return pool.map(storyToBoleRow);
 }
 
