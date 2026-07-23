@@ -108,7 +108,13 @@
     豁免邏輯正確性改由合成案例的單元測試
     （`tests/test_featured_source_diversity_cap.py`）驗證。細節與
     上限前後完整對照表見
-    `.claude-reports/2026-07-21-featured-diversity-cap.md`
+    `.claude-reports/2026-07-21-featured-diversity-cap.md`。
+    **範圍追認**：工單原文以「熱點」（`hot`）檢視為診斷對象，實作時
+    一併套用到「時間線」（`timeline`／`latestStories()`）路徑——該
+    路徑底層同樣呼叫 `boleStorySortCompare`，存在完全相同的單源
+    平手退化風險，若不一併套用，使用者切換檢視即可繞過上限、
+    aibase 集中問題原封不動重現。此擴大已於驗收時追認為正確範圍，
+    非後續才發現的遺漏。
 
 ## 已知設計事實（避免重複調查）
 - 收錄門檻 = ai_relevance ≥ 0.65；六類只主宰重點區排序，非收錄條件
@@ -196,7 +202,10 @@
   可見的預設層卡片）未經證實，貿然改字可能是無的放矢，也可能改壞
   已熟悉「OPML」一詞的進階使用者的預期用語，留待獨立工單評估曝光
   範圍後再裁決是否修改
-- 測試基線：240 pytest
+- 測試基線：267 pytest（2026-07-21 重點訊號區來源多樣性上限工單，
+  新增 `tests/test_featured_source_diversity_cap.py` 5 案例，由 262
+  → 267；此前基線 240 已隨中間工單的測試增補過時，此處一併更新為
+  當下實測值，避免下次比對誤判)
 - 排程健康 = 三層架構，已將停擺風險吸收掉（完整事故時間軸與診斷
   記錄見 `docs/OPERATIONS.md`「Schedule (cron) health」/「External
   heartbeat」章節）。**2026-07-21 全期（7/17-7/21）唯讀複測驗證通過**：
