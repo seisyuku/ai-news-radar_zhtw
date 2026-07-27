@@ -47,3 +47,13 @@ fetchers only for stable, public, high-signal sources.
 - 寫檔完成後，終端機只需顯示一行：
   `回報已寫入 .claude-reports/<檔名>，請開啟該檔案複製。`
   不需要在終端機重複輸出完整回報內容。
+
+## Subagent 委派規則
+
+- 跑測試、比對 diff、檢查 lint、驗證檔案格式：一律委派 `verifier` subagent，不在主線以 high effort 執行
+- 委派 `verifier` 時，須於任務描述中附上工單載明的檔案範圍，供其執行範圍比對
+- 程式庫搜尋與探勘：交由 `Explore` subagent（已覆寫為 haiku），不在主線親自搜尋大量檔案
+- 主線只保留：規劃、程式碼撰寫、跨步驟判斷
+- **驗收裁決不在 CC 端進行**。CC 完成查驗後產出回報，裁決由 chat 端執行。此分工是刻意設計：由與執行端不同的模型評判執行端產出，避免共享推理盲點
+- 不得將 `verifier` 擴充至判斷類任務（評價實作是否恰當、架構是否合理）。它與執行端同為 Sonnet，唯有限定在機械量測才不破壞上述異質性
+- 禁止設定 `CLAUDE_CODE_SUBAGENT_MODEL` 環境變數——此變數會覆蓋所有 subagent 的 `model` 欄位，包含 `verifier` 與 `Explore` 各自指定的模型，會使分層路由失效
