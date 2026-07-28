@@ -116,6 +116,33 @@
     aibase 集中問題原封不動重現。此擴大已於驗收時追認為正確範圍，
     非後續才發現的遺漏。
 
+## 部署
+
+實測 `gh api repos/{owner}/{repo}/pages`（2026-07-28）：
+
+```json
+{
+  "status": "built",
+  "cname": null,
+  "custom_404": false,
+  "html_url": "https://seisyuku.github.io/ai-news-radar_zhtw/",
+  "build_type": "legacy",
+  "source": { "branch": "master", "path": "/" },
+  "public": true,
+  "https_enforced": true
+}
+```
+
+- **發佈來源**：`master` 分支根目錄（`path: "/"`），非 `gh-pages` 或
+  其他分支
+- **build type**：`legacy`——GitHub Pages 直接監看分支內容並發佈靜態
+  檔案，無 Jekyll 或其他建置步驟
+- **自訂網域**：無（`cname: null`），使用預設 `github.io` 網域
+- **HTTPS**：已強制啟用（`https_enforced: true`）
+- **`.github/workflows/` 內無 Pages 部署 step，發佈由 GitHub Pages
+  直接監看 `master` 分支完成**——`update-news.yml` 的 `update` job
+  推送新的 `data/*.json` 後即由 Pages 自動反映，不需額外部署動作
+
 ## 已知設計事實（避免重複調查）
 - 收錄門檻 = ai_relevance ≥ 0.65；六類只主宰重點區排序，非收錄條件
 - ai_relevance 有 has_ai 地板值 max(score, 0.65)——上游設計，
@@ -286,6 +313,30 @@
     詞）在現行來源上觸發次數為 0。判定為休眠而非失效——詞條語意
     自足，未來新增來源若產出該類內容即刻生效。保留成本趨近於零，
     不移除
+- **21 天保留窗口對現役來源的實際行為（2026-07-27 實測）**：保留邏輯
+  以 `last_seen_at` 而非 `published_at` 為準。現役來源若在其索引頁／RSS
+  持續列出舊文，該條目的 `last_seen_at` 會反覆刷新，使條目留存時間
+  遠超過 21 天。實測現行 6 源共 3,015 筆中，`published_at` 超過 21 天
+  者 385 筆（12.77%），集中於 official_ai（324 筆），最舊者發佈於
+  2026-04-06。判定為**已知行為，不修正**：留存量上限由來源索引頁
+  大小決定，非無限膨脹；`archive.json` 為去重與歷史存底，展示層另走
+  `data/latest-24h.json`，舊條目不會外洩至使用者可見範圍。對比：
+  已移除來源因 `last_seen_at` 凍結，會準時於 21 天後整批退場（見下方
+  「archive.json 容量現況」條目）
+- **無人值守失效模式（2026-07-27 盤點）**：
+  - 通知機制為零——無 status badge、無自動開 issue、無 webhook。
+    workflow 內的 `::warning::`／`::error::` annotation 僅顯示於該次
+    run 的日誌頁，不會主動推送
+  - 單一來源抓取失敗為靜默跳過（`scripts/update_news.py`
+    `collect_all()` 的 per-source `try/except`），不會導致 job 失敗。
+    來源健康須主動查 `data/source-status.json` 或前端進階層
+  - `watchdog.yml` 每小時觸發，可涵蓋排程掉線，但無法涵蓋
+    「job 成功但資料劣化」
+  - GitHub 對無活動 repo 會靜默停用排程 workflow（60 天）。本 repo
+    的快照 commit 由 `github-actions[bot]` 每 30 分鐘推上 default
+    branch，推定可持續重置計時器，但未經實證。**失效徵狀為網站資料
+    停在某一天不再更新；恢復方式為 `gh workflow enable` 後推任一
+    commit。**
 - **infrastructure 第七類規則：整條退場（2026-07-27 裁決，非待辦、
   非未結項目）**。V5/V6/V7 三輪校準與驗證歷史見下方三項退場依據：
   1. **樣本可行性**：全量命中率僅 0.43%，新資料累積速率約 0.4
@@ -332,22 +383,17 @@
   hackernews）**2026-08-04**、iris／techurls **2026-08-11**，屆時
   全庫由 69,446 筆降至約 3,000 筆量級，容量問題自我解決，本項
   降級為觀察
-- PAT 到期追蹤：外部心跳用的 fine-grained PAT 約 **2026-10-17**
-  前需續期（90 天效期），續期步驟見 `docs/OPERATIONS.md`「External
-  heartbeat」章節
-- 財經查詢擴充（GNews AI 概念股+財報詞）：**否決關閉**——重點訊號區
-  已於資格閘門上線時選定「寧缺勿濫」為取捨（供給不足寧可顯示較少
-  條數，不擴大信源換取湊數），供給面擴張的迫切性降低；查詢詞組
-  設計與三廠 GitHub Releases 評估已完成唯讀評估（結論：三廠 Releases
-  皆不足以填補官方一手空缺），changelog 缺口改在 8 月中複評時視情況
-  升值重提，不在本輪動作
-- 個資案已結案，僅剩桌面兩份 bundle 到期銷毀（追蹤銷毀完成即可關閉
-  此項）
-- 一般列表徽章渲染＋事件篩選軸（六類）——待開工，無前置依賴
-- **2026-08-12 後**：驗證 21 天保留窗口對**仍在抓取的來源**是否
-  正常運作。已移除來源證實可正常退場（`last_seen_at` 凍結不再
-  刷新），但原疑慮場景（`last_seen_at` 持續刷新導致條目無限持存）
-  僅可能發生在現役來源上，尚未驗證
+- PAT 到期追蹤【時效性最高，2026-10-17 硬期限】：外部心跳用的
+  fine-grained PAT 約 **2026-10-17** 前需續期（90 天效期），續期
+  步驟見 `docs/OPERATIONS.md`「External heartbeat」章節
+- 財經查詢擴充（GNews AI 概念股+財報詞）【已否決，僅待 8 月中複評】：
+  **否決關閉**——重點訊號區已於資格閘門上線時選定「寧缺勿濫」為取捨
+  （供給不足寧可顯示較少條數，不擴大信源換取湊數），供給面擴張的
+  迫切性降低；查詢詞組設計與三廠 GitHub Releases 評估已完成唯讀
+  評估（結論：三廠 Releases 皆不足以填補官方一手空缺），changelog
+  缺口改在 8 月中複評時視情況升值重提，不在本輪動作
+- 一般列表徽章渲染＋事件篩選軸（六類）【可隨時開工，無到期壓力】——
+  待開工，無前置依賴
 
 ## 7/21 覆核結案記錄（四源審判 + 排程健康，已裁決）
 
@@ -386,6 +432,9 @@ archive 不保留衍生欄位；四源 fetch 階段皆無 `summary`，重算與�
 2-6 小時低調樣式 6 次且全數發生於心跳上線前，銜接驗證通過；內部
 cron 頻率裁決維持 4 tick/hr 不降頻（見上方「已知設計事實」）。此議程
 **全數關閉**，不需再排入下一輪待辦。
+
+**個資案結案**（2026-07-27）：桌面兩份 bundle 已銷毀完成，全案結案，
+不再列入待辦追蹤。
 
 ## 已知限制
 - Meta AI / DeepSeek / xAI 為第三方報導非官方一手（2026-07-19/20
