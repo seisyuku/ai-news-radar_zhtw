@@ -6671,6 +6671,7 @@ def build_story_record(
             "url": url,
             "source": primary.get("source"),
             "source_name": primary.get("site_name"),
+            "site_id": primary.get("site_id"),
         },
     }
 
