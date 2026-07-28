@@ -337,6 +337,22 @@
     branch，推定可持續重置計時器，但未經實證。**失效徵狀為網站資料
     停在某一天不再更新；恢復方式為 `gh workflow enable` 後推任一
     commit。**
+- **`primary_item.site_id` 欄位遺漏修復（2026-07-27）**：
+  `build_story_record()` 的 `primary_item` 輸出字典原未列入 `site_id`
+  鍵（同函式內 `story_reasons()`／`story_category()` 皆能正常讀取
+  `primary.get("site_id")`，證實為純欄位遺漏而非資料不可得）。
+  - 影響範圍：`assets/app.js` 的 `storyCandidateSiteId()` 恆讀到
+    `null`，導致兩項機制在故事池路徑上自始未生效——
+    (a) `featuredCandidatesGate()` 的社群來源補位排除；
+    (b) `applyFeaturedSourceDiversityCap()` 的來源多樣性上限 N=2
+    （2026-07-23 合併，**自合併起即為無效狀態**）
+  - 修復前實測（2026-07-27 快照）：重點訊號區前 10 名中前 4 席
+    皆為 aibase，預設 Top 3 全數同源
+  - 修復後模擬：故事集合不變（0 新增、0 移除），僅排序調整，
+    前 5 席內 aibase 由 4 席收斂至 2 席，符合 N=2 設計目標
+  - **預期附帶效果（非回歸）**：徽章故事少於 10 則的日子，aibase
+    無徽章故事將被排除於補位之外，重點訊號區可能較先前為短。
+    此為設計預期，依北極星原則不得以「條數不足」為由回調。
 - **infrastructure 第七類規則：整條退場（2026-07-27 裁決，非待辦、
   非未結項目）**。V5/V6/V7 三輪校準與驗證歷史見下方三項退場依據：
   1. **樣本可行性**：全量命中率僅 0.43%，新資料累積速率約 0.4
