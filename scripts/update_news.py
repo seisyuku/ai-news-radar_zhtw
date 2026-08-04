@@ -224,12 +224,6 @@ CURATED_AI_MEDIA_FEEDS: tuple[dict[str, Any], ...] = (
         "max_entries": 8,
     },
     {
-        "title": "Claude Code Releases",
-        "xml_url": "https://github.com/anthropics/claude-code/releases.atom",
-        "html_url": "https://github.com/anthropics/claude-code/releases",
-        "max_entries": 6,
-    },
-    {
         "title": "CNBC Technology",
         "xml_url": "https://www.cnbc.com/id/19854910/device/rss/rss.html",
         "html_url": "https://www.cnbc.com/technology/",

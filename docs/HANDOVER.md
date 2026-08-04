@@ -382,6 +382,14 @@
   時凍結並記錄於報告。評估期間若有來源退場，樣本重算，不得事後
   剔除。反向舉證中但尚未裁決的來源納入分母，但須在報告中分層
   列出其貢獻筆數
+- **來源盤點須以「fetch 函式實際產出的 entry」為準，不得只列舉
+  設定檔 tuple。** 已知 tuple 之外仍有來源路徑：`official_ai` 除
+  `OFFICIAL_AI_FEEDS` tuple 外，`fetch_official_ai_updates()` 另
+  硬編爬取 `anthropic.com/news`（`parse_anthropic_news_items()`）
+  與 `developers.openai.com/codex/changelog`；另有 `--rss-opml`
+  CLI 參數指向的外部使用者 OPML 檔案（不進版控，內容無法從
+  repo 檢查）。僅讀 tuple 定義會漏算這些來源，盤點/去重/缺口
+  判斷前須先確認涵蓋範圍
 
 ## 待辦檢查點
 - archive.json 容量治理【已降級，非最高優先】：現況已降至 29MB
@@ -451,6 +459,27 @@ cron 頻率裁決維持 4 tick/hr 不降頻（見上方「已知設計事實」�
 
 **個資案結案**（2026-07-27）：桌面兩份 bundle 已銷毀完成，全案結案，
 不再列入待辦追蹤。
+
+## 8/4 Claude Code Releases 來源汰除裁決（已裁決）
+
+**裁決：移除 `CURATED_AI_MEDIA_FEEDS` 中的 `Claude Code Releases`
+（`github.com/anthropics/claude-code/releases.atom`），tuple 由
+15 條降為 14 條。這是**來源汰除**，不是「分類欄位修正」——曾提出
+的替代方案（把它搬到 `OFFICIAL_AI_FEEDS`、改標官方分類）已被否決：
+該 feed 每筆 entry 的 title 一律是純版本號（如 `v2.1.220`），不落
+入六類商業事件任一類（財報/市佔/資安漏洞/價格/benchmark/模型
+發布），留在架上無論標哪個分類都只會是噪音，直接下架比改分類更
+乾淨。`data/archive.json` 既有 23 筆歷史紀錄（2026-06-30～
+2026-07-25，`site_id="curated_media"`）維持原值不動，不刪除、不
+改寫、不回填。
+
+**Anthropic 官方一手內容無缺口**：`official_ai` fetch task 除
+`OFFICIAL_AI_FEEDS` tuple 外，`fetch_official_ai_updates()` 另外
+硬編爬取 `https://www.anthropic.com/news`
+（`parse_anthropic_news_items()`，賦值 `site_id="official_ai"`、
+`source="Anthropic News"`），本來就持續涵蓋 Anthropic 公司公告/
+產品發布層級的官方一手內容，與被移除的 CLI 版本號 changelog 屬
+不同性質、不互相替代，此次移除**不產生**官方一手來源缺口。
 
 ## 已知限制
 - Meta AI / DeepSeek / xAI 為第三方報導非官方一手（2026-07-19/20
