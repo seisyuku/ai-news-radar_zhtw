@@ -37,7 +37,6 @@ The product pattern worth studying:
 - OpenRouter Announcements
 - GitHub Blog
 - GitHub Releases
-- Claude Code GitHub Releases
 - Cloudflare Blog
 
 ### Media, Newsletters, And Blogs

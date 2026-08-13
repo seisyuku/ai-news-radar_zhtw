@@ -1,4 +1,4 @@
-# AI 商業情報儀表板 — 交接摘要（截至 2026-07-21）
+# AI 商業情報儀表板 — 交接摘要（截至 2026-08-13）
 
 ## 專案身份
 - Fork：seisyuku/ai-news-radar_zhtw（上游 LearnPrompt/ai-news-radar，MIT）
@@ -469,9 +469,9 @@ cron 頻率裁決維持 4 tick/hr 不降頻（見上方「已知設計事實」�
 該 feed 每筆 entry 的 title 一律是純版本號（如 `v2.1.220`），不落
 入六類商業事件任一類（財報/市佔/資安漏洞/價格/benchmark/模型
 發布），留在架上無論標哪個分類都只會是噪音，直接下架比改分類更
-乾淨。`data/archive.json` 既有 23 筆歷史紀錄（2026-06-30～
-2026-07-25，`site_id="curated_media"`）維持原值不動，不刪除、不
-改寫、不回填。
+乾淨。`data/archive.json` 中既有的歷史紀錄維持原值不動，不刪除、
+不改寫、不回填；實際筆數以執行當下的 tracked snapshot 為準，不以本
+裁決文件固定一個會隨 retention 變動的 point-in-time 數字。
 
 **Anthropic 官方一手內容無缺口**：`official_ai` fetch task 除
 `OFFICIAL_AI_FEEDS` tuple 外，`fetch_official_ai_updates()` 另外

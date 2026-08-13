@@ -89,8 +89,8 @@ baseline, then let the aggregator layer add breadth.
 - **Curated AI media RSS**: reads a small set of public RSS/Atom feeds that add
   coverage without requiring login: The Decoder AI News, TechCrunch AI, The
   Verge RSS with strict AI-title filtering, MarkTechPost Research with research
-  filtering, VentureBeat AI, Artificial Intelligence News, and Claude Code
-  GitHub releases. These feeds are capped per source and pass through the same
+  filtering, VentureBeat AI, and Artificial Intelligence News. These feeds are
+  capped per source and pass through the same
   AI relevance scoring as the rest of the radar. Research-heavy feeds are
   intentionally filtered and downweighted so they fill the research lane without
   dominating the default hot view.
