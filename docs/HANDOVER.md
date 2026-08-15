@@ -51,7 +51,7 @@
     不顯示、2-6 小時低調樣式、6 小時以上明顯樣式，門檻常數化
     （`STALE_DATA_WARN_HOURS`/`STALE_DATA_BAD_HOURS`）
 11. 重點訊號區資格閘門：`featuredCandidatesGate()` 前置過濾（不重排，
-    既有徽章優先四級排序 `boleStorySortCompare` 不動）——徽章
+    既有徽章優先四級排序 `briefStorySortCompare` 不動）——徽章
     （`business_events` 非空）直接入選；無徽章僅在非
     `COMMUNITY_SOURCE_TYPES`（iris/waytoagi/followbuilders/aibase/
     hackernews/zeli）來源時才能補位，寧缺勿濫不硬湊。**未做**地板值
@@ -62,8 +62,8 @@
 12. 前端死代碼清理：`HN熱議` 分頁/計數器整組移除（背後 hackernews/
     zeli 抓取器已於 07-14 源置換移除，此為孤兒 UI，非過濾結果）；
     07-21 補一批同型殘留——`sourceSignal()`/`sourcePriority()`/
-    `clusterBoleEvents()` 內的 `HN熱議`/`GitHub趨勢` 判斷分支同理
-    清除（`clusterBoleEvents` 家族經 `renderBolePicks()` →
+    `clusterBriefEvents()` 內的 `HN熱議`/`GitHub趨勢` 判斷分支同理
+    清除（`clusterBriefEvents` 家族經 `renderBriefPicks()` →
     `rankedFallbackRows()` 仍有存活呼叫路徑，故只清殘留字串，不構成
     整組退役）
 13. **7/21 四源審判裁決**：`iris`（Info Flow）、`techurls` 自
@@ -84,7 +84,7 @@
     （`.claude-reports/2026-07-21-aibase-signal-area-diagnosis.md`）
     定位 aibase 佔重點訊號區 39.5%（近期 66%）之成因——非品質問題，
     而是絕大多數合格候選為單源（`storyHotScore=0`），
-    `boleStorySortCompare` 前兩層（徽章、熱度）恆平手，勝負落在
+    `briefStorySortCompare` 前兩層（徽章、熱度）恆平手，勝負落在
     `storyScore` 的 22% `source_tier` 分量，使 aibase（`ai_vertical`,
     0.78）系統性擊敗供貨量更大但 tier 較低的來源。裁決：不動
     `source_tier`、不動 `storyScore` 權重（aibase 品質乾淨，壓 tier
@@ -111,7 +111,7 @@
     `.claude-reports/2026-07-21-featured-diversity-cap.md`。
     **範圍追認**：工單原文以「熱點」（`hot`）檢視為診斷對象，實作時
     一併套用到「時間線」（`timeline`／`latestStories()`）路徑——該
-    路徑底層同樣呼叫 `boleStorySortCompare`，存在完全相同的單源
+    路徑底層同樣呼叫 `briefStorySortCompare`，存在完全相同的單源
     平手退化風險，若不一併套用，使用者切換檢視即可繞過上限、
     aibase 集中問題原封不動重現。此擴大已於驗收時追認為正確範圍，
     非後續才發現的遺漏。
@@ -151,8 +151,8 @@
   限制）
 - BRIEF_SCORE_GATE/daily-brief 原始排序不影響使用者所見
   （調查結論在 story_passes_brief_gate() docstring）
-- `renderBoleBrief()` 是死代碼；另發現同批未被呼叫的死代碼：
-  `pickBoleItems()`、`clusterBoleEvents()` 的獨立呼叫路徑、
+- `renderBriefBrief()` 是死代碼；另發現同批未被呼叫的死代碼：
+  `pickBriefItems()`、`clusterBriefEvents()` 的獨立呼叫路徑、
   `renderStoryViewPanel()`——皆僅定義未被任何即時渲染路徑呼叫，
   未清除（非本輪範圍），供未來清理參考
 - 重點卡片減噪：下排內容分類標籤列與「優先順序 A/B/C」chip 已移除

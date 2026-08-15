@@ -1,4 +1,4 @@
-"""Tests for Bole picks v2: quality gate (宁缺毋滥), same-cluster suppression
+"""Tests for Brief picks v2: quality gate (宁缺毋滥), same-cluster suppression
 across the whole window, and the scoring backtest comparison core."""
 
 from __future__ import annotations

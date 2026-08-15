@@ -34,8 +34,8 @@
 
     // Top stories render after data loads; keep legacy selectors for old data views.
     document.addEventListener("aiRadar:briefRendered", function () {
-      const brief = document.querySelector(".bole-picks-wrap");
-      const cards = Array.from(document.querySelectorAll(".top-story-card, .story-row, .bole-row")).slice(0, 24);
+      const brief = document.querySelector(".brief-picks-wrap");
+      const cards = Array.from(document.querySelectorAll(".top-story-card, .story-row, .brief-row")).slice(0, 24);
       if (brief) {
         gsap.fromTo(brief, { y: 12 }, { y: 0, duration: 0.35, clearProps: "transform" });
       }
@@ -55,7 +55,7 @@
     // Section scroll reveal via IntersectionObserver. Keep sections visible:
     // hiding whole content blocks can leave blank viewports after responsive
     // reflow or rapid mobile scrolling.
-    const revealEls = document.querySelectorAll(".bole-picks-wrap, .waytoagi-wrap, .list-wrap");
+    const revealEls = document.querySelectorAll(".brief-picks-wrap, .waytoagi-wrap, .list-wrap");
     if (revealEls.length && window.IntersectionObserver) {
       gsap.set(revealEls, { y: 14 });
       const observer = new IntersectionObserver(function (entries) {

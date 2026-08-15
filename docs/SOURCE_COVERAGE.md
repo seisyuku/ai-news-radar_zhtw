@@ -1,7 +1,7 @@
-# Source Coverage Plan
+# Source Coverage
 
-This project should help ordinary AI enthusiasts scan high-signal updates
-without forcing them to follow noisy timelines or manage many source choices.
+This project should help readers track material AI-industry events without
+forcing them to follow noisy timelines or manage many source choices.
 
 ## Product Model
 
@@ -20,7 +20,7 @@ The first screen may show coverage and health as read-only status signals:
 source health, AI signal density, official/newsletter coverage, builders/X,
 aggregator breadth, and private extension readiness.
 
-## V2 Coverage Claim
+## Coverage Claim
 
 The project can be packaged as a Skill because it covers the common public paths
 for AI news collection:
@@ -187,8 +187,10 @@ baseline, then let the aggregator layer add breadth.
   `AGENTMAIL_ALLOWED_SENDER_DOMAINS=alphasignal.ai` to keep shared-inbox output
   scoped to AlphaSignal metadata.
 
-See `docs/research/advanced-source-free-tier-budget-2026-05-10.md` for the X API
-and AgentMail budget notes.
+X API 的現行 demo 成本護欄與排程參數直接記錄於
+[`guides/x-api-demo-config.md`](guides/x-api-demo-config.md)；AgentMail 的
+隱私與啟用規則以本文件及 [`CONFIG_REFERENCE.md`](CONFIG_REFERENCE.md)
+為準。
 
 ## Example OPML Seeds
 
@@ -298,11 +300,16 @@ Added:
   `site:bnext.com.tw`, same tier and keyword filter as the other two.
 - **36Kr AI** (`site_id="kr36_ai"`, watchlist tier `观察名单源`): 36Kr has no
   dedicated AI-channel feed (`/feed-ai`, `/feed-motif/*`, `/information/AI`
-  all probed with no RSS), so the general `36kr.com/feed` is used with a
-  Simplified-Chinese AI-keyword title filter (`fetch_kr36_ai`), then titles
-  are converted from Simplified to Traditional Chinese with OpenCC (`s2twp`
-  mode). The conversion is scoped to this one fetcher and does not affect any
-  other source.
+  all probed with no RSS). `fetch_kr36_ai` tries the general `36kr.com/feed`
+  first, but 36Kr may replace it with a JavaScript WAF challenge while still
+  returning HTTP 200. An HTML/content-type guard detects that condition and
+  falls back to a public Google News RSS query scoped to `site:36kr.com`.
+  Both paths retain the Simplified-Chinese AI-keyword title filter, the
+  watchlist tier, and the shared Simplified-to-Traditional output conversion.
+  `data/source-status.json` records `fetch_path` and lists fallback use in
+  `degraded_sites`; unrecovered failures carry a cross-run streak and become
+  `persistent_failures` after three consecutive runs, which emits a GitHub
+  Actions warning while preserving the pipeline's per-source fail-soft rule.
 
 zh-TW keyword support: `AI_KEYWORDS`/`TECH_KEYWORDS` in both
 `scripts/ai_relevance.py` (the gatekeeper used for `ai_is_related`/`ai_score`)

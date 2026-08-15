@@ -2,7 +2,7 @@
 
 Use this when evaluating a new information source for AI News Radar.
 
-## V2 Intake Questions
+## Intake Questions
 
 Before implementation, answer these from the URL, repo, or user's message:
 
@@ -152,7 +152,9 @@ Interpretation:
 - `>= 65%`: usually `skip_duplicate` unless the source is faster, more canonical, or has unusually valuable unique items.
 - `< 5` recent candidate items: treat as too small and keep on `watchlist`.
 
-The report is advisory. Do not auto-delete existing sources or auto-promote a candidate solely from the score. Story-level merge / clustering is planned for a later version, not part of v0.3.0.
+The report is advisory. Do not auto-delete an existing source or auto-promote a
+candidate solely from the score. Verify the current data model and roadmap
+before proposing story-level merge or clustering changes.
 
 ## Validation Checklist
 

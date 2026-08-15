@@ -353,16 +353,24 @@ TW_MEDIA_FEEDS: tuple[dict[str, Any], ...] = (
     },
 )
 KR36_AI_FEED_URL = "https://36kr.com/feed"
+KR36_AI_FALLBACK_FEED_URL = (
+    "https://news.google.com/rss/search?q=site%3A36kr.com+"
+    "%28AI+OR+%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD+OR+%E5%A4%A7%E6%A8%A1%E5%9E%8B+OR+"
+    "%E6%99%BA%E8%83%BD%E4%BD%93+OR+%E8%8A%AF%E7%89%87+OR+%E8%8B%B1%E4%BC%9F%E8%BE%BE%29+"
+    "when%3A7d&hl=zh-CN&gl=CN&ceid=CN%3Azh-Hans"
+)
 KR36_AI_MAX_AGE_DAYS = 3
 KR36_AI_MAX_ENTRIES = 10
 # 36Kr has no dedicated AI-channel feed (probed /feed-ai, /feed-motif/*,
-# /information/AI: none expose RSS/Atom), so the general site feed is used
-# with a Simplified-Chinese title pre-filter, then converted to Traditional
-# Chinese (OpenCC s2twp) for display. Watchlist tier: observed, not yet
-# promoted to a trusted default source.
+# /information/AI: none expose RSS/Atom). Try the general site feed first and
+# fall back to a site-scoped Google News RSS query when the direct endpoint is
+# replaced by an HTML WAF challenge. Both paths use the same Simplified-Chinese
+# title pre-filter. Watchlist tier: observed, not yet promoted to a trusted
+# default source.
 KR36_AI_INCLUDE_KEYWORDS = (
     "ai,人工智能,大模型,大语言模型,智能体,机器人,算力,大模型,生成式ai,深度学习,机器学习,芯片,英伟达,nvidia"
 )
+SOURCE_PERSISTENT_FAILURE_THRESHOLD = 3
 # Watchlist source: 橘鴉AI早報 (Juya AI Daily), self-hosted (not GitHub Pages -
 # the original imjuya/juya-ai-daily GitHub channel is gone). One entry per
 # day, title is just the date ("2026-07-15"), summary is a short truncated
@@ -2607,62 +2615,80 @@ def fetch_kr36_ai(session: requests.Session, now: datetime) -> list[RawItem]:
     site_id = "kr36_ai"
     site_name = "36Kr AI (Watchlist)"
 
-    resp = session.get(
-        KR36_AI_FEED_URL,
-        timeout=20,
-        headers={
-            "User-Agent": BROWSER_UA,
-            "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
-            "Accept": "application/rss+xml, application/xml, text/xml, */*",
-        },
-    )
-    resp.raise_for_status()
-
-    if feedparser is not None:
-        parsed = feedparser.parse(resp.content)
-        entries = list(parsed.entries)
-    else:
-        entries = parse_feed_entries_via_xml(resp.content)
-
     include_keywords = [
         keyword.strip().lower() for keyword in KR36_AI_INCLUDE_KEYWORDS.split(",") if keyword.strip()
     ]
-
-    out: list[RawItem] = []
-    seen_urls: set[str] = set()
-    for entry in entries:
-        title, link, published = feed_entry_title_link_published(entry, now)
-        if not title or not link or not published:
-            continue
-        if published < now - timedelta(days=KR36_AI_MAX_AGE_DAYS):
-            continue
-        if not any(_feed_keyword_matches(keyword, title.lower()) for keyword in include_keywords):
-            continue
-        normalized_url = normalize_url(link)
-        if normalized_url in seen_urls:
-            continue
-        seen_urls.add(normalized_url)
-
-        out.append(
-            RawItem(
-                site_id=site_id,
-                site_name=site_name,
-                source="36Kr",
-                title=maybe_fix_mojibake(title),
-                url=link,
-                published_at=published,
-                meta={
-                    "feed_url": KR36_AI_FEED_URL,
-                    "feed_home": "https://36kr.com/",
+    failures: list[str] = []
+    for feed_url, feed_path in (
+        (KR36_AI_FEED_URL, "direct"),
+        (KR36_AI_FALLBACK_FEED_URL, "google_news_fallback"),
+    ):
+        try:
+            resp = session.get(
+                feed_url,
+                timeout=20,
+                headers={
+                    "User-Agent": BROWSER_UA,
+                    "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+                    "Accept": "application/rss+xml, application/xml, text/xml, */*",
                 },
             )
-        )
-        if len(out) >= KR36_AI_MAX_ENTRIES:
-            break
+            resp.raise_for_status()
+            content_type = str(getattr(resp, "headers", {}).get("Content-Type") or "").lower()
+            content_prefix = bytes(resp.content).lstrip()[:32].lower()
+            if "text/html" in content_type or content_prefix.startswith((b"<!doctype html", b"<html")):
+                raise ValueError(f"unexpected HTML response ({content_type or 'unknown content type'})")
 
-    if not out:
-        raise ValueError("No 36Kr AI items parsed")
-    return out
+            if feedparser is not None:
+                parsed = feedparser.parse(resp.content)
+                entries = list(parsed.entries)
+                parse_error = str(getattr(parsed, "bozo_exception", ""))
+            else:
+                entries = parse_feed_entries_via_xml(resp.content)
+                parse_error = ""
+            if not entries:
+                detail = f": {parse_error}" if parse_error else ""
+                raise ValueError(f"no parseable feed entries{detail}")
+
+            out: list[RawItem] = []
+            seen_urls: set[str] = set()
+            for entry in entries:
+                title, link, published = feed_entry_title_link_published(entry, now)
+                if not title or not link or not published:
+                    continue
+                if published < now - timedelta(days=KR36_AI_MAX_AGE_DAYS):
+                    continue
+                if not any(_feed_keyword_matches(keyword, title.lower()) for keyword in include_keywords):
+                    continue
+                normalized_url = normalize_url(link)
+                if normalized_url in seen_urls:
+                    continue
+                seen_urls.add(normalized_url)
+
+                out.append(
+                    RawItem(
+                        site_id=site_id,
+                        site_name=site_name,
+                        source="36Kr",
+                        title=maybe_fix_mojibake(title),
+                        url=link,
+                        published_at=published,
+                        meta={
+                            "feed_url": feed_url,
+                            "feed_home": "https://36kr.com/",
+                            "feed_path": feed_path,
+                        },
+                    )
+                )
+                if len(out) >= KR36_AI_MAX_ENTRIES:
+                    break
+            if out:
+                return out
+            failures.append(f"{feed_path}: no recent AI keyword matches")
+        except Exception as exc:
+            failures.append(f"{feed_path}: {exc}")
+
+    raise ValueError(f"No 36Kr AI items parsed; {'; '.join(failures)}")
 
 
 def fetch_juya_daily(session: requests.Session, now: datetime) -> list[RawItem]:
@@ -3341,23 +3367,30 @@ def collect_all(session: requests.Session, now: datetime) -> tuple[list[RawItem]
         start = time.perf_counter()
         error = None
         count = 0
+        fetch_path = None
         try:
             items = fn(session, now)
             count = len(items)
+            if items:
+                fetch_path = str(items[0].meta.get("feed_path") or "").strip() or None
             raw_items.extend(items)
         except Exception as exc:
             error = str(exc)
         elapsed_ms = int((time.perf_counter() - start) * 1000)
-        statuses.append(
-            {
-                "site_id": site_id,
-                "site_name": site_name,
-                "ok": error is None,
-                "item_count": count,
-                "duration_ms": elapsed_ms,
-                "error": error,
-            }
-        )
+        status = {
+            "site_id": site_id,
+            "site_name": site_name,
+            "ok": error is None,
+            "item_count": count,
+            "duration_ms": elapsed_ms,
+            "error": error,
+        }
+        if fetch_path:
+            status["fetch_path"] = fetch_path
+            status["degraded"] = fetch_path != "direct"
+            if status["degraded"]:
+                status["degraded_reason"] = "primary_source_unavailable_using_fallback"
+        statuses.append(status)
 
     return raw_items, statuses
 
@@ -3757,6 +3790,98 @@ def load_archive(path: Path) -> dict[str, dict[str, Any]]:
                 it["id"] = item_id
                 out[item_id] = it
     return out
+
+
+def load_source_status(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    return payload if isinstance(payload, dict) else {}
+
+
+def apply_source_health_history(
+    statuses: list[dict[str, Any]],
+    previous_status: dict[str, Any] | None,
+    now: datetime,
+    *,
+    threshold: int = SOURCE_PERSISTENT_FAILURE_THRESHOLD,
+) -> list[dict[str, Any]]:
+    """Carry source failure streaks across generated source-status snapshots."""
+    previous_sites = {
+        str(item.get("site_id") or ""): item
+        for item in (previous_status or {}).get("sites", [])
+        if isinstance(item, dict) and item.get("site_id")
+    }
+    persistent_failures: list[dict[str, Any]] = []
+    now_iso = iso(now)
+
+    for status in statuses:
+        site_id = str(status.get("site_id") or "")
+        previous = previous_sites.get(site_id, {})
+        if status.get("ok"):
+            status["consecutive_failures"] = 0
+            status["first_failure_at"] = None
+            status["last_failure_at"] = previous.get("last_failure_at")
+            status["last_success_at"] = now_iso
+            status["persistent_failure"] = False
+            continue
+
+        previous_was_failure = previous.get("ok") is False
+        previous_count = int(previous.get("consecutive_failures") or (1 if previous_was_failure else 0))
+        consecutive_failures = previous_count + 1 if previous_was_failure else 1
+        first_failure_at = previous.get("first_failure_at") if previous_was_failure else now_iso
+        status["consecutive_failures"] = consecutive_failures
+        status["first_failure_at"] = first_failure_at or now_iso
+        status["last_failure_at"] = now_iso
+        status["last_success_at"] = previous.get("last_success_at")
+        status["persistent_failure"] = consecutive_failures >= max(1, threshold)
+        if status["persistent_failure"]:
+            persistent_failures.append(
+                {
+                    "site_id": site_id,
+                    "site_name": status.get("site_name") or site_id,
+                    "consecutive_failures": consecutive_failures,
+                    "first_failure_at": status["first_failure_at"],
+                    "last_failure_at": now_iso,
+                    "last_success_at": status.get("last_success_at"),
+                    "error": status.get("error"),
+                }
+            )
+    return persistent_failures
+
+
+def report_persistent_source_failures(persistent_failures: list[dict[str, Any]]) -> None:
+    if not persistent_failures:
+        return
+    for failure in persistent_failures:
+        annotation_error = (
+            str(failure.get("error") or "unknown error")
+            .replace("%", "%25")
+            .replace("\r", "%0D")
+            .replace("\n", "%0A")
+        )
+        print(
+            "::warning file=data/source-status.json,title=Persistent source failure::"
+            f"{failure['site_id']} failed {failure['consecutive_failures']} consecutive runs: "
+            f"{annotation_error}"
+        )
+
+    summary_path = str(os.environ.get("GITHUB_STEP_SUMMARY") or "").strip()
+    if not summary_path:
+        return
+    with Path(summary_path).open("a", encoding="utf-8") as summary:
+        summary.write("\n### Persistent source failures\n\n")
+        summary.write("| Source | Consecutive failures | Since | Error |\n")
+        summary.write("| --- | ---: | --- | --- |\n")
+        for failure in persistent_failures:
+            error = str(failure.get("error") or "unknown error").replace("|", "\\|").replace("\n", " ")
+            summary.write(
+                f"| {failure['site_id']} | {failure['consecutive_failures']} | "
+                f"{failure.get('first_failure_at') or 'unknown'} | {error} |\n"
+            )
 
 
 def event_time(record: dict[str, Any]) -> datetime | None:
@@ -6753,12 +6878,12 @@ def story_passes_brief_gate(story: dict[str, Any]) -> bool:
     effect: the frontend's hotStories()/latestStories() render the union of
     briefStories() and mergedStories() minus briefStories() (i.e. effectively
     all of stories-merged.json regardless of gate outcome), and
-    boleStorySortCompare() already ranks any business_events hit above any
+    briefStorySortCompare() already ranks any business_events hit above any
     non-hit story there. Confirmed on real data: all 16 badge items occupied
     ranks #1-16 of that live ranking, correctly ahead of every non-badge
     story. daily-brief.json's own internal order (select_diverse_stories,
     score-only, no badge awareness) is never rendered by itself -
-    renderBoleBrief(), the only function that would display it directly, has
+    renderBriefBrief(), the only function that would display it directly, has
     no call site in assets/app.js. So exempting business_events stories from
     this gate would only reorder a data structure nothing reads on its own;
     left unchanged here."""
@@ -6958,6 +7083,7 @@ def main() -> int:
     paid_source_state_path = output_dir / PAID_SOURCE_STATE_FILE
 
     archive = load_archive(archive_path)
+    previous_source_status = load_source_status(status_path)
     paid_source_state = load_paid_source_state(paid_source_state_path)
 
     session = create_session()
@@ -7304,12 +7430,16 @@ def main() -> int:
         and not s.get("skipped")
     ]
     empty_advanced_site_ids = {item["site_id"] for item in empty_advanced_sources}
+    persistent_failures = apply_source_health_history(statuses, previous_source_status, now)
 
     status_payload = {
         "generated_at": generated_at,
         "sites": statuses,
         "successful_sites": sum(1 for s in statuses if s["ok"]),
         "failed_sites": [s["site_id"] for s in statuses if not s["ok"]],
+        "degraded_sites": [s["site_id"] for s in statuses if s.get("degraded")],
+        "persistent_failure_threshold": SOURCE_PERSISTENT_FAILURE_THRESHOLD,
+        "persistent_failures": persistent_failures,
         "zero_item_sites": [
             s["site_id"]
             for s in statuses
@@ -7373,6 +7503,7 @@ def main() -> int:
         encoding="utf-8",
     )
     status_path.write_text(json.dumps(sanitize_public_payload(status_payload), ensure_ascii=False, indent=2), encoding="utf-8")
+    report_persistent_source_failures(persistent_failures)
     paid_source_state_path.write_text(
         json.dumps(sanitize_public_payload(paid_source_state), ensure_ascii=False, indent=2),
         encoding="utf-8",

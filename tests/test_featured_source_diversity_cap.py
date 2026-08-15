@@ -4,7 +4,7 @@
 fix/featured-source-diversity-cap-0721.
 
 The cap only withholds a same-source row's seat when it ties the next
-different-source candidate on both of boleStorySortCompare's first two
+different-source candidate on both of briefStorySortCompare's first two
 tiers (business-event badge, hotScore) - the exact degenerate condition the
 diagnosis identified as letting storyScore's source_tier component decide
 ranking among otherwise-equal single-source candidates. A genuine hotScore

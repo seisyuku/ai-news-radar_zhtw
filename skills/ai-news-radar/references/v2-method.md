@@ -1,4 +1,4 @@
-# V2 Method
+# Product and Source Method
 
 Use this reference when AI News Radar work is about product direction, source
 coverage, or packaging the repo as a reusable Skill.
@@ -14,7 +14,7 @@ coverage, or packaging the repo as a reusable Skill.
 
 Run this before expanding features:
 
-1. **User**: ordinary AI enthusiast, maintainer, or agent using the Skill?
+1. **User**: business-intelligence reader, maintainer, or agent using the Skill?
 2. **Current workaround**: noisy timelines, manual site checks, RSS reader, email,
    or another aggregator?
 3. **Demand evidence**: is the user asking for breadth, speed, trust, or fewer
@@ -26,8 +26,7 @@ Run this before expanding features:
 6. **Success signal**: what should improve in `source-status.json`, the Signal
    view, or the maintainer workflow?
 
-Ask the user only when a missing answer changes the implementation choice. For
-mobile users, prefer one short multiple-choice question.
+Ask the user only when a missing answer changes the implementation choice.
 
 ## Approach Selection
 
@@ -88,11 +87,11 @@ Keep implementation disciplined:
 Do not claim a source is covered until a fetcher, OPML path, public generated
 feed path, or optional-secret path is documented and validated.
 
-## V2 Definition Of Done
+## Definition Of Done
 
 A v2 change is complete when:
 
-- The default page remains simple for ordinary users.
+- The default page remains simple for readers tracking AI-industry events.
 - The first viewport shows source health and coverage as status signals, not a
   pile of configuration controls.
 - Source coverage is documented as public default vs advanced/private.

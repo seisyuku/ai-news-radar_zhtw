@@ -30,8 +30,8 @@ const state = {
   storiesMerged: null,
   storiesDataUrl: "data/stories-merged.json",
   activeSection: "hot",
-  boleView: "hot",
-  boleExpanded: false,
+  briefView: "hot",
+  briefExpanded: false,
   listSort: "priority",
   sourceTypeFilter: "",
   signalLevelFilter: "",
@@ -70,12 +70,12 @@ const waytoagiListEl = document.getElementById("waytoagiList");
 const waytoagiTodayBtnEl = document.getElementById("waytoagiTodayBtn");
 const waytoagi7dBtnEl = document.getElementById("waytoagi7dBtn");
 const coverageStripEl = document.getElementById("coverageStrip");
-const bolePicksListEl = document.getElementById("bolePicksList");
-const bolePicksMetaEl = document.getElementById("bolePicksMeta");
-const bolePicksWrapEl = document.getElementById("bolePicksWrap");
-const boleViewToggleEl = document.getElementById("boleViewToggle");
-const boleHotBtnEl = document.getElementById("boleHotBtn");
-const boleTimelineBtnEl = document.getElementById("boleTimelineBtn");
+const briefPicksListEl = document.getElementById("briefPicksList");
+const briefPicksMetaEl = document.getElementById("briefPicksMeta");
+const briefPicksWrapEl = document.getElementById("briefPicksWrap");
+const briefViewToggleEl = document.getElementById("briefViewToggle");
+const briefHotBtnEl = document.getElementById("briefHotBtn");
+const briefTimelineBtnEl = document.getElementById("briefTimelineBtn");
 const sectionTabsEl = document.getElementById("sectionTabs");
 const sectionSummaryEl = document.getElementById("sectionSummary");
 const topStoriesTitleEl = document.getElementById("topStoriesTitle");
@@ -196,7 +196,7 @@ function businessEventChip(badge) {
   return chip;
 }
 
-// Works for both story-backed rows (row.story set by storyToBoleRow) and the
+// Works for both story-backed rows (row.story set by storyToBriefRow) and the
 // no-story fallback rows built straight from raw items (rankedFallbackRows).
 function rowBusinessEvents(row) {
   if (row?.story) return storyBusinessEvents(row.story);
@@ -521,8 +521,8 @@ function clearAllFilters() {
   state.mode = "selected";
   state.allDedup = true;
   state.listSort = "priority";
-  state.boleView = "hot";
-  state.boleExpanded = false;
+  state.briefView = "hot";
+  state.briefExpanded = false;
   state.waytoagiMode = "today";
   state.siteGroupsExpanded = false;
   state.xAuthorsExpanded = false;
@@ -615,11 +615,11 @@ function renderSectionTabs() {
     btn.innerHTML = `<span>${section.label}</span><strong>${fmtNumber(stats.count)}</strong>`;
     btn.addEventListener("click", () => {
       state.activeSection = section.id;
-      state.boleExpanded = false;
+      state.briefExpanded = false;
       renderSectionTabs();
       renderModeSwitch();
       renderSiteFilters();
-      renderBolePicks();
+      renderBriefPicks();
       if (state.waytoagiData) renderWaytoagi(state.waytoagiData);
       renderList();
     });
@@ -685,7 +685,7 @@ function renderSiteFilters() {
   allPill.onclick = () => {
     state.siteFilter = "";
     renderSiteFilters();
-    renderBolePicks();
+    renderBriefPicks();
     renderList();
   };
   sitePillsEl.appendChild(allPill);
@@ -701,7 +701,7 @@ function renderSiteFilters() {
       state.siteFilter = "";
       state.siteGroupsExpanded = false;
       renderSiteFilters();
-      renderBolePicks();
+      renderBriefPicks();
       renderList();
     };
     sitePillsEl.appendChild(authorPill);
@@ -715,7 +715,7 @@ function renderSiteFilters() {
       state.siteFilter = s.site_id;
       if (s.site_id !== "socialdata_x") state.authorFilter = "";
       renderSiteFilters();
-      renderBolePicks();
+      renderBriefPicks();
       renderList();
     };
     sitePillsEl.appendChild(btn);
@@ -1222,7 +1222,7 @@ function sourcePriority(item) {
   return 50;
 }
 
-function clusterBoleEvents(rows) {
+function clusterBriefEvents(rows) {
   const clusters = new Map();
   rows.forEach((row) => {
     const key = eventKey(row.item);
@@ -1333,7 +1333,7 @@ function formatStoryTime(story) {
   return { latest: latest || earliest, rangeLabel: "" };
 }
 
-function pickBoleItems(items) {
+function pickBriefItems(items) {
   const ranked = [...items]
     .map((item, index) => ({ item, index, score: scorePercent(item) }))
     .filter((row) => row.score > 0)
@@ -1343,7 +1343,7 @@ function pickBoleItems(items) {
       return timelineMs(b.item) - timelineMs(a.item) || a.index - b.index;
     });
 
-  const sorted = clusterBoleEvents(ranked).sort((a, b) => {
+  const sorted = clusterBriefEvents(ranked).sort((a, b) => {
     const byMultiSource = b.sourceCount - a.sourceCount;
     const byScore = b.score - a.score;
     return byMultiSource || byScore || timelineMs(b.item) - timelineMs(a.item) || a.index - b.index;
@@ -1360,78 +1360,78 @@ function pickBoleItems(items) {
   return picked;
 }
 
-function boleReasonText(row) {
+function briefReasonText(row) {
   const signals = row.sourceSignals || [];
   const sourceText = signals.length ? `來源命中：${signals.join(" / ")}` : "來源命中：單源";
   const mergeText = row.mergedCount > 1 ? `合併${row.mergedCount}條同事件` : "單條事件";
   return `${sourceText} · ${mergeText} · ${reasonText(row.item)}`;
 }
 
-function buildBoleLead(row) {
+function buildBriefLead(row) {
   const { item, score } = row;
   const lead = document.createElement("a");
-  lead.className = "bole-lead-card";
+  lead.className = "brief-lead-card";
   lead.href = item.url || "#";
   lead.target = "_blank";
   lead.rel = "noopener noreferrer";
 
   const top = document.createElement("div");
-  top.className = "bole-lead-top";
+  top.className = "brief-lead-top";
   const kicker = document.createElement("span");
-  kicker.className = "bole-kicker";
+  kicker.className = "brief-kicker";
   kicker.textContent = `${labelText(item)} · ${fmtTime(timelineIso(item))}`;
   const scoreEl = document.createElement("strong");
-  scoreEl.className = `bole-score-orb ${scoreTone(score)}`;
+  scoreEl.className = `brief-score-orb ${scoreTone(score)}`;
   scoreEl.innerHTML = `<span>${score}</span><small>分</small>`;
   top.append(kicker, scoreEl);
 
   const title = document.createElement("div");
-  title.className = "bole-lead-title";
+  title.className = "brief-lead-title";
   title.textContent = itemTitleText(item);
 
   const reason = document.createElement("div");
-  reason.className = "bole-lead-reason";
+  reason.className = "brief-lead-reason";
   reason.textContent = reasonText(item);
 
   const foot = document.createElement("div");
-  foot.className = "bole-lead-foot";
+  foot.className = "brief-lead-foot";
   foot.innerHTML = `<span>${item.site_name || "來源"}</span><span>${item.source || "未分割槽"}</span>`;
 
   lead.append(top, title, reason, foot);
   return lead;
 }
 
-function buildBoleTimelineRow(row, rank) {
+function buildBriefTimelineRow(row, rank) {
   const { item, score } = row;
   const link = document.createElement("a");
-  link.className = "bole-row";
+  link.className = "brief-row";
   link.href = item.url || "#";
   link.target = "_blank";
   link.rel = "noopener noreferrer";
 
   const time = document.createElement("time");
-  time.className = "bole-row-time";
+  time.className = "brief-row-time";
   time.textContent = fmtTime(timelineIso(item));
 
   const body = document.createElement("div");
-  body.className = "bole-row-body";
+  body.className = "brief-row-body";
   const meta = document.createElement("div");
-  meta.className = "bole-row-meta";
+  meta.className = "brief-row-meta";
   meta.innerHTML = `<span>#${rank}</span><span>${item.site_name || "來源"}</span><strong>${score}分</strong>`;
   (row.sourceSignals || []).slice(0, 4).forEach((signal) => {
     appendSourceChip(meta, signal, sourceSignalTone(signal), "source-chip source-hit");
   });
   const title = document.createElement("div");
-  title.className = "bole-row-title";
+  title.className = "brief-row-title";
   title.textContent = itemTitleText(item);
   const originalTitle = itemOriginalTitleText(item);
   const original = document.createElement("div");
-  original.className = "bole-row-original";
+  original.className = "brief-row-original";
   original.hidden = !originalTitle;
   original.textContent = originalTitle;
   const reason = document.createElement("div");
-  reason.className = "bole-row-reason";
-  reason.textContent = boleReasonText(row);
+  reason.className = "brief-row-reason";
+  reason.textContent = briefReasonText(row);
   const originalAction = document.createElement("span");
   originalAction.className = "original-action";
   originalAction.textContent = "檢視原文 ↗";
@@ -1493,11 +1493,11 @@ function buildStoryCard(story, rank) {
   const displayScore = storySortScore(story);
   if (displayScore > 0) {
     const scoreEl = document.createElement("strong");
-    scoreEl.className = `story-score ${state.boleView === "hot" ? "heat" : ""}`.trim();
-    scoreEl.title = state.boleView === "hot"
+    scoreEl.className = `story-score ${state.briefView === "hot" ? "heat" : ""}`.trim();
+    scoreEl.title = state.briefView === "hot"
       ? "熱度分 = 多源強度 × 時間衰減"
       : "編輯重要性分";
-    scoreEl.innerHTML = `<span>${displayScore}</span><small>${state.boleView === "hot" ? "熱度" : "分"}</small>`;
+    scoreEl.innerHTML = `<span>${displayScore}</span><small>${state.briefView === "hot" ? "熱度" : "分"}</small>`;
     meta.appendChild(scoreEl);
   }
   body.appendChild(meta);
@@ -1565,7 +1565,7 @@ function storyHotScore(story) {
 }
 
 function storySortScore(story) {
-  return state.boleView === "hot" ? storyHotScore(story) : storyScore(story);
+  return state.briefView === "hot" ? storyHotScore(story) : storyScore(story);
 }
 
 // feature/business-signal: a story counts as a business-event hit if its own
@@ -1580,7 +1580,7 @@ function storyHasBusinessEvent(story) {
 // Shared four-level sort key for the 今日重點訊號 block, applied to both the
 // "hot" and "timeline" views: business-event hit dominates, then hot score,
 // then backend importance score, then recency as the final tiebreak.
-function boleStorySortCompare(a, b) {
+function briefStorySortCompare(a, b) {
   const byBusiness = (storyHasBusinessEvent(b) ? 1 : 0) - (storyHasBusinessEvent(a) ? 1 : 0);
   if (byBusiness !== 0) return byBusiness;
   const byHotScore = storyHotScore(b) - storyHotScore(a);
@@ -1596,13 +1596,13 @@ function boleStorySortCompare(a, b) {
 // its own merit, even as a single source - storyHotness()'s sources>=2 floor
 // exists to keep purely-recency noise out, not to suppress confirmed
 // earnings/security/pricing/etc. events that haven't been corroborated yet.
-// boleStorySortCompare's four-tier order (business hit first) is unchanged;
+// briefStorySortCompare's four-tier order (business hit first) is unchanged;
 // this only widens who is allowed into the pool it sorts.
 function hotStories(stories) {
   return stories
     .filter((story) => storyHotness(story) > 0 || storyHasBusinessEvent(story))
     .sort((a, b) => {
-      const byShared = boleStorySortCompare(a, b);
+      const byShared = briefStorySortCompare(a, b);
       if (byShared !== 0) return byShared;
       const byHotRaw = storyHotness(b) - storyHotness(a);
       if (byHotRaw !== 0) return byHotRaw;
@@ -1612,23 +1612,23 @@ function hotStories(stories) {
     });
 }
 
-function renderBoleBrief(stories) {
-  bolePicksListEl.innerHTML = "";
-  bolePicksListEl.className = "bole-board";
+function renderBriefBrief(stories) {
+  briefPicksListEl.innerHTML = "";
+  briefPicksListEl.className = "brief-board";
 
   const hot = hotStories(stories);
   const hotAvailable = hot.length >= 2;
   // 寧缺毋濫: the hot view only exists when there is real multi-source heat.
-  if (boleViewToggleEl) boleViewToggleEl.hidden = !hotAvailable;
-  if (!hotAvailable) state.boleView = "timeline";
-  if (boleHotBtnEl) boleHotBtnEl.classList.toggle("active", state.boleView === "hot");
-  if (boleTimelineBtnEl) boleTimelineBtnEl.classList.toggle("active", state.boleView !== "hot");
-  if (boleHotBtnEl) boleHotBtnEl.setAttribute("aria-pressed", state.boleView === "hot" ? "true" : "false");
-  if (boleTimelineBtnEl) boleTimelineBtnEl.setAttribute("aria-pressed", state.boleView !== "hot" ? "true" : "false");
+  if (briefViewToggleEl) briefViewToggleEl.hidden = !hotAvailable;
+  if (!hotAvailable) state.briefView = "timeline";
+  if (briefHotBtnEl) briefHotBtnEl.classList.toggle("active", state.briefView === "hot");
+  if (briefTimelineBtnEl) briefTimelineBtnEl.classList.toggle("active", state.briefView !== "hot");
+  if (briefHotBtnEl) briefHotBtnEl.setAttribute("aria-pressed", state.briefView === "hot" ? "true" : "false");
+  if (briefTimelineBtnEl) briefTimelineBtnEl.setAttribute("aria-pressed", state.briefView !== "hot" ? "true" : "false");
 
   let sorted;
   let metaLabel;
-  if (state.boleView === "hot") {
+  if (state.briefView === "hot") {
     sorted = hot;
     metaLabel = `當前熱點 · ${fmtNumber(sorted.length)} 簇 · 按熱度分排序`;
   } else {
@@ -1645,47 +1645,47 @@ function renderBoleBrief(stories) {
   }
 
   const list = document.createElement("div");
-  list.className = "bole-compact-list bole-timeline";
-  const defaultLimit = state.boleView === "hot" ? BOLE_HOT_LIMIT : BOLE_TIMELINE_LIMIT;
-  const visibleStories = state.boleExpanded ? sorted : sorted.slice(0, defaultLimit);
+  list.className = "brief-compact-list brief-timeline";
+  const defaultLimit = state.briefView === "hot" ? BRIEF_HOT_LIMIT : BRIEF_TIMELINE_LIMIT;
+  const visibleStories = state.briefExpanded ? sorted : sorted.slice(0, defaultLimit);
   visibleStories.forEach((story, index) => {
     list.appendChild(buildStoryCard(story, index + 1));
   });
-  bolePicksListEl.appendChild(list);
+  briefPicksListEl.appendChild(list);
 
   if (sorted.length > defaultLimit) {
     const moreBtn = document.createElement("button");
     moreBtn.type = "button";
-    moreBtn.className = "bole-more-btn";
-    moreBtn.textContent = state.boleExpanded
+    moreBtn.className = "brief-more-btn";
+    moreBtn.textContent = state.briefExpanded
       ? "收起"
-      : (state.boleView === "hot" ? "展開全部熱點" : "展開完整時間線");
+      : (state.briefView === "hot" ? "展開全部熱點" : "展開完整時間線");
     moreBtn.addEventListener("click", () => {
-      state.boleExpanded = !state.boleExpanded;
-      renderBolePicks();
+      state.briefExpanded = !state.briefExpanded;
+      renderBriefPicks();
     });
-    bolePicksListEl.appendChild(moreBtn);
+    briefPicksListEl.appendChild(moreBtn);
   }
 
   const generatedAt = state.dailyBrief && state.dailyBrief.generated_at;
-  bolePicksMetaEl.textContent = generatedAt ? `${metaLabel} · ${fmtTime(generatedAt)}` : metaLabel;
+  briefPicksMetaEl.textContent = generatedAt ? `${metaLabel} · ${fmtTime(generatedAt)}` : metaLabel;
   document.dispatchEvent(new CustomEvent("aiRadar:briefRendered"));
 }
 
-function renderBoleFallback(picks) {
-  bolePicksListEl.innerHTML = "";
-  bolePicksListEl.className = "bole-board";
+function renderBriefFallback(picks) {
+  briefPicksListEl.innerHTML = "";
+  briefPicksListEl.className = "brief-board";
 
   const note = document.createElement("div");
-  note.className = "bole-fallback-note";
-  note.textContent = "故事合併資料暫未生成，先展示伯樂候選訊號。";
-  bolePicksListEl.appendChild(note);
+  note.className = "brief-fallback-note";
+  note.textContent = "故事合併資料暫未生成，先展示重點候選訊號。";
+  briefPicksListEl.appendChild(note);
 
   if (!picks.length) {
     const empty = document.createElement("div");
-    empty.className = "bole-empty";
+    empty.className = "brief-empty";
     empty.textContent = "當前資料裡沒有可展示的評分欄位。";
-    bolePicksListEl.appendChild(empty);
+    briefPicksListEl.appendChild(empty);
     return;
   }
 
@@ -1695,22 +1695,22 @@ function renderBoleFallback(picks) {
     return b.score - a.score || a.index - b.index;
   });
   const list = document.createElement("div");
-  list.className = "bole-compact-list";
-  const visiblePicks = state.boleExpanded ? timelinePicks : timelinePicks.slice(0, BOLE_TIMELINE_LIMIT);
+  list.className = "brief-compact-list";
+  const visiblePicks = state.briefExpanded ? timelinePicks : timelinePicks.slice(0, BRIEF_TIMELINE_LIMIT);
   visiblePicks.forEach((row, index) => {
-    list.appendChild(buildBoleTimelineRow(row, index + 1));
+    list.appendChild(buildBriefTimelineRow(row, index + 1));
   });
-  bolePicksListEl.appendChild(list);
-  if (timelinePicks.length > BOLE_TIMELINE_LIMIT) {
+  briefPicksListEl.appendChild(list);
+  if (timelinePicks.length > BRIEF_TIMELINE_LIMIT) {
     const moreBtn = document.createElement("button");
     moreBtn.type = "button";
-    moreBtn.className = "bole-more-btn";
-    moreBtn.textContent = state.boleExpanded ? "收起" : "展開完整時間線";
+    moreBtn.className = "brief-more-btn";
+    moreBtn.textContent = state.briefExpanded ? "收起" : "展開完整時間線";
     moreBtn.addEventListener("click", () => {
-      state.boleExpanded = !state.boleExpanded;
-      renderBolePicks();
+      state.briefExpanded = !state.briefExpanded;
+      renderBriefPicks();
     });
-    bolePicksListEl.appendChild(moreBtn);
+    briefPicksListEl.appendChild(moreBtn);
   }
   document.dispatchEvent(new CustomEvent("aiRadar:briefRendered"));
 }
@@ -1781,7 +1781,7 @@ const FEATURED_DIVERSITY_SOURCE_CAP = 2;
 // FEATURED_DIVERSITY_VISIBLE_SLOTS (5) 今日重點訊號 seats a single source
 // can take - but ONLY in the degenerate case diagnosed in
 // .claude-reports/2026-07-21-aibase-signal-area-diagnosis.md: most badged
-// candidates are single-source (storyHotScore=0), so boleStorySortCompare's
+// candidates are single-source (storyHotScore=0), so briefStorySortCompare's
 // first two tiers (business-event badge, hotScore) tie between them and the
 // ranking falls through to storyScore's 22%-weighted source_tier component
 // - a structural, not quality-driven, advantage. A seat is only withheld
@@ -1791,7 +1791,7 @@ const FEATURED_DIVERSITY_SOURCE_CAP = 2;
 // cap ("真訊號優先"). When a withheld seat has no same-tier
 // different-source candidate left to hand it to, the seat is simply left
 // empty rather than backfilled with a lower-quality candidate ("寧缺勿濫"
-// outranks diversity). Does not touch boleStorySortCompare itself, nor any
+// outranks diversity). Does not touch briefStorySortCompare itself, nor any
 // of source_tier/storyScore's weights - this only reorders/withholds seats
 // after that shared sort has already run.
 function applyFeaturedSourceDiversityCap(sortedRows, capacity = FEATURED_DIVERSITY_VISIBLE_SLOTS, maxPerSource = FEATURED_DIVERSITY_SOURCE_CAP) {
@@ -1838,10 +1838,10 @@ function applyFeaturedSourceDiversityCap(sortedRows, capacity = FEATURED_DIVERSI
 
 function storyRowsForPool(stories) {
   const source = Array.isArray(stories) ? stories : [];
-  const pool = state.boleView === "hot"
-    ? applyFeaturedSourceDiversityCap(hotStories(source)).slice(0, BOLE_HOT_LIMIT)
-    : applyFeaturedSourceDiversityCap(latestStories(source)).slice(0, BOLE_TIMELINE_LIMIT);
-  return pool.map(storyToBoleRow);
+  const pool = state.briefView === "hot"
+    ? applyFeaturedSourceDiversityCap(hotStories(source)).slice(0, BRIEF_HOT_LIMIT)
+    : applyFeaturedSourceDiversityCap(latestStories(source)).slice(0, BRIEF_TIMELINE_LIMIT);
+  return pool.map(storyToBriefRow);
 }
 
 function storyCandidateCounts(stories) {
@@ -1849,25 +1849,25 @@ function storyCandidateCounts(stories) {
   const hotTotal = hotStories(source).length;
   const timelineTotal = source.length;
   return {
-    hot: Math.min(BOLE_HOT_LIMIT, hotTotal),
-    timeline: Math.min(BOLE_TIMELINE_LIMIT, timelineTotal),
+    hot: Math.min(BRIEF_HOT_LIMIT, hotTotal),
+    timeline: Math.min(BRIEF_TIMELINE_LIMIT, timelineTotal),
     hotTotal,
     timelineTotal,
   };
 }
 
 function latestStories(stories) {
-  return [...(Array.isArray(stories) ? stories : [])].sort(boleStorySortCompare);
+  return [...(Array.isArray(stories) ? stories : [])].sort(briefStorySortCompare);
 }
 
 function renderStoryViewPanel(stories, excludedRows = []) {
   const panel = document.createElement("div");
-  panel.className = "bole-story-panel";
+  panel.className = "brief-story-panel";
 
   const hot = hotStories(stories);
   let baseSorted;
   let metaLabel;
-  if (state.boleView === "hot") {
+  if (state.briefView === "hot") {
     baseSorted = hot;
     metaLabel = hot.length
       ? `當前熱點 · ${fmtNumber(hot.length)} 簇 · 按熱度分排序`
@@ -1884,30 +1884,30 @@ function renderStoryViewPanel(stories, excludedRows = []) {
   const skippedCount = baseSorted.length - sorted.length;
   const rankOffset = skippedCount > 0 ? excludedRows.length : 0;
   if (skippedCount > 0) {
-    metaLabel = state.boleView === "hot"
+    metaLabel = state.briefView === "hot"
       ? `當前熱點 · ${fmtNumber(baseSorted.length)} 簇 · 續看 #${rankOffset + 1} 起`
       : `故事時間線 · ${fmtNumber(baseSorted.length)} 條 · Top3 後續`;
   }
 
-  if (boleViewToggleEl) {
-    boleViewToggleEl.hidden = false;
-    if (boleHotBtnEl) boleHotBtnEl.classList.toggle("active", state.boleView === "hot");
-    if (boleTimelineBtnEl) boleTimelineBtnEl.classList.toggle("active", state.boleView !== "hot");
-    if (boleHotBtnEl) boleHotBtnEl.setAttribute("aria-pressed", state.boleView === "hot" ? "true" : "false");
-    if (boleTimelineBtnEl) boleTimelineBtnEl.setAttribute("aria-pressed", state.boleView !== "hot" ? "true" : "false");
+  if (briefViewToggleEl) {
+    briefViewToggleEl.hidden = false;
+    if (briefHotBtnEl) briefHotBtnEl.classList.toggle("active", state.briefView === "hot");
+    if (briefTimelineBtnEl) briefTimelineBtnEl.classList.toggle("active", state.briefView !== "hot");
+    if (briefHotBtnEl) briefHotBtnEl.setAttribute("aria-pressed", state.briefView === "hot" ? "true" : "false");
+    if (briefTimelineBtnEl) briefTimelineBtnEl.setAttribute("aria-pressed", state.briefView !== "hot" ? "true" : "false");
   }
 
   const heading = document.createElement("div");
-  heading.className = "bole-story-panel-head";
+  heading.className = "brief-story-panel-head";
   heading.textContent = metaLabel;
   panel.appendChild(heading);
 
   if (!sorted.length) {
     const empty = document.createElement("div");
-    empty.className = "bole-empty";
+    empty.className = "brief-empty";
     empty.textContent = skippedCount > 0
       ? "Top3 已覆蓋當前篩選下的故事，可切換篩選或時間線繼續檢視。"
-      : state.boleView === "hot"
+      : state.briefView === "hot"
       ? "當前篩選下沒有多源熱點，可切換到時間線檢視最新故事。"
       : "當前篩選下沒有可展示的故事時間線。";
     panel.appendChild(empty);
@@ -1915,9 +1915,9 @@ function renderStoryViewPanel(stories, excludedRows = []) {
   }
 
   const list = document.createElement("div");
-  list.className = "bole-compact-list bole-timeline";
-  const defaultLimit = state.boleView === "hot" ? BOLE_HOT_LIMIT : BOLE_TIMELINE_LIMIT;
-  const visibleStories = state.boleExpanded ? sorted : sorted.slice(0, defaultLimit);
+  list.className = "brief-compact-list brief-timeline";
+  const defaultLimit = state.briefView === "hot" ? BRIEF_HOT_LIMIT : BRIEF_TIMELINE_LIMIT;
+  const visibleStories = state.briefExpanded ? sorted : sorted.slice(0, defaultLimit);
   visibleStories.forEach((story, index) => {
     list.appendChild(buildStoryCard(story, rankOffset + index + 1));
   });
@@ -1926,15 +1926,15 @@ function renderStoryViewPanel(stories, excludedRows = []) {
   if (sorted.length > defaultLimit) {
     const moreBtn = document.createElement("button");
     moreBtn.type = "button";
-    moreBtn.className = "bole-more-btn";
-    moreBtn.textContent = state.boleExpanded
+    moreBtn.className = "brief-more-btn";
+    moreBtn.textContent = state.briefExpanded
       ? "收起"
       : (skippedCount > 0
-        ? (state.boleView === "hot" ? "展開後續熱點" : "展開後續時間線")
-        : (state.boleView === "hot" ? "展開全部熱點" : "展開完整時間線"));
+        ? (state.briefView === "hot" ? "展開後續熱點" : "展開後續時間線")
+        : (state.briefView === "hot" ? "展開全部熱點" : "展開完整時間線"));
     moreBtn.addEventListener("click", () => {
-      state.boleExpanded = !state.boleExpanded;
-      renderBolePicks();
+      state.briefExpanded = !state.briefExpanded;
+      renderBriefPicks();
     });
     panel.appendChild(moreBtn);
   }
@@ -1942,7 +1942,7 @@ function renderStoryViewPanel(stories, excludedRows = []) {
   return panel;
 }
 
-function storyToBoleRow(story, index) {
+function storyToBriefRow(story, index) {
   const enrichStoryItem = (entry) => ({
     ...entry,
     site_name: entry.site_name || entry.source_name || story.source_name || "",
@@ -1969,7 +1969,7 @@ function rankedBriefRows(stories) {
   const sorted = [...stories].sort((a, b) => {
     const aLatest = storyTimeMs(a, "latest_at") || storyTimeMs(a, "earliest_at");
     const bLatest = storyTimeMs(b, "latest_at") || storyTimeMs(b, "earliest_at");
-    if (state.boleView === "hot") {
+    if (state.briefView === "hot") {
       const byHeat = storyHotScore(b) - storyHotScore(a);
       if (byHeat !== 0) return byHeat;
       const byScore = storyScore(b) - storyScore(a);
@@ -1980,50 +1980,50 @@ function rankedBriefRows(stories) {
     if (byScore !== 0) return byScore;
     return bLatest - aLatest;
   });
-  return sorted.map(storyToBoleRow);
+  return sorted.map(storyToBriefRow);
 }
 
 function rankedFallbackRows(items) {
   const rows = rankedClustersForItems(items);
-  return state.boleView === "hot"
+  return state.briefView === "hot"
     ? rows.sort((a, b) => b.sourceCount - a.sourceCount || b.score - a.score || timelineMs(b.item) - timelineMs(a.item))
     : rows.sort((a, b) => timelineMs(b.item) - timelineMs(a.item) || b.score - a.score);
 }
 
-function buildBoleFollowupPanel(rows, topCount, usesStories) {
+function buildBriefFollowupPanel(rows, topCount, usesStories) {
   const remaining = rows.slice(topCount);
   if (!remaining.length) return null;
 
   const panel = document.createElement("div");
-  panel.className = "bole-story-panel";
+  panel.className = "brief-story-panel";
   const heading = document.createElement("div");
-  heading.className = "bole-story-panel-head";
-  const viewLabel = state.boleView === "hot" ? "當前熱點" : "故事時間線";
+  heading.className = "brief-story-panel-head";
+  const viewLabel = state.briefView === "hot" ? "當前熱點" : "故事時間線";
   heading.textContent = `${viewLabel} · ${fmtNumber(rows.length)} 條${usesStories ? "故事" : "候選"} · Top${topCount} 後續`;
   panel.appendChild(heading);
 
   const list = document.createElement("div");
-  list.className = "bole-compact-list bole-timeline";
+  list.className = "brief-compact-list brief-timeline";
   const followupLimit = 2;
-  const visibleRows = state.boleExpanded ? remaining : remaining.slice(0, followupLimit);
+  const visibleRows = state.briefExpanded ? remaining : remaining.slice(0, followupLimit);
   visibleRows.forEach((row, index) => {
     const rank = topCount + index + 1;
     list.appendChild(row.story
       ? buildStoryCard(row.story, rank)
-      : buildBoleTimelineRow(row, rank));
+      : buildBriefTimelineRow(row, rank));
   });
   panel.appendChild(list);
 
   if (remaining.length > followupLimit) {
     const moreBtn = document.createElement("button");
     moreBtn.type = "button";
-    moreBtn.className = "bole-more-btn";
-    moreBtn.textContent = state.boleExpanded
+    moreBtn.className = "brief-more-btn";
+    moreBtn.textContent = state.briefExpanded
       ? "收起後續"
       : `展開後續 ${fmtNumber(remaining.length - followupLimit)} 條`;
     moreBtn.addEventListener("click", () => {
-      state.boleExpanded = !state.boleExpanded;
-      renderBolePicks();
+      state.briefExpanded = !state.briefExpanded;
+      renderBriefPicks();
     });
     panel.appendChild(moreBtn);
   }
@@ -2053,7 +2053,7 @@ const COMMUNITY_SOURCE_TYPES = new Set([
 // candidate pool - applied before either the story-pool path (hotStories/
 // latestStories) or the no-story-data fallback path (rankedFallbackRows)
 // runs its own ranking, so this narrows *what's eligible*, not *the order*
-// (boleStorySortCompare's badge-first four-tier sort is unchanged). Primary
+// (briefStorySortCompare's badge-first four-tier sort is unchanged). Primary
 // rule: a confirmed business-event badge earns a seat on its own merit.
 // Backfill rule: once badged candidates are exhausted, badge-less
 // candidates may still fill remaining seats UNLESS their site_id is a
@@ -2088,12 +2088,12 @@ function storyCandidateSiteId(story) {
   return (story && (story.primary_item || story).site_id) || "";
 }
 
-function renderBolePicks() {
-  if (!bolePicksListEl || !bolePicksMetaEl) return;
-  bolePicksListEl.innerHTML = "";
-  bolePicksListEl.className = "top-stories-grid";
-  if (boleViewToggleEl) boleViewToggleEl.hidden = true;
-  if (bolePicksWrapEl) bolePicksWrapEl.hidden = false;
+function renderBriefPicks() {
+  if (!briefPicksListEl || !briefPicksMetaEl) return;
+  briefPicksListEl.innerHTML = "";
+  briefPicksListEl.className = "top-stories-grid";
+  if (briefViewToggleEl) briefViewToggleEl.hidden = true;
+  if (briefPicksWrapEl) briefPicksWrapEl.hidden = false;
 
   const section = SECTION_BY_ID[state.activeSection] || SECTION_BY_ID.hot;
   const filtered = getFilteredItems();
@@ -2109,10 +2109,10 @@ function renderBolePicks() {
   const usesStories = availableStoryPool.length > 0;
   const candidateCounts = storyCandidateCounts(availableStoryPool);
   const hotAvailable = usesStories && candidateCounts.hot >= 2;
-  if (usesStories && !hotAvailable && state.boleView === "hot") {
-    state.boleView = "timeline";
+  if (usesStories && !hotAvailable && state.briefView === "hot") {
+    state.briefView = "timeline";
   }
-  const defaultLimit = state.boleView === "hot" ? BOLE_HOT_LIMIT : BOLE_TIMELINE_LIMIT;
+  const defaultLimit = state.briefView === "hot" ? BRIEF_HOT_LIMIT : BRIEF_TIMELINE_LIMIT;
   const gatedItems = featuredCandidatesGate(
     filtered,
     (item) => (Array.isArray(item?.business_events) ? item.business_events.length : 0),
@@ -2127,31 +2127,31 @@ function renderBolePicks() {
   const storyMeta = usesStories
     ? `可檢視 ${fmtNumber(candidateCounts.hotTotal)} 個聚合熱點 · ${fmtNumber(candidateCounts.timelineTotal)} 條最新故事`
     : `可檢視 ${fmtNumber(rows.length)} 條重點訊號`;
-  bolePicksMetaEl.textContent = storyMeta;
-  if (boleViewToggleEl) {
-    boleViewToggleEl.hidden = usesStories ? !hotAvailable : true;
-    if (boleHotBtnEl) boleHotBtnEl.classList.toggle("active", state.boleView === "hot");
-    if (boleTimelineBtnEl) boleTimelineBtnEl.classList.toggle("active", state.boleView === "timeline");
-    if (boleHotBtnEl) boleHotBtnEl.setAttribute("aria-pressed", state.boleView === "hot" ? "true" : "false");
-    if (boleTimelineBtnEl) boleTimelineBtnEl.setAttribute("aria-pressed", state.boleView === "timeline" ? "true" : "false");
-    if (boleHotBtnEl) boleHotBtnEl.textContent = `當前熱點 ${fmtNumber(candidateCounts.hot)}`;
-    if (boleTimelineBtnEl) boleTimelineBtnEl.textContent = `時間線 ${fmtNumber(candidateCounts.timeline)}`;
+  briefPicksMetaEl.textContent = storyMeta;
+  if (briefViewToggleEl) {
+    briefViewToggleEl.hidden = usesStories ? !hotAvailable : true;
+    if (briefHotBtnEl) briefHotBtnEl.classList.toggle("active", state.briefView === "hot");
+    if (briefTimelineBtnEl) briefTimelineBtnEl.classList.toggle("active", state.briefView === "timeline");
+    if (briefHotBtnEl) briefHotBtnEl.setAttribute("aria-pressed", state.briefView === "hot" ? "true" : "false");
+    if (briefTimelineBtnEl) briefTimelineBtnEl.setAttribute("aria-pressed", state.briefView === "timeline" ? "true" : "false");
+    if (briefHotBtnEl) briefHotBtnEl.textContent = `當前熱點 ${fmtNumber(candidateCounts.hot)}`;
+    if (briefTimelineBtnEl) briefTimelineBtnEl.textContent = `時間線 ${fmtNumber(candidateCounts.timeline)}`;
   }
 
   if (!top.length) {
     const empty = document.createElement("div");
-    empty.className = "bole-empty";
+    empty.className = "brief-empty";
     empty.textContent = "當前欄目和篩選條件下沒有可展示的 Top 3。";
-    bolePicksListEl.appendChild(empty);
+    briefPicksListEl.appendChild(empty);
   } else {
     top.forEach((row, index) => {
-      bolePicksListEl.appendChild(buildTopStoryCard(row, index + 1));
+      briefPicksListEl.appendChild(buildTopStoryCard(row, index + 1));
     });
   }
 
-  const followup = buildBoleFollowupPanel(rows, top.length, usesStories);
+  const followup = buildBriefFollowupPanel(rows, top.length, usesStories);
   if (followup) {
-    bolePicksListEl.appendChild(followup);
+    briefPicksListEl.appendChild(followup);
   }
   document.dispatchEvent(new CustomEvent("aiRadar:briefRendered"));
 }
@@ -2166,7 +2166,7 @@ function rankedClustersForItems(items) {
     .filter((row) => row.item && (row.score > 0 || row.item.title))
     .sort((a, b) => itemPriorityScore(b.item) - itemPriorityScore(a.item) || timelineMs(b.item) - timelineMs(a.item));
 
-  return clusterBoleEvents(rows).sort((a, b) => {
+  return clusterBriefEvents(rows).sort((a, b) => {
     const byHeadlineScore = headlineClusterScore(b) - headlineClusterScore(a);
     if (byHeadlineScore !== 0) return byHeadlineScore;
     return timelineMs(b.item) - timelineMs(a.item) || a.index - b.index;
@@ -2478,8 +2478,8 @@ const SITE_SOURCE_GROUP_INITIAL_LIMIT = 4;
 const SITE_SOURCE_GROUP_LOAD_STEP = 4;
 const SOURCE_GROUP_INITIAL_LIMIT = 8;
 const SOURCE_GROUP_LOAD_STEP = 8;
-const BOLE_HOT_LIMIT = 10;
-const BOLE_TIMELINE_LIMIT = 20;
+const BRIEF_HOT_LIMIT = 10;
+const BRIEF_TIMELINE_LIMIT = 20;
 
 function buildSourceGroupNode(source, items, rawCount = items.length) {
   const section = document.createElement("section");
@@ -2767,12 +2767,12 @@ function renderList() {
 }
 
 function rerenderCurrentView() {
-  state.boleExpanded = false;
+  state.briefExpanded = false;
   state.siteGroupsExpanded = false;
   renderSectionTabs();
   renderModeSwitch();
   renderSiteFilters();
-  renderBolePicks();
+  renderBriefPicks();
   if (state.waytoagiData) renderWaytoagi(state.waytoagiData);
   renderList();
 }
@@ -2892,13 +2892,13 @@ function selectSocialdataAuthor(author) {
   state.authorFilter = author;
   state.siteFilter = "socialdata_x";
   state.activeSection = "hot";
-  state.boleExpanded = false;
+  state.briefExpanded = false;
   state.siteGroupsExpanded = false;
   state.xAuthorsExpanded = false;
   renderSectionTabs();
   renderModeSwitch();
   renderSiteFilters();
-  renderBolePicks();
+  renderBriefPicks();
   renderList();
   renderSourceHealth();
   document.querySelector(".list-wrap")?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -3206,7 +3206,7 @@ async function init() {
     renderListSortTools();
     renderCoverageStrip();
     renderSiteFilters();
-    renderBolePicks();
+    renderBriefPicks();
     renderList();
     updatedAtEl.textContent = fmtTime(state.generatedAt);
   } else {
@@ -3238,7 +3238,7 @@ async function init() {
 
 searchInputEl.addEventListener("input", (e) => {
   state.query = e.target.value;
-  renderBolePicks();
+  renderBriefPicks();
   renderList();
 });
 
@@ -3251,7 +3251,7 @@ siteSelectEl.addEventListener("change", (e) => {
   if (state.siteFilter !== "socialdata_x") state.authorFilter = "";
   state.siteGroupsExpanded = false;
   renderSiteFilters();
-  renderBolePicks();
+  renderBriefPicks();
   renderList();
 });
 
@@ -3344,19 +3344,19 @@ if (waytoagi7dBtnEl) {
   });
 }
 
-if (boleHotBtnEl) {
-  boleHotBtnEl.addEventListener("click", () => {
-    state.boleView = "hot";
-    state.boleExpanded = false;
-    renderBolePicks();
+if (briefHotBtnEl) {
+  briefHotBtnEl.addEventListener("click", () => {
+    state.briefView = "hot";
+    state.briefExpanded = false;
+    renderBriefPicks();
   });
 }
 
-if (boleTimelineBtnEl) {
-  boleTimelineBtnEl.addEventListener("click", () => {
-    state.boleView = "timeline";
-    state.boleExpanded = false;
-    renderBolePicks();
+if (briefTimelineBtnEl) {
+  briefTimelineBtnEl.addEventListener("click", () => {
+    state.briefView = "timeline";
+    state.briefExpanded = false;
+    renderBriefPicks();
   });
 }
 

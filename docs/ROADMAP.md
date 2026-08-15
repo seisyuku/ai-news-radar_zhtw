@@ -1,103 +1,50 @@
-# AI News Radar Roadmap
+# AI 商業情報雷達 Roadmap
 
-## v0.3.0 — Source Overlap Check
+本文件只記錄尚未完成或仍需追蹤的方向。已完成的設計事實、來源裁決與
+歷史證據以 [`HANDOVER.md`](HANDOVER.md) 為準；操作程序以
+[`OPERATIONS.md`](OPERATIONS.md) 為準。
 
-Goal: before adding a new public default source, evaluate whether its recent items are mostly duplicates of the existing source set.
+## 現行產品邊界
 
-Status: implemented as a maintainer-facing intake tool.
+- 公開預設是臺灣繁體中文的 AI 產業商業事件儀表板。
+- 重點訊號固定採六類事件：財報營收、市佔格局、資安漏洞、價格方案、
+  評測基準、模型發布。
+- 一般列表保留較廣的 AI 產業資訊，但不擴張成開發教學、prompt 技巧或
+  社群討論聚合器。
+- 來源治理採「寧缺勿濫」；不為填滿版位而導入低訊噪比來源。
 
-### What ships
+## P0：排程與來源可觀測性
 
-- `scripts/evaluate_source_overlap.py`
-  - Fetches a candidate RSS/Atom source.
-  - Compares recent candidate items against `data/archive.json` or another baseline JSON.
-  - Reports hard duplicates, possible duplicates, unique items, top overlapping sources, and a recommendation.
-- `tests/test_source_overlap.py`
-  - Covers URL exact matches, title similarity, duplicate-rate statistics, threshold recommendations, and the small-sample guard.
+- 持續用 `source-status.json` 與前端更新時間監看排程健康。
+- 對可恢復的單一來源失敗保留明確狀態與診斷；不可讓來源靜默消失。
+- 外部 heartbeat 使用的 fine-grained PAT 約於 **2026-10-17** 到期，
+  到期前依 [`OPERATIONS.md`](OPERATIONS.md) 完成續期與驗證。
 
-### Default decision thresholds
+## P1：一般列表六類事件軸
 
-- `< 35%` duplicate rate: `accept_default`
-- `35%–65%` duplicate rate: `watchlist`
-- `>= 65%` duplicate rate: `skip_duplicate`
-- `< 5` recent candidate items: always `watchlist`, because the sample is too small for automatic rejection.
+- 在一般列表渲染現有六類事件徽章。
+- 提供六類事件篩選軸，沿用現行事件判定結果，不另造第七類。
+- 保持預設畫面簡單；篩選器不可遮蔽來源、時間與原文連結。
+- 變更 `assets/` 時同步遞增 `index.html` 的 `?v=` 與
+  `tests/asset_manifest.json`。
 
-### Example
+## P2：成長型資料治理
 
-```bash
-python scripts/evaluate_source_overlap.py \
-  --source-url https://aihot.virxact.com/feed.xml \
-  --source-name "AI HOT" \
-  --site-id aihot_candidate \
-  --baseline data/archive.json \
-  --lookback-days 7 \
-  --output /tmp/aihot-overlap.json
-```
+- 觀察 `title-zh-cache.json` 成長率；目前尚無 prune 機制。
+- `archive.json` 已回到 GitHub 50MB 軟上限以下，維持觀察即可；只有在
+  積壓退場後仍持續成長時才重新升級為治理工作。
+- 任何清理都必須保留可重現性、來源時間窗與現行頁面需要的資料。
 
-The tool is advisory only. It does not change `update_news.py`, does not remove any items, and does not publish the report to GitHub Pages by default.
+## 維護準入條件
 
-## v0.4.0 — Explainable AI Relevance Scoring
+- 新預設來源：先做 overlap、訊噪比、時間戳與 Actions 可抓取性評估。
+- 抓取器或輸出 schema：加入聚焦測試並更新 `SOURCE_COVERAGE.md`。
+- 評分公式本體：依 repo 規則先取得同意並完成足量回測。
+- 部署或 secret：只記錄名稱與程序，不把值寫入 repo。
 
-Goal: move beyond a black-box boolean topic filter and make every AI relevance decision inspectable, testable, and tunable.
+## 已關閉或非目標
 
-Status: implemented as the default topic-filtering layer.
-
-### What ships
-
-- `scripts/ai_relevance.py`
-  - Scores each normalized record with `score_ai_relevance(record)`.
-  - Emits `is_ai_related`, `score`, `label`, `reason`, `signals`, and `noise`.
-  - Keeps `is_ai_related_record(record)` as a backward-compatible boolean wrapper.
-- `scripts/update_news.py`
-  - Uses the new scorer before writing the 24h Signal payload.
-  - Adds AI relevance fields to kept records so downstream UI and audits can explain why an item passed.
-  - Publishes the filter metadata as `topic_filter=ai_relevance_scoring_v0_4` and `ai_relevance_threshold=0.65`.
-- `scripts/audit_ai_relevance.py`
-  - Generates a Markdown audit report from `latest-24h.json` and `latest-24h-all.json`.
-  - Summarizes raw keep rate, label distribution, source keep rate, top kept samples, high-score dropped samples, and review-band candidates.
-- `tests/test_ai_relevance.py`
-  - Covers strong AI signals, broad AI terms with tech context, trusted AI-source priors, noise suppression, structured output fields, and boolean compatibility.
-
-### Default decision thresholds
-
-- `score >= 0.65`: keep in the AI Signal view.
-- `0.45 <= score < 0.65`: review band for future manual or LLM second-pass review.
-- `< 0.45`: keep only in all-mode/archive data.
-
-### Audit example
-
-```bash
-python scripts/update_news.py \
-  --output-dir /tmp/ai-news-radar-v0.4-preview \
-  --window-hours 24 \
-  --rss-opml feeds/follow.opml
-
-python scripts/audit_ai_relevance.py \
-  --data-dir /tmp/ai-news-radar-v0.4-preview \
-  --output reports/ai-relevance-audit/v0.4.0-YYYY-MM-DD.md
-```
-
-### Non-goals for v0.4.0
-
-- No LLM classifier in the default GitHub Actions path.
-- No full-body semantic reading; the default scorer remains title/source/url based.
-- No automatic source deletion based on keep rate.
-- No public page layout redesign.
-
-## v0.5.0 — Story Merge / Event Cluster
-
-Goal: move beyond per-item filtering and represent the same event as one story with multiple source references.
-
-### Planned direction
-
-- Keep the current filter-first behavior as the safe default.
-- Add a story clustering layer after source normalization and before page payload generation.
-- Preserve one primary title plus secondary source references, instead of randomly choosing one duplicated item.
-- Show repeated coverage as a trust signal: "多个来源报道了这件事".
-
-### Non-goals for v0.5.0
-
-- No LLM semantic clustering in the first pass.
-- No cross-language deep semantic matching unless the rule-based event merge proves insufficient.
-- No automatic deletion of sources based only on overlap score.
-- No change to the public page layout unless the story data model is stable.
+- 不恢復已因低訊噪比退場的廣域聚合來源。
+- 不把舊版 Reader Skill、上游宣傳頁或舊站點當成本專案產品面。
+- 不以大量新增來源解決重點訊號供給不足。
+- 不在公開預設中依賴登入、cookies、私人信箱或不穩定社群 bridge。

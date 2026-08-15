@@ -2,7 +2,8 @@
 
 ## Scope
 
-This repo powers the public AI News Radar static site and Scout Skill source workflow.
+This repo powers the public AI News Radar static site and its maintainer Skill
+source workflow.
 Use it for high-signal AI/tech news aggregation, OPML-based custom feeds,
 GitHub Actions refresh jobs, and GitHub Pages publishing.
 

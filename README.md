@@ -7,6 +7,8 @@
 [![直接使用](https://img.shields.io/badge/📡_直接使用-AI新聞儀表板-2d8f8f?style=for-the-badge)](https://seisyuku.github.io/ai-news-radar_zhtw/) 
 [![GitHub stars](https://img.shields.io/github/stars/seisyuku/ai-news-radar_zhtw?style=for-the-badge&logo=github&color=f5b942)](https://github.com/seisyuku/ai-news-radar_zhtw/stargazers)
 
+[English](README.en.md) · [維運文件](docs/OPERATIONS.md) · [來源治理](docs/SOURCE_COVERAGE.md)
+
 </div>
 
 ---

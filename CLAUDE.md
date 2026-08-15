@@ -9,9 +9,10 @@ Before changing this project, read:
 Do not commit private OPML files, API keys, cookies, browser exports, or `.env`
 values. Keep the public repo usable without secrets.
 
-The product direction is a two-layer AI news tool:
+The product direction is a two-layer AI business-intelligence tool:
 
-- Default layer: curated AI-focused view for ordinary AI enthusiasts.
+- Default layer: a Taiwan Traditional Chinese view focused on six material
+  AI-industry business-event categories.
 - Advanced layer: custom OPML/source configuration and source health details for maintainers.
 
 When adding sources, prefer official RSS/Atom feeds or OPML first. Add custom
