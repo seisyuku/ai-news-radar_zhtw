@@ -28,6 +28,18 @@
 - 變更 `assets/` 時同步遞增 `index.html` 的 `?v=` 與
   `tests/asset_manifest.json`。
 
+## P1：Model Release Radar
+
+- v1 已加入低權重模型查漏與分析觀察源：LLM Stats `latestModels`、
+  LLM Rumors RSS、RuntimeWire 聚焦 RSS。
+- 補齊模型版本識別，避免 Qwen、GLM、Kimi 等不同版本錯誤聚合。
+- v1 已在「模型」分頁加入七日 atomic 發布資料，保留真實 release date，
+  不把舊發布偽裝成 24 小時新消息。
+- 待辦：把 benchmark、價格/API、部署、商業採用與安全分析掛到同一
+  canonical model key，形成完整七日模型生命週期。
+- 待辦：完成至少 14 日來源健康與誤報回放後，再決定是否增加
+  `model_significance`；未完成回放前不修改全域評分公式。
+
 ## P2：成長型資料治理
 
 - 觀察 `title-zh-cache.json` 成長率；目前尚無 prune 機制。

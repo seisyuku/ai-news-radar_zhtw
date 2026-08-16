@@ -306,6 +306,69 @@ CURATED_AI_MEDIA_FEEDS: tuple[dict[str, Any], ...] = (
         "max_entries": 8,
     },
 )
+
+# Model Release Radar v1 watchlist sources. These stay outside the trusted
+# official/curated tiers: LLM Stats is an aggregator used only to discover
+# atomic model-release records, while LLM Rumors and RuntimeWire add secondary
+# technical/business analysis. Keeping separate site_ids makes each source's
+# health visible in source-status.json and prevents a healthy peer from hiding
+# a failed feed.
+LLM_STATS_AI_NEWS_URL = "https://llm-stats.com/ai-news"
+MODEL_RELEASE_RADAR_WINDOW_DAYS = 7
+LLM_STATS_MODEL_MAX_AGE_DAYS = 7
+LLM_STATS_MODEL_MAX_ENTRIES = 16
+LLM_STATS_MODEL_ORG_IDS: frozenset[str] = frozenset(
+    {
+        "amazon",
+        "anthropic",
+        "deepseek",
+        "google",
+        "meta",
+        "microsoft",
+        "minimax",
+        "mistral",
+        "moonshot",
+        "nvidia",
+        "openai",
+        "qwen",
+        "xai",
+        "zai-org",
+    }
+)
+MODEL_ANALYSIS_MAX_AGE_DAYS = 45
+LLM_RUMORS_FEED: dict[str, Any] = {
+    "title": "LLM Rumors",
+    "xml_url": "https://www.llmrumors.com/news/rss.xml",
+    "html_url": "https://www.llmrumors.com/",
+    "max_entries": 6,
+}
+RUNTIMEWIRE_MODEL_FEED: dict[str, Any] = {
+    "title": "RuntimeWire",
+    "xml_url": "https://runtimewire.com/rss",
+    "html_url": "https://runtimewire.com/",
+    # RuntimeWire is a broad AI/startup wire. Only keep titles with a named
+    # model/lab or an explicit model-economics/evaluation phrase; its automated
+    # Head-to-Head feed is intentionally not included in the public default.
+    "include_keywords": (
+        "openai,anthropic,claude,gpt,gemini,grok,xai,qwen,deepseek,glm,kimi,llama,mistral,"
+        "ai model,language model,open-weight,open weight,inference,benchmark,token pricing,"
+        "model pricing"
+    ),
+    "strict_title_filter": True,
+    "runtimewire_model_filter": True,
+    "max_entries": 10,
+}
+RUNTIMEWIRE_VERSIONED_MODEL_RE = re.compile(
+    r"(?i)(?<![a-z0-9])(?:gpt|grok|qwen|glm|gemini|claude|llama|kimi|mistral)[-\s]?[a-z]*\d"
+)
+RUNTIMEWIRE_MODEL_VENDOR_TERMS: tuple[str, ...] = (
+    "openai", "anthropic", "google", "deepmind", "xai", "deepseek",
+    "qwen", "alibaba", "moonshot", "kimi", "meta", "mistral",
+)
+RUNTIMEWIRE_MODEL_CONTEXT_TERMS: tuple[str, ...] = (
+    "model", "models", "benchmark", "inference", "open-weight", "open weight",
+    "token", "api", "pricing", "price", "context window",
+)
 TW_MEDIA_MAX_AGE_DAYS = 5
 # Taiwan zh-TW tech media, own site_id/source tier so they are tracked
 # separately from the Simplified-Chinese-leaning CURATED_AI_MEDIA_FEEDS group.
@@ -530,6 +593,12 @@ PUBLIC_RAW_META_FIELDS: tuple[str, ...] = (
     "creator_metrics",
     "search_surface",
     "summary",
+    "model_id",
+    "model_name",
+    "model_vendor",
+    "model_vendor_id",
+    "release_date",
+    "discovery_source",
 )
 
 
@@ -1168,7 +1237,11 @@ MODEL_RELEASE_CONTEXT_TERMS: tuple[str, ...] = (
 # separate. Splitting on semicolons too keeps the co-occurrence requirement
 # meaningful for these multi-clause titles without affecting ordinary
 # single-clause headlines.
-_MODEL_RELEASE_CLAUSE_SPLIT_RE = re.compile(r"[。！？；;.!?\n]+")
+# A period between digits is a model-version decimal (Qwen3.8, Grok 4.6),
+# not a sentence boundary. Splitting there separated the lab/release verb from
+# the trailing "model" context and silently dropped exactly the releases this
+# classifier is meant to promote.
+_MODEL_RELEASE_CLAUSE_SPLIT_RE = re.compile(r"[。！？；;!?\n]+|(?<!\d)\.(?!\d)")
 
 
 def _model_release_title_cooccurs(title: str) -> bool:
@@ -2510,6 +2583,208 @@ def fetch_curated_ai_media(session: requests.Session, now: datetime) -> list[Raw
     return out
 
 
+def extract_llm_stats_latest_models(page_html: str, now: datetime) -> list[RawItem]:
+    """Extract LLM Stats' server-rendered latestModels discovery payload.
+
+    The page is a Next.js document and currently embeds the payload inside an
+    escaped React Server Component string. Supporting both escaped and plain
+    JSON keeps the parser testable and tolerant of a future rendering change.
+    LLM Stats remains a watchlist discovery source; every emitted URL points to
+    the source's per-model page instead of pretending to be an official lab URL.
+    """
+    match = re.search(
+        r'\\?"latestModels\\?"\s*:\s*(\[\{.*?\}\])',
+        page_html or "",
+        flags=re.DOTALL,
+    )
+    if not match:
+        raise ValueError("Cannot locate LLM Stats latestModels payload")
+
+    payload = match.group(1).replace('\\"', '"').replace("\\/", "/")
+    try:
+        models = json.loads(payload)
+    except json.JSONDecodeError as exc:
+        raise ValueError("Invalid LLM Stats latestModels payload") from exc
+    if not isinstance(models, list):
+        raise ValueError("LLM Stats latestModels payload is not a list")
+
+    cutoff = now - timedelta(days=LLM_STATS_MODEL_MAX_AGE_DAYS)
+    out: list[RawItem] = []
+    seen_model_ids: set[str] = set()
+    for model in models:
+        if not isinstance(model, dict):
+            continue
+        model_id = str(model.get("model_id") or "").strip().lower()
+        name = str(model.get("name") or "").strip()
+        organization = str(model.get("organization") or "").strip()
+        organization_id = str(model.get("organization_id") or "").strip().lower()
+        published = parse_date_any(model.get("release_date"), now)
+        if (
+            not model_id
+            or not re.fullmatch(r"[a-z0-9._-]{2,120}", model_id)
+            or model_id in seen_model_ids
+            or not name
+            or not organization
+            or organization_id not in LLM_STATS_MODEL_ORG_IDS
+            or not published
+            or published < cutoff
+            or published > now + timedelta(days=1)
+        ):
+            continue
+        seen_model_ids.add(model_id)
+        out.append(
+            RawItem(
+                site_id="llm_stats_models",
+                site_name="LLM Stats 模型查漏",
+                source="LLM Stats Model Releases",
+                title=f"{organization} 發布 {name} 模型",
+                url=f"https://llm-stats.com/models/{model_id}",
+                published_at=published,
+                meta={
+                    "model_id": model_id,
+                    "model_name": name,
+                    "model_vendor": organization,
+                    "model_vendor_id": organization_id,
+                    "release_date": iso(published),
+                    "discovery_source": "llm_stats_latest_models",
+                },
+            )
+        )
+        if len(out) >= LLM_STATS_MODEL_MAX_ENTRIES:
+            break
+
+    if not out:
+        raise ValueError("No recent allowlisted LLM Stats model releases parsed")
+    return out
+
+
+def fetch_llm_stats_model_releases(session: requests.Session, now: datetime) -> list[RawItem]:
+    response = session.get(
+        LLM_STATS_AI_NEWS_URL,
+        timeout=20,
+        headers={
+            "User-Agent": BROWSER_UA,
+            "Accept-Language": "en-US,en;q=0.9",
+            "Accept": "text/html,application/xhtml+xml",
+        },
+    )
+    response.raise_for_status()
+    return extract_llm_stats_latest_models(response.text, now)
+
+
+def runtimewire_model_title_allowed(title: str) -> bool:
+    lowered = str(title or "").lower()
+    if RUNTIMEWIRE_VERSIONED_MODEL_RE.search(lowered):
+        return True
+    return (
+        any(term in lowered for term in RUNTIMEWIRE_MODEL_VENDOR_TERMS)
+        and any(term in lowered for term in RUNTIMEWIRE_MODEL_CONTEXT_TERMS)
+    )
+
+
+def parse_model_analysis_feed_items(
+    feed_content: bytes,
+    feed: dict[str, Any],
+    now: datetime,
+    *,
+    site_id: str,
+    site_name: str,
+) -> list[RawItem]:
+    """Parse a low-weight model-analysis RSS watchlist source."""
+    if feedparser is not None:
+        entries = list(feedparser.parse(feed_content).entries)
+    else:
+        entries = parse_feed_entries_via_xml(feed_content)
+
+    out: list[RawItem] = []
+    seen_urls: set[str] = set()
+    max_entries = max(1, int(feed.get("max_entries") or 6))
+    feed_url = str(feed["xml_url"])
+    feed_title = str(feed["title"])
+    for entry in entries:
+        title, link, published = feed_entry_title_link_published(entry, now)
+        if not title or not link or not published:
+            continue
+        if published < now - timedelta(days=MODEL_ANALYSIS_MAX_AGE_DAYS):
+            continue
+        if not curated_feed_entry_allowed(feed, title, link):
+            continue
+        if feed.get("runtimewire_model_filter") and not runtimewire_model_title_allowed(title):
+            continue
+        normalized_url = normalize_url(link)
+        if normalized_url in seen_urls:
+            continue
+        seen_urls.add(normalized_url)
+        out.append(
+            RawItem(
+                site_id=site_id,
+                site_name=site_name,
+                source=feed_title,
+                title=title,
+                url=link,
+                published_at=published,
+                meta={
+                    "feed_url": feed_url,
+                    "feed_home": feed.get("html_url") or "",
+                    "strict_title_filter": bool(feed.get("strict_title_filter")),
+                },
+            )
+        )
+        if len(out) >= max_entries:
+            break
+
+    if not out:
+        raise ValueError(f"No recent {feed_title} model-analysis items parsed")
+    return out
+
+
+def fetch_model_analysis_feed(
+    session: requests.Session,
+    now: datetime,
+    *,
+    feed: dict[str, Any],
+    site_id: str,
+    site_name: str,
+) -> list[RawItem]:
+    response = session.get(
+        str(feed["xml_url"]),
+        timeout=20,
+        headers={
+            "User-Agent": BROWSER_UA,
+            "Accept-Language": "en-US,en;q=0.9",
+            "Accept": "application/rss+xml, application/atom+xml, application/xml, text/xml, */*",
+        },
+    )
+    response.raise_for_status()
+    return parse_model_analysis_feed_items(
+        response.content,
+        feed,
+        now,
+        site_id=site_id,
+        site_name=site_name,
+    )
+
+
+def fetch_llm_rumors(session: requests.Session, now: datetime) -> list[RawItem]:
+    return fetch_model_analysis_feed(
+        session,
+        now,
+        feed=LLM_RUMORS_FEED,
+        site_id="llm_rumors",
+        site_name="LLM Rumors 模型分析",
+    )
+
+
+def fetch_runtimewire_models(session: requests.Session, now: datetime) -> list[RawItem]:
+    return fetch_model_analysis_feed(
+        session,
+        now,
+        feed=RUNTIMEWIRE_MODEL_FEED,
+        site_id="runtimewire",
+        site_name="RuntimeWire 模型媒體",
+    )
+
+
 def fetch_official_ai_updates(session: requests.Session, now: datetime) -> list[RawItem]:
     out: list[RawItem] = []
 
@@ -3334,6 +3609,9 @@ def collect_all(session: requests.Session, now: datetime) -> tuple[list[RawItem]
     tasks = [
         ("official_ai", "Official AI Updates", fetch_official_ai_updates),
         ("curated_media", "精選媒體", fetch_curated_ai_media),
+        ("llm_stats_models", "LLM Stats 模型查漏", fetch_llm_stats_model_releases),
+        ("llm_rumors", "LLM Rumors 模型分析", fetch_llm_rumors),
+        ("runtimewire", "RuntimeWire 模型媒體", fetch_runtimewire_models),
         ("aibase", "AIbase", fetch_aibase),
         ("tw_media", "TW Media", fetch_tw_media),
         ("kr36_ai", "36Kr AI (Watchlist)", fetch_kr36_ai),
@@ -3917,6 +4195,9 @@ SOURCE_TIER_BY_SITE: dict[str, tuple[str, str, int]] = {
     "tw_media": ("tw_media", "台灣繁中媒體", 2),
     "kr36_ai": ("watchlist", "觀察名單源", 6),
     "juya_daily": ("watchlist", "觀察名單源", 6),
+    "llm_stats_models": ("watchlist", "模型查漏源", 6),
+    "llm_rumors": ("watchlist", "模型分析觀察源", 6),
+    "runtimewire": ("watchlist", "模型媒體觀察源", 6),
 }
 
 SOURCE_TIER_IMPORTANCE = {
@@ -3975,6 +4256,12 @@ VENDOR_ALIASES = {
     "mistral": "mistral",
     "xai": "xai",
     "grok": "xai",
+    "alibaba": "qwen",
+    "qwen": "qwen",
+    "zhipu": "zhipu",
+    "glm": "zhipu",
+    "moonshot": "moonshot",
+    "kimi": "moonshot",
 }
 
 MODEL_RE = re.compile(
@@ -3985,7 +4272,10 @@ MODEL_RE = re.compile(
     r"llama[-\s]?\d+(?:\.\d+)?|"
     r"deepseek[-\s]?[a-z0-9.]+|"
     r"grok[-\s]?\d+(?:\.\d+)?|"
-    r"mistral[-\s]?[a-z0-9.]+"
+    r"mistral[-\s]?[a-z0-9.]+|"
+    r"qwen[-\s]?\d+(?:\.\d+)*(?:-[a-z0-9.]+)*|"
+    r"glm[-\s]?\d+(?:\.\d+)*(?:-[a-z0-9.]+)*|"
+    r"kimi[-\s]?[a-z]?\d+(?:\.\d+)*(?:-[a-z0-9.]+)*"
     r")\b"
 )
 
@@ -7036,6 +7326,54 @@ def build_creator_hot_items(
     return deduped
 
 
+def build_model_releases_7d_items(
+    archive: dict[str, dict[str, Any]],
+    now: datetime,
+) -> list[dict[str, Any]]:
+    """Build the dedicated seven-day atomic model-release lane.
+
+    v1 intentionally uses only LLM Stats' allowlisted discovery records. News
+    and analysis sources remain supporting stories in the normal 24-hour pool;
+    they are not allowed to create a second canonical release card.
+    """
+    cutoff = now - timedelta(days=MODEL_RELEASE_RADAR_WINDOW_DAYS)
+    items: list[dict[str, Any]] = []
+    seen_models: set[str] = set()
+    for record in archive.values():
+        if str(record.get("site_id") or "") != "llm_stats_models":
+            continue
+        published = event_time(record)
+        model_id = str(record.get("model_id") or "").strip().lower()
+        if not published or published < cutoff or published > now or not model_id or model_id in seen_models:
+            continue
+        normalized = dict(record)
+        normalized["title"] = to_zh_hant(maybe_fix_mojibake(str(normalized.get("title") or "")))
+        normalized["source"] = normalize_source_for_display(
+            str(normalized.get("site_id") or ""),
+            str(normalized.get("source") or ""),
+            str(normalized.get("url") or ""),
+        )
+        normalized["site_name"] = apply_site_name_alias(str(normalized.get("site_name") or ""))
+        normalized["business_events"] = business_event_score(normalized)
+        if "model_release" not in normalized["business_events"]:
+            continue
+        normalized = add_ai_relevance_fields(normalized)
+        if not normalized.get("ai_is_related"):
+            continue
+        normalized = add_source_tier_fields(normalized)
+        seen_models.add(model_id)
+        items.append(normalized)
+
+    items.sort(
+        key=lambda item: (
+            event_time(item) or datetime.min.replace(tzinfo=UTC),
+            str(item.get("model_id") or ""),
+        ),
+        reverse=True,
+    )
+    return items[:LLM_STATS_MODEL_MAX_ENTRIES]
+
+
 def build_latest_payloads(latest_payload: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]:
     """Split initial AI payload from bulky all-mode lists for lazy browser loading."""
     slim_payload = dict(latest_payload)
@@ -7337,6 +7675,7 @@ def main() -> int:
         title_cache,
         max_new_translations=max(0, args.translate_max_new),
     )
+    model_releases_7d = build_model_releases_7d_items(archive, now)
     latest_items_ai_dedup = suppress_near_duplicate_items(dedupe_items_by_title_url(latest_items, random_pick=False))
     latest_items_all_dedup = dedupe_items_by_title_url(latest_items_all, random_pick=True)
     stories, merge_events = merge_story_items(latest_items_ai_dedup, now=now, window_hours=args.window_hours)
@@ -7403,6 +7742,8 @@ def main() -> int:
         "site_stats": sorted(site_stat.values(), key=lambda x: x["count"], reverse=True),
         "items": latest_items_ai_dedup,
         "items_ai": latest_items_ai_dedup,
+        "model_release_window_days": MODEL_RELEASE_RADAR_WINDOW_DAYS,
+        "model_releases_7d": model_releases_7d,
         "items_all_raw": latest_items_all,
         "items_all": latest_items_all_dedup,
     }

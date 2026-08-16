@@ -1,4 +1,4 @@
-# AI 商業情報儀表板 — 交接摘要（截至 2026-08-13）
+# AI 商業情報儀表板 — 交接摘要（截至 2026-08-16）
 
 ## 專案身份
 - Fork：seisyuku/ai-news-radar_zhtw（上游 LearnPrompt/ai-news-radar，MIT）
@@ -115,6 +115,17 @@
     平手退化風險，若不一併套用，使用者切換檢視即可繞過上限、
     aibase 集中問題原封不動重現。此擴大已於驗收時追認為正確範圍，
     非後續才發現的遺漏。
+
+16. **8/16 Model Release Radar v1**：新增三個獨立、可觀測且維持
+    `watchlist` tier 的來源：LLM Stats `latestModels` 只負責近期主要實驗室
+    模型的 atomic 查漏；LLM Rumors RSS 補長篇策略分析；RuntimeWire RSS
+    以嚴格標題篩選補模型、推理、價格與 benchmark 後續，未啟用其高量
+    Head-to-Head feed。同步修正模型發布分類器把版本小數點誤當句號的
+    bug（Qwen3.8/Grok 4.6/Gemini 3.7 先前因此漏徽章），並擴充
+    Qwen/GLM/Kimi 的模型版本識別，避免跨版本錯誤聚合；「模型」分頁
+    額外合併七日 atomic 發布資料並以發布事件優先，不污染其他分頁的
+    24 小時窗口。未修改全域評分公式；後續分析聚合與
+    `model_significance` 仍列 Roadmap 待辦。
 
 ## 部署
 

@@ -115,6 +115,36 @@ baseline, then let the aggregator layer add breadth.
   community signal lane so it can appear under the Community tab without
   occupying a standalone homepage block.
 
+## Model Release Radar v1 Watchlists (2026-08-16)
+
+These sources address a specific blind spot: model releases and their follow-up
+technical/business analysis. They are intentionally assigned the low-weight
+`watchlist` tier and do not change the global importance formula.
+Atomic discovery records remain visible for seven days in the「模型」section;
+the rest of the dashboard retains its 24-hour window.
+
+- **LLM Stats model discovery** reads the server-rendered `latestModels` payload
+  from `https://llm-stats.com/ai-news`. It emits one atomic item per recent
+  allowlisted lab model and links to that model's LLM Stats page. It is a
+  discovery/cross-check source, not an official lab authority; the site's broad
+  aggregated news stream is not ingested. The initial live probe contained the
+  previously missed Qwen3.8-27B and Grok 4.6 releases.
+- **LLM Rumors** reads the public `https://www.llmrumors.com/news/rss.xml` feed.
+  It adds low-frequency, long-form model strategy and deployment analysis. Its
+  seven-day overlap sample contained zero recent items, so it remains a
+  watchlist until cadence and unique coverage can be observed over time.
+- **RuntimeWire** reads `https://runtimewire.com/rss` with a strict title filter
+  for named model labs, model economics, inference, pricing, and benchmarks.
+  The broad feed's seven-day intake had 50 items, 0 hard duplicates, 2 possible
+  duplicates, and 48 unique items against the live archive, but unrelated
+  startup coverage was visible; therefore only the focused subset is enabled
+  at watchlist tier. The high-volume automated Head-to-Head feed is not enabled.
+
+Intake evidence is stored in
+`reports/source-intake/llm-rumors-overlap.json` and
+`reports/source-intake/runtimewire-overlap.json`. Promotion above watchlist
+requires observed source health, AI signal density, and false-promotion review.
+
 ## Disabled Default Sources
 
 - **X API direct recent search**: supported as an advanced, secret-backed adapter

@@ -24,6 +24,11 @@ AI_KEYWORDS = [
     "claude",
     "gemini",
     "deepseek",
+    "qwen",
+    "grok",
+    "xai",
+    "glm",
+    "kimi",
     "openai",
     "anthropic",
     "copilot",
@@ -287,10 +292,10 @@ TOPHUB_BLOCK_KEYWORDS = [
 ]
 
 EN_SIGNAL_RE = re.compile(
-    r"(?i)(?<![a-z0-9])(ai|aigc|llm|gpt|openai|anthropic|deepseek|gemini|claude|robot|robotics|embodied|autonomous|machine learning|artificial intelligence|transformer|diffusion|agent)(?![a-z0-9])"
+    r"(?i)(?<![a-z0-9])(ai|aigc|llm|gpt|openai|anthropic|deepseek|qwen|grok|xai|glm|kimi|gemini|claude|robot|robotics|embodied|autonomous|machine learning|artificial intelligence|transformer|diffusion|agent)(?![a-z0-9])"
 )
 MEANINGFUL_EN_SIGNAL_RE = re.compile(
-    r"(?i)(?<![a-z0-9])(ai|aigc|llm|gpt|openai|anthropic|deepseek|gemini|claude|robot|robotics|embodied|autonomous|machine learning|artificial intelligence|transformer|diffusion)(?![a-z0-9])"
+    r"(?i)(?<![a-z0-9])(ai|aigc|llm|gpt|openai|anthropic|deepseek|qwen|grok|xai|glm|kimi|gemini|claude|robot|robotics|embodied|autonomous|machine learning|artificial intelligence|transformer|diffusion)(?![a-z0-9])"
 )
 BROAD_AI_TERMS = {"agent", "模型", "推理"}
 AI_RELEVANCE_THRESHOLD = 0.65
@@ -308,6 +313,9 @@ SOURCE_PRIORS = {
     "tw_media": 0.15,
     "kr36_ai": 0.1,
     "juya_daily": 0.1,
+    "llm_stats_models": 0.1,
+    "llm_rumors": 0.1,
+    "runtimewire": 0.1,
 }
 AI_DEFAULT_SOURCES = {"aibase", "aihot", "aihubtoday"}
 CURATED_MEDIA_TRUSTED_SOURCE_KEYWORDS = [

@@ -176,6 +176,15 @@ class BusinessEventScoreTests(unittest.TestCase):
         item = {"title": "Thinking Machines Lab釋出首款開放權重AI模型Inkling", "summary": ""}
         self.assertEqual(business_event_score(item), ["model_release"])
 
+    def test_decimal_model_versions_do_not_split_release_clause(self):
+        for title in (
+            "Alibaba Cloud / Qwen Team releases Qwen3.8-27B model",
+            "xAI releases Grok 4.6 model",
+            "Google releases Gemini 3.7 Flash model",
+        ):
+            with self.subTest(title=title):
+                self.assertEqual(business_event_score({"title": title, "summary": ""}), ["model_release"])
+
     def test_simplified_chinese_model_release_via_s2t_fabu_variant(self):
         # OpenCC s2t converts Simplified "发布" to "發佈" (not "發布") - this
         # pins that both Traditional spellings are matched.

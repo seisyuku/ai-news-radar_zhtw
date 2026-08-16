@@ -8,6 +8,7 @@ const APP_SCRIPT_EL = document.currentScript;
 
 const state = {
   itemsAi: [],
+  modelReleases7d: [],
   itemsAll: [],
   itemsAllRaw: [],
   statsAi: [],
@@ -111,6 +112,9 @@ const SOURCE_KINDS = {
   tw_media: { label: "台灣媒體", tone: "regional" },
   kr36_ai: { label: "36Kr", tone: "watchlist" },
   juya_daily: { label: "橘鴉日報", tone: "watchlist" },
+  llm_stats_models: { label: "模型查漏", tone: "watchlist" },
+  llm_rumors: { label: "模型分析", tone: "watchlist" },
+  runtimewire: { label: "模型媒體", tone: "watchlist" },
 };
 
 const SECTION_DEFS = [
@@ -567,7 +571,14 @@ function itemSourceType(item) {
   const siteId = item.site_id || "";
   const tier = item.source_tier || "";
   if (siteId === "official_ai" || tier === "official") return "official";
-  if (siteId === "curated_media" || siteId === "aibreakfast" || siteId === "aihot") return "media";
+  if (
+    siteId === "curated_media"
+    || siteId === "aibreakfast"
+    || siteId === "aihot"
+    || siteId === "llm_stats_models"
+    || siteId === "llm_rumors"
+    || siteId === "runtimewire"
+  ) return "media";
   if (siteId === "opmlrss" || tier === "user_opml") return "rss";
   if (siteId === "waytoagi" || siteId === "followbuilders" || siteId === "hackernews" || siteId === "zeli" || siteId === "aibase") return "community";
   if (siteId === "socialdata_x" || siteId === "xapi" || siteId === "agentmail") return "advanced";
@@ -595,7 +606,7 @@ function itemMatchesSignalLevel(item, multiSourceKeys = new Set()) {
 }
 
 function sectionStats(sectionId) {
-  const items = sectionItems(modeItems(), sectionId);
+  const items = sectionItems(modeItems(sectionId), sectionId);
   const highCount = items.filter((item) => isHighPriorityItem(item)).length;
   const sourceSet = new Set(items.map((item) => item.source || item.site_name || item.site_id).filter(Boolean));
   return { items, count: items.length, highCount, sourceCount: sourceSet.size };
@@ -645,12 +656,15 @@ function renderSectionSummary(filteredItems = null) {
   if (!sectionSummaryEl) return;
   const section = SECTION_BY_ID[state.activeSection] || SECTION_BY_ID.hot;
   const items = filteredItems || getFilteredItems();
-  const highCount = items.filter((item) => isHighPriorityItem(item)).length;
+  const highCount = items.filter((item) => (
+    isHighPriorityItem(item) || (section.id === "models" && itemHasModelRelease(item))
+  )).length;
   const sources = new Set(items.map((item) => item.source || item.site_name || item.site_id).filter(Boolean));
   const modeText = state.mode === "selected"
     ? "高優先順序精選"
     : (state.mode === "all" ? (state.allDedup ? "全量去重" : "全量原始") : "全部 AI");
-  sectionSummaryEl.textContent = `過去 24 小時 · ${fmtNumber(items.length)} 條${section.id === "hot" ? "" : ` ${section.label}`}訊號 · ${fmtNumber(highCount)} 條高優先順序 · ${fmtNumber(sources.size)} 個來源 · ${modeText}`;
+  const timeWindow = section.id === "models" ? "過去 7 天" : "過去 24 小時";
+  sectionSummaryEl.textContent = `${timeWindow} · ${fmtNumber(items.length)} 條${section.id === "hot" ? "" : ` ${section.label}`}訊號 · ${fmtNumber(highCount)} 條高優先順序 · ${fmtNumber(sources.size)} 個來源 · ${modeText}`;
 }
 
 function siteRatioText(siteStats) {
@@ -792,6 +806,13 @@ function sortItemsForList(items) {
       return itemPriorityScore(b) - itemPriorityScore(a) || timelineMs(b) - timelineMs(a);
     });
   }
+  if (state.activeSection === "models") {
+    return sorted.sort((a, b) => {
+      const byRelease = Number(itemHasModelRelease(b)) - Number(itemHasModelRelease(a));
+      if (byRelease !== 0) return byRelease;
+      return itemPriorityScore(b) - itemPriorityScore(a) || timelineMs(b) - timelineMs(a);
+    });
+  }
   return sorted.sort((a, b) => itemPriorityScore(b) - itemPriorityScore(a) || timelineMs(b) - timelineMs(a));
 }
 
@@ -799,10 +820,29 @@ function effectiveAllItems() {
   return safeItems(state.allDedup ? state.itemsAll : state.itemsAllRaw);
 }
 
-function modeItems() {
+function itemHasModelRelease(item) {
+  return Array.isArray(item && item.business_events) && item.business_events.includes("model_release");
+}
+
+function mergeWeeklyModelItems(baseItems, weeklyItems, activeSection) {
+  const base = Array.isArray(baseItems) ? baseItems : [];
+  if (activeSection !== "models") return base;
+  const seen = new Set(base.map((item) => item.id || item.url || `${item.site_id || ""}::${item.title || ""}`));
+  const merged = [...base];
+  (Array.isArray(weeklyItems) ? weeklyItems : []).forEach((item) => {
+    const key = item.id || item.url || `${item.site_id || ""}::${item.title || ""}`;
+    if (seen.has(key)) return;
+    seen.add(key);
+    merged.push(item);
+  });
+  return merged;
+}
+
+function modeItems(sectionId = state.activeSection) {
   if (state.mode === "all") return effectiveAllItems();
   const aiItems = safeItems(state.itemsAi);
-  return state.mode === "selected" ? aiItems.filter((item) => isHighPriorityItem(item)) : aiItems;
+  const base = state.mode === "selected" ? aiItems.filter((item) => isHighPriorityItem(item)) : aiItems;
+  return mergeWeeklyModelItems(base, state.modelReleases7d, sectionId);
 }
 
 function sectionItems(items = modeItems(), sectionId = state.activeSection) {
@@ -3181,6 +3221,7 @@ async function init() {
     const payload = newsResult.value;
     const loadedStoriesDataUrl = state.storiesDataUrl;
     state.itemsAi = payload.items_ai || payload.items || [];
+    state.modelReleases7d = payload.model_releases_7d || [];
     state.itemsAllRaw = payload.items_all_raw || payload.items_all || [];
     state.itemsAll = payload.items_all || [];
     state.statsAi = payload.site_stats || [];
