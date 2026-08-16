@@ -2299,30 +2299,8 @@ function signalSummaryText(row) {
   return `${label}方向的新近更新，已進入 24 小時 AI 強相關池。`;
 }
 
-function whyImportantText(row) {
-  const item = row.item || {};
-  const story = row.story || {};
-  const sections = itemSections(item);
-  const reasons = Array.isArray(story.reasons) ? story.reasons : [];
-  if (reasons.includes("official_source") && reasons.includes("multi_source")) {
-    return "一手來源和聚合來源同時出現，說明它既有事實起點，也正在被外部資訊流放大。";
-  }
-  if (sections.has("models")) {
-    return "模型能力或訓練/推理方式變化會影響後續產品路線、開發者選型和評測基準。";
-  }
-  if (sections.has("devtools")) {
-    return "開發者工具和基礎設施變化通常會很快傳導到團隊工作流、成本和可實現能力。";
-  }
-  if (sections.has("industry")) {
-    return "公司、監管、晶片或資本動態會改變 AI 生態的資源分配和落地節奏。";
-  }
-  if (sections.has("research")) {
-    return "研究訊號可能還沒產品化，但會提示下一輪模型、資料或方法的技術方向。";
-  }
-  if (sections.has("community")) {
-    return "社群集中討論代表開發者和早期使用者正在形成共識，適合作為趨勢驗證入口。";
-  }
-  return "它在當前 24 小時視窗裡同時具備相關度、新鮮度和來源權重，值得先讀原文確認。";
+function newsSummaryText(row) {
+  return String(row?.story?.news_summary || "").trim();
 }
 
 function buildTopStoryCard(row, rank) {
@@ -2331,7 +2309,8 @@ function buildTopStoryCard(row, rank) {
   // when there's neither real editorial copy nor other sources corroborating
   // it to fill that space. Fall back to the secondary spec in that case even
   // at rank 1; #2/#3 always use secondary regardless.
-  const hasEditorialSummary = Boolean(itemSummaryText(item) || itemSummaryText(row.story?.primary_item || {}));
+  const generatedSummary = newsSummaryText(row);
+  const hasEditorialSummary = Boolean(itemSummaryText(item) || itemSummaryText(row.story?.primary_item || {}) || generatedSummary);
   const hasCompanionSources = row.sourceCount > 1 || row.mergedCount > 1;
   const isLead = rank === 1 && (hasEditorialSummary || hasCompanionSources);
   const link = document.createElement("a");
@@ -2374,10 +2353,11 @@ function buildTopStoryCard(row, rank) {
 
   const why = document.createElement("div");
   why.className = "top-story-why";
+  why.hidden = !generatedSummary;
   const whyLabel = document.createElement("span");
-  whyLabel.textContent = "為什麼重要";
+  whyLabel.textContent = "AI 新聞摘要";
   const whyText = document.createElement("p");
-  whyText.textContent = whyImportantText(row);
+  whyText.textContent = generatedSummary;
   why.append(whyLabel, whyText);
 
   const tags = buildIntelTagRow(item, row);

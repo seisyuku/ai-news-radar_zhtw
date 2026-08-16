@@ -1,4 +1,4 @@
-# AI 商業情報儀表板 — 交接摘要（截至 2026-08-16）
+# AI 商業情報儀表板 — 交接摘要（截至 2026-08-17）
 
 ## 專案身份
 - Fork：seisyuku/ai-news-radar_zhtw（上游 LearnPrompt/ai-news-radar，MIT）
@@ -126,6 +126,26 @@
     額外合併七日 atomic 發布資料並以發布事件優先，不污染其他分頁的
     24 小時窗口。未修改全域評分公式；後續分析聚合與
     `model_significance` 仍列 Roadmap 待辦。
+17. **8/17 Groq 新聞短摘要 v1**：RSS/Atom fetcher 開始保留並清理來源
+    `summary`/`description`；排程在設定 `GROQ_API_KEY` 時，以
+    `qwen/qwen3.6-27b` 對有內容依據的高優先 story 產生 30–120 字繁中
+    摘要，單輪最多新增 6 則，並以 `data/ai-summary-cache.json` 內容雜湊
+    快取避免重複呼叫。標題-only 不送出；provider 或輸出驗證失敗不阻斷
+    更新。前端「為什麼重要」固定模板已移除，改顯示「AI 新聞摘要」；
+    沒有合格摘要時整塊隱藏。未修改全域評分公式。
+18. **8/17 Gemini 備選候選裁決（未啟用）**：`gemini-3.5-flash-lite`
+    在新 project 已通過 model discovery、plain `generateContent` 與
+    structured JSON；七個合成案例為 5 generated pass、1
+    `insufficient_context`、1 因缺少精確詞「不可信」未過 deterministic
+    gate，但未重現提示注入指令或疑似 key。歷程另確認舊 project 的
+    `429 RATE_LIMIT_EXCEEDED` 與 `gemini-2.5-flash-lite` 對新使用者的
+    `404 NOT_FOUND` 是不同失敗原因。裁決為
+    `qualified backup candidate, disabled by default`：Groq 仍是 primary，
+    workflow/production 尚未讀 `GEMINI_API_KEY`、未做 fallback、未授權
+    真實 feed 內容送往 Gemini。啟用前必須完成三時段穩定性、同案比較、
+    trigger matrix、防雙重計費、provider+model cache、成本/狀態護欄與
+    tier 資料政策裁決；完整準入條件見 `docs/OPERATIONS.md`，sanitized
+    證據見 `reports/provider-evals/gemini-3.5-flash-lite-20260817.md`。
 
 ## 部署
 

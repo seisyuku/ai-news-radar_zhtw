@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from email.utils import parseaddr
+import html
 import hashlib
 import json
 import math
@@ -32,6 +33,21 @@ try:
     from scripts.ai_relevance import add_ai_relevance_fields, score_ai_relevance
 except ModuleNotFoundError:  # pragma: no cover - direct `python scripts/update_news.py`
     from ai_relevance import add_ai_relevance_fields, score_ai_relevance
+
+try:
+    from scripts.news_summaries import (
+        DEFAULT_GROQ_MODEL,
+        DEFAULT_MAX_NEW_SUMMARIES,
+        load_summary_cache,
+        summarize_stories,
+    )
+except ModuleNotFoundError:  # pragma: no cover - direct `python scripts/update_news.py`
+    from news_summaries import (
+        DEFAULT_GROQ_MODEL,
+        DEFAULT_MAX_NEW_SUMMARIES,
+        load_summary_cache,
+        summarize_stories,
+    )
 
 try:
     import feedparser
@@ -1345,13 +1361,47 @@ def parse_feed_entries_via_xml(feed_xml: bytes) -> list[dict[str, Any]]:
                 or node.findtext("updated")
                 or node.findtext("{*}updated")
             )
+            summary = (
+                node.findtext("description")
+                or node.findtext("{*}description")
+                or node.findtext("summary")
+                or node.findtext("{*}summary")
+                or node.findtext("content")
+                or node.findtext("{*}content")
+                or node.findtext("{*}encoded")
+                or ""
+            )
             if title and link:
                 key = (title, link)
                 if key in seen:
                     continue
                 seen.add(key)
-                out.append({"title": title, "link": link, "published": published})
+                out.append({"title": title, "link": link, "published": published, "summary": summary})
     return out
+
+
+def feed_entry_summary(entry: dict[str, Any], max_chars: int = 1600) -> str:
+    """Extract plain publisher-provided RSS/Atom text for safe downstream use."""
+
+    candidates: list[Any] = [entry.get("summary"), entry.get("description")]
+    content = entry.get("content")
+    if isinstance(content, list):
+        candidates.extend(part.get("value") for part in content if isinstance(part, dict))
+    elif content:
+        candidates.append(content)
+
+    raw = next((str(value) for value in candidates if str(value or "").strip()), "")
+    if not raw:
+        return ""
+    if re.search(r"<[/!?A-Za-z]", raw):
+        soup = BeautifulSoup(raw, "html.parser")
+        for unsafe in soup.select("script, style, iframe, object"):
+            unsafe.decompose()
+        plain = soup.get_text(" ", strip=True)
+    else:
+        plain = html.unescape(raw)
+    clean = re.sub(r"\s+", " ", plain).strip()
+    return maybe_fix_mojibake(clean[:max_chars].rstrip())
 
 
 def make_item_id(site_id: str, source: str, title: str, url: str) -> str:
@@ -2456,6 +2506,7 @@ def fetch_feed_as_official_items(
                 meta={
                     "feed_url": feed_url,
                     "feed_home": feed.get("html_url") or "",
+                    "summary": feed_entry_summary(entry),
                 },
             )
         )
@@ -2549,6 +2600,7 @@ def parse_curated_ai_media_feed_items(
                     "feed_home": feed.get("html_url") or "",
                     "research_only": bool(feed.get("research_only")),
                     "strict_title_filter": bool(feed.get("strict_title_filter")),
+                    "summary": feed_entry_summary(entry),
                 },
             )
         )
@@ -2727,6 +2779,7 @@ def parse_model_analysis_feed_items(
                     "feed_url": feed_url,
                     "feed_home": feed.get("html_url") or "",
                     "strict_title_filter": bool(feed.get("strict_title_filter")),
+                    "summary": feed_entry_summary(entry),
                 },
             )
         )
@@ -2865,6 +2918,7 @@ def fetch_tw_media(session: requests.Session, now: datetime) -> list[RawItem]:
                         meta={
                             "feed_url": str(feed["xml_url"]),
                             "feed_home": feed.get("html_url") or "",
+                            "summary": feed_entry_summary(entry),
                         },
                     )
                 )
@@ -2952,6 +3006,7 @@ def fetch_kr36_ai(session: requests.Session, now: datetime) -> list[RawItem]:
                             "feed_url": feed_url,
                             "feed_home": "https://36kr.com/",
                             "feed_path": feed_path,
+                            "summary": feed_entry_summary(entry),
                         },
                     )
                 )
@@ -3007,7 +3062,7 @@ def fetch_juya_daily(session: requests.Session, now: datetime) -> list[RawItem]:
             continue
         seen_urls.add(normalized_url)
 
-        summary = str(entry.get("summary") or "").strip()
+        summary = feed_entry_summary(entry)
         # Entry titles from this feed are bare dates ("2026-07-15"); prefix
         # with the digest name so it reads as a headline in the item list.
         title = f"{feed_title} {raw_title}" if raw_title and raw_title not in feed_title else feed_title
@@ -3271,7 +3326,7 @@ def fetch_ai_hubtoday(session: requests.Session, now: datetime) -> list[RawItem]
                 title=title,
                 url=link,
                 published_at=published,
-                meta={"feed_url": AIHUBTODAY_RSS_URL},
+                meta={"feed_url": AIHUBTODAY_RSS_URL, "summary": feed_entry_summary(entry)},
             )
         )
     return out
@@ -3358,7 +3413,7 @@ def parse_aihot_feed_items(feed_content: bytes, now: datetime, feed_url: str = A
                 title=title,
                 url=link,
                 published_at=published,
-                meta={"feed_url": feed_url},
+                meta={"feed_url": feed_url, "summary": feed_entry_summary(entry)},
             )
         )
 
@@ -3968,6 +4023,7 @@ def fetch_opml_rss(
                             meta={
                                 "feed_url": feed_url,
                                 "feed_home": feed.get("html_url") or "",
+                                "summary": feed_entry_summary(entry),
                             },
                         )
                     )
@@ -3989,6 +4045,7 @@ def fetch_opml_rss(
                             meta={
                                 "feed_url": feed_url,
                                 "feed_home": feed.get("html_url") or "",
+                                "summary": feed_entry_summary(entry),
                             },
                         )
                     )
@@ -7417,6 +7474,7 @@ def main() -> int:
     merge_log_path = output_dir / "merge-log.json"
     waytoagi_path = output_dir / "waytoagi-7d.json"
     title_cache_path = output_dir / "title-zh-cache.json"
+    ai_summary_cache_path = output_dir / "ai-summary-cache.json"
     email_digest_path = output_dir / AGENTMAIL_DIGEST_FILE
     paid_source_state_path = output_dir / PAID_SOURCE_STATE_FILE
 
@@ -7668,6 +7726,7 @@ def main() -> int:
     latest_items_all.sort(key=lambda x: event_time(x) or datetime.min.replace(tzinfo=UTC), reverse=True)
     latest_items = [record for record in latest_items_all if record.get("ai_is_related", is_ai_related_record(record))]
     title_cache = load_title_zh_cache(title_cache_path)
+    ai_summary_cache = load_summary_cache(ai_summary_cache_path)
     latest_items, latest_items_all, title_cache = add_bilingual_fields(
         latest_items,
         latest_items_all,
@@ -7679,6 +7738,16 @@ def main() -> int:
     latest_items_ai_dedup = suppress_near_duplicate_items(dedupe_items_by_title_url(latest_items, random_pick=False))
     latest_items_all_dedup = dedupe_items_by_title_url(latest_items_all, random_pick=True)
     stories, merge_events = merge_story_items(latest_items_ai_dedup, now=now, window_hours=args.window_hours)
+    groq_api_key = str(os.environ.get("GROQ_API_KEY") or "").strip()
+    groq_summary_model = str(os.environ.get("GROQ_SUMMARY_MODEL") or DEFAULT_GROQ_MODEL).strip()
+    stories, ai_summary_status, ai_summary_cache = summarize_stories(
+        stories,
+        api_key=groq_api_key,
+        model=groq_summary_model,
+        max_new=max(0, env_int("GROQ_SUMMARY_MAX_NEW", DEFAULT_MAX_NEW_SUMMARIES)),
+        cache=ai_summary_cache,
+        now=now,
+    )
     generated_at = iso(now)
     daily_brief_payload = build_daily_brief_payload(stories, generated_at=generated_at, window_hours=args.window_hours)
     stories_merged_payload = build_stories_payload(stories, generated_at=generated_at, window_hours=args.window_hours)
@@ -7821,6 +7890,7 @@ def main() -> int:
         "x_api": x_api_status,
         "socialdata": socialdata_status,
         "tikhub": tikhub_status,
+        "ai_summaries": ai_summary_status,
     }
 
     latest_payload, latest_all_payload = build_latest_payloads(latest_payload)
@@ -7856,6 +7926,11 @@ def main() -> int:
         )
     waytoagi_path.write_text(json.dumps(sanitize_public_payload(waytoagi_payload), ensure_ascii=False, indent=2), encoding="utf-8")
     title_cache_path.write_text(json.dumps(sanitize_public_payload(title_cache), ensure_ascii=False, indent=2), encoding="utf-8")
+    if groq_api_key or ai_summary_cache_path.exists():
+        ai_summary_cache_path.write_text(
+            json.dumps(sanitize_public_payload(ai_summary_cache), ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
 
     print(f"Wrote: {latest_path} ({len(latest_items)} items)")
     print(f"Wrote: {latest_all_path} ({len(latest_items_all_dedup)} all-mode items)")

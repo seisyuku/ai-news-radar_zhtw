@@ -40,6 +40,27 @@
 - 待辦：完成至少 14 日來源健康與誤報回放後，再決定是否增加
   `model_significance`；未完成回放前不修改全域評分公式。
 
+## P1：重點新聞內容摘要
+
+- 已完成：RSS/Atom 發布者摘要清理與保留、Groq
+  `qwen/qwen3.6-27b` 選用整合、內容雜湊快取、每輪呼叫上限與安全失敗。
+- 已完成：前端以「AI 新聞摘要」取代分類徽章映射的固定「為什麼重要」
+  字串；無可靠內容時直接省略，不製造模板式洞見。
+- 待辦：累積實際排程樣本後觀察摘要可用率、失敗率、快取命中率與模型
+  新聞細節保留情況，再決定是否調整 6 則上限或 prompt；不因此修改
+  全域新聞評分公式。
+- 已裁決：Gemini `gemini-3.5-flash-lite` 為
+  `qualified backup candidate, disabled by default`；Groq 保持 primary，
+  尚未授權 production fallback 或真實 publisher feed 呼叫。
+- 待辦（Gemini acceptance）：裁決提示注入語意／精確詞 gate、完成三個
+  分離時段 live diagnostic/eval、擴充合成案例並與 Groq 同案比較。
+- 待辦（fallback implementation）：建立 Groq failure trigger matrix、
+  防雙重呼叫、獨立 secret、provider+model cache identity、單輪成本上限、
+  公開安全狀態與雙 provider 失敗行為測試。
+- 待辦（operator decision）：啟用前重新核對 Gemini active rate limits、
+  定價及 free/paid tier 資料使用條款，取得 maintainer 明確接受後才可接線。
+  完整 gate 以 `docs/OPERATIONS.md` 為準。
+
 ## P2：成長型資料治理
 
 - 觀察 `title-zh-cache.json` 成長率；目前尚無 prune 機制。

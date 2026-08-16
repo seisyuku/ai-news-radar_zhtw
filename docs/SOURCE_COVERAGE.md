@@ -20,6 +20,11 @@ The first screen may show coverage and health as read-only status signals:
 source health, AI signal density, official/newsletter coverage, builders/X,
 aggregator breadth, and private extension readiness.
 
+RSS/Atom adapters preserve a sanitized plain-text `summary`/`description` when
+the publisher supplies one. This text supports the optional short-summary layer;
+the project does not scrape full article bodies for that purpose, and title-only
+items remain ineligible for AI summarization.
+
 ## Coverage Claim
 
 The project can be packaged as a Skill because it covers the common public paths

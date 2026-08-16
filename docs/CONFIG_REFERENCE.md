@@ -26,6 +26,7 @@
 | `X_BEARER_TOKEN` | 選用的官方 X API demo |
 | `AGENTMAIL_API_KEY` | 選用的 metadata-only 郵件 digest |
 | `AGENTMAIL_INBOX_ID` | AgentMail inbox 識別碼 |
+| `GROQ_API_KEY` | 選用的重點新聞 AI 短摘要；預設模型為 `qwen/qwen3.6-27b` |
 
 Secret 值不得寫入 repo、Issue、log、截圖或驗收報告。
 
@@ -39,6 +40,25 @@ Secret 值不得寫入 repo、Issue、log、截圖或驗收報告。
 - `EMAIL_DIGEST_ENABLED`
 
 未設定不代表一定會呼叫服務；沒有對應 secret 時，adapter 必須安全跳過。
+
+## AI 摘要 Variables
+
+- `GROQ_SUMMARY_MODEL`：預設 `qwen/qwen3.6-27b`。
+- `GROQ_SUMMARY_MAX_NEW`：每輪最多新增摘要數，預設 `6`；快取命中不計入。
+
+AI 摘要沒有 `ENABLED` 開關；是否啟用由 `GROQ_API_KEY` 是否存在決定。
+沒有 key 或 provider 失效時，資料管線仍會正常完成。
+
+### Gemini diagnostic-only variables
+
+- `GEMINI_API_KEY`：目前只供本機 `scripts/diagnose_gemini.py` 與明示的
+  `--providers gemini` 合成評估使用；不是已啟用的 GitHub Actions secret。
+- `GEMINI_SUMMARY_MODEL`：本機 diagnostic/eval 預設
+  `gemini-3.5-flash-lite`。
+
+Gemini 目前是 `qualified backup candidate, disabled by default`。不得只因
+設定上述變數就把它視為 production fallback；workflow 尚未傳入這些變數，
+production 接線前必須完成 `OPERATIONS.md` 的 Gemini acceptance gates。
 
 ## 程式內常數
 
