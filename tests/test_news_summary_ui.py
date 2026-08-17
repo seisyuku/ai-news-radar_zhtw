@@ -24,12 +24,32 @@ def test_news_summary_text_uses_generated_story_summary_only():
     assert result == {"present": "模型發布摘要", "absent": ""}
 
 
+def test_item_summary_prefers_translated_rss_copy_when_available():
+    declarations = extract_declarations("itemSummaryText")
+    result = run_js(
+        f"""{declarations}
+        console.log(JSON.stringify({{
+          translated: itemSummaryText({{summary: 'English RSS copy', summary_zh: '繁體中文 RSS 摘要'}}),
+          fallback: itemSummaryText({{summary: 'English RSS copy'}}),
+        }}));"""
+    )
+
+    assert result == {"translated": "繁體中文 RSS 摘要", "fallback": "English RSS copy"}
+
+
 def test_followup_story_rows_render_generated_summary_when_present():
     source = (ROOT / "assets" / "app.js").read_text(encoding="utf-8")
 
     assert 'summary.className = "story-ai-summary"' in source
     assert "storyNewsSummaryText(story)" in source
     assert "AI 摘要 · ${generatedSummary}" in source
+
+
+def test_top_card_hides_raw_publisher_copy_after_a_generated_summary_exists():
+    source = (ROOT / "assets" / "app.js").read_text(encoding="utf-8")
+
+    assert "summary.hidden = Boolean(generatedSummary);" in source
+    assert 'summary.textContent = generatedSummary ? "" : signalSummaryText(row);' in source
 
 
 def test_fixed_why_important_copy_is_removed_from_shipped_ui():

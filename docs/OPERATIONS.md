@@ -418,11 +418,14 @@ update-news.yml: freshness-check job
 5. **repo 端（workflow YAML、docs）完全不用改**——PAT 只存在
    cron-job.org 的表單欄位裡，跟 repo 程式碼無關
 
-## 翻譯管線（title_zh 產生機制）
+## 翻譯管線（title_zh / summary_zh 產生機制）
 
-英文標題的 zh-TW 顯示值（`title_zh`）由 `scripts/update_news.py` 的
+英文標題的 zh-TW 顯示值（`title_zh`）與已有 RSS `summary`／`description`
+的顯示翻譯（`summary_zh`）都由 `scripts/update_news.py` 的
 `add_bilingual_fields()` 產生，經過 Google Translate（`translate_to_zh_cn()`）
-與 `CANONICAL_NAMES` 正典名稱表兩層機制共同組成。完整規格與程式碼註解在
+與 `CANONICAL_NAMES` 正典名稱表兩層機制共同組成。`summary` 原文會保留作
+AI 摘要的事實依據；前端優先顯示 `summary_zh`。沒有 RSS 摘要的條目會跳過
+此步驟，不新增抓取或猜測內容。完整規格與程式碼註解在
 `scripts/update_news.py` 內 `CANONICAL_NAMES` 定義上方，這裡只記操作面
 摘要（新增詞條、除錯時該看哪裡）。
 

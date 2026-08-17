@@ -7,6 +7,7 @@ from scripts.news_summaries import (
     story_source_context,
     summarize_stories,
     summary_cache_key,
+    to_zh_hant_summary,
     validate_generated_summary,
 )
 
@@ -133,11 +134,60 @@ def test_provider_failure_and_unsafe_output_do_not_break_story_generation():
     assert status["last_error_detail"] == "validation_safety"
 
 
+def test_failed_candidates_do_not_consume_successful_summary_budget():
+    stories = []
+    for index in range(7):
+        item = story()
+        item["story_id"] = f"story-{index}"
+        stories.append(item)
+    calls = []
+
+    def generate(_prompt, item):
+        calls.append(item["story_id"])
+        if item["story_id"] != "story-6":
+            return "資訊不足，無法產生可靠摘要"
+        return "Qwen 團隊發布 Qwen3.8-27B，來源列出 128K context，未提供其他可核對效能數字。"
+
+    output, status, _ = summarize_stories(
+        stories, generate_fn=generate, max_new=1, candidate_limit=20, now=NOW
+    )
+
+    assert calls == [f"story-{index}" for index in range(7)]
+    assert status["failed"] == 6
+    assert status["generated"] == 1
+    assert output[6]["news_summary_provider"] == "groq"
+
+
 def test_validator_requires_bounded_traditional_chinese_prose():
     good = "xAI 發布 Grok-4.6，公告列出 256K context，並未披露完整參數量或其他效能數字。"
 
     source = "xAI 發布 Grok-4.6\nxAI 公告列出 256K context，未披露完整參數量。"
     assert validate_generated_summary(good, source_text=source) == good
+
+
+def test_summary_output_and_cached_entries_self_heal_to_traditional_chinese():
+    simplified = "Dynatrace 将以 9.15 亿美元并购 AI 可观测性新创 Arize，交易预计于今年完成。"
+    expected = "Dynatrace 將以 9.15 億美元併購 AI 可觀測性新創 Arize，交易預計於今年完成。"
+    assert to_zh_hant_summary(simplified) == expected
+
+    item = story(summary="Dynatrace 將以 9.15 億美元併購 AI 可觀測性新創 Arize，交易預計於今年完成。")
+    item["story_id"] = "dynatrace-arize"
+    item["title"] = "Dynatrace 收購 Arize"
+    context = story_source_context(item)
+    key = summary_cache_key(item, context, DEFAULT_GROQ_MODEL)
+    cache = empty_summary_cache()
+    cache["entries"][key] = {
+        "summary": simplified,
+        "provider": "groq",
+        "model": DEFAULT_GROQ_MODEL,
+        "created_at": "2026-08-17T07:00:00Z",
+    }
+
+    output, status, repaired_cache = summarize_stories([item], cache=cache, now=NOW)
+
+    assert output[0]["news_summary"] == expected
+    assert repaired_cache["entries"][key]["summary"] == expected
+    assert status["cache_hits"] == 1
 
 
 def test_validator_rejects_invented_numbers_or_missing_model_version():

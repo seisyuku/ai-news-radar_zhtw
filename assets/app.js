@@ -908,7 +908,7 @@ function itemOriginalTitleText(item) {
 }
 
 function itemSummaryText(item, maxLength = 180) {
-  const text = String(item?.summary || "").replace(/\s+/g, " ").trim();
+  const text = String(item?.summary_zh || item?.summary || "").replace(/\s+/g, " ").trim();
   if (!text) return "";
   return text.length > maxLength ? `${text.slice(0, maxLength - 1).trim()}…` : text;
 }
@@ -1819,9 +1819,11 @@ function currentStoryPools(filteredItems) {
   };
 }
 
-// feature/featured-source-diversity-cap: default visible slot count (Top3 +
-// the 2 default-visible follow-up cards) and per-source seat cap for 今日
-// 重點訊號. See applyFeaturedSourceDiversityCap() below.
+// feature/featured-source-diversity-cap: the initial five visible cards and
+// the full Top 10 have different display affordances.  The source-cap must
+// nevertheless be evaluated across the entire hot Top 10; otherwise a
+// prolific source is merely deferred until the reader expands the panel.
+// See storyRowsForPool() below.
 const FEATURED_DIVERSITY_VISIBLE_SLOTS = 5;
 const FEATURED_DIVERSITY_SOURCE_CAP = 2;
 
@@ -1887,7 +1889,7 @@ function applyFeaturedSourceDiversityCap(sortedRows, capacity = FEATURED_DIVERSI
 function storyRowsForPool(stories) {
   const source = Array.isArray(stories) ? stories : [];
   const pool = state.briefView === "hot"
-    ? applyFeaturedSourceDiversityCap(hotStories(source)).slice(0, BRIEF_HOT_LIMIT)
+    ? applyFeaturedSourceDiversityCap(hotStories(source), BRIEF_HOT_LIMIT).slice(0, BRIEF_HOT_LIMIT)
     : applyFeaturedSourceDiversityCap(latestStories(source)).slice(0, BRIEF_TIMELINE_LIMIT);
   return pool.map(storyToBriefRow);
 }
@@ -2361,7 +2363,10 @@ function buildTopStoryCard(row, rank) {
 
   const summary = document.createElement("p");
   summary.className = "top-story-summary";
-  summary.textContent = signalSummaryText(row);
+  // Publisher RSS copy can be English.  Once the grounded AI summary exists,
+  // show only that zh-TW text instead of presenting two competing summaries.
+  summary.hidden = Boolean(generatedSummary);
+  summary.textContent = generatedSummary ? "" : signalSummaryText(row);
 
   const why = document.createElement("div");
   why.className = "top-story-why";

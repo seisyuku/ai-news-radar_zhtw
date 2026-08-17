@@ -490,6 +490,47 @@ class TopicFilterTests(unittest.TestCase):
         self.assertIsNone(pseudo_items[0]["title_en"])
         self.assertEqual(pseudo_items[0]["title_zh"], "如何在低配置电脑运行 GLM-5.2")
 
+    def test_bilingual_fields_translates_english_rss_summary_but_preserves_native_traditional(self):
+        class FakeResponse:
+            def raise_for_status(self):
+                return None
+
+            def json(self):
+                return [[[
+                    "AI 出現在近四成美國選舉中，資料中心對電力成本的影響是主要討論焦點。",
+                    "",
+                    None,
+                    None,
+                    0,
+                ]]]
+
+        class FakeSession:
+            def __init__(self):
+                self.queries = []
+
+            def get(self, _url, params=None, **_kwargs):
+                self.queries.append(params["q"])
+                return FakeResponse()
+
+        session = FakeSession()
+        english = {
+            "title": "已翻譯標題",
+            "summary": "AI shows up in nearly 40 percent of all US races.",
+            "url": "https://example.com/english-rss",
+        }
+        traditional = {
+            "title": "原生繁體標題",
+            "summary": "Dynatrace將以9.15億美元併購Arize，交易預計於今年完成。",
+            "url": "https://example.com/traditional-rss",
+        }
+
+        ai_items, _, cache = add_bilingual_fields([english, traditional], [english, traditional], session, {}, 2)
+
+        self.assertEqual(len(session.queries), 1)
+        self.assertEqual(ai_items[0]["summary_zh"], "AI 出現在近四成美國選舉中，資料中心對電力成本的影響是主要討論焦點。")
+        self.assertEqual(ai_items[1]["summary_zh"], traditional["summary"])
+        self.assertIn("summary::AI shows up in nearly 40 percent of all US races.", cache)
+
     def test_repairs_recurring_ai_title_translation_errors(self):
         self.assertEqual(
             repair_zh_title_translation("Codex CLI 0.144.0", "法典 CLI 0.144.0"),

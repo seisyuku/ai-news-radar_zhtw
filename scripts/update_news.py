@@ -6691,11 +6691,17 @@ def add_bilingual_fields(
     max_new_translations: int,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]], dict[str, str]]:
     zh_by_url: dict[str, str] = {}
+    summary_zh_by_url: dict[str, str] = {}
     for it in items_all:
         title = str(it.get("title") or "").strip()
+        summary = str(it.get("summary") or "").strip()
         url = normalize_url(str(it.get("url") or ""))
         if title and url and has_cjk(title):
             zh_by_url[url] = title
+        # Native Chinese RSS copy needs no network translation.  Normalize it
+        # once so an all-mode copy of the same URL can reuse the display text.
+        if summary and url and has_cjk(summary):
+            summary_zh_by_url[url] = apply_canonical_reverse_fix(to_zh_hant(summary), source=summary)
 
     translated_now = 0
 
@@ -6704,9 +6710,37 @@ def add_bilingual_fields(
         out = dict(item)
         title = str(out.get("title") or "").strip()
         url = normalize_url(str(out.get("url") or ""))
+        summary = str(out.get("summary") or "").strip()
         provided_zh = str(out.pop("provided_title_zh", "") or "").strip()
         provided_en_raw = str(out.pop("provided_title_en", "") or "").strip()
         provided_en = provided_en_raw if is_mostly_english(provided_en_raw) else ""
+
+        summary_zh = summary_zh_by_url.get(url)
+        if not summary_zh and summary and has_cjk(summary):
+            summary_zh = apply_canonical_reverse_fix(to_zh_hant(summary), source=summary)
+        if not summary_zh and summary and is_mostly_english(summary):
+            summary_cache_key = f"summary::{summary}"
+            summary_zh = cache.get(summary_cache_key)
+            if not summary_zh and allow_translate and translated_now < max_new_translations:
+                masked_summary, placeholders = mask_canonical_names(summary)
+                translated_summary = translate_to_zh_cn(session, masked_summary)
+                if not translated_summary and placeholders:
+                    translated_summary = translate_to_zh_cn(session, summary)
+                    placeholders = {}
+                if translated_summary and (has_cjk(translated_summary) or placeholders):
+                    translated_summary = backfill_canonical_names(translated_summary, placeholders)
+                    summary_zh = apply_canonical_reverse_fix(to_zh_hant(translated_summary), source=summary)
+                    cache[summary_cache_key] = summary_zh
+                    translated_now += 1
+            if summary_zh:
+                normalized_summary = apply_canonical_reverse_fix(to_zh_hant(summary_zh), source=summary)
+                if cache.get(summary_cache_key) != normalized_summary:
+                    cache[summary_cache_key] = normalized_summary
+                summary_zh = normalized_summary
+        if summary_zh:
+            out["summary_zh"] = summary_zh
+            if url:
+                summary_zh_by_url[url] = summary_zh
 
         out["title_original"] = title
         out["title_en"] = None
@@ -7071,6 +7105,7 @@ def story_item_link(item: dict[str, Any]) -> dict[str, Any]:
         "title_en": item.get("title_en"),
         "title_original": item.get("title_original"),
         "summary": item.get("summary"),
+        "summary_zh": item.get("summary_zh"),
         "url": item.get("url"),
         "source": item.get("source"),
         "source_name": item.get("site_name"),
@@ -7147,6 +7182,7 @@ def build_story_record(
             "title_en": primary.get("title_en"),
             "title_original": primary.get("title_original"),
             "summary": primary.get("summary"),
+            "summary_zh": primary.get("summary_zh"),
             "url": url,
             "source": primary.get("source"),
             "source_name": primary.get("site_name"),
@@ -7469,7 +7505,7 @@ def main() -> int:
     parser.add_argument("--output-dir", default="data", help="Directory for output JSON files")
     parser.add_argument("--window-hours", type=int, default=24, help="24h window size")
     parser.add_argument("--archive-days", type=int, default=21, help="Keep archive for N days")
-    parser.add_argument("--translate-max-new", type=int, default=80, help="Max new EN->ZH title translations per run")
+    parser.add_argument("--translate-max-new", type=int, default=80, help="Max new EN->ZH title/RSS-summary translations per run")
     parser.add_argument("--rss-opml", default="", help="Optional OPML file path to include RSS sources")
     parser.add_argument("--rss-max-feeds", type=int, default=0, help="Optional max OPML RSS feeds to fetch (0 means all)")
     args = parser.parse_args()

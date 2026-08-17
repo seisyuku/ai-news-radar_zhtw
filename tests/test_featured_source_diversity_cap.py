@@ -18,6 +18,8 @@ tests fail if the shipped logic regresses.
 """
 from __future__ import annotations
 
+from pathlib import Path
+
 import pytest
 
 from tests.js_bridge import extract_declarations, run_js
@@ -76,6 +78,29 @@ class TestTieDefersToDiversity:
         assert result["seq"][:3] == ["aibase", "aibase", "curated_media"]
         assert result["length"] == 4
         assert result["seq"].count("aibase") == 3  # nothing lost - the deferred row still shows up later
+
+    def test_top_ten_caps_same_source_before_expanded_rows_are_rendered(self):
+        result = _run(
+            """
+            const rows = [
+              ...Array.from({ length: 8 }, () => mk('aibase')),
+              mk('curated_media'), mk('tw_media'), mk('official_ai'), mk('opmlrss'),
+            ];
+            const out = applyFeaturedSourceDiversityCap(rows, 10, 2);
+            console.log(JSON.stringify({ seq: siteSeq(out).slice(0, 10) }));
+            """
+        )
+        # When qualified alternatives exist they all move ahead of the
+        # third AIBASE entry.  Once no alternative remains, the existing
+        # "do not discard a real signal" policy still allows the tail back.
+        assert result["seq"][:6] == [
+            "aibase", "aibase", "curated_media", "tw_media", "official_ai", "opmlrss",
+        ]
+
+
+def test_hot_top_ten_passes_its_full_capacity_to_diversity_cap():
+    source = Path("assets/app.js").read_text(encoding="utf-8")
+    assert "applyFeaturedSourceDiversityCap(hotStories(source), BRIEF_HOT_LIMIT)" in source
 
 
 class TestRealHeatIsExempt:

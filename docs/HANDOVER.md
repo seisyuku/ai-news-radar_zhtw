@@ -159,6 +159,21 @@
     的安全邊界，不是前端缺漏。`source-status.json.ai_summaries` 保留原有
     `last_error_type`，並新增不含原文與 provider 回覆的
     `last_error_detail` allowlist，供診斷 Groq 輸出被本地 gate 拒絕的原因。
+21. **8/17 Top10 來源多樣性與摘要繁體化**：來源多樣性上限現在對熱點完整
+    Top10 生效，而非只在預設可見的前五格生效；同源單源平手內容會讓位給
+    同層的其他來源，真實多源熱度仍保留，沒有調整 AI relevance 或重要性
+    權重。Groq 摘要在生成及快取讀取時都以 OpenCC `s2t` 統一為繁體，修復
+    `将`／`并购` 類模型輸出殘留，且不另送內容到翻譯服務。
+22. **8/17 摘要候選不中斷與英文 RSS 顯示界線**：`GROQ_SUMMARY_MAX_NEW`
+    的上限只計成功新增摘要；驗證失敗不再耗盡額度而讓後段、已在讀者畫面
+    的有 RSS 內容故事永遠無法嘗試。候選嘗試仍受既有 20 條上限保護。Top
+    卡一旦有合格繁中 AI 摘要，就隱藏原始 RSS 摘要，避免英文原文與繁中摘要
+    同時呈現；無合格摘要時仍顯示來源原文，且不為 title-only 項目新增抓取。
+23. **8/17 RSS 摘要顯示翻譯**：既有英文 RSS `summary`／`description`
+    現在沿用 title 的 Google Translate、正典名稱遮罩及繁體轉換，輸出
+    `summary_zh` 供前端優先顯示；原始 `summary` 保留作 Groq 事實依據。
+    原生繁體 RSS 摘要只正規化、絕不送翻譯；沒有 RSS 簡介的條目不新增
+    抓取或推測。翻譯快取以 `summary::` 前綴與既有 title 快取共存。
 
 ## 部署
 

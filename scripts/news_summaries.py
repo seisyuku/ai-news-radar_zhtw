@@ -38,11 +38,41 @@ _OUTPUT_BLOCKLIST = (
 )
 _NUMERIC_FACT_RE = re.compile(r"[$€£]?\d+(?:[.,]\d+)*(?:\s?(?:[KMBT]|%|美元|元|tokens?))?", re.IGNORECASE)
 _VERSIONED_NAME_RE = re.compile(r"[A-Za-z][A-Za-z0-9]*(?:[._-][A-Za-z0-9]+)+")
+_SUMMARY_S2T = None
+_SUMMARY_S2T_LOAD_FAILED = False
 
 
 def _clean_text(value: Any, max_chars: int = 1600) -> str:
     clean = re.sub(r"\s+", " ", str(value or "")).strip()
     return clean[:max_chars].rstrip()
+
+
+def to_zh_hant_summary(value: Any) -> str:
+    """Convert model output to Traditional Chinese without re-translating it.
+
+    The prompt already requires zh-TW, but a provider can still emit
+    Simplified characters.  Use character-level OpenCC conversion here rather
+    than a second network translation pass, so names, numbers, and grounding
+    remain intact.  Apply it to cache reads too: existing cached summaries
+    self-heal on the next scheduled run.
+    """
+
+    global _SUMMARY_S2T, _SUMMARY_S2T_LOAD_FAILED
+    text = str(value or "").strip()
+    if not text or _SUMMARY_S2T_LOAD_FAILED:
+        return text
+    if _SUMMARY_S2T is None:
+        try:
+            from opencc import OpenCC
+
+            _SUMMARY_S2T = OpenCC("s2t")
+        except Exception:
+            _SUMMARY_S2T_LOAD_FAILED = True
+            return text
+    try:
+        return _SUMMARY_S2T.convert(text)
+    except Exception:
+        return text
 
 
 def story_source_context(story: Mapping[str, Any], max_chars: int = 4000) -> str:
@@ -254,7 +284,7 @@ def summary_cache_key(story: Mapping[str, Any], source_context: str, model: str)
 
 def _attach_summary(story: Mapping[str, Any], entry: Mapping[str, Any]) -> dict[str, Any]:
     out = dict(story)
-    out["news_summary"] = str(entry.get("summary") or "").strip()
+    out["news_summary"] = to_zh_hant_summary(entry.get("summary"))
     out["news_summary_provider"] = str(entry.get("provider") or "groq")
     out["news_summary_model"] = str(entry.get("model") or DEFAULT_GROQ_MODEL)
     out["news_summary_generated_at"] = entry.get("created_at")
@@ -312,10 +342,14 @@ def summarize_stories(
         entry = entries.get(key)
         if isinstance(entry, Mapping) and str(entry.get("summary") or "").strip():
             try:
-                validate_generated_summary(str(entry.get("summary") or ""))
+                normalized_cached_summary = to_zh_hant_summary(entry.get("summary"))
+                validate_generated_summary(normalized_cached_summary)
             except ValueError:
                 entries.pop(key, None)
             else:
+                if normalized_cached_summary != str(entry.get("summary") or "").strip():
+                    entry = {**entry, "summary": normalized_cached_summary}
+                    entries[key] = entry
                 output[index] = _attach_summary(story, entry)
                 status["cache_hits"] += 1
 
@@ -335,12 +369,15 @@ def summarize_stories(
         context, key = contexts[index]
         if output[index].get("news_summary"):
             continue
-        if status["generated"] + status["failed"] >= status["max_new"]:
+        # `max_new` governs successfully persisted summaries, not attempts.
+        # A few rejected provider replies must not permanently starve a
+        # lower-ranked but visible story that has valid RSS context.
+        if status["generated"] >= status["max_new"]:
             break
         try:
             raw = generator(build_story_summary_prompt(output[index], context), output[index])
             summary = validate_generated_summary(
-                raw,
+                to_zh_hant_summary(raw),
                 source_text=f"{_clean_text(output[index].get('title'), 500)}\n{context}",
             )
         except Exception as exc:
