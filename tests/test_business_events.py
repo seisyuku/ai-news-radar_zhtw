@@ -82,6 +82,13 @@ class BusinessEventScoreTests(unittest.TestCase):
         item = {"title": "Company beats Q1 guidance on strong cloud demand", "summary": ""}
         self.assertEqual(business_event_score(item), ["earnings"])
 
+    def test_quantization_token_does_not_trigger_q4_earnings(self):
+        item = {
+            "title": "Qwen 3.8 27B is excellent",
+            "summary": "The Q4_K_M quantized build is tested against self-reported benchmarks.",
+        }
+        self.assertEqual(business_event_score(item), ["benchmark"])
+
     # --- feature/noise-gate: keyword tuning regressions ---
     def test_hackathon_does_not_trigger_security(self):
         item = {"title": "騰訊舉辦AI黑客松活動，吸引上千名開發者參加", "summary": ""}

@@ -4,12 +4,17 @@ from tests.js_bridge import extract_declarations, run_js
 
 
 ROOT = Path(__file__).resolve().parent.parent
-DECLARATION = extract_declarations("newsSummaryText")
+DECLARATIONS = "\n".join(
+    [
+        extract_declarations("storyNewsSummaryText"),
+        extract_declarations("newsSummaryText"),
+    ]
+)
 
 
 def test_news_summary_text_uses_generated_story_summary_only():
     result = run_js(
-        f"""{DECLARATION}
+        f"""{DECLARATIONS}
         console.log(JSON.stringify({{
           present: newsSummaryText({{story: {{news_summary: '  模型發布摘要  '}}}}),
           absent: newsSummaryText({{story: {{business_events: ['model_release']}}}}),
@@ -17,6 +22,14 @@ def test_news_summary_text_uses_generated_story_summary_only():
     )
 
     assert result == {"present": "模型發布摘要", "absent": ""}
+
+
+def test_followup_story_rows_render_generated_summary_when_present():
+    source = (ROOT / "assets" / "app.js").read_text(encoding="utf-8")
+
+    assert 'summary.className = "story-ai-summary"' in source
+    assert "storyNewsSummaryText(story)" in source
+    assert "AI 摘要 · ${generatedSummary}" in source
 
 
 def test_fixed_why_important_copy_is_removed_from_shipped_ui():

@@ -98,7 +98,9 @@ asset, same as any other source change.
   標題的新聞不呼叫 API，也不顯示固定模板假裝成內容摘要。
 - `data/ai-summary-cache.json` 以模型、prompt 版本、標題與來源摘要的
   內容雜湊為鍵。內容不變就沿用快取，最多保留 500 筆。
-- Provider timeout、額度或輸出驗證失敗只記錄公開安全的錯誤類型於
+- Provider timeout、額度或輸出驗證失敗只記錄公開安全的錯誤類型；本地
+  驗證失敗另以 allowlist `last_error_detail` 標示長度、語言、數字事實、
+  必要版本名、格式或安全 gate，絕不寫入 provider 回覆或來源原文。狀態位於
   `source-status.json.ai_summaries`，不阻斷其餘資料檔寫入。
 - 外部來源一律視為不可信資料；prompt 禁止遵循或逐字重現內嵌指令，
   本地驗證器會拒絕超長、非中文、指令片段與疑似密鑰輸出。

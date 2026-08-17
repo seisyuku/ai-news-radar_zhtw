@@ -499,6 +499,13 @@ class TopicFilterTests(unittest.TestCase):
             repair_zh_title_translation("GPT-5.5 Bio Bug Bounty", "GPT-5.5 生物错误赏金"),
             "GPT-5.5 生物安全漏洞悬赏",
         )
+        self.assertEqual(
+            repair_zh_title_translation(
+                "Top mathematicians say LLMs are strong calculators",
+                "頂級數學家表示法學碩士的計算能力很強",
+            ),
+            "頂級數學家表示LLMs的計算能力很強",
+        )
 
     def test_brand_glossary_relabels_morning_squawk_left_untranslated_by_mt(self):
         self.assertEqual(
@@ -620,6 +627,22 @@ class TopicFilterTests(unittest.TestCase):
         # as-is, matching the pre-existing "don't rewrite history" rule.
         self.assertEqual(returned_cache[title], "《克劳德寓言5》发布新的安全基准")
 
+    def test_cached_llm_degree_mistranslation_is_repaired_and_rewritten(self):
+        class NoNetworkSession:
+            def get(self, *args, **kwargs):
+                raise AssertionError("cache hit must not trigger a network translate call")
+
+        title = "The LLM Critics Are Right. I Use LLMs Anyway"
+        cache = {title: "法学硕士的批评是正确的。我无论如何都使用法学硕士。"}
+        item = {"title": title, "url": "https://example.com/llm-cache"}
+
+        ai_items, _, returned_cache = add_bilingual_fields([item], [item], NoNetworkSession(), cache, 80)
+
+        self.assertNotIn("法學碩士", ai_items[0]["title_zh"])
+        self.assertIn("LLMs", ai_items[0]["title_zh"])
+        self.assertNotIn("法学硕士", returned_cache[title])
+        self.assertIn("LLMs", returned_cache[title])
+
     # --- CANONICAL_NAMES Step 2: 遮罩回填 (mask-and-backfill) ------------
 
     def test_mask_canonical_names_masks_vendor_and_family_hits(self):
@@ -630,6 +653,11 @@ class TopicFilterTests(unittest.TestCase):
         self.assertNotIn("Nemotron", masked)
         self.assertEqual(len(placeholders), 2)
         self.assertEqual(set(placeholders.values()), {"輝達", "Nemotron"})
+
+    def test_mask_canonical_names_preserves_llm_acronyms(self):
+        masked, placeholders = mask_canonical_names("LLMs improve when an LLM has better context")
+        self.assertNotIn("LLM", masked)
+        self.assertEqual(set(placeholders.values()), {"LLMs", "LLM"})
 
     def test_mask_canonical_names_swallows_claude_subbrand_and_version_as_one_span(self):
         masked, placeholders = mask_canonical_names("Claude Fable 5 launches new safety benchmark")

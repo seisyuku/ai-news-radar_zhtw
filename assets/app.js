@@ -1578,6 +1578,14 @@ function buildStoryCard(story, rank) {
   }
   body.appendChild(title);
 
+  const generatedSummary = storyNewsSummaryText(story);
+  if (generatedSummary) {
+    const summary = document.createElement("p");
+    summary.className = "story-ai-summary";
+    summary.textContent = `AI 摘要 · ${generatedSummary}`;
+    body.appendChild(summary);
+  }
+
   const originalAction = document.createElement("span");
   originalAction.className = "original-action";
   originalAction.textContent = "檢視原文 ↗";
@@ -2299,8 +2307,12 @@ function signalSummaryText(row) {
   return `${label}方向的新近更新，已進入 24 小時 AI 強相關池。`;
 }
 
+function storyNewsSummaryText(story) {
+  return String(story?.news_summary || "").trim();
+}
+
 function newsSummaryText(row) {
-  return String(row?.story?.news_summary || "").trim();
+  return storyNewsSummaryText(row?.story);
 }
 
 function buildTopStoryCard(row, rank) {

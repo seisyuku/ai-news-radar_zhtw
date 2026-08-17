@@ -146,6 +146,19 @@
     trigger matrix、防雙重計費、provider+model cache、成本/狀態護欄與
     tier 資料政策裁決；完整準入條件見 `docs/OPERATIONS.md`，sanitized
     證據見 `reports/provider-evals/gemini-3.5-flash-lite-20260817.md`。
+19. **8/17 LLM 翻譯與 Simon Willison 徽章修正**：`LLM`／`LLMs` 納入
+    `CANONICAL_NAMES` 遮罩，Google Translate 不再把 AI 縮寫譯為「法學
+    碩士」；既有快取也會依原始英文標題定點修復並回寫。Simon Willison
+    是公開示範 OPML 的既有 builder feed，不是臨時來源；其 Qwen 3.8
+    文章的錯誤「財報」來自量化格式 `Q4_K_M` 被誤認為季度 `Q4`。ASCII
+    關鍵字邊界已將底線視為 token 一部分，該篇保留有內容依據的「評測」
+    徽章，不變更全域排序或擴大摘要資料取得範圍。
+20. **8/17 Top10 摘要可見性與失敗可觀測性**：Top3 後的故事卡現在在
+    `news_summary` 存在時顯示兩行內的「AI 摘要」，避免已生成內容只因
+    精簡卡版型而隱藏。title-only 條目仍不會生成摘要；這是來源內容不足
+    的安全邊界，不是前端缺漏。`source-status.json.ai_summaries` 保留原有
+    `last_error_type`，並新增不含原文與 provider 回覆的
+    `last_error_detail` allowlist，供診斷 Groq 輸出被本地 gate 拒絕的原因。
 
 ## 部署
 

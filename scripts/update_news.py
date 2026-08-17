@@ -1156,7 +1156,10 @@ def _business_event_normalize(text: str) -> str:
 
 def _business_keyword_matches(keyword: str, haystack: str) -> bool:
     if keyword in _BUSINESS_KEYWORD_WORD_BOUNDARY_ONLY:
-        return re.search(rf"(?<![a-z0-9]){re.escape(keyword)}(?![a-z0-9])", haystack) is not None
+        # Technical identifiers often use underscores (for example the
+        # Q4_K_M quantization name). Treat them as part of an ASCII token so
+        # the earnings keyword "q4" only means a standalone fiscal quarter.
+        return re.search(rf"(?<![a-z0-9_]){re.escape(keyword)}(?![a-z0-9_])", haystack) is not None
     return keyword in haystack
 
 
@@ -6220,6 +6223,10 @@ CANONICAL_NAMES: dict[str, str] = {
     "Flux": "Flux",
     "Stable Diffusion": "Stable Diffusion",
     "Sonar": "Sonar",
+    # Keep AI-domain acronyms literal. Google Translate otherwise treats LLM
+    # as the law degree "Master of Laws" and renders it as 法學碩士.
+    "LLMs": "LLMs",
+    "LLM": "LLM",
     # --- Legacy BRAND_GLOSSARY migration (append-fallback term) ---------
     "Morning Squawk": "晨間快評(Morning Squawk)",
 }
@@ -6666,6 +6673,12 @@ def repair_zh_title_translation(original: str, translated: str) -> str:
         result = result.replace("存储库", "代码仓库")
     if re.search(r"\bdesktop app\b", source, re.I):
         result = result.replace("桌面应用程序", "桌面应用")
+    # Repair older cache entries as well as fresh MT output. This is gated by
+    # the English source acronym, rather than a global Chinese replacement,
+    # so a genuine legal-degree headline is left untouched.
+    if re.search(r"(?<!\w)LLMs?(?!\w)", source, re.I):
+        llm_display = "LLMs" if re.search(r"(?<!\w)LLMs(?!\w)", source, re.I) else "LLM"
+        result = re.sub(r"法學碩士(?:學位)?|法学硕士(?:学位)?", llm_display, result)
     result = _apply_canonical_names_exit_fix(source, result)
     return result
 

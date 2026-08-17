@@ -130,6 +130,7 @@ def test_provider_failure_and_unsafe_output_do_not_break_story_generation():
     assert "news_summary" not in output[0]
     assert status["failed"] == 1
     assert status["last_error_type"] == "ValueError"
+    assert status["last_error_detail"] == "validation_safety"
 
 
 def test_validator_requires_bounded_traditional_chinese_prose():

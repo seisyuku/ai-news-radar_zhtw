@@ -188,6 +188,34 @@ def validate_generated_summary(value: str, *, source_text: str = "") -> str:
     return clean
 
 
+def public_summary_failure_detail(exc: Exception) -> str | None:
+    """Return a safe, aggregate-only reason for public run status.
+
+    Provider output and exception text can contain untrusted feed material, so
+    `source-status.json` records only this allowlisted category. The original
+    exception is deliberately never published.
+    """
+
+    if not isinstance(exc, ValueError):
+        return None
+    message = str(exc)
+    if "insufficient context" in message:
+        return "insufficient_context"
+    if "length outside" in message:
+        return "validation_length"
+    if "unsafe instruction or secret-like text" in message:
+        return "validation_safety"
+    if "not Traditional Chinese prose" in message:
+        return "validation_language"
+    if "numeric facts absent" in message:
+        return "validation_numeric_grounding"
+    if "versioned name" in message:
+        return "validation_required_name"
+    if "provider response JSON" in message:
+        return "provider_schema"
+    return "validation_rejected"
+
+
 def empty_summary_cache() -> dict[str, Any]:
     return {
         "version": SUMMARY_CACHE_VERSION,
@@ -318,6 +346,9 @@ def summarize_stories(
         except Exception as exc:
             status["failed"] += 1
             status["last_error_type"] = type(exc).__name__
+            detail = public_summary_failure_detail(exc)
+            if detail:
+                status["last_error_detail"] = detail
             continue
         entry = {
             "summary": summary,
