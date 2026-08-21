@@ -6544,6 +6544,13 @@ def _apply_canonical_names_exit_fix(source: str, result: str) -> str:
         pattern = re.compile(rf"(?<!\w){re.escape(term)}(?!\w)")
         if not pattern.search(source):
             continue
+        # "Morning Squawk" deliberately renders as
+        # "晨間快評(Morning Squawk)".  Its English key therefore remains inside
+        # the canonical display value; replacing it again on every cache read
+        # would nest that display value indefinitely.  A canonical value that
+        # contains its own source term is already repaired.
+        if term in zh and zh in result:
+            continue
         if pattern.search(result):
             result = pattern.sub(zh, result)
         elif term in _APPEND_FALLBACK_TERMS and zh not in result:
@@ -6685,6 +6692,15 @@ def repair_zh_title_translation(original: str, translated: str) -> str:
     result = str(translated or "").strip()
     if not result:
         return result
+    # Older cache entries may already contain the non-idempotent expansion
+    # caused by repeatedly replacing the embedded "Morning Squawk" text in
+    # its own canonical rendering.  Collapse only two-or-more nested forms;
+    # the normal single rendering stays untouched.
+    result = re.sub(
+        r"(?:晨間快評\(){2,}Morning Squawk\)+",
+        "晨間快評(Morning Squawk)",
+        result,
+    )
     if re.search(r"\bCodex\b", source, re.I):
         result = result.replace("法典", "Codex")
     if re.search(r"\bBug Bounty\b", source, re.I):

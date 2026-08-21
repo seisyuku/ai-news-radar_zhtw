@@ -563,6 +563,15 @@ class TopicFilterTests(unittest.TestCase):
             "市场开盘走低 晨間快評(Morning Squawk)",
         )
 
+    def test_morning_squawk_repair_is_idempotent_and_cleans_nested_cache_value(self):
+        original = "The Treasury's debt buyback and more in Morning Squawk"
+        nested = "晨間快評(晨間快評(晨間快評(Morning Squawk))) 中的財政部債務回購"
+
+        cleaned = repair_zh_title_translation(original, nested)
+
+        self.assertEqual(cleaned, "晨間快評(Morning Squawk) 中的財政部債務回購")
+        self.assertEqual(repair_zh_title_translation(original, cleaned), cleaned)
+
     def test_brand_glossary_leaves_unrelated_titles_untouched(self):
         self.assertEqual(
             repair_zh_title_translation("OpenAI releases new GPT model", "OpenAI 发布新的 GPT 模型"),
