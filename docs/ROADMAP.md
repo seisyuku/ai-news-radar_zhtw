@@ -61,6 +61,17 @@
   定價及 free/paid tier 資料使用條款，取得 maintainer 明確接受後才可接線。
   完整 gate 以 `docs/OPERATIONS.md` 為準。
 
+## P1：Market Sensor 與 usage-policy 速報
+
+- 已完成：價格 JSON snapshot/diff、免費額度結構化 diff、兩個公開
+  usage-monitor commit Atom Canary，以及獨立的市場區與速報區。
+- 現行優先權拆為兩軸：長期影響 `價格 > 免費額度 > usage policy`；
+  時效 `usage policy >> 免費額度 > 價格`。速報排序不改寫全域新聞評分。
+- 待觀察：累積至少 14 天真實候選後，統計 Canary precision、官方確認
+  延遲與漏報，再決定是否加入第三個 repo、release feed 或少數官方頁面。
+- Promotion scraper、issues／PR ingestion 與 changedetection.io 仍延後；
+  沒有實際漏報證據前不擴張。
+
 ## P2：成長型資料治理
 
 - 觀察 `title-zh-cache.json` 成長率；目前尚無 prune 機制。

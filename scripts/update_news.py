@@ -50,6 +50,11 @@ except ModuleNotFoundError:  # pragma: no cover - direct `python scripts/update_
     )
 
 try:
+    from scripts.market_sensors import run_market_sensors
+except ModuleNotFoundError:  # pragma: no cover - direct `python scripts/update_news.py`
+    from market_sensors import run_market_sensors
+
+try:
     import feedparser
 except ModuleNotFoundError:
     feedparser = None
@@ -7526,13 +7531,30 @@ def main() -> int:
     ai_summary_cache_path = output_dir / "ai-summary-cache.json"
     email_digest_path = output_dir / AGENTMAIL_DIGEST_FILE
     paid_source_state_path = output_dir / PAID_SOURCE_STATE_FILE
+    market_signals_path = output_dir / "market-signals.json"
+    market_sensor_state_path = output_dir / "market-sensor-state.json"
 
     archive = load_archive(archive_path)
     previous_source_status = load_source_status(status_path)
     paid_source_state = load_paid_source_state(paid_source_state_path)
+    try:
+        previous_market_signals = json.loads(market_signals_path.read_text(encoding="utf-8"))
+    except (OSError, ValueError, TypeError):
+        previous_market_signals = {}
+    try:
+        previous_market_state = json.loads(market_sensor_state_path.read_text(encoding="utf-8"))
+    except (OSError, ValueError, TypeError):
+        previous_market_state = {}
 
     session = create_session()
     raw_items, statuses = collect_all(session, now)
+    market_signals_payload, market_sensor_state, market_sensor_statuses = run_market_sensors(
+        session,
+        now,
+        previous_market_state,
+        previous_market_signals,
+    )
+    statuses.extend(market_sensor_statuses)
     rss_feed_statuses: list[dict[str, Any]] = []
     email_digest_payload, agentmail_status = maybe_fetch_agentmail_digest(
         session,
@@ -7963,6 +7985,14 @@ def main() -> int:
         encoding="utf-8",
     )
     status_path.write_text(json.dumps(sanitize_public_payload(status_payload), ensure_ascii=False, indent=2), encoding="utf-8")
+    market_signals_path.write_text(
+        json.dumps(sanitize_public_payload(market_signals_payload), ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    market_sensor_state_path.write_text(
+        json.dumps(sanitize_public_payload(market_sensor_state), ensure_ascii=False, separators=(",", ":")),
+        encoding="utf-8",
+    )
     report_persistent_source_failures(persistent_failures)
     paid_source_state_path.write_text(
         json.dumps(sanitize_public_payload(paid_source_state), ensure_ascii=False, indent=2),
@@ -7988,6 +8018,8 @@ def main() -> int:
     print(f"Wrote: {merge_log_path} ({len(merge_events)} merge events)")
     print(f"Wrote: {archive_path} ({len(archive)} items)")
     print(f"Wrote: {status_path}")
+    print(f"Wrote: {market_signals_path} ({len(market_signals_payload.get('signals', []))} signals)")
+    print(f"Wrote: {market_sensor_state_path}")
     print(f"Wrote: {paid_source_state_path}")
     if email_digest_payload is not None:
         print(f"Wrote: {email_digest_path} ({email_digest_payload.get('total_messages', 0)} email items)")

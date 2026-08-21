@@ -38,7 +38,7 @@
     <link rel="icon" href="./assets/icons/favicon-32.png" sizes="32x32" type="image/png" />
     <link rel="apple-touch-icon" href="./assets/icons/apple-touch-icon.png" sizes="180x180" />
     <link rel="manifest" href="./site.webmanifest" />
-    <link rel="stylesheet" href="./assets/styles.css?v=taste-ui-0817d" />
+    <link rel="stylesheet" href="./assets/styles.css?v=taste-ui-0821a" />
   </head>
   <body>
     <a class="skip-link" href="#briefPicksWrap">跳到今日重點訊號</a>
@@ -147,6 +147,18 @@
         <button class="clear-filters-btn" id="clearFiltersBtn" type="button" hidden>清除篩選</button>
       </section>
 
+      <section class="sensor-wrap breaking-sensor-wrap" id="breakingSignalsWrap" hidden>
+        <div class="sensor-head">
+          <div>
+            <p class="section-eyebrow">BREAKING WATCH</p>
+            <h2>額度與政策速報</h2>
+          </div>
+          <span id="breakingSignalsMeta">每 30 分鐘更新 · 待確認信號</span>
+        </div>
+        <p class="sensor-disclaimer">第三方監測工具出現額度相關變更時先行提示；這裡不是官方公告，採取行動前請開啟證據連結確認。</p>
+        <div class="sensor-grid" id="breakingSignalsList"></div>
+      </section>
+
       <section class="brief-picks-wrap" aria-label="今日 Top 3" id="briefPicksWrap">
         <div class="brief-picks-head">
           <div>
@@ -162,6 +174,17 @@
           </div>
         </div>
         <div id="briefPicksList" class="brief-board"></div>
+      </section>
+
+      <section class="sensor-wrap market-sensor-wrap" id="marketSignalsWrap" hidden>
+        <div class="sensor-head">
+          <div>
+            <p class="section-eyebrow">MARKET &amp; QUOTA</p>
+            <h2>價格與免費額度變更</h2>
+          </div>
+          <span id="marketSignalsMeta">結構化差異</span>
+        </div>
+        <div class="sensor-grid" id="marketSignalsList"></div>
       </section>
 
       <section class="waytoagi-wrap">
@@ -219,7 +242,7 @@
     </template>
 
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" integrity="sha384-HOvlOYPIs/zjoIkWUGXkVmXsjr8GuZLV+Q+rcPwmJOVZVpvTSXQChiN4t9Euv9Vc" crossorigin="anonymous" defer></script>
-    <script src="./assets/motion.js?v=taste-ui-0817d" defer></script>
-    <script src="./assets/app.js?v=taste-ui-0817d" defer></script>
+    <script src="./assets/motion.js?v=taste-ui-0821a" defer></script>
+    <script src="./assets/app.js?v=taste-ui-0821a" defer></script>
   </body>
 </html>

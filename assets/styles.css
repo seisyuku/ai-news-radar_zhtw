@@ -900,6 +900,166 @@ summary:focus-visible {
   background: var(--surface);
 }
 
+.sensor-wrap {
+  margin-top: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.breaking-sensor-wrap {
+  border-color: rgba(180, 88, 24, 0.32);
+  background: linear-gradient(180deg, rgba(255, 248, 238, 0.9), var(--surface));
+}
+
+.sensor-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.sensor-head h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.sensor-head > span {
+  color: var(--muted);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.sensor-disclaimer {
+  margin: 0;
+  padding: 10px 18px 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.sensor-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  padding: 14px 16px 16px;
+}
+
+.sensor-card {
+  display: grid;
+  gap: 9px;
+  min-width: 0;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  padding: 13px 14px;
+  background: var(--surface-soft);
+}
+
+.sensor-card.is-breaking {
+  border-color: rgba(180, 88, 24, 0.25);
+  background: rgba(255, 251, 245, 0.96);
+}
+
+.sensor-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.sensor-card-meta time {
+  margin-left: auto;
+}
+
+.sensor-chip {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 2px 6px;
+  background: var(--surface);
+  font-weight: 760;
+}
+
+.sensor-chip-category {
+  color: var(--accent);
+  border-color: rgba(18, 106, 115, 0.3);
+}
+
+.sensor-chip-candidate {
+  color: #9a531a;
+  border-color: rgba(180, 88, 24, 0.35);
+}
+
+.sensor-chip-reported {
+  color: var(--ink-soft);
+}
+
+.sensor-card-title {
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.4;
+  text-decoration: none;
+}
+
+.sensor-card-title:hover,
+.sensor-card-title:focus-visible,
+.sensor-source-link:hover,
+.sensor-source-link:focus-visible {
+  color: var(--accent);
+  outline: none;
+}
+
+.sensor-card-summary {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.sensor-value-change {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+.sensor-value-change strong {
+  color: var(--accent);
+}
+
+.sensor-value-change small {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.sensor-source-link {
+  width: fit-content;
+  color: var(--muted);
+  font-size: 11px;
+  text-decoration: none;
+}
+
+@media (max-width: 720px) {
+  .sensor-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .sensor-head > span {
+    white-space: normal;
+  }
+
+  .sensor-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* 雙色交替：WaytoAGI 版塊用深一檔的底色，與重點訊號 / AI 訊號流形成節奏感 */
 .waytoagi-wrap {
   background: var(--bg-alt);

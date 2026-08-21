@@ -484,3 +484,29 @@ entry、並補上對應 pytest 案例，屬於例行維護，不需要為此開�
 匹配演算法本身（吞尾規則、共現閘門邏輯、佔位符格式）的變更才需要走
 完整的工單/驗收流程。BRAND_GLOSSARY 舊機制已完全併入 CANONICAL_NAMES
 並移除，程式碼內不再有雙軌並存。
+
+## Market Sensor 與速報區
+
+`scripts/update_news.py` 每次既有排程都會呼叫
+`scripts/market_sensors.py`；沒有新增 workflow、服務或 secret。名義更新
+頻率與整站相同為 30 分鐘，實際新鮮度仍受本文件所述 GitHub schedule／
+watchdog／external heartbeat 三層排程影響。
+
+產物：
+
+- `data/market-signals.json`：前端公開讀取；一般 price/free-tier 事件保留
+  30 天，速報候選保留 7 天。
+- `data/market-sensor-state.json`：公開上游的最小比較快照與 Canary seen
+  IDs；不含 token、cookies、帳號或個人 quota。
+- `data/source-status.json`：四個 Sensor 各自記錄成功、解析筆數、當輪事件
+  數與 exact error；任何單一失敗皆 fail-soft，不中止新聞主流程。
+
+首頁把 `usage_policy`／`urgency=breaking` 獨立放在「額度與政策速報」，
+預設最多四張卡；其他 price/free-tier 事件放在「價格與免費額度變更」，
+預設最多六張卡。沒有新事件時整區隱藏，不以舊資料填版。Canary 的
+`candidate` 不得在前端改字成官方確認，也不得因多個第三方 repo 相同就
+自動升級可信度。
+
+若要提高速報時效，先量測事件的來源發布延遲；不可只增加 GitHub Actions
+cron。現行 30 分鐘輪詢已使抓取成本接近零，品質成本主要是誤報覆核，而非
+網路或運算資源。

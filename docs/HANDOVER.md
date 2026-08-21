@@ -548,3 +548,20 @@ cron 頻率裁決維持 4 tick/hr 不降頻（見上方「已知設計事實」�
 - Artificial Analysis 未接入（每月手動看 leaderboard；已評估
   changelog 頁面可靜態抓取，成本中等，暫不實作）
 - 繁簡混排標題理論上可能疊字（極罕見，觀察中）
+
+## 8/21 Market Sensor 與額度政策速報（已實作，待排程樣本觀察）
+
+- 新增 `scripts/market_sensors.py`，沿用既有排程與靜態 JSON 發布，不新增
+  server、database、workflow 或 secret。
+- 價格與免費額度使用獨立 state 做 deterministic old/new diff；首次執行
+  只建 baseline。上游縮水超過安全門檻時不覆蓋前次 state。
+- Usage policy 只監控 Usage4Claude 與 Claude Usage Monitor 公開 commit
+  Atom；強詞命中才建立 `USAGE_POLICY_CANDIDATE`，不執行第三方工具，
+  不接觸個人 quota 或登入狀態。
+- 產品排序採雙軸：長期影響 1（價格）> 2（免費額度）> 3（usage policy）；
+  時效則 3 >> 2 > 1。首頁因此把第 3 類放在獨立速報區，但所有卡片仍
+  明示「待確認」。
+- 前端新增「額度與政策速報」及「價格與免費額度變更」兩區；沒有事件時
+  隱藏，不影響既有今日重點訊號與一般列表。
+- 後續驗收重點是 14 天候選 precision、官方確認延遲、重複率與漏報；
+  未完成觀察前不擴到 issue／PR、大型 scraper 或 changedetection.io。

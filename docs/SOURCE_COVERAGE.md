@@ -412,6 +412,26 @@ used for the 2026-07-14 removals above: the domain exclusion is generic
 source relaying v2ex links) and the tier/group entries are inert once the
 fetchers are unregistered.
 
+## Market / Free-Tier / Canary Sensors（2026-08-21）
+
+這三類來源不進入一般新聞 `RawItem`、AI 相關性評分或六類事件排序；它們
+由 `scripts/market_sensors.py` 產生獨立的 `data/market-signals.json`：
+
+- **價格（長期影響順位 1、時效順位 3）**：讀取 LLM Price Tracker 的
+  公開 `prices.json`，保存核心價格欄位快照，以 deterministic diff 產生
+  old/new 事件。第三方結構化資料屬 `reported`，不是官方 GT。
+- **免費額度（長期影響順位 2、時效順位 2）**：讀取
+  `xyzs996/free-llm-api` 的公開 `providers.json`，只比較 RPM、RPD、
+  availability 與 model list；卡片保留資料集引用的官方 URL。
+- **Usage policy Canary（長期影響順位 3、時效順位 1）**：只讀
+  Usage4Claude 與 Claude Usage Monitor 的公開 commit Atom。強關鍵字命中
+  才產生 `USAGE_POLICY_CANDIDATE`，永遠標示 `candidate`；不執行工具、
+  不讀使用者帳號、token 或個人 quota。
+
+初次執行只建立 baseline，不把上游既有內容當成新事件。結構化資料若突然
+縮至前次 80% 以下會 fail closed，保留既有 state；單一 Sensor 失效不拖垮
+新聞更新，錯誤會進入 `source-status.json`。
+
 ## Personal Source Workflow
 
 For a private custom setup:
