@@ -97,7 +97,10 @@ asset, same as any other source change.
 - 只把 RSS/Atom 發布者提供的 `summary`／`description` 送去摘要；只有
   標題的新聞不呼叫 API，也不顯示固定模板假裝成內容摘要。
 - `data/ai-summary-cache.json` 以模型、prompt 版本、標題與來源摘要的
-  內容雜湊為鍵。內容不變就沿用快取，最多保留 500 筆。
+  內容雜湊為鍵。內容不變就沿用成功快取，最多保留 500 筆。對
+  `insufficient_context`、`validation_length` 另保留同鍵 6 小時的安全
+  負面快取，避免同一篇未變更內容每 30 分鐘重複呼叫；供應商、數字、版本名
+  與安全拒絕不會被負面快取掩蓋。
 - Provider timeout、額度或輸出驗證失敗只記錄公開安全的錯誤類型；本地
   驗證失敗另以 allowlist `last_error_detail` 標示長度、語言、數字事實、
   必要版本名、格式或安全 gate，絕不寫入 provider 回覆或來源原文。狀態位於

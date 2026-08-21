@@ -1084,6 +1084,8 @@ BUSINESS_EVENT_EXCLUDED_SITE_IDS: frozenset[str] = frozenset({JUYA_DAILY_SITE_ID
 # vote via _group_aware_duplicate_count() below. Sites not listed here are
 # unaffected - each still counts on its own, same as before this change.
 SOURCE_ECOSYSTEM_GROUPS: dict[str, str] = {
+    # Legacy archive fixtures/rows can retain the old reader ID until the next
+    # scheduled archive rewrite; preserve their historical corroboration rule.
     "aibase": "cn_aggregator",
     "iris": "cn_aggregator",
     "kr36_ai": "cn_aggregator",
@@ -1093,6 +1095,12 @@ SOURCE_ECOSYSTEM_GROUPS: dict[str, str] = {
 
 def _source_group_key(item: dict[str, Any], index: int) -> str:
     site_id = str(item.get("site_id") or "")
+    source = str(item.get("source") or "").strip().casefold()
+    # AIBASE is presented in the reader layer as a named sub-source of
+    # curated media, but it still relays the same Chinese aggregator ecosystem
+    # as before.  Keep its corroboration vote collapsed with that ecosystem.
+    if site_id == "curated_media" and source == "aibase":
+        return "cn_aggregator"
     group = SOURCE_ECOSYSTEM_GROUPS.get(site_id)
     if group:
         return group
@@ -2713,8 +2721,6 @@ def extract_llm_stats_latest_models(page_html: str, now: datetime) -> list[RawIt
         if len(out) >= LLM_STATS_MODEL_MAX_ENTRIES:
             break
 
-    if not out:
-        raise ValueError("No recent allowlisted LLM Stats model releases parsed")
     return out
 
 
@@ -2942,12 +2948,12 @@ def fetch_tw_media(session: requests.Session, now: datetime) -> list[RawItem]:
 
 
 def fetch_kr36_ai(session: requests.Session, now: datetime) -> list[RawItem]:
-    """Watchlist source: 36Kr has no dedicated AI-channel feed, so the general
-    site feed is title-filtered for AI keywords (matched against the raw
-    Simplified Chinese title). Simplified-to-Traditional conversion is no
-    longer done here: it happens uniformly for every source's title/summary
-    at output-assembly time (see to_zh_hant()), so this fetcher just returns
-    the raw title.
+    """Read 36Kr through its stable Google News watchlist route.
+
+    36Kr's general feed has repeatedly served a JavaScript WAF page instead
+    of RSS.  Google News is therefore the declared reader-facing route, not a
+    degraded fallback.  The unused direct URL remains a maintainer probe
+    constant, but is deliberately not hit by every scheduled refresh.
     """
     site_id = "kr36_ai"
     site_name = "36Kr AI (Watchlist)"
@@ -2955,78 +2961,62 @@ def fetch_kr36_ai(session: requests.Session, now: datetime) -> list[RawItem]:
     include_keywords = [
         keyword.strip().lower() for keyword in KR36_AI_INCLUDE_KEYWORDS.split(",") if keyword.strip()
     ]
-    failures: list[str] = []
-    for feed_url, feed_path in (
-        (KR36_AI_FEED_URL, "direct"),
-        (KR36_AI_FALLBACK_FEED_URL, "google_news_fallback"),
-    ):
-        try:
-            resp = session.get(
-                feed_url,
-                timeout=20,
-                headers={
-                    "User-Agent": BROWSER_UA,
-                    "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
-                    "Accept": "application/rss+xml, application/xml, text/xml, */*",
+    resp = session.get(
+        KR36_AI_FALLBACK_FEED_URL,
+        timeout=20,
+        headers={
+            "User-Agent": BROWSER_UA,
+            "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+            "Accept": "application/rss+xml, application/xml, text/xml, */*",
+        },
+    )
+    resp.raise_for_status()
+    if feedparser is not None:
+        parsed = feedparser.parse(resp.content)
+        entries = list(parsed.entries)
+        parse_error = str(getattr(parsed, "bozo_exception", ""))
+    else:
+        entries = parse_feed_entries_via_xml(resp.content)
+        parse_error = ""
+    if not entries:
+        detail = f": {parse_error}" if parse_error else ""
+        raise ValueError(f"No parseable 36Kr Google News entries{detail}")
+
+    out: list[RawItem] = []
+    seen_urls: set[str] = set()
+    for entry in entries:
+        title, link, published = feed_entry_title_link_published(entry, now)
+        if not title or not link or not published:
+            continue
+        if published < now - timedelta(days=KR36_AI_MAX_AGE_DAYS):
+            continue
+        if not any(_feed_keyword_matches(keyword, title.lower()) for keyword in include_keywords):
+            continue
+        normalized_url = normalize_url(link)
+        if normalized_url in seen_urls:
+            continue
+        seen_urls.add(normalized_url)
+        out.append(
+            RawItem(
+                site_id=site_id,
+                site_name=site_name,
+                source="36Kr",
+                title=maybe_fix_mojibake(title),
+                url=link,
+                published_at=published,
+                meta={
+                    "feed_url": KR36_AI_FALLBACK_FEED_URL,
+                    "feed_home": "https://36kr.com/",
+                    "feed_path": "google_news",
+                    "summary": feed_entry_summary(entry),
                 },
             )
-            resp.raise_for_status()
-            content_type = str(getattr(resp, "headers", {}).get("Content-Type") or "").lower()
-            content_prefix = bytes(resp.content).lstrip()[:32].lower()
-            if "text/html" in content_type or content_prefix.startswith((b"<!doctype html", b"<html")):
-                raise ValueError(f"unexpected HTML response ({content_type or 'unknown content type'})")
-
-            if feedparser is not None:
-                parsed = feedparser.parse(resp.content)
-                entries = list(parsed.entries)
-                parse_error = str(getattr(parsed, "bozo_exception", ""))
-            else:
-                entries = parse_feed_entries_via_xml(resp.content)
-                parse_error = ""
-            if not entries:
-                detail = f": {parse_error}" if parse_error else ""
-                raise ValueError(f"no parseable feed entries{detail}")
-
-            out: list[RawItem] = []
-            seen_urls: set[str] = set()
-            for entry in entries:
-                title, link, published = feed_entry_title_link_published(entry, now)
-                if not title or not link or not published:
-                    continue
-                if published < now - timedelta(days=KR36_AI_MAX_AGE_DAYS):
-                    continue
-                if not any(_feed_keyword_matches(keyword, title.lower()) for keyword in include_keywords):
-                    continue
-                normalized_url = normalize_url(link)
-                if normalized_url in seen_urls:
-                    continue
-                seen_urls.add(normalized_url)
-
-                out.append(
-                    RawItem(
-                        site_id=site_id,
-                        site_name=site_name,
-                        source="36Kr",
-                        title=maybe_fix_mojibake(title),
-                        url=link,
-                        published_at=published,
-                        meta={
-                            "feed_url": feed_url,
-                            "feed_home": "https://36kr.com/",
-                            "feed_path": feed_path,
-                            "summary": feed_entry_summary(entry),
-                        },
-                    )
-                )
-                if len(out) >= KR36_AI_MAX_ENTRIES:
-                    break
-            if out:
-                return out
-            failures.append(f"{feed_path}: no recent AI keyword matches")
-        except Exception as exc:
-            failures.append(f"{feed_path}: {exc}")
-
-    raise ValueError(f"No 36Kr AI items parsed; {'; '.join(failures)}")
+        )
+        if len(out) >= KR36_AI_MAX_ENTRIES:
+            break
+    if not out:
+        raise ValueError("No recent 36Kr Google News AI keyword matches")
+    return out
 
 
 def fetch_juya_daily(session: requests.Session, now: datetime) -> list[RawItem]:
@@ -3340,8 +3330,11 @@ def fetch_ai_hubtoday(session: requests.Session, now: datetime) -> list[RawItem]
     return out
 
 def fetch_aibase(session: requests.Session, now: datetime) -> list[RawItem]:
-    site_id = "aibase"
-    site_name = "AIbase"
+    # Reader-layer identity: AIBASE is a named curated-media sub-source, like
+    # The Decoder, not its own site category or a generic "AI website".
+    site_id = "curated_media"
+    site_name = "精選媒體"
+    source_name = "AIBASE"
 
     r = session.get("https://www.aibase.com/zh/news", timeout=30)
     r.raise_for_status()
@@ -3367,7 +3360,7 @@ def fetch_aibase(session: requests.Session, now: datetime) -> list[RawItem]:
             RawItem(
                 site_id=site_id,
                 site_name=site_name,
-                source=site_name,
+                source=source_name,
                 title=title,
                 url=urljoin("https://www.aibase.com", href),
                 published_at=published,
@@ -3675,7 +3668,7 @@ def collect_all(session: requests.Session, now: datetime) -> tuple[list[RawItem]
         ("llm_stats_models", "LLM Stats 模型查漏", fetch_llm_stats_model_releases),
         ("llm_rumors", "LLM Rumors 模型分析", fetch_llm_rumors),
         ("runtimewire", "RuntimeWire 模型媒體", fetch_runtimewire_models),
-        ("aibase", "AIbase", fetch_aibase),
+        ("aibase", "精選媒體 · AIBASE", fetch_aibase),
         ("tw_media", "TW Media", fetch_tw_media),
         ("kr36_ai", "36Kr AI (Watchlist)", fetch_kr36_ai),
         (JUYA_DAILY_SITE_ID, "橘鴉AI早報 (Watchlist)", fetch_juya_daily),
@@ -3709,6 +3702,7 @@ def collect_all(session: requests.Session, now: datetime) -> tuple[list[RawItem]
         error = None
         count = 0
         fetch_path = None
+        items: list[RawItem] = []
         try:
             items = fn(session, now)
             count = len(items)
@@ -3728,9 +3722,11 @@ def collect_all(session: requests.Session, now: datetime) -> tuple[list[RawItem]
         }
         if fetch_path:
             status["fetch_path"] = fetch_path
-            status["degraded"] = fetch_path != "direct"
+            status["degraded"] = fetch_path not in {"direct", "google_news"}
             if status["degraded"]:
                 status["degraded_reason"] = "primary_source_unavailable_using_fallback"
+        if site_id == "llm_stats_models" and not items and error is None:
+            status["empty_reason"] = "no_recent_allowlisted_models"
         statuses.append(status)
 
     return raw_items, statuses
@@ -4112,6 +4108,24 @@ def fetch_opml_rss(
     return out, summary_status, feed_statuses
 
 
+def normalize_reader_source_identity(record: dict[str, Any]) -> dict[str, Any]:
+    """Migrate legacy AIBASE reader records into the curated-media pool.
+
+    The source-health task remains internally named ``aibase`` so maintainers
+    can diagnose it independently. Reader data uses the curated-media site ID
+    and canonical publisher spelling, preventing retained archive rows from
+    recreating a standalone reader group.
+    """
+
+    normalized = dict(record)
+    if str(normalized.get("site_id") or "") == "aibase":
+        normalized["site_id"] = "curated_media"
+        normalized["site_name"] = "精選媒體"
+        if str(normalized.get("source") or "").strip().casefold() == "aibase":
+            normalized["source"] = "AIBASE"
+    return normalized
+
+
 def load_archive(path: Path) -> dict[str, dict[str, Any]]:
     if not path.exists():
         return {}
@@ -4126,12 +4140,13 @@ def load_archive(path: Path) -> dict[str, dict[str, Any]]:
         for it in items:
             item_id = it.get("id")
             if item_id:
-                out[item_id] = it
+                out[item_id] = normalize_reader_source_identity(it)
     elif isinstance(items, dict):
         for item_id, it in items.items():
             if isinstance(it, dict):
-                it["id"] = item_id
-                out[item_id] = it
+                normalized = dict(it)
+                normalized["id"] = item_id
+                out[item_id] = normalize_reader_source_identity(normalized)
     return out
 
 
@@ -4240,7 +4255,9 @@ SOURCE_TIER_BY_SITE: dict[str, tuple[str, str, int]] = {
     "curated_media": ("ai_media", "精選AI媒體", 2),
     "aibreakfast": ("ai_vertical", "AI垂直源", 1),
     "aihubtoday": ("ai_vertical", "AI垂直源", 1),
-    "aibase": ("ai_vertical", "AI垂直源", 1),
+    # Legacy records may briefly retain this ID; their effective reader tier
+    # must match the curated-media destination.
+    "aibase": ("ai_media", "精選AI媒體", 2),
     "aihot": ("ai_vertical", "AI垂直源", 1),
     "bestblogs": ("ai_vertical", "AI垂直源", 1),
     "waytoagi": ("community", "社群更新", 2),

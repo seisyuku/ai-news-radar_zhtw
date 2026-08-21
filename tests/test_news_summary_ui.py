@@ -45,11 +45,13 @@ def test_followup_story_rows_render_generated_summary_when_present():
     assert "AI 摘要 · ${generatedSummary}" in source
 
 
-def test_top_card_hides_raw_publisher_copy_after_a_generated_summary_exists():
+def test_top_card_only_renders_a_summary_block_for_generated_copy():
     source = (ROOT / "assets" / "app.js").read_text(encoding="utf-8")
 
-    assert "summary.hidden = Boolean(generatedSummary);" in source
-    assert 'summary.textContent = generatedSummary ? "" : signalSummaryText(row);' in source
+    assert "function signalSummaryText" not in source
+    assert "已進入 24 小時 AI 強相關池" not in source
+    assert "if (generatedSummary)" in source
+    assert 'whyLabel.textContent = "AI 新聞摘要"' in source
 
 
 def test_fixed_why_important_copy_is_removed_from_shipped_ui():

@@ -1,5 +1,25 @@
 # AI 商業情報儀表板 — 交接摘要（截至 2026-08-17）
 
+## 2026-08-21 維運與讀者層校正
+
+- **36Kr AI**：一般 RSS 長期回傳 WAF HTML，排程改以 Google News
+  `site:36kr.com` 為正式 watchlist 路由；不再每輪先打不可用的直接 feed
+  再把可用結果標示為 degraded。直接 feed 僅保留給低頻維運探測。
+- **LLM Stats**：已解析的 `latestModels` payload 若沒有近期 allowlisted
+  模型，記為健康的零筆結果 (`empty_reason=no_recent_allowlisted_models`)，
+  不再累積 persistent failure；HTTP、payload 缺失與 schema 失敗仍是故障。
+- **AI 摘要**：保留繁中、數字、版本名與提示注入驗證；相同
+  content/model/prompt 鍵的 `insufficient_context`、`validation_length`
+  拒絕會負面快取 6 小時，避免無產出的重複 Groq 呼叫。
+- **AIBASE**：讀者資料改歸入 `curated_media` 的 `精選媒體` 群組，子來源
+  顯示固定為 `AIBASE`。它不再是「AI網站」或社群類，也不再套用舊的
+  default-source 100 分地板／AI 垂直源權重；仍與中國聚合來源共用
+  corroboration ecosystem，不能藉轉載提高多源熱度。舊 archive 記錄在
+  下次排程載入時會一併正規化，避免保留窗內重新產生獨立群組。
+- **重點訊號卡**：移除所有固定理由與 RSS 摘要回退文案。只有產生且通過
+  驗證的 `news_summary` 才建立「AI 新聞摘要」區塊；沒有摘要即完全不渲染
+  其標題、留白或固定字串。
+
 ## 專案身份
 - Fork：seisyuku/ai-news-radar_zhtw（上游 LearnPrompt/ai-news-radar，MIT）
 - 線上：https://seisyuku.github.io/ai-news-radar_zhtw/

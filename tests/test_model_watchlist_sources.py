@@ -57,6 +57,14 @@ class LlmStatsModelReleaseTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "latestModels"):
             extract_llm_stats_latest_models("<html>no model payload</html>", NOW)
 
+    def test_no_recent_allowlisted_model_is_a_valid_empty_result(self):
+        html = (
+            '"latestModels":[{"model_id":"old-model","name":"Old Model",'
+            '"organization":"Unknown","organization_id":"unknown",'
+            '"release_date":"2026-07-01"}]'
+        )
+        self.assertEqual(extract_llm_stats_latest_models(html, NOW), [])
+
     def test_builds_seven_day_release_lane_without_faking_24h_timestamp(self):
         item = extract_llm_stats_latest_models(
             '"latestModels":[{"model_id":"qwen3.8-27b","name":"Qwen3.8-27B",'

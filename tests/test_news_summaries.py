@@ -139,6 +139,8 @@ def test_failed_candidates_do_not_consume_successful_summary_budget():
     for index in range(7):
         item = story()
         item["story_id"] = f"story-{index}"
+        item["title"] = f"Qwen3.8-27B 發布 {index}"
+        item["sources"][0]["summary"] = f"Qwen 團隊發布 Qwen3.8-27B，第 {index} 則來源列出 128K context。"
         stories.append(item)
     calls = []
 
@@ -156,6 +158,25 @@ def test_failed_candidates_do_not_consume_successful_summary_budget():
     assert status["failed"] == 6
     assert status["generated"] == 1
     assert output[6]["news_summary_provider"] == "groq"
+
+
+def test_repeatable_rejections_use_a_short_negative_cache():
+    calls = []
+
+    def generate(_prompt, _item):
+        calls.append(True)
+        return "資訊不足，無法產生可靠摘要"
+
+    _output, first_status, cache = summarize_stories(
+        [story()], generate_fn=generate, max_new=1, now=NOW
+    )
+    _output, second_status, cache = summarize_stories(
+        [story()], generate_fn=generate, max_new=1, cache=cache, now=NOW
+    )
+
+    assert first_status["failed"] == 1
+    assert second_status["rejection_cache_hits"] == 1
+    assert calls == [True]
 
 
 def test_validator_requires_bounded_traditional_chinese_prose():

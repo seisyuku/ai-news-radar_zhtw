@@ -132,8 +132,10 @@ the rest of the dashboard retains its 24-hour window.
   from `https://llm-stats.com/ai-news`. It emits one atomic item per recent
   allowlisted lab model and links to that model's LLM Stats page. It is a
   discovery/cross-check source, not an official lab authority; the site's broad
-  aggregated news stream is not ingested. The initial live probe contained the
-  previously missed Qwen3.8-27B and Grok 4.6 releases.
+  aggregated news stream is not ingested. A reachable, parseable payload with
+  no recent allowlisted release is a healthy zero-item run, not a source
+  failure; HTTP/payload/schema failures remain observable failures. The initial
+  live probe contained the previously missed Qwen3.8-27B and Grok 4.6 releases.
 - **LLM Rumors** reads the public `https://www.llmrumors.com/news/rss.xml` feed.
   It adds low-frequency, long-form model strategy and deployment analysis. Its
   seven-day overlap sample contained zero recent items, so it remains a
@@ -335,16 +337,22 @@ Added:
   `site:bnext.com.tw`, same tier and keyword filter as the other two.
 - **36Kr AI** (`site_id="kr36_ai"`, watchlist tier `观察名单源`): 36Kr has no
   dedicated AI-channel feed (`/feed-ai`, `/feed-motif/*`, `/information/AI`
-  all probed with no RSS). `fetch_kr36_ai` tries the general `36kr.com/feed`
-  first, but 36Kr may replace it with a JavaScript WAF challenge while still
-  returning HTTP 200. An HTML/content-type guard detects that condition and
-  falls back to a public Google News RSS query scoped to `site:36kr.com`.
-  Both paths retain the Simplified-Chinese AI-keyword title filter, the
-  watchlist tier, and the shared Simplified-to-Traditional output conversion.
-  `data/source-status.json` records `fetch_path` and lists fallback use in
-  `degraded_sites`; unrecovered failures carry a cross-run streak and become
-  `persistent_failures` after three consecutive runs, which emits a GitHub
-  Actions warning while preserving the pipeline's per-source fail-soft rule.
+  all probed with no RSS), and the general `36kr.com/feed` repeatedly serves a
+  JavaScript WAF page. The scheduled reader path is therefore the public
+  Google News RSS query scoped to `site:36kr.com`, not a degraded fallback.
+  It retains the Simplified-Chinese AI-keyword title filter, watchlist tier,
+  and shared Simplified-to-Traditional output conversion. The direct URL stays
+  available only for occasional maintainer probes; its WAF behaviour no longer
+  creates a false degraded status on every refresh. Unrecovered Google News
+  failures still carry a cross-run streak and become `persistent_failures`
+  after three consecutive runs.
+
+- **AIBASE** is a named sub-source of `curated_media` (`精選媒體`), alongside
+  sources such as The Decoder. Its reader label is always `AIBASE`, never the
+  generic `AI網站`; it uses curated-media relevance and source-tier scoring
+  rather than the old default-source floor. It remains in the Chinese
+  aggregator ecosystem for duplicate corroboration, so it cannot inflate
+  multi-source heat by relaying the same story.
 
 zh-TW keyword support: `AI_KEYWORDS`/`TECH_KEYWORDS` in both
 `scripts/ai_relevance.py` (the gatekeeper used for `ai_is_related`/`ai_score`)

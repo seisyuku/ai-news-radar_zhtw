@@ -35,6 +35,9 @@ DECLARATIONS = extract_declarations(
     "storyHotScore",
     "storySourceCount",
     "storyTimeMs",
+    "readerSiteId",
+    "readerSiteName",
+    "sourceDisplayName",
     "storyCandidateSiteId",
     "FEATURED_DIVERSITY_VISIBLE_SLOTS",
     "FEATURED_DIVERSITY_SOURCE_CAP",
@@ -48,7 +51,7 @@ DECLARATIONS = extract_declarations(
 HELPERS = """
 function mk(site, opts) {
   opts = opts || {};
-  const row = { site_id: site, business_events: ["model_release"] };
+  const row = { site_id: site, source: opts.source || "", business_events: ["model_release"] };
   if (opts.hot) {
     row.duplicate_count = 2;
     row.latest_at = new Date().toISOString();
@@ -96,6 +99,21 @@ class TestTieDefersToDiversity:
         assert result["seq"][:6] == [
             "aibase", "aibase", "curated_media", "tw_media", "official_ai", "opmlrss",
         ]
+
+    def test_curated_media_keeps_aibase_as_a_distinct_publisher_for_the_cap(self):
+        result = _run(
+            """
+            const rows = [
+              mk('curated_media', {source: 'AIBASE'}),
+              mk('curated_media', {source: 'AIBASE'}),
+              mk('curated_media', {source: 'AIBASE'}),
+              mk('curated_media', {source: 'The Decoder AI News'}),
+            ];
+            const out = applyFeaturedSourceDiversityCap(rows, 5, 2);
+            console.log(JSON.stringify({ sources: out.map((r) => r.source) }));
+            """
+        )
+        assert result["sources"][:3] == ["AIBASE", "AIBASE", "The Decoder AI News"]
 
 
 def test_hot_top_ten_passes_its_full_capacity_to_diversity_cap():

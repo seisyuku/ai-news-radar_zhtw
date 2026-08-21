@@ -27,6 +27,8 @@ SUMMARY_MAX_CHARS = 120
 SUMMARY_CACHE_VERSION = 1
 SUMMARY_PROMPT_VERSION = "zh-tw-news-summary-v1"
 SUMMARY_CACHE_MAX_ENTRIES = 500
+SUMMARY_REJECTION_TTL_SECONDS = 6 * 60 * 60
+_NEGATIVE_CACHE_REASONS = frozenset({"insufficient_context", "validation_length"})
 INSUFFICIENT_SUMMARY = "資訊不足，無法產生可靠摘要"
 _OUTPUT_BLOCKLIST = (
     "ignore all previous",
@@ -251,6 +253,7 @@ def empty_summary_cache() -> dict[str, Any]:
         "version": SUMMARY_CACHE_VERSION,
         "prompt_version": SUMMARY_PROMPT_VERSION,
         "entries": {},
+        "rejections": {},
     }
 
 
@@ -264,7 +267,22 @@ def load_summary_cache(path: Path) -> dict[str, Any]:
     if int(payload.get("version") or 0) != SUMMARY_CACHE_VERSION:
         return empty_summary_cache()
     payload["prompt_version"] = SUMMARY_PROMPT_VERSION
+    if not isinstance(payload.get("rejections"), dict):
+        payload["rejections"] = {}
     return payload
+
+
+def _negative_cache_is_fresh(entry: Mapping[str, Any], now: datetime) -> bool:
+    if str(entry.get("reason") or "") not in _NEGATIVE_CACHE_REASONS:
+        return False
+    raw_created_at = str(entry.get("created_at") or "").strip()
+    try:
+        created_at = datetime.fromisoformat(raw_created_at.replace("Z", "+00:00"))
+    except ValueError:
+        return False
+    if created_at.tzinfo is None:
+        created_at = created_at.replace(tzinfo=UTC)
+    return (now - created_at.astimezone(UTC)).total_seconds() < SUMMARY_REJECTION_TTL_SECONDS
 
 
 def summary_cache_key(story: Mapping[str, Any], source_context: str, model: str) -> str:
@@ -317,7 +335,15 @@ def summarize_stories(
 
     current = dict(cache or empty_summary_cache())
     entries = dict(current.get("entries") or {})
-    current.update({"version": SUMMARY_CACHE_VERSION, "prompt_version": SUMMARY_PROMPT_VERSION, "entries": entries})
+    rejections = dict(current.get("rejections") or {})
+    current.update(
+        {
+            "version": SUMMARY_CACHE_VERSION,
+            "prompt_version": SUMMARY_PROMPT_VERSION,
+            "entries": entries,
+            "rejections": rejections,
+        }
+    )
     output = [dict(story) for story in stories]
     created_at = (now or datetime.now(UTC)).astimezone(UTC).isoformat().replace("+00:00", "Z")
     status: dict[str, Any] = {
@@ -327,6 +353,7 @@ def summarize_stories(
         "cache_hits": 0,
         "generated": 0,
         "failed": 0,
+        "rejection_cache_hits": 0,
         "ineligible": 0,
         "max_new": max(0, int(max_new)),
     }
@@ -369,6 +396,13 @@ def summarize_stories(
         context, key = contexts[index]
         if output[index].get("news_summary"):
             continue
+        rejection = rejections.get(key)
+        current_now = now or datetime.now(UTC)
+        if isinstance(rejection, Mapping) and _negative_cache_is_fresh(rejection, current_now):
+            status["rejection_cache_hits"] += 1
+            continue
+        if rejection is not None:
+            rejections.pop(key, None)
         # `max_new` governs successfully persisted summaries, not attempts.
         # A few rejected provider replies must not permanently starve a
         # lower-ranked but visible story that has valid RSS context.
@@ -386,6 +420,8 @@ def summarize_stories(
             detail = public_summary_failure_detail(exc)
             if detail:
                 status["last_error_detail"] = detail
+                if detail in _NEGATIVE_CACHE_REASONS:
+                    rejections[key] = {"reason": detail, "created_at": created_at}
             continue
         entry = {
             "summary": summary,
@@ -404,4 +440,11 @@ def summarize_stories(
             reverse=True,
         )[:SUMMARY_CACHE_MAX_ENTRIES]
         current["entries"] = dict(newest)
+    if len(rejections) > SUMMARY_CACHE_MAX_ENTRIES:
+        newest_rejections = sorted(
+            rejections.items(),
+            key=lambda pair: str(pair[1].get("created_at") or "") if isinstance(pair[1], Mapping) else "",
+            reverse=True,
+        )[:SUMMARY_CACHE_MAX_ENTRIES]
+        current["rejections"] = dict(newest_rejections)
     return output, status, current

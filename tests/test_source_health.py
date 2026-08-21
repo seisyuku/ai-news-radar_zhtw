@@ -45,27 +45,22 @@ class FakeSession:
         return self.responses.pop(0)
 
 
-class Kr36FallbackTests(unittest.TestCase):
-    def test_direct_feed_is_preferred_when_it_is_valid(self):
+class Kr36GoogleNewsRouteTests(unittest.TestCase):
+    def test_google_news_is_the_declared_scheduled_route(self):
         session = FakeSession([FakeResponse(rss(), "application/rss+xml")])
 
         items = fetch_kr36_ai(session, NOW)
 
-        self.assertEqual([call[0] for call in session.calls], [KR36_AI_FEED_URL])
-        self.assertEqual(items[0].meta["feed_path"], "direct")
+        self.assertEqual([call[0] for call in session.calls], [KR36_AI_FALLBACK_FEED_URL])
+        self.assertEqual(items[0].meta["feed_path"], "google_news")
 
-    def test_html_waf_challenge_uses_google_news_fallback(self):
-        session = FakeSession(
-            [
-                FakeResponse(b"<!DOCTYPE html><html>security check</html>", "text/html"),
-                FakeResponse(rss(link="https://news.google.com/rss/articles/123"), "application/xml"),
-            ]
-        )
+    def test_direct_feed_is_not_hit_in_the_scheduled_path(self):
+        session = FakeSession([FakeResponse(rss(link="https://news.google.com/rss/articles/123"), "application/xml")])
 
         items = fetch_kr36_ai(session, NOW)
 
-        self.assertEqual([call[0] for call in session.calls], [KR36_AI_FEED_URL, KR36_AI_FALLBACK_FEED_URL])
-        self.assertEqual(items[0].meta["feed_path"], "google_news_fallback")
+        self.assertNotIn(KR36_AI_FEED_URL, [call[0] for call in session.calls])
+        self.assertEqual(items[0].meta["feed_path"], "google_news")
 
 
 class SourceHealthHistoryTests(unittest.TestCase):

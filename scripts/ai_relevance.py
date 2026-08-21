@@ -303,7 +303,6 @@ AI_RELEVANCE_THRESHOLD = 0.65
 SOURCE_PRIORS = {
     "official_ai": 0.35,
     "curated_media": 0.18,
-    "aibase": 0.45,
     "aihot": 0.45,
     "aihubtoday": 0.45,
     "followbuilders": 0.25,
@@ -317,7 +316,7 @@ SOURCE_PRIORS = {
     "llm_rumors": 0.1,
     "runtimewire": 0.1,
 }
-AI_DEFAULT_SOURCES = {"aibase", "aihot", "aihubtoday"}
+AI_DEFAULT_SOURCES = {"aihot", "aihubtoday"}
 CURATED_MEDIA_TRUSTED_SOURCE_KEYWORDS = [
     "the decoder ai news",
     "techcrunch ai",
@@ -326,6 +325,7 @@ CURATED_MEDIA_TRUSTED_SOURCE_KEYWORDS = [
     "claude code releases",
     "lmarena blog",
     "epoch ai",
+    "aibase",
 ]
 CURATED_MEDIA_RESEARCH_SOURCE_KEYWORDS = [
     "marktechpost research",
