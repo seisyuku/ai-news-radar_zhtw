@@ -585,3 +585,14 @@ cron 頻率裁決維持 4 tick/hr 不降頻（見上方「已知設計事實」�
   隱藏，不影響既有今日重點訊號與一般列表。
 - 後續驗收重點是 14 天候選 precision、官方確認延遲、重複率與漏報；
   未完成觀察前不擴到 issue／PR、大型 scraper 或 changedetection.io。
+
+## 8/22 LLM 發布與價格雷達（已實作，待排程樣本觀察）
+
+- `data/llm-radar.json` 把 24 小時內的 `model_release` 與既有
+  Market Sensor 的 price/free-tier diff 組成首頁事件卡；沒有事件時整區隱藏。
+- 模型證據標示嚴格分級：`official_ai` 為「官方公告」、`llm_stats_models`
+  為「模型追蹤」、其餘來源一律為「媒體報導」。不更動全域評分或把媒體報導
+  升級成官方確認。
+- 此 lane 與七日模型分頁不同：前者強調首次可見的即時提醒，後者保留
+  LLM Stats 的 atomic discovery 歷史。後續觀察模型卡 precision、重複率與
+  官方來源確認延遲，再決定是否建立更嚴格的 canonical model key。

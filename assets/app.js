@@ -38,6 +38,8 @@ const state = {
   signalLevelFilter: "",
   marketSignals: [],
   marketSignalsGeneratedAt: null,
+  llmRadar: [],
+  llmRadarGeneratedAt: null,
   siteGroupsExpanded: false,
   xAuthorsExpanded: false,
 };
@@ -89,6 +91,9 @@ const breakingSignalsMetaEl = document.getElementById("breakingSignalsMeta");
 const marketSignalsWrapEl = document.getElementById("marketSignalsWrap");
 const marketSignalsListEl = document.getElementById("marketSignalsList");
 const marketSignalsMetaEl = document.getElementById("marketSignalsMeta");
+const llmRadarWrapEl = document.getElementById("llmRadarWrap");
+const llmRadarListEl = document.getElementById("llmRadarList");
+const llmRadarMetaEl = document.getElementById("llmRadarMeta");
 
 const SOURCE_KINDS = {
   official_ai: { label: "官方", tone: "official" },
@@ -3163,12 +3168,15 @@ function renderSourceHealth(errorMessage = "") {
 }
 
 function sensorVerificationLabel(status) {
+  if (status === "official") return "官方公告";
+  if (status === "tracked") return "模型追蹤";
   if (status === "confirmed") return "官方確認";
   if (status === "reported") return "追蹤器報告";
   return "待確認";
 }
 
 function sensorCategoryLabel(category) {
+  if (category === "model_release") return "模型釋出";
   if (category === "price") return "價格";
   if (category === "free_tier") return "免費額度";
   return "政策速報";
@@ -3192,7 +3200,7 @@ function buildSensorCard(signal) {
   category.textContent = sensorCategoryLabel(signal.category);
   const verification = document.createElement("span");
   verification.className = `sensor-chip sensor-chip-${signal.verification_status || "candidate"}`;
-  verification.textContent = sensorVerificationLabel(signal.verification_status);
+  verification.textContent = signal.verification_label || sensorVerificationLabel(signal.verification_status);
   const time = document.createElement("time");
   time.textContent = fmtTime(signal.detected_at || signal.effective_at);
   meta.append(category, verification, time);
@@ -3279,9 +3287,31 @@ function renderMarketSignals() {
   );
 }
 
+function renderLlmRadar() {
+  const events = Array.isArray(state.llmRadar) ? state.llmRadar : [];
+  renderSensorGroup(
+    llmRadarWrapEl,
+    llmRadarListEl,
+    llmRadarMetaEl,
+    events,
+    8,
+    "目前沒有新的 LLM 發布或價格訊號",
+    "latest",
+  );
+  if (events.length && llmRadarMetaEl) {
+    llmRadarMetaEl.textContent = `過去 24 小時 ${fmtNumber(events.length)} 則新訊號`;
+  }
+}
+
 async function loadMarketSignalsData() {
   const res = await fetch(`./data/market-signals.json?t=${Date.now()}`);
   if (!res.ok) throw new Error(`載入 market-signals.json 失敗: ${res.status}`);
+  return res.json();
+}
+
+async function loadLlmRadarData() {
+  const res = await fetch(`./data/llm-radar.json?t=${Date.now()}`);
+  if (!res.ok) throw new Error(`載入 llm-radar.json 失敗: ${res.status}`);
   return res.json();
 }
 
@@ -3339,13 +3369,14 @@ async function loadStoriesData() {
 }
 
 async function init() {
-  const [newsResult, waytoagiResult, statusResult, briefResult, storiesResult, marketSignalsResult] = await Promise.allSettled([
+  const [newsResult, waytoagiResult, statusResult, briefResult, storiesResult, marketSignalsResult, llmRadarResult] = await Promise.allSettled([
     loadNewsData(),
     loadWaytoagiData(),
     loadSourceStatusData(),
     loadDailyBriefData(),
     loadStoriesData(),
     loadMarketSignalsData(),
+    loadLlmRadarData(),
   ]);
 
   if (briefResult.status === "fulfilled") {
@@ -3368,6 +3399,15 @@ async function init() {
     state.marketSignalsGeneratedAt = null;
   }
   renderMarketSignals();
+
+  if (llmRadarResult.status === "fulfilled") {
+    state.llmRadar = llmRadarResult.value.events || [];
+    state.llmRadarGeneratedAt = llmRadarResult.value.generated_at || null;
+  } else {
+    state.llmRadar = [];
+    state.llmRadarGeneratedAt = null;
+  }
+  renderLlmRadar();
 
   if (newsResult.status === "fulfilled") {
     const payload = newsResult.value;

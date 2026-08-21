@@ -499,6 +499,8 @@ watchdog／external heartbeat 三層排程影響。
 
 - `data/market-signals.json`：前端公開讀取；一般 price/free-tier 事件保留
   30 天，速報候選保留 7 天。
+- `data/llm-radar.json`：首頁讀者層的 24 小時模型發布／價格雷達；模型
+  僅標示偵測證據層級，價格與免費額度沿用上述 structured diff，不影響新聞排序。
 - `data/market-sensor-state.json`：公開上游的最小比較快照與 Canary seen
   IDs；不含 token、cookies、帳號或個人 quota。
 - `data/source-status.json`：四個 Sensor 各自記錄成功、解析筆數、當輪事件
@@ -509,6 +511,10 @@ watchdog／external heartbeat 三層排程影響。
 預設最多六張卡。沒有新事件時整區隱藏，不以舊資料填版。Canary 的
 `candidate` 不得在前端改字成官方確認，也不得因多個第三方 repo 相同就
 自動升級可信度。
+
+「LLM 發布與價格雷達」同樣只在過去 24 小時有事件時顯示，最多四張模型
+與四張市場卡。它是提醒層而非排名層：媒體的 `model_release` 一律標成
+「媒體報導」，只有 `official_ai` 可標成「官方公告」。
 
 若要提高速報時效，先量測事件的來源發布延遲；不可只增加 GitHub Actions
 cron。現行 30 分鐘輪詢已使抓取成本接近零，品質成本主要是誤報覆核，而非

@@ -336,6 +336,9 @@ CURATED_AI_MEDIA_FEEDS: tuple[dict[str, Any], ...] = (
 # a failed feed.
 LLM_STATS_AI_NEWS_URL = "https://llm-stats.com/ai-news"
 MODEL_RELEASE_RADAR_WINDOW_DAYS = 7
+LLM_RADAR_WINDOW_HOURS = 24
+LLM_RADAR_MAX_MODEL_EVENTS = 4
+LLM_RADAR_MAX_MARKET_EVENTS = 4
 LLM_STATS_MODEL_MAX_AGE_DAYS = 7
 LLM_STATS_MODEL_MAX_ENTRIES = 16
 LLM_STATS_MODEL_ORG_IDS: frozenset[str] = frozenset(
@@ -7518,6 +7521,130 @@ def build_model_releases_7d_items(
     return items[:LLM_STATS_MODEL_MAX_ENTRIES]
 
 
+def _llm_radar_model_verification(record: dict[str, Any]) -> tuple[str, str]:
+    """Return a conservative reader label for a model-release discovery.
+
+    A story from an official feed may call itself an official announcement.
+    LLM Stats is a structured cross-check, while every other source remains a
+    media report even when the title strongly indicates a release.
+    """
+    site_id = str(record.get("site_id") or "")
+    if site_id == "official_ai":
+        return "official", "官方公告"
+    if site_id == "llm_stats_models":
+        return "tracked", "模型追蹤"
+    return "reported", "媒體報導"
+
+
+def build_llm_radar_payload(
+    items: list[dict[str, Any]],
+    market_signals: dict[str, Any],
+    now: datetime,
+) -> dict[str, Any]:
+    """Build the reader-facing 24-hour LLM release and pricing alert lane.
+
+    This is deliberately separate from the seven-day Model Release Radar: the
+    latter preserves discovery history in the Models tab; this payload alerts
+    readers only about a fresh event.  It does not alter global story scoring.
+    """
+    cutoff = now - timedelta(hours=LLM_RADAR_WINDOW_HOURS)
+    model_candidates: list[dict[str, Any]] = []
+    for item in items:
+        events = item.get("business_events") or business_event_score(item)
+        if "model_release" not in events:
+            continue
+        occurred_at = event_time(item) or parse_iso(item.get("first_seen_at"))
+        if not occurred_at or occurred_at < cutoff or occurred_at > now:
+            continue
+        verification_status, verification_label = _llm_radar_model_verification(item)
+        model_id = str(item.get("model_id") or "").strip().lower()
+        title = str(item.get("title_zh") or item.get("title") or "").strip()
+        if not title:
+            continue
+        source_tier = source_tier_for_site(str(item.get("site_id") or ""))
+        model_candidates.append(
+            {
+                "id": f"model_release::{model_id or item.get('id') or item.get('url')}",
+                "kind": "model_release",
+                "category": "model_release",
+                "verification_status": verification_status,
+                "verification_label": verification_label,
+                "title": title,
+                "summary": str(item.get("summary_zh") or item.get("summary") or "").strip(),
+                "provider": str(item.get("model_vendor") or "").strip(),
+                "product": str(item.get("model_name") or model_id or "").strip(),
+                "detected_at": iso(parse_iso(item.get("first_seen_at")) or occurred_at),
+                "effective_at": iso(occurred_at),
+                "source_name": str(item.get("source") or item.get("site_name") or "").strip(),
+                "source_url": str(item.get("url") or "").strip(),
+                "evidence_url": str(item.get("url") or "").strip(),
+                "source_tier_rank": int(source_tier.get("source_tier_rank") or 9),
+            }
+        )
+
+    verification_rank = {"official": 0, "tracked": 1, "reported": 2}
+    model_candidates.sort(
+        key=lambda event: (
+            verification_rank.get(str(event.get("verification_status")), 9),
+            int(event.get("source_tier_rank") or 9),
+            -(parse_iso(event.get("effective_at")).timestamp() if parse_iso(event.get("effective_at")) else 0),
+            str(event.get("title") or ""),
+        ),
+        reverse=False,
+    )
+    model_events: list[dict[str, Any]] = []
+    seen_model_keys: set[str] = set()
+    for event in model_candidates:
+        key = str(event.get("product") or event.get("title") or "").casefold()
+        if key in seen_model_keys:
+            continue
+        seen_model_keys.add(key)
+        event.pop("source_tier_rank", None)
+        model_events.append(event)
+        if len(model_events) >= LLM_RADAR_MAX_MODEL_EVENTS:
+            break
+
+    market_events: list[dict[str, Any]] = []
+    signals = market_signals.get("signals") if isinstance(market_signals, dict) else []
+    for signal in signals if isinstance(signals, list) else []:
+        if not isinstance(signal, dict) or str(signal.get("category") or "") not in {"price", "free_tier"}:
+            continue
+        detected_at = parse_iso(signal.get("detected_at"))
+        if not detected_at or detected_at < cutoff or detected_at > now:
+            continue
+        market_events.append(
+            {
+                "id": str(signal.get("id") or ""),
+                "kind": "price_change",
+                "category": str(signal.get("category") or "price"),
+                "verification_status": str(signal.get("verification_status") or "reported"),
+                "verification_label": "價格追蹤",
+                "title": str(signal.get("title") or "").strip(),
+                "summary": str(signal.get("summary") or "").strip(),
+                "provider": str(signal.get("provider") or "").strip(),
+                "product": str(signal.get("product") or "").strip(),
+                "old_value": signal.get("old_value"),
+                "new_value": signal.get("new_value"),
+                "unit": str(signal.get("unit") or "").strip(),
+                "detected_at": iso(detected_at),
+                "effective_at": str(signal.get("effective_at") or signal.get("detected_at") or ""),
+                "source_name": str(signal.get("source_name") or "").strip(),
+                "source_url": str(signal.get("source_url") or "").strip(),
+                "evidence_url": str(signal.get("evidence_url") or signal.get("source_url") or "").strip(),
+            }
+        )
+    market_events.sort(key=lambda event: str(event.get("detected_at") or ""), reverse=True)
+    market_events = market_events[:LLM_RADAR_MAX_MARKET_EVENTS]
+    events = model_events + market_events
+    return {
+        "schema_version": 1,
+        "generated_at": iso(now),
+        "window_hours": LLM_RADAR_WINDOW_HOURS,
+        "total_events": len(events),
+        "events": events,
+    }
+
+
 def build_latest_payloads(latest_payload: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]:
     """Split initial AI payload from bulky all-mode lists for lazy browser loading."""
     slim_payload = dict(latest_payload)
@@ -7566,6 +7693,7 @@ def main() -> int:
     paid_source_state_path = output_dir / PAID_SOURCE_STATE_FILE
     market_signals_path = output_dir / "market-signals.json"
     market_sensor_state_path = output_dir / "market-sensor-state.json"
+    llm_radar_path = output_dir / "llm-radar.json"
 
     archive = load_archive(archive_path)
     previous_source_status = load_source_status(status_path)
@@ -7839,6 +7967,7 @@ def main() -> int:
         max_new_translations=max(0, args.translate_max_new),
     )
     model_releases_7d = build_model_releases_7d_items(archive, now)
+    llm_radar_payload = build_llm_radar_payload(latest_items, market_signals_payload, now)
     latest_items_ai_dedup = suppress_near_duplicate_items(dedupe_items_by_title_url(latest_items, random_pick=False))
     latest_items_all_dedup = dedupe_items_by_title_url(latest_items_all, random_pick=True)
     stories, merge_events = merge_story_items(latest_items_ai_dedup, now=now, window_hours=args.window_hours)
@@ -8022,6 +8151,10 @@ def main() -> int:
         json.dumps(sanitize_public_payload(market_signals_payload), ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
+    llm_radar_path.write_text(
+        json.dumps(sanitize_public_payload(llm_radar_payload), ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
     market_sensor_state_path.write_text(
         json.dumps(sanitize_public_payload(market_sensor_state), ensure_ascii=False, separators=(",", ":")),
         encoding="utf-8",
@@ -8052,6 +8185,7 @@ def main() -> int:
     print(f"Wrote: {archive_path} ({len(archive)} items)")
     print(f"Wrote: {status_path}")
     print(f"Wrote: {market_signals_path} ({len(market_signals_payload.get('signals', []))} signals)")
+    print(f"Wrote: {llm_radar_path} ({llm_radar_payload.get('total_events', 0)} events)")
     print(f"Wrote: {market_sensor_state_path}")
     print(f"Wrote: {paid_source_state_path}")
     if email_digest_payload is not None:

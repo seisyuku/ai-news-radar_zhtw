@@ -38,7 +38,7 @@
     <link rel="icon" href="./assets/icons/favicon-32.png" sizes="32x32" type="image/png" />
     <link rel="apple-touch-icon" href="./assets/icons/apple-touch-icon.png" sizes="180x180" />
     <link rel="manifest" href="./site.webmanifest" />
-    <link rel="stylesheet" href="./assets/styles.css?v=taste-ui-0821b" />
+    <link rel="stylesheet" href="./assets/styles.css?v=taste-ui-0822a" />
   </head>
   <body>
     <a class="skip-link" href="#briefPicksWrap">跳到今日重點訊號</a>
@@ -147,6 +147,18 @@
         <button class="clear-filters-btn" id="clearFiltersBtn" type="button" hidden>清除篩選</button>
       </section>
 
+      <section class="sensor-wrap llm-radar-wrap" id="llmRadarWrap" hidden>
+        <div class="sensor-head">
+          <div>
+            <p class="section-eyebrow">LLM RELEASE &amp; PRICING</p>
+            <h2>LLM 發布與價格雷達</h2>
+          </div>
+          <span id="llmRadarMeta">過去 24 小時新訊號</span>
+        </div>
+        <p class="sensor-disclaimer">模型卡會標示官方公告、模型追蹤或媒體報導；價格與免費額度異動來自結構化差異，採取行動前請開啟來源核對。</p>
+        <div class="sensor-grid" id="llmRadarList"></div>
+      </section>
+
       <section class="sensor-wrap breaking-sensor-wrap" id="breakingSignalsWrap" hidden>
         <div class="sensor-head">
           <div>
@@ -242,7 +254,7 @@
     </template>
 
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" integrity="sha384-HOvlOYPIs/zjoIkWUGXkVmXsjr8GuZLV+Q+rcPwmJOVZVpvTSXQChiN4t9Euv9Vc" crossorigin="anonymous" defer></script>
-    <script src="./assets/motion.js?v=taste-ui-0821b" defer></script>
-    <script src="./assets/app.js?v=taste-ui-0821b" defer></script>
+    <script src="./assets/motion.js?v=taste-ui-0822a" defer></script>
+    <script src="./assets/app.js?v=taste-ui-0822a" defer></script>
   </body>
 </html>
