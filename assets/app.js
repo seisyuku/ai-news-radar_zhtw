@@ -3266,6 +3266,36 @@ function renderSensorGroup(wrap, list, meta, signals, limit, emptyMeta, sortMode
   meta.textContent = `${fmtNumber(ordered.length)} 則 · 每 30 分鐘更新`;
 }
 
+function buildCompactSignalLink(signal) {
+  const link = document.createElement("a");
+  link.className = "compact-signal-link";
+  link.href = signal.evidence_url || signal.source_url || "#";
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  link.textContent = signal.title || "未命名異動";
+  return link;
+}
+
+function renderCompactSignalGroup(wrap, list, meta, signals, limit, emptyMeta, sortMode = "latest") {
+  if (!wrap || !list || !meta) return;
+  list.innerHTML = "";
+  list.className = "sensor-grid compact-signal-list";
+  const ordered = [...signals].sort((a, b) => {
+    if (sortMode === "importance") {
+      const importance = Number(a.importance_rank || 9) - Number(b.importance_rank || 9);
+      if (importance) return importance;
+    }
+    return Date.parse(b.detected_at || b.effective_at || 0) - Date.parse(a.detected_at || a.effective_at || 0);
+  });
+  wrap.hidden = ordered.length === 0;
+  if (!ordered.length) {
+    meta.textContent = emptyMeta;
+    return;
+  }
+  ordered.slice(0, limit).forEach((signal) => list.appendChild(buildCompactSignalLink(signal)));
+  meta.textContent = `${fmtNumber(ordered.length)} 則`;
+}
+
 function renderMarketSignals() {
   const signals = Array.isArray(state.marketSignals) ? state.marketSignals : [];
   renderSensorGroup(
@@ -3276,7 +3306,7 @@ function renderMarketSignals() {
     4,
     "目前沒有待確認速報",
   );
-  renderSensorGroup(
+  renderCompactSignalGroup(
     marketSignalsWrapEl,
     marketSignalsListEl,
     marketSignalsMetaEl,
@@ -3289,13 +3319,13 @@ function renderMarketSignals() {
 
 function renderLlmRadar() {
   const events = Array.isArray(state.llmRadar) ? state.llmRadar : [];
-  renderSensorGroup(
+  renderCompactSignalGroup(
     llmRadarWrapEl,
     llmRadarListEl,
     llmRadarMetaEl,
     events,
     8,
-    "目前沒有新的 LLM 發布或價格訊號",
+    "目前沒有新的 LLM 發布訊號",
     "latest",
   );
   if (events.length && llmRadarMetaEl) {

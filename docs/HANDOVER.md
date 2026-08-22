@@ -586,13 +586,17 @@ cron 頻率裁決維持 4 tick/hr 不降頻（見上方「已知設計事實」�
 - 後續驗收重點是 14 天候選 precision、官方確認延遲、重複率與漏報；
   未完成觀察前不擴到 issue／PR、大型 scraper 或 changedetection.io。
 
-## 8/22 LLM 發布與價格雷達（已實作，待排程樣本觀察）
+## 8/22 LLM 發布雷達（已實作，待排程樣本觀察）
 
-- `data/llm-radar.json` 把 24 小時內的 `model_release` 與既有
-  Market Sensor 的 price/free-tier diff 組成首頁事件卡；沒有事件時整區隱藏。
+- `data/llm-radar.json` 只保留 24 小時內的 `model_release`；價格與
+  free-tier diff 全部只在既有「價格與免費額度變更」區呈現，避免雙重卡片。
 - 模型證據標示嚴格分級：`official_ai` 為「官方公告」、`llm_stats_models`
   為「模型追蹤」、其餘來源一律為「媒體報導」。不更動全域評分或把媒體報導
   升級成官方確認。
 - 此 lane 與七日模型分頁不同：前者強調首次可見的即時提醒，後者保留
   LLM Stats 的 atomic discovery 歷史。後續觀察模型卡 precision、重複率與
   官方來源確認延遲，再決定是否建立更嚴格的 canonical model key。
+- 8/22 首次樣本發現 Free LLM APIs 一次目錄異動產生 19 筆訊號，其中
+  `Retired — the model catalog is gone` 等說明文字被當作模型名稱。這批
+  free-tier 結果不可視為可靠變更；需另開資料品質修正（欄位驗證與目錄
+  大幅 churn gate），不可在 UI 排版調整中靜默掩蓋。

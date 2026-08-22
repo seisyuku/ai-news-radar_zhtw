@@ -12,11 +12,11 @@ def test_market_and_breaking_surfaces_are_separate_and_optional():
     assert "價格與免費額度變更" in html
 
 
-def test_llm_radar_surface_is_optional_and_precedes_today_signals():
+def test_llm_radar_surface_is_optional_between_today_signals_and_market_changes():
     html = (ROOT / "index.html").read_text(encoding="utf-8")
     assert 'id="llmRadarWrap" hidden' in html
-    assert "LLM 發布與價格雷達" in html
-    assert html.index('id="llmRadarWrap"') < html.index('id="briefPicksWrap"')
+    assert "LLM 發布雷達" in html
+    assert html.index('id="briefPicksWrap"') < html.index('id="llmRadarWrap"') < html.index('id="marketSignalsWrap"')
 
 
 def test_ui_loads_sensor_payload_and_keeps_candidate_wording():
@@ -28,5 +28,7 @@ def test_ui_loads_sensor_payload_and_keeps_candidate_wording():
     assert "renderMarketSignals();" in js
     assert "data/llm-radar.json" in js
     assert "renderLlmRadar();" in js
+    assert "renderCompactSignalGroup(" in js
+    assert "buildCompactSignalLink(signal)" in js
     assert 'if (status === "official") return "官方公告";' in js
     assert 'if (category === "model_release") return "模型釋出";' in js

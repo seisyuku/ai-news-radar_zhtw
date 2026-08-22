@@ -26,7 +26,7 @@ def model_item(*, site_id, model_id, hours_ago, title, score=0.8):
     }
 
 
-def test_llm_radar_keeps_recent_model_release_and_exact_price_change():
+def test_llm_radar_keeps_recent_model_release_without_market_events():
     payload = build_llm_radar_payload(
         [
             model_item(
@@ -48,41 +48,20 @@ def test_llm_radar_keeps_recent_model_release_and_exact_price_change():
                 title="Old Model 發布",
             ),
         ],
-        {
-            "signals": [
-                {
-                    "id": "price-1",
-                    "category": "price",
-                    "verification_status": "reported",
-                    "title": "Qwen Qwen3.9：輸入價格異動",
-                    "old_value": 1.0,
-                    "new_value": 0.5,
-                    "unit": "USD / 1M tokens",
-                    "detected_at": "2026-08-21T23:30:00Z",
-                    "effective_at": "2026-08-21T23:00:00Z",
-                    "source_name": "LLM Price Tracker",
-                    "source_url": "https://example.com/prices",
-                    "evidence_url": "https://example.com/prices",
-                }
-            ]
-        },
         NOW,
     )
 
     assert payload["window_hours"] == 24
-    assert payload["total_events"] == 2
-    model, price = payload["events"]
+    assert payload["total_events"] == 1
+    model = payload["events"][0]
     assert model["kind"] == "model_release"
     assert model["verification_status"] == "official"
     assert model["verification_label"] == "官方公告"
-    assert price["kind"] == "price_change"
-    assert (price["old_value"], price["new_value"], price["unit"]) == (1.0, 0.5, "USD / 1M tokens")
 
 
 def test_llm_radar_is_empty_without_a_recent_release_or_price_event():
     payload = build_llm_radar_payload(
         [model_item(site_id="official_ai", model_id="old-model", hours_ago=30, title="Old Model 發布")],
-        {"signals": []},
         NOW,
     )
 

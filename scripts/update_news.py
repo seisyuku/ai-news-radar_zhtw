@@ -338,7 +338,6 @@ LLM_STATS_AI_NEWS_URL = "https://llm-stats.com/ai-news"
 MODEL_RELEASE_RADAR_WINDOW_DAYS = 7
 LLM_RADAR_WINDOW_HOURS = 24
 LLM_RADAR_MAX_MODEL_EVENTS = 4
-LLM_RADAR_MAX_MARKET_EVENTS = 4
 LLM_STATS_MODEL_MAX_AGE_DAYS = 7
 LLM_STATS_MODEL_MAX_ENTRIES = 16
 LLM_STATS_MODEL_ORG_IDS: frozenset[str] = frozenset(
@@ -7538,14 +7537,14 @@ def _llm_radar_model_verification(record: dict[str, Any]) -> tuple[str, str]:
 
 def build_llm_radar_payload(
     items: list[dict[str, Any]],
-    market_signals: dict[str, Any],
     now: datetime,
 ) -> dict[str, Any]:
-    """Build the reader-facing 24-hour LLM release and pricing alert lane.
+    """Build the reader-facing 24-hour LLM release alert lane.
 
     This is deliberately separate from the seven-day Model Release Radar: the
     latter preserves discovery history in the Models tab; this payload alerts
-    readers only about a fresh event.  It does not alter global story scoring.
+    readers only about a fresh model event.  Price and free-tier diffs remain
+    exclusively in market-signals.json.  This does not alter global scoring.
     """
     cutoff = now - timedelta(hours=LLM_RADAR_WINDOW_HOURS)
     model_candidates: list[dict[str, Any]] = []
@@ -7604,44 +7603,12 @@ def build_llm_radar_payload(
         if len(model_events) >= LLM_RADAR_MAX_MODEL_EVENTS:
             break
 
-    market_events: list[dict[str, Any]] = []
-    signals = market_signals.get("signals") if isinstance(market_signals, dict) else []
-    for signal in signals if isinstance(signals, list) else []:
-        if not isinstance(signal, dict) or str(signal.get("category") or "") not in {"price", "free_tier"}:
-            continue
-        detected_at = parse_iso(signal.get("detected_at"))
-        if not detected_at or detected_at < cutoff or detected_at > now:
-            continue
-        market_events.append(
-            {
-                "id": str(signal.get("id") or ""),
-                "kind": "price_change",
-                "category": str(signal.get("category") or "price"),
-                "verification_status": str(signal.get("verification_status") or "reported"),
-                "verification_label": "價格追蹤",
-                "title": str(signal.get("title") or "").strip(),
-                "summary": str(signal.get("summary") or "").strip(),
-                "provider": str(signal.get("provider") or "").strip(),
-                "product": str(signal.get("product") or "").strip(),
-                "old_value": signal.get("old_value"),
-                "new_value": signal.get("new_value"),
-                "unit": str(signal.get("unit") or "").strip(),
-                "detected_at": iso(detected_at),
-                "effective_at": str(signal.get("effective_at") or signal.get("detected_at") or ""),
-                "source_name": str(signal.get("source_name") or "").strip(),
-                "source_url": str(signal.get("source_url") or "").strip(),
-                "evidence_url": str(signal.get("evidence_url") or signal.get("source_url") or "").strip(),
-            }
-        )
-    market_events.sort(key=lambda event: str(event.get("detected_at") or ""), reverse=True)
-    market_events = market_events[:LLM_RADAR_MAX_MARKET_EVENTS]
-    events = model_events + market_events
     return {
         "schema_version": 1,
         "generated_at": iso(now),
         "window_hours": LLM_RADAR_WINDOW_HOURS,
-        "total_events": len(events),
-        "events": events,
+        "total_events": len(model_events),
+        "events": model_events,
     }
 
 
@@ -7967,7 +7934,7 @@ def main() -> int:
         max_new_translations=max(0, args.translate_max_new),
     )
     model_releases_7d = build_model_releases_7d_items(archive, now)
-    llm_radar_payload = build_llm_radar_payload(latest_items, market_signals_payload, now)
+    llm_radar_payload = build_llm_radar_payload(latest_items, now)
     latest_items_ai_dedup = suppress_near_duplicate_items(dedupe_items_by_title_url(latest_items, random_pick=False))
     latest_items_all_dedup = dedupe_items_by_title_url(latest_items_all, random_pick=True)
     stories, merge_events = merge_story_items(latest_items_ai_dedup, now=now, window_hours=args.window_hours)

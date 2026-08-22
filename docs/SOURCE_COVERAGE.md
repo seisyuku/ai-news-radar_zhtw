@@ -128,12 +128,12 @@ technical/business analysis. They are intentionally assigned the low-weight
 Atomic discovery records remain visible for seven days in the「模型」section;
 the rest of the dashboard retains its 24-hour window.
 
-The reader-facing `llm-radar.json` is a separate 24-hour alert lane. It may
-surface any current `model_release` event from the regular curated pool, but
-labels its evidence conservatively: `official_ai` is an official announcement,
-LLM Stats is model tracking, and all other sources remain media reports. Price
-and free-tier cards reuse structured Market Sensor diffs; none changes the
-global news score.
+The reader-facing `llm-radar.json` is a separate 24-hour release-alert lane.
+It may surface any current `model_release` event from the regular curated pool,
+but labels its evidence conservatively: `official_ai` is an official
+announcement, LLM Stats is model tracking, and all other sources remain media
+reports. Price and free-tier cards remain only in the structured Market Sensor
+view; neither lane changes the global news score.
 
 - **LLM Stats model discovery** reads the server-rendered `latestModels` payload
   from `https://llm-stats.com/ai-news`. It emits one atomic item per recent

@@ -953,6 +953,32 @@ summary:focus-visible {
   padding: 14px 16px 16px;
 }
 
+.compact-signal-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  padding: 0;
+}
+
+.compact-signal-link {
+  display: block;
+  padding: 11px 18px;
+  border-bottom: 1px solid var(--line-soft);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 680;
+  line-height: 1.45;
+}
+
+.compact-signal-link:last-child {
+  border-bottom: 0;
+}
+
+.compact-signal-link:hover {
+  color: var(--accent);
+  background: rgba(18, 106, 115, 0.05);
+}
+
 .sensor-card {
   display: grid;
   gap: 9px;
