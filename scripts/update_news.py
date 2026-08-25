@@ -6169,8 +6169,8 @@ def _translate_google_cloud_batch(
 ) -> list[str]:
     response = session.post(
         "https://translation.googleapis.com/language/translate/v2",
-        params={"key": api_key},
         json={"q": texts, "source": "en", "target": "zh-TW", "format": "text"},
+        headers={"x-goog-api-key": api_key},
         timeout=timeout_seconds,
     )
     response.raise_for_status()

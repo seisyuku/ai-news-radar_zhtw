@@ -21,8 +21,8 @@ def test_google_cloud_translation_is_batched_masked_and_observable():
         def __init__(self):
             self.calls = []
 
-        def post(self, url, params=None, json=None, **_kwargs):
-            self.calls.append({"url": url, "params": params, "json": json})
+        def post(self, url, json=None, headers=None, **_kwargs):
+            self.calls.append({"url": url, "headers": headers, "json": json})
             translated = [text.replace("releases a fresh model", "推出全新模型") for text in json["q"]]
             return FakeResponse({"data": {"translations": [{"translatedText": text} for text in translated]}})
 
@@ -46,7 +46,7 @@ def test_google_cloud_translation_is_batched_masked_and_observable():
     assert len(session.calls) == 1
     call = session.calls[0]
     assert call["url"] == "https://translation.googleapis.com/language/translate/v2"
-    assert call["params"] == {"key": "test-google-key"}
+    assert call["headers"] == {"x-goog-api-key": "test-google-key"}
     assert call["json"]["target"] == "zh-TW"
     assert isinstance(call["json"]["q"], list)
     assert all("OpenAI" not in value for value in call["json"]["q"])
