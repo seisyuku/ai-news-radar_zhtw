@@ -221,6 +221,10 @@ jobs:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           GROQ_SUMMARY_MODEL: ${{ vars.GROQ_SUMMARY_MODEL || 'qwen/qwen3.6-27b' }}
           GROQ_SUMMARY_MAX_NEW: ${{ vars.GROQ_SUMMARY_MAX_NEW || 6 }}
+          # Optional, bounded reader translation.  Missing keys retain the
+          # original English display text and never block the snapshot.
+          GOOGLE_TRANSLATE_API_KEY: ${{ secrets.GOOGLE_TRANSLATE_API_KEY }}
+          DEEPL_API_KEY: ${{ secrets.DEEPL_API_KEY }}
         run: |
           if [ -f feeds/follow.opml ]; then
             python scripts/update_news.py --output-dir data --window-hours 24 --archive-days 21 --rss-opml feeds/follow.opml --rss-max-feeds "${RSS_MAX_FEEDS:-10}"

@@ -78,6 +78,16 @@ WAYTOAGI_HISTORY_FALLBACK = "https://waytoagi.feishu.cn/wiki/FjiOwWp2giA7hRk6jjf
 # waytoagi_updates_to_raw_items() are left untouched.
 WAYTOAGI_ENABLED = False
 
+# Reader-facing translation is optional enrichment. It must never consume the
+# scheduled job's whole timeout when a provider or credential is unavailable.
+TRANSLATION_REQUEST_TIMEOUT_SECONDS = 5
+TRANSLATION_TOTAL_BUDGET_SECONDS = 30
+TRANSLATION_MAX_REQUESTS = 6
+TRANSLATION_BATCH_MAX_ITEMS = 30
+TRANSLATION_BATCH_MAX_CHARS = 4_800
+TRANSLATION_REJECTION_TTL_SECONDS = 6 * 60 * 60
+TRANSLATION_STATE_VERSION = 1
+
 RSS_FEED_REPLACEMENTS: dict[str, str] = {
     "https://rsshub.app/infoq/recommend": "https://www.infoq.cn/feed",
     "https://rsshub.app/huggingface/blog-zh": "https://huggingface.co/blog/feed.xml",
@@ -6101,36 +6111,208 @@ def load_title_zh_cache(path: Path) -> dict[str, str]:
     return {}
 
 
-def translate_to_zh_cn(session: requests.Session, text: str) -> str | None:
-    s = (text or "").strip()
-    if not s:
-        return None
+def empty_translation_state() -> dict[str, Any]:
+    return {"version": TRANSLATION_STATE_VERSION, "rejections": {}}
+
+
+def load_translation_state(path: Path) -> dict[str, Any]:
     try:
-        r = session.get(
-            "https://translate.googleapis.com/translate_a/single",
-            params={
-                "client": "gtx",
-                "sl": "auto",
-                "tl": "zh-CN",
-                "dt": "t",
-                "q": s,
-            },
-            timeout=12,
-        )
-        r.raise_for_status()
-        payload = r.json()
-        if not isinstance(payload, list) or not payload:
-            return None
-        segs = payload[0]
-        if not isinstance(segs, list):
-            return None
-        translated = "".join(str(seg[0]) for seg in segs if isinstance(seg, list) and seg and seg[0])
-        translated = translated.strip()
-        if translated and translated != s:
-            return translated
-    except Exception:
-        return None
-    return None
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (FileNotFoundError, OSError, ValueError, TypeError):
+        return empty_translation_state()
+    if not isinstance(payload, dict) or int(payload.get("version") or 0) != TRANSLATION_STATE_VERSION:
+        return empty_translation_state()
+    rejections = payload.get("rejections")
+    if not isinstance(rejections, dict):
+        rejections = {}
+    return {"version": TRANSLATION_STATE_VERSION, "rejections": dict(rejections)}
+
+
+def _translation_rejection_is_fresh(entry: Any, now: datetime) -> bool:
+    if not isinstance(entry, dict):
+        return False
+    created_at = parse_iso(str(entry.get("created_at") or ""))
+    if not created_at:
+        return False
+    return (now - created_at).total_seconds() < TRANSLATION_REJECTION_TTL_SECONDS
+
+
+def _translation_provider_failure_type(exc: Exception) -> str:
+    if isinstance(exc, requests.Timeout):
+        return "timeout"
+    if isinstance(exc, requests.HTTPError):
+        return "http_error"
+    if isinstance(exc, (KeyError, TypeError, ValueError)):
+        return "invalid_response"
+    return type(exc).__name__
+
+
+def _translation_response_texts(payload: Any, expected_count: int, provider: str) -> list[str]:
+    if provider == "google_cloud":
+        translations = ((payload or {}).get("data") or {}).get("translations")
+        values = [str(item.get("translatedText") or "").strip() for item in translations or [] if isinstance(item, dict)]
+    elif provider == "deepl":
+        translations = (payload or {}).get("translations")
+        values = [str(item.get("text") or "").strip() for item in translations or [] if isinstance(item, dict)]
+    else:  # pragma: no cover - callers use the two allowlisted providers only.
+        raise ValueError("unsupported_translation_provider")
+    if len(values) != expected_count:
+        raise ValueError("translation_response_count_mismatch")
+    return [html.unescape(value).strip() for value in values]
+
+
+def _translate_google_cloud_batch(
+    session: requests.Session,
+    texts: list[str],
+    api_key: str,
+    timeout_seconds: float,
+) -> list[str]:
+    response = session.post(
+        "https://translation.googleapis.com/language/translate/v2",
+        params={"key": api_key},
+        json={"q": texts, "source": "en", "target": "zh-TW", "format": "text"},
+        timeout=timeout_seconds,
+    )
+    response.raise_for_status()
+    return _translation_response_texts(response.json(), len(texts), "google_cloud")
+
+
+def _translate_deepl_batch(
+    session: requests.Session,
+    texts: list[str],
+    api_key: str,
+    timeout_seconds: float,
+) -> list[str]:
+    endpoint = "https://api-free.deepl.com/v2/translate" if api_key.endswith(":fx") else "https://api.deepl.com/v2/translate"
+    data: list[tuple[str, str]] = [("text", text) for text in texts]
+    data.extend((("source_lang", "EN"), ("target_lang", "ZH-HANT")))
+    response = session.post(
+        endpoint,
+        data=data,
+        headers={"Authorization": f"DeepL-Auth-Key {api_key}"},
+        timeout=timeout_seconds,
+    )
+    response.raise_for_status()
+    return _translation_response_texts(response.json(), len(texts), "deepl")
+
+
+def _translation_batches(candidates: list[dict[str, Any]]) -> list[list[dict[str, Any]]]:
+    batches: list[list[dict[str, Any]]] = []
+    batch: list[dict[str, Any]] = []
+    batch_chars = 0
+    for candidate in candidates:
+        chars = len(str(candidate.get("text") or ""))
+        # Cloud Translation recommends keeping a request below 5,000 code
+        # points. Do not turn an unusually long RSS description into a
+        # provider error or an oversized request; the original text remains.
+        if chars > TRANSLATION_BATCH_MAX_CHARS:
+            continue
+        if batch and (
+            len(batch) >= TRANSLATION_BATCH_MAX_ITEMS
+            or batch_chars + chars > TRANSLATION_BATCH_MAX_CHARS
+        ):
+            batches.append(batch)
+            batch = []
+            batch_chars = 0
+        batch.append(candidate)
+        batch_chars += chars
+    if batch:
+        batches.append(batch)
+    return batches
+
+
+def translate_candidate_batches(
+    session: requests.Session,
+    candidates: list[dict[str, Any]],
+    *,
+    google_api_key: str,
+    deepl_api_key: str,
+    state: dict[str, Any],
+    now: datetime,
+) -> tuple[dict[str, str], dict[str, Any]]:
+    """Translate bounded candidate batches without ever blocking snapshot output.
+
+    Google Cloud Translation is the primary provider. DeepL is contacted only
+    when that request fails at the transport/API level, never for a second
+    copy of a successful Google response. No credential means an intentional
+    skip, not a failed run.
+    """
+    providers: list[tuple[str, str]] = []
+    if google_api_key:
+        providers.append(("google_cloud", google_api_key))
+    if deepl_api_key:
+        providers.append(("deepl", deepl_api_key))
+    status: dict[str, Any] = {
+        "enabled": bool(providers),
+        "primary_provider": providers[0][0] if providers else None,
+        "fallback_provider": "deepl" if google_api_key and deepl_api_key else None,
+        "candidate_count": len(candidates),
+        "request_count": 0,
+        "translated_count": 0,
+        "failed_count": 0,
+        "negative_cache_hits": 0,
+        "request_timeout_seconds": TRANSLATION_REQUEST_TIMEOUT_SECONDS,
+        "total_budget_seconds": TRANSLATION_TOTAL_BUDGET_SECONDS,
+        "max_requests": TRANSLATION_MAX_REQUESTS,
+    }
+    if not candidates:
+        status["skipped"] = True
+        status["skip_reason"] = "no_translation_candidates"
+        return {}, status
+    if not providers:
+        status["skipped"] = True
+        status["skip_reason"] = "missing_translation_credentials"
+        return {}, status
+
+    translated: dict[str, str] = {}
+    rejections = state.setdefault("rejections", {})
+    started = time.monotonic()
+    for batch in _translation_batches(candidates):
+        remaining = TRANSLATION_TOTAL_BUDGET_SECONDS - (time.monotonic() - started)
+        if remaining <= 0 or status["request_count"] >= TRANSLATION_MAX_REQUESTS:
+            status["budget_exhausted"] = True
+            break
+        texts = [str(candidate["text"]) for candidate in batch]
+        translated_batch: list[str] | None = None
+        failure_types: list[str] = []
+        for provider, api_key in providers:
+            remaining = TRANSLATION_TOTAL_BUDGET_SECONDS - (time.monotonic() - started)
+            if remaining <= 0 or status["request_count"] >= TRANSLATION_MAX_REQUESTS:
+                status["budget_exhausted"] = True
+                break
+            timeout_seconds = max(1.0, min(float(TRANSLATION_REQUEST_TIMEOUT_SECONDS), remaining))
+            try:
+                if provider == "google_cloud":
+                    translated_batch = _translate_google_cloud_batch(session, texts, api_key, timeout_seconds)
+                else:
+                    translated_batch = _translate_deepl_batch(session, texts, api_key, timeout_seconds)
+            except Exception as exc:
+                status["request_count"] += 1
+                failure_types.append(_translation_provider_failure_type(exc))
+                continue
+            status["request_count"] += 1
+            status["provider_used"] = provider
+            break
+
+        if translated_batch is None:
+            status["failed_count"] += len(batch)
+            status["last_error_type"] = failure_types[-1] if failure_types else "budget_exhausted"
+            for candidate in batch:
+                rejections[candidate["cache_key"]] = {
+                    "reason": "provider_unavailable",
+                    "created_at": iso(now),
+                }
+            continue
+
+        for candidate, value in zip(batch, translated_batch):
+            source = str(candidate["text"])
+            if not value or value == source:
+                continue
+            translated[candidate["cache_key"]] = value
+            rejections.pop(candidate["cache_key"], None)
+            status["translated_count"] += 1
+
+    return translated, status
 
 
 # ---------------------------------------------------------------------------
@@ -6729,7 +6911,36 @@ def add_bilingual_fields(
     session: requests.Session,
     cache: dict[str, str],
     max_new_translations: int,
+    *,
+    translation_state: dict[str, Any] | None = None,
+    translation_status: dict[str, Any] | None = None,
+    now: datetime | None = None,
+    google_api_key: str | None = None,
+    deepl_api_key: str | None = None,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]], dict[str, str]]:
+    """Add display translations using bounded, optional provider batches.
+
+    Missing credentials or a provider outage leave the reader-facing English
+    source text intact. They do not prevent any news payload from being
+    written. Canonical-name masking remains before every provider call.
+    """
+    current_now = (now or utc_now()).astimezone(UTC)
+    state = translation_state if translation_state is not None else empty_translation_state()
+    state["version"] = TRANSLATION_STATE_VERSION
+    rejections = state.setdefault("rejections", {})
+    if not isinstance(rejections, dict):
+        rejections = {}
+        state["rejections"] = rejections
+    fresh_rejections = {
+        str(key): value
+        for key, value in rejections.items()
+        if _translation_rejection_is_fresh(value, current_now)
+    }
+    state["rejections"] = fresh_rejections
+    rejections = fresh_rejections
+    google_key = str(google_api_key if google_api_key is not None else os.environ.get("GOOGLE_TRANSLATE_API_KEY") or "").strip()
+    deepl_key = str(deepl_api_key if deepl_api_key is not None else os.environ.get("DEEPL_API_KEY") or "").strip()
+
     zh_by_url: dict[str, str] = {}
     summary_zh_by_url: dict[str, str] = {}
     for it in items_all:
@@ -6743,10 +6954,79 @@ def add_bilingual_fields(
         if summary and url and has_cjk(summary):
             summary_zh_by_url[url] = apply_canonical_reverse_fix(to_zh_hant(summary), source=summary)
 
-    translated_now = 0
+    candidates: list[dict[str, Any]] = []
+    seen_candidate_keys: set[str] = set()
+    cache_hits = 0
+    negative_cache_hits = 0
+    candidate_limit = max(0, int(max_new_translations))
+
+    def queue_candidate(cache_key: str, source_text: str, kind: str) -> None:
+        nonlocal cache_hits, negative_cache_hits
+        if cache.get(cache_key):
+            cache_hits += 1
+            return
+        if cache_key in seen_candidate_keys:
+            return
+        if _translation_rejection_is_fresh(rejections.get(cache_key), current_now):
+            negative_cache_hits += 1
+            return
+        if len(candidates) >= candidate_limit:
+            return
+        masked, placeholders = mask_canonical_names(source_text)
+        candidates.append(
+            {
+                "cache_key": cache_key,
+                "source_text": source_text,
+                "text": masked,
+                "placeholders": placeholders,
+                "kind": kind,
+            }
+        )
+        seen_candidate_keys.add(cache_key)
+
+    for item in items_ai:
+        title = str(item.get("title") or "").strip()
+        summary = str(item.get("summary") or "").strip()
+        url = normalize_url(str(item.get("url") or ""))
+        provided_en_raw = str(item.get("provided_title_en") or "").strip()
+        provided_en = provided_en_raw if is_mostly_english(provided_en_raw) else ""
+        if not summary_zh_by_url.get(url) and summary and is_mostly_english(summary):
+            queue_candidate(f"summary::{summary}", summary, "summary")
+        if provided_en or has_cjk(title) or not is_mostly_english(title) or zh_by_url.get(url):
+            continue
+        queue_candidate(title, title, "title")
+
+    translated_values, status = translate_candidate_batches(
+        session,
+        candidates,
+        google_api_key=google_key,
+        deepl_api_key=deepl_key,
+        state=state,
+        now=current_now,
+    )
+    status["cache_hits"] = cache_hits
+    status["negative_cache_hits"] = negative_cache_hits
+    status["candidate_limit"] = candidate_limit
+    for candidate in candidates:
+        translated = translated_values.get(str(candidate["cache_key"]))
+        if not translated:
+            continue
+        placeholders = candidate["placeholders"]
+        source_text = str(candidate["source_text"])
+        normalized = backfill_canonical_names(translated, placeholders)
+        if not has_cjk(normalized):
+            continue
+        if candidate["kind"] == "summary":
+            normalized = apply_canonical_reverse_fix(to_zh_hant(normalized), source=source_text)
+        else:
+            normalized = repair_zh_title_translation(source_text, normalized)
+        cache[str(candidate["cache_key"])] = normalized
+
+    if translation_status is not None:
+        translation_status.clear()
+        translation_status.update(status)
 
     def enrich(item: dict[str, Any], allow_translate: bool) -> dict[str, Any]:
-        nonlocal translated_now
         out = dict(item)
         title = str(out.get("title") or "").strip()
         url = normalize_url(str(out.get("url") or ""))
@@ -6761,17 +7041,6 @@ def add_bilingual_fields(
         if not summary_zh and summary and is_mostly_english(summary):
             summary_cache_key = f"summary::{summary}"
             summary_zh = cache.get(summary_cache_key)
-            if not summary_zh and allow_translate and translated_now < max_new_translations:
-                masked_summary, placeholders = mask_canonical_names(summary)
-                translated_summary = translate_to_zh_cn(session, masked_summary)
-                if not translated_summary and placeholders:
-                    translated_summary = translate_to_zh_cn(session, summary)
-                    placeholders = {}
-                if translated_summary and (has_cjk(translated_summary) or placeholders):
-                    translated_summary = backfill_canonical_names(translated_summary, placeholders)
-                    summary_zh = apply_canonical_reverse_fix(to_zh_hant(translated_summary), source=summary)
-                    cache[summary_cache_key] = summary_zh
-                    translated_now += 1
             if summary_zh:
                 normalized_summary = apply_canonical_reverse_fix(to_zh_hant(summary_zh), source=summary)
                 if cache.get(summary_cache_key) != normalized_summary:
@@ -6809,22 +7078,6 @@ def add_bilingual_fields(
         zh_title = zh_by_url.get(url)
         if not zh_title:
             zh_title = cache.get(title)
-        if not zh_title and allow_translate and translated_now < max_new_translations:
-            masked_title, placeholders = mask_canonical_names(title)
-            tr = translate_to_zh_cn(session, masked_title)
-            if not tr and placeholders:
-                # Masking collapsed the title to content MT considered
-                # untranslatable (translate_to_zh_cn treats "unchanged
-                # output" as failure) - retry on the unmasked title so a
-                # near-all-brand-name title still gets a zh_title; exit-fix/
-                # reverse-fix remain the safety net for brand accuracy here.
-                tr = translate_to_zh_cn(session, title)
-                placeholders = {}
-            if tr and (has_cjk(tr) or placeholders):
-                tr = backfill_canonical_names(tr, placeholders)
-                zh_title = repair_zh_title_translation(title, tr)
-                cache[title] = zh_title
-                translated_now += 1
 
         if zh_title:
             zh_title = repair_zh_title_translation(title, zh_title)
@@ -7637,7 +7890,12 @@ def main() -> int:
     parser.add_argument("--output-dir", default="data", help="Directory for output JSON files")
     parser.add_argument("--window-hours", type=int, default=24, help="24h window size")
     parser.add_argument("--archive-days", type=int, default=21, help="Keep archive for N days")
-    parser.add_argument("--translate-max-new", type=int, default=80, help="Max new EN->ZH title/RSS-summary translations per run")
+    parser.add_argument(
+        "--translate-max-new",
+        type=int,
+        default=80,
+        help="Max EN->ZH title/RSS-summary translation candidates per run",
+    )
     parser.add_argument("--rss-opml", default="", help="Optional OPML file path to include RSS sources")
     parser.add_argument("--rss-max-feeds", type=int, default=0, help="Optional max OPML RSS feeds to fetch (0 means all)")
     args = parser.parse_args()
@@ -7655,6 +7913,7 @@ def main() -> int:
     merge_log_path = output_dir / "merge-log.json"
     waytoagi_path = output_dir / "waytoagi-7d.json"
     title_cache_path = output_dir / "title-zh-cache.json"
+    translation_state_path = output_dir / "translation-state.json"
     ai_summary_cache_path = output_dir / "ai-summary-cache.json"
     email_digest_path = output_dir / AGENTMAIL_DIGEST_FILE
     paid_source_state_path = output_dir / PAID_SOURCE_STATE_FILE
@@ -7925,6 +8184,8 @@ def main() -> int:
     latest_items_all.sort(key=lambda x: event_time(x) or datetime.min.replace(tzinfo=UTC), reverse=True)
     latest_items = [record for record in latest_items_all if record.get("ai_is_related", is_ai_related_record(record))]
     title_cache = load_title_zh_cache(title_cache_path)
+    translation_state = load_translation_state(translation_state_path)
+    translation_status: dict[str, Any] = {}
     ai_summary_cache = load_summary_cache(ai_summary_cache_path)
     latest_items, latest_items_all, title_cache = add_bilingual_fields(
         latest_items,
@@ -7932,6 +8193,9 @@ def main() -> int:
         session,
         title_cache,
         max_new_translations=max(0, args.translate_max_new),
+        translation_state=translation_state,
+        translation_status=translation_status,
+        now=now,
     )
     model_releases_7d = build_model_releases_7d_items(archive, now)
     llm_radar_payload = build_llm_radar_payload(latest_items, now)
@@ -8062,6 +8326,7 @@ def main() -> int:
         "fetched_raw_items": len(raw_items),
         "items_before_topic_filter": len(latest_items_all),
         "items_in_24h": len(latest_items_ai_dedup),
+        "translations": translation_status,
         "rss_opml": {
             "enabled": bool(args.rss_opml),
             "path": "configured" if args.rss_opml else None,
@@ -8138,6 +8403,11 @@ def main() -> int:
         )
     waytoagi_path.write_text(json.dumps(sanitize_public_payload(waytoagi_payload), ensure_ascii=False, indent=2), encoding="utf-8")
     title_cache_path.write_text(json.dumps(sanitize_public_payload(title_cache), ensure_ascii=False, indent=2), encoding="utf-8")
+    if translation_state_path.exists() or translation_state.get("rejections"):
+        translation_state_path.write_text(
+            json.dumps(sanitize_public_payload(translation_state), ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
     if groq_api_key or ai_summary_cache_path.exists():
         ai_summary_cache_path.write_text(
             json.dumps(sanitize_public_payload(ai_summary_cache), ensure_ascii=False, indent=2),
@@ -8159,6 +8429,8 @@ def main() -> int:
         print(f"Wrote: {email_digest_path} ({email_digest_payload.get('total_messages', 0)} email items)")
     print(f"Wrote: {waytoagi_path} ({waytoagi_payload.get('count_7d', 0)} items)")
     print(f"Wrote: {title_cache_path} ({len(title_cache)} entries)")
+    if translation_state_path.exists():
+        print(f"Wrote: {translation_state_path} ({len(translation_state.get('rejections') or {})} recent rejections)")
 
     return 0
 

@@ -425,17 +425,38 @@ update-news.yml: freshness-check job
 
 英文標題的 zh-TW 顯示值（`title_zh`）與已有 RSS `summary`／`description`
 的顯示翻譯（`summary_zh`）都由 `scripts/update_news.py` 的
-`add_bilingual_fields()` 產生，經過 Google Translate（`translate_to_zh_cn()`）
-與 `CANONICAL_NAMES` 正典名稱表兩層機制共同組成。`summary` 原文會保留作
-AI 摘要的事實依據；前端優先顯示 `summary_zh`。沒有 RSS 摘要的條目會跳過
-此步驟，不新增抓取或猜測內容。完整規格與程式碼註解在
+`add_bilingual_fields()` 產生。主服務是可選的官方 Google Cloud Translation
+Basic v2（`GOOGLE_TRANSLATE_API_KEY`）；Google 請求失敗時，才使用可選的
+DeepL（`DEEPL_API_KEY`）作一次 fallback。兩者都未設定時安全跳過，保留英
+文顯示，絕不讓翻譯失敗中斷快照更新。翻譯結果再經 `CANONICAL_NAMES` 正典
+名稱表處理。`summary` 原文會保留作 AI 摘要的事實依據；前端優先顯示
+`summary_zh`。沒有 RSS 摘要的條目會跳過此步驟，不新增抓取或猜測內容。完整規格與程式碼註解在
 `scripts/update_news.py` 內 `CANONICAL_NAMES` 定義上方，這裡只記操作面
 摘要（新增詞條、除錯時該看哪裡）。
+
+### Provider 與失效界線
+
+- 每輪最多處理 `--translate-max-new`（預設 80）個候選；每個請求最多 30
+  段、4,800 字元，單次逾時 5 秒，整個翻譯階段最多 30 秒與 6 次請求。
+  上限計候選與嘗試，不再只計成功結果，因此單一 provider 故障不會造成
+  無限重試。
+- 失敗候選會寫入 `data/translation-state.json` 六小時的短期拒絕快取；期間
+  只保留英文，不重送相同內容。成功後會自動移除該記錄。這個檔案不含 API key。
+- `data/source-status.json` 的 `translations` 欄位記錄候選數、請求數、實際
+  provider、略過原因與拒絕快取命中數，不紀錄文章內容或任何 credential。
+- Gemini 沒有接入這條翻譯路徑；這次變更只處理既有的 MT 顯示翻譯，不改動
+  現有新聞摘要 provider 或其資料政策。
+
+啟用主服務前，維護者需在 Google Cloud 自行啟用 Cloud Translation API、建立
+受限 API key，並在 GitHub Actions 建立 `GOOGLE_TRANSLATE_API_KEY` Secret。
+Google Cloud 的帳務、預算與警示均在 repo 外設定；本專案不會自動建立或修改它們。
+若需要 provider 故障時的備援，再另設 `DEEPL_API_KEY` Secret。沒有這些 secret
+仍是支援狀態，只是新英文內容不會自動產生繁中顯示。
 
 ### 三種作用模式
 
 1. **遮罩回填**（`mask_canonical_names()` / `backfill_canonical_names()`）：
-   英文標題送 Google Translate **之前**，先把 `CANONICAL_NAMES` 命中的
+   英文標題送翻譯 provider **之前**，先把 `CANONICAL_NAMES` 命中的
    品牌/產品詞抽出為 `QCANON<n>Q` 佔位符，翻譯完成後再把佔位符換回正典
    zh-TW 寫法。這是主防線——因為 MT 引擎從頭到尾沒看過品牌原文，不受限
    於「已知會被翻錯的樣式」，任意詞條組合都能正確處理。

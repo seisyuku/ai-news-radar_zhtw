@@ -66,7 +66,11 @@
    誤中）。範圍刻意維持 Claude 五子系封閉集，不泛化到 Gemini/GPT 等
    其他家族尾綴詞——那些是語意開放的常見英文字，Claude 子系則有大量
    實測誤譯證據支撐。機制全文、匹配規則、日常維護方式見
-   `docs/OPERATIONS.md`「翻譯管線」章節；專屬 pytest 約 37 案例
+   `docs/OPERATIONS.md`「翻譯管線」章節；專屬 pytest 約 37 案例。翻譯 provider
+   已改為可選、受限時的 Google Cloud Translation Basic v2
+   主路徑與 DeepL fallback；缺少 credential 或 provider 故障只保留英文，
+   不得阻塞快照更新。`source-status.json.translations` 與
+   `translation-state.json` 分別提供無敏感資訊的狀態與六小時拒絕快取。
 10. 資料時效警示帶：前端讀 `generated_at` 與瀏覽當下比較，2 小時內
     不顯示、2-6 小時低調樣式、6 小時以上明顯樣式，門檻常數化
     （`STALE_DATA_WARN_HOURS`/`STALE_DATA_BAD_HOURS`）

@@ -492,25 +492,32 @@ class TopicFilterTests(unittest.TestCase):
 
     def test_bilingual_fields_translates_english_rss_summary_but_preserves_native_traditional(self):
         class FakeResponse:
+            def __init__(self, payload):
+                self.payload = payload
+
             def raise_for_status(self):
                 return None
 
             def json(self):
-                return [[[
-                    "AI 出現在近四成美國選舉中，資料中心對電力成本的影響是主要討論焦點。",
-                    "",
-                    None,
-                    None,
-                    0,
-                ]]]
+                return self.payload
 
         class FakeSession:
             def __init__(self):
                 self.queries = []
 
-            def get(self, _url, params=None, **_kwargs):
-                self.queries.append(params["q"])
-                return FakeResponse()
+            def post(self, _url, json=None, **_kwargs):
+                self.queries.extend(json["q"])
+                return FakeResponse(
+                    {
+                        "data": {
+                            "translations": [
+                                {
+                                    "translatedText": "AI 出現在近四成美國選舉中，資料中心對電力成本的影響是主要討論焦點。"
+                                }
+                            ]
+                        }
+                    }
+                )
 
         session = FakeSession()
         english = {
@@ -524,7 +531,14 @@ class TopicFilterTests(unittest.TestCase):
             "url": "https://example.com/traditional-rss",
         }
 
-        ai_items, _, cache = add_bilingual_fields([english, traditional], [english, traditional], session, {}, 2)
+        ai_items, _, cache = add_bilingual_fields(
+            [english, traditional],
+            [english, traditional],
+            session,
+            {},
+            2,
+            google_api_key="test-key",
+        )
 
         self.assertEqual(len(session.queries), 1)
         self.assertEqual(ai_items[0]["summary_zh"], "AI 出現在近四成美國選舉中，資料中心對電力成本的影響是主要討論焦點。")
@@ -777,20 +791,24 @@ class TopicFilterTests(unittest.TestCase):
             def __init__(self):
                 self.queries = []
 
-            def get(self, url, params=None, **kwargs):
-                q = params["q"]
-                self.queries.append(q)
-                translated = q.replace("unveils", "推出").replace(
-                    "models for enterprise customers", "面向企业客户的模型"
+            def post(self, _url, json=None, **_kwargs):
+                self.queries.extend(json["q"])
+                translated = [
+                    text.replace("unveils", "推出").replace(
+                        "models for enterprise customers", "面向企业客户的模型"
+                    )
+                    for text in json["q"]
+                ]
+                return FakeResponse(
+                    {"data": {"translations": [{"translatedText": text} for text in translated]}}
                 )
-                return FakeResponse([[[translated, q, None, None, 0]]])
 
         session = FakeSession()
         item = {
             "title": "NVIDIA unveils Nemotron models for enterprise customers",
             "url": "https://example.com/nvidia-nemotron",
         }
-        ai_items, _, _ = add_bilingual_fields([item], [item], session, {}, 80)
+        ai_items, _, _ = add_bilingual_fields([item], [item], session, {}, 80, google_api_key="test-key")
 
         # The network call must never have seen the raw brand tokens at all.
         self.assertTrue(session.queries)
@@ -814,18 +832,18 @@ class TopicFilterTests(unittest.TestCase):
                 return self.payload
 
         class FakeSession:
-            def get(self, url, params=None, **kwargs):
-                q = params["q"]
+            def post(self, _url, json=None, **_kwargs):
+                q = json["q"][0]
                 # Simulate MT dropping the opaque placeholder token entirely
                 # while still translating the surrounding English.
                 translated = re.sub(r"QCANON\d+Q", "", q).replace("unveils", "推出").strip()
-                return FakeResponse([[[translated, q, None, None, 0]]])
+                return FakeResponse({"data": {"translations": [{"translatedText": translated}]}})
 
         item = {
             "title": "NVIDIA unveils a new chip",
             "url": "https://example.com/nvidia-chip",
         }
-        ai_items, _, _ = add_bilingual_fields([item], [item], FakeSession(), {}, 80)
+        ai_items, _, _ = add_bilingual_fields([item], [item], FakeSession(), {}, 80, google_api_key="test-key")
 
         title_zh = ai_items[0]["title_zh"]
         self.assertNotIn("QCANON", title_zh)
@@ -932,18 +950,19 @@ class TopicFilterTests(unittest.TestCase):
             def __init__(self):
                 self.queries = []
 
-            def get(self, url, params=None, **kwargs):
-                q = params["q"]
-                self.queries.append(q)
-                translated = q.replace("make", "讓").replace("permanent", "永久化")
-                return FakeResponse([[[translated, q, None, None, 0]]])
+            def post(self, _url, json=None, **_kwargs):
+                self.queries.extend(json["q"])
+                translated = [text.replace("make", "讓").replace("permanent", "永久化") for text in json["q"]]
+                return FakeResponse(
+                    {"data": {"translations": [{"translatedText": text} for text in translated]}}
+                )
 
         session = FakeSession()
         item = {
             "title": "Claude make Fable 5 permanent",
             "url": "https://simonwillison.net/2026/Jul/18/claude-make-fable-5-permanent",
         }
-        ai_items, _, _ = add_bilingual_fields([item], [item], session, {}, 80)
+        ai_items, _, _ = add_bilingual_fields([item], [item], session, {}, 80, google_api_key="test-key")
 
         self.assertTrue(session.queries)
         self.assertNotIn("Claude", session.queries[0])
@@ -1041,21 +1060,24 @@ class TopicFilterTests(unittest.TestCase):
             def __init__(self):
                 self.queries = []
 
-            def get(self, url, params=None, **kwargs):
-                q = params["q"]
-                self.queries.append(q)
-                translated = (
-                    q.replace("outperforms", "表现优于")
-                    .replace("in frontend code but lags far behind in complex math", "在前端代码方面，但在复杂数学方面远远落后")
+            def post(self, _url, json=None, **_kwargs):
+                self.queries.extend(json["q"])
+                translated = [
+                    text.replace("outperforms", "表现优于").replace(
+                        "in frontend code but lags far behind in complex math", "在前端代码方面，但在复杂数学方面远远落后"
+                    )
+                    for text in json["q"]
+                ]
+                return FakeResponse(
+                    {"data": {"translations": [{"translatedText": text} for text in translated]}}
                 )
-                return FakeResponse([[[translated, q, None, None, 0]]])
 
         session = FakeSession()
         item = {
             "title": "Moonshot's Kimi K3 outperforms Fable 5 in frontend code but lags far behind in complex math",
             "url": "https://example.com/moonshot-kimi-k3-vs-fable-5-fresh",
         }
-        ai_items, _, _ = add_bilingual_fields([item], [item], session, {}, 80)
+        ai_items, _, _ = add_bilingual_fields([item], [item], session, {}, 80, google_api_key="test-key")
 
         self.assertTrue(session.queries)
         self.assertNotIn("Moonshot", session.queries[0])
