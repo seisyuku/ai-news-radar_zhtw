@@ -32,3 +32,18 @@ def test_ui_loads_sensor_payload_and_keeps_candidate_wording():
     assert "buildCompactSignalLink(signal)" in js
     assert 'if (status === "official") return "官方公告";' in js
     assert 'if (category === "model_release") return "模型釋出";' in js
+
+
+def test_compact_radar_lists_are_scroll_frames_and_render_all_messages():
+    html = (ROOT / "index.html").read_text(encoding="utf-8")
+    css = (ROOT / "assets" / "styles.css").read_text(encoding="utf-8")
+    js = (ROOT / "assets" / "app.js").read_text(encoding="utf-8")
+
+    assert 'id="llmRadarList" role="region"' in html
+    assert 'id="marketSignalsList" role="region"' in html
+    assert ".compact-signal-list" in css
+    assert "max-height: 280px" in css
+    assert "overflow-y: auto" in css
+    assert "scrollbar-gutter: stable" in css
+    assert "function renderCompactSignalGroup(wrap, list, meta, signals, emptyMeta" in js
+    assert "ordered.forEach((signal) => list.appendChild(buildCompactSignalLink(signal)))" in js

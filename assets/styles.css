@@ -958,6 +958,12 @@ summary:focus-visible {
   grid-template-columns: 1fr;
   gap: 0;
   padding: 0;
+  max-height: 280px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  border-top: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
 }
 
 .compact-signal-link {
@@ -977,6 +983,12 @@ summary:focus-visible {
 .compact-signal-link:hover {
   color: var(--accent);
   background: rgba(18, 106, 115, 0.05);
+}
+
+@media (max-width: 720px) {
+  .compact-signal-list {
+    max-height: 220px;
+  }
 }
 
 .sensor-card {

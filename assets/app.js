@@ -3276,7 +3276,7 @@ function buildCompactSignalLink(signal) {
   return link;
 }
 
-function renderCompactSignalGroup(wrap, list, meta, signals, limit, emptyMeta, sortMode = "latest") {
+function renderCompactSignalGroup(wrap, list, meta, signals, emptyMeta, sortMode = "latest") {
   if (!wrap || !list || !meta) return;
   list.innerHTML = "";
   list.className = "sensor-grid compact-signal-list";
@@ -3292,7 +3292,7 @@ function renderCompactSignalGroup(wrap, list, meta, signals, limit, emptyMeta, s
     meta.textContent = emptyMeta;
     return;
   }
-  ordered.slice(0, limit).forEach((signal) => list.appendChild(buildCompactSignalLink(signal)));
+  ordered.forEach((signal) => list.appendChild(buildCompactSignalLink(signal)));
   meta.textContent = `${fmtNumber(ordered.length)} 則`;
 }
 
@@ -3311,7 +3311,6 @@ function renderMarketSignals() {
     marketSignalsListEl,
     marketSignalsMetaEl,
     signals.filter((signal) => signal.urgency !== "breaking"),
-    6,
     "目前沒有新的結構化差異",
     "importance",
   );
@@ -3324,7 +3323,6 @@ function renderLlmRadar() {
     llmRadarListEl,
     llmRadarMetaEl,
     events,
-    8,
     "目前沒有新的 LLM 發布訊號",
     "latest",
   );
