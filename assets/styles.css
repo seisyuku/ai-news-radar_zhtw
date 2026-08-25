@@ -958,12 +958,27 @@ summary:focus-visible {
   grid-template-columns: 1fr;
   gap: 0;
   padding: 0;
-  max-height: 280px;
+  /* About four one-line headlines at desktop width. The full signal list
+     remains available through the frame's own vertical scroll. */
+  max-height: 176px;
   overflow-y: auto;
   overscroll-behavior: contain;
   scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(18, 106, 115, 0.42) transparent;
   border-top: 1px solid var(--line-soft);
   border-bottom: 1px solid var(--line-soft);
+}
+
+.compact-signal-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.compact-signal-list::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background-clip: padding-box;
+  background-color: rgba(18, 106, 115, 0.42);
 }
 
 .compact-signal-link {
@@ -987,7 +1002,7 @@ summary:focus-visible {
 
 @media (max-width: 720px) {
   .compact-signal-list {
-    max-height: 220px;
+    max-height: 168px;
   }
 }
 

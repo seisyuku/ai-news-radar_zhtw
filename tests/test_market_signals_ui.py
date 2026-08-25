@@ -42,8 +42,10 @@ def test_compact_radar_lists_are_scroll_frames_and_render_all_messages():
     assert 'id="llmRadarList" role="region"' in html
     assert 'id="marketSignalsList" role="region"' in html
     assert ".compact-signal-list" in css
-    assert "max-height: 280px" in css
+    assert "max-height: 176px" in css
+    assert "max-height: 168px" in css
     assert "overflow-y: auto" in css
     assert "scrollbar-gutter: stable" in css
+    assert "scrollbar-width: thin" in css
     assert "function renderCompactSignalGroup(wrap, list, meta, signals, emptyMeta" in js
     assert "ordered.forEach((signal) => list.appendChild(buildCompactSignalLink(signal)))" in js
