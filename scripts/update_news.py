@@ -6123,10 +6123,19 @@ def build_llm_radar_payload(
     )
     model_events: list[dict[str, Any]] = []
     seen_model_keys: set[str] = set()
+    seen_source_urls: set[str] = set()
     for event in model_candidates:
+        canonical_url = canonical_story_url(str(event.get("source_url") or ""))
+        # A syndicated article can reach us through title variants (for example,
+        # Google News publisher labels).  Deduplicate its canonical source URL
+        # first, while retaining the existing model/title merge for distinct URLs.
         key = str(event.get("product") or event.get("title") or "").casefold()
+        if canonical_url and canonical_url in seen_source_urls:
+            continue
         if key in seen_model_keys:
             continue
+        if canonical_url:
+            seen_source_urls.add(canonical_url)
         seen_model_keys.add(key)
         event.pop("source_tier_rank", None)
         model_events.append(event)

@@ -6,7 +6,7 @@ from scripts.update_news import build_llm_radar_payload
 NOW = datetime(2026, 8, 22, 0, 0, tzinfo=timezone.utc)
 
 
-def model_item(*, site_id, model_id, hours_ago, title, score=0.8):
+def model_item(*, site_id, model_id, hours_ago, title, score=0.8, url=None):
     occurred = NOW - timedelta(hours=hours_ago)
     return {
         "id": f"{site_id}-{model_id}",
@@ -16,7 +16,7 @@ def model_item(*, site_id, model_id, hours_ago, title, score=0.8):
         "title": title,
         "title_zh": title,
         "summary_zh": "測試用模型釋出內容。",
-        "url": f"https://example.com/{site_id}/{model_id}",
+        "url": url or f"https://example.com/{site_id}/{model_id}",
         "model_id": model_id,
         "model_name": model_id,
         "published_at": occurred.isoformat().replace("+00:00", "Z"),
@@ -67,3 +67,30 @@ def test_llm_radar_is_empty_without_a_recent_release_or_price_event():
 
     assert payload["total_events"] == 0
     assert payload["events"] == []
+
+
+def test_llm_radar_deduplicates_title_variants_by_canonical_source_url():
+    shared_url = "https://news.google.com/rss/articles/qwen-release?oc=5&utm_source=test"
+    payload = build_llm_radar_payload(
+        [
+            model_item(
+                site_id="official_ai",
+                model_id="qwen-3.9",
+                hours_ago=1,
+                title="Qwen 發布 Qwen 3.9",
+                url=shared_url,
+            ),
+            model_item(
+                site_id="curated_media",
+                model_id="qwen-3.9-report",
+                hours_ago=1,
+                title="Qwen 發布 Qwen 3.9 - 媒體轉載版本",
+                url="https://news.google.com/rss/articles/qwen-release?oc=5",
+            ),
+        ],
+        NOW,
+    )
+
+    assert payload["total_events"] == 1
+    assert payload["events"][0]["title"] == "Qwen 發布 Qwen 3.9"
+    assert payload["events"][0]["verification_status"] == "official"
