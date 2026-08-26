@@ -16,6 +16,7 @@
   --warn: #9a6700;
   --bad: #b42318;
   --radius: 8px;
+  --font-brand: ui-monospace, "SFMono-Regular", "Cascadia Code", "Roboto Mono", Menlo, monospace;
 }
 
 * {
@@ -99,10 +100,11 @@ button {
 
 .hero-tag {
   margin: 0;
-  font-size: 12px;
-  letter-spacing: 0;
+  font-family: var(--font-brand);
+  font-size: 11px;
+  letter-spacing: 0.025em;
   color: var(--muted);
-  font-weight: 720;
+  font-weight: 700;
 }
 
 .hero h1 {

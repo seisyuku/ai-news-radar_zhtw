@@ -1,8 +1,8 @@
 <div align="center">
 
-# AI 商業情報雷達
+# AI News Radar Pulse
 
-**每 30 分鐘自動更新的 AI 產業商業事件儀表板 · 繁體中文特化 · 排除噪音看清事實**
+**AI 產業商業事件脈動儀表板 · 每 30 分鐘自動更新 · 繁體中文特化 · 排除噪音看清事實**
 
 [![直接使用](https://img.shields.io/badge/📡_直接使用-AI新聞儀表板-2d8f8f?style=for-the-badge)](https://seisyuku.github.io/ai-news-radar_zhtw/) 
 [![GitHub stars](https://img.shields.io/github/stars/seisyuku/ai-news-radar_zhtw?style=for-the-badge&logo=github&color=f5b942)](https://github.com/seisyuku/ai-news-radar_zhtw/stargazers)

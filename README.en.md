@@ -1,8 +1,8 @@
 <div align="center">
 
-# AI Business Intelligence Radar
+# AI News Radar Pulse
 
-**A Traditional Chinese dashboard for material AI-industry events, refreshed every 30 minutes.**
+**A Traditional Chinese pulse dashboard for material AI-industry events, refreshed every 30 minutes.**
 
 [![Live dashboard](https://img.shields.io/badge/Live-AI_News_Dashboard-2d8f8f?style=for-the-badge)](https://seisyuku.github.io/ai-news-radar_zhtw/)
 [![GitHub stars](https://img.shields.io/github/stars/seisyuku/ai-news-radar_zhtw?style=for-the-badge&logo=github&color=f5b942)](https://github.com/seisyuku/ai-news-radar_zhtw/stargazers)

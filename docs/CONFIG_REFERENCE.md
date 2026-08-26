@@ -1,4 +1,4 @@
-# AI 商業情報雷達設定參考
+# AI News Radar Pulse 設定參考
 
 適用範圍：`scripts/update_news.py`、`.github/workflows/update-news.yml`。
 

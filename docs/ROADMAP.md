@@ -1,4 +1,4 @@
-# AI 商業情報雷達 Roadmap
+# AI News Radar Pulse Roadmap
 
 本文件只記錄尚未完成或仍需追蹤的方向。已完成的設計事實、來源裁決與
 歷史證據以 [`HANDOVER.md`](HANDOVER.md) 為準；操作程序以
