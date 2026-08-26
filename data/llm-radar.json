@@ -1,9 +1,41 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-26T14:30:22.362583Z",
+  "generated_at": "2026-08-26T16:03:37.582692Z",
   "window_hours": 24,
-  "total_events": 1,
+  "total_events": 3,
   "events": [
+    {
+      "id": "model_release::glm-5.3-flash",
+      "kind": "model_release",
+      "category": "model_release",
+      "verification_status": "tracked",
+      "verification_label": "模型追蹤",
+      "title": "Zhipu AI 發布 GLM-5.3-Flash 模型",
+      "summary": "",
+      "provider": "Zhipu AI",
+      "product": "GLM-5.3-Flash",
+      "detected_at": "2026-08-26T16:03:37.582692Z",
+      "effective_at": "2026-08-26T00:00:00Z",
+      "source_name": "LLM Stats Model Releases",
+      "source_url": "https://llm-stats.com/models/glm-5.3-flash",
+      "evidence_url": "https://llm-stats.com/models/glm-5.3-flash"
+    },
+    {
+      "id": "model_release::85490a3c9eb90d5380ad6f3790a0e89100b75d6b",
+      "kind": "model_release",
+      "category": "model_release",
+      "verification_status": "reported",
+      "verification_label": "媒體報導",
+      "title": "阿里巴巴的 Qwen 團隊發布 Qwen3.8-Flash-Next：一款 125B 多模態 MoE，具備 60 億個活動參數，並預覽了 Qwen4 架構。",
+      "summary": "本文將介紹 Qwen3.8-Flash-Next、阿里巴巴的 開放權重多模態專家混合模型以及 Qwen4 架構的早期預覽版。我們將詳細分析 1800 億參數的實際分佈：一個 1250 億的骨幹網路、一個 510 億的 N-gram 嵌入表和一個 40 億的多標記預測模組，其中每個標記僅需 60 億個有效參數。我們將詳細介紹四項架構變更—閘控 DeltaNet 和 Qwen 稀疏注意力混合模型、門控殘差、N-gram 嵌入以及 Muon 優化器。此外，我們還將介紹基準測試結果、Qwen4 相對於 Qwen3.7-Plus 的 1/9 訓練成本，以及自架 172.78 GiB FP8 檢查點所需的實際資源。文章「阿里巴巴的 Qwen 團隊發布 Qwen3.8-Flash-Next：一款具有 60 億個活動參數的 125B 多模 MoE，預覽 Qwen4 架構」最初發表於 MarkTechPost。",
+      "provider": "",
+      "product": "",
+      "detected_at": "2026-08-26T16:03:37.582692Z",
+      "effective_at": "2026-08-26T15:20:00Z",
+      "source_name": "MarkTechPost Research",
+      "source_url": "https://www.marktechpost.com/2026/08/26/alibabas-qwen-team-releases-qwen3-8-flash-next-a-125b-multimodal-moe-with-6b-active-parameters-previewing-the-qwen4-architecture",
+      "evidence_url": "https://www.marktechpost.com/2026/08/26/alibabas-qwen-team-releases-qwen3-8-flash-next-a-125b-multimodal-moe-with-6b-active-parameters-previewing-the-qwen4-architecture"
+    },
     {
       "id": "model_release::f3c66d1f724a95f158fb914302bf55a28dec4f17",
       "kind": "model_release",
