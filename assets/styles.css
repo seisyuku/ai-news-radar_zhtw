@@ -15,6 +15,7 @@
   --good: #1f7a4d;
   --warn: #9a6700;
   --bad: #b42318;
+  --brand-pulse: #22D3EE;
   --radius: 8px;
   --font-brand: ui-monospace, "SFMono-Regular", "Cascadia Code", "Roboto Mono", Menlo, monospace;
 }
@@ -112,6 +113,11 @@ button {
   font-size: 38px;
   line-height: 1.08;
   overflow-wrap: break-word;
+}
+
+.logo-pulse {
+  color: var(--brand-pulse);
+  text-shadow: 0 0 12px rgba(34, 211, 238, 0.2);
 }
 
 .hero-meta {
