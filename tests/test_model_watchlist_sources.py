@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 from scripts.ai_relevance import score_ai_relevance
 from scripts.update_news import (
     RUNTIMEWIRE_MODEL_FEED,
-    build_model_releases_7d_items,
+    build_model_releases_24h_items,
     business_event_score,
     extract_llm_stats_latest_models,
     parse_model_analysis_feed_items,
@@ -65,11 +65,11 @@ class LlmStatsModelReleaseTests(unittest.TestCase):
         )
         self.assertEqual(extract_llm_stats_latest_models(html, NOW), [])
 
-    def test_builds_seven_day_release_lane_without_faking_24h_timestamp(self):
+    def test_builds_24_hour_release_lane_without_faking_timestamp(self):
         item = extract_llm_stats_latest_models(
             '"latestModels":[{"model_id":"qwen3.8-27b","name":"Qwen3.8-27B",'
             '"organization":"Alibaba Cloud / Qwen Team","organization_id":"qwen",'
-            '"release_date":"2026-08-14"}]',
+            '"release_date":"2026-08-16"}]',
             NOW,
         )[0]
         archive = {
@@ -86,11 +86,39 @@ class LlmStatsModelReleaseTests(unittest.TestCase):
             }
         }
 
-        weekly = build_model_releases_7d_items(archive, NOW)
+        releases = build_model_releases_24h_items(archive, NOW)
 
-        self.assertEqual(len(weekly), 1)
-        self.assertEqual(weekly[0]["published_at"], "2026-08-14T00:00:00+00:00")
-        self.assertEqual(weekly[0]["business_events"], ["model_release"])
+        self.assertEqual(len(releases), 1)
+        self.assertEqual(releases[0]["published_at"], "2026-08-16T00:00:00+00:00")
+        self.assertEqual(releases[0]["business_events"], ["model_release"])
+
+    def test_release_lane_excludes_records_older_than_24_hours(self):
+        def record(model_id: str, release_date: str) -> dict:
+            item = extract_llm_stats_latest_models(
+                f'"latestModels":[{{"model_id":"{model_id}","name":"{model_id}",'
+                f'"organization":"Alibaba Cloud / Qwen Team","organization_id":"qwen",'
+                f'"release_date":"{release_date}"}}]',
+                NOW,
+            )[0]
+            return {
+                "id": model_id,
+                "site_id": item.site_id,
+                "site_name": item.site_name,
+                "source": item.source,
+                "title": item.title,
+                "url": item.url,
+                "published_at": item.published_at.isoformat(),
+                **item.meta,
+            }
+
+        archive = {
+            "within": record("qwen3.8-27b", "2026-08-16"),
+            "expired": record("grok-4.6", "2026-08-15"),
+        }
+
+        releases = build_model_releases_24h_items(archive, NOW)
+
+        self.assertEqual([item["model_id"] for item in releases], ["qwen3.8-27b"])
 
 
 class ModelAnalysisFeedTests(unittest.TestCase):

@@ -24,6 +24,7 @@ PRICE_URL = "https://cdn.jsdelivr.net/gh/llerandi/llm-price-tracker@main/data/pr
 PRICE_HOME = "https://github.com/llerandi/llm-price-tracker"
 FREE_TIER_URL = "https://raw.githubusercontent.com/xyzs996/free-llm-api/main/data/providers.json"
 FREE_TIER_HOME = "https://github.com/xyzs996/free-llm-api"
+MARKET_SIGNAL_WINDOW_HOURS = 24
 
 PRICE_FIELDS: dict[str, tuple[str, str]] = {
     "input_per_1m_usd": ("輸入價格", "USD / 1M tokens"),
@@ -443,7 +444,10 @@ def _kept_signals(previous: Any, now: datetime) -> list[dict[str, Any]]:
         if not isinstance(signal, dict):
             continue
         detected = _parse_iso(signal.get("detected_at"))
-        retention = timedelta(days=7 if signal.get("urgency") == "breaking" else 30)
+        # Public signal lanes use the same 24-hour reader window as the main
+        # news board and LLM release radar. Sensor state itself remains
+        # separate so future comparisons still have a baseline.
+        retention = timedelta(hours=MARKET_SIGNAL_WINDOW_HOURS)
         if detected and detected >= now - retention:
             kept.append(signal)
     return kept

@@ -8,7 +8,7 @@ const APP_SCRIPT_EL = document.currentScript;
 
 const state = {
   itemsAi: [],
-  modelReleases7d: [],
+  modelReleases24h: [],
   itemsAll: [],
   itemsAllRaw: [],
   statsAi: [],
@@ -23,8 +23,6 @@ const state = {
   authorFilter: "",
   query: "",
   mode: "selected",
-  waytoagiMode: "today",
-  waytoagiData: null,
   sourceStatus: null,
   generatedAt: null,
   dailyBrief: null,
@@ -68,12 +66,6 @@ const sourceTypeSelectEl = document.getElementById("sourceTypeSelect");
 const signalLevelSelectEl = document.getElementById("signalLevelSelect");
 const clearFiltersBtnEl = document.getElementById("clearFiltersBtn");
 
-const waytoagiWrapEl = document.querySelector(".waytoagi-wrap");
-const waytoagiUpdatedAtEl = document.getElementById("waytoagiUpdatedAt");
-const waytoagiMetaEl = document.getElementById("waytoagiMeta");
-const waytoagiListEl = document.getElementById("waytoagiList");
-const waytoagiTodayBtnEl = document.getElementById("waytoagiTodayBtn");
-const waytoagi7dBtnEl = document.getElementById("waytoagi7dBtn");
 const coverageStripEl = document.getElementById("coverageStrip");
 const briefPicksListEl = document.getElementById("briefPicksList");
 const briefPicksMetaEl = document.getElementById("briefPicksMeta");
@@ -98,21 +90,8 @@ const llmRadarMetaEl = document.getElementById("llmRadarMeta");
 const SOURCE_KINDS = {
   official_ai: { label: "官方", tone: "official" },
   curated_media: { label: "精選媒體", tone: "aihub" },
-  aihot: { label: "AI HOT", tone: "hot" },
-  aibreakfast: { label: "日報", tone: "newsletter" },
-  followbuilders: { label: "Builders/X", tone: "builders" },
   xapi: { label: "X API", tone: "builders" },
   socialdata_x: { label: "X 搜尋", tone: "builders" },
-  techurls: { label: "聚合", tone: "aggregate" },
-  buzzing: { label: "聚合", tone: "aggregate" },
-  iris: { label: "聚合", tone: "aggregate" },
-  bestblogs: { label: "部落格", tone: "blogs" },
-  tophub: { label: "聚合", tone: "aggregate" },
-  zeli: { label: "聚合", tone: "aggregate" },
-  hackernews: { label: "HN", tone: "aggregate" },
-  aihubtoday: { label: "AI網站", tone: "aihub" },
-  waytoagi: { label: "社群", tone: "builders" },
-  newsnow: { label: "聚合", tone: "aggregate" },
   opmlrss: { label: "OPML", tone: "newsletter" },
   // feature/source-kinds-gap-fix-0721: these three are active in
   // scripts/update_news.py's collect_all() task list but were never added
@@ -492,19 +471,15 @@ function renderCoverageStrip(errorMessage = "") {
   const rows = siteRows();
   const failedSites = Array.isArray(state.sourceStatus?.failed_sites) ? state.sourceStatus.failed_sites : [];
   const rss = state.sourceStatus?.rss_opml || {};
-  const agentmail = state.sourceStatus?.agentmail || {};
   const xApi = state.sourceStatus?.x_api || {};
   const socialdata = state.sourceStatus?.socialdata || {};
   const allCount = Number(state.sourceStatus?.items_before_topic_filter || state.totalAllMode || state.itemsAll.length || 0);
   const coverageCount = Number(state.sourceStatus?.fetched_raw_items || state.totalRaw || allCount || 0);
   const officialCount = Number(siteRow("official_ai")?.item_count || 0);
-  const newsletterCount = Number(siteRow("aibreakfast")?.item_count || 0);
   const curatedMediaCount = Number(siteRow("curated_media")?.item_count || 0);
-  const buildersCount = Number(siteRow("followbuilders")?.item_count || 0);
   const socialdataPoolCount = siteAiPoolCount("socialdata_x");
   const xApiPoolCount = siteAiPoolCount("xapi");
   const xPoolCount = socialdataPoolCount + xApiPoolCount;
-  const mailCount = Number(agentmail.item_count || 0);
   const totalSites = rows.length;
   const okSites = Number(state.sourceStatus?.successful_sites || 0);
   const opmlValue = rss.enabled ? `${fmtNumber(rss.ok_feeds || 0)}/${fmtNumber(rss.effective_feed_total || 0)}` : "OPML";
@@ -512,21 +487,17 @@ function renderCoverageStrip(errorMessage = "") {
   const socialdataLabel = paidSourceLabel(socialdata, socialdataPoolCount, "SocialData", "");
   const xApiLabel = paidSourceLabel(xApi, xApiPoolCount, "X API", "");
   const xSourceLabel = socialdataLabel || xApiLabel || "X待配置";
-  const mailLabel = agentmail.enabled ? `Mail ${fmtNumber(mailCount)}` : "Mail待配置";
-  const advancedValue = xPoolCount || mailCount
-    ? `${xPoolCount ? `X ${fmtNumber(xPoolCount)}` : "X"} / ${mailCount ? `Mail ${fmtNumber(mailCount)}` : "Mail"}`
-    : "X / Mail";
-  const advancedMeta = socialdata.enabled || xApi.enabled || agentmail.enabled || xPoolCount
-    ? `額度保護 · ${xSourceLabel} / ${mailLabel}`
-    : "X API 與 AgentMail 預設關閉";
+  const advancedValue = xPoolCount ? `X ${fmtNumber(xPoolCount)}` : "X待配置";
+  const advancedMeta = socialdata.enabled || xApi.enabled || xPoolCount
+    ? `額度保護 · ${xSourceLabel}`
+    : "X API 預設關閉";
 
   const cards = [
     ["源健康", totalSites ? `${fmtNumber(okSites)}/${fmtNumber(totalSites)}` : "載入中", failedSites.length ? `${fmtNumber(failedSites.length)} 個失敗源` : (errorMessage || "內建源正常"), failedSites.length ? "warn" : "ok"],
     ["今日覆蓋池", `${fmtNumber(coverageCount)} 條`, allCount ? `全網抓取原始訊號 · ${fmtNumber(allCount)} 條入池` : "全網抓取原始訊號", "signal"],
     ["AI強相關", `${fmtNumber(safeItems(state.itemsAi).length)} 條`, "24小時強相關訊號", "signal"],
-    ["官方/日報源池", `${fmtNumber(officialCount + newsletterCount)} 條`, "官方節點 + AI Breakfast", "official"],
+    ["官方源池", `${fmtNumber(officialCount)} 條`, "官方節點", "official"],
     ["精選媒體源池", `${fmtNumber(curatedMediaCount)} 條`, "The Decoder / TC / Verge / MTP 等", "signal"],
-    ["Builders/X源池", `${fmtNumber(buildersCount)} 條`, "Follow Builders公開feed", "builders"],
     ["RSS/OPML擴充套件", opmlValue, opmlMeta, "private"],
     ["高階源", advancedValue, advancedMeta, "private"],
   ];
@@ -568,7 +539,6 @@ function clearAllFilters() {
   state.listSort = "priority";
   state.briefView = "hot";
   state.briefExpanded = false;
-  state.waytoagiMode = "today";
   state.siteGroupsExpanded = false;
   state.xAuthorsExpanded = false;
   if (searchInputEl) searchInputEl.value = "";
@@ -602,12 +572,12 @@ function highPriorityScore(item) {
 }
 
 function isHighPriorityItem(item) {
-  return highPriorityScore(item) >= 75 || itemPriorityScore(item) >= 82 || item.site_id === "official_ai" || item.site_id === "aihot";
+  return highPriorityScore(item) >= 75 || itemPriorityScore(item) >= 82 || item.site_id === "official_ai";
 }
 
 function isCuratedItem(item) {
   const siteId = readerSiteId(item);
-  return siteId === "official_ai" || siteId === "aihot" || siteId === "curated_media" || item.source_tier === "official" || item.source_tier === "curated";
+  return siteId === "official_ai" || siteId === "curated_media" || item.source_tier === "official" || item.source_tier === "curated";
 }
 
 function itemSourceType(item) {
@@ -616,15 +586,12 @@ function itemSourceType(item) {
   if (siteId === "official_ai" || tier === "official") return "official";
   if (
     siteId === "curated_media"
-    || siteId === "aibreakfast"
-    || siteId === "aihot"
     || siteId === "llm_stats_models"
     || siteId === "llm_rumors"
     || siteId === "runtimewire"
   ) return "media";
   if (siteId === "opmlrss" || tier === "user_opml") return "rss";
-  if (siteId === "waytoagi" || siteId === "followbuilders" || siteId === "hackernews" || siteId === "zeli") return "community";
-  if (siteId === "socialdata_x" || siteId === "xapi" || siteId === "agentmail") return "advanced";
+  if (siteId === "socialdata_x" || siteId === "xapi") return "advanced";
   return "aggregate";
 }
 
@@ -674,7 +641,6 @@ function renderSectionTabs() {
       renderModeSwitch();
       renderSiteFilters();
       renderBriefPicks();
-      if (state.waytoagiData) renderWaytoagi(state.waytoagiData);
       renderList();
     });
     sectionTabsEl.appendChild(btn);
@@ -706,7 +672,7 @@ function renderSectionSummary(filteredItems = null) {
   const modeText = state.mode === "selected"
     ? "高優先順序精選"
     : (state.mode === "all" ? (state.allDedup ? "全量去重" : "全量原始") : "全部 AI");
-  const timeWindow = section.id === "models" ? "過去 7 天" : "過去 24 小時";
+  const timeWindow = "過去 24 小時";
   sectionSummaryEl.textContent = `${timeWindow} · ${fmtNumber(items.length)} 條${section.id === "hot" ? "" : ` ${section.label}`}訊號 · ${fmtNumber(highCount)} 條高優先順序 · ${fmtNumber(sources.size)} 個來源 · ${modeText}`;
 }
 
@@ -867,12 +833,12 @@ function itemHasModelRelease(item) {
   return Array.isArray(item && item.business_events) && item.business_events.includes("model_release");
 }
 
-function mergeWeeklyModelItems(baseItems, weeklyItems, activeSection) {
+function mergeModelReleaseItems(baseItems, releaseItems, activeSection) {
   const base = Array.isArray(baseItems) ? baseItems : [];
   if (activeSection !== "models") return base;
   const seen = new Set(base.map((item) => item.id || item.url || `${item.site_id || ""}::${item.title || ""}`));
   const merged = [...base];
-  (Array.isArray(weeklyItems) ? weeklyItems : []).forEach((item) => {
+  (Array.isArray(releaseItems) ? releaseItems : []).forEach((item) => {
     const key = item.id || item.url || `${item.site_id || ""}::${item.title || ""}`;
     if (seen.has(key)) return;
     seen.add(key);
@@ -885,7 +851,7 @@ function modeItems(sectionId = state.activeSection) {
   if (state.mode === "all") return effectiveAllItems();
   const aiItems = safeItems(state.itemsAi);
   const base = state.mode === "selected" ? aiItems.filter((item) => isHighPriorityItem(item)) : aiItems;
-  return mergeWeeklyModelItems(base, state.modelReleases7d, sectionId);
+  return mergeModelReleaseItems(base, state.modelReleases24h, sectionId);
 }
 
 function sectionItems(items = modeItems(), sectionId = state.activeSection) {
@@ -962,12 +928,6 @@ function scorePercent(item) {
   return Math.round(score <= 1 ? score * 100 : score);
 }
 
-function normalizedPercent(value) {
-  const score = Number(value);
-  if (!Number.isFinite(score) || score <= 0) return 0;
-  return Math.max(0, Math.min(100, Math.round(score <= 1 ? score * 100 : score)));
-}
-
 function scoreTone(score) {
   if (score >= 90) return "hot";
   if (score >= 75) return "strong";
@@ -977,7 +937,7 @@ function scoreTone(score) {
 function itemLabelTone(item) {
   const label = item.ai_label || "";
   if (item.site_id === "official_ai") return "official";
-  if (item.site_id === "aihot" || label === "curated_hotlist") return "hot";
+  if (label === "curated_hotlist") return "hot";
   if (label === "model_release") return "models";
   if (label === "developer_tool" || label === "developer_tooling" || label === "infrastructure" || label === "infra_compute") return "devtools";
   if (label === "research_paper") return "research";
@@ -1024,17 +984,13 @@ function setSourceBadge(el, label, tone = "default", title = "") {
 
 function sourceTierPercent(item) {
   if (item.site_id === "official_ai") return 100;
-  if (item.site_id === "aihot") return 90;
   const rank = Number(item.source_tier_rank);
   if (!Number.isFinite(rank)) return 38;
   return Math.max(28, Math.min(86, 86 - rank * 9));
 }
 
 function editorialPercent(item) {
-  const aihotScore = normalizedPercent(item.aihot_score);
-  if (aihotScore) return aihotScore;
   if (item.site_id === "official_ai") return 90;
-  if (item.site_id === "aihot") return 78;
   const internal = scorePercent(item);
   return internal ? Math.max(45, Math.round(internal * 0.72)) : 36;
 }
@@ -1152,8 +1108,6 @@ function itemSections(item) {
   ) sections.add("research");
 
   if (
-    readerSiteId(item) === "waytoagi" ||
-    readerSiteId(item) === "followbuilders" ||
     source.includes("it之家") ||
     source.includes("36氪") ||
     source.includes("掘金") ||
@@ -1163,7 +1117,7 @@ function itemSections(item) {
     source.includes("小互") ||
     source.includes("ayi") ||
     matchesAny(hay, [
-      /waytoagi|社区|社群|公众号|公眾號|阿里|通义|通義|千问|千問|智谱|智譜|kimi|月之暗面|minimax|字节|字節|火山|百度|腾讯|騰訊|华为|華為|蚂蚁|螞蟻|讯飞|訊飛|国内|國內|中文|开源中国|開源中國|少数派|少數派|虎嗅/,
+      /社区|社群|公众号|公眾號|阿里|通义|通義|千问|千問|智谱|智譜|kimi|月之暗面|minimax|字节|字節|火山|百度|腾讯|騰訊|华为|華為|蚂蚁|螞蟻|讯飞|訊飛|国内|國內|中文|开源中国|開源中國|少数派|少數派|虎嗅/,
     ])
   ) sections.add("community");
 
@@ -1286,9 +1240,7 @@ function storyHasAnyKey(story, keys) {
 function sourceSignal(item) {
   const site = readerSiteName(item);
   const source = sourceDisplayName(item);
-  if (site === "AI HOT") return "AI HOT精選";
   if (site === "Official AI Updates") return "官方更新";
-  if (site === "Follow Builders") return "Builders";
   if (source === "AIBASE") return "AIBASE";
   if (site === "OPML RSS") return "OPML";
   return source || site || "來源";
@@ -1297,8 +1249,6 @@ function sourceSignal(item) {
 function sourcePriority(item) {
   const signal = sourceSignal(item);
   if (signal === "官方更新") return 100;
-  if (signal === "AI HOT精選") return 90;
-  if (signal === "Builders") return 74;
   if (signal === "OPML") return 68;
   return 50;
 }
@@ -1414,72 +1364,11 @@ function formatStoryTime(story) {
   return { latest: latest || earliest, rangeLabel: "" };
 }
 
-function pickBriefItems(items) {
-  const ranked = [...items]
-    .map((item, index) => ({ item, index, score: scorePercent(item) }))
-    .filter((row) => row.score > 0)
-    .sort((a, b) => {
-      const byScore = b.score - a.score;
-      if (byScore !== 0) return byScore;
-      return timelineMs(b.item) - timelineMs(a.item) || a.index - b.index;
-    });
-
-  const sorted = clusterBriefEvents(ranked).sort((a, b) => {
-    const byMultiSource = b.sourceCount - a.sourceCount;
-    const byScore = b.score - a.score;
-    return byMultiSource || byScore || timelineMs(b.item) - timelineMs(a.item) || a.index - b.index;
-  });
-
-  const picked = [];
-  const addPick = (cluster) => {
-    if (cluster && !picked.includes(cluster) && picked.length < 8) picked.push(cluster);
-  };
-  ["AI HOT精選", "HN熱議", "GitHub趨勢"].forEach((signal) => {
-    addPick(sorted.find((cluster) => cluster.sourceSignals.includes(signal)));
-  });
-  sorted.forEach(addPick);
-  return picked;
-}
-
 function briefReasonText(row) {
   const signals = row.sourceSignals || [];
   const sourceText = signals.length ? `來源命中：${signals.join(" / ")}` : "來源命中：單源";
   const mergeText = row.mergedCount > 1 ? `合併${row.mergedCount}條同事件` : "單條事件";
   return `${sourceText} · ${mergeText} · ${reasonText(row.item)}`;
-}
-
-function buildBriefLead(row) {
-  const { item, score } = row;
-  const lead = document.createElement("a");
-  lead.className = "brief-lead-card";
-  lead.href = item.url || "#";
-  lead.target = "_blank";
-  lead.rel = "noopener noreferrer";
-
-  const top = document.createElement("div");
-  top.className = "brief-lead-top";
-  const kicker = document.createElement("span");
-  kicker.className = "brief-kicker";
-  kicker.textContent = `${labelText(item)} · ${fmtTime(timelineIso(item))}`;
-  const scoreEl = document.createElement("strong");
-  scoreEl.className = `brief-score-orb ${scoreTone(score)}`;
-  scoreEl.innerHTML = `<span>${score}</span><small>分</small>`;
-  top.append(kicker, scoreEl);
-
-  const title = document.createElement("div");
-  title.className = "brief-lead-title";
-  title.textContent = itemTitleText(item);
-
-  const reason = document.createElement("div");
-  reason.className = "brief-lead-reason";
-  reason.textContent = reasonText(item);
-
-  const foot = document.createElement("div");
-  foot.className = "brief-lead-foot";
-  foot.innerHTML = `<span>${item.site_name || "來源"}</span><span>${item.source || "未分割槽"}</span>`;
-
-  lead.append(top, title, reason, foot);
-  return lead;
 }
 
 function buildBriefTimelineRow(row, rank) {
@@ -1701,66 +1590,6 @@ function hotStories(stories) {
     });
 }
 
-function renderBriefBrief(stories) {
-  briefPicksListEl.innerHTML = "";
-  briefPicksListEl.className = "brief-board";
-
-  const hot = hotStories(stories);
-  const hotAvailable = hot.length >= 2;
-  // 寧缺毋濫: the hot view only exists when there is real multi-source heat.
-  if (briefViewToggleEl) briefViewToggleEl.hidden = !hotAvailable;
-  if (!hotAvailable) state.briefView = "timeline";
-  if (briefHotBtnEl) briefHotBtnEl.classList.toggle("active", state.briefView === "hot");
-  if (briefTimelineBtnEl) briefTimelineBtnEl.classList.toggle("active", state.briefView !== "hot");
-  if (briefHotBtnEl) briefHotBtnEl.setAttribute("aria-pressed", state.briefView === "hot" ? "true" : "false");
-  if (briefTimelineBtnEl) briefTimelineBtnEl.setAttribute("aria-pressed", state.briefView !== "hot" ? "true" : "false");
-
-  let sorted;
-  let metaLabel;
-  if (state.briefView === "hot") {
-    sorted = hot;
-    metaLabel = `當前熱點 · ${fmtNumber(sorted.length)} 簇 · 按熱度分排序`;
-  } else {
-    sorted = [...stories].sort((a, b) => {
-      const aLatest = storyTimeMs(a, "latest_at") || storyTimeMs(a, "earliest_at");
-      const bLatest = storyTimeMs(b, "latest_at") || storyTimeMs(b, "earliest_at");
-      if (aLatest !== bLatest) return bLatest - aLatest;
-      return storyScore(b) - storyScore(a);
-    });
-    const topScore = Math.max(...sorted.map((s) => storyScore(s)));
-    metaLabel = topScore > 0
-      ? `故事時間線 · ${fmtNumber(sorted.length)} 條 · 最高 ${topScore} 分`
-      : `故事時間線 · ${fmtNumber(sorted.length)} 條`;
-  }
-
-  const list = document.createElement("div");
-  list.className = "brief-compact-list brief-timeline";
-  const defaultLimit = state.briefView === "hot" ? BRIEF_HOT_LIMIT : BRIEF_TIMELINE_LIMIT;
-  const visibleStories = state.briefExpanded ? sorted : sorted.slice(0, defaultLimit);
-  visibleStories.forEach((story, index) => {
-    list.appendChild(buildStoryCard(story, index + 1));
-  });
-  briefPicksListEl.appendChild(list);
-
-  if (sorted.length > defaultLimit) {
-    const moreBtn = document.createElement("button");
-    moreBtn.type = "button";
-    moreBtn.className = "brief-more-btn";
-    moreBtn.textContent = state.briefExpanded
-      ? "收起"
-      : (state.briefView === "hot" ? "展開全部熱點" : "展開完整時間線");
-    moreBtn.addEventListener("click", () => {
-      state.briefExpanded = !state.briefExpanded;
-      renderBriefPicks();
-    });
-    briefPicksListEl.appendChild(moreBtn);
-  }
-
-  const generatedAt = state.dailyBrief && state.dailyBrief.generated_at;
-  briefPicksMetaEl.textContent = generatedAt ? `${metaLabel} · ${fmtTime(generatedAt)}` : metaLabel;
-  document.dispatchEvent(new CustomEvent("aiRadar:briefRendered"));
-}
-
 function renderBriefFallback(picks) {
   briefPicksListEl.innerHTML = "";
   briefPicksListEl.className = "brief-board";
@@ -1951,88 +1780,6 @@ function latestStories(stories) {
   return [...(Array.isArray(stories) ? stories : [])].sort(briefStorySortCompare);
 }
 
-function renderStoryViewPanel(stories, excludedRows = []) {
-  const panel = document.createElement("div");
-  panel.className = "brief-story-panel";
-
-  const hot = hotStories(stories);
-  let baseSorted;
-  let metaLabel;
-  if (state.briefView === "hot") {
-    baseSorted = hot;
-    metaLabel = hot.length
-      ? `當前熱點 · ${fmtNumber(hot.length)} 簇 · 按熱度分排序`
-      : "當前熱點 · 暫無多源聚簇";
-  } else {
-    baseSorted = latestStories(stories);
-    metaLabel = `故事時間線 · ${fmtNumber(baseSorted.length)} 條 · 最新優先`;
-  }
-
-  const excludeKeys = excludedStoryKeySet(excludedRows);
-  const sorted = excludeKeys.size
-    ? baseSorted.filter((story) => !storyHasAnyKey(story, excludeKeys))
-    : baseSorted;
-  const skippedCount = baseSorted.length - sorted.length;
-  const rankOffset = skippedCount > 0 ? excludedRows.length : 0;
-  if (skippedCount > 0) {
-    metaLabel = state.briefView === "hot"
-      ? `當前熱點 · ${fmtNumber(baseSorted.length)} 簇 · 續看 #${rankOffset + 1} 起`
-      : `故事時間線 · ${fmtNumber(baseSorted.length)} 條 · Top3 後續`;
-  }
-
-  if (briefViewToggleEl) {
-    briefViewToggleEl.hidden = false;
-    if (briefHotBtnEl) briefHotBtnEl.classList.toggle("active", state.briefView === "hot");
-    if (briefTimelineBtnEl) briefTimelineBtnEl.classList.toggle("active", state.briefView !== "hot");
-    if (briefHotBtnEl) briefHotBtnEl.setAttribute("aria-pressed", state.briefView === "hot" ? "true" : "false");
-    if (briefTimelineBtnEl) briefTimelineBtnEl.setAttribute("aria-pressed", state.briefView !== "hot" ? "true" : "false");
-  }
-
-  const heading = document.createElement("div");
-  heading.className = "brief-story-panel-head";
-  heading.textContent = metaLabel;
-  panel.appendChild(heading);
-
-  if (!sorted.length) {
-    const empty = document.createElement("div");
-    empty.className = "brief-empty";
-    empty.textContent = skippedCount > 0
-      ? "Top3 已覆蓋當前篩選下的故事，可切換篩選或時間線繼續檢視。"
-      : state.briefView === "hot"
-      ? "當前篩選下沒有多源熱點，可切換到時間線檢視最新故事。"
-      : "當前篩選下沒有可展示的故事時間線。";
-    panel.appendChild(empty);
-    return panel;
-  }
-
-  const list = document.createElement("div");
-  list.className = "brief-compact-list brief-timeline";
-  const defaultLimit = state.briefView === "hot" ? BRIEF_HOT_LIMIT : BRIEF_TIMELINE_LIMIT;
-  const visibleStories = state.briefExpanded ? sorted : sorted.slice(0, defaultLimit);
-  visibleStories.forEach((story, index) => {
-    list.appendChild(buildStoryCard(story, rankOffset + index + 1));
-  });
-  panel.appendChild(list);
-
-  if (sorted.length > defaultLimit) {
-    const moreBtn = document.createElement("button");
-    moreBtn.type = "button";
-    moreBtn.className = "brief-more-btn";
-    moreBtn.textContent = state.briefExpanded
-      ? "收起"
-      : (skippedCount > 0
-        ? (state.briefView === "hot" ? "展開後續熱點" : "展開後續時間線")
-        : (state.briefView === "hot" ? "展開全部熱點" : "展開完整時間線"));
-    moreBtn.addEventListener("click", () => {
-      state.briefExpanded = !state.briefExpanded;
-      renderBriefPicks();
-    });
-    panel.appendChild(moreBtn);
-  }
-
-  return panel;
-}
-
 function storyToBriefRow(story, index) {
   const enrichStoryItem = (entry) => ({
     ...entry,
@@ -2124,20 +1871,9 @@ function buildBriefFollowupPanel(rows, topCount, usesStories) {
 // feature/signal-gate (Step 3): site_ids whose content is inherently
 // community/forum discussion rather than edited news - ineligible for the
 // no-badge backfill slots in "今日重點訊號" (see featuredCandidatesGate()
-// below). iris (Info Flow) is the current carrier of forum-aggregator
-// content (see AGGREGATOR_BACKDOOR_EXCLUDED_DOMAINS in
-// scripts/ai_relevance.py for the backend-side V2EX domain exclusion this
-// complements at the display layer); waytoagi/followbuilders/aibase are
-// community/creator feeds by design (the same set itemSourceType() already
-// tags "community"); hackernews/zeli are currently-inactive fetchers, kept
-// here in case they are ever re-enabled.
+// below). AIBASE remains a community/creator feed by design.
 const COMMUNITY_SOURCE_TYPES = new Set([
-  "iris",
-  "waytoagi",
-  "followbuilders",
   "aibase",
-  "hackernews",
-  "zeli",
 ]);
 
 // feature/signal-gate (Step 3): eligibility pre-filter for "今日重點訊號"'s
@@ -2299,7 +2035,6 @@ function itemTagLabels(item, row = null) {
   if (state.activeSection !== "hot" && !onModelsTab) tags.push(sectionBadgeLabel(state.activeSection));
   if (row && (row.sourceCount > 1 || row.mergedCount > 1)) tags.push("多源驗證");
   if (item.site_id === "official_ai") tags.push("官方");
-  if (item.site_id === "aihot") tags.push("AI HOT");
   if (sections.has("models")) tags.push("模型釋出");
   if (sections.has("devtools")) tags.push("開發者");
   if (sections.has("research")) tags.push("研究");
@@ -2837,91 +2572,7 @@ function rerenderCurrentView() {
   renderModeSwitch();
   renderSiteFilters();
   renderBriefPicks();
-  if (state.waytoagiData) renderWaytoagi(state.waytoagiData);
   renderList();
-}
-
-function waytoagiViews(waytoagi) {
-  const updates7d = Array.isArray(waytoagi?.updates_7d) ? waytoagi.updates_7d : [];
-  const latestDate = waytoagi?.latest_date || (updates7d.length ? updates7d[0].date : null);
-  const updatesToday = Array.isArray(waytoagi?.updates_today) && waytoagi.updates_today.length
-    ? waytoagi.updates_today
-    : (latestDate ? updates7d.filter((u) => u.date === latestDate) : []);
-  return { updates7d, updatesToday, latestDate };
-}
-
-function renderWaytoagi(waytoagi) {
-  if (waytoagiWrapEl) {
-    waytoagiWrapEl.hidden = state.activeSection !== "community";
-  }
-  if (state.activeSection !== "community") return;
-  const { updates7d, updatesToday, latestDate } = waytoagiViews(waytoagi);
-  if (waytoagiTodayBtnEl) waytoagiTodayBtnEl.classList.toggle("active", state.waytoagiMode === "today");
-  if (waytoagi7dBtnEl) waytoagi7dBtnEl.classList.toggle("active", state.waytoagiMode === "7d");
-  if (waytoagiTodayBtnEl) waytoagiTodayBtnEl.setAttribute("aria-pressed", state.waytoagiMode === "today" ? "true" : "false");
-  if (waytoagi7dBtnEl) waytoagi7dBtnEl.setAttribute("aria-pressed", state.waytoagiMode === "7d" ? "true" : "false");
-  waytoagiUpdatedAtEl.textContent = `更新時間：${fmtTime(waytoagi.generated_at)}`;
-
-  waytoagiMetaEl.innerHTML = "";
-  const rootLink = document.createElement("a");
-  rootLink.href = waytoagi.root_url || "#";
-  rootLink.target = "_blank";
-  rootLink.rel = "noopener noreferrer";
-  rootLink.textContent = "主頁面";
-  const historyLink = document.createElement("a");
-  historyLink.href = waytoagi.history_url || "#";
-  historyLink.target = "_blank";
-  historyLink.rel = "noopener noreferrer";
-  historyLink.textContent = "歷史更新頁";
-  const todayCount = document.createElement("span");
-  todayCount.textContent = `最近更新日(${latestDate || "--"})：${fmtNumber(waytoagi.count_today || updatesToday.length)} 條`;
-  const weekCount = document.createElement("span");
-  weekCount.textContent = `近 7 日：${fmtNumber(waytoagi.count_7d || updates7d.length)} 條`;
-  [rootLink, "·", historyLink, "·", todayCount, "·", weekCount].forEach((part) => {
-    if (typeof part === "string") {
-      const sep = document.createElement("span");
-      sep.textContent = part;
-      waytoagiMetaEl.appendChild(sep);
-    } else {
-      waytoagiMetaEl.appendChild(part);
-    }
-  });
-
-  waytoagiListEl.innerHTML = "";
-  if (waytoagi.has_error) {
-    const div = document.createElement("div");
-    div.className = "waytoagi-error";
-    div.textContent = waytoagi.error || "WaytoAGI 資料載入失敗";
-    waytoagiListEl.appendChild(div);
-    return;
-  }
-
-  const updates = state.waytoagiMode === "today" ? updatesToday : updates7d;
-  if (!updates.length) {
-    const div = document.createElement("div");
-    div.className = "waytoagi-empty";
-    div.textContent = state.waytoagiMode === "today"
-      ? "最近更新日沒有更新，可切換到近7日檢視。"
-      : (waytoagi.warning || "近 7 日沒有更新");
-    waytoagiListEl.appendChild(div);
-    return;
-  }
-
-  updates.forEach((u) => {
-    const row = document.createElement("a");
-    row.className = "waytoagi-item";
-    row.href = u.url || "#";
-    row.target = "_blank";
-    row.rel = "noopener noreferrer";
-    const dateEl = document.createElement("span");
-    dateEl.className = "d";
-    dateEl.textContent = fmtDate(u.date);
-    const titleEl = document.createElement("span");
-    titleEl.className = "t";
-    titleEl.textContent = u.title;
-    row.append(dateEl, titleEl);
-    waytoagiListEl.appendChild(row);
-  });
 }
 
 function renderMetric(label, value, tone = "", options = {}) {
@@ -3086,7 +2737,6 @@ function renderSourceHealth(errorMessage = "") {
   const failedSites = Array.isArray(status.failed_sites) ? status.failed_sites : [];
   const zeroSites = Array.isArray(status.zero_item_sites) ? status.zero_item_sites : [];
   const rss = status.rss_opml || {};
-  const agentmail = status.agentmail || {};
   const xApi = status.x_api || {};
   const socialdata = status.socialdata || {};
   const emptyAdvanced = Array.isArray(status.empty_advanced_sources) ? status.empty_advanced_sources : [];
@@ -3131,7 +2781,6 @@ function renderSourceHealth(errorMessage = "") {
         renderSourceHealth();
       },
     } : {}),
-    renderMetric("AgentMail", agentmail.enabled ? `${fmtNumber(agentmail.item_count || 0)}封` : "可選 · 未配置", agentmail.error ? "bad" : ""),
     renderMetric("失敗源", fmtNumber(failedSites.length + failedFeeds.length), failedSites.length || failedFeeds.length ? "bad" : "ok"),
     renderMetric("替換/跳過", `${fmtNumber(replacedFeeds.length)}/${fmtNumber(skippedFeeds.length)}`)
   );
@@ -3372,12 +3021,6 @@ async function loadAllModeData() {
   return state.allDataPromise;
 }
 
-async function loadWaytoagiData() {
-  const res = await fetch(`./data/waytoagi-7d.json?t=${Date.now()}`);
-  if (!res.ok) throw new Error(`載入 waytoagi-7d.json 失敗: ${res.status}`);
-  return res.json();
-}
-
 async function loadSourceStatusData() {
   const res = await fetch(`./data/source-status.json?t=${Date.now()}`);
   if (!res.ok) throw new Error(`載入 source-status.json 失敗: ${res.status}`);
@@ -3397,9 +3040,8 @@ async function loadStoriesData() {
 }
 
 async function init() {
-  const [newsResult, waytoagiResult, statusResult, briefResult, storiesResult, marketSignalsResult, llmRadarResult] = await Promise.allSettled([
+  const [newsResult, statusResult, briefResult, storiesResult, marketSignalsResult, llmRadarResult] = await Promise.allSettled([
     loadNewsData(),
-    loadWaytoagiData(),
     loadSourceStatusData(),
     loadDailyBriefData(),
     loadStoriesData(),
@@ -3441,7 +3083,7 @@ async function init() {
     const payload = newsResult.value;
     const loadedStoriesDataUrl = state.storiesDataUrl;
     state.itemsAi = payload.items_ai || payload.items || [];
-    state.modelReleases7d = payload.model_releases_7d || [];
+    state.modelReleases24h = payload.model_releases_24h || [];
     state.itemsAllRaw = payload.items_all_raw || payload.items_all || [];
     state.itemsAll = payload.items_all || [];
     state.statsAi = payload.site_stats || [];
@@ -3483,15 +3125,6 @@ async function init() {
   } else {
     renderSourceHealth(statusResult.reason.message);
     renderCoverageStrip(statusResult.reason.message);
-  }
-
-  if (waytoagiResult.status === "fulfilled") {
-    state.waytoagiData = waytoagiResult.value;
-    renderWaytoagi(state.waytoagiData);
-  } else {
-    if (waytoagiWrapEl) waytoagiWrapEl.hidden = state.activeSection !== "community";
-    waytoagiUpdatedAtEl.textContent = "載入失敗";
-    waytoagiListEl.innerHTML = `<div class="waytoagi-error">${waytoagiResult.reason.message}</div>`;
   }
 
   document.dispatchEvent(new CustomEvent("aiRadar:ready"));
@@ -3588,20 +3221,6 @@ if (listSortToolsEl) {
     state.listSort = nextSort;
     renderListSortTools();
     renderList();
-  });
-}
-
-if (waytoagiTodayBtnEl) {
-  waytoagiTodayBtnEl.addEventListener("click", () => {
-    state.waytoagiMode = "today";
-    if (state.waytoagiData) renderWaytoagi(state.waytoagiData);
-  });
-}
-
-if (waytoagi7dBtnEl) {
-  waytoagi7dBtnEl.addEventListener("click", () => {
-    state.waytoagiMode = "7d";
-    if (state.waytoagiData) renderWaytoagi(state.waytoagiData);
   });
 }
 

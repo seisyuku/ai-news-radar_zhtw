@@ -1,6 +1,8 @@
 from copy import deepcopy
+from datetime import datetime, timezone
 
 from scripts.market_sensors import (
+    _kept_signals,
     build_free_tier_snapshot,
     build_price_snapshot,
     diff_free_tier_snapshots,
@@ -141,3 +143,18 @@ def test_canary_atom_parser_preserves_commit_identity_and_evidence_link():
         "updated": "2026-08-21T07:00:00Z",
         "content": "model-specific weekly limit",
     }]
+
+
+def test_public_market_signals_use_the_same_24_hour_window_for_every_urgency():
+    now = datetime(2026, 8, 26, 12, tzinfo=timezone.utc)
+    payload = {
+        "signals": [
+            {"id": "at-boundary", "urgency": "standard", "detected_at": "2026-08-25T12:00:00Z"},
+            {"id": "expired-standard", "urgency": "standard", "detected_at": "2026-08-25T11:59:59Z"},
+            {"id": "expired-breaking", "urgency": "breaking", "detected_at": "2026-08-25T11:59:59Z"},
+        ]
+    }
+
+    kept = _kept_signals(payload, now)
+
+    assert [signal["id"] for signal in kept] == ["at-boundary"]

@@ -77,8 +77,7 @@
 11. 重點訊號區資格閘門：`featuredCandidatesGate()` 前置過濾（不重排，
     既有徽章優先四級排序 `briefStorySortCompare` 不動）——徽章
     （`business_events` 非空）直接入選；無徽章僅在非
-    `COMMUNITY_SOURCE_TYPES`（iris/waytoagi/followbuilders/aibase/
-    hackernews/zeli）來源時才能補位，寧缺勿濫不硬湊。**未做**地板值
+    `COMMUNITY_SOURCE_TYPES`（AIBASE）來源時才能補位，寧缺勿濫不硬湊。**未做**地板值
     排除：後端分數已被 `max(score, 0.65)` 覆寫，前端 JSON 無欄位能
     可靠區分真實分與地板值，判斷不可行後只做源類型排除（已回報此
     限制，非遺漏）。掛在 story-pool 與 no-story-data fallback 兩條
@@ -90,18 +89,12 @@
     清除（`clusterBriefEvents` 家族經 `renderBriefPicks()` →
     `rankedFallbackRows()` 仍有存活呼叫路徑，故只清殘留字串，不構成
     整組退役）
-13. **7/21 四源審判裁決**：`iris`（Info Flow）、`techurls` 自
-    `collect_all()` 任務列表移除（`fetch_iris()`/`fetch_techurls()`
-    原始碼保留供回滾，比照 07-14 源置換慣例）；`36Kr AI`、xAI/Grok
-    查詢詞（curated_media 內）維持不動。裁決依據見下方「已知設計
-    事實」與 `docs/SOURCE_COVERAGE.md`「2026-07-21 Four-Source
-    Trial」章節。`AGGREGATOR_BACKDOOR_EXCLUDED_DOMAINS`（v2ex.com）與
-    `SOURCE_TIER_BY_SITE`/`SOURCE_ECOSYSTEM_GROUPS`/前端
-    `COMMUNITY_SOURCE_TYPES` 內殘留的 iris/techurls 條目均比照既有
-    慣例保留不動（前者為網域鍵值非來源專屬，後兩者為移除後自然
-    失效設定，非本輪範圍）。移除後已手動觸發一輪排程並驗證
-    `data/archive.json` 內兩源新流入（`first_seen_at` 晚於部署時刻）
-    皆為 0，`data/source-status.json` 亦不再出現任一源
+13. **7/21 四源審判裁決**：`iris`（Info Flow）、`techurls` 退出預設
+    來源；2026-08-26 已將其與其他退役來源的擷取器、來源權重及前端殘留
+    一併刪除，不保留 rollback 程式碼。`36Kr AI`、xAI/Grok 查詢詞
+    （curated_media 內）維持不動。`AGGREGATOR_BACKDOOR_EXCLUDED_DOMAINS`
+    （v2ex.com）保留為非來源專屬的 URL 網域防護。裁決依據見
+    `docs/SOURCE_COVERAGE.md`「2026-07-21 Four-Source Trial」章節。
 14. 內測回報管道文案上線：頁尾新增引導至 GitHub Issues 的說明文字
     （`.app-footer-note`），沿用既有頁尾樣式
 15. **7/21 重點訊號區來源多樣性上限（N=2,僅退化層生效）**：診斷
@@ -147,7 +140,7 @@
     Head-to-Head feed。同步修正模型發布分類器把版本小數點誤當句號的
     bug（Qwen3.8/Grok 4.6/Gemini 3.7 先前因此漏徽章），並擴充
     Qwen/GLM/Kimi 的模型版本識別，避免跨版本錯誤聚合；「模型」分頁
-    額外合併七日 atomic 發布資料並以發布事件優先，不污染其他分頁的
+    額外合併 24 小時內的 atomic 發布資料並以發布事件優先，不污染其他分頁的
     24 小時窗口。未修改全域評分公式；後續分析聚合與
     `model_significance` 仍列 Roadmap 待辦。
 17. **8/17 Groq 新聞短摘要 v1**：RSS/Atom fetcher 開始保留並清理來源
@@ -301,11 +294,8 @@
   來源識別文字，並非「去重」。重點訊號區（`buildTopStoryCard()`／
   `buildStoryCard()`）完全不使用 `renderItemNode()`，沒有 `.category`／
   `.source` 元素，此常數的設計前提在該區塊亦無從復活
-- `SOURCE_KINDS` 的 `aihubtoday`／`aibase` label 由「AI站點」改為
-  「AI網站」（2026-07-21，`fix/retire-category-v2-0721`）：純語言規範
-  修正，「站點」為中國大陸用語，違反本站 zh-TW 用語規範；「網站」為
-  對應臺灣用語，語義不變。僅改 label 字串，`tone: "aihub"` 與其他
-  site_id 不動
+- `SOURCE_KINDS` 的 AIBASE 顯示名稱維持原文 `AIBASE`，並作為「精選媒體」
+  的子來源，不形成獨立來源類別。
 - `SOURCE_KINDS` 的 `opmlrss` label「OPML」對一般讀者是技術縮寫，
   可理解性存疑（2026-07-21 隨上一項一併檢視時發現，**本輪不改**）：
   `opmlrss` 目前屬進階層 site_id，實際曝光範圍（是否觸及一般讀者
@@ -587,6 +577,9 @@ cron 頻率裁決維持 4 tick/hr 不降頻（見上方「已知設計事實」�
   明示「待確認」。
 - 前端新增「額度與政策速報」及「價格與免費額度變更」兩區；沒有事件時
   隱藏，不影響既有今日重點訊號與一般列表。
+- 讀者可見的 market signal（價格、免費額度、usage policy 候選）一律只
+  保留 24 小時，與主新聞及 LLM 發布雷達統一；獨立 sensor state 保留作
+  old/new 比對，不會讓舊事件重回首頁。
 - 後續驗收重點是 14 天候選 precision、官方確認延遲、重複率與漏報；
   未完成觀察前不擴到 issue／PR、大型 scraper 或 changedetection.io。
 

@@ -10,7 +10,7 @@ from scripts.update_news import (
 NOW = datetime(2026, 7, 15, 12, 0, tzinfo=timezone.utc)
 
 
-def make_item(idx: int, *, title: str, url: str, site_id: str = "aihot", hours_ago: int = 1, business_events=()) -> dict:
+def make_item(idx: int, *, title: str, url: str, site_id: str = "curated_media", hours_ago: int = 1, business_events=()) -> dict:
     item = {
         "id": f"item-{idx}",
         "site_id": site_id,
@@ -30,7 +30,7 @@ class GroupAwareDuplicateCountTests(unittest.TestCase):
     def test_same_ecosystem_group_collapses_to_one(self):
         items = [
             make_item(1, title="t", url="https://a.example/1", site_id="aibase"),
-            make_item(2, title="t", url="https://a.example/2", site_id="iris"),
+            make_item(2, title="t", url="https://a.example/2", site_id="juya_daily"),
             make_item(3, title="t", url="https://a.example/3", site_id="kr36_ai"),
         ]
         self.assertEqual(_group_aware_duplicate_count(items), 1)
@@ -38,7 +38,7 @@ class GroupAwareDuplicateCountTests(unittest.TestCase):
     def test_mixed_group_and_independent_source_counts_both(self):
         items = [
             make_item(1, title="t", url="https://a.example/1", site_id="aibase"),
-            make_item(2, title="t", url="https://a.example/2", site_id="iris"),
+            make_item(2, title="t", url="https://a.example/2", site_id="juya_daily"),
             make_item(3, title="t", url="https://a.example/3", site_id="official_ai"),
         ]
         self.assertEqual(_group_aware_duplicate_count(items), 2)
@@ -59,10 +59,10 @@ class GroupAwareDuplicateCountTests(unittest.TestCase):
 
     def test_ungrouped_sources_unaffected_matches_raw_count(self):
         items = [
-            make_item(1, title="t", url="https://a.example/1", site_id="techurls"),
-            make_item(2, title="t", url="https://a.example/2", site_id="techurls"),
+            make_item(1, title="t", url="https://a.example/1", site_id="curated_media"),
+            make_item(2, title="t", url="https://a.example/2", site_id="curated_media"),
         ]
-        # techurls is not in SOURCE_ECOSYSTEM_GROUPS: two techurls items are
+        # Curated Media is not in SOURCE_ECOSYSTEM_GROUPS: two items are
         # still two independent items, same as pre-Plan-B behavior.
         self.assertEqual(_group_aware_duplicate_count(items), 2)
 
@@ -71,7 +71,7 @@ class BuildStoryRecordGroupAwarenessTests(unittest.TestCase):
     def test_duplicate_count_field_reflects_group_aware_count(self):
         items = [
             make_item(1, title="t", url="https://a.example/1", site_id="aibase"),
-            make_item(2, title="t", url="https://a.example/2", site_id="iris"),
+            make_item(2, title="t", url="https://a.example/2", site_id="juya_daily"),
         ]
         story = build_story_record("story_test", items, NOW, 24)
         self.assertEqual(story["duplicate_count"], 1)

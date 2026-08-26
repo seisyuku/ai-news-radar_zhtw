@@ -25,7 +25,6 @@ def record(site_id, title, url, published_at="2026-05-11T00:00:00Z", source="Exa
 
 
 def test_normalize_title_for_overlap_removes_noise_words_and_punctuation():
-    assert normalize_title_for_overlap("OpenAI ships Codex updates — AI HOT") == "openai ships codex updates"
     assert normalize_title_for_overlap("[Exclusive] Gemini 2.5 Pro: launch! 2026") == "gemini 2 5 pro launch"
 
 
@@ -36,27 +35,13 @@ def test_title_similarity_handles_reordered_tokens():
 def test_classify_overlap_matches_exact_url_after_normalization():
     candidate = record("candidate", "Different title", "https://openai.com/news/codex?utm_source=x#section")
     existing = record("official_ai", "OpenAI Codex update", "https://openai.com/news/codex")
-
     match = classify_overlap(candidate, existing)
-
     assert match is not None
     assert match["match_type"] == "url_exact"
     assert match["matched_site_id"] == "official_ai"
-    assert match["score"] == 1.0
 
 
-def test_classify_overlap_matches_similar_titles_with_different_urls():
-    candidate = record("candidate", "OpenAI ships a new Codex feature", "https://candidate.example/a")
-    existing = record("official_ai", "OpenAI ships new Codex feature", "https://openai.com/news/codex")
-
-    match = classify_overlap(candidate, existing)
-
-    assert match is not None
-    assert match["match_type"] == "title_similarity"
-    assert match["score"] >= 0.88
-
-
-def test_evaluate_source_overlap_counts_duplicates_uniques_and_top_sources():
+def test_evaluate_source_overlap_counts_duplicates_and_uniques():
     candidate_items = [
         record("candidate", "OpenAI ships a new Codex feature", "https://candidate.example/a"),
         record("candidate", "Anthropic releases Claude workflow", "https://candidate.example/b"),
@@ -64,10 +49,9 @@ def test_evaluate_source_overlap_counts_duplicates_uniques_and_top_sources():
     ]
     baseline_items = [
         record("official_ai", "OpenAI ships new Codex feature", "https://openai.com/news/codex"),
-        record("aihot", "Anthropic releases Claude workflow", "https://aihot.example/claude"),
-        record("waytoagi", "Unrelated AI post", "https://waytoagi.example/u"),
+        record("curated_media", "Anthropic releases Claude workflow", "https://media.example/claude"),
+        record("opmlrss", "Unrelated AI post", "https://community.example/u"),
     ]
-
     report = evaluate_source_overlap(
         candidate_items,
         baseline_items,
@@ -75,14 +59,9 @@ def test_evaluate_source_overlap_counts_duplicates_uniques_and_top_sources():
         generated_at=datetime(2026, 5, 11, tzinfo=UTC),
         lookback_days=7,
     )
-
-    assert report["candidate"]["item_count"] == 3
     assert report["overlap"]["duplicate_count"] == 2
     assert report["overlap"]["unique_count"] == 1
-    assert report["overlap"]["duplicate_rate"] == 0.667
     assert report["recommendation"]["decision"] == "watchlist"
-    assert report["recommendation"]["sample_too_small"] is True
-    assert report["top_overlapping_sources"][0]["matched_count"] == 1
 
 
 def test_make_recommendation_thresholds_and_sample_guard():

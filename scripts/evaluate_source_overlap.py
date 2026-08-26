@@ -37,8 +37,6 @@ from scripts.update_news import (  # noqa: E402
 )
 
 TITLE_SOURCE_SUFFIXES = {
-    "ai hot",
-    "aihot",
     "hacker news",
     "product hunt",
     "techcrunch",

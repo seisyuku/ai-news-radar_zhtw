@@ -16,8 +16,8 @@ class TestUrlHostOnlyRelevance:
     def test_base64_url_path_cannot_fake_ai_signal(self):
         # Real-world case: Google News base64 path contains "llm" by accident.
         rec = {
-            "site_id": "buzzing",
-            "site_name": "Buzzing",
+            "site_id": "test_source",
+            "site_name": "Test Source",
             "source": "news.google.com",
             "title": "巴勒斯坦人称，以色列定居者阻碍了村庄附近的灭火工作 - Reuters",
             "url": "https://news.google.com/rss/articles/CBMiwgFBVllmRkNCSmxQNnR6WktHcmdMQ2NuNHFjUmlEQk1nTGxsbUFCMEhRaEExWXg3?oc=5",
@@ -39,8 +39,8 @@ class TestUrlHostOnlyRelevance:
 
     def test_dotted_ai_styled_title_keeps_signal(self):
         rec = {
-            "site_id": "buzzing",
-            "site_name": "Buzzing",
+            "site_id": "test_source",
+            "site_name": "Test Source",
             "source": "news.google.com",
             "title": "Trump Muses About Government Taking a Piece of A.I. Companies - NYT",
             "url": "https://news.google.com/rss/articles/CCC?oc=5",
@@ -74,7 +74,7 @@ class TestSelectDiverseStories:
         assert picked[0]["story_id"] == "story_0"
 
 
-def make_dup_item(idx: int, title: str, minutes_ago: int, site_id: str = "buzzing", tier_rank: int = 5) -> dict:
+def make_dup_item(idx: int, title: str, minutes_ago: int, site_id: str = "test_source", tier_rank: int = 5) -> dict:
     ts = (NOW - timedelta(minutes=minutes_ago)).isoformat()
     return {
         "id": f"item_{idx}",
@@ -104,15 +104,15 @@ class TestSuppressNearDuplicateItems:
         assert len(out) == 2
 
     def test_cross_site_duplicates_are_kept(self):
-        a = make_dup_item(1, "加拿大推出法案，禁止16岁以下儿童使用社交媒体，并对人工智能聊天机器人进行监管", 10, site_id="buzzing")
-        b = make_dup_item(2, "加拿大推出立法，禁止16岁以下儿童使用社交媒体，并对人工智能聊天机器人进行监管", 9, site_id="techurls")
+        a = make_dup_item(1, "加拿大推出法案，禁止16岁以下儿童使用社交媒体，并对人工智能聊天机器人进行监管", 10, site_id="test_source")
+        b = make_dup_item(2, "加拿大推出立法，禁止16岁以下儿童使用社交媒体，并对人工智能聊天机器人进行监管", 9, site_id="opmlrss")
         out = suppress_near_duplicate_items([a, b])
         assert len(out) == 2
 
     def test_keeps_more_authoritative_copy(self):
         low = make_dup_item(1, "小米开源终端 AI 编程助手 MiMo Code，内置免费顶级多模态模型", 10, tier_rank=5)
         high = make_dup_item(2, "小米开源终端AI编程助手 MiMo Code，内置免费顶级多模态模型", 9, tier_rank=0)
-        high["site_id"] = "buzzing"
+        high["site_id"] = "test_source"
         out = suppress_near_duplicate_items([low, high])
         assert len(out) == 1
         assert out[0]["id"] == "item_2"

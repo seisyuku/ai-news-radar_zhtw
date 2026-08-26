@@ -518,8 +518,8 @@ watchdog／external heartbeat 三層排程影響。
 
 產物：
 
-- `data/market-signals.json`：前端公開讀取；一般 price/free-tier 事件保留
-  30 天，速報候選保留 7 天。
+- `data/market-signals.json`：前端公開讀取；所有 price/free-tier 與速報
+  候選事件均只保留過去 24 小時，與主新聞及 LLM 雷達一致。
 - `data/llm-radar.json`：首頁讀者層的 24 小時模型發布雷達；模型僅標示
   偵測證據層級。價格與免費額度只保留在 `market-signals.json`，不影響新聞排序。
 - `data/market-sensor-state.json`：公開上游的最小比較快照與 Canary seen

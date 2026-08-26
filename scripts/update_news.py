@@ -21,7 +21,6 @@ from difflib import SequenceMatcher
 from pathlib import Path
 from typing import Any
 from urllib.parse import parse_qsl, urlencode, urljoin, urlparse, urlunparse
-from zoneinfo import ZoneInfo
 
 import requests
 from bs4 import BeautifulSoup
@@ -67,16 +66,6 @@ BROWSER_UA = (
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
 )
-SH_TZ = ZoneInfo("Asia/Shanghai")
-WAYTOAGI_DEFAULT = (
-    "https://waytoagi.feishu.cn/wiki/QPe5w5g7UisbEkkow8XcDmOpn8e?fromScene=spaceOverview"
-)
-WAYTOAGI_HISTORY_FALLBACK = "https://waytoagi.feishu.cn/wiki/FjiOwWp2giA7hRk6jjfcPioCnAc"
-# WaytoAGI is not part of collect_all()'s task list (it has its own fetch/write
-# path below and a dedicated data/waytoagi-7d.json output), so it is disabled
-# here instead. Flip back to True to roll back; fetch_waytoagi_recent_7d() and
-# waytoagi_updates_to_raw_items() are left untouched.
-WAYTOAGI_ENABLED = False
 
 # Reader-facing translation is optional enrichment. It must never consume the
 # scheduled job's whole timeout when a provider or credential is unavailable.
@@ -107,8 +96,6 @@ RSS_FEED_SKIP_PREFIXES: tuple[str, ...] = (
     "https://rsshub.app/xiaoyuzhou/podcast/",
     "https://rsshub.app/xyzrank",
     "https://rsshub.app/mittrchina/hot",
-    "https://wechat2rss.bestblogs.dev/",
-    "https://werss.bestblogs.dev/",
     "http://47.122.94.119:18080/",
 )
 
@@ -345,7 +332,7 @@ CURATED_AI_MEDIA_FEEDS: tuple[dict[str, Any], ...] = (
 # health visible in source-status.json and prevents a healthy peer from hiding
 # a failed feed.
 LLM_STATS_AI_NEWS_URL = "https://llm-stats.com/ai-news"
-MODEL_RELEASE_RADAR_WINDOW_DAYS = 7
+MODEL_RELEASE_RADAR_WINDOW_HOURS = 24
 LLM_RADAR_WINDOW_HOURS = 24
 LLM_RADAR_MAX_MODEL_EVENTS = 4
 LLM_STATS_MODEL_MAX_AGE_DAYS = 7
@@ -479,71 +466,6 @@ SOURCE_PERSISTENT_FAILURE_THRESHOLD = 3
 JUYA_DAILY_FEED_URL = "https://daily.juya.uk/rss.xml"
 JUYA_DAILY_SITE_ID = "juya_daily"
 JUYA_DAILY_MAX_AGE_DAYS = 5
-AIBREAKFAST_JINA_URL = "https://r.jina.ai/https://aibreakfast.beehiiv.com/"
-AIHOT_ITEMS_API_URL = "https://aihot.virxact.com/api/public/items"
-AIHOT_MIN_SCORE = 60
-AIHOT_API_TAKE = 100
-AIHOT_API_MAX_PAGES = 5
-AIHOT_API_UA = f"{BROWSER_UA} aihot-skill/0.2.0 AI-News-Radar/0.7"
-AIHOT_FEED_URL = "https://aihot.virxact.com/feed.xml"
-AIHOT_FALLBACK_FEED_URLS = (
-    "https://aihot.virxact.com/rss.xml",
-    "https://aihot.virxact.com/feed",
-    "https://aihot.virxact.com/feed/daily.xml",
-)
-FOLLOW_BUILDERS_FEED_BASE = "https://raw.githubusercontent.com/zarazhangrui/follow-builders/main"
-HN_ALGOLIA_URL = "https://hn.algolia.com/api/v1/search_by_date"
-HN_ALGOLIA_QUERIES: tuple[str, ...] = (
-    "OpenAI",
-    "Anthropic",
-    "Claude Code",
-    "Claude",
-    "Gemini",
-    "Google AI",
-    "DeepSeek",
-    "Qwen",
-    "AI agent",
-    "AI coding",
-    "Codex",
-    "Cursor",
-    "MCP",
-    "LLM",
-    "GPT",
-    "Sora",
-    "Copilot",
-    "Nvidia AI",
-)
-HN_ALGOLIA_KEYWORDS: tuple[str, ...] = (
-    "openai",
-    "anthropic",
-    "claude",
-    "claude code",
-    "codex",
-    "cursor",
-    "mcp",
-    "gemini",
-    "deepseek",
-    "qwen",
-    "llm",
-    "gpt",
-    "sora",
-    "copilot",
-    "agent",
-    "ai coding",
-    "benchmark",
-    "eval",
-    "paper",
-    "model",
-    "inference",
-)
-HN_ALGOLIA_HITS_PER_QUERY = 35
-HN_ALGOLIA_MIN_KEYWORD_SCORE = 0.38
-HN_ALGOLIA_MIN_COMMENTS = 2
-HN_ALGOLIA_MIN_POINTS = 10
-HN_ALGOLIA_QUERY_PAUSE_SECONDS = 0.1
-AGENTMAIL_API_BASE_DEFAULT = "https://api.agentmail.to"
-AGENTMAIL_DIGEST_FILE = "email-digest.json"
-AGENTMAIL_DEFAULT_LIMIT = 50
 PAID_SOURCE_STATE_FILE = "paid-source-state.json"
 PAID_SOURCE_DEFAULT_INTERVAL_HOURS = 24
 PAID_SOURCE_DEFAULT_INTERVAL_HOURS_BY_PREFIX = {
@@ -582,10 +504,6 @@ TIKHUB_DEFAULT_PLATFORMS = "douyin,xiaohongshu"
 TIKHUB_DEFAULT_MAX_RESULTS = 20
 TIKHUB_MAX_QUERY_CHARS = 256
 TIKHUB_RESPONSE_SCAN_LIMIT = 100
-CREATOR_HOT_WINDOW_DAYS = 7
-CREATOR_FRESHNESS_BONUS_HOURS = 24
-CREATOR_FRESHNESS_BONUS_POINTS = 15.0
-CREATOR_SITE_IDS = frozenset({"tikhub_douyin", "tikhub_xiaohongshu"})
 # --- TikHub search ranking / time-window tuning (edit here, no env var needed) ---
 # Exact recency window for TikHub results, in days. Douyin/Xiaohongshu search
 # only expose coarse buckets (不限/一天内/一周内/半年内), so we ask the API for
@@ -618,9 +536,6 @@ class RawItem:
 
 
 PUBLIC_RAW_META_FIELDS: tuple[str, ...] = (
-    "aihot_score",
-    "aihot_category",
-    "aihot_selected",
     "provided_title_en",
     "provided_title_zh",
     "creator_metrics",
@@ -1099,7 +1014,6 @@ SOURCE_ECOSYSTEM_GROUPS: dict[str, str] = {
     # Legacy archive fixtures/rows can retain the old reader ID until the next
     # scheduled archive rewrite; preserve their historical corroboration rule.
     "aibase": "cn_aggregator",
-    "iris": "cn_aggregator",
     "kr36_ai": "cn_aggregator",
     "juya_daily": "cn_aggregator",
 }
@@ -1272,8 +1186,7 @@ MODEL_RELEASE_CONTEXT_TERMS: tuple[str, ...] = (
 )
 
 
-# Digest/roundup-style "titles" from community sources (waytoagi weekly
-# roundups, aibase/tophub "AI日報" digests) pack several unrelated clauses
+# Digest/roundup-style titles can pack several unrelated clauses
 # into one string separated by semicolons, not just periods - found via 7-day
 # replay: a title could mention a lab name + "model" in one clause and an
 # unrelated "released" verb (e.g. about a paper, in a different clause) later
@@ -1566,292 +1479,6 @@ def apply_public_raw_meta(record: dict[str, Any], raw: RawItem) -> None:
             record[key] = sanitize_public_value(meta.get(key))
 
 
-def decode_escaped_json(raw: str) -> dict[str, Any] | None:
-    s = raw.replace('\\"', '"').replace("\\/", "/")
-    try:
-        return json.loads(s)
-    except Exception:
-        return None
-
-
-def extract_waytoagi_history_url(root_html: str) -> str:
-    pattern = r'\{\\"id\\":\\"[^\"]+\\",\\"type\\":\\"mention_doc\\",\\"data\\":\{[^\}]+\}\}'
-    for raw in re.findall(pattern, root_html):
-        obj = decode_escaped_json(raw)
-        if not obj:
-            continue
-        data = obj.get("data", {})
-        title = str(data.get("title") or "")
-        if "历史更新" in title or "更新日志" in title:
-            raw_url = str(data.get("raw_url") or "").strip()
-            if raw_url:
-                return raw_url
-    return WAYTOAGI_HISTORY_FALLBACK
-
-
-def extract_feishu_client_vars(page_html: str) -> dict[str, Any]:
-    marker = "window.DATA = Object.assign({}, window.DATA, { clientVars: Object("
-    idx = page_html.find(marker)
-    if idx == -1:
-        raise ValueError("Cannot locate Feishu clientVars marker")
-
-    start = idx + len(marker)
-    depth = 1
-    in_str = False
-    escaped = False
-    end = None
-
-    for i, ch in enumerate(page_html[start:], start):
-        if in_str:
-            if escaped:
-                escaped = False
-            elif ch == "\\":
-                escaped = True
-            elif ch == '"':
-                in_str = False
-            continue
-
-        if ch == '"':
-            in_str = True
-            continue
-
-        if ch == "(":
-            depth += 1
-        elif ch == ")":
-            depth -= 1
-            if depth == 0:
-                end = i
-                break
-
-    if end is None:
-        raise ValueError("Cannot parse Feishu clientVars payload")
-
-    payload = page_html[start:end]
-    return json.loads(payload)
-
-
-def block_text(block_data: dict[str, Any]) -> str:
-    text_obj = block_data.get("text", {}) if isinstance(block_data, dict) else {}
-    initial = text_obj.get("initialAttributedTexts", {}).get("text", {}) if isinstance(text_obj, dict) else {}
-    if not isinstance(initial, dict):
-        return ""
-
-    def key_int(k: Any) -> int:
-        try:
-            return int(k)
-        except Exception:
-            return 0
-
-    return "".join(str(v) for k, v in sorted(initial.items(), key=lambda kv: key_int(kv[0]))).strip()
-
-
-def clean_update_title(text: str) -> str:
-    text = text.replace("《 》", "").replace("《》", "")
-    return re.sub(r"\s+", " ", text).strip()
-
-
-def parse_ym_heading(text: str) -> tuple[int, int] | None:
-    m = re.search(r"(20\d{2})\s*年\s*(\d{1,2})\s*月", text)
-    if not m:
-        return None
-    return int(m.group(1)), int(m.group(2))
-
-
-def parse_md_heading(text: str) -> tuple[int, int] | None:
-    m = re.search(r"(\d{1,2})\s*月\s*(\d{1,2})\s*日", text)
-    if not m:
-        return None
-    return int(m.group(1)), int(m.group(2))
-
-
-def infer_shanghai_year_for_month_day(now_sh: datetime, month: int, day: int) -> int | None:
-    year = now_sh.year
-    try:
-        candidate = date(year, month, day)
-    except Exception:
-        return None
-    if candidate > (now_sh.date() + timedelta(days=2)):
-        year -= 1
-    return year
-
-
-def extract_waytoagi_recent_updates_from_block_map(
-    block_map: dict[str, Any],
-    now_sh: datetime,
-    page_url: str,
-) -> list[dict[str, Any]]:
-    if not isinstance(block_map, dict) or not block_map:
-        return []
-
-    ym_by_heading2: dict[str, tuple[int, int]] = {}
-    near_log_parent_ids: set[str] = set()
-
-    for bid, block in block_map.items():
-        bd = block.get("data", {})
-        btype = bd.get("type")
-        if btype not in {"heading1", "heading2", "heading3"}:
-            continue
-        heading_text = block_text(bd)
-        if "近7日更新日志" in heading_text or "近 7 日更新日志" in heading_text:
-            parent_id = str(bd.get("parent_id") or "").strip()
-            if parent_id:
-                near_log_parent_ids.add(parent_id)
-
-    heading3_dates: dict[str, date] = {}
-
-    for bid, block in block_map.items():
-        bd = block.get("data", {})
-        if bd.get("type") != "heading2":
-            continue
-        ym = parse_ym_heading(block_text(bd))
-        if ym:
-            ym_by_heading2[bid] = ym
-
-    for bid, block in block_map.items():
-        bd = block.get("data", {})
-        if bd.get("type") != "heading3":
-            continue
-        md = parse_md_heading(block_text(bd))
-        if not md:
-            continue
-        month, day = md
-        parent = bd.get("parent_id")
-        if near_log_parent_ids and parent not in near_log_parent_ids:
-            continue
-        year = ym_by_heading2.get(parent, (now_sh.year, month))[0]
-        inferred = infer_shanghai_year_for_month_day(now_sh, month, day)
-        if inferred is not None:
-            year = inferred
-        try:
-            heading3_dates[bid] = date(year, month, day)
-        except Exception:
-            continue
-
-    parent_map: dict[str, str] = {}
-    for bid, block in block_map.items():
-        bd = block.get("data", {})
-        parent = str(bd.get("parent_id") or "").strip()
-        if parent:
-            parent_map[bid] = parent
-
-    def nearest_heading_date(block_id: str) -> date | None:
-        cur = parent_map.get(block_id)
-        hops = 0
-        while cur and hops < 20:
-            if cur in heading3_dates:
-                return heading3_dates[cur]
-            cur = parent_map.get(cur)
-            hops += 1
-        return None
-
-    updates: list[dict[str, Any]] = []
-    seen: set[tuple[str, str]] = set()
-    for bid, block in block_map.items():
-        bd = block.get("data", {})
-        if bd.get("type") not in {"bullet", "text", "todo", "ordered"}:
-            continue
-
-        day = nearest_heading_date(bid)
-        if not day:
-            continue
-        title = clean_update_title(block_text(bd))
-        if not title:
-            continue
-        key = (day.isoformat(), title)
-        if key in seen:
-            continue
-        seen.add(key)
-        updates.append({"date": day.isoformat(), "title": title, "url": page_url})
-
-    return updates
-
-
-def fetch_waytoagi_recent_7d(session: requests.Session, now_utc: datetime, root_url: str) -> dict[str, Any]:
-    now_sh = now_utc.astimezone(SH_TZ)
-    root_html = session.get(root_url, timeout=30).text
-    history_url = extract_waytoagi_history_url(root_html)
-
-    root_client_vars = extract_feishu_client_vars(root_html)
-    root_block_map = root_client_vars.get("data", {}).get("block_map", {})
-    updates: list[dict[str, Any]] = extract_waytoagi_recent_updates_from_block_map(root_block_map, now_sh, root_url)
-
-    if history_url and history_url != root_url:
-        try:
-            history_html = session.get(history_url, timeout=30).text
-            history_client_vars = extract_feishu_client_vars(history_html)
-            history_block_map = history_client_vars.get("data", {}).get("block_map", {})
-            updates.extend(
-                extract_waytoagi_recent_updates_from_block_map(history_block_map, now_sh, history_url)
-            )
-        except Exception:
-            pass
-
-    dedup_updates: dict[tuple[str, str], dict[str, Any]] = {}
-    for item in updates:
-        key = (str(item.get("date") or ""), str(item.get("title") or ""))
-        if key[0] and key[1] and key not in dedup_updates:
-            dedup_updates[key] = item
-
-    start_date = now_sh.date() - timedelta(days=6)
-    end_date = now_sh.date()
-    recent = [
-        u
-        for u in dedup_updates.values()
-        if start_date <= date.fromisoformat(str(u.get("date") or "1970-01-01")) <= end_date
-    ]
-    recent.sort(key=lambda x: (x["date"], x["title"]), reverse=True)
-    latest_date = recent[0]["date"] if recent else None
-    updates_today = [u for u in recent if u.get("date") == latest_date] if latest_date else []
-
-    warning = "近7日未解析到更新条目" if not recent else None
-    return {
-        "generated_at": iso(now_utc),
-        "timezone": "Asia/Shanghai",
-        "root_url": root_url,
-        "history_url": history_url,
-        "window_days": 7,
-        "latest_date": latest_date,
-        "count_today": len(updates_today),
-        "updates_today": updates_today,
-        "count_7d": len(recent),
-        "updates_7d": recent,
-        "warning": warning,
-        "has_error": False,
-        "error": None,
-    }
-
-
-def waytoagi_updates_to_raw_items(payload: dict[str, Any], now: datetime) -> list[RawItem]:
-    updates = payload.get("updates_today")
-    if not isinstance(updates, list):
-        updates = []
-    out: list[RawItem] = []
-    for update in updates:
-        if not isinstance(update, dict):
-            continue
-        title = str(update.get("title") or "").strip()
-        url = str(update.get("url") or payload.get("root_url") or WAYTOAGI_DEFAULT).strip()
-        if not title or not url:
-            continue
-        update_date = str(update.get("date") or payload.get("latest_date") or "").strip()
-        source = f"社群更新 · {update_date}" if update_date else "社群更新"
-        out.append(
-            RawItem(
-                site_id="waytoagi",
-                site_name="WaytoAGI",
-                source=source,
-                title=title,
-                url=url,
-                # WaytoAGI update logs only expose a date. Treat currently
-                # visible latest-date entries as fresh community signals for
-                # the 24h board while the 7d payload keeps exact date context.
-                published_at=now,
-                meta={"summary": title},
-            )
-        )
-    return out
-
-
 def create_session() -> requests.Session:
     session = requests.Session()
     retry = Retry(
@@ -1925,462 +1552,6 @@ def extract_balanced_json(decoded: str, key: str) -> Any:
     snippet = snippet.replace("$undefined", "null")
     snippet = re.sub(r'"\$D([^\"]+)"', r'"\1"', snippet)
     return json.loads(snippet)
-
-
-def extract_next_data_payload(html: str) -> dict[str, Any] | None:
-    m = re.search(
-        r'<script[^>]*id=["\']__NEXT_DATA__["\'][^>]*>\s*(\{.*?\})\s*</script>',
-        html,
-        re.S,
-    )
-    if not m:
-        return None
-    try:
-        return json.loads(m.group(1))
-    except Exception:
-        return None
-
-
-def fetch_techurls(session: requests.Session, now: datetime) -> list[RawItem]:
-    site_id = "techurls"
-    site_name = "TechURLs"
-    r = session.get("https://techurls.com/", timeout=30)
-    r.raise_for_status()
-    soup = BeautifulSoup(r.text, "html.parser")
-
-    out: list[RawItem] = []
-    for block in soup.select("div.publisher-block"):
-        primary = (
-            block.select_one(".publisher-text .primary").get_text(strip=True)
-            if block.select_one(".publisher-text .primary")
-            else block.get("data-publisher", "unknown")
-        )
-        secondary = (
-            block.select_one(".publisher-text .secondary").get_text(strip=True)
-            if block.select_one(".publisher-text .secondary")
-            else ""
-        )
-        source = f"{primary} · {secondary}" if secondary and secondary != primary else primary
-
-        for link_row in block.select("div.publisher-link"):
-            a = link_row.select_one("a.article-link")
-            if not a or not a.get("href"):
-                continue
-            title = a.get_text(" ", strip=True)
-            url = a["href"].strip()
-
-            time_hint = ""
-            aside = link_row.select_one(".aside .text")
-            if aside:
-                time_hint = aside.get("title", "") or aside.get_text(" ", strip=True)
-
-            published = parse_date_any(time_hint, now)
-            out.append(
-                RawItem(
-                    site_id=site_id,
-                    site_name=site_name,
-                    source=source,
-                    title=title,
-                    url=url,
-                    published_at=published,
-                    meta={"time_hint": time_hint},
-                )
-            )
-
-    return out
-
-
-def fetch_buzzing(session: requests.Session, now: datetime) -> list[RawItem]:
-    site_id = "buzzing"
-    site_name = "Buzzing"
-    r = session.get("https://www.buzzing.cc/feed.json", timeout=30)
-    r.raise_for_status()
-    payload = r.json()
-    items = payload.get("items", [])
-
-    out: list[RawItem] = []
-    for it in items:
-        title = (it.get("title") or "").strip()
-        url = (it.get("url") or "").strip()
-        if not title or not url:
-            continue
-        source = first_non_empty(
-            it.get("source"),
-            it.get("site_name"),
-            it.get("channel"),
-            it.get("category"),
-            host_of_url(url),
-            site_name,
-        )
-        published = parse_date_any(it.get("date_published") or it.get("date_modified"), now)
-        out.append(
-            RawItem(
-                site_id=site_id,
-                site_name=site_name,
-                source=source,
-                title=title,
-                url=url,
-                published_at=published,
-                meta={"raw": {k: it.get(k) for k in ("source", "site_name", "channel", "category")}},
-            )
-        )
-    return out
-
-
-def fetch_iris(session: requests.Session, now: datetime) -> list[RawItem]:
-    site_id = "iris"
-    site_name = "Info Flow"
-
-    r = session.get("https://iris.findtruman.io/web/info_flow", timeout=30)
-    r.raise_for_status()
-    html = r.text
-
-    m = re.search(r"const\s+feeds\s*=\s*\[(.*?)\]\s*;", html, re.S)
-    if not m:
-        return []
-
-    section = m.group(1)
-    feeds = re.findall(
-        r"\{\s*name:\s*'([^']+)'\s*,\s*url:\s*'([^']+)'\s*\}",
-        section,
-        re.S,
-    )
-
-    out: list[RawItem] = []
-    for feed_name, feed_url in feeds:
-        try:
-            if feedparser is not None:
-                parsed = feedparser.parse(feed_url)
-                source_name = str(feed_name or getattr(parsed, "feed", {}).get("title") or "Iris Feed")
-                for entry in parsed.entries:
-                    title = str(entry.get("title", "")).strip()
-                    url = str(entry.get("link", "")).strip()
-                    if not title or not url:
-                        continue
-                    published = (
-                        parse_date_any(entry.get("published"), now)
-                        or parse_date_any(entry.get("updated"), now)
-                        or parse_date_any(entry.get("pubDate"), now)
-                    )
-                    out.append(
-                        RawItem(
-                            site_id=site_id,
-                            site_name=site_name,
-                            source=source_name,
-                            title=title,
-                            url=url,
-                            published_at=published,
-                            meta={"feed_url": feed_url},
-                        )
-                    )
-                continue
-
-            feed_resp = session.get(feed_url, timeout=30)
-            feed_resp.raise_for_status()
-            entries = parse_feed_entries_via_xml(feed_resp.content)
-            source_name = str(feed_name or "Iris Feed")
-            for entry in entries:
-                out.append(
-                    RawItem(
-                        site_id=site_id,
-                        site_name=site_name,
-                        source=source_name,
-                        title=entry["title"],
-                        url=entry["link"],
-                        published_at=parse_date_any(entry.get("published"), now),
-                        meta={"feed_url": feed_url},
-                    )
-                )
-        except Exception:
-            # Skip blocked/broken sub feeds and keep remaining feeds.
-            continue
-    return out
-
-
-def fetch_bestblogs(session: requests.Session, now: datetime) -> list[RawItem]:
-    site_id = "bestblogs"
-    site_name = "BestBlogs"
-
-    api = "https://api.bestblogs.dev/api/newsletter/list"
-    out: list[RawItem] = []
-    seen: set[str] = set()
-
-    try:
-        current_page = 1
-        page_count = 1
-
-        while current_page <= page_count and current_page <= 12:
-            payload = {
-                "currentPage": current_page,
-                "pageSize": 20,
-                "userLanguage": "en",
-            }
-            r = session.post(api, json=payload, timeout=30)
-            r.raise_for_status()
-            body = r.json()
-            data = body.get("data", {})
-            page_count = int(data.get("pageCount", 1) or 1)
-
-            for issue in data.get("dataList", []):
-                issue_id = str(issue.get("id", "")).strip()
-                title = str(issue.get("title", "")).strip()
-                if not issue_id or not title:
-                    continue
-                url = f"https://www.bestblogs.dev/en/newsletter#{issue_id}"
-                if url in seen:
-                    continue
-                seen.add(url)
-
-                published = parse_unix_timestamp(issue.get("createdTimestamp"))
-                out.append(
-                    RawItem(
-                        site_id=site_id,
-                        site_name=site_name,
-                        source="Weekly Newsletter",
-                        title=title,
-                        url=url,
-                        published_at=published,
-                        meta={
-                            "issue_id": issue_id,
-                            "article_count": issue.get("articleCount"),
-                        },
-                    )
-                )
-            current_page += 1
-    except Exception:
-        pass
-
-    if out:
-        return out
-
-    r = session.get("https://www.bestblogs.dev/en/newsletter", timeout=30)
-    r.raise_for_status()
-    soup = BeautifulSoup(r.text, "html.parser")
-
-    for a in soup.select("a[href*='/newsletter']"):
-        href = (a.get("href") or "").strip()
-        if not href:
-            continue
-        url = href if href.startswith("http") else urljoin("https://www.bestblogs.dev", href)
-        title = a.get_text(" ", strip=True)
-        if len(title) < 8:
-            continue
-        if url in seen:
-            continue
-        seen.add(url)
-        dt = None
-        time_tag = a.select_one("time")
-        if time_tag:
-            dt = parse_date_any(time_tag.get("datetime") or time_tag.get_text(" ", strip=True), now)
-        out.append(
-            RawItem(
-                site_id=site_id,
-                site_name=site_name,
-                source="Weekly Newsletter",
-                title=title,
-                url=url,
-                published_at=dt,
-                meta={},
-            )
-        )
-
-    return out
-
-
-def fetch_tophub(session: requests.Session, now: datetime) -> list[RawItem]:
-    site_id = "tophub"
-    site_name = "TopHub"
-
-    r = session.get("https://tophub.today/", timeout=30)
-    r.raise_for_status()
-    html = r.content.decode("utf-8", errors="replace")
-    if "�" in html:
-        for enc in ("gb18030", "utf-8"):
-            try:
-                candidate = r.content.decode(enc, errors="replace")
-                if candidate.count("�") < html.count("�"):
-                    html = candidate
-            except Exception:
-                continue
-    soup = BeautifulSoup(html, "html.parser")
-
-    out: list[RawItem] = []
-    for block in soup.select(".cc-cd"):
-        source_name_tag = block.select_one(".cc-cd-lb span")
-        board_tag = block.select_one(".cc-cd-sb-st")
-        source_name = source_name_tag.get_text(" ", strip=True) if source_name_tag else "TopHub"
-        board_name = board_tag.get_text(" ", strip=True) if board_tag else ""
-        source_name = maybe_fix_mojibake(source_name)
-        board_name = maybe_fix_mojibake(board_name)
-        source = f"{source_name} · {board_name}" if board_name else source_name
-
-        for a in block.select(".cc-cd-cb-l a"):
-            href = a.get("href", "").strip()
-            row = a.select_one(".cc-cd-cb-ll")
-            title_tag = row.select_one(".t") if row else None
-            metric_tag = row.select_one(".e") if row else None
-
-            title = (
-                title_tag.get_text(" ", strip=True)
-                if title_tag
-                else a.get_text(" ", strip=True)
-            )
-            title = maybe_fix_mojibake(title)
-            if not title or not href:
-                continue
-
-            full_url = href if href.startswith("http") else urljoin("https://tophub.today", href)
-            row_text = row.get_text(" ", strip=True) if row else title
-            published = parse_relative_time_zh(row_text, now)
-
-            out.append(
-                RawItem(
-                    site_id=site_id,
-                    site_name=site_name,
-                    source=source,
-                    title=title,
-                    url=full_url,
-                    published_at=published,
-                    meta={"metric": metric_tag.get_text(" ", strip=True) if metric_tag else ""},
-                )
-            )
-
-    return out
-
-
-def fetch_zeli(session: requests.Session, now: datetime) -> list[RawItem]:
-    site_id = "zeli"
-    site_name = "Zeli"
-    out: list[RawItem] = []
-
-    url = "https://zeli.app/api/hacker-news?type=hot24h"
-    r = session.get(url, timeout=30)
-    r.raise_for_status()
-    body = r.json()
-    posts = body.get("posts", [])
-    for p in posts:
-        title = str(p.get("title", "")).strip()
-        link = str(p.get("url", "")).strip()
-        if not title or not link:
-            continue
-        published = parse_unix_timestamp(p.get("time")) or now
-        out.append(
-            RawItem(
-                site_id=site_id,
-                site_name=site_name,
-                source="Hacker News · 24h最热",
-                title=title,
-                url=link,
-                published_at=published,
-                meta={"hn_id": p.get("id")},
-            )
-        )
-
-    return out
-
-
-def hn_algolia_keyword_score(title: str) -> float:
-    blob = title.lower()
-    hits = 0
-    for keyword in HN_ALGOLIA_KEYWORDS:
-        if re.search(rf"(?<![a-z0-9]){re.escape(keyword)}(?![a-z0-9])", blob):
-            hits += 1
-    return min(1.0, hits / 3)
-
-
-def parse_hn_algolia_hits(payloads: list[tuple[str, dict[str, Any]]], now: datetime) -> list[RawItem]:
-    seen_ids: set[str] = set()
-    out: list[RawItem] = []
-
-    for query, payload in payloads:
-        hits = payload.get("hits")
-        if not isinstance(hits, list):
-            continue
-
-        for hit in hits:
-            if not isinstance(hit, dict):
-                continue
-            object_id = str(hit.get("objectID") or "").strip()
-            if not object_id or object_id in seen_ids:
-                continue
-            seen_ids.add(object_id)
-
-            title = maybe_fix_mojibake(str(first_non_empty(hit.get("title"), hit.get("story_title"))))
-            if not title or hn_algolia_keyword_score(title) < HN_ALGOLIA_MIN_KEYWORD_SCORE:
-                continue
-
-            try:
-                comments = int(hit.get("num_comments") or 0)
-            except Exception:
-                comments = 0
-            try:
-                points = int(hit.get("points") or 0)
-            except Exception:
-                points = 0
-            if comments < HN_ALGOLIA_MIN_COMMENTS and points < HN_ALGOLIA_MIN_POINTS:
-                continue
-
-            item_url = str(hit.get("url") or "").strip()
-            hn_url = f"https://news.ycombinator.com/item?id={object_id}"
-            published = parse_date_any(hit.get("created_at"), now) or parse_unix_timestamp(hit.get("created_at_i")) or now
-
-            out.append(
-                RawItem(
-                    site_id="hackernews",
-                    site_name="Hacker News",
-                    source="HN Algolia · AI 24h",
-                    title=title,
-                    url=item_url or hn_url,
-                    published_at=published,
-                    meta={
-                        "hn_id": object_id,
-                        "hn_url": hn_url,
-                        "hn_query": query,
-                        "hn_comments": comments,
-                        "hn_points": points,
-                    },
-                )
-            )
-
-    out.sort(
-        key=lambda item: (
-            int(item.meta.get("hn_comments") or 0),
-            int(item.meta.get("hn_points") or 0),
-            item.published_at or datetime.min.replace(tzinfo=UTC),
-        ),
-        reverse=True,
-    )
-    return out
-
-
-def fetch_hacker_news_algolia(session: requests.Session, now: datetime) -> list[RawItem]:
-    start_ts = int((now - timedelta(hours=24)).timestamp())
-    payloads: list[tuple[str, dict[str, Any]]] = []
-    errors: list[str] = []
-
-    for query in HN_ALGOLIA_QUERIES:
-        try:
-            response = session.get(
-                HN_ALGOLIA_URL,
-                params={
-                    "query": query,
-                    "tags": "story",
-                    "numericFilters": f"created_at_i>{start_ts}",
-                    "hitsPerPage": HN_ALGOLIA_HITS_PER_QUERY,
-                },
-                headers={"Accept": "application/json"},
-                timeout=16,
-            )
-            response.raise_for_status()
-            payloads.append((query, response.json()))
-        except Exception as exc:
-            errors.append(f"{query}: {exc}")
-        time.sleep(HN_ALGOLIA_QUERY_PAUSE_SECONDS)
-
-    if not payloads and errors:
-        raise ValueError(f"HN Algolia queries failed: {'; '.join(errors[:3])}")
-
-    return parse_hn_algolia_hits(payloads, now)
 
 
 def parse_anthropic_news_items(page_html: str, now: datetime) -> list[RawItem]:
@@ -3098,249 +2269,6 @@ def fetch_juya_daily(session: requests.Session, now: datetime) -> list[RawItem]:
     return out
 
 
-def parse_ai_breakfast_items(markdown_text: str, now: datetime) -> list[RawItem]:
-    site_id = "aibreakfast"
-    site_name = "AI Breakfast"
-    out: list[RawItem] = []
-    seen: set[str] = set()
-    pattern = re.compile(
-        r"([A-Z][a-z]{2}\s+\d{1,2},\s+\d{4})\s+•\s+\d+\s+min read\s+###\s+\*\*(.*?)\*\*.*?"
-        r"\]\((https?://aibreakfast\.beehiiv\.com/p/[^)]+)\)",
-        re.S,
-    )
-
-    for date_text, title_text, url in pattern.findall(markdown_text or ""):
-        url = url.strip()
-        if not url or url in seen:
-            continue
-        published = parse_date_any(date_text, now)
-        if not published:
-            continue
-        if now and published < now - timedelta(days=OFFICIAL_AI_MAX_AGE_DAYS):
-            continue
-
-        seen.add(url)
-        title = re.sub(r"\s+", " ", title_text).strip()
-        out.append(
-            RawItem(
-                site_id=site_id,
-                site_name=site_name,
-                source="AI Breakfast",
-                title=maybe_fix_mojibake(title),
-                url=url,
-                published_at=published,
-                meta={"feed_home": "https://aibreakfast.beehiiv.com/"},
-            )
-        )
-
-    return out
-
-
-def fetch_ai_breakfast(session: requests.Session, now: datetime) -> list[RawItem]:
-    resp = session.get(
-        AIBREAKFAST_JINA_URL,
-        timeout=25,
-        headers={
-            "User-Agent": BROWSER_UA,
-            "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
-            "Accept": "text/plain, */*",
-        },
-    )
-    resp.raise_for_status()
-    out = parse_ai_breakfast_items(resp.text, now)
-    if not out:
-        raise ValueError("No AI Breakfast items parsed")
-    return out
-
-
-def parse_follow_builders_items(feeds: dict[str, dict[str, Any]], now: datetime) -> list[RawItem]:
-    site_id = "followbuilders"
-    site_name = "Follow Builders"
-    out: list[RawItem] = []
-
-    for builder in feeds.get("x", {}).get("x", []) or []:
-        name = str(builder.get("name") or builder.get("handle") or "").strip()
-        handle = str(builder.get("handle") or "").strip()
-        source = f"Follow Builders · X · {name or handle}".strip(" ·")
-        for tweet in builder.get("tweets", []) or []:
-            text = str(tweet.get("text") or "").strip()
-            url = str(tweet.get("url") or "").strip()
-            published = parse_date_any(tweet.get("createdAt"), now)
-            if not text or not url or not published:
-                continue
-            title = re.sub(r"\s+", " ", text)
-            if len(title) > 220:
-                title = title[:217].rstrip() + "..."
-            out.append(
-                RawItem(
-                    site_id=site_id,
-                    site_name=site_name,
-                    source=source,
-                    title=maybe_fix_mojibake(title),
-                    url=url,
-                    published_at=published,
-                    meta={"handle": handle, "feed": "feed-x.json"},
-                )
-            )
-
-    for article in feeds.get("blogs", {}).get("blogs", []) or []:
-        title = str(article.get("title") or "").strip()
-        url = str(article.get("url") or "").strip()
-        published = parse_date_any(article.get("publishedAt"), now) or parse_date_any(
-            feeds.get("blogs", {}).get("generatedAt"), now
-        )
-        if not title or not url or not published:
-            continue
-        out.append(
-            RawItem(
-                site_id=site_id,
-                site_name=site_name,
-                source=f"Follow Builders · Blog · {article.get('name') or 'Blog'}",
-                title=maybe_fix_mojibake(title),
-                url=url,
-                published_at=published,
-                meta={"feed": "feed-blogs.json"},
-            )
-        )
-
-    for episode in feeds.get("podcasts", {}).get("podcasts", []) or []:
-        title = str(episode.get("title") or "").strip()
-        url = str(episode.get("url") or "").strip()
-        published = parse_date_any(episode.get("publishedAt"), now) or parse_date_any(
-            feeds.get("podcasts", {}).get("generatedAt"), now
-        )
-        if not title or not url or not published:
-            continue
-        out.append(
-            RawItem(
-                site_id=site_id,
-                site_name=site_name,
-                source=f"Follow Builders · Podcast · {episode.get('name') or 'Podcast'}",
-                title=maybe_fix_mojibake(title),
-                url=url,
-                published_at=published,
-                meta={"feed": "feed-podcasts.json"},
-            )
-        )
-
-    return out
-
-
-def fetch_follow_builders(session: requests.Session, now: datetime) -> list[RawItem]:
-    feeds: dict[str, dict[str, Any]] = {}
-    for key, filename in (
-        ("x", "feed-x.json"),
-        ("blogs", "feed-blogs.json"),
-        ("podcasts", "feed-podcasts.json"),
-    ):
-        resp = session.get(
-            f"{FOLLOW_BUILDERS_FEED_BASE}/{filename}",
-            timeout=20,
-            headers={
-                "User-Agent": BROWSER_UA,
-                "Accept": "application/json, */*",
-            },
-        )
-        resp.raise_for_status()
-        feeds[key] = resp.json()
-
-    out = parse_follow_builders_items(feeds, now)
-    if not out:
-        raise ValueError("No Follow Builders items parsed")
-    return out
-
-
-def is_hubtoday_placeholder_title(title: str) -> bool:
-    t = (title or "").strip()
-    if not t:
-        return True
-    if "详情见官方介绍" in t:
-        return True
-    return t in {"原文链接", "查看详情", "点击查看", "详情"}
-
-
-def is_hubtoday_generic_anchor_title(title: str) -> bool:
-    t = (title or "").strip()
-    if not t:
-        return True
-    if is_hubtoday_placeholder_title(t):
-        return True
-    return bool(re.search(r"\(AI资讯\)\s*$", t))
-
-
-def normalize_aihubtoday_records(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    by_url: dict[str, list[dict[str, Any]]] = {}
-    keep: list[dict[str, Any]] = []
-
-    for item in items:
-        if str(item.get("site_id") or "") != "aihubtoday":
-            keep.append(item)
-            continue
-        url = normalize_url(str(item.get("url") or ""))
-        if not url:
-            continue
-        by_url.setdefault(url, []).append(item)
-
-    for group in by_url.values():
-        if not group:
-            continue
-        preferred = [g for g in group if not is_hubtoday_generic_anchor_title(str(g.get("title") or ""))]
-        source = preferred if preferred else group
-        best = max(
-            source,
-            key=lambda x: (
-                event_time(x) or datetime.min.replace(tzinfo=UTC),
-                str(x.get("id") or ""),
-            ),
-        )
-        keep.append(best)
-
-    keep.sort(key=lambda x: event_time(x) or datetime.min.replace(tzinfo=UTC), reverse=True)
-    return keep
-
-
-AIHUBTODAY_RSS_URL = "https://hex2077.dev/rss-zh-CN.xml"
-
-
-def fetch_ai_hubtoday(session: requests.Session, now: datetime) -> list[RawItem]:
-    site_id = "aihubtoday"
-    site_name = "AI HubToday"
-    # ai.hubtoday.app migrated to hex2077.dev (a Next.js SPA), so the old HTML
-    # selectors no longer match and produced 0 usable items. Read the site's
-    # structured RSS feed instead: every entry has a real title, link and date,
-    # which is far more robust than scraping a client-rendered page.
-    r = session.get(AIHUBTODAY_RSS_URL, timeout=30)
-    r.raise_for_status()
-    if feedparser is not None:
-        entries = list(feedparser.parse(r.content).entries)
-    else:
-        entries = parse_feed_entries_via_xml(r.content)
-
-    out: list[RawItem] = []
-    seen_urls: set[str] = set()
-    for entry in entries:
-        title, link, published = feed_entry_title_link_published(entry, now)
-        if len(title) < 5 or not link.startswith("http"):
-            continue
-        if is_hubtoday_placeholder_title(title):
-            continue
-        key_url = normalize_url(link)
-        if key_url in seen_urls:
-            continue
-        seen_urls.add(key_url)
-        out.append(
-            RawItem(
-                site_id=site_id,
-                site_name=site_name,
-                source="Daily Digest",
-                title=title,
-                url=link,
-                published_at=published,
-                meta={"feed_url": AIHUBTODAY_RSS_URL, "summary": feed_entry_summary(entry)},
-            )
-        )
-    return out
-
 def fetch_aibase(session: requests.Session, now: datetime) -> list[RawItem]:
     # Reader-layer identity: AIBASE is a named curated-media sub-source, like
     # The Decoder, not its own site category or a generic "AI website".
@@ -3383,296 +2311,6 @@ def fetch_aibase(session: requests.Session, now: datetime) -> list[RawItem]:
     return out
 
 
-def parse_aihot_feed_items(feed_content: bytes, now: datetime, feed_url: str = AIHOT_FEED_URL) -> list[RawItem]:
-    site_id = "aihot"
-    site_name = "AI HOT"
-    source_name = site_name
-    if feedparser is not None:
-        parsed = feedparser.parse(feed_content)
-        entries = list(parsed.entries)
-        source_name = first_non_empty(getattr(parsed, "feed", {}).get("title"), site_name)
-    else:
-        entries = parse_feed_entries_via_xml(feed_content)
-
-    out: list[RawItem] = []
-    seen_urls: set[str] = set()
-    for entry in entries:
-        title = maybe_fix_mojibake(str(entry.get("title") or "").strip())
-        link = str(entry.get("link") or "").strip()
-        if not title or not link:
-            continue
-        normalized_url = normalize_url(link)
-        if normalized_url in seen_urls:
-            continue
-        seen_urls.add(normalized_url)
-        published = (
-            parse_date_any(entry.get("published"), now)
-            or parse_date_any(entry.get("updated"), now)
-            or parse_date_any(entry.get("pubDate"), now)
-        )
-        if not published:
-            continue
-        author_detail = entry.get("author_detail") or {}
-        entry_source = first_non_empty(
-            author_detail.get("name") if isinstance(author_detail, dict) else "",
-            entry.get("author"),
-            source_name,
-        )
-        out.append(
-            RawItem(
-                site_id=site_id,
-                site_name=site_name,
-                source=maybe_fix_mojibake(entry_source),
-                title=title,
-                url=link,
-                published_at=published,
-                meta={"feed_url": feed_url, "summary": feed_entry_summary(entry)},
-            )
-        )
-
-    return out
-
-
-def parse_aihot_api_items(payload: dict[str, Any], now: datetime | None = None) -> list[RawItem]:
-    site_id = "aihot"
-    site_name = "AI HOT"
-    out: list[RawItem] = []
-    seen_urls: set[str] = set()
-
-    raw_items = payload.get("items")
-    if not isinstance(raw_items, list):
-        return out
-
-    for entry in raw_items:
-        if not isinstance(entry, dict):
-            continue
-        raw_score = entry.get("score")
-        if isinstance(raw_score, bool):
-            continue
-        try:
-            score = float(raw_score)
-        except (TypeError, ValueError):
-            continue
-        if score < AIHOT_MIN_SCORE:
-            continue
-
-        title = maybe_fix_mojibake(str(first_non_empty(entry.get("title"), entry.get("title_en")) or "").strip())
-        link = str(entry.get("url") or "").strip()
-        if not title or not link:
-            continue
-        normalized_url = normalize_url(link)
-        if normalized_url in seen_urls:
-            continue
-        seen_urls.add(normalized_url)
-
-        published = parse_iso(str(entry.get("publishedAt") or "")) or parse_date_any(entry.get("publishedAt"), now)
-        source = maybe_fix_mojibake(str(first_non_empty(entry.get("source"), site_name)))
-        score_value: int | float = int(score) if score.is_integer() else score
-        out.append(
-            RawItem(
-                site_id=site_id,
-                site_name=site_name,
-                source=source,
-                title=title,
-                url=link,
-                published_at=published,
-                meta={
-                    "api_url": AIHOT_ITEMS_API_URL,
-                    "aihot_id": entry.get("id"),
-                    "aihot_score": score_value,
-                    "aihot_category": entry.get("category"),
-                    "aihot_selected": bool(entry.get("selected")),
-                    "provided_title_zh": entry.get("title"),
-                    "provided_title_en": entry.get("title_en"),
-                    "summary": entry.get("summary"),
-                },
-            )
-        )
-
-    return out
-
-
-def fetch_aihot(session: requests.Session, now: datetime) -> list[RawItem]:
-    out: list[RawItem] = []
-    cursor = ""
-    for _ in range(AIHOT_API_MAX_PAGES):
-        params: dict[str, Any] = {"mode": "selected", "take": AIHOT_API_TAKE}
-        if cursor:
-            params["cursor"] = cursor
-        r = session.get(
-            AIHOT_ITEMS_API_URL,
-            timeout=30,
-            params=params,
-            headers={
-                "User-Agent": AIHOT_API_UA,
-                "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
-                "Accept": "application/json",
-            },
-        )
-        r.raise_for_status()
-        payload = r.json()
-        out.extend(parse_aihot_api_items(payload, now))
-        cursor = str(payload.get("nextCursor") or "")
-        if not payload.get("hasNext") or not cursor:
-            break
-    return out
-
-
-
-
-def extract_newsnow_source_ids(js: str) -> list[str]:
-    marker = "{v2ex:vL"
-    start = js.find(marker)
-    if start == -1:
-        return ["hackernews", "producthunt", "github", "sspai", "juejin", "36kr"]
-
-    # Locate beginning "{" and parse until matching "}"
-    block_start = start
-    depth = 0
-    end = None
-    in_str = False
-    esc = False
-
-    for i, ch in enumerate(js[block_start:], block_start):
-        if in_str:
-            if esc:
-                esc = False
-            elif ch == "\\":
-                esc = True
-            elif ch == '"':
-                in_str = False
-            continue
-
-        if ch == '"':
-            in_str = True
-            continue
-
-        if ch == "{":
-            depth += 1
-        elif ch == "}":
-            depth -= 1
-            if depth == 0:
-                end = i + 1
-                break
-
-    if end is None:
-        return ["hackernews", "producthunt", "github", "sspai", "juejin", "36kr"]
-
-    obj = js[block_start:end]
-    all_keys = [m.group(2) for m in re.finditer(r'(["\']?)([a-zA-Z0-9_-]+)\1\s*:', obj)]
-
-    ignore = {
-        "name",
-        "column",
-        "home",
-        "https",
-        "color",
-        "interval",
-        "title",
-        "type",
-        "redirect",
-        "desc",
-    }
-
-    source_ids: list[str] = []
-    for key in all_keys:
-        if key in ignore:
-            continue
-        if key not in source_ids:
-            source_ids.append(key)
-
-    # API currently returns around 57 source ids successfully.
-    return source_ids
-
-
-def fetch_newsnow(session: requests.Session, now: datetime) -> list[RawItem]:
-    site_id = "newsnow"
-    site_name = "NewsNow"
-
-    home = session.get("https://newsnow.busiyi.world/", timeout=30)
-    home.raise_for_status()
-    soup = BeautifulSoup(home.text, "html.parser")
-
-    bundle = None
-    for script in soup.select("script[src]"):
-        src = script.get("src", "")
-        if "/assets/index-" in src and src.endswith(".js"):
-            bundle = urljoin("https://newsnow.busiyi.world/", src)
-            break
-
-    source_ids = ["hackernews", "producthunt", "github", "sspai", "juejin", "36kr"]
-    if bundle:
-        js = session.get(bundle, timeout=30).text
-        source_ids = extract_newsnow_source_ids(js)
-
-    headers = {
-        "User-Agent": BROWSER_UA,
-        "Accept": "application/json, text/plain, */*",
-        "Content-Type": "application/json",
-        "Origin": "https://newsnow.busiyi.world",
-        "Referer": "https://newsnow.busiyi.world/",
-    }
-
-    response = session.post(
-        "https://newsnow.busiyi.world/api/s/entire",
-        json={"sources": source_ids},
-        headers=headers,
-        timeout=45,
-    )
-
-    if response.status_code != 200:
-        # fallback to per-source API
-        source_blocks = []
-        for sid in source_ids:
-            rr = session.get(f"https://newsnow.busiyi.world/api/s?id={sid}", headers=headers, timeout=20)
-            if rr.status_code == 200:
-                try:
-                    source_blocks.append(rr.json())
-                except Exception:
-                    pass
-    else:
-        body = response.json()
-        source_blocks = body.get("data") if isinstance(body, dict) else body
-    if not isinstance(source_blocks, list):
-        source_blocks = []
-
-    out: list[RawItem] = []
-    for block in source_blocks:
-        sid = str(block.get("id") or "unknown")
-        source_title = first_non_empty(block.get("title"), block.get("name"), block.get("desc"), sid)
-        source_label = f"{source_title} ({sid})" if source_title != sid else sid
-        updated = parse_unix_timestamp(block.get("updatedTime")) or now
-        items = block.get("items") or []
-        for it in items:
-            title = str(it.get("title") or "").strip()
-            url = str(it.get("url") or "").strip()
-            if not title or not url:
-                continue
-
-            published = None
-            published = published or parse_date_any(it.get("pubDate"), now)
-            if not published:
-                extra = it.get("extra") or {}
-                if isinstance(extra, dict):
-                    published = parse_date_any(extra.get("date"), now)
-            if not published:
-                published = updated
-
-            out.append(
-                RawItem(
-                    site_id=site_id,
-                    site_name=site_name,
-                    source=source_label,
-                    title=title,
-                    url=url,
-                    published_at=published,
-                    meta={},
-                )
-            )
-
-    return out
-
-
 def collect_all(session: requests.Session, now: datetime) -> tuple[list[RawItem], list[dict[str, Any]]]:
     tasks = [
         ("official_ai", "Official AI Updates", fetch_official_ai_updates),
@@ -3684,26 +2322,6 @@ def collect_all(session: requests.Session, now: datetime) -> tuple[list[RawItem]
         ("tw_media", "TW Media", fetch_tw_media),
         ("kr36_ai", "36Kr AI (Watchlist)", fetch_kr36_ai),
         (JUYA_DAILY_SITE_ID, "橘鴉AI早報 (Watchlist)", fetch_juya_daily),
-        # Removed from the default task list by source curation (2026-07-14):
-        # tophub, buzzing, aihot, newsnow, zeli, aibreakfast, aihubtoday,
-        # followbuilders, bestblogs, hackernews. Their fetch_*() functions are
-        # kept intact above for rollback; re-add the tuple line to restore.
-        #
-        # Removed by 7/21 four-source trial verdict (2026-07-21): techurls,
-        # iris. Both showed diffuse non-AI noise as the dominant character
-        # (techurls 60.6% / iris 59.6% of items were plain
-        # missing_meaningful_ai_signal drops) and, after correcting for
-        # business_event_score()'s independence from ai_is_related, a true
-        # AI-relevant business-event rate of only ~1.1% (techurls) / ~0.65%
-        # (iris) of total fetched volume - most of their raw keyword "hits"
-        # were non-AI false positives (e.g. Samsung layoffs, Apple Music
-        # price hikes tagged earnings/pricing). iris additionally showed
-        # 99.5% of its ai_is_related items pinned exactly at the 0.65 floor
-        # and, across the full window, only 2 items ever competed against a
-        # higher-tier source in a story cluster (losing both by tier rank).
-        # fetch_techurls()/fetch_iris() are kept intact above for rollback;
-        # re-add the tuple line to restore. See docs/HANDOVER.md's 7/21
-        # section for the full trial record.
     ]
 
     raw_items: list[RawItem] = []
@@ -4265,27 +2883,14 @@ def event_time(record: dict[str, Any]) -> datetime | None:
 SOURCE_TIER_BY_SITE: dict[str, tuple[str, str, int]] = {
     "official_ai": ("official", "官方一手源", 0),
     "curated_media": ("ai_media", "精選AI媒體", 2),
-    "aibreakfast": ("ai_vertical", "AI垂直源", 1),
-    "aihubtoday": ("ai_vertical", "AI垂直源", 1),
     # Legacy records may briefly retain this ID; their effective reader tier
     # must match the curated-media destination.
     "aibase": ("ai_media", "精選AI媒體", 2),
-    "aihot": ("ai_vertical", "AI垂直源", 1),
-    "bestblogs": ("ai_vertical", "AI垂直源", 1),
-    "waytoagi": ("community", "社群更新", 2),
-    "followbuilders": ("builders", "Builders/X源", 2),
     "opmlrss": ("user_opml", "RSS/OPML", 3),
     "tikhub_douyin": ("self_media", "自媒體源", 4),
     "tikhub_xiaohongshu": ("self_media", "自媒體源", 4),
     "xapi": ("advanced", "高階源", 4),
     "socialdata_x": ("advanced", "高階源", 4),
-    "techurls": ("discussion", "熱議參考", 5),
-    "buzzing": ("discussion", "熱議參考", 5),
-    "iris": ("discussion", "熱議參考", 5),
-    "tophub": ("discussion", "熱議參考", 5),
-    "zeli": ("discussion", "熱議參考", 5),
-    "hackernews": ("discussion", "熱議參考", 5),
-    "newsnow": ("discussion", "熱議參考", 5),
     "tw_media": ("tw_media", "台灣繁中媒體", 2),
     "kr36_ai": ("watchlist", "觀察名單源", 6),
     "juya_daily": ("watchlist", "觀察名單源", 6),
@@ -4503,37 +3108,6 @@ EN_SIGNAL_RE = re.compile(
     r"(?i)(?<![a-z0-9])(ai|aigc|llm|gpt|openai|anthropic|deepseek|gemini|claude|robot|robotics|embodied|autonomous|machine learning|artificial intelligence|transformer|diffusion|agent)(?![a-z0-9])"
 )
 
-TOPHUB_ALLOW_KEYWORDS = [
-    "readhub · ai",
-    "hacker news",
-    "github",
-    "product hunt",
-    "v2ex",
-    "少数派",
-    "infoq",
-    "36氪",
-    "机器之心",
-    "量子位",
-    "科技",
-    "人工智能",
-    "机器人",
-    "具身",
-    "开源",
-]
-
-TOPHUB_BLOCK_KEYWORDS = [
-    "热销总榜",
-    "淘宝",
-    "天猫",
-    "京东",
-    "拼多多",
-    "抖音",
-    "快手",
-    "微博",
-    "小红书",
-]
-
-
 MEANINGFUL_EN_SIGNAL_RE = re.compile(
     r"(?i)(?<![a-z0-9])(ai|aigc|llm|gpt|openai|anthropic|deepseek|gemini|claude|robot|robotics|embodied|autonomous|machine learning|artificial intelligence|transformer|diffusion)(?![a-z0-9])"
 )
@@ -4582,127 +3156,6 @@ def compact_public_snippet(text: str, max_chars: int = 240) -> str:
     if len(snippet) <= max_chars:
         return snippet
     return snippet[: max_chars - 1].rstrip() + "…"
-
-
-def sender_domain_from_address(raw_sender: str) -> str | None:
-    """Extract only the sender domain; never expose the raw email address."""
-    _, email_addr = parseaddr(str(raw_sender or ""))
-    if "@" not in email_addr:
-        return None
-    domain = email_addr.rsplit("@", 1)[-1].strip().lower().strip(">")
-    return domain or None
-
-
-def parse_domain_filter(raw: str) -> list[str]:
-    """Parse a comma-separated sender-domain allowlist for private newsletter demos."""
-    domains: list[str] = []
-    for part in re.split(r"[,\s]+", str(raw or "")):
-        domain = part.strip().lower().lstrip("@")
-        if domain and re.match(r"^[a-z0-9.-]+\.[a-z]{2,}$", domain):
-            domains.append(domain)
-    return sorted(set(domains))
-
-
-def domain_matches_filter(sender_domain: str | None, allowed_domains: list[str]) -> bool:
-    if not allowed_domains:
-        return True
-    domain = str(sender_domain or "").lower().strip()
-    return any(domain == allowed or domain.endswith(f".{allowed}") for allowed in allowed_domains)
-
-
-def filter_agentmail_messages_by_domain(
-    messages: list[dict[str, Any]],
-    allowed_domains: list[str],
-) -> list[dict[str, Any]]:
-    if not allowed_domains:
-        return messages
-    return [
-        msg
-        for msg in messages
-        if domain_matches_filter(sender_domain_from_address(str(msg.get("from") or "")), allowed_domains)
-    ]
-
-
-def safe_agentmail_item(message: dict[str, Any]) -> dict[str, Any]:
-    """Convert an AgentMail MessageItem into a metadata-only public digest item."""
-    message_id = str(message.get("message_id") or "")
-    stable_id = hashlib.sha1(message_id.encode("utf-8")).hexdigest()[:12] if message_id else "unknown"
-    domain = sender_domain_from_address(str(message.get("from") or ""))
-    attachments = message.get("attachments") or []
-    return {
-        "id": f"agentmail:{stable_id}",
-        "source_type": "email_newsletter",
-        "source": f"AgentMail · {domain}" if domain else "AgentMail",
-        "sender_domain": domain,
-        "subject": compact_public_snippet(str(message.get("subject") or ""), max_chars=180),
-        "preview": compact_public_snippet(str(message.get("preview") or ""), max_chars=240),
-        "received_at": message.get("timestamp") or message.get("created_at"),
-        "has_attachments": bool(attachments),
-        "attachment_count": len(attachments) if isinstance(attachments, list) else 0,
-    }
-
-
-def build_agentmail_digest_payload(
-    messages: list[dict[str, Any]],
-    generated_at: str,
-    window_hours: int,
-    allowed_sender_domains: list[str] | None = None,
-) -> dict[str, Any]:
-    """Build a privacy-preserving digest from AgentMail list-message results."""
-    filtered_messages = filter_agentmail_messages_by_domain(messages, allowed_sender_domains or [])
-    items = [safe_agentmail_item(msg) for msg in filtered_messages]
-    return sanitize_public_payload(
-        {
-            "generated_at": generated_at,
-            "source": "agentmail",
-            "enabled": True,
-            "window_hours": window_hours,
-            "privacy": "metadata_only_no_body",
-            "allowed_sender_domains": allowed_sender_domains or [],
-            "total_messages": len(items),
-            "items": items,
-        }
-    )
-
-
-def fetch_agentmail_digest(
-    session: requests.Session,
-    api_key: str,
-    inbox_id: str,
-    generated_at: str,
-    after: str,
-    limit: int = AGENTMAIL_DEFAULT_LIMIT,
-    base_url: str = AGENTMAIL_API_BASE_DEFAULT,
-    window_hours: int = 24,
-    allowed_sender_domains: list[str] | None = None,
-) -> dict[str, Any]:
-    """Fetch AgentMail MessageItem metadata; deliberately does not request bodies or raw .eml."""
-    base = (base_url or AGENTMAIL_API_BASE_DEFAULT).rstrip("/")
-    url = f"{base}/v0/inboxes/{inbox_id}/messages"
-    response = session.get(
-        url,
-        headers={"Authorization": f"Bearer {api_key}"},
-        params={
-            "limit": max(1, min(int(limit or AGENTMAIL_DEFAULT_LIMIT), 100)),
-            "after": after,
-            "ascending": "false",
-            "include_spam": "false",
-            "include_trash": "false",
-            "include_blocked": "false",
-        },
-        timeout=30,
-    )
-    response.raise_for_status()
-    payload = response.json()
-    messages = payload.get("messages") if isinstance(payload, dict) else []
-    if not isinstance(messages, list):
-        messages = []
-    return build_agentmail_digest_payload(
-        messages,
-        generated_at=generated_at,
-        window_hours=window_hours,
-        allowed_sender_domains=allowed_sender_domains,
-    )
 
 
 def env_flag(name: str) -> bool:
@@ -4826,55 +3279,6 @@ def sync_paid_source_status_timestamps(
     entry = paid_source_state_entry(state, source_key)
     status["last_run_at"] = entry.get("last_run_at")
     status["last_success_at"] = entry.get("last_success_at")
-
-
-def maybe_fetch_agentmail_digest(
-    session: requests.Session,
-    generated_at: str,
-    after: str,
-    window_hours: int,
-) -> tuple[dict[str, Any] | None, dict[str, Any]]:
-    """Fetch AgentMail only when explicitly enabled and fully configured."""
-    status: dict[str, Any] = {
-        "enabled": env_flag("EMAIL_DIGEST_ENABLED"),
-        "ok": None,
-        "item_count": 0,
-        "privacy": "metadata_only_no_body",
-        "published_by_default": False,
-    }
-    if not status["enabled"]:
-        return None, status
-
-    agentmail_api_key = str(os.environ.get("AGENTMAIL_API_KEY") or "").strip()
-    agentmail_inbox_id = str(os.environ.get("AGENTMAIL_INBOX_ID") or "").strip()
-    agentmail_base_url = str(os.environ.get("AGENTMAIL_API_BASE_URL") or AGENTMAIL_API_BASE_DEFAULT).strip()
-    agentmail_limit = env_int("AGENTMAIL_LIMIT", AGENTMAIL_DEFAULT_LIMIT)
-    allowed_sender_domains = parse_domain_filter(str(os.environ.get("AGENTMAIL_ALLOWED_SENDER_DOMAINS") or ""))
-    status["allowed_sender_domains"] = allowed_sender_domains
-    if not (agentmail_api_key and agentmail_inbox_id):
-        status["ok"] = False
-        status["error"] = "missing_agentmail_credentials"
-        return None, status
-
-    try:
-        payload = fetch_agentmail_digest(
-            session,
-            api_key=agentmail_api_key,
-            inbox_id=agentmail_inbox_id,
-            generated_at=generated_at,
-            after=after,
-            limit=agentmail_limit,
-            base_url=agentmail_base_url,
-            window_hours=window_hours,
-            allowed_sender_domains=allowed_sender_domains,
-        )
-        status["ok"] = True
-        status["item_count"] = int(payload.get("total_messages") or 0)
-        return payload, status
-    except Exception as exc:
-        status["ok"] = False
-        status["error"] = type(exc).__name__
-        return None, status
 
 
 def x_api_should_run_now(now: datetime) -> bool:
@@ -6085,11 +4489,6 @@ def normalize_source_for_display(site_id: str, source: str, url: str) -> str:
         if host.startswith("www."):
             host = host[4:]
         return host or "未分区"
-    if site_id == "buzzing" and src.lower() == "buzzing":
-        host = host_of_url(url)
-        if host.startswith("www."):
-            host = host[4:]
-        return host or src
     return src
 
 
@@ -7104,10 +5503,7 @@ def dedupe_items_by_title_url(items: list[dict[str, Any]], random_pick: bool = T
         site_id = str(item.get("site_id") or "").strip().lower()
         title = str(item.get("title_original") or item.get("title") or "").strip().lower()
         url = normalize_url(str(item.get("url") or ""))
-        if site_id == "aihubtoday":
-            key = f"url::{url}"
-        else:
-            key = f"{title}||{url}"
+        key = f"{title}||{url}"
         groups.setdefault(key, []).append(item)
 
     out: list[dict[str, Any]] = []
@@ -7272,51 +5668,11 @@ def ai_relevance_score(record: dict[str, Any]) -> float:
         return 1.0 if record.get("ai_is_related") else 0.0
 
 
-def add_creator_ranking_fields(record: dict[str, Any], now: datetime) -> dict[str, Any]:
-    out = dict(record)
-    metrics = record.get("creator_metrics") if isinstance(record.get("creator_metrics"), dict) else {}
-    likes = creator_metric_count(metrics.get("likes"))
-    comments = creator_metric_count(metrics.get("comments"))
-    collects = creator_metric_count(metrics.get("collects"))
-    shares = creator_metric_count(metrics.get("shares"))
-    weighted_engagement = likes + (comments * 2.0) + (collects * 1.5) + (shares * 2.0)
-
-    # Xiaohongshu engagement is smaller in absolute terms than Douyin, so use
-    # separate fixed log scales instead of pretending raw counts are comparable.
-    scale = 22.0 if str(record.get("site_id") or "") == "tikhub_xiaohongshu" else 20.0
-    heat_score = min(100.0, scale * math.log10(1.0 + weighted_engagement))
-    published = event_time(record)
-    age_hours = (now - published).total_seconds() / 3600 if published else float("inf")
-    freshness_bonus = CREATOR_FRESHNESS_BONUS_POINTS if 0 <= age_hours <= CREATOR_FRESHNESS_BONUS_HOURS else 0.0
-    hot_score = min(100.0, (heat_score * 0.85) + freshness_bonus)
-
-    out["creator_metrics"] = {
-        "likes": likes,
-        "comments": comments,
-        "collects": collects,
-        "shares": shares,
-    }
-    out["creator_engagement_total"] = round(weighted_engagement, 1)
-    out["creator_heat_score"] = round(heat_score, 1)
-    out["creator_freshness_bonus"] = round(freshness_bonus, 1)
-    out["creator_hot_score"] = round(hot_score, 1)
-    return out
-
-
 def editorial_score(record: dict[str, Any]) -> float:
     """External or internal editorial strength used by the headline ranker."""
-    value = record.get("aihot_score")
-    try:
-        if value is not None:
-            score = float(value)
-            return max(0.0, min(1.0, score / 100 if score > 1 else score))
-    except Exception:
-        pass
     site_id = str(record.get("site_id") or "")
     if site_id == "official_ai":
         return 0.9
-    if site_id == "aihot":
-        return 0.78
     if record.get("ai_is_related"):
         return max(0.45, ai_relevance_score(record) * 0.72)
     return ai_relevance_score(record) * 0.6
@@ -7490,27 +5846,21 @@ def merge_story_items(
     window_hours: int,
     title_window_hours: int = 6,
     title_threshold: float = 0.86,
-) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+) -> list[dict[str, Any]]:
     groups: dict[str, list[dict[str, Any]]] = {}
     group_titles: dict[str, str] = {}
     group_times: dict[str, datetime | None] = {}
     canonical_to_story: dict[str, str] = {}
-    events: list[dict[str, Any]] = []
 
     ordered = sorted(items, key=lambda item: event_time(item) or datetime.min.replace(tzinfo=UTC))
     for item in ordered:
-        item_id = str(item.get("id") or "")
         canonical_url = canonical_story_url(str(item.get("url") or ""))
         title = normalized_story_title(item)
         item_time = event_time(item)
         story_id: str | None = None
-        reason = ""
-        similarity = 0.0
 
         if canonical_url and canonical_url in canonical_to_story:
             story_id = canonical_to_story[canonical_url]
-            reason = "canonical_url"
-            similarity = 1.0
         elif title_is_mergeable(title):
             for candidate_id, candidate_title in group_titles.items():
                 candidate_time = group_times.get(candidate_id)
@@ -7521,8 +5871,6 @@ def merge_story_items(
                 sim = title_similarity(title, candidate_title)
                 if sim >= title_threshold and story_titles_can_merge(title, candidate_title):
                     story_id = candidate_id
-                    reason = "title_similarity"
-                    similarity = sim
                     break
 
         if story_id is None:
@@ -7532,24 +5880,14 @@ def merge_story_items(
             group_times[story_id] = item_time
             if canonical_url:
                 canonical_to_story[canonical_url] = story_id
-        else:
-            events.append(
-                {
-                    "story_id": story_id,
-                    "item_id": item_id,
-                    "merged_into": story_id,
-                    "reason": reason,
-                    "similarity": round(similarity, 4),
-                }
-            )
-            if canonical_url:
-                canonical_to_story[canonical_url] = story_id
+        elif canonical_url:
+            canonical_to_story[canonical_url] = story_id
 
         groups.setdefault(story_id, []).append(item)
 
     stories = [build_story_record(story_id, group_items, now, window_hours) for story_id, group_items in groups.items()]
     stories.sort(key=lambda story: (-float(story.get("score") or 0), str(story.get("latest_at") or ""), str(story.get("title") or "")))
-    return stories, events
+    return stories
 
 
 BRIEF_SCORE_GATE = 0.72
@@ -7570,12 +5908,9 @@ def story_passes_brief_gate(story: dict[str, Any]) -> bool:
     briefStorySortCompare() already ranks any business_events hit above any
     non-hit story there. Confirmed on real data: all 16 badge items occupied
     ranks #1-16 of that live ranking, correctly ahead of every non-badge
-    story. daily-brief.json's own internal order (select_diverse_stories,
-    score-only, no badge awareness) is never rendered by itself -
-    renderBriefBrief(), the only function that would display it directly, has
-    no call site in assets/app.js. So exempting business_events stories from
-    this gate would only reorder a data structure nothing reads on its own;
-    left unchanged here."""
+    story. So exempting business_events stories from this gate would only
+    reorder an internal daily-brief subset; the reader ranking remains
+    unchanged."""
     try:
         sources = int(story.get("source_count") or 1)
     except Exception:
@@ -7667,75 +6002,17 @@ def build_stories_payload(
     }
 
 
-def build_merge_log_payload(events: list[dict[str, Any]], generated_at: str) -> dict[str, Any]:
-    return {
-        "generated_at": generated_at,
-        "merge_strategy": "url_or_title_similarity_v0_6",
-        "total_events": len(events),
-        "events": events,
-    }
-
-
-# Not called from main() as of 2026-07: TikHub (douyin/xiaohongshu) source
-# was never activated in production, so this always produced an empty
-# "自媒體" section. Kept in place (and still covered by
-# tests/test_topic_filter.py + tests/test_site_name_alias.py) so it can be
-# wired back into main()'s payload assembly if TikHub is ever turned on.
-def build_creator_hot_items(
-    archive: dict[str, dict[str, Any]],
-    now: datetime,
-    *,
-    ai_only: bool,
-) -> list[dict[str, Any]]:
-    window_start = now - timedelta(days=CREATOR_HOT_WINDOW_DAYS)
-    items: list[dict[str, Any]] = []
-    for record in archive.values():
-        if str(record.get("site_id") or "") not in CREATOR_SITE_IDS:
-            continue
-        if not isinstance(record.get("creator_metrics"), dict):
-            continue
-        published = event_time(record)
-        if not published or published < window_start or published > now:
-            continue
-        normalized = dict(record)
-        normalized["title"] = to_zh_hant(maybe_fix_mojibake(str(normalized.get("title") or "")))
-        if normalized.get("summary"):
-            normalized["summary"] = to_zh_hant(str(normalized.get("summary") or ""))
-        normalized["source"] = maybe_fix_mojibake(normalize_source_for_display(
-            str(normalized.get("site_id") or ""),
-            str(normalized.get("source") or ""),
-            str(normalized.get("url") or ""),
-        ))
-        normalized["site_name"] = apply_site_name_alias(str(normalized.get("site_name") or ""))
-        normalized["business_events"] = business_event_score(normalized)
-        normalized = add_ai_relevance_fields(normalized)
-        if ai_only and not normalized.get("ai_is_related", is_ai_related_record(normalized)):
-            continue
-        normalized = add_source_tier_fields(normalized)
-        items.append(add_creator_ranking_fields(normalized, now))
-
-    deduped = suppress_near_duplicate_items(dedupe_items_by_title_url(items, random_pick=False))
-    deduped.sort(
-        key=lambda item: (
-            float(item.get("creator_hot_score") or 0),
-            event_time(item) or datetime.min.replace(tzinfo=UTC),
-        ),
-        reverse=True,
-    )
-    return deduped
-
-
-def build_model_releases_7d_items(
+def build_model_releases_24h_items(
     archive: dict[str, dict[str, Any]],
     now: datetime,
 ) -> list[dict[str, Any]]:
-    """Build the dedicated seven-day atomic model-release lane.
+    """Build the dedicated 24-hour atomic model-release lane.
 
     v1 intentionally uses only LLM Stats' allowlisted discovery records. News
     and analysis sources remain supporting stories in the normal 24-hour pool;
     they are not allowed to create a second canonical release card.
     """
-    cutoff = now - timedelta(days=MODEL_RELEASE_RADAR_WINDOW_DAYS)
+    cutoff = now - timedelta(hours=MODEL_RELEASE_RADAR_WINDOW_HOURS)
     items: list[dict[str, Any]] = []
     seen_models: set[str] = set()
     for record in archive.values():
@@ -7910,12 +6187,9 @@ def main() -> int:
     status_path = output_dir / "source-status.json"
     daily_brief_path = output_dir / "daily-brief.json"
     stories_merged_path = output_dir / "stories-merged.json"
-    merge_log_path = output_dir / "merge-log.json"
-    waytoagi_path = output_dir / "waytoagi-7d.json"
     title_cache_path = output_dir / "title-zh-cache.json"
     translation_state_path = output_dir / "translation-state.json"
     ai_summary_cache_path = output_dir / "ai-summary-cache.json"
-    email_digest_path = output_dir / AGENTMAIL_DIGEST_FILE
     paid_source_state_path = output_dir / PAID_SOURCE_STATE_FILE
     market_signals_path = output_dir / "market-signals.json"
     market_sensor_state_path = output_dir / "market-sensor-state.json"
@@ -7943,12 +6217,6 @@ def main() -> int:
     )
     statuses.extend(market_sensor_statuses)
     rss_feed_statuses: list[dict[str, Any]] = []
-    email_digest_payload, agentmail_status = maybe_fetch_agentmail_digest(
-        session,
-        generated_at=iso(now),
-        after=iso(now - timedelta(hours=args.window_hours)),
-        window_hours=args.window_hours,
-    )
     x_api_items, x_api_status = maybe_fetch_x_api_updates(session, now)
     if x_api_status.get("enabled"):
         raw_items.extend(x_api_items)
@@ -8005,71 +6273,6 @@ def main() -> int:
                     "error": tikhub_status.get("error"),
                     "skipped": bool(tikhub_status.get("skipped")),
                     "skip_reason": tikhub_status.get("skip_reason"),
-                }
-            )
-
-    waytoagi_started = time.perf_counter()
-    if not WAYTOAGI_ENABLED:
-        waytoagi_payload = {
-            "generated_at": iso(now),
-            "timezone": "Asia/Shanghai",
-            "root_url": WAYTOAGI_DEFAULT,
-            "history_url": None,
-            "window_days": 7,
-            "count_7d": 0,
-            "updates_7d": [],
-            "warning": "WaytoAGI disabled by source curation (WAYTOAGI_ENABLED=False)",
-            "has_error": False,
-            "error": None,
-        }
-        statuses.append(
-            {
-                "site_id": "waytoagi",
-                "site_name": "WaytoAGI",
-                "ok": True,
-                "item_count": 0,
-                "duration_ms": 0,
-                "error": None,
-                "skipped": True,
-                "skip_reason": "disabled_by_source_curation",
-            }
-        )
-    else:
-        try:
-            waytoagi_payload = fetch_waytoagi_recent_7d(session, now, WAYTOAGI_DEFAULT)
-            waytoagi_items = waytoagi_updates_to_raw_items(waytoagi_payload, now)
-            raw_items.extend(waytoagi_items)
-            statuses.append(
-                {
-                    "site_id": "waytoagi",
-                    "site_name": "WaytoAGI",
-                    "ok": True,
-                    "item_count": len(waytoagi_items),
-                    "duration_ms": int((time.perf_counter() - waytoagi_started) * 1000),
-                    "error": None,
-                }
-            )
-        except Exception as exc:
-            waytoagi_payload = {
-                "generated_at": iso(now),
-                "timezone": "Asia/Shanghai",
-                "root_url": WAYTOAGI_DEFAULT,
-                "history_url": None,
-                "window_days": 7,
-                "count_7d": 0,
-                "updates_7d": [],
-                "warning": "WaytoAGI 近7日更新抓取失败",
-                "has_error": True,
-                "error": str(exc),
-            }
-            statuses.append(
-                {
-                    "site_id": "waytoagi",
-                    "site_name": "WaytoAGI",
-                    "ok": False,
-                    "item_count": 0,
-                    "duration_ms": int((time.perf_counter() - waytoagi_started) * 1000),
-                    "error": str(exc),
                 }
             )
 
@@ -8170,16 +6373,10 @@ def main() -> int:
                 str(normalized.get("url") or ""),
             ))
             normalized["site_name"] = apply_site_name_alias(str(normalized.get("site_name") or ""))
-            if str(normalized.get("site_id") or "") == "aihubtoday" and is_hubtoday_placeholder_title(
-                str(normalized.get("title") or "")
-            ):
-                continue
             normalized["business_events"] = business_event_score(normalized)
             normalized = add_ai_relevance_fields(normalized)
             normalized = add_source_tier_fields(normalized)
             latest_items_all.append(normalized)
-
-    latest_items_all = normalize_aihubtoday_records(latest_items_all)
 
     latest_items_all.sort(key=lambda x: event_time(x) or datetime.min.replace(tzinfo=UTC), reverse=True)
     latest_items = [record for record in latest_items_all if record.get("ai_is_related", is_ai_related_record(record))]
@@ -8197,11 +6394,11 @@ def main() -> int:
         translation_status=translation_status,
         now=now,
     )
-    model_releases_7d = build_model_releases_7d_items(archive, now)
+    model_releases_24h = build_model_releases_24h_items(archive, now)
     llm_radar_payload = build_llm_radar_payload(latest_items, now)
     latest_items_ai_dedup = suppress_near_duplicate_items(dedupe_items_by_title_url(latest_items, random_pick=False))
     latest_items_all_dedup = dedupe_items_by_title_url(latest_items_all, random_pick=True)
-    stories, merge_events = merge_story_items(latest_items_ai_dedup, now=now, window_hours=args.window_hours)
+    stories = merge_story_items(latest_items_ai_dedup, now=now, window_hours=args.window_hours)
     groq_api_key = str(os.environ.get("GROQ_API_KEY") or "").strip()
     groq_summary_model = str(os.environ.get("GROQ_SUMMARY_MODEL") or DEFAULT_GROQ_MODEL).strip()
     stories, ai_summary_status, ai_summary_cache = summarize_stories(
@@ -8215,7 +6412,6 @@ def main() -> int:
     generated_at = iso(now)
     daily_brief_payload = build_daily_brief_payload(stories, generated_at=generated_at, window_hours=args.window_hours)
     stories_merged_payload = build_stories_payload(stories, generated_at=generated_at, window_hours=args.window_hours)
-    merge_log_payload = build_merge_log_payload(merge_events, generated_at=generated_at)
 
     # source-status.json embeds `statuses` (fetch-time site_name, set by
     # collect_all()/individual fetchers) directly - normalize in place here so
@@ -8275,8 +6471,8 @@ def main() -> int:
         "site_stats": sorted(site_stat.values(), key=lambda x: x["count"], reverse=True),
         "items": latest_items_ai_dedup,
         "items_ai": latest_items_ai_dedup,
-        "model_release_window_days": MODEL_RELEASE_RADAR_WINDOW_DAYS,
-        "model_releases_7d": model_releases_7d,
+        "model_release_window_hours": MODEL_RELEASE_RADAR_WINDOW_HOURS,
+        "model_releases_24h": model_releases_24h,
         "items_all_raw": latest_items_all,
         "items_all": latest_items_all_dedup,
     }
@@ -8351,7 +6547,6 @@ def main() -> int:
             ],
             "feeds": rss_feed_statuses,
         },
-        "agentmail": agentmail_status,
         "x_api": x_api_status,
         "socialdata": socialdata_status,
         "tikhub": tikhub_status,
@@ -8368,10 +6563,6 @@ def main() -> int:
     )
     stories_merged_path.write_text(
         json.dumps(sanitize_public_payload(stories_merged_payload), ensure_ascii=False, separators=(",", ":")),
-        encoding="utf-8",
-    )
-    merge_log_path.write_text(
-        json.dumps(sanitize_public_payload(merge_log_payload), ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
     archive_path.write_text(
@@ -8396,12 +6587,6 @@ def main() -> int:
         json.dumps(sanitize_public_payload(paid_source_state), ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
-    if email_digest_payload is not None:
-        email_digest_path.write_text(
-            json.dumps(sanitize_public_payload(email_digest_payload), ensure_ascii=False, indent=2),
-            encoding="utf-8",
-        )
-    waytoagi_path.write_text(json.dumps(sanitize_public_payload(waytoagi_payload), ensure_ascii=False, indent=2), encoding="utf-8")
     title_cache_path.write_text(json.dumps(sanitize_public_payload(title_cache), ensure_ascii=False, indent=2), encoding="utf-8")
     if translation_state_path.exists() or translation_state.get("rejections"):
         translation_state_path.write_text(
@@ -8418,16 +6603,12 @@ def main() -> int:
     print(f"Wrote: {latest_all_path} ({len(latest_items_all_dedup)} all-mode items)")
     print(f"Wrote: {daily_brief_path} ({daily_brief_payload.get('total_items', 0)} brief items)")
     print(f"Wrote: {stories_merged_path} ({stories_merged_payload.get('total_stories', 0)} stories)")
-    print(f"Wrote: {merge_log_path} ({len(merge_events)} merge events)")
     print(f"Wrote: {archive_path} ({len(archive)} items)")
     print(f"Wrote: {status_path}")
     print(f"Wrote: {market_signals_path} ({len(market_signals_payload.get('signals', []))} signals)")
     print(f"Wrote: {llm_radar_path} ({llm_radar_payload.get('total_events', 0)} events)")
     print(f"Wrote: {market_sensor_state_path}")
     print(f"Wrote: {paid_source_state_path}")
-    if email_digest_payload is not None:
-        print(f"Wrote: {email_digest_path} ({email_digest_payload.get('total_messages', 0)} email items)")
-    print(f"Wrote: {waytoagi_path} ({waytoagi_payload.get('count_7d', 0)} items)")
     print(f"Wrote: {title_cache_path} ({len(title_cache)} entries)")
     if translation_state_path.exists():
         print(f"Wrote: {translation_state_path} ({len(translation_state.get('rejections') or {})} recent rejections)")

@@ -887,8 +887,7 @@ summary:focus-visible {
 }
 
 .brief-picks-wrap,
-.list-wrap,
-.waytoagi-wrap {
+.list-wrap {
   margin-top: 18px;
   border: 1px solid var(--line-soft);
   border-radius: var(--radius);
@@ -1118,15 +1117,8 @@ summary:focus-visible {
   }
 }
 
-/* 雙色交替：WaytoAGI 版塊用深一檔的底色，與重點訊號 / AI 訊號流形成節奏感 */
-.waytoagi-wrap {
-  background: var(--bg-alt);
-  border-color: rgba(23, 23, 23, 0.12);
-}
-
 .brief-picks-head,
-.list-head,
-.waytoagi-head {
+.list-head {
   padding: 16px 18px;
   display: flex;
   flex-wrap: nowrap;
@@ -1137,22 +1129,14 @@ summary:focus-visible {
   background: var(--surface);
 }
 
-/* WaytoAGI header 用對應的深檔底色 */
-.waytoagi-head {
-  background: var(--surface-alt);
-  border-bottom-color: rgba(23, 23, 23, 0.1);
-}
-
 .brief-picks-head h2,
-.list-head h2,
-.waytoagi-head h2 {
+.list-head h2 {
   margin: 0;
   font-size: 22px;
 }
 
 #briefPicksMeta,
-#resultCount,
-#waytoagiUpdatedAt {
+#resultCount {
   color: var(--muted);
   font-size: 13px;
   white-space: nowrap;
@@ -2490,111 +2474,13 @@ summary:focus-visible {
   min-height: 38px;
 }
 
-.waytoagi-tools {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.waytoagi-switch {
-  display: inline-flex;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  overflow: hidden;
-  background: var(--surface);
-}
-
-.waytoagi-btn {
-  min-height: 32px;
-  border: 0;
-  border-left: 1px solid var(--line);
-  background: transparent;
-  color: var(--muted);
-  padding: 0 10px;
-  font-size: 12px;
-}
-
-.waytoagi-btn:first-child {
-  border-left: 0;
-}
-
-.waytoagi-btn.active {
-  background: var(--accent);
-  color: #fff;
-  font-weight: 700;
-}
-
-.waytoagi-meta {
-  padding: 12px 16px 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  font-size: 12px;
-  color: var(--muted);
-}
-
-.waytoagi-meta a {
-  color: var(--accent);
-  text-decoration: none;
-}
-
-.waytoagi-list {
-  padding: 12px 16px 16px;
-  display: grid;
-  gap: 8px;
-}
-
-.waytoagi-item {
-  min-width: 0;
-  display: grid;
-  grid-template-columns: 76px minmax(0, 1fr);
-  gap: 8px;
-  text-decoration: none;
-  border: 1px solid rgba(23, 23, 23, 0.08);
-  border-radius: var(--radius);
-  padding: 8px 10px;
-  color: var(--ink);
-  background: var(--surface);   /* alt 版塊裡卡片用純白，形成內部層次 */
-}
-
-.waytoagi-item .d {
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.waytoagi-item .t {
-  min-width: 0;
-  font-size: 13px;
-  line-height: 1.35;
-  overflow-wrap: anywhere;
-}
-
-.waytoagi-empty,
-.waytoagi-error {
-  border-radius: var(--radius);
-  padding: 9px 10px;
-  font-size: 13px;
-}
-
-.waytoagi-empty {
-  border: 1px dashed var(--line);
-  color: var(--muted);
-}
-
-.waytoagi-error {
-  border: 1px solid rgba(180, 35, 24, 0.28);
-  background: rgba(180, 35, 24, 0.08);
-  color: var(--bad);
-}
-
 @media (max-width: 760px) {
   .shell {
     padding: 18px 12px 36px;
   }
 
   .hero,
-  .advanced-controls,
-  .waytoagi-head {
+  .advanced-controls {
     grid-template-columns: 1fr;
   }
 
@@ -2728,8 +2614,7 @@ summary:focus-visible {
     font-size: 12px;
   }
 
-  #resultCount,
-  #waytoagiUpdatedAt {
+  #resultCount {
     white-space: normal;
   }
 
@@ -2743,11 +2628,6 @@ summary:focus-visible {
 
   .time {
     margin-left: 0;
-  }
-
-  .waytoagi-head {
-    align-items: flex-start;
-    flex-direction: column;
   }
 
   .brief-picks-head {
@@ -2962,10 +2842,6 @@ summary:focus-visible {
     font-size: 14px;
   }
 
-  .waytoagi-tools {
-    align-items: flex-start;
-    flex-direction: column;
-  }
 }
 
 /* Motion layer */

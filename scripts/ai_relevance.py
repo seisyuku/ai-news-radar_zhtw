@@ -140,44 +140,14 @@ COMMERCE_NOISE_KEYWORDS = [
     "首发价",
 ]
 
-# feature/noise-gate: direct Hacker News fetching is already disabled
-# (hackernews removed from collect_all()'s task list), but aggregators
-# (techurls, iris, zeli, newsnow, buzzing, aihot, ...) still relay the same
-# HN stories under a "source" label naming Hacker News. Apply the same
-# exclusion decision to that forwarded content instead of letting it back in
-# through a different site_id.
-HN_FORWARDED_SOURCE_KEYWORDS = [
-    "hacker news",
-    "hackernews",
-    "黑客新闻",
-    "黑客新聞",
-    "駭客新聞",
-]
-
-# feature/noise-gate (2026-07-19): same "aggregator backdoor" shape as
-# HN_FORWARDED_SOURCE_KEYWORDS above, but keyed on the article's own URL
-# domain instead of the aggregator's "source" label text - the aggregator
-# label can be renamed/regeneric ("Info Flow"), but the publisher domain a
-# forwarded article resolves to is a hard fact. First entry: iris (Info
-# Flow) relays a full V2EX "创意工作者社区" board feed with no AI-specific
-# curation of its own; diagnosed 2026-07-19 at ~62% of that day's items_ai,
-# effectively all riding the has_ai floor (AI_RELEVANCE_THRESHOLD) with
-# almost no business-event badges - forum chatter that happens to name-drop
-# an AI tool, not AI news. iris itself is left untouched (a 7/21 source
-# review subject; this window's post-exclusion output is evidence for that
-# review), and this only blocks items_ai (see is_ai_related_record) - the
-# items_all raw view still shows excluded domains for transparency, same as
-# HN_FORWARDED_SOURCE_KEYWORDS. Expandable list: add a domain here (not a
-# new gate) if another aggregator backdoor surfaces.
 AGGREGATOR_BACKDOOR_EXCLUDED_DOMAINS = [
     "v2ex.com",
 ]
 
 # feature/tutorial-filter: how-to/tutorial content is not a business-event
 # news story regardless of how strong its AI keyword signal is, so this is
-# checked as a title-only hard exclusion ahead of every other collection-gate
-# rule (including the AI_DEFAULT_SOURCES/curated_media trusted-source
-# bypasses below) rather than folded into NOISE_KEYWORDS scoring.
+# checked as a title-only hard exclusion ahead of other collection-gate rules,
+# including curated-media trusted-source handling.
 #
 # English patterns are anchored to the start of the title (not a bare
 # substring match): "how to"/"guide to"/etc. appearing mid-headline is
@@ -261,36 +231,6 @@ UNSAFE_PROMO_PATTERNS = [
     re.compile(r"未经审查的图片|虚拟女友|色情内容|成人内容", re.I),
 ]
 
-TOPHUB_ALLOW_KEYWORDS = [
-    "readhub · ai",
-    "hacker news",
-    "github",
-    "product hunt",
-    "v2ex",
-    "少数派",
-    "infoq",
-    "36氪",
-    "机器之心",
-    "量子位",
-    "科技",
-    "人工智能",
-    "机器人",
-    "具身",
-    "开源",
-]
-
-TOPHUB_BLOCK_KEYWORDS = [
-    "热销总榜",
-    "淘宝",
-    "天猫",
-    "京东",
-    "拼多多",
-    "抖音",
-    "快手",
-    "微博",
-    "小红书",
-]
-
 EN_SIGNAL_RE = re.compile(
     r"(?i)(?<![a-z0-9])(ai|aigc|llm|gpt|openai|anthropic|deepseek|qwen|grok|xai|glm|kimi|gemini|claude|robot|robotics|embodied|autonomous|machine learning|artificial intelligence|transformer|diffusion|agent)(?![a-z0-9])"
 )
@@ -303,9 +243,6 @@ AI_RELEVANCE_THRESHOLD = 0.65
 SOURCE_PRIORS = {
     "official_ai": 0.35,
     "curated_media": 0.18,
-    "aihot": 0.45,
-    "aihubtoday": 0.45,
-    "followbuilders": 0.25,
     "opmlrss": 0.15,
     "xapi": 0.15,
     "socialdata_x": 0.15,
@@ -316,7 +253,6 @@ SOURCE_PRIORS = {
     "llm_rumors": 0.1,
     "runtimewire": 0.1,
 }
-AI_DEFAULT_SOURCES = {"aihot", "aihubtoday"}
 CURATED_MEDIA_TRUSTED_SOURCE_KEYWORDS = [
     "the decoder ai news",
     "techcrunch ai",
@@ -488,16 +424,6 @@ def score_ai_relevance(record: dict[str, Any]) -> dict[str, Any]:
             noise=matched_tutorial_title_signals(title),
         )
 
-    if contains_any_keyword(source, HN_FORWARDED_SOURCE_KEYWORDS):
-        return _result(
-            is_ai_related=False,
-            score=0.1,
-            label="source_scope_drop",
-            reason="hn_forwarded_source_excluded",
-            signals=ai_signals + tech_signals,
-            noise=noise,
-        )
-
     if any(url_host == d or url_host.endswith(f".{d}") for d in AGGREGATOR_BACKDOOR_EXCLUDED_DOMAINS):
         return _result(
             is_ai_related=False,
@@ -507,46 +433,6 @@ def score_ai_relevance(record: dict[str, Any]) -> dict[str, Any]:
             signals=ai_signals + tech_signals,
             noise=noise,
         )
-
-    if site_id == "zeli":
-        if "24h" in source.lower() or "24h最热" in source:
-            return _result(
-                is_ai_related=True,
-                score=max(AI_RELEVANCE_THRESHOLD, 0.62 + source_prior),
-                label="curated_hotlist",
-                reason="zeli_24h_hot_allowlist",
-                signals=["zeli_24h_hot"],
-                noise=noise,
-            )
-        return _result(
-            is_ai_related=False,
-            score=0.2,
-            label="source_scope_drop",
-            reason="zeli_only_keeps_24h_hot_source",
-            signals=ai_signals + tech_signals,
-            noise=noise,
-        )
-
-    if site_id == "tophub":
-        source_l = source.lower()
-        if contains_any_keyword(source_l, TOPHUB_BLOCK_KEYWORDS):
-            return _result(
-                is_ai_related=False,
-                score=0.05,
-                label="noise",
-                reason="tophub_blocked_channel",
-                signals=ai_signals + tech_signals,
-                noise=noise or matched_keywords(source_l, TOPHUB_BLOCK_KEYWORDS),
-            )
-        if not contains_any_keyword(source_l, TOPHUB_ALLOW_KEYWORDS):
-            return _result(
-                is_ai_related=False,
-                score=0.12,
-                label="source_scope_drop",
-                reason="tophub_channel_not_in_allowlist",
-                signals=ai_signals + tech_signals,
-                noise=noise,
-            )
 
     if site_id == "curated_media":
         source_l = source.lower()
@@ -595,16 +481,6 @@ def score_ai_relevance(record: dict[str, Any]) -> dict[str, Any]:
             label=label,
             reason="curated_media_source_filter",
             signals=ai_signals + tech_signals or ([source_l] if trusted_source else []),
-            noise=noise,
-        )
-
-    if site_id in AI_DEFAULT_SOURCES:
-        return _result(
-            is_ai_related=True,
-            score=max(AI_RELEVANCE_THRESHOLD, 0.72 + source_prior),
-            label=_label_for_text(text, bool(tech_signals)),
-            reason="trusted_ai_source_default_keep",
-            signals=ai_signals or [site_id],
             noise=noise,
         )
 

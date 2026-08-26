@@ -6,8 +6,8 @@ from scripts.ai_relevance import add_ai_relevance_fields, is_ai_related_record, 
 class AiRelevanceScoringTests(unittest.TestCase):
     def test_scores_strong_ai_signal_with_reason(self):
         rec = {
-            "site_id": "techurls",
-            "site_name": "TechURLs",
+            "site_id": "test_source",
+            "site_name": "Test Source",
             "source": "V2EX",
             "title": "OpenAI releases new GPT model",
             "url": "https://example.com/ai",
@@ -21,8 +21,8 @@ class AiRelevanceScoringTests(unittest.TestCase):
 
     def test_rejects_broad_model_without_tech_context(self):
         rec = {
-            "site_id": "buzzing",
-            "site_name": "Buzzing",
+            "site_id": "test_source",
+            "site_name": "Test Source",
             "source": "general",
             "title": "这个商业模型终于跑通了",
             "url": "https://example.com/model",
@@ -34,8 +34,8 @@ class AiRelevanceScoringTests(unittest.TestCase):
 
     def test_accepts_broad_ai_plus_tech_context(self):
         rec = {
-            "site_id": "techurls",
-            "site_name": "TechURLs",
+            "site_id": "test_source",
+            "site_name": "Test Source",
             "source": "GitHub",
             "title": "开源推理框架支持更多GPU后端",
             "url": "https://example.com/inference-gpu",
@@ -50,7 +50,7 @@ class AiRelevanceScoringTests(unittest.TestCase):
         rec = {
             "site_id": "opmlrss",
             "site_name": "OPML RSS",
-            "source": "BestBlogs.dev",
+            "source": "Example Blog",
             "title": "分层记忆：Agent 中的上下文管理",
             "url": "https://example.com/agent-context",
         }
@@ -58,19 +58,6 @@ class AiRelevanceScoringTests(unittest.TestCase):
         self.assertTrue(result["is_ai_related"])
         self.assertGreaterEqual(result["score"], 0.65)
         self.assertEqual(result["label"], "agent_workflow")
-
-    def test_trusted_ai_source_defaults_to_keep(self):
-        rec = {
-            "site_id": "aihot",
-            "site_name": "AI HOT",
-            "source": "AI HOT",
-            "title": "今日值得关注的产品更新",
-            "url": "https://aihot.virxact.com/post/1",
-        }
-        result = score_ai_relevance(rec)
-        self.assertTrue(result["is_ai_related"])
-        self.assertGreaterEqual(result["score"], 0.65)
-        self.assertEqual(result["reason"], "trusted_ai_source_default_keep")
 
     def test_rejects_explicit_adult_promotion_even_with_ai_keyword(self):
         rec = {
@@ -86,8 +73,8 @@ class AiRelevanceScoringTests(unittest.TestCase):
 
     def test_keeps_neutral_safety_news_with_single_adult_term(self):
         rec = {
-            "site_id": "techurls",
-            "site_name": "TechURLs",
+            "site_id": "test_source",
+            "site_name": "Test Source",
             "source": "AI policy",
             "title": "OpenAI publishes a safety policy for detecting AI-generated pornography",
             "url": "https://example.com/ai-safety-policy",
@@ -151,11 +138,11 @@ class AiRelevanceScoringTests(unittest.TestCase):
 
     def test_how_to_tutorial_is_excluded_even_from_default_ai_source(self):
         rec = {
-            "site_id": "aihot",
-            "site_name": "AI HOT",
-            "source": "AI HOT",
+            "site_id": "curated_media",
+            "site_name": "Curated Media",
+            "source": "Curated Media",
             "title": "How to fine-tune your own LLM in five easy steps",
-            "url": "https://aihot.virxact.com/post/2",
+            "url": "https://curated-media.example/post/2",
         }
         result = score_ai_relevance(rec)
         self.assertFalse(result["is_ai_related"])
@@ -200,8 +187,8 @@ class AiRelevanceScoringTests(unittest.TestCase):
 
     def test_non_tutorial_ai_news_is_not_caught_by_tutorial_filter(self):
         rec = {
-            "site_id": "techurls",
-            "site_name": "TechURLs",
+            "site_id": "test_source",
+            "site_name": "Test Source",
             "source": "V2EX",
             "title": "OpenAI releases new GPT model",
             "url": "https://example.com/ai",

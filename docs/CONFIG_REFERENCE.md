@@ -9,7 +9,7 @@
 ## 公開預設
 
 - GitHub Actions 每 30 分鐘嘗試更新一次。
-- 主要頁面使用 24 小時資料窗，archive 保留天數由 workflow 參數控制。
+- 所有讀者可見頁面使用 24 小時資料窗；archive 與去重快取可保留較久，僅供內部比對。
 - 沒有任何付費服務憑證時，官方來源、媒體來源與公開 OPML 範例仍可運作。
 - `feeds/follow.opml` 是私人檔案，不進版控；公開範本是
   `feeds/follow.example.opml`。
@@ -24,8 +24,6 @@
 | `SOCIALDATA_API_KEY` | 選用的 SocialData X 來源 |
 | `TIKHUB_API_KEY` | 選用的 TikHub 抖音／小紅書來源 |
 | `X_BEARER_TOKEN` | 選用的官方 X API demo |
-| `AGENTMAIL_API_KEY` | 選用的 metadata-only 郵件 digest |
-| `AGENTMAIL_INBOX_ID` | AgentMail inbox 識別碼 |
 | `GROQ_API_KEY` | 選用的重點新聞 AI 短摘要；預設模型為 `qwen/qwen3.6-27b` |
 
 Secret 值不得寫入 repo、Issue、log、截圖或驗收報告。
@@ -37,7 +35,6 @@ Secret 值不得寫入 repo、Issue、log、截圖或驗收報告。
 - `SOCIALDATA_ENABLED`
 - `TIKHUB_ENABLED`
 - `X_API_ENABLED`
-- `EMAIL_DIGEST_ENABLED`
 
 未設定不代表一定會呼叫服務；沒有對應 secret 時，adapter 必須安全跳過。
 
@@ -69,7 +66,6 @@ production 接線前必須完成 `OPERATIONS.md` 的 Gemini acceptance gates。
 - `TIKHUB_*`
 - `X_API_*`
 - `PAID_SOURCE_*`
-- `AGENTMAIL_*`
 - `BRIEF_*`
 
 修改時以常數名搜尋，不依賴文件中的歷史行號。第三方 API 的參數值與費率

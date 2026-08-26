@@ -176,13 +176,13 @@ class TestNormalFiveSourcesCapNotTriggered:
     def test_five_distinct_sources_pass_through_unchanged(self):
         result = _run(
             """
-            const sites = ['aibase', 'curated_media', 'tw_media', 'official_ai', 'iris'];
+            const sites = ['aibase', 'curated_media', 'tw_media', 'official_ai', 'test_source'];
             const rows = sites.map((s) => mk(s));
             const out = applyFeaturedSourceDiversityCap(rows, 5, 2);
             console.log(JSON.stringify({ seq: siteSeq(out) }));
             """
         )
-        assert result["seq"] == ["aibase", "curated_media", "tw_media", "official_ai", "iris"]
+        assert result["seq"] == ["aibase", "curated_media", "tw_media", "official_ai", "test_source"]
 
 
 if __name__ == "__main__":

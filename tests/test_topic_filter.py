@@ -5,23 +5,12 @@ from unittest.mock import patch
 
 from scripts.update_news import (
     add_bilingual_fields,
-    add_creator_ranking_fields,
     add_source_tier_fields,
-    build_agentmail_digest_payload,
-    build_creator_hot_items,
     build_latest_payloads,
     dedupe_items_by_title_url,
-    fetch_agentmail_digest,
-    fetch_aihot,
-    fetch_ai_hubtoday,
-    fetch_hacker_news_algolia,
     fetch_socialdata_list_tweets,
     fetch_tikhub_search,
-    hn_algolia_keyword_score,
     is_ai_related_record,
-    is_hubtoday_generic_anchor_title,
-    is_hubtoday_placeholder_title,
-    maybe_fetch_agentmail_digest,
     maybe_fetch_socialdata_updates,
     socialdata_status_base,
     maybe_fetch_tikhub_updates,
@@ -31,17 +20,12 @@ from scripts.update_news import (
     backfill_canonical_names,
     mask_canonical_names,
     normalize_source_for_display,
-    parse_ai_breakfast_items,
-    parse_aihot_api_items,
-    parse_aihot_feed_items,
     parse_curated_ai_media_feed_items,
     parse_date_any,
     parse_feed_entries_via_xml,
-    parse_hn_algolia_hits,
     parse_tikhub_douyin_items,
     parse_tikhub_xiaohongshu_items,
     parse_anthropic_news_items,
-    parse_follow_builders_items,
     parse_openai_codex_changelog_items,
     redact_public_text,
     repair_zh_title_translation,
@@ -76,8 +60,8 @@ class TopicFilterTests(unittest.TestCase):
 
     def test_accepts_ai_keyword(self):
         rec = {
-            "site_id": "techurls",
-            "site_name": "TechURLs",
+            "site_id": "test_source",
+            "site_name": "Test Source",
             "source": "V2EX",
             "title": "OpenAI releases new GPT model",
             "url": "https://example.com/ai",
@@ -96,28 +80,18 @@ class TopicFilterTests(unittest.TestCase):
 
     def test_accepts_robotics_keyword(self):
         rec = {
-            "site_id": "newsnow",
-            "site_name": "NewsNow",
+            "site_id": "test_source",
+            "site_name": "Test Source",
             "source": "technology",
             "title": "Embodied robotics gets new funding",
             "url": "https://example.com/robotics",
         }
         self.assertTrue(is_ai_related_record(rec))
 
-    def test_accepts_follow_builders_curated_feed(self):
-        rec = {
-            "site_id": "followbuilders",
-            "site_name": "Follow Builders",
-            "source": "Follow Builders · X · Andrej Karpathy",
-            "title": "A terse but useful Codex builder note",
-            "url": "https://x.com/karpathy/status/1",
-        }
-        self.assertTrue(is_ai_related_record(rec))
-
     def test_rejects_noise_topic(self):
         rec = {
-            "site_id": "tophub",
-            "site_name": "TopHub",
+            "site_id": "test_source",
+            "site_name": "Test Source",
             "source": "微博热搜",
             "title": "明星八卦今日热搜",
             "url": "https://example.com/noise",
@@ -126,65 +100,19 @@ class TopicFilterTests(unittest.TestCase):
 
     def test_rejects_commerce_noise(self):
         rec = {
-            "site_id": "tophub",
-            "site_name": "TopHub",
+            "site_id": "test_source",
+            "site_name": "Test Source",
             "source": "淘宝 ‧ 天猫 · 热销总榜",
             "title": "白象拌面任选加码 券后¥29.96",
             "url": "https://example.com/shop",
         }
         self.assertFalse(is_ai_related_record(rec))
 
-    def test_zeli_only_24h_hot(self):
-        keep = {
-            "site_id": "zeli",
-            "site_name": "Zeli",
-            "source": "V2EX · 24h最热",
-            "title": "AI Agent for code search",
-            "url": "https://example.com/a",
-        }
-        drop = {
-            "site_id": "zeli",
-            "site_name": "Zeli",
-            "source": "HN New",
-            "title": "AI Agent for code search",
-            "url": "https://example.com/b",
-        }
-        self.assertTrue(is_ai_related_record(keep))
-        self.assertFalse(is_ai_related_record(drop))
-
-    def test_hn_forwarded_source_excluded_even_via_zeli_24h_hot(self):
-        # feature/noise-gate: forwarded Hacker News content is excluded
-        # regardless of which aggregator relays it, even when it would
-        # otherwise qualify for zeli's 24h-hot allowlist.
+    def test_v2ex_domain_excluded_for_any_source(self):
+        # The URL-host exclusion is independent of source identity.
         rec = {
-            "site_id": "zeli",
-            "site_name": "Zeli",
-            "source": "Hacker News · 24h最热",
-            "title": "AI Agent for code search",
-            "url": "https://example.com/a",
-        }
-        self.assertFalse(is_ai_related_record(rec))
-
-    def test_hn_forwarded_source_excluded_across_variants(self):
-        variants = ["Hacker News", "hackernews", "Hacker News (黑客新闻)", "黑客新闻热榜"]
-        for source in variants:
-            rec = {
-                "site_id": "techurls",
-                "site_name": "TechURLs",
-                "source": source,
-                "title": "OpenAI releases new GPT model",
-                "url": f"https://example.com/{source}",
-            }
-            self.assertFalse(is_ai_related_record(rec), f"expected {source!r} to be excluded")
-
-    def test_v2ex_domain_excluded_even_via_iris_aggregator(self):
-        # feature/noise-gate (2026-07-19): iris (Info Flow) relays a full
-        # V2EX community-board feed with no AI-specific curation; excluded
-        # by URL domain regardless of the aggregator's own source label,
-        # same shape as the HN-forwarded-source keyword check above.
-        rec = {
-            "site_id": "iris",
-            "site_name": "Info Flow",
+            "site_id": "test_source",
+            "site_name": "Test Source",
             "source": "V2EX (创意工作者社区)",
             "title": "[分享創造] 用 AI 給我基於真的終端搓了個假的終端",
             "url": "https://www.v2ex.com/t/1228366",
@@ -195,9 +123,9 @@ class TopicFilterTests(unittest.TestCase):
         # A URL host that merely contains "v2ex.com" as a substring (not the
         # actual domain or a subdomain of it) must not be excluded.
         rec = {
-            "site_id": "iris",
-            "site_name": "Info Flow",
-            "source": "Info Flow",
+            "site_id": "test_source",
+            "site_name": "Test Source",
+            "source": "Test Source",
             "title": "OpenAI releases new GPT model",
             "url": "https://not-v2ex.com.example.net/article",
         }
@@ -205,136 +133,23 @@ class TopicFilterTests(unittest.TestCase):
 
     def test_v2ex_subdomain_also_excluded(self):
         rec = {
-            "site_id": "iris",
-            "site_name": "Info Flow",
-            "source": "Info Flow",
+            "site_id": "test_source",
+            "site_name": "Test Source",
+            "source": "Test Source",
             "title": "OpenAI releases new GPT model",
             "url": "https://www.v2ex.com/go/ai",
         }
         self.assertFalse(is_ai_related_record(rec))
 
-    def test_v2ex_exclusion_does_not_affect_other_iris_content(self):
+    def test_v2ex_exclusion_does_not_affect_other_content(self):
         rec = {
-            "site_id": "iris",
-            "site_name": "Info Flow",
-            "source": "Info Flow",
+            "site_id": "test_source",
+            "site_name": "Test Source",
+            "source": "Test Source",
             "title": "OpenAI releases new GPT model",
             "url": "https://example.com/openai-gpt-model",
         }
         self.assertTrue(is_ai_related_record(rec))
-
-    def test_hn_algolia_keyword_score_requires_multiple_signals(self):
-        self.assertGreaterEqual(hn_algolia_keyword_score("OpenAI releases Codex agent tools"), 0.38)
-        self.assertLess(hn_algolia_keyword_score("OpenAI announces a policy update"), 0.38)
-
-    def test_parse_hn_algolia_hits_filters_and_dedupes_discussion_items(self):
-        now = datetime(2026, 6, 23, 12, 0, tzinfo=timezone.utc)
-        payloads = [
-            (
-                "OpenAI",
-                {
-                    "hits": [
-                        {
-                            "objectID": "1",
-                            "title": "OpenAI releases Codex agent tools",
-                            "url": "https://example.com/codex",
-                            "created_at": "2026-06-23T10:00:00Z",
-                            "num_comments": 5,
-                            "points": 11,
-                        },
-                        {
-                            "objectID": "2",
-                            "title": "OpenAI announces a policy update",
-                            "url": "https://example.com/policy",
-                            "created_at": "2026-06-23T09:00:00Z",
-                            "num_comments": 20,
-                            "points": 50,
-                        },
-                        {
-                            "objectID": "3",
-                            "title": "MCP server benchmark for coding agents",
-                            "created_at_i": 1782210600,
-                            "num_comments": 1,
-                            "points": 8,
-                        },
-                    ]
-                },
-            ),
-            (
-                "Codex",
-                {
-                    "hits": [
-                        {
-                            "objectID": "1",
-                            "title": "OpenAI releases Codex agent tools",
-                            "url": "https://duplicate.example.com/codex",
-                            "created_at": "2026-06-23T10:00:00Z",
-                            "num_comments": 99,
-                            "points": 99,
-                        },
-                        {
-                            "objectID": "4",
-                            "title": "MCP server benchmark for coding agents",
-                            "created_at_i": 1782210600,
-                            "num_comments": 2,
-                            "points": 10,
-                        },
-                    ]
-                },
-            ),
-        ]
-
-        items = parse_hn_algolia_hits(payloads, now)
-
-        self.assertEqual([item.meta["hn_id"] for item in items], ["1", "4"])
-        self.assertEqual(items[0].site_id, "hackernews")
-        self.assertEqual(items[0].site_name, "Hacker News")
-        self.assertEqual(items[0].source, "HN Algolia · AI 24h")
-        self.assertEqual(items[0].meta["hn_url"], "https://news.ycombinator.com/item?id=1")
-        self.assertEqual(items[1].url, "https://news.ycombinator.com/item?id=4")
-
-    def test_fetch_hn_algolia_uses_public_search_by_date_api(self):
-        now = datetime(2026, 6, 23, 12, 0, tzinfo=timezone.utc)
-
-        class FakeResponse:
-            def raise_for_status(self):
-                return None
-
-            def json(self):
-                return {
-                    "hits": [
-                        {
-                            "objectID": "1",
-                            "title": "OpenAI releases Codex agent tools",
-                            "url": "https://example.com/codex",
-                            "created_at": "2026-06-23T10:00:00Z",
-                            "num_comments": 5,
-                            "points": 11,
-                        }
-                    ]
-                }
-
-        class FakeSession:
-            def __init__(self):
-                self.calls = []
-
-            def get(self, url, **kwargs):
-                self.calls.append((url, kwargs))
-                return FakeResponse()
-
-        session = FakeSession()
-        with patch("scripts.update_news.HN_ALGOLIA_QUERIES", ("OpenAI",)), patch("scripts.update_news.time.sleep"):
-            items = fetch_hacker_news_algolia(session, now)
-
-        self.assertEqual(len(items), 1)
-        self.assertEqual(session.calls[0][0], "https://hn.algolia.com/api/v1/search_by_date")
-        self.assertEqual(session.calls[0][1]["params"]["query"], "OpenAI")
-        self.assertEqual(session.calls[0][1]["params"]["tags"], "story")
-        self.assertEqual(session.calls[0][1]["params"]["numericFilters"], "created_at_i>1782129600")
-
-    def test_buzzing_source_fallback_to_host(self):
-        source = normalize_source_for_display("buzzing", "Buzzing", "https://news.ycombinator.com/item?id=1")
-        self.assertEqual(source, "news.ycombinator.com")
 
     def test_fix_mojibake(self):
         raw = "è°å¨ç¼åä»£ç "
@@ -387,79 +202,6 @@ class TopicFilterTests(unittest.TestCase):
         self.assertEqual(items[0].source, "OpenAI Codex Changelog")
         self.assertEqual(items[0].title, "Codex app adds workspace companions")
         self.assertEqual(items[0].url, "https://developers.openai.com/codex/changelog#codex-2026-05-01")
-
-    def test_parse_ai_breakfast_items(self):
-        markdown = """
-        [May 1, 2026 • 4 min read ### **Anthropic update lands** AI Breakfast](https://aibreakfast.beehiiv.com/p/anthropic-update-lands)
-        [Apr 29, 2026 • 5 min read ### **OpenAI ships a model update** AI Breakfast](https://aibreakfast.beehiiv.com/p/openai-ships-model-update)
-        """
-        items = parse_ai_breakfast_items(markdown, now=None)
-        self.assertEqual(len(items), 2)
-        self.assertEqual(items[0].source, "AI Breakfast")
-        self.assertEqual(items[0].title, "Anthropic update lands")
-        self.assertEqual(items[0].url, "https://aibreakfast.beehiiv.com/p/anthropic-update-lands")
-
-    def test_parse_aihot_feed_items(self):
-        xml = """<?xml version='1.0' encoding='UTF-8'?>
-<rss><channel><title>AI HOT — 精选</title>
-<item>
-<title>OpenAI ships a new Codex feature</title>
-<link>https://example.com/codex</link>
-<pubDate>Mon, 11 May 2026 02:05:04 GMT</pubDate>
-<author>noreply@aihot.virxact.com (X：Builder)</author>
-</item>
-</channel></rss>""".encode("utf-8")
-        items = parse_aihot_feed_items(xml, now=None)
-        self.assertEqual(len(items), 1)
-        self.assertEqual(items[0].site_id, "aihot")
-        self.assertEqual(items[0].site_name, "AI HOT")
-        self.assertEqual(items[0].title, "OpenAI ships a new Codex feature")
-        self.assertEqual(items[0].url, "https://example.com/codex")
-
-    def test_parse_aihot_api_items_keeps_only_score_60_plus(self):
-        payload = {
-            "items": [
-                {
-                    "id": "high",
-                    "title": "高分条目",
-                    "title_en": "High score item",
-                    "url": "https://example.com/high",
-                    "source": "OpenAI Blog",
-                    "publishedAt": "2026-06-16T19:35:22.252Z",
-                    "summary": "Worth reading",
-                    "category": "ai-models",
-                    "score": 60,
-                    "selected": True,
-                },
-                {
-                    "id": "low",
-                    "title": "Low score item",
-                    "url": "https://example.com/low",
-                    "source": "Blog",
-                    "publishedAt": "2026-06-16T18:00:00.000Z",
-                    "score": 59,
-                    "selected": True,
-                },
-                {
-                    "id": "missing",
-                    "title": "Missing score item",
-                    "url": "https://example.com/missing",
-                    "source": "Blog",
-                    "publishedAt": "2026-06-16T18:00:00.000Z",
-                    "score": None,
-                    "selected": True,
-                },
-            ]
-        }
-
-        items = parse_aihot_api_items(payload, now=datetime(2026, 6, 16, tzinfo=timezone.utc))
-        self.assertEqual(len(items), 1)
-        self.assertEqual(items[0].title, "高分条目")
-        self.assertEqual(items[0].source, "OpenAI Blog")
-        self.assertEqual(items[0].meta["aihot_score"], 60)
-        self.assertEqual(items[0].meta["aihot_category"], "ai-models")
-        self.assertEqual(items[0].meta["provided_title_zh"], "高分条目")
-        self.assertEqual(items[0].meta["provided_title_en"], "High score item")
 
     def test_bilingual_fields_preserve_source_provided_title_pair_and_summary(self):
         class NoNetworkSession:
@@ -1091,73 +833,6 @@ class TopicFilterTests(unittest.TestCase):
         self.assertIn("Kimi", title_zh)
         self.assertIn("Fable 5", title_zh)
 
-    def test_fetch_aihot_uses_public_items_api_with_score_filter(self):
-        page_1 = {
-            "items": [
-                {
-                    "id": "page1",
-                    "title": "Page one strong item",
-                    "url": "https://example.com/page-1",
-                    "source": "AI HOT Source",
-                    "publishedAt": "2026-06-16T19:35:22.252Z",
-                    "score": 88,
-                    "selected": True,
-                },
-                {
-                    "id": "page1-low",
-                    "title": "Page one low item",
-                    "url": "https://example.com/page-1-low",
-                    "source": "AI HOT Source",
-                    "publishedAt": "2026-06-16T19:35:22.252Z",
-                    "score": 40,
-                    "selected": True,
-                },
-            ],
-            "hasNext": True,
-            "nextCursor": "cursor-2",
-        }
-        page_2 = {
-            "items": [
-                {
-                    "id": "page2",
-                    "title": "Page two boundary item",
-                    "url": "https://example.com/page-2",
-                    "source": "AI HOT Source",
-                    "publishedAt": "2026-06-16T19:36:22.252Z",
-                    "score": 60,
-                    "selected": True,
-                }
-            ],
-            "hasNext": False,
-            "nextCursor": None,
-        }
-
-        class FakeResponse:
-            def __init__(self, payload):
-                self.payload = payload
-
-            def raise_for_status(self):
-                return None
-
-            def json(self):
-                return self.payload
-
-        class FakeSession:
-            def __init__(self):
-                self.calls = []
-
-            def get(self, url, **kwargs):
-                self.calls.append((url, kwargs))
-                return FakeResponse(page_1 if len(self.calls) == 1 else page_2)
-
-        session = FakeSession()
-        items = fetch_aihot(session, now=datetime(2026, 6, 16, tzinfo=timezone.utc))
-        self.assertEqual([item.title for item in items], ["Page one strong item", "Page two boundary item"])
-        self.assertEqual(session.calls[0][0], "https://aihot.virxact.com/api/public/items")
-        self.assertEqual(session.calls[0][1]["params"], {"mode": "selected", "take": 100})
-        self.assertEqual(session.calls[1][1]["params"], {"mode": "selected", "take": 100, "cursor": "cursor-2"})
-        self.assertIn("aihot-skill/0.2.0", session.calls[0][1]["headers"]["User-Agent"])
-
     def test_parse_curated_media_feed_applies_strict_title_filter_and_cap(self):
         xml = """<?xml version='1.0' encoding='UTF-8'?>
 <rss><channel><title>The Verge</title>
@@ -1185,59 +860,6 @@ class TopicFilterTests(unittest.TestCase):
         self.assertEqual(items[0].source, "The Verge")
         self.assertIn("OpenAI", items[0].title)
 
-    def test_parse_follow_builders_items(self):
-        feeds = {
-            "x": {
-                "x": [
-                    {
-                        "name": "Andrej Karpathy",
-                        "handle": "karpathy",
-                        "tweets": [
-                            {
-                                "text": "LLM notes from the field",
-                                "createdAt": "2026-05-02T06:21:22.000Z",
-                                "url": "https://x.com/karpathy/status/1",
-                            }
-                        ],
-                    }
-                ]
-            },
-            "blogs": {
-                "generatedAt": "2026-05-02T07:41:11.599Z",
-                "blogs": [
-                    {
-                        "name": "Anthropic Engineering",
-                        "title": "A Claude Code postmortem",
-                        "url": "https://www.anthropic.com/engineering/postmortem",
-                        "publishedAt": None,
-                    }
-                ],
-            },
-            "podcasts": {
-                "podcasts": [
-                    {
-                        "name": "No Priors",
-                        "title": "Inference cloud interview",
-                        "url": "https://www.youtube.com/watch?v=abc",
-                        "publishedAt": "2026-05-01T19:34:00.000Z",
-                    }
-                ]
-            },
-        }
-        items = parse_follow_builders_items(feeds, now=None)
-        self.assertEqual(len(items), 3)
-        self.assertEqual(items[0].site_id, "followbuilders")
-        self.assertEqual(items[0].source, "Follow Builders · X · Andrej Karpathy")
-        self.assertEqual(items[1].source, "Follow Builders · Blog · Anthropic Engineering")
-        self.assertEqual(items[2].source, "Follow Builders · Podcast · No Priors")
-
-    def test_hubtoday_placeholder_title(self):
-        self.assertTrue(is_hubtoday_placeholder_title("详情见官方介绍(AI资讯)"))
-        self.assertTrue(is_hubtoday_placeholder_title("查看详情"))
-        self.assertFalse(is_hubtoday_placeholder_title("OpenAI 发布 GPT-5o"))
-        self.assertTrue(is_hubtoday_generic_anchor_title("论文已公开(AI资讯)"))
-        self.assertFalse(is_hubtoday_generic_anchor_title("Anthropic禁止第三方调用订阅。"))
-
     def test_dedupe_items_by_title_url_latest(self):
         items = [
             {
@@ -1261,8 +883,8 @@ class TopicFilterTests(unittest.TestCase):
 
     def test_rejects_broad_agent_noise_without_ai_context(self):
         rec = {
-            "site_id": "buzzing",
-            "site_name": "Buzzing",
+            "site_id": "test_source",
+            "site_name": "Test Source",
             "source": "github.com",
             "title": "New travel agent marketplace launches in Europe",
             "url": "https://example.com/travel-agent",
@@ -1271,8 +893,8 @@ class TopicFilterTests(unittest.TestCase):
 
     def test_accepts_chinese_model_news_after_noise_tightening(self):
         rec = {
-            "site_id": "tophub",
-            "site_name": "TopHub",
+            "site_id": "test_source",
+            "site_name": "Test Source",
             "source": "机器之心",
             "title": "新一代推理模型刷新多模态数学基准",
             "url": "https://example.com/reasoning-model",
@@ -1303,155 +925,6 @@ class TopicFilterTests(unittest.TestCase):
         self.assertEqual(slim["stories_data_url"], "data/stories-merged.json")
         self.assertEqual(all_payload["items_all"][0]["title"], "All post")
         self.assertEqual(all_payload["items_all_raw"][0]["title"], "Raw post")
-
-    def test_agentmail_digest_strips_body_addresses_and_secrets(self):
-        payload = build_agentmail_digest_payload(
-            [
-                {
-                    "message_id": "msg_private_1",
-                    "timestamp": "2026-05-03T00:00:00Z",
-                    "from": "Private Sender <newsletter@example.com>",
-                    "to": ["reader@personal.example"],
-                    "subject": "OpenAI update for reader@personal.example",
-                    "preview": "New model notes. token=supersecret123 and contact reader@personal.example",
-                    "text": "FULL PRIVATE BODY SHOULD NOT SHIP",
-                    "html": "<p>FULL PRIVATE HTML SHOULD NOT SHIP</p>",
-                    "extracted_text": "EXTRACTED BODY SHOULD NOT SHIP",
-                    "labels": ["newsletter", "private-client"],
-                    "attachments": [{"filename": "deck.pdf"}],
-                }
-            ],
-            generated_at="2026-05-03T01:00:00Z",
-            window_hours=24,
-        )
-        item = payload["items"][0]
-        dumped = str(payload)
-        self.assertEqual(payload["privacy"], "metadata_only_no_body")
-        self.assertEqual(item["sender_domain"], "example.com")
-        self.assertIn("[redacted-email]", item["subject"])
-        self.assertIn("[redacted-secret]", item["preview"])
-        self.assertTrue(item["has_attachments"])
-        self.assertNotIn("newsletter@example.com", dumped)
-        self.assertNotIn("reader@personal.example", dumped)
-        self.assertNotIn("FULL PRIVATE BODY", dumped)
-        self.assertNotIn("EXTRACTED BODY", dumped)
-        self.assertNotIn("private-client", dumped)
-
-    def test_agentmail_digest_can_filter_single_sender_domain(self):
-        payload = build_agentmail_digest_payload(
-            [
-                {
-                    "message_id": "msg_alpha",
-                    "timestamp": "2026-05-03T00:00:00Z",
-                    "from": "AlphaSignal <daily@mail.alphasignal.ai>",
-                    "subject": "AI research digest",
-                    "preview": "New papers and repos",
-                },
-                {
-                    "message_id": "msg_other",
-                    "timestamp": "2026-05-03T00:00:00Z",
-                    "from": "Other Newsletter <news@example.com>",
-                    "subject": "Should not be included",
-                    "preview": "Noise",
-                },
-            ],
-            generated_at="2026-05-03T01:00:00Z",
-            window_hours=24,
-            allowed_sender_domains=["alphasignal.ai"],
-        )
-        self.assertEqual(payload["allowed_sender_domains"], ["alphasignal.ai"])
-        self.assertEqual(payload["total_messages"], 1)
-        self.assertEqual(payload["items"][0]["sender_domain"], "mail.alphasignal.ai")
-        self.assertIn("AI research digest", payload["items"][0]["subject"])
-
-    def test_fetch_agentmail_digest_uses_list_messages_endpoint_only(self):
-        class FakeResponse:
-            def raise_for_status(self):
-                return None
-
-            def json(self):
-                return {
-                    "messages": [
-                        {
-                            "message_id": "msg_2",
-                            "timestamp": "2026-05-03T00:00:00Z",
-                            "from": "AI Newsletter <news@example.com>",
-                            "subject": "Claude ships a new feature",
-                            "preview": "Short public-ish preview",
-                        }
-                    ]
-                }
-
-        class FakeSession:
-            def __init__(self):
-                self.calls = []
-
-            def get(self, url, **kwargs):
-                self.calls.append((url, kwargs))
-                return FakeResponse()
-
-        session = FakeSession()
-        payload = fetch_agentmail_digest(
-            session,
-            api_key="test-key",
-            inbox_id="inbox_123",
-            generated_at="2026-05-03T01:00:00Z",
-            after="2026-05-02T01:00:00Z",
-            limit=10,
-            base_url="https://api.agentmail.to",
-        )
-        self.assertEqual(len(session.calls), 1)
-        url, kwargs = session.calls[0]
-        self.assertEqual(url, "https://api.agentmail.to/v0/inboxes/inbox_123/messages")
-        self.assertEqual(kwargs["headers"]["Authorization"], "Bearer test-key")
-        self.assertEqual(kwargs["params"]["after"], "2026-05-02T01:00:00Z")
-        self.assertNotIn("raw", url)
-        self.assertEqual(payload["items"][0]["sender_domain"], "example.com")
-
-    def test_agentmail_default_off_does_not_request_network(self):
-        class NoNetworkSession:
-            def __init__(self):
-                self.calls = 0
-
-            def get(self, *args, **kwargs):
-                self.calls += 1
-                raise AssertionError("AgentMail should stay offline unless explicitly enabled")
-
-        session = NoNetworkSession()
-        with patch.dict("os.environ", {}, clear=True):
-            payload, status = maybe_fetch_agentmail_digest(
-                session,
-                generated_at="2026-05-03T01:00:00Z",
-                after="2026-05-02T01:00:00Z",
-                window_hours=24,
-            )
-        self.assertIsNone(payload)
-        self.assertFalse(status["enabled"])
-        self.assertIsNone(status["ok"])
-        self.assertEqual(session.calls, 0)
-
-    def test_agentmail_enabled_without_credentials_does_not_request_network(self):
-        class NoNetworkSession:
-            def __init__(self):
-                self.calls = 0
-
-            def get(self, *args, **kwargs):
-                self.calls += 1
-                raise AssertionError("AgentMail should not fetch without full credentials")
-
-        session = NoNetworkSession()
-        with patch.dict("os.environ", {"EMAIL_DIGEST_ENABLED": "1"}, clear=True):
-            payload, status = maybe_fetch_agentmail_digest(
-                session,
-                generated_at="2026-05-03T01:00:00Z",
-                after="2026-05-02T01:00:00Z",
-                window_hours=24,
-            )
-        self.assertIsNone(payload)
-        self.assertTrue(status["enabled"])
-        self.assertFalse(status["ok"])
-        self.assertEqual(status["error"], "missing_agentmail_credentials")
-        self.assertEqual(session.calls, 0)
 
     def test_x_api_default_off_does_not_request_network(self):
         class NoNetworkSession:
@@ -1550,18 +1023,7 @@ class TopicFilterTests(unittest.TestCase):
         self.assertEqual(url, "https://api.x.com/2/tweets/search/recent")
         self.assertEqual(kwargs["params"]["max_results"], 10)
 
-    def test_source_tiers_separate_discussion_signals_from_core_sources(self):
-        self.assertEqual(source_tier_for_site("official_ai")["source_tier"], "official")
-        self.assertEqual(source_tier_for_site("aihot")["source_tier"], "ai_vertical")
-        self.assertEqual(source_tier_for_site("curated_media")["source_tier"], "ai_media")
-        self.assertEqual(source_tier_for_site("followbuilders")["source_tier"], "builders")
-        self.assertEqual(source_tier_for_site("opmlrss:abc123")["source_tier"], "user_opml")
-        self.assertEqual(source_tier_for_site("socialdata_x")["source_tier"], "advanced")
-        self.assertEqual(source_tier_for_site("tikhub_xiaohongshu")["source_tier"], "self_media")
-        self.assertEqual(source_tier_for_site("zeli")["source_tier"], "discussion")
-        self.assertEqual(source_tier_for_site("newsnow")["source_tier_label"], "熱議參考")
-
-    def test_source_tier_fields_and_sort_put_discussion_after_core_sources(self):
+    def test_source_tier_fields_and_sort_put_opml_after_core_sources(self):
         official = add_source_tier_fields(
             {
                 "site_id": "official_ai",
@@ -1572,19 +1034,19 @@ class TopicFilterTests(unittest.TestCase):
                 "published_at": "2026-05-03T00:00:00Z",
             }
         )
-        discussion = add_source_tier_fields(
+        opml = add_source_tier_fields(
             {
-                "site_id": "zeli",
-                "site_name": "Zeli",
-                "source": "Hacker News · 24h最热",
-                "title": "AI tool discussion",
-                "url": "https://example.com/hn",
+                "site_id": "opmlrss",
+                "site_name": "OPML RSS",
+                "source": "Reader feed",
+                "title": "AI tool update",
+                "url": "https://example.com/opml",
                 "published_at": "2026-05-03T01:00:00Z",
             }
         )
         self.assertEqual(official["source_tier_label"], "官方一手源")
-        self.assertEqual(discussion["source_tier_label"], "熱議參考")
-        self.assertLess(source_tier_sort_key(official), source_tier_sort_key(discussion))
+        self.assertEqual(opml["source_tier_label"], "RSS/OPML")
+        self.assertLess(source_tier_sort_key(official), source_tier_sort_key(opml))
 
     def test_dedupe_prefers_core_source_over_newer_discussion_duplicate(self):
         official = add_source_tier_fields(
@@ -1601,8 +1063,8 @@ class TopicFilterTests(unittest.TestCase):
         discussion = add_source_tier_fields(
             {
                 "id": "discussion",
-                "site_id": "zeli",
-                "site_name": "Zeli",
+                "site_id": "test_source",
+                "site_name": "Test Source",
                 "source": "Hacker News · 24h最热",
                 "title": "OpenAI ships a model",
                 "url": "https://example.com/same",
@@ -1611,45 +1073,6 @@ class TopicFilterTests(unittest.TestCase):
         )
         deduped = dedupe_items_by_title_url([discussion, official], random_pick=False)
         self.assertEqual(deduped[0]["id"], "official")
-
-    def test_fetch_ai_hubtoday_parses_rss_feed(self):
-        # ai.hubtoday.app moved to hex2077.dev; we now read its RSS feed.
-        rss = (
-            '<?xml version="1.0" encoding="UTF-8"?>'
-            '<rss version="2.0"><channel><title>hex2077</title>'
-            '<item><title>AI 资讯日报 2026/6/20 多家发布</title>'
-            '<link>https://hex2077.dev/docs/2026-06/2026-06-20/</link>'
-            '<pubDate>Sat, 20 Jun 2026 00:00:00 GMT</pubDate></item>'
-            '<item><title>AI 深度信号周报 W24</title>'
-            '<link>https://hex2077.dev/blog/weekly/2026-w24/</link>'
-            '<pubDate>Fri, 19 Jun 2026 10:00:00 GMT</pubDate></item>'
-            '</channel></rss>'
-        ).encode("utf-8")
-
-        class FakeResponse:
-            content = rss
-
-            def raise_for_status(self):
-                return None
-
-        class FakeSession:
-            def __init__(self):
-                self.calls = []
-
-            def get(self, url, **kwargs):
-                self.calls.append(url)
-                return FakeResponse()
-
-        session = FakeSession()
-        items = fetch_ai_hubtoday(
-            session,
-            __import__("datetime").datetime.fromisoformat("2026-06-20T12:00:00+00:00"),
-        )
-        self.assertEqual(len(items), 2)
-        self.assertTrue(all(i.site_id == "aihubtoday" for i in items))
-        self.assertEqual(items[0].url, "https://hex2077.dev/docs/2026-06/2026-06-20/")
-        self.assertIsNotNone(items[0].published_at)
-        self.assertEqual(session.calls[0], "https://hex2077.dev/rss-zh-CN.xml")
 
     def test_socialdata_default_off_does_not_request_network(self):
         class NoNetworkSession:
@@ -2382,61 +1805,6 @@ class TopicFilterTests(unittest.TestCase):
             items[0].published_at,
             __import__("datetime").datetime.fromtimestamp(int(note_id[:8], 16), tz=timezone.utc),
         )
-
-    def test_creator_hot_ranking_keeps_heat_primary_and_adds_24h_bonus(self):
-        import datetime as _dt
-
-        now = _dt.datetime.fromisoformat("2026-06-22T01:30:00+00:00")
-        hot_week_item = add_creator_ranking_fields(
-            {
-                "site_id": "tikhub_xiaohongshu",
-                "published_at": (now - _dt.timedelta(days=3)).isoformat(),
-                "creator_metrics": {"likes": 2800, "comments": 70, "collects": 3600, "shares": 1400},
-            },
-            now,
-        )
-        fresh_low_item = add_creator_ranking_fields(
-            {
-                "site_id": "tikhub_xiaohongshu",
-                "published_at": (now - _dt.timedelta(hours=1)).isoformat(),
-                "creator_metrics": {"likes": 2, "comments": 0, "collects": 0, "shares": 0},
-            },
-            now,
-        )
-
-        self.assertEqual(hot_week_item["creator_freshness_bonus"], 0)
-        self.assertEqual(fresh_low_item["creator_freshness_bonus"], 15)
-        self.assertGreater(hot_week_item["creator_hot_score"], fresh_low_item["creator_hot_score"])
-
-    def test_build_creator_hot_items_uses_seven_day_window_and_hot_score_order(self):
-        import datetime as _dt
-
-        now = _dt.datetime.fromisoformat("2026-06-22T01:30:00+00:00")
-
-        def record(item_id, age, likes):
-            return {
-                "id": item_id,
-                "site_id": "tikhub_xiaohongshu",
-                "site_name": "TikHub Xiaohongshu",
-                "source": "AI作者",
-                "title": f"OpenAI 热门内容 {item_id}",
-                "url": f"https://example.com/{item_id}",
-                "published_at": (now - age).isoformat(),
-                "first_seen_at": now.isoformat(),
-                "last_seen_at": now.isoformat(),
-                "creator_metrics": {"likes": likes, "comments": 0, "collects": 0, "shares": 0},
-            }
-
-        archive = {
-            "week-hot": record("week-hot", _dt.timedelta(days=3), 2000),
-            "fresh-low": record("fresh-low", _dt.timedelta(hours=1), 2),
-            "stale": record("stale", _dt.timedelta(days=8), 99999),
-        }
-
-        items = build_creator_hot_items(archive, now, ai_only=True)
-
-        self.assertEqual([item["id"] for item in items], ["week-hot", "fresh-low"])
-        self.assertGreater(items[0]["creator_hot_score"], items[1]["creator_hot_score"])
 
     def test_parse_tikhub_xiaohongshu_accepts_millisecond_api_time(self):
         import datetime as _dt

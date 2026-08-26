@@ -33,8 +33,8 @@
 - v1 已加入低權重模型查漏與分析觀察源：LLM Stats `latestModels`、
   LLM Rumors RSS、RuntimeWire 聚焦 RSS。
 - 補齊模型版本識別，避免 Qwen、GLM、Kimi 等不同版本錯誤聚合。
-- v1 已在「模型」分頁加入七日 atomic 發布資料，保留真實 release date，
-  不把舊發布偽裝成 24 小時新消息。
+- 已統一「模型」分頁的 atomic 發布資料為 24 小時窗口，保留真實 release
+  date，不把舊發布偽裝成新消息。
 - 已完成：首頁事件式「LLM 發布雷達」，在 24 小時內出現新模型時才顯示；
   結構化價格／免費額度異動集中在市場區，兩者皆不改寫全域排序。
 - 待辦：把 benchmark、價格/API、部署、商業採用與安全分析掛到同一

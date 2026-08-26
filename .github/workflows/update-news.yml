@@ -179,12 +179,6 @@ jobs:
 
       - name: Update data
         env:
-          EMAIL_DIGEST_ENABLED: ${{ secrets.EMAIL_DIGEST_ENABLED || vars.EMAIL_DIGEST_ENABLED }}
-          AGENTMAIL_API_KEY: ${{ secrets.AGENTMAIL_API_KEY }}
-          AGENTMAIL_INBOX_ID: ${{ secrets.AGENTMAIL_INBOX_ID }}
-          AGENTMAIL_API_BASE_URL: ${{ vars.AGENTMAIL_API_BASE_URL }}
-          AGENTMAIL_LIMIT: ${{ vars.AGENTMAIL_LIMIT }}
-          AGENTMAIL_ALLOWED_SENDER_DOMAINS: ${{ vars.AGENTMAIL_ALLOWED_SENDER_DOMAINS }}
           # Paid X/social sources (X API, SocialData, TikHub): keys live in
           # secrets; optional tuning variables override code defaults.
           # Policy is key-first: a key present => the source runs; ENABLED is
@@ -233,19 +227,13 @@ jobs:
           fi
 
       - name: Commit and push changes
-        env:
-          EMAIL_DIGEST_PUBLISH: ${{ secrets.EMAIL_DIGEST_PUBLISH || vars.EMAIL_DIGEST_PUBLISH }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           # Stage the whole data dir so newly added output files can never be
           # silently dropped again (the daily-brief/stories-merged freeze was
-          # caused by a stale filename whitelist here). .gitignore keeps
-          # data/email-digest.json out of this add.
+          # caused by a stale filename whitelist here).
           git add data/
-          if [ -f data/email-digest.json ] && [ "$EMAIL_DIGEST_PUBLISH" = "1" ]; then
-            git add -f data/email-digest.json
-          fi
           # Self-check: fail loudly if anything under data/ is still unstaged,
           # instead of green-but-stale runs.
           if [ -n "$(git status --porcelain --untracked-files=all -- data/ | grep -v '^[MADRC]' || true)" ]; then

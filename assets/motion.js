@@ -55,7 +55,7 @@
     // Section scroll reveal via IntersectionObserver. Keep sections visible:
     // hiding whole content blocks can leave blank viewports after responsive
     // reflow or rapid mobile scrolling.
-    const revealEls = document.querySelectorAll(".brief-picks-wrap, .waytoagi-wrap, .list-wrap");
+    const revealEls = document.querySelectorAll(".brief-picks-wrap, .list-wrap");
     if (revealEls.length && window.IntersectionObserver) {
       gsap.set(revealEls, { y: 14 });
       const observer = new IntersectionObserver(function (entries) {
