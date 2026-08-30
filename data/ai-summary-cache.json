@@ -1837,6 +1837,12 @@
       "provider": "groq",
       "model": "qwen/qwen3.6-27b",
       "created_at": "2026-08-30T17:05:27.531619Z"
+    },
+    "391917f45a8e266847b2a109e14369acb3df0cf356a83e62787bfbf72b65f01f": {
+      "summary": "大模型與長文本 KV Cache 持續膨脹，加上大規模並發推理需求，使運算效能瓶頸由算力轉向儲存階層。",
+      "provider": "groq",
+      "model": "qwen/qwen3.6-27b",
+      "created_at": "2026-08-30T23:35:25.207848Z"
     }
   },
   "rejections": {
@@ -2239,6 +2245,14 @@
     "309527fd2e97411d3900215f249d88c762d82f03fb269227365877400ba99b4e": {
       "reason": "insufficient_context",
       "created_at": "2026-08-30T22:41:40.504589Z"
+    },
+    "a8211ce3f0aff2dc847e9869ea658d023a8389f783723ceaed7afe81a337234b": {
+      "reason": "insufficient_context",
+      "created_at": "2026-08-30T23:35:25.207848Z"
+    },
+    "5becf13e831b20ca017757040816496ce3f389615430c7c91e68719214c073a6": {
+      "reason": "insufficient_context",
+      "created_at": "2026-08-30T23:35:25.207848Z"
     }
   }
 }
