@@ -196,6 +196,7 @@ OFFICIAL_AI_FEEDS: tuple[dict[str, str], ...] = (
     },
 )
 OFFICIAL_AI_MAX_AGE_DAYS = 45
+TENCENT_NEWSROOM_URL = "https://www.tencent.com/newsroom/all-news/"
 CURATED_AI_MEDIA_MAX_AGE_DAYS = 30
 CURATED_AI_MEDIA_FEEDS: tuple[dict[str, Any], ...] = (
     {
@@ -1601,6 +1602,44 @@ def parse_anthropic_news_items(page_html: str, now: datetime) -> list[RawItem]:
     return out
 
 
+def parse_tencent_newsroom_items(page_html: str, now: datetime) -> list[RawItem]:
+    """Parse Tencent's dated public Newsroom cards without relying on its fake RSS route."""
+    site_id = "official_ai"
+    site_name = "Official AI Updates"
+    soup = BeautifulSoup(page_html, "html.parser")
+    out: list[RawItem] = []
+    seen: set[str] = set()
+
+    for card in soup.select("article.tc-blog-grid"):
+        title_link = card.select_one("h2.blog-title a[href]")
+        date_node = card.select_one(".tc-blogpost-date")
+        if not title_link or not date_node:
+            continue
+
+        title = maybe_fix_mojibake(title_link.get_text(" ", strip=True))
+        url = urljoin(TENCENT_NEWSROOM_URL, str(title_link.get("href") or "").strip())
+        published = parse_date_any(date_node.get_text(" ", strip=True), now)
+        if not title or not url or not published or url in seen:
+            continue
+        if now and published < now - timedelta(days=OFFICIAL_AI_MAX_AGE_DAYS):
+            continue
+
+        seen.add(url)
+        out.append(
+            RawItem(
+                site_id=site_id,
+                site_name=site_name,
+                source="Tencent Newsroom",
+                title=title,
+                url=url,
+                published_at=published,
+                meta={"provider": "Tencent"},
+            )
+        )
+
+    return out
+
+
 def parse_openai_codex_changelog_items(page_html: str, now: datetime) -> list[RawItem]:
     site_id = "official_ai"
     site_name = "Official AI Updates"
@@ -2048,6 +2087,13 @@ def fetch_official_ai_updates(session: requests.Session, now: datetime) -> list[
         r = session.get("https://www.anthropic.com/news", timeout=20)
         r.raise_for_status()
         out.extend(parse_anthropic_news_items(r.text, now))
+    except Exception:
+        pass
+
+    try:
+        r = session.get(TENCENT_NEWSROOM_URL, timeout=20)
+        r.raise_for_status()
+        out.extend(parse_tencent_newsroom_items(r.text, now))
     except Exception:
         pass
 

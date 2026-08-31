@@ -26,6 +26,7 @@ from scripts.update_news import (
     parse_tikhub_douyin_items,
     parse_tikhub_xiaohongshu_items,
     parse_anthropic_news_items,
+    parse_tencent_newsroom_items,
     parse_openai_codex_changelog_items,
     redact_public_text,
     repair_zh_title_translation,
@@ -187,6 +188,29 @@ class TopicFilterTests(unittest.TestCase):
         self.assertEqual(items[0].source, "Anthropic News")
         self.assertEqual(items[0].title, "Introducing Claude Opus 4.7")
         self.assertEqual(items[0].url, "https://www.anthropic.com/news/claude-opus-4-7")
+
+    def test_parse_tencent_newsroom_items(self):
+        html = """
+        <article class="tc-blog-grid">
+          <h2 class="blog-title">
+            <a href="/tencent-releases-and-open-sources-tencent-hy4-preview/">
+              Tencent Releases and Open-Sources Tencent Hy4 preview
+            </a>
+          </h2>
+          <div class="tc-blogpost-date card-text entry-meta">August 28, 2026</div>
+        </article>
+        <article class="tc-blog-grid">
+          <h2 class="blog-title"><a href="/stale/">Older Tencent post</a></h2>
+          <div class="tc-blogpost-date">May 1, 2026</div>
+        </article>
+        """
+        now = datetime(2026, 8, 31, tzinfo=timezone.utc)
+        items = parse_tencent_newsroom_items(html, now)
+        self.assertEqual(len(items), 1)
+        self.assertEqual(items[0].source, "Tencent Newsroom")
+        self.assertEqual(items[0].title, "Tencent Releases and Open-Sources Tencent Hy4 preview")
+        self.assertEqual(items[0].url, "https://www.tencent.com/tencent-releases-and-open-sources-tencent-hy4-preview/")
+        self.assertEqual(items[0].meta, {"provider": "Tencent"})
 
     def test_parse_openai_codex_changelog_items(self):
         html = """

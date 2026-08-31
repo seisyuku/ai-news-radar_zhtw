@@ -74,6 +74,7 @@ The public site should directly track these high-signal official sources:
 
 - OpenAI News RSS
 - Anthropic News page
+- Tencent Newsroom static index (official public list; its RSS route returns a homepage and the public REST API requires authentication)
 - Google DeepMind RSS
 - Google AI Blog RSS
 - Hugging Face Blog RSS
