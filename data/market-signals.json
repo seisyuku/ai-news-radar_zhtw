@@ -1,6 +1,29 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-01T00:07:55.552315Z",
+  "generated_at": "2026-09-01T00:35:26.917134Z",
   "cadence_minutes": 30,
-  "signals": []
+  "signals": [
+    {
+      "event_type": "USAGE_POLICY_CANDIDATE",
+      "category": "usage_policy",
+      "urgency": "breaking",
+      "importance_rank": 3,
+      "timeliness_rank": 1,
+      "verification_status": "candidate",
+      "title": "速報候選：Usage4Claude 偵測到額度相關變更",
+      "summary": "fix: keep showing cached usage data on transient errors",
+      "provider": "",
+      "product": "",
+      "field": "",
+      "old_value": null,
+      "new_value": null,
+      "unit": "",
+      "detected_at": "2026-09-01T00:35:26.917134Z",
+      "effective_at": "2026-07-31T22:40:50Z",
+      "source_name": "Usage4Claude",
+      "source_url": "https://github.com/f-is-h/Usage4Claude",
+      "evidence_url": "https://github.com/f-is-h/Usage4Claude/commit/a23c80172dfcdcf1799f9185d86197d4c8e01f32",
+      "id": "d7071e02ea6de43bea3f70c16fff2bf2047876d7"
+    }
+  ]
 }
