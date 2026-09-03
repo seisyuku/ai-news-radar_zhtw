@@ -213,7 +213,7 @@ jobs:
           # Optional cache-first news summaries. The site still updates when
           # the secret is absent or Groq is temporarily unavailable.
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
-          GROQ_SUMMARY_MODEL: ${{ vars.GROQ_SUMMARY_MODEL || 'qwen/qwen3.6-27b' }}
+          GROQ_SUMMARY_MODEL: ${{ vars.GROQ_SUMMARY_MODEL || 'qwen/qwen3.8-27b' }}
           GROQ_SUMMARY_MAX_NEW: ${{ vars.GROQ_SUMMARY_MAX_NEW || 6 }}
           # Optional, bounded reader translation.  Missing keys retain the
           # original English display text and never block the snapshot.

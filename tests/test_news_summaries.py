@@ -95,7 +95,7 @@ def test_missing_key_is_clean_skip_but_keeps_cached_summary():
 
     output, status, _ = summarize_stories([item], cache=cache, now=NOW)
 
-    assert output[0]["news_summary_model"] == "qwen/qwen3.6-27b"
+    assert output[0]["news_summary_model"] == "qwen/qwen3.8-27b"
     assert status["skip_reason"] == "missing_GROQ_API_KEY"
     assert status["cache_hits"] == 1
 

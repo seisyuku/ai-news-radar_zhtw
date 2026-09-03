@@ -1,5 +1,16 @@
 # AI News Radar Pulse — 交接摘要（截至 2026-08-17）
 
+## 2026-09-03 Groq 摘要模型遷移
+
+- Groq 通知 `qwen/qwen3.6-27b` 即將停用，production primary 改為
+  `qwen/qwen3.8-27b`。既有 Chat Completions、JSON object mode、
+  `reasoning_effort="none"`、180-token 上限與本地輸出驗證規則維持不變。
+- `GROQ_SUMMARY_MODEL` 沒有設定 GitHub Variable 時，workflow fallback 與
+  Python 預設會一致使用新模型；模型名稱已包含在摘要快取鍵中，因此保留舊
+  cache、不做全量重生，切換後只會依既有每輪最多 6 則的限制補新摘要。
+- 沒有新增自動 fallback。若 Groq 暫時失敗，新聞快照依舊 fail-open，僅省略
+  摘要；不得回退到即將停用的 3.6。
+
 ## 2026-08-21 維運與讀者層校正
 
 - **36Kr AI**：一般 RSS 長期回傳 WAF HTML，排程改以 Google News

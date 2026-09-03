@@ -24,7 +24,7 @@
 | `SOCIALDATA_API_KEY` | 選用的 SocialData X 來源 |
 | `TIKHUB_API_KEY` | 選用的 TikHub 抖音／小紅書來源 |
 | `X_BEARER_TOKEN` | 選用的官方 X API demo |
-| `GROQ_API_KEY` | 選用的重點新聞 AI 短摘要；預設模型為 `qwen/qwen3.6-27b` |
+| `GROQ_API_KEY` | 選用的重點新聞 AI 短摘要；預設模型為 `qwen/qwen3.8-27b` |
 
 Secret 值不得寫入 repo、Issue、log、截圖或驗收報告。
 
@@ -40,7 +40,7 @@ Secret 值不得寫入 repo、Issue、log、截圖或驗收報告。
 
 ## AI 摘要 Variables
 
-- `GROQ_SUMMARY_MODEL`：預設 `qwen/qwen3.6-27b`。
+- `GROQ_SUMMARY_MODEL`：預設 `qwen/qwen3.8-27b`。
 - `GROQ_SUMMARY_MAX_NEW`：每輪最多新增摘要數，預設 `6`；快取命中不計入。
 
 AI 摘要沒有 `ENABLED` 開關；是否啟用由 `GROQ_API_KEY` 是否存在決定。

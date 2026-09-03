@@ -88,12 +88,12 @@ asset, same as any other source change.
 ## Optional Groq news summaries
 
 重點卡片的「AI 新聞摘要」由 `scripts/news_summaries.py` 產生，預設模型
-是 Groq `qwen/qwen3.6-27b`。這是選用的增強層，不是資料更新的必要條件：
+是 Groq `qwen/qwen3.8-27b`。這是選用的增強層，不是資料更新的必要條件：
 
 - GitHub Secret `GROQ_API_KEY` 未設定時安全跳過；不要把值寫入 repo、
   log、Issue 或報告。
 - GitHub Variables `GROQ_SUMMARY_MODEL`、`GROQ_SUMMARY_MAX_NEW` 可覆蓋模型
-  與單輪新增上限；預設分別為 `qwen/qwen3.6-27b`、`6`。
+與單輪新增上限；預設分別為 `qwen/qwen3.8-27b`、`6`。
 - 只把 RSS/Atom 發布者提供的 `summary`／`description` 送去摘要；只有
   標題的新聞不呼叫 API，也不顯示固定模板假裝成內容摘要。
 - `data/ai-summary-cache.json` 以模型、prompt 版本、標題與來源摘要的
@@ -126,7 +126,7 @@ GROQ_API_KEY='...' python scripts/evaluate_ai_summaries.py \
 
 截至 2026-08-17，Gemini 的正式狀態是
 `qualified backup candidate, disabled by default`。Groq
-`qwen/qwen3.6-27b` 仍是唯一 production primary；`update-news.yml` 與
+`qwen/qwen3.8-27b` 是唯一 production primary；`update-news.yml` 與
 `scripts/news_summaries.py` 尚未接入 Gemini fallback，也不讀取
 `GEMINI_API_KEY`。Gemini 測試是獨立事件，不回溯改寫 Groq 的採用裁決。
 
