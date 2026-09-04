@@ -4808,6 +4808,11 @@ CANONICAL_NAMES: dict[str, str] = {
     "Microsoft": "微軟",
     "NVIDIA": "輝達",
     "Apple": "蘋果",
+    # `Canon`/`CANON` are the Japanese company's proper name.  Lowercase
+    # `canon` is deliberately absent: in media contexts it is the common
+    # noun for official continuity and must remain available to translation.
+    "Canon": "佳能",
+    "CANON": "佳能",
     "Amazon": "亞馬遜",
     "Intel": "英特爾",
     "Samsung": "三星",
@@ -4921,6 +4926,46 @@ _GENERALIST_CONGLOMERATE_EXCLUSIONS: frozenset[str] = frozenset(
 # keeps verbatim) - only these get the old BRAND_GLOSSARY "append if
 # missing" fallback.
 _APPEND_FALLBACK_TERMS: frozenset[str] = frozenset({"Morning Squawk"})
+
+# Legacy cache repair for the former QCANON<n>Q marker.  Google Translate
+# could render that marker as "佳能" before backfill appended the lost OpenAI
+# term.  "佳能" remains the correct display for Japanese Canon, so this repair
+# is never a global Chinese-text substitution.
+_CANONICAL_MISTRANSLATIONS: dict[str, tuple[str, ...]] = {
+    "OpenAI": ("佳能",),
+}
+_CANONICAL_MISTRANSLATION_PROPER_NAME_EXCLUSIONS: dict[str, tuple[str, ...]] = {
+    "OpenAI": ("Canon", "CANON"),
+}
+
+
+def _repair_source_gated_canonical_mistranslations(source: str, text: str) -> str:
+    """Repair known MT substitutions only when the source names that entity."""
+    result = text
+    for term, mistranslations in _CANONICAL_MISTRANSLATIONS.items():
+        pattern = re.compile(rf"(?<!\w){re.escape(term)}(?!\w)")
+        if not pattern.search(source):
+            continue
+        if any(
+            re.search(rf"(?<!\w){re.escape(proper_name)}(?!\w)", source)
+            for proper_name in _CANONICAL_MISTRANSLATION_PROPER_NAME_EXCLUSIONS.get(term, ())
+        ):
+            continue
+        canonical = CANONICAL_NAMES[term]
+        replaced = False
+        for mistranslated in mistranslations:
+            if mistranslated in result:
+                result = result.replace(mistranslated, canonical)
+                replaced = True
+        # The previous QCANON<n>Q marker could be translated as "佳能" and
+        # then treated as dropped by backfill, which appended OpenAI to the
+        # end.  Remove only that excess terminal copy after repairing it.
+        while replaced and result.count(canonical) > len(pattern.findall(source)):
+            repaired = re.sub(rf"\s+{re.escape(canonical)}(?=\s*$)", "", result)
+            if repaired == result:
+                break
+            result = repaired
+    return result
 
 
 def _moonshot_bare_context_ok(source: str) -> bool:
@@ -5058,8 +5103,8 @@ _CLAUDE_SUBBRAND_ISOLATED_MASK_RE = re.compile(
     r"(?!\w)"
 )
 
-_MASK_TOKEN_PREFIX = "QCANON"
-_MASK_TOKEN_SUFFIX = "Q"
+_MASK_TOKEN_PREFIX = "ZXQ"
+_MASK_TOKEN_SUFFIX = "QXZ"
 _MASK_TOKEN_RE = re.compile(re.escape(_MASK_TOKEN_PREFIX) + r"(\d+)" + re.escape(_MASK_TOKEN_SUFFIX))
 # Recovery pattern for a token MT nudged (extra/changed whitespace, case
 # folding) but didn't destroy outright - still recognizable by prefix/digits/
@@ -5167,6 +5212,7 @@ def _apply_canonical_names_exit_fix(source: str, result: str) -> str:
     term appears verbatim in the English source title and either survives
     translation untouched, or is a term MT tends to drop rather than
     mistranslate, normalize it to its canonical zh-TW rendering."""
+    result = _repair_source_gated_canonical_mistranslations(source, result)
     for term, zh in CANONICAL_NAMES.items():
         if term == "Moonshot" and not _moonshot_bare_context_ok(source):
             continue
@@ -5305,6 +5351,7 @@ def apply_canonical_reverse_fix(text: str, source: str = "") -> str:
     s = text or ""
     if not s:
         return s
+    s = _repair_source_gated_canonical_mistranslations(source, s)
     s = _CLAUDE_REVERSE_RE.sub(_claude_reverse_sub, s)
     if _CLAUDE_CONTEXT_RE.search(s) or (source and _CLAUDE_CONTEXT_RE.search(source)):
         s = _CLAUDE_SUBBRAND_STANDALONE_NARROW_RE.sub(_claude_subbrand_standalone_sub, s)

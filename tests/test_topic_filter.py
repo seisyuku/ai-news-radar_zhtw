@@ -358,6 +358,37 @@ class TopicFilterTests(unittest.TestCase):
             "OpenAI 发布新的 GPT 模型",
         )
 
+    def test_openai_canon_mistranslation_is_repaired_only_for_openai_source(self):
+        self.assertEqual(
+            repair_zh_title_translation(
+                "OpenAI launches Astra, its powerful (and controversial) new model",
+                "佳能推出其功能強大（且備受爭議）的新機型 Astra OpenAI",
+            ),
+            "OpenAI推出其功能強大（且備受爭議）的新機型 Astra",
+        )
+
+        # Canon is the Japanese company's proper name and must remain 佳能.
+        self.assertEqual(
+            repair_zh_title_translation(
+                "Canon announces a new camera partnership",
+                "佳能宣布建立新的相機合作關係",
+            ),
+            "佳能宣布建立新的相機合作關係",
+        )
+
+    def test_canon_proper_name_masks_but_lowercase_canon_remains_a_common_noun(self):
+        masked, placeholders = mask_canonical_names("Canon launches a camera with AI features")
+        self.assertNotIn("Canon", masked)
+        self.assertEqual(set(placeholders.values()), {"佳能"})
+
+        uppercase_masked, uppercase_placeholders = mask_canonical_names("CANON launches a camera")
+        self.assertNotIn("CANON", uppercase_masked)
+        self.assertEqual(set(uppercase_placeholders.values()), {"佳能"})
+
+        lowercase_masked, lowercase_placeholders = mask_canonical_names("The film canon expands")
+        self.assertEqual(lowercase_masked, "The film canon expands")
+        self.assertEqual(lowercase_placeholders, {})
+
     # --- CANONICAL_NAMES: 出口修正 (exit-fix) ---------------------------
 
     def test_canonical_names_mixed_vendor_and_family_rendering(self):
@@ -473,6 +504,45 @@ class TopicFilterTests(unittest.TestCase):
         self.assertNotIn("法学硕士", returned_cache[title])
         self.assertIn("LLMs", returned_cache[title])
 
+    def test_cached_openai_canon_mistranslation_is_repaired_and_rewritten(self):
+        class NoNetworkSession:
+            def get(self, *args, **kwargs):
+                raise AssertionError("cache hit must not trigger a network translate call")
+
+        title = "OpenAI launches Astra, its powerful (and controversial) new model"
+        cache = {title: "佳能推出其功能強大（且備受爭議）的新機型 Astra OpenAI"}
+        item = {"title": title, "url": "https://example.com/openai-astra"}
+
+        ai_items, _, returned_cache = add_bilingual_fields([item], [item], NoNetworkSession(), cache, 80)
+
+        self.assertNotIn("佳能", ai_items[0]["title_zh"])
+        self.assertIn("OpenAI", ai_items[0]["title_zh"])
+        self.assertNotIn("佳能", returned_cache[title])
+        self.assertIn("OpenAI", returned_cache[title])
+
+    def test_openai_legacy_cache_repair_does_not_override_a_real_canon_reference(self):
+        source = "OpenAI and Canon announce an AI camera partnership"
+        translated = "佳能與佳能宣布 AI 相機合作 OpenAI"
+
+        self.assertEqual(repair_zh_title_translation(source, translated), translated)
+
+    def test_cached_openai_canon_mistranslation_is_repaired_in_rss_summary(self):
+        class NoNetworkSession:
+            def get(self, *args, **kwargs):
+                raise AssertionError("cache hit must not trigger a network translate call")
+
+        summary = "OpenAI says Astra sets a new frontier for computer use."
+        cache_key = f"summary::{summary}"
+        cache = {cache_key: "佳能表示 Astra 為電腦使用開啟新領域。"}
+        item = {"title": "Astra 摘要", "summary": summary, "url": "https://example.com/openai-astra"}
+
+        ai_items, _, returned_cache = add_bilingual_fields([item], [item], NoNetworkSession(), cache, 80)
+
+        self.assertNotIn("佳能", ai_items[0]["summary_zh"])
+        self.assertIn("OpenAI", ai_items[0]["summary_zh"])
+        self.assertNotIn("佳能", returned_cache[cache_key])
+        self.assertIn("OpenAI", returned_cache[cache_key])
+
     # --- CANONICAL_NAMES Step 2: 遮罩回填 (mask-and-backfill) ------------
 
     def test_mask_canonical_names_masks_vendor_and_family_hits(self):
@@ -522,7 +592,7 @@ class TopicFilterTests(unittest.TestCase):
         # BRAND_GLOSSARY comment already documented for short proper nouns).
         fake_translated = masked.replace("open-sources", "开源了").replace("reasoning model", "推理模型")
         result = backfill_canonical_names(fake_translated, placeholders)
-        self.assertNotIn("QCANON", result)
+        self.assertNotIn("ZXQ", result)
         self.assertIn("阿里巴巴", result)
         self.assertIn("Qwen", result)
         self.assertIn("QwQ", result)
@@ -532,7 +602,7 @@ class TopicFilterTests(unittest.TestCase):
         token = next(iter(placeholders))
         mt_dropped_token = masked.replace(token, "")
         result = backfill_canonical_names(mt_dropped_token, placeholders)
-        self.assertNotIn("QCANON", result)
+        self.assertNotIn("ZXQ", result)
         self.assertIn(placeholders[token], result)
 
     def test_backfill_canonical_names_never_leaks_a_mangled_placeholder(self):
@@ -540,7 +610,7 @@ class TopicFilterTests(unittest.TestCase):
         token = next(iter(placeholders))
         mt_mangled = masked.replace(token, "xyz-garbled-123")
         result = backfill_canonical_names(mt_mangled, placeholders)
-        self.assertNotIn("QCANON", result)
+        self.assertNotIn("ZXQ", result)
 
     def test_add_bilingual_fields_masks_before_network_call_and_backfills_arbitrary_combo(self):
         class FakeResponse:
@@ -580,11 +650,12 @@ class TopicFilterTests(unittest.TestCase):
         self.assertTrue(session.queries)
         self.assertNotIn("NVIDIA", session.queries[0])
         self.assertNotIn("Nemotron", session.queries[0])
+        self.assertNotIn("CANON", session.queries[0])
 
         title_zh = ai_items[0]["title_zh"]
         self.assertIn("輝達", title_zh)
         self.assertIn("Nemotron", title_zh)
-        self.assertNotIn("QCANON", title_zh)
+        self.assertNotIn("ZXQ", title_zh)
 
     def test_add_bilingual_fields_placeholder_never_leaks_when_mt_drops_it(self):
         class FakeResponse:
@@ -602,7 +673,7 @@ class TopicFilterTests(unittest.TestCase):
                 q = json["q"][0]
                 # Simulate MT dropping the opaque placeholder token entirely
                 # while still translating the surrounding English.
-                translated = re.sub(r"QCANON\d+Q", "", q).replace("unveils", "推出").strip()
+                translated = re.sub(r"ZXQ\d+QXZ", "", q).replace("unveils", "推出").strip()
                 return FakeResponse({"data": {"translations": [{"translatedText": translated}]}})
 
         item = {
@@ -612,7 +683,7 @@ class TopicFilterTests(unittest.TestCase):
         ai_items, _, _ = add_bilingual_fields([item], [item], FakeSession(), {}, 80, google_api_key="test-key")
 
         title_zh = ai_items[0]["title_zh"]
-        self.assertNotIn("QCANON", title_zh)
+        self.assertNotIn("ZXQ", title_zh)
         self.assertIn("輝達", title_zh)
 
     # --- CANONICAL_NAMES Step 3: 非相鄰共現防護 ---------------------------

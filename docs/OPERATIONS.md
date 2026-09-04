@@ -457,9 +457,11 @@ Google Cloud 的帳務、預算與警示均在 repo 外設定；本專案不會�
 
 1. **遮罩回填**（`mask_canonical_names()` / `backfill_canonical_names()`）：
    英文標題送翻譯 provider **之前**，先把 `CANONICAL_NAMES` 命中的
-   品牌/產品詞抽出為 `QCANON<n>Q` 佔位符，翻譯完成後再把佔位符換回正典
+   品牌/產品詞抽出為 `ZXQ<n>QXZ` 佔位符，翻譯完成後再把佔位符換回正典
    zh-TW 寫法。這是主防線——因為 MT 引擎從頭到尾沒看過品牌原文，不受限
    於「已知會被翻錯的樣式」，任意詞條組合都能正確處理。
+   `Canon`／`CANON` 會回填為日本佳能「佳能」；小寫 `canon` 是影視、
+   書籍與遊戲的正史普通名詞，不遮罩、交由翻譯服務依語境處理。
 2. **出口修正**（`_apply_canonical_names_exit_fix()`，掛在
    `repair_zh_title_translation()`）：對翻譯結果做已知錯誤樣式的事後
    修補，命中時**會回寫** `title-zh-cache.json`。主要服務兩種情況：
