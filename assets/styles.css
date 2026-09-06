@@ -1669,6 +1669,45 @@ summary:focus-visible {
   text-decoration: underline;
 }
 
+.copy-id-btn {
+  appearance: none;
+  border: 1px solid rgba(18, 106, 115, 0.28);
+  border-radius: 999px;
+  padding: 3px 8px;
+  color: var(--accent);
+  background: rgba(18, 106, 115, 0.06);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.35;
+  cursor: pointer;
+}
+
+.copy-id-btn:hover {
+  background: rgba(18, 106, 115, 0.12);
+}
+
+.copy-id-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.copy-id-btn.copied {
+  border-color: rgba(31, 122, 77, 0.34);
+  color: var(--good);
+  background: rgba(31, 122, 77, 0.08);
+}
+
+.copy-id-btn.copy-failed {
+  border-color: rgba(170, 57, 57, 0.35);
+  color: #9b3131;
+  background: rgba(170, 57, 57, 0.08);
+}
+
+.copy-id-btn:disabled {
+  cursor: default;
+}
+
 .top-story-summary,
 .intel-reason {
   margin: 0;
