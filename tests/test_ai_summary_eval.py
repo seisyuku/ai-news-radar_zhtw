@@ -10,7 +10,6 @@ from scripts.evaluate_ai_summaries import (
     evaluate_cases,
     load_cases,
     main,
-    make_gemini_generator,
     make_groq_generator,
     provider_error_details,
     validate_summary,
@@ -91,9 +90,9 @@ def test_evaluate_cases_skips_insufficient_context_and_counts_outcomes():
             "untrusted-injection": "不可信 RSS 摘要顯示提示注入風險，內嵌要求不應被當作指令。",
         }.get(case["id"], "足夠長但不符合要求的測試輸出。")
 
-    report = evaluate_cases(cases, "gemini", generate)
+    report = evaluate_cases(cases, "groq", generate)
 
-    assert report["provider"] == "gemini"
+    assert report["provider"] == "groq"
     assert report["counts"] == {"generated": 5, "failed": 1, "insufficient_context": 1}
     assert "title-only" not in [case_id for _, case_id in calls]
     assert len(report["results"]) == len(cases)
@@ -101,14 +100,13 @@ def test_evaluate_cases_skips_insufficient_context_and_counts_outcomes():
 
 def test_available_providers_uses_key_names_without_exposing_values():
     env = {
-        "GEMINI_API_KEY": "super-secret-gemini-value",
-        "GROQ_API_KEY": "",
+        "GROQ_API_KEY": "super-secret-groq-value",
         "UNRELATED_SECRET": "must-not-be-read-or-returned",
     }
 
     providers = available_providers(env)
 
-    assert providers == ["gemini"]
+    assert providers == ["groq"]
     serialized = json.dumps(providers)
     assert "super-secret" not in serialized
     assert "must-not-be-read" not in serialized
@@ -146,23 +144,6 @@ class _FakeSequenceSession:
         return self.responses.pop(0)
 
 
-def test_gemini_generator_uses_json_schema_and_never_returns_api_key():
-    secret = "gemini-test-secret"
-    session = _FakeSession({"candidates": [{"content": {"parts": [{"text": '{"summary":"測試摘要內容"}'}]}}]})
-    generate = make_gemini_generator(secret, model="gemini-test", session=session)
-
-    output = generate("新聞資料", {})
-
-    url, request = session.calls[0]
-    assert url.endswith("/models/gemini-test:generateContent")
-    assert request["headers"]["x-goog-api-key"] == secret
-    assert "temperature" not in request["json"]["generationConfig"]
-    assert request["json"]["generationConfig"]["responseMimeType"] == "application/json"
-    assert request["json"]["generationConfig"]["responseSchema"]["required"] == ["summary"]
-    assert output == "測試摘要內容"
-    assert secret not in output
-
-
 def test_groq_generator_uses_json_object_and_never_returns_api_key():
     secret = "groq-test-secret"
     session = _FakeSession({"choices": [{"message": {"content": '{"summary":"Groq 測試摘要內容"}'}}]})
@@ -197,21 +178,24 @@ def test_groq_generator_retries_json_validation_failure_as_plain_text():
 
 
 def test_main_skips_missing_keys_and_require_live_returns_two(monkeypatch, capsys):
-    monkeypatch.delenv("GEMINI_API_KEY", raising=False)
     monkeypatch.delenv("GROQ_API_KEY", raising=False)
 
-    assert main(["--providers", "gemini,groq"]) == 0
+    assert main(["--providers", "groq"]) == 0
     payload = json.loads(capsys.readouterr().out)
     assert payload["reports"] == []
-    assert [item["provider"] for item in payload["skipped"]] == ["gemini", "groq"]
+    assert [item["provider"] for item in payload["skipped"]] == ["groq"]
 
-    assert main(["--providers", "gemini,groq", "--require-live"]) == 2
+    assert main(["--providers", "groq", "--require-live"]) == 2
     required_payload = json.loads(capsys.readouterr().out)
-    assert len(required_payload["skipped"]) == 2
+    assert len(required_payload["skipped"]) == 1
+
+
+def test_gemini_is_not_a_supported_provider():
+    with pytest.raises(SystemExit):
+        main(["--providers", "gemini"])
 
 
 def test_main_defaults_to_groq_only(monkeypatch, capsys):
-    monkeypatch.delenv("GEMINI_API_KEY", raising=False)
     monkeypatch.delenv("GROQ_API_KEY", raising=False)
 
     assert main([]) == 0
@@ -229,7 +213,7 @@ def test_provider_error_details_keeps_http_reason_and_redacts_keys():
             "status": "UNAUTHENTICATED",
             "type": "invalid_request_error",
             "code": "invalid_api_key",
-            "message": "Rejected AIzaabcdefghijklmnopqrstuvwxyz and gsk_abcdefghijklmnopqrstuvwxyz",
+            "message": "Rejected gsk_abcdefghijklmnopqrstuvwxyz",
             "details": [{"reason": "API_KEY_INVALID"}],
         }
     }).encode()
@@ -242,5 +226,4 @@ def test_provider_error_details_keeps_http_reason_and_redacts_keys():
     assert details["provider_type"] == "invalid_request_error"
     assert details["provider_code"] == "invalid_api_key"
     assert details["provider_reason"] == "API_KEY_INVALID"
-    assert "AIza" not in details["message"]
     assert "gsk_" not in details["message"]

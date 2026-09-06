@@ -51,17 +51,9 @@
 - 待辦：累積實際排程樣本後觀察摘要可用率、失敗率、快取命中率與模型
   新聞細節保留情況，再決定是否調整 6 則上限或 prompt；不因此修改
   全域新聞評分公式。
-- 已裁決：Gemini `gemini-3.5-flash-lite` 為
-  `qualified backup candidate, disabled by default`；Groq 保持 primary，
-  尚未授權 production fallback 或真實 publisher feed 呼叫。
-- 待辦（Gemini acceptance）：裁決提示注入語意／精確詞 gate、完成三個
-  分離時段 live diagnostic/eval、擴充合成案例並與 Groq 同案比較。
-- 待辦（fallback implementation）：建立 Groq failure trigger matrix、
-  防雙重呼叫、獨立 secret、provider+model cache identity、單輪成本上限、
-  公開安全狀態與雙 provider 失敗行為測試。
-- 待辦（operator decision）：啟用前重新核對 Gemini active rate limits、
-  定價及 free/paid tier 資料使用條款，取得 maintainer 明確接受後才可接線。
-  完整 gate 以 `docs/OPERATIONS.md` 為準。
+- 已裁決（2026-09-06）：取消 Gemini 備選與多 provider fallback 路線；
+  AI 摘要只使用 Groq `qwen/qwen3.8-27b`。Groq 失效時省略摘要，不新增
+  替代 provider 的 acceptance 或接線待辦。
 
 ## P1：Market Sensor 與 usage-policy 速報
 

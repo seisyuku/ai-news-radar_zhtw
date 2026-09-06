@@ -122,59 +122,12 @@ GROQ_API_KEY='...' python scripts/evaluate_ai_summaries.py \
   --providers groq --require-live
 ```
 
-### Gemini backup candidate — disabled by default
+### Groq-only provider policy
 
-截至 2026-08-17，Gemini 的正式狀態是
-`qualified backup candidate, disabled by default`。Groq
-`qwen/qwen3.8-27b` 是唯一 production primary；`update-news.yml` 與
-`scripts/news_summaries.py` 尚未接入 Gemini fallback，也不讀取
-`GEMINI_API_KEY`。Gemini 測試是獨立事件，不回溯改寫 Groq 的採用裁決。
-
-目前證據只支持「技術上可呼叫的備選候選」：
-
-- 新 project 的 `gemini-3.5-flash-lite` 已通過 key/model discovery、
-  `generateContent` plain request 與 structured JSON request。
-- 七個合成案例中，5 個摘要通過、1 個 title-only 判為
-  `insufficient_context`、1 個提示注入案例因未逐字包含 required term
-  「不可信」而失敗；該輸出未重現嵌入指令或洩漏疑似 key。這是摘要驗收
-  未全綠，不是 API 呼叫或 secret-leak 失敗。
-- 舊 project 曾回傳 `429 RESOURCE_EXHAUSTED / RATE_LIMIT_EXCEEDED`；新
-  project 呼叫 `gemini-2.5-flash-lite` 曾回傳「不再開放新使用者」的
-  `404 NOT_FOUND`。因此 fallback 不得假設換 key 就能避開 project quota，
-  也不得把歷史模型名稱視為永久可用。
-
-完整的 sanitized 驗收摘要在
-[`reports/provider-evals/gemini-3.5-flash-lite-20260817.md`](../reports/provider-evals/gemini-3.5-flash-lite-20260817.md)，
-重跑方式在
-[`docs/guides/gemini-diagnostic-flow.md`](guides/gemini-diagnostic-flow.md)。
-
-在下列 production acceptance gates 全部完成前，不得把 Gemini secret
-加入 Actions、不得自動 fallback，也不得對真實 publisher feed 內容做
-Gemini production call：
-
-1. 裁決提示注入案例：維持精確詞彙 gate 並修 prompt，或以有明確安全
-   斷言的語意 gate 取代；裁決後重新跑到驗收全綠。
-2. 至少三個分離時段重跑 diagnostic/eval，確認沒有 `429`、`5xx`、模型
-   漂移或 structured-output regression。
-3. 用同一組擴充合成案例比較 Groq 與 Gemini；真實新聞資料不得因這個
-   gate 被默認授權送往新的 provider。
-4. 實作並測試 trigger matrix：只有 Groq provider/transport/quota failure
-   才能呼叫 Gemini；Groq 成功時不得雙重呼叫，title-only、來源內容不足
-   或本地政策拒絕的 story 不得藉 fallback 繞過 gate。
-5. 設置獨立 secret、provider+model cache identity、單輪成本/呼叫上限與
-   公開安全的狀態欄位；兩個 provider 都失敗時仍須 fail open for news
-   refresh、fail closed for generated summary，省略摘要而不阻斷更新。
-6. 啟用前重新查閱 Google 官方定價與 active rate limits，並由 maintainer
-   明確接受使用 tier 的成本與資料使用政策。2026-08-17 官方快照顯示
-   standard paid tier 為每百萬 input tokens USD 0.30、output tokens
-   USD 2.50；free tier 的資料可用於改善 Google 產品，paid tier 則不會。
-   Rate limits 依 project 與 usage tier，而非依 API key 套用。這些數值與
-   條款會漂移，不得硬編碼為永久事實。
-
-官方依據：
-[Gemini 3.5 Flash-Lite model](https://ai.google.dev/gemini-api/docs/models/gemini-3.5-flash-lite)、
-[pricing](https://ai.google.dev/gemini-api/docs/pricing)、
-[rate limits](https://ai.google.dev/gemini-api/docs/rate-limits)。
+截至 2026-09-06，AI 新聞摘要只支援 Groq `qwen/qwen3.8-27b`。Gemini
+備選、診斷與多 provider fallback 路線已取消；此 repo 不應設定或讀取
+`GEMINI_API_KEY`。Groq 暫時失效時維持既有邊界：新聞快照照常更新，只有
+未成功產生的摘要被省略。合成 live 評估也只接受 `--providers groq`。
 
 ## Schedule (cron) health
 

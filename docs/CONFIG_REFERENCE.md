@@ -46,16 +46,11 @@ Secret 值不得寫入 repo、Issue、log、截圖或驗收報告。
 AI 摘要沒有 `ENABLED` 開關；是否啟用由 `GROQ_API_KEY` 是否存在決定。
 沒有 key 或 provider 失效時，資料管線仍會正常完成。
 
-### Gemini diagnostic-only variables
+### AI 摘要 provider policy
 
-- `GEMINI_API_KEY`：目前只供本機 `scripts/diagnose_gemini.py` 與明示的
-  `--providers gemini` 合成評估使用；不是已啟用的 GitHub Actions secret。
-- `GEMINI_SUMMARY_MODEL`：本機 diagnostic/eval 預設
-  `gemini-3.5-flash-lite`。
-
-Gemini 目前是 `qualified backup candidate, disabled by default`。不得只因
-設定上述變數就把它視為 production fallback；workflow 尚未傳入這些變數，
-production 接線前必須完成 `OPERATIONS.md` 的 Gemini acceptance gates。
+截至 2026-09-06，AI 摘要只支援 Groq。沒有第二 provider、Gemini 診斷入口
+或自動 fallback；不得在此 repo 設定 `GEMINI_API_KEY`。Groq 失效時維持
+既有 fail-open 行為：新聞更新照常完成，只省略無法產生的摘要。
 
 ## 程式內常數
 
