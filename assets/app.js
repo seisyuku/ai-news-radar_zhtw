@@ -2205,6 +2205,63 @@ function feedSummaryText(item) {
   return `${labelText(item)} · AI 相關度 ${scorePercent(item) || "待評估"}。`;
 }
 
+function isCopyableNewsItemId(item) {
+  return /^[a-f0-9]{40}$/i.test(String(item?.id || "").trim());
+}
+
+function fallbackCopyText(text) {
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+  textarea.setAttribute("readonly", "");
+  textarea.style.position = "fixed";
+  textarea.style.opacity = "0";
+  document.body.appendChild(textarea);
+  textarea.select();
+  const copied = document.execCommand("copy");
+  textarea.remove();
+  if (!copied) throw new Error("copy command failed");
+}
+
+async function copyTextToClipboard(text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return;
+    } catch (_error) {
+      // Some browsers expose Clipboard API but deny it at runtime. Fall back
+      // to the older copy command so the button still works on those clients.
+    }
+  }
+  fallbackCopyText(text);
+}
+
+function buildCopyNewsIdButton(item) {
+  if (!isCopyableNewsItemId(item)) return null;
+  const itemId = String(item.id).trim();
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "copy-id-btn";
+  button.textContent = "複製新聞 ID";
+  button.setAttribute("aria-label", `複製「${itemTitleText(item)}」的新聞 ID`);
+  button.addEventListener("click", async () => {
+    button.disabled = true;
+    try {
+      await copyTextToClipboard(itemId);
+      button.textContent = "已複製";
+      button.classList.add("copied");
+    } catch (_error) {
+      button.textContent = "複製失敗";
+      button.classList.add("copy-failed");
+    }
+    window.setTimeout(() => {
+      button.textContent = "複製新聞 ID";
+      button.classList.remove("copied", "copy-failed");
+      button.disabled = false;
+    }, 1600);
+  });
+  return button;
+}
+
 function renderItemNode(item, context = {}) {
   const node = itemTpl.content.firstElementChild.cloneNode(true);
   const metaRow = node.querySelector(".meta-row");
@@ -2246,6 +2303,8 @@ function renderItemNode(item, context = {}) {
   originalLink.target = "_blank";
   originalLink.rel = "noopener noreferrer";
   originalLink.textContent = "檢視原文 ↗";
+  const copyIdButton = buildCopyNewsIdButton(item);
+  if (copyIdButton) metaRow.appendChild(copyIdButton);
   metaRow.appendChild(originalLink);
 
   const titleEl = node.querySelector(".title");
