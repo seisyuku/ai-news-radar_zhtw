@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Evaluate short Traditional Chinese news summaries with optional free APIs.
+"""Evaluate short Traditional Chinese news summaries with the Groq API.
 
 This is an evaluation tool, not part of the scheduled news pipeline.  Its
 fixtures are synthetic so tests never send repository snapshots or publisher
@@ -31,9 +31,7 @@ DEFAULT_MIN_CHARS = 30
 DEFAULT_MAX_CHARS = 120
 DEFAULT_TIMEOUT_SECONDS = 30
 MAX_PROVIDER_ERROR_CHARS = 300
-DEFAULT_GEMINI_MODEL = "gemini-3.5-flash-lite"
 PROVIDER_ENV_KEYS = {
-    "gemini": "GEMINI_API_KEY",
     "groq": "GROQ_API_KEY",
 }
 
@@ -144,7 +142,6 @@ def _redact_provider_error_text(value: Any) -> str:
     """Keep provider diagnostics useful without copying credentials to reports."""
 
     text = re.sub(r"\s+", " ", str(value or "")).strip()
-    text = re.sub(r"AIza[0-9A-Za-z_-]{20,}", "[REDACTED_GEMINI_KEY]", text)
     text = re.sub(r"gsk_[0-9A-Za-z_-]{20,}", "[REDACTED_GROQ_KEY]", text)
     return text[:MAX_PROVIDER_ERROR_CHARS]
 
@@ -241,54 +238,7 @@ def available_providers(env: Mapping[str, str] | None = None) -> list[str]:
     return [name for name, key in PROVIDER_ENV_KEYS.items() if str(values.get(key) or "").strip()]
 
 
-def _summary_from_json_text(value: str) -> str:
-    payload = json.loads(value)
-    summary = str(payload.get("summary") or "").strip() if isinstance(payload, dict) else ""
-    if not summary:
-        raise ValueError("provider response JSON has no summary")
-    return summary
-
-
-def make_gemini_generator(
-    api_key: str,
-    model: str = DEFAULT_GEMINI_MODEL,
-    session: requests.Session | None = None,
-) -> Callable[[str, Mapping[str, Any]], str]:
-    client = session or requests.Session()
-
-    def generate(prompt: str, _case: Mapping[str, Any]) -> str:
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
-        response = client.post(
-            url,
-            timeout=DEFAULT_TIMEOUT_SECONDS,
-            headers={"x-goog-api-key": api_key, "Content-Type": "application/json"},
-            json={
-                "contents": [{"parts": [{"text": prompt}]}],
-                "generationConfig": {
-                    "maxOutputTokens": 180,
-                    "responseMimeType": "application/json",
-                    "responseSchema": {
-                        "type": "OBJECT",
-                        "properties": {"summary": {"type": "STRING"}},
-                        "required": ["summary"],
-                    },
-                },
-            },
-        )
-        response.raise_for_status()
-        payload = response.json()
-        raw = payload["candidates"][0]["content"]["parts"][0]["text"]
-        return _summary_from_json_text(raw)
-
-    return generate
-
-
 def _provider_generator(name: str, env: Mapping[str, str]) -> Callable[[str, Mapping[str, Any]], str]:
-    if name == "gemini":
-        return make_gemini_generator(
-            str(env["GEMINI_API_KEY"]),
-            model=str(env.get("GEMINI_SUMMARY_MODEL") or DEFAULT_GEMINI_MODEL),
-        )
     if name == "groq":
         return make_groq_generator(
             str(env["GROQ_API_KEY"]),

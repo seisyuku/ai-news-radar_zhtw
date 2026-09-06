@@ -1,4 +1,4 @@
-# AI News Radar Pulse — 交接摘要（截至 2026-08-17）
+# AI News Radar Pulse — 交接摘要（截至 2026-09-06）
 
 ## 2026-09-03 Groq 摘要模型遷移
 
@@ -161,19 +161,11 @@
     快取避免重複呼叫。標題-only 不送出；provider 或輸出驗證失敗不阻斷
     更新。前端「為什麼重要」固定模板已移除，改顯示「AI 新聞摘要」；
     沒有合格摘要時整塊隱藏。未修改全域評分公式。
-18. **8/17 Gemini 備選候選裁決（未啟用）**：`gemini-3.5-flash-lite`
-    在新 project 已通過 model discovery、plain `generateContent` 與
-    structured JSON；七個合成案例為 5 generated pass、1
-    `insufficient_context`、1 因缺少精確詞「不可信」未過 deterministic
-    gate，但未重現提示注入指令或疑似 key。歷程另確認舊 project 的
-    `429 RATE_LIMIT_EXCEEDED` 與 `gemini-2.5-flash-lite` 對新使用者的
-    `404 NOT_FOUND` 是不同失敗原因。裁決為
-    `qualified backup candidate, disabled by default`：Groq 仍是 primary，
-    workflow/production 尚未讀 `GEMINI_API_KEY`、未做 fallback、未授權
-    真實 feed 內容送往 Gemini。啟用前必須完成三時段穩定性、同案比較、
-    trigger matrix、防雙重計費、provider+model cache、成本/狀態護欄與
-    tier 資料政策裁決；完整準入條件見 `docs/OPERATIONS.md`，sanitized
-    證據見 `reports/provider-evals/gemini-3.5-flash-lite-20260817.md`。
+18. **9/06 Groq-only provider 裁決**：維護者取消 Gemini 備選與多
+    provider fallback 策略。AI 新聞摘要只使用既有 Groq
+    `qwen/qwen3.8-27b`；Gemini diagnostic、合成評估入口、舊候選報告與
+    acceptance 待辦均移除。Groq 暫時失敗時維持 fail-open，只省略摘要，
+    不切換供應商。
 19. **8/17 LLM 翻譯與 Simon Willison 徽章修正**：`LLM`／`LLMs` 納入
     `CANONICAL_NAMES` 遮罩，Google Translate 不再把 AI 縮寫譯為「法學
     碩士」；既有快取也會依原始英文標題定點修復並回寫。Simon Willison
