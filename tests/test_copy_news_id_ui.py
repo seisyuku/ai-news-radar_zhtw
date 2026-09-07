@@ -33,6 +33,7 @@ def test_single_source_cards_render_the_copy_url_button_without_social_editor_te
     assert 'button.className = "copy-id-btn"' in source
     assert 'button.textContent = "複製URL"' in source
     assert "const copyUrlButton = buildCopyNewsUrlButton(item);" in source
-    assert "if (copyUrlButton) metaRow.appendChild(copyUrlButton);" in source
+    assert "const cardActions = node.querySelector(\".card-actions\");" in source
+    assert "if (copyUrlButton) cardActions.appendChild(copyUrlButton);" in source
     assert source.count("isCopyableNewsItemId(") == 1
     assert "Social Editor" not in source

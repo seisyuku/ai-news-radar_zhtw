@@ -2316,8 +2316,9 @@ function renderItemNode(item, context = {}) {
   originalLink.rel = "noopener noreferrer";
   originalLink.textContent = "檢視原文 ↗";
   const copyUrlButton = buildCopyNewsUrlButton(item);
-  if (copyUrlButton) metaRow.appendChild(copyUrlButton);
-  metaRow.appendChild(originalLink);
+  const cardActions = node.querySelector(".card-actions");
+  cardActions.appendChild(originalLink);
+  if (copyUrlButton) cardActions.appendChild(copyUrlButton);
 
   const titleEl = node.querySelector(".title");
   const displayTitle = itemTitleText(item);
