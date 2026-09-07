@@ -14,6 +14,15 @@
 - resolver 在 archive prune 後寫入，與 archive 相同採 `last_seen_at` 的
   21-day retention（workflow 的 `--archive-days 21`）。archive 已不存在的
   40-char resolver 檔會在同輪刪除；過期 ID 回傳不存在是預期行為。
+- 每次快照也會以同一筆 archive record 寫入靜態 HTML adapter：
+  `item/<item.id>/index.html`，公開 lookup URL 為
+  `https://seisyuku.github.io/ai-news-radar_zhtw/item/<item.id>/`。頁面沒有
+  JavaScript，直接呈現 Radar ID、title、source、published_at、summary（若有）
+  與可點擊的原始 `url`；所有文字與 URL attribute 都經 HTML escaping。
+- JSON contract (`/data/items/<id>.json`) 維持 machine-readable integration
+  data；HTML contract (`/item/<id>/`) 是 LLM/browser-friendly resolver adapter。
+  ChatGPT Social Editor 應優先開啟 HTML URL、確認頁面的 Radar ID 與輸入相符，
+  再讀取 Original URL。兩種 resolver 都隨相同 21-day archive retention 清理。
 
 ## 2026-09-03 Groq 摘要模型遷移
 

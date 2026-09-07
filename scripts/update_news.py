@@ -2883,6 +2883,89 @@ def write_item_resolvers(output_dir: Path, archive: dict[str, dict[str, Any]]) -
     return len(active_ids)
 
 
+def write_item_html_adapters(output_dir: Path, archive: dict[str, dict[str, Any]]) -> int:
+    """Write one static, human-readable resolver page per archived item ID.
+
+    JSON resolvers live below ``data/items``. These documents deliberately live
+    at the Pages root (``item/<id>/``) so browser and LLM retrieval can use a
+    deterministic HTML path without a client-side lookup. They use the same
+    pruned archive records and cleanup rule as the JSON resolvers.
+    """
+    adapter_dir = output_dir.parent / "item"
+    adapter_dir.mkdir(parents=True, exist_ok=True)
+    active_ids = {
+        item_id
+        for item_id in archive
+        if re.fullmatch(r"[a-f0-9]{40}", str(item_id), flags=re.IGNORECASE)
+    }
+
+    def definition_row(label: str, value: Any) -> str:
+        text = str(value or "").strip()
+        if not text:
+            return ""
+        return f"    <dt>{html.escape(label)}</dt>\n    <dd>{html.escape(text, quote=True)}</dd>"
+
+    for item_id in active_ids:
+        record = sanitize_public_payload(dict(archive[item_id]))
+        record["id"] = item_id
+        rows = [definition_row("Radar ID", item_id)]
+        for label, field in (
+            ("Title", "title"),
+            ("Source", "source"),
+            ("Published", "published_at"),
+            ("Summary", "summary"),
+        ):
+            row = definition_row(label, record.get(field))
+            if row:
+                rows.append(row)
+
+        original_url = str(record.get("url") or "").strip()
+        if original_url:
+            escaped_url = html.escape(original_url, quote=True)
+            rows.append(
+                "    <dt>Original URL</dt>\n"
+                f'    <dd><a href="{escaped_url}">{escaped_url}</a></dd>'
+            )
+
+        page = "\n".join((
+            "<!doctype html>",
+            '<html lang="zh-Hant">',
+            "<head>",
+            '  <meta charset="utf-8">',
+            "  <title>AI News Radar Pulse — News Item</title>",
+            "</head>",
+            "<body>",
+            "  <main>",
+            "    <h1>AI News Radar Pulse — News Item</h1>",
+            "    <dl>",
+            *rows,
+            "    </dl>",
+            "  </main>",
+            "</body>",
+            "</html>",
+            "",
+        ))
+        item_dir = adapter_dir / item_id
+        item_dir.mkdir(parents=True, exist_ok=True)
+        (item_dir / "index.html").write_text(page, encoding="utf-8")
+
+    for item_dir in adapter_dir.iterdir():
+        is_adapter_dir = (
+            item_dir.is_dir()
+            and re.fullmatch(r"[a-f0-9]{40}", item_dir.name, flags=re.IGNORECASE)
+        )
+        if is_adapter_dir and item_dir.name not in active_ids:
+            page_path = item_dir / "index.html"
+            if page_path.exists():
+                page_path.unlink()
+            try:
+                item_dir.rmdir()
+            except OSError:
+                pass
+
+    return len(active_ids)
+
+
 def load_source_status(path: Path) -> dict[str, Any]:
     if not path.exists():
         return {}
@@ -6782,6 +6865,7 @@ def main() -> int:
         encoding="utf-8",
     )
     resolver_count = write_item_resolvers(output_dir, archive)
+    html_adapter_count = write_item_html_adapters(output_dir, archive)
     status_path.write_text(json.dumps(sanitize_public_payload(status_payload), ensure_ascii=False, indent=2), encoding="utf-8")
     market_signals_path.write_text(
         json.dumps(sanitize_public_payload(market_signals_payload), ensure_ascii=False, indent=2),
@@ -6818,6 +6902,7 @@ def main() -> int:
     print(f"Wrote: {stories_merged_path} ({stories_merged_payload.get('total_stories', 0)} stories)")
     print(f"Wrote: {archive_path} ({len(archive)} items)")
     print(f"Wrote: {output_dir / 'items'} ({resolver_count} resolvers)")
+    print(f"Wrote: {output_dir.parent / 'item'} ({html_adapter_count} HTML adapters)")
     print(f"Wrote: {status_path}")
     print(f"Wrote: {market_signals_path} ({len(market_signals_payload.get('signals', []))} signals)")
     print(f"Wrote: {llm_radar_path} ({llm_radar_payload.get('total_events', 0)} events)")

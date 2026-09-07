@@ -1,7 +1,12 @@
 import json
 from datetime import datetime, timedelta, timezone
 
-from scripts.update_news import make_item_id, prune_archive_records, write_item_resolvers
+from scripts.update_news import (
+    make_item_id,
+    prune_archive_records,
+    write_item_html_adapters,
+    write_item_resolvers,
+)
 
 
 UTC = timezone.utc
@@ -51,3 +56,40 @@ def test_resolver_is_removed_when_its_archive_record_exceeds_retention(tmp_path)
 
     assert (tmp_path / "items" / f"{fresh_id}.json").exists()
     assert not (tmp_path / "items" / f"{expired_id}.json").exists()
+
+
+def test_html_adapter_uses_archive_record_and_escapes_content(tmp_path):
+    item_id = make_item_id("official_ai", "Example Newsroom", "HTML", "https://example.com/news/123")
+    item = archive_item(item_id, last_seen_at=NOW, url="https://example.com/news/123?x=1&y=2")
+    item["title"] = 'Title <tag> & "quote"'
+    item["summary"] = "Summary <unsafe> & 'quote'"
+    archive = {item_id: item}
+
+    assert write_item_resolvers(tmp_path / "data", archive) == 1
+    assert write_item_html_adapters(tmp_path / "data", archive) == 1
+
+    page = (tmp_path / "item" / item_id / "index.html").read_text(encoding="utf-8")
+    assert f"Radar ID</dt>\n    <dd>{item_id}</dd>" in page
+    assert "Title &lt;tag&gt; &amp; &quot;quote&quot;" in page
+    assert "Source</dt>\n    <dd>Example Newsroom</dd>" in page
+    assert "Published</dt>\n    <dd>2026-09-07T10:00:00Z</dd>" in page
+    assert "Summary &lt;unsafe&gt; &amp; &#x27;quote&#x27;" in page
+    assert 'href="https://example.com/news/123?x=1&amp;y=2"' in page
+    assert (tmp_path / "data" / "items" / f"{item_id}.json").exists()
+
+
+def test_html_adapter_is_removed_when_its_archive_record_exceeds_retention(tmp_path):
+    fresh_id = make_item_id("official_ai", "Example Newsroom", "Fresh HTML", "https://example.com/fresh-html")
+    expired_id = make_item_id("official_ai", "Example Newsroom", "Expired HTML", "https://example.com/expired-html")
+    archive = {
+        fresh_id: archive_item(fresh_id, last_seen_at=NOW - timedelta(days=20), url="https://example.com/fresh-html"),
+        expired_id: archive_item(expired_id, last_seen_at=NOW - timedelta(days=22), url="https://example.com/expired-html"),
+    }
+
+    output_dir = tmp_path / "data"
+    write_item_html_adapters(output_dir, archive)
+    retained = prune_archive_records(archive, NOW, archive_days=21)
+    write_item_html_adapters(output_dir, retained)
+
+    assert (tmp_path / "item" / fresh_id / "index.html").exists()
+    assert not (tmp_path / "item" / expired_id / "index.html").exists()
