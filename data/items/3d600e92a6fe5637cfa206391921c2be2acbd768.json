@@ -7,6 +7,6 @@
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/08/amazon-sagemaker-hyperpod-ray",
   "published_at": "2026-08-24T15:00:00Z",
   "first_seen_at": "2026-08-28T17:05:41.324010Z",
-  "last_seen_at": "2026-09-07T22:39:41.898888Z",
+  "last_seen_at": "2026-09-07T23:02:53.316172Z",
   "summary": "Amazon SageMaker HyperPod 现已增强对 Ray 的支持，提供内置的可观测性、弹性训练、加速推理和托管式开发环境。Ray 是一种常见的开源框架，用于在统一的计算层上扩展 AI 工作负载，涵盖数据处理、分布式训练、强化学习和模型服务。在生产规模下于 Kubernetes 上运行 Ray 可能带来运维负担：作业挂起、静态团队分配导致 GPU 利用率低下，以及多步骤的可观测性设置。此外，缺乏交互式开发环境意味着每项代码更改都需要再次提交作业并熟悉 kubectl。 HyperPod 现在为 Ray 带来了更简便的开发、弹性训练和加速推理。数据科学家可以在 Amazon SageMaker Studio 中通过 Web 界面创建、编辑、监控和删除 Ray 集群，然后将 JupyterLab、代码编辑器或本地 IDE 附加到正在运行的 Ray 集群，以集群规模的计算能力进行交互式迭代。多节点 Ray 集群的行为类似于本地开发环境，因此您可以立即测试每项更改，无需等待新作业排队和启动。在可观测性方面，HyperPod 预置了显示 Amazon Managed Service for Prometheus 指标的 Grafana 控制面板，并允许通过安全的浏览器链接一键访问 Ray 控制面板，让您从首次运行即可查看工作负载的运行状况。在大规模训练方面，HyperPod 的节点自动恢复和挂起作业检测功能可处理 GPU 故障、作业挂起、损失峰值和吞吐量下降等问题。分层检查点可从集群内存恢复状态以最大限度地提高产出，而任务治理则通过配额、优先级和抢占来提高计算利用率。它们共同确保您的长时间训练在失败中持续进行，并最大化每 GPU 小时的有效工作量。对于 Ray Serve 推理，分层 KV 缓存通过重复使用缓存的前缀来缩短获得首个令牌的时间，并且您可以直接部署 Amazon SageMaker JumpStart 模型。 开源 Ray 代码无需更改即可运行，您既可以采用 SageMaker Studio 中专门构建的体验，也可以将各项功能单独集成到您自己的 ML 平台中。 在支持 SageMaker HyperPod 的 AWS 区域中，由 Amazon EKS 编排的 HyperPod 集群均可获得 Ray 支持。要了解更多信息，请参阅 SageMaker HyperPod 文档 ，并浏览 交互式演示 。"
 }
