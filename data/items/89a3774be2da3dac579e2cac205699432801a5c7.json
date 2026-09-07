@@ -7,6 +7,6 @@
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/08/amazon-redshift-supports-idc-evr",
   "published_at": "2026-08-31T21:02:00Z",
   "first_seen_at": "2026-09-04T20:52:20.696106Z",
-  "last_seen_at": "2026-09-07T12:21:44.367000Z",
+  "last_seen_at": "2026-09-07T12:35:25.445911Z",
   "summary": "Amazon Redshift 现在支持对配置了增强型 VPC 路由（EVR）的预置集群和无服务器工作组进行 AWS IAM Identity Center 身份验证。您可以使用公司凭证通过单点登录访问 Amazon Redshift，流量经由 Amazon Virtual Private Cloud（Amazon VPC）并留在 AWS 网络上。对于那些因数据驻留、监管或网络隔离要求而必须确保分析数据不得通过公共互联网外传的客户而言，这一点非常有价值。 使用 Redshift EVR，您的 Redshift 仓库和其他 AWS 服务之间的所有流量都会经过您的 VPC，您可以通过安全组、网络 ACL 和端点策略对其进行管控，并在 VPC 流日志中对其进行观测。通过此次发布，Redshift 通过您的 VPC 内部的 AWS PrivateLink 接口 VPC 端点来验证和交换 IAM Identity Center 令牌，因此身份验证和授权遵循与 Redshift 其余流量相同的受管控网络路径。此功能还支持 IAM Identity Center 多区域复制 ，适用于在与其主 Identity Center 实例不同的区域运行 Redshift 的客户。 要开始使用，请阅读 Amazon Redshift 增强型 VPC 路由 文档 和 博客文章 。此功能已在同时提供 Amazon Redshift 和 IAM Identity Center 的所有 AWS 区域推出。"
 }
