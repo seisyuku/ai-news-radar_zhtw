@@ -1,0 +1,58 @@
+name: Asset version
+
+on:
+  push:
+    paths:
+      - "assets/app.js"
+      - "assets/styles.css"
+      - "assets/motion.js"
+      - "index.html"
+      - "tests/test_asset_versions.py"
+      - ".github/workflows/asset-version.yml"
+  pull_request:
+    paths:
+      - "assets/app.js"
+      - "assets/styles.css"
+      - "assets/motion.js"
+      - "index.html"
+      - "tests/test_asset_versions.py"
+      - ".github/workflows/asset-version.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Resolve comparison baseline
+        id: baseline
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PUSH_BEFORE_SHA: ${{ github.event.before }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          if [[ "$EVENT_NAME" == "pull_request" ]]; then
+            baseline="$PR_BASE_SHA"
+          else
+            baseline="$PUSH_BEFORE_SHA"
+          fi
+
+          if [[ -z "$baseline" || "$baseline" =~ ^0+$ ]]; then
+            baseline=$(git merge-base HEAD "origin/$DEFAULT_BRANCH")
+          fi
+
+          git rev-parse --verify "$baseline^{commit}"
+          echo "ref=$baseline" >> "$GITHUB_OUTPUT"
+
+      - name: Verify asset cache version
+        env:
+          ASSET_VERSION_BASE: ${{ steps.baseline.outputs.ref }}
+        run: python tests/test_asset_versions.py

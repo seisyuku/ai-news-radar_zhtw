@@ -25,8 +25,8 @@
 - 在一般列表渲染現有六類事件徽章。
 - 提供六類事件篩選軸，沿用現行事件判定結果，不另造第七類。
 - 保持預設畫面簡單；篩選器不可遮蔽來源、時間與原文連結。
-- 變更 `assets/` 時同步遞增 `index.html` 的 `?v=` 與
-  `tests/asset_manifest.json`。
+- 變更 `assets/` 時同步遞增 `index.html` 的共用 `?v=`；由 Git baseline
+  測試驗證資產變更與版號更新成對出現。
 
 ## P1：Model Release Radar
 
