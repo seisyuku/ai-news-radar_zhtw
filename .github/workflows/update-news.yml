@@ -232,15 +232,15 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          # Stage the whole data dir so newly added output files can never be
-          # silently dropped again (the daily-brief/stories-merged freeze was
-          # caused by a stale filename whitelist here).
-          git add data/
-          # Self-check: fail loudly if anything under data/ is still unstaged,
-          # instead of green-but-stale runs.
-          if [ -n "$(git status --porcelain --untracked-files=all -- data/ | grep -v '^[MADRC]' || true)" ]; then
-            echo "::error::Generated files under data/ were not staged:"
-            git status --porcelain --untracked-files=all -- data/ | grep -v '^[MADRC]'
+          # Stage only generated public snapshot roots. This includes new,
+          # updated, and retention-pruned JSON and HTML resolver files without
+          # admitting unrelated untracked repository files.
+          git add data/ item/
+          # Self-check: fail loudly if anything under either generated root is
+          # still unstaged, instead of green-but-stale runs.
+          if [ -n "$(git status --porcelain --untracked-files=all -- data/ item/ | grep -v '^[MADRC]' || true)" ]; then
+            echo "::error::Generated files under data/ or item/ were not staged:"
+            git status --porcelain --untracked-files=all -- data/ item/ | grep -v '^[MADRC]'
             exit 1
           fi
           if git diff --cached --quiet; then
