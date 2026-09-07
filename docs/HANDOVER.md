@@ -78,9 +78,8 @@
    其他家族尾綴詞——那些是語意開放的常見英文字，Claude 子系則有大量
    實測誤譯證據支撐。機制全文、匹配規則、日常維護方式見
    `docs/OPERATIONS.md`「翻譯管線」章節；專屬 pytest 約 37 案例。翻譯 provider
-   已改為可選、受限時的 Google Cloud Translation Basic v2
-   主路徑與 DeepL fallback；缺少 credential 或 provider 故障只保留英文，
-   不得阻塞快照更新。`source-status.json.translations` 與
+   已改為固定的 Gemini `gemini-3.5-flash-lite`；缺少 credential 或 provider
+   故障只保留英文，不得阻塞快照更新。`source-status.json.translations` 與
    `translation-state.json` 分別提供無敏感資訊的狀態與六小時拒絕快取。
 10. 資料時效警示帶：前端讀 `generated_at` 與瀏覽當下比較，2 小時內
     不顯示、2-6 小時低調樣式、6 小時以上明顯樣式，門檻常數化
@@ -161,7 +160,7 @@
     快取避免重複呼叫。標題-only 不送出；provider 或輸出驗證失敗不阻斷
     更新。前端「為什麼重要」固定模板已移除，改顯示「AI 新聞摘要」；
     沒有合格摘要時整塊隱藏。未修改全域評分公式。
-18. **8/17 Gemini 備選候選裁決（未啟用）**：`gemini-3.5-flash-lite`
+18. **8/17 Gemini 摘要備選候選裁決（未啟用）**：`gemini-3.5-flash-lite`
     在新 project 已通過 model discovery、plain `generateContent` 與
     structured JSON；七個合成案例為 5 generated pass、1
     `insufficient_context`、1 因缺少精確詞「不可信」未過 deterministic
@@ -169,13 +168,14 @@
     `429 RATE_LIMIT_EXCEEDED` 與 `gemini-2.5-flash-lite` 對新使用者的
     `404 NOT_FOUND` 是不同失敗原因。裁決為
     `qualified backup candidate, disabled by default`：Groq 仍是 primary，
-    workflow/production 尚未讀 `GEMINI_API_KEY`、未做 fallback、未授權
-    真實 feed 內容送往 Gemini。啟用前必須完成三時段穩定性、同案比較、
+    摘要 workflow/production 未做 Gemini fallback、未授權真實 feed 內容送往
+    Gemini 產生摘要。這不影響 2026-09-07 已採用的讀者翻譯路徑。摘要 fallback
+    啟用前必須完成三時段穩定性、同案比較、
     trigger matrix、防雙重計費、provider+model cache、成本/狀態護欄與
     tier 資料政策裁決；完整準入條件見 `docs/OPERATIONS.md`，sanitized
     證據見 `reports/provider-evals/gemini-3.5-flash-lite-20260817.md`。
 19. **8/17 LLM 翻譯與 Simon Willison 徽章修正**：`LLM`／`LLMs` 納入
-    `CANONICAL_NAMES` 遮罩，Google Translate 不再把 AI 縮寫譯為「法學
+    `CANONICAL_NAMES` 遮罩，翻譯 provider 不再把 AI 縮寫譯為「法學
     碩士」；既有快取也會依原始英文標題定點修復並回寫。Simon Willison
     是公開示範 OPML 的既有 builder feed，不是臨時來源；其 Qwen 3.8
     文章的錯誤「財報」來自量化格式 `Q4_K_M` 被誤認為季度 `Q4`。ASCII
@@ -198,10 +198,19 @@
     卡一旦有合格繁中 AI 摘要，就隱藏原始 RSS 摘要，避免英文原文與繁中摘要
     同時呈現；無合格摘要時仍顯示來源原文，且不為 title-only 項目新增抓取。
 23. **8/17 RSS 摘要顯示翻譯**：既有英文 RSS `summary`／`description`
-    現在沿用 title 的 Google Translate、正典名稱遮罩及繁體轉換，輸出
+    現在沿用 title 的翻譯管線、正典名稱遮罩及繁體轉換，輸出
     `summary_zh` 供前端優先顯示；原始 `summary` 保留作 Groq 事實依據。
     原生繁體 RSS 摘要只正規化、絕不送翻譯；沒有 RSS 簡介的條目不新增
     抓取或推測。翻譯快取以 `summary::` 前綴與既有 title 快取共存。
+
+24. **9/07 Gemini 讀者翻譯遷移**：讀者層英文標題與 RSS 摘要的顯示翻譯，
+    從 Google Cloud Translation／DeepL 路徑改為固定使用 Gemini Developer API
+    `gemini-3.5-flash-lite`。請求走 Interactions API 的 JSON schema 回應，將來源
+    文字視為不可信內容，要求原始項目 ID 一一對應，並驗證 placeholder 與 URL
+    沒有被遺失。每輪維持串行、最多 6 請求；429 僅在 `Retry-After` 可落入剩餘
+    45 秒預算時重試，否則 fail-open 且不寫入六小時拒絕快取。這是 public reader
+    translation 的單一 provider，不改動 Groq 摘要或私人產稿器；Actions 必須設定
+    `GEMINI_API_KEY`，免費層只可傳送公開新聞內容。
 
 ## 部署
 

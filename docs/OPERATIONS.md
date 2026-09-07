@@ -122,13 +122,17 @@ GROQ_API_KEY='...' python scripts/evaluate_ai_summaries.py \
   --providers groq --require-live
 ```
 
-### Gemini backup candidate — disabled by default
+### Gemini summary provider — disabled by default
+
+這一節只約束 `news_summary` 的生成 provider；不適用於讀者層的
+`title_zh`／`summary_zh` 翻譯。後者依「翻譯管線」章節固定使用 Gemini，
+不會回退到 Groq。
 
 截至 2026-08-17，Gemini 的正式狀態是
 `qualified backup candidate, disabled by default`。Groq
-`qwen/qwen3.8-27b` 是唯一 production primary；`update-news.yml` 與
-`scripts/news_summaries.py` 尚未接入 Gemini fallback，也不讀取
-`GEMINI_API_KEY`。Gemini 測試是獨立事件，不回溯改寫 Groq 的採用裁決。
+`qwen/qwen3.8-27b` 是唯一 production primary；`scripts/news_summaries.py`
+尚未接入 Gemini fallback。`update-news.yml` 會將 `GEMINI_API_KEY` 僅傳給
+讀者翻譯路徑，不會傳給摘要路徑。Gemini 測試是獨立事件，不回溯改寫 Groq 的採用裁決。
 
 目前證據只支持「技術上可呼叫的備選候選」：
 
@@ -148,9 +152,9 @@ GROQ_API_KEY='...' python scripts/evaluate_ai_summaries.py \
 重跑方式在
 [`docs/guides/gemini-diagnostic-flow.md`](guides/gemini-diagnostic-flow.md)。
 
-在下列 production acceptance gates 全部完成前，不得把 Gemini secret
-加入 Actions、不得自動 fallback，也不得對真實 publisher feed 內容做
-Gemini production call：
+在下列 production acceptance gates 全部完成前，不得讓 Gemini 成為摘要
+pipeline 的自動 fallback，也不得對真實 publisher feed 內容做 Gemini 摘要
+production call：
 
 1. 裁決提示注入案例：維持精確詞彙 gate 並修 prompt，或以有明確安全
    斷言的語意 gate 取代；裁決後重新跑到驗收全綠。
@@ -425,33 +429,37 @@ update-news.yml: freshness-check job
 
 英文標題的 zh-TW 顯示值（`title_zh`）與已有 RSS `summary`／`description`
 的顯示翻譯（`summary_zh`）都由 `scripts/update_news.py` 的
-`add_bilingual_fields()` 產生。主服務是可選的官方 Google Cloud Translation
-Basic v2（`GOOGLE_TRANSLATE_API_KEY`）；Google 請求失敗時，才使用可選的
-DeepL（`DEEPL_API_KEY`）作一次 fallback。兩者都未設定時安全跳過，保留英
-文顯示，絕不讓翻譯失敗中斷快照更新。翻譯結果再經 `CANONICAL_NAMES` 正典
-名稱表處理。`summary` 原文會保留作 AI 摘要的事實依據；前端優先顯示
-`summary_zh`。沒有 RSS 摘要的條目會跳過此步驟，不新增抓取或猜測內容。完整規格與程式碼註解在
+`add_bilingual_fields()` 產生。唯一 provider 是 Gemini Developer API 的
+`gemini-3.5-flash-lite`，透過 GitHub Actions 的 `GEMINI_API_KEY` 使用；未設定
+時安全跳過，保留英文顯示，絕不讓翻譯失敗中斷快照更新。翻譯結果再經
+`CANONICAL_NAMES` 正典名稱表處理。`summary` 原文會保留作 AI 摘要的事實依據；
+前端優先顯示 `summary_zh`。沒有 RSS 摘要的條目會跳過此步驟，不新增抓取或猜測內容。完整規格與程式碼註解在
 `scripts/update_news.py` 內 `CANONICAL_NAMES` 定義上方，這裡只記操作面
 摘要（新增詞條、除錯時該看哪裡）。
 
 ### Provider 與失效界線
 
 - 每輪最多處理 `--translate-max-new`（預設 80）個候選；每個請求最多 30
-  段、4,800 字元，單次逾時 5 秒，整個翻譯階段最多 30 秒與 6 次請求。
-  上限計候選與嘗試，不再只計成功結果，因此單一 provider 故障不會造成
-  無限重試。
+  段、4,800 字元，單次逾時 10 秒，整個翻譯階段最多 45 秒與 6 次請求。
+  請求依序執行。429 只會在 `Retry-After` 落在剩餘預算內時重試，重試仍計入
+  六次上限；否則保留英文且不寫入六小時拒絕快取。
 - 失敗候選會寫入 `data/translation-state.json` 六小時的短期拒絕快取；期間
-  只保留英文，不重送相同內容。成功後會自動移除該記錄。這個檔案不含 API key。
+  只保留英文，不重送相同內容。成功後會自動移除該記錄。429 限流例外，避免
+  正常額度恢復後仍被快取壓住。這個檔案不含 API key。
+- Provider 變更會提升該狀態檔版本並捨棄舊 provider 的短期拒絕，避免先前
+  的 credential 或 endpoint 故障阻止新 provider 嘗試。
 - `data/source-status.json` 的 `translations` 欄位記錄候選數、請求數、實際
-  provider、略過原因與拒絕快取命中數，不紀錄文章內容或任何 credential。
-- Gemini 沒有接入這條翻譯路徑；這次變更只處理既有的 MT 顯示翻譯，不改動
-  現有新聞摘要 provider 或其資料政策。
+  provider、模型、略過原因與拒絕快取命中數，不紀錄文章內容或任何 credential。
+- Gemini 只處理公開新聞的讀者顯示翻譯，不改動現有 Groq 新聞摘要 provider、
+  私人產稿器或其資料政策。免費層傳送的公開新聞內容可能用於改善 Google 產品；
+  不得傳送私密內容、設定或 credential。
 
-啟用主服務前，維護者需在 Google Cloud 自行啟用 Cloud Translation API、建立
-受限 API key，並在 GitHub Actions 建立 `GOOGLE_TRANSLATE_API_KEY` Secret。
-Google Cloud 的帳務、預算與警示均在 repo 外設定；本專案不會自動建立或修改它們。
-若需要 provider 故障時的備援，再另設 `DEEPL_API_KEY` Secret。沒有這些 secret
-仍是支援狀態，只是新英文內容不會自動產生繁中顯示。
+啟用服務前，維護者需在 Google AI Studio 建立 Gemini API key，並在 GitHub Actions
+建立名稱完全相同的 `GEMINI_API_KEY` Secret。實際 RPM／TPM／RPD 在 AI Studio 依
+專案顯示；目前採固定單一模型，沒有自動 provider 或模型 fallback。兩個名稱皆未設定
+仍是支援狀態，只是新英文內容不會自動產生繁中顯示。遷移期間 workflow 也會讀取舊的
+`GOOGLE_TRANSLATE_API_KEY` 作為同一把 Gemini key 的名稱相容路徑；新增正確名稱後可
+撤銷舊 Secret，毋須同時保留兩者。
 
 ### 三種作用模式
 

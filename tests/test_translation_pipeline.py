@@ -1,8 +1,9 @@
+import json
 from datetime import datetime, timezone
 
 import requests
 
-from scripts.update_news import add_bilingual_fields, empty_translation_state
+from scripts.update_news import GEMINI_TRANSLATION_MODEL, add_bilingual_fields, empty_translation_state
 
 
 class FakeResponse:
@@ -16,17 +17,38 @@ class FakeResponse:
         return self.payload
 
 
-def test_google_cloud_translation_is_batched_masked_and_observable():
-    class GoogleSession:
+def gemini_response(translations):
+    return FakeResponse(
+        {
+            "status": "completed",
+            "steps": [
+                {
+                    "type": "model_output",
+                    "content": [{"type": "text", "text": json.dumps({"translations": translations}, ensure_ascii=False)}],
+                }
+            ],
+        }
+    )
+
+
+def test_gemini_translation_is_batched_masked_and_observable():
+    class GeminiSession:
         def __init__(self):
             self.calls = []
 
         def post(self, url, json=None, headers=None, **_kwargs):
             self.calls.append({"url": url, "headers": headers, "json": json})
-            translated = [text.replace("releases a fresh model", "推出全新模型") for text in json["q"]]
-            return FakeResponse({"data": {"translations": [{"translatedText": text} for text in translated]}})
+            items = json_module.loads(json["input"])["items"]
+            translations = [
+                {"id": item["id"], "text": item["text"].replace("releases a fresh model", "推出全新模型")}
+                for item in items
+            ]
+            return gemini_response(translations)
 
-    session = GoogleSession()
+    # The request payload parameter is intentionally named json above, so use
+    # this module alias when decoding the nested JSON input.
+    json_module = json
+    session = GeminiSession()
     state = empty_translation_state()
     status = {}
     item = {"title": "OpenAI releases a fresh model", "url": "https://example.com/model"}
@@ -39,56 +61,49 @@ def test_google_cloud_translation_is_batched_masked_and_observable():
         10,
         translation_state=state,
         translation_status=status,
-        now=datetime(2026, 8, 26, tzinfo=timezone.utc),
-        google_api_key="test-google-key",
+        now=datetime(2026, 9, 7, tzinfo=timezone.utc),
+        gemini_api_key="test-gemini-key",
     )
 
     assert len(session.calls) == 1
     call = session.calls[0]
-    assert call["url"] == "https://translation.googleapis.com/language/translate/v2"
-    assert call["headers"] == {"x-goog-api-key": "test-google-key"}
-    assert call["json"]["target"] == "zh-TW"
-    assert isinstance(call["json"]["q"], list)
-    assert all("OpenAI" not in value for value in call["json"]["q"])
+    assert call["url"] == "https://generativelanguage.googleapis.com/v1beta/interactions"
+    assert call["headers"] == {"x-goog-api-key": "test-gemini-key"}
+    assert call["json"]["model"] == GEMINI_TRANSLATION_MODEL
+    assert "untrusted source material" in call["json"]["system_instruction"]
+    assert call["json"]["response_format"]["mime_type"] == "application/json"
+    assert all("OpenAI" not in item["text"] for item in json.loads(call["json"]["input"])["items"])
     assert ai_items[0]["title_zh"] == "OpenAI 推出全新模型"
-    assert status["provider_used"] == "google_cloud"
+    assert status["provider_used"] == "gemini"
+    assert status["model"] == GEMINI_TRANSLATION_MODEL
     assert status["translated_count"] == 1
 
 
-def test_deepl_is_only_used_after_google_failure():
-    class FallbackSession:
-        def __init__(self):
-            self.urls = []
+def test_gemini_response_requires_exact_item_ids():
+    class InvalidResponseSession:
+        def post(self, *_args, **_kwargs):
+            return gemini_response([{"id": "unexpected", "text": "發布新模型"}])
 
-        def post(self, url, json=None, **_kwargs):
-            self.urls.append(url)
-            if "translation.googleapis.com" in url:
-                raise requests.Timeout("simulated Google outage")
-            return FakeResponse({"translations": [{"text": "發布新模型"}]})
-
-    session = FallbackSession()
+    state = empty_translation_state()
     status = {}
-    item = {"title": "A vendor releases a model", "url": "https://example.com/fallback"}
+    item = {"title": "A vendor releases a model", "url": "https://example.com/invalid"}
 
     ai_items, _, _ = add_bilingual_fields(
         [item],
         [item],
-        session,
+        InvalidResponseSession(),
         {},
         10,
+        translation_state=state,
         translation_status=status,
-        now=datetime(2026, 8, 26, tzinfo=timezone.utc),
-        google_api_key="test-google-key",
-        deepl_api_key="test-deepl-key:fx",
+        now=datetime(2026, 9, 7, tzinfo=timezone.utc),
+        gemini_api_key="test-gemini-key",
     )
 
-    assert session.urls == [
-        "https://translation.googleapis.com/language/translate/v2",
-        "https://api-free.deepl.com/v2/translate",
-    ]
-    assert ai_items[0]["title_zh"] == "發布新模型"
-    assert status["provider_used"] == "deepl"
-    assert status["request_count"] == 2
+    assert ai_items[0]["title_zh"] is None
+    assert status["failed_count"] == 1
+    assert status["last_error_type"] == "invalid_response"
+    assert len(state["rejections"]) == 1
 
 
 def test_provider_failure_uses_short_negative_cache_instead_of_retrying_every_run():
@@ -104,30 +119,18 @@ def test_provider_failure_uses_short_negative_cache_instead_of_retrying_every_ru
     state = empty_translation_state()
     first_status = {}
     second_status = {}
-    now = datetime(2026, 8, 26, tzinfo=timezone.utc)
+    now = datetime(2026, 9, 7, tzinfo=timezone.utc)
     item = {"title": "A new model is released", "url": "https://example.com/outage"}
 
     first, _, _ = add_bilingual_fields(
-        [item],
-        [item],
-        session,
-        {},
-        10,
-        translation_state=state,
-        translation_status=first_status,
-        now=now,
-        google_api_key="test-google-key",
+        [item], [item], session, {}, 10,
+        translation_state=state, translation_status=first_status, now=now,
+        gemini_api_key="test-gemini-key",
     )
     second, _, _ = add_bilingual_fields(
-        [item],
-        [item],
-        session,
-        {},
-        10,
-        translation_state=state,
-        translation_status=second_status,
-        now=now,
-        google_api_key="test-google-key",
+        [item], [item], session, {}, 10,
+        translation_state=state, translation_status=second_status, now=now,
+        gemini_api_key="test-gemini-key",
     )
 
     assert first[0]["title_zh"] is None
@@ -138,6 +141,34 @@ def test_provider_failure_uses_short_negative_cache_instead_of_retrying_every_ru
     assert second_status["negative_cache_hits"] == 1
 
 
+def test_rate_limit_is_not_stored_in_the_six_hour_negative_cache():
+    class RateLimitedSession:
+        def __init__(self):
+            self.calls = 0
+
+        def post(self, *_args, **_kwargs):
+            self.calls += 1
+            response = type("Response", (), {"status_code": 429, "headers": {"Retry-After": "90"}})()
+            raise requests.HTTPError("rate limited", response=response)
+
+    session = RateLimitedSession()
+    state = empty_translation_state()
+    status = {}
+    item = {"title": "A new model is released", "url": "https://example.com/rate-limit"}
+
+    ai_items, _, _ = add_bilingual_fields(
+        [item], [item], session, {}, 10,
+        translation_state=state, translation_status=status,
+        now=datetime(2026, 9, 7, tzinfo=timezone.utc), gemini_api_key="test-gemini-key",
+    )
+
+    assert ai_items[0]["title_zh"] is None
+    assert session.calls == 1
+    assert status["rate_limited"] is True
+    assert status["failed_count"] == 1
+    assert state["rejections"] == {}
+
+
 def test_missing_translation_credentials_skips_without_a_network_request():
     class NoNetworkSession:
         def post(self, *_args, **_kwargs):
@@ -146,15 +177,8 @@ def test_missing_translation_credentials_skips_without_a_network_request():
     status = {}
     item = {"title": "A new model is released", "url": "https://example.com/no-key"}
     ai_items, _, _ = add_bilingual_fields(
-        [item],
-        [item],
-        NoNetworkSession(),
-        {},
-        10,
-        translation_status=status,
-        now=datetime(2026, 8, 26, tzinfo=timezone.utc),
-        google_api_key="",
-        deepl_api_key="",
+        [item], [item], NoNetworkSession(), {}, 10,
+        translation_status=status, now=datetime(2026, 9, 7, tzinfo=timezone.utc), gemini_api_key="",
     )
 
     assert ai_items[0]["title_zh"] is None
@@ -171,14 +195,8 @@ def test_overlong_rss_text_is_not_sent_as_an_oversized_provider_request():
     status = {}
     item = {"title": "model " * 1_000, "url": "https://example.com/oversized"}
     ai_items, _, _ = add_bilingual_fields(
-        [item],
-        [item],
-        NoNetworkSession(),
-        {},
-        10,
-        translation_status=status,
-        now=datetime(2026, 8, 26, tzinfo=timezone.utc),
-        google_api_key="test-google-key",
+        [item], [item], NoNetworkSession(), {}, 10,
+        translation_status=status, now=datetime(2026, 9, 7, tzinfo=timezone.utc), gemini_api_key="test-gemini-key",
     )
 
     assert ai_items[0]["title_zh"] is None
