@@ -2209,6 +2209,18 @@ function isCopyableNewsItemId(item) {
   return /^[a-f0-9]{40}$/i.test(String(item?.id || "").trim());
 }
 
+function buildCopyNewsUrlPayload(item) {
+  const url = String(item?.url || "").trim();
+  if (!url) return "";
+  try {
+    const parsed = new URL(url);
+    if (parsed.protocol !== "http:" && parsed.protocol !== "https:") return "";
+  } catch {
+    return "";
+  }
+  return `URL＝${url}`;
+}
+
 function fallbackCopyText(text) {
   const textarea = document.createElement("textarea");
   textarea.value = text;
@@ -2235,18 +2247,18 @@ async function copyTextToClipboard(text) {
   fallbackCopyText(text);
 }
 
-function buildCopyNewsIdButton(item) {
-  if (!isCopyableNewsItemId(item)) return null;
-  const itemId = String(item.id).trim();
+function buildCopyNewsUrlButton(item) {
+  const copyPayload = buildCopyNewsUrlPayload(item);
+  if (!copyPayload) return null;
   const button = document.createElement("button");
   button.type = "button";
   button.className = "copy-id-btn";
-  button.textContent = "複製新聞 ID";
-  button.setAttribute("aria-label", `複製「${itemTitleText(item)}」的新聞 ID`);
+  button.textContent = "複製URL";
+  button.setAttribute("aria-label", `複製「${itemTitleText(item)}」的原文 URL`);
   button.addEventListener("click", async () => {
     button.disabled = true;
     try {
-      await copyTextToClipboard(itemId);
+      await copyTextToClipboard(copyPayload);
       button.textContent = "已複製";
       button.classList.add("copied");
     } catch (_error) {
@@ -2254,7 +2266,7 @@ function buildCopyNewsIdButton(item) {
       button.classList.add("copy-failed");
     }
     window.setTimeout(() => {
-      button.textContent = "複製新聞 ID";
+      button.textContent = "複製URL";
       button.classList.remove("copied", "copy-failed");
       button.disabled = false;
     }, 1600);
@@ -2303,8 +2315,8 @@ function renderItemNode(item, context = {}) {
   originalLink.target = "_blank";
   originalLink.rel = "noopener noreferrer";
   originalLink.textContent = "檢視原文 ↗";
-  const copyIdButton = buildCopyNewsIdButton(item);
-  if (copyIdButton) metaRow.appendChild(copyIdButton);
+  const copyUrlButton = buildCopyNewsUrlButton(item);
+  if (copyUrlButton) metaRow.appendChild(copyUrlButton);
   metaRow.appendChild(originalLink);
 
   const titleEl = node.querySelector(".title");
