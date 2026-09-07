@@ -1,0 +1,12 @@
+{
+  "id": "adaab9b71fb026c1a2771051983252142f410c6a",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "Amazon DynamoDB Streams 现已支持基于属性的访问权限控制",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/08/amazon-dynamodb-streams-abac",
+  "published_at": "2026-08-19T21:03:00Z",
+  "first_seen_at": "2026-08-27T16:05:29.279091Z",
+  "last_seen_at": "2026-09-04T20:32:47.917994Z",
+  "summary": "Amazon DynamoDB Streams 现已支持基于属性的访问权限控制（ABAC），使您能够在 Identity and Access Management（IAM）策略中使用基于标签的条件来控制对数据流的访问。ABAC 是一种授权策略，可让您使用更少的 IAM 策略对多个团队和应用程序执行不同的访问级别，从而简化访问管理。此功能专为具有以下需求的团队构建：管理跨多个应用程序和环境的 DynamoDB Streams 访问权限，同时需要更精细、可扩展的访问控制。 借助适用于 DynamoDB Streams 的 ABAC，您可以为每个流附加多达 50 个标签，并在 IAM 策略条件中使用这些标签来授予或拒绝对特定操作的访问权限。例如，您可以允许用户仅从标有“environment:production”的流中读取记录，同时限制对其他环境的访问权限。流标签可独立于其父表标签进行管理，这使您能够灵活地实施环境分割、基于团队的隔离以及合规要求，而无需创建大量独立的 IAM 策略。 适用于 DynamoDB Streams 的 ABAC 已在提供 Amazon DynamoDB Streams 的所有 AWS 商业区域和 AWS GovCloud（美国）区域推出。使用适用于 DynamoDB Streams 的 ABAC 不会产生额外费用。要了解更多信息，请访问 Amazon DynamoDB 页面并参阅 Amazon DynamoDB Streams ABAC 。"
+}

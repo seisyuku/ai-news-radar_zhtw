@@ -1,0 +1,12 @@
+{
+  "id": "1aa42281ac49c40d8d1e36250d71f0de8ef48276",
+  "site_id": "opmlrss",
+  "site_name": "OPML RSS",
+  "source": "Simon Willison",
+  "title": "Introducing Muse Glimmer",
+  "url": "https://simonwillison.net/2026/Aug/10/introducing-muse-glimmer",
+  "published_at": "2026-08-10T23:56:03Z",
+  "first_seen_at": "2026-08-11T00:04:17.700991Z",
+  "last_seen_at": "2026-08-22T17:31:10.813262Z",
+  "summary": "Introducing Muse Glimmer Meta are back in the open weights game! Muse Glimmer is a brand new 30B model under a clean Apache 2.0 license (a step up from the janky Llama licenses of old). They claim to have optimized it for exactly the kind of things I'm looking for in a local model: End-to-end Agentic Task Completion. Muse Glimmer achieves strong success rates on full-task benchmarks including DeepSearch QA, MCP-Atlas, 𝛕-Bench and SWE-Bench, which measure its ability to work within scaffolds, write and debug code, and resolve multi-turn requests from start to finish. Reliable Tool Use. The model handles a wide range of function calls, invoking tools with precise schemas throughout extended workflows. Multi-Step Reasoning. Muse Glimmer chains reasoning over long horizons, sustaining coherent plans across complex, extended workflows. [...] Here's a pelican which I generated using LM Studio's 18.16 GB version of the model : I also tried it out with my llm-coding-agent plugin, running against a fresh checkout of Datasette with the prompt: how does auth work? Here's the response , at the end of a long transcript showing all of the tool calls it made to explore the codebase. I ran this using llm-lmstudio with this patch applied to upgrade it for compatibility with LLM 0.32 . I really like this size of model, because if a machine has 32 GB of RAM or more (mine has 128GB) it leaves plenty of space for running other applications at the same time. Glimmer is a vision model, so I asked it to describe this image: llm -m lmstudio/meta/muse-glimmer -a https://static.inaturalist.org/photos"
+}

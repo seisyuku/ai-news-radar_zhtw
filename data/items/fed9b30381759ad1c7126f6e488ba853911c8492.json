@@ -1,0 +1,12 @@
+{
+  "id": "fed9b30381759ad1c7126f6e488ba853911c8492",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "在 Amazon Bedrock 上针对 Web Search 推出 External Web Access",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/08/amazon-bedrock-web-access-web-search",
+  "published_at": "2026-08-19T23:00:00Z",
+  "first_seen_at": "2026-08-27T16:05:29.279091Z",
+  "last_seen_at": "2026-09-04T22:35:24.917897Z",
+  "summary": "本月早些时候，我们宣布了 在 Amazon Bedrock 上推出 Web Search ，这是一款内置的服务器端工具，可让您利用最新的 Web 知识来增强模型响应，同时将数据保留在安全的 AWS 环境中，任何数据都不会流出。今天，我们扩展了 Web Search，以启用 external_web_access 参数，从而允许 Web Search 直接从公共网页检索内容，这样模型就能根据最新信息进行响应。 要启用 external_web_access，请向请求身份授予 bedrock-websearch:ExternalWebAccess IAM 权限，并将 external_web_access 参数保留为默认值 true。 这样，Web Search 就可以实时从公共网页获取内容，用于需要最新信息（例如最新的体育赛事比分、实时定价或新发布的文档）的使用案例。如果要处理敏感数据，希望完全在 AWS 边界内进行检索，请将 external_web_access 设置为 false。设置为 false 后，Web Search 将仅从 Amazon 的 AWS 内部 Web 索引和知识图谱提供结果，任何请求数据都不会离开 AWS 边界。 您可以在以下 AWS 区域启用 External Web Access：美国东部（弗吉尼亚州北部）、美国东部（俄亥俄州）和美国西部（俄勒冈州）。要了解更多信息，请阅读我们的博客文章 Introducing Web Search on Amazon Bedrock for foundation model grounding ，查看《Amazon Bedrock 用户指南》中的 控制 External Web Access ，并访问 Amazon Bedrock 定价页面 了解费用详情。"
+}

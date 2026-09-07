@@ -1,0 +1,12 @@
+{
+  "id": "5d52bb1206665798fcd492f43060c07fe9d0274f",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "AWS WAF 新增预解析文本转换和新的文本转换功能",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/07/aws-waf",
+  "published_at": "2026-07-29T15:00:00Z",
+  "first_seen_at": "2026-08-07T21:35:26.485397Z",
+  "last_seen_at": "2026-08-20T21:18:24.968580Z",
+  "summary": "今天，AWS WAF 新增了对查询参数的预解析文本转换功能，以及十种可在任意规则语句中使用的新文本转换功能。这两项功能都能帮助您规范化请求内容，使 AWS WAF 能够以与您的应用程序解析请求相同的方式来检查请求。 预解析文本转换功能会在 AWS WAF 将原始查询字符串解析为键值对之前对其进行规范化处理，从而弥补 HTTP 参数污染和解析器差异所导致的绕过漏洞。您可以在单个规则语句中链式使用最多十种转换（包括 URL 解码、按逗号合并重复查询参数、将分号替换为“&”）等，并在此基础上叠加标准的解析后转换。 新增的文本转换功能为您提供了更多在检查前规范化内容的方式，包括“大写”、“去除空格”、“移除空格”和“SHA256”等行业标准选项，以及由 Amazon 威胁研究团队开发的、具备操作系统感知能力的命令行和 JavaScript 解码函数。 每种新转换消耗 10 个 WCU，除标准 AWS WAF 定价外不收取额外费用，并已在所有 AWS 区域推出。要开始使用，请参阅以下资源： AWS WAF 中的预解析文本转换： https://docs.aws.amazon.com/waf/latest/developerguide/waf-rule-statement-preparse-transformation.html AWS WAF 中的文本转换： https://docs.aws.amazon.com/waf/latest/developerguide/waf-rule-statement-transformation.html AWS WAF 入门： https://docs.aws.amazon.com/waf/latest/developerguide/getting-started.html"
+}

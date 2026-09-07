@@ -1,0 +1,12 @@
+{
+  "id": "371aeeeda1e184e5cb33760f26f8bea28f9d78cc",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "AWS Secrets Manager 现已支持向 Amazon EventBridge 发布密钥更新通知",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/07/secrets-manager-update-notifications",
+  "published_at": "2026-07-22T07:00:00Z",
+  "first_seen_at": "2026-08-07T21:35:26.485397Z",
+  "last_seen_at": "2026-08-20T21:18:24.968580Z",
+  "summary": "AWS Secrets Manager 现可在您的密钥值发生更改时自动向 Amazon EventBridge 发布事件，使您能够构建事件驱动的工作流程来实时响应密钥更新。 在此之前，您必须依赖解析到 EventBridge 中的 AWS CloudTrail 事件来获知密钥值何时发生了更改，这需要您匹配多个 API 事件，例如轮换成功、PutSecretValue 和 UpdateSecretValue。此次发布后，只要您的密钥值发生更改，Secrets Manager 就会直接将事件发布到 EventBridge 中。您可以使用 EventBridge 规则来检测正在使用的密钥值何时发生更改（例如，在轮换期间），并将通知路由至 AWS Lambda、Amazon SNS、Amazon SQS 或 Amazon Step Functions 等目标。这使您能够主动刷新应用程序中缓存的凭证、重新启动依赖服务或更新密钥轮换的合规性报告。 密钥更新通知会自动发布到默认事件总线，无需进行额外配置或主动启用。此功能已在提供 AWS Secrets Manager 的所有 AWS 区域推出，无需支付额外费用。要开始使用，请参阅 AWS Secrets Manager User Guide 中的 Secret event notifications 。"
+}

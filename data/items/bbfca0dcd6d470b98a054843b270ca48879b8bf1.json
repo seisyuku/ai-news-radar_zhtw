@@ -1,0 +1,12 @@
+{
+  "id": "bbfca0dcd6d470b98a054843b270ca48879b8bf1",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "AWS Security Agent 现在支持对使用基于电子邮件的 MFA 的应用程序进行渗透测试",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/08/aws-security-agent-mfa",
+  "published_at": "2026-08-06T16:54:00Z",
+  "first_seen_at": "2026-08-20T21:48:58.875805Z",
+  "last_seen_at": "2026-08-27T15:05:29.887220Z",
+  "summary": "AWS Security Agent（现已为 AWS Continuum 的一部分）现在支持对登录流程中使用基于电子邮件的多重身份验证（MFA）的应用程序进行渗透测试。以前，需要通过电子邮件发送一次性验证码或验证链接的应用程序，无法进行自动化渗透测试，因为该代理没有相应的机制来拦截这些邮件。本次发布扩大了渗透测试的覆盖范围，将客户的依赖基于电子邮件的身份验证的目标应用程序包含在内。 为了使用此功能，AWS Security Agent 将为每个凭证生成一个唯一的转发地址，使您能够使用现有电子邮件提供商的转发规则，将应用程序的 MFA 电子邮件直接路由至代理。在渗透测试期间，代理会自动读取转发的邮件，并提交其中的代码或链接以完成身份验证，全程不存储任何电子邮件账户凭证，从而保持良好的隐私保护水平。此功能是现有 TOTP 支持的有力补充，为客户提供了跨多种 MFA 方法测试应用程序的统一解决方案。 此功能已在支持 AWS Security Agent 的所有 AWS 区域推出。 要了解更多信息，请参阅 AWS Security Agent 产品页面 和 AWS Security Agent 用户指南 。"
+}

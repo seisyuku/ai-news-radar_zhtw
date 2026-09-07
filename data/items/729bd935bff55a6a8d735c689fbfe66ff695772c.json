@@ -1,0 +1,12 @@
+{
+  "id": "729bd935bff55a6a8d735c689fbfe66ff695772c",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "Amazon OpenSearch 无服务器现支持每个集合组最多 10000 个集合",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/08/amazon-opensearch-serverless-supports-10000-collections-per-collection-group",
+  "published_at": "2026-08-10T15:51:00Z",
+  "first_seen_at": "2026-08-20T21:48:58.875805Z",
+  "last_seen_at": "2026-08-27T15:05:29.887220Z",
+  "summary": "新一代 Amazon OpenSearch 无服务器现在支持单个集合组包含最多 10000 个集合，相较之前 1500 个的上限有所提升。集合组可将多个集合组织在一起，并允许它们共享 OpenSearch 计算单元（OCU），即使这些集合使用不同的 AWS KMS 密钥进行加密也是如此。有了这一更高上限，您可以将更多集合整合到单个集合组中，并在一组共享的容量限制下进行管理。 客户可以利用集合组在多个集合间共享计算资源，无需为每个 KMS 密钥单独预置 OCU，从而降低成本，同时仍能保持集合级别的安全性和访问控制。随着客户工作负载的增长，特别是对于为每个租户预置一个集合的多租户应用场景，此前每个集合组 1500 个集合的上限限制了能够从共享计算池中受益的租户数量。新一代 Amazon OpenSearch 无服务器将该上限提高至 10000 个集合，使您能够进一步扩展这些工作负载、提高计算利用率并降低每个集合的成本，而无需创建和运营额外的集合组。这一更高上限将自动应用于新的和现有的新一代集合组。 提升的上限已在 提供 新一代 Amazon OpenSearch 无服务器的所有 AWS 区域推出。要了解更多信息，请参阅 Amazon OpenSearch 无服务器 技术文档 和 配额 。"
+}

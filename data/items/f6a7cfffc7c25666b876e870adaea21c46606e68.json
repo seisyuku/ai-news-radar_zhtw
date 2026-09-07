@@ -1,0 +1,12 @@
+{
+  "id": "f6a7cfffc7c25666b876e870adaea21c46606e68",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "Amazon S3 在“访问被拒绝”错误消息中新增策略详情",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/08/s3-additional-policy-details-access-denied-error-messages",
+  "published_at": "2026-08-13T13:00:00Z",
+  "first_seen_at": "2026-08-20T21:48:58.875805Z",
+  "last_seen_at": "2026-08-28T22:35:26.534187Z",
+  "summary": "Amazon S3 现已在针对同一账户和同一组织请求的 HTTP 403“访问被拒绝”错误消息中，添加了具体的 AWS Identity and Access Management（IAM）和 AWS Organizations 策略 Amazon 资源名称（ARN）。这有助于您快速识别导致请求被拒绝的具体策略，并直接修复问题。 此前，S3 中的“访问被拒绝”错误消息虽已包含策略类型和被拒原因，但当存在多个相同类型的策略时，您仍需手动检查每个策略才能确定根本原因。现在，针对显式拒绝场景，该错误消息包含具体策略 ARN，涵盖服务控制策略（SCP）、资源控制策略（RCP）、基于身份的策略、会话策略以及权限边界。 这项功能已在所有 AWS 区域推出，包括 AWS GovCloud（美国）区域和 AWS 中国区域。要详细了解如何排查 Amazon S3 中的访问被拒绝错误，请访问 S3 用户指南 和 IAM 问题排查文档 。"
+}

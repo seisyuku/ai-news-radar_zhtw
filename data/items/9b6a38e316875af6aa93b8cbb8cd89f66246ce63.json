@@ -1,0 +1,12 @@
+{
+  "id": "9b6a38e316875af6aa93b8cbb8cd89f66246ce63",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "Amazon ECS 高级部署策略现已在 AWS European Sovereign Cloud 中提供",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/07/ecs-adv-deployments-eu-sovereign-cloud",
+  "published_at": "2026-07-21T17:00:00Z",
+  "first_seen_at": "2026-08-07T21:35:26.485397Z",
+  "last_seen_at": "2026-08-20T21:18:24.968580Z",
+  "summary": "Amazon Elastic Container Service（Amazon ECS） 现已在 AWS European Sovereign Cloud 中支持内置的蓝绿部署、线性部署和金丝雀部署策略，这使得容器化应用程序的软件更新更加安全，并让您能够更快速、更自信地发布新应用程序版本。这些功能直接内置于 Amazon ECS 中，不仅消除了对自定义部署工具的需求，同时提供了生产就绪的控制功能，包括部署生命周期挂钩、烘焙时间和快速回滚。 借助这些策略，Amazon ECS 会在现有版本旁预置一个新应用程序版本，并允许您在转移生产流量之前对其进行验证。蓝绿部署通过单个步骤转移流量，线性部署在指定时间段内以相等的增量逐步转移流量，而金丝雀部署先转移一小部分流量，然后再转移剩余部分。您可以使用部署生命周期挂钩（包括 Lambda 钩子和暂停钩子），在特定部署阶段运行自定义验证逻辑和审批工作流。您还可以配置烘焙时间，以便在流量转移后评估新版本，并在发现回归问题时实现零停机回滚。要自动检测故障，您可以配置 Amazon CloudWatch 警报或 Amazon ECS 部署断路器，也可以直接使用 StopServiceDeployment API 发起回滚。 这些功能适用于使用应用程序负载均衡器（ALB）、网络负载均衡器（NLB）以及 Amazon ECS Service Connect 的 Amazon ECS 服务。您可以通过 AWS 管理控制台、AWS CLI、AWS SDK 或基础设施即代码工具，在新建或现有的 Amazon ECS 服务上配置部署。要了解更多信息，请参阅我们关于 Amazon ECS 蓝绿部署 、 线性部署 、 金丝雀部署 以及 部署生命周期挂钩 的文档。"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "38d60e287f915f58833327c1ca97c698bbdc0eef",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "Amazon ECS 现已支持在 Amazon EC2 G6f 实例上进行分数 GPU 调度",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/08/amazon-ecs-fractional-gpu",
+  "published_at": "2026-08-06T22:00:00Z",
+  "first_seen_at": "2026-08-20T21:48:58.875805Z",
+  "last_seen_at": "2026-08-27T15:05:29.887220Z",
+  "summary": "Amazon Elastic Container Service （Amazon ECS）现已支持在 Amazon EC2 G6f 实例上进行分数 GPU 调度，使您能够在最小至 1/8 块 NVIDIA L4 Tensor Core GPU（含 3 GB GPU 内存）的 GPU 分区上运行工作负载。分数 GPU 使您能够灵活地调整容器大小，使其适用于小模型 AI 推理、模型试验、图形渲染以及其他无需占用整个 GPU 的工作负载；相较于预置整个 GPU 实例，这有助于显著降低基础设施成本。 您可以通过在 Amazon ECS 任务定义的容器定义中设置 GPU=0.125、GPU=0.25 或 GPU=0.5 来请求分数 GPU。之后，Amazon ECS 将任务置于满足请求的 G6f 实例上。Amazon ECS 托管实例和 EC2 上的 Amazon ECS 都支持分数 GPU 配置。利用 ECS 托管实例 ，您可以获得完全托管式体验，其中 ECS 会自动处理实例预置、扩展、修补和生命周期管理工作，使您能够专注于 GPU 工作负载而不是基础设施运维。ECS 托管实例还包含专为加速工作负载构建的功能，例如通过 Amazon CloudWatch Container Insights 提供的 GPU 指标，以及可检测 GPU 硬件故障并自动替换异常实例的 自动运行状况监控 ，从而最大限度减少工作负载中断。 此功能已在提供 Amazon EC2 G6f 实例的所有 AWS 区域推出。要开始使用，请使用 AWS 管理控制台、AWS CLI、AWS SDK、AWS CloudFormation 或其他基础设施即代码工具，配置一个带 G6f 实例的容量提供程序，并在 ECS 任务定义的容器定义中指定分数 GPU 值。要了解更多信息，请参阅 Amazon ECS 分数 GPU 文档 和 Amazon EC2 G6 实例页面 。"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "e1bc72f079d6b51a84e3701892135b44f56dacb1",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "Amazon Neptune 现支持基于标签的 IAM 访问控制",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/07/amazon-neptune-tbac",
+  "published_at": "2026-07-27T22:00:00Z",
+  "first_seen_at": "2026-08-07T21:35:26.485397Z",
+  "last_seen_at": "2026-08-20T21:18:24.968580Z",
+  "summary": "Amazon Neptune 数据库现在支持 IAM 基于标签的访问控制（TBAC）功能，使客户能够将 AWS 资源标签和 IAM 主体标签作为 IAM 策略和服务控制策略（SCP）中的条件，来控制对 Neptune 数据平面操作的访问。Neptune 此前已通过 VPC 隔离、TLS 加密和 IAM 身份验证提供了强大的安全保障，但对于大规模管理多个集群的客户而言，他们需要一种动态的、基于属性的机制来强制实施组织访问边界。TBAC 解决了这一问题，使管理员无需在每条策略中逐一列举特定集群的 ARN，即可管理集群访问。 借助 TBAC，IAM 主体仅能对标签与其自身标签匹配的 Neptune 集群执行 `neptune-db:*` 操作，例如，标签为 `Project=FraudDetection` 的主体将自动被限制在拥有相同标签的集群范围内。这消除了共享 VPC 环境中的横向访问风险，实现了跨项目的团队和环境级隔离，并支持使用来自外部身份提供商的 SAML 或 OIDC 会话标签的联合身份工作流。可将 neptune-db:QueryLanguage 之类的精细权限与 TBAC 结合使用，以实现更精细的访问控制。 该功能已在所有提供 Amazon Neptune 的 AWS 区域推出，且需要 Neptune 引擎版本 1.2.0.0 或更高版本，并已启用 IAM 身份验证。 要详细了解如何为 Amazon Neptune 配置基于标签的访问控制（包括如何为数据库集群和 IAM 主体添加标签），以及如何使用 SCP 部署组织范围的防护机制，请访问 Amazon Neptune 文档 。"
+}

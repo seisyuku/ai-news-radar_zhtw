@@ -1,0 +1,12 @@
+{
+  "id": "3d5b9ae546a6608b2c96a7f31cca5f68e673b8bd",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "Amazon CloudWatch 警报现已支持挂钟评估窗口",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/07/cloudwatch-alarms-wallclock-evaluation",
+  "published_at": "2026-08-07T08:00:00Z",
+  "first_seen_at": "2026-08-20T21:48:58.875805Z",
+  "last_seen_at": "2026-08-27T15:05:29.887220Z",
+  "summary": "今天，Amazon CloudWatch 宣布推出用于指标警报的挂钟评估窗口，助力客户将警报评估对齐到固定的日历边界，例如整点、午夜或每周开始时间。这个新选项是对现有滑动窗口行为的补充，专为需要监控定时任务或与业务周期紧密对齐的工作负载的客户而设计。 利用挂钟评估窗口，客户可以避免因事件跨滚动窗口边界而引发的误警报。例如，使用滑动窗口的每日备份警报，如果连续两次备份的时间间隔略超过 24 小时，就可能会误触发此警报，尽管每个日历日均有一次成功的备份。挂钟窗口可独立评估每个日历日，从而消除这一问题。客户也可以指定时区，使每日警报与当地工作日保持一致，系统将自动处理夏令时转换。 CloudWatch 警报的挂钟评估窗口已在提供 Amazon CloudWatch 的所有 AWS 区域推出，但中东（阿联酋）和中东（巴林）区域除外。 要开始使用，请参阅《Amazon CloudWatch 用户指南》中的 警报评估窗口 。要了解有关 Amazon CloudWatch 警报的更多信息，请访问 Amazon CloudWatch 产品页面。"
+}

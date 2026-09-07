@@ -1,0 +1,12 @@
+{
+  "id": "b358272c3be29c188c98f6a6cd34739d71d2b6f1",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "AWS Direct Connect 推出了入站前缀控制功能，并提高了前缀规模上限",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/08/aws-direct-connect-new-prefix-controls",
+  "published_at": "2026-08-20T15:00:00Z",
+  "first_seen_at": "2026-08-27T16:05:29.279091Z",
+  "last_seen_at": "2026-09-04T22:35:24.917897Z",
+  "summary": "今天，AWS Direct Connect 宣布推出入站前缀控制功能，利用这项新功能，您可以根据工作负载需求为私有和中转虚拟接口（VIF）分配和管理入站路由前缀配额。现在，您可以在专用连接和托管连接的 VIF 上分别为 IPv4 和 IPv6 分配多达 1000 个前缀。 以前，在私有或中转 VIF 上，Direct Connect VIF 最多仅可接收从本地网络向 AWS 通告的 100 个路由前缀。如果您的网络规模较大或处于扩张阶段，则必须围绕该上限进行架构设计，例如，通过对路由进行聚合，或跨多个 VIF 或连接进行网段拆分来绕过该上限。借助入站前缀控制功能，您可以为单个 VIF 分配多达 1000 个前缀，并直接通告您的路由。 入站前缀控制功能在专用连接级别和 Direct Connect 网关（DXGW）级别引入新的前缀容量池。在创建或更新 VIF 时，您可以为其分配特定数量的前缀，在挂载该 VIF 后，此项额度将从专用连接池以及 Direct Connect 网关（DXGW）池中扣除。这使您能够根据工作负载正确分配前缀容量，例如，为承载多个路由的中转 VIF 分配较大前缀容量，为同一连接上的私有 VIF 分配较小前缀容量。连接池的大小随连接速度扩展，链路聚合组（LAG）池的大小则随成员连接数扩展。 您可以使用 AWS Direct Connect 控制台或 CLI/API 配置前缀分配。入站前缀控制功能已在提供 AWS Direct Connect 的所有 AWS 商业区域、AWS GovCloud（美国东部和美国西部）区域，以及由光环新网运营的 Amazon Web Services 中国（北京）区域和由西云数据运营的 Amazon Web Services 中国（宁夏）区域推出，不额外收费。 要了解更多信息，请参阅《AWS Direct Connect 用户指南》中的 AWS Direct Connect 入站前缀控制功能 。"
+}

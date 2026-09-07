@@ -1,0 +1,12 @@
+{
+  "id": "f89f1982918d9b9335b1301229efdbc38d480bfb",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "Amazon CloudFront 现已支持 Amazon S3 多区域接入点的来源访问控制（OAC）",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/08/amazon-cloudfront-oac-s3-mrap",
+  "published_at": "2026-08-20T18:30:00Z",
+  "first_seen_at": "2026-08-27T16:05:29.279091Z",
+  "last_seen_at": "2026-09-04T22:35:24.917897Z",
+  "summary": "即日起，客户可以使用 Amazon S3 多区域接入点（MRAP）来保护其来源，方式是使用 CloudFront 来源访问控制（OAC），以仅允许从指定的 CloudFront 发行版进行访问。 客户可将 Amazon S3 MRAP 与 CloudFront 搭配使用，通过单一全球端点提供内容，在缓存未命中时，该端点会自动将请求路由至距离客户最近且可用的跨区域复制存储桶，从而提升全球分布式用户的访问性能与系统韧性。以前，客户必须使用自定义 Lambda@Edge 函数计算并转发自己的非对称签名版本 4（SigV4）授权头。现在，CloudFront 可原生对向 S3 MRAP 源发出的请求进行签名。客户可以从最近区域更快地执行缓存未命中填充，并且无需计算自定义授权头，即可实现有限且受 OAC 保护的 MRAP 访问。 CloudFront OAC 对 Amazon S3 MRAP 源的支持已在全球范围内推出，但 CloudFront 中国区域除外。要开始使用，请在使用 CloudFront 配置 Amazon S3 MRAP 端点时，使用 CloudFront 控制台、SDK、CLI 或 CloudFormation 启用 OAC。有关更多信息，请参阅 CloudFront 开发人员指南 。此功能不收取任何额外费用"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "755cf1d31d3794e0d339f6d6320d0a8565153f25",
+  "site_id": "opmlrss",
+  "site_name": "OPML RSS",
+  "source": "Simon Willison",
+  "title": "Now we have a timeline of the OpenAI accidental attack against Hugging Face",
+  "url": "https://simonwillison.net/2026/Aug/7/openai-timeline",
+  "published_at": "2026-08-07T23:55:58Z",
+  "first_seen_at": "2026-08-08T00:35:37.753766Z",
+  "last_seen_at": "2026-08-19T23:35:22.905475Z",
+  "summary": "OpenAI gave a last-minute presentation at the Black Hat security on Wednesday about \"the Hugging Face Incident\" ( previously on this blog). The video was published yesterday. It's short and information dense and well worth watching, in particular because it provides full details of what happened and how things played out inside OpenAI. I've used the video to construct the timeline below. Here's the timeline. My favourite detail is at the end: OpenAI found out that they were responsible for the attack on Hugging Face when they reached out to ask to have their credentials revoked (after their internal investigation) and learned that they had been revoked already since they were used in that attack! May 7 : OpenAI starts a new training run for an experimental, unreleased model. ( Did they mean an evaluation run? No, at 10:14 they clarify \"we kick off a new reinforcement learning run to train a next generation frontier model\", and they later mention a \"reward signal to judge how well they're doing\", so this really was about training a new model, not evaluating one that was already trained.) May 8 : An agent is accidentally given an impossible task involving a Google Drive link despite no internet access). It tries attacking the Artifactory packaging service, fails, but discovers it can write files into Artifactory . A few days later : A different agent gets stuck on a task because a key file was accidentally omitted. It tries to \"reach out to another agent\" by writing a note into Artifactory asking if anyone has the file. Following days : More agents discover this new informal"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "2e76872045d4e612d6ccc17a92e65e57923618d3",
+  "site_id": "opmlrss",
+  "site_name": "OPML RSS",
+  "source": "Simon Willison",
+  "title": "Qwen 3.8 27B is excellent, but it defaults to wildly overthinking things",
+  "url": "https://simonwillison.net/2026/Aug/16/qwen-38-27b",
+  "published_at": "2026-08-16T22:00:39Z",
+  "first_seen_at": "2026-08-16T22:11:51.295815Z",
+  "last_seen_at": "2026-09-01T14:58:35.864991Z",
+  "summary": "Friday's big release was Qwen 3.8 27B , an Apache 2 licensed 27B parameter vision-capable LLM from Alibaba's Qwen research lab. I've been looking forward to this one: 27B is an excellent size for running a model on a reasonably specced laptop, and its predecessor Qwen 3.6 27B was impressive. Qwen's self-reported benchmarks for this model are eye-opening. They show a boost from both Qwen 3.6 27B and the closed-weight Qwen 3.7-Plus, which was one of Qwen's strongest models of any size as recently as May this year . It will be interesting to hear what independent benchmarks have to say about the model. I've been running the model on two different machines: my 128GB M5 Max MacBook Pro, and an NVIDIA DGX Spark . On both machines I'm running LM Studio and their 17GB Q4_K_M quantized build . I also tried using llama-server directly on the Spark. The default of extra high results in spectacular over-thinking Qwen's documentation describes the model as defaulting to xhigh for the reasoning effort, and the LM Studio GGUF I've been trying preserves that default: Qwen3.8 comes with official support for reasoning_effort , which can be used to adjust reasoning depth and control cost: xhigh (default): for complex tasks demanding thorough analysis medium : balancing accuracy and speed low : efficient reasoning optimizing for speed and cost This is a hilarious default. It's absolutely not a good way to run the model, especially on consumer hardware. I've been finding the results extremely entertaining. I quickly ran into problems with LM Studio's default context limit of 8,192 tokens - Qwen"
+}
