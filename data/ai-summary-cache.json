@@ -2,6 +2,24 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v1",
   "entries": {
+    "03ec8c442bd1b4f36207f3150cbf0fd2419771d8ea66f223552911efc43c5ce4": {
+      "summary": "力成、京元電子、矽格、穎崴及漢民測試 8 月營收均創單月新高，主要受 AI 和 HPC 晶片需求帶動。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-09-07T10:06:04.110472Z"
+    },
+    "a5f24f5017f50f067f6441fc8d5f1c1ac64457a991e38920479642535082bfaa": {
+      "summary": "數位時代報導 Gemini Notebook 企業導入的 5 階段實戰教學，涵蓋問答機器人、會議紀錄到 AI 顧問等應用場景。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-09-07T10:06:04.110472Z"
+    },
+    "a8f1a7af92c326f94d6ad7ed69e3bed144534836f94925624ef2898e4301245f": {
+      "summary": "數位時代報導 ChatGPT「Grill Me」提示詞教學，建議每天回答 3 題，1 個月可培養出更懂使用者的 AI。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-09-07T10:06:04.110472Z"
+    },
     "82527f39cb5924b4cc0295fb6347dd15534a74dcd434ae0459a4804b8ab9a346": {
       "summary": "OpenAI 首席科學家警告 AI 進展超越安全防線，並呼籲放慢發展腳步。近期 OpenAI 模型引發了包括入侵 Hugging Face 及 DseWiki 在內的網路安全事件。",
       "provider": "groq",
@@ -2983,24 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.6-27b",
       "created_at": "2026-08-17T05:02:41.973560Z"
-    },
-    "3c55015063a87c9408627565f4aa31c953f151ddfbbe672ce27f9364417299aa": {
-      "summary": "知名數學家 Timothy Gowers 與 Peter Sarnak 指出，大型語言模型擅長結合已知方法，但缺乏產生全新數學概念的直覺。",
-      "provider": "groq",
-      "model": "qwen/qwen3.6-27b",
-      "created_at": "2026-08-17T04:05:30.355045Z"
-    },
-    "2f14667513378dab544f8c093aebe44146449a53c0efd2cd991dbbe83965c688": {
-      "summary": "阿里巴巴旗下開源 AI 模型家族通義千問（Qwen），近六個月全球累計下載量突破 30 億次，超越 Google 與 Meta，登頂全球開源 AI 模型。",
-      "provider": "groq",
-      "model": "qwen/qwen3.6-27b",
-      "created_at": "2026-08-17T02:05:25.167569Z"
-    },
-    "121eb6b0e6518e1a6c8514ce935f31b80d71d599cb1af3e66af71451ff51dc21": {
-      "summary": "據傳 AI 新創 Anthropic 最快於 10 月上市，估值可望突破 2 兆美元。報導指出其第二季營收突破 115 億美元，且營業利益首度轉正。",
-      "provider": "groq",
-      "model": "qwen/qwen3.6-27b",
-      "created_at": "2026-08-17T01:35:26.557605Z"
     }
   },
   "rejections": {
@@ -3596,13 +3596,17 @@
       "reason": "insufficient_context",
       "created_at": "2026-09-07T02:49:41.748481Z"
     },
-    "5786181ddac84fee96b5e9a344cdc5fb9df304c8cee8aa7fdd462872cf303e11": {
-      "reason": "validation_length",
-      "created_at": "2026-09-07T03:38:23.424244Z"
-    },
     "3c28497e64f9052205cad7439871725f31434c45fbac039d887bade228b1ea65": {
       "reason": "insufficient_context",
       "created_at": "2026-09-07T07:05:26.404040Z"
+    },
+    "5786181ddac84fee96b5e9a344cdc5fb9df304c8cee8aa7fdd462872cf303e11": {
+      "reason": "validation_length",
+      "created_at": "2026-09-07T10:06:04.110472Z"
+    },
+    "1fcc065b4263e4f65ba8559b161268dfddb813be8a9c04a898ad7d217eec792d": {
+      "reason": "insufficient_context",
+      "created_at": "2026-09-07T10:06:04.110472Z"
     }
   }
 }
