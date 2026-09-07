@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <title>AI News Radar Pulse — News Item</title>
+</head>
+<body>
+  <main>
+    <h1>AI News Radar Pulse — News Item</h1>
+    <dl>
+    <dt>Radar ID</dt>
+    <dd>e4f9e0152e7c59cd453955947e0946999d64ba1a</dd>
+    <dt>Title</dt>
+    <dd>Amazon Bedrock AgentCore 现提供统一可观测性，将追踪和日志整合至单个日志组</dd>
+    <dt>Source</dt>
+    <dd>AWS News</dd>
+    <dt>Published</dt>
+    <dd>2026-07-23T17:00:00Z</dd>
+    <dt>Summary</dt>
+    <dd>Amazon Bedrock AgentCore 现可将代理追踪和提示与代理日志投递到同一日志组，让您在单个 Amazon CloudWatch 日志组中实现对人工智能代理的统一可观测性。 此前，AgentCore 将代理遥测数据拆分到多个目标——追踪跨度发送至共享的 `aws/spans` 日志组，而包含提示、输入和输出的事件日志则发送至单独的特定于资源的日志组。这意味着调试一次代理调用需要跨多个日志组进行搜索，并且客户无法在单个代理级别应用细粒度访问控制或客户托管密钥（CMK）加密。自本次发布起，代理的所有遥测数据：追踪信息、提示、结构化日志和标准输出都将投递到该代理对应的单一日志组（/aws/bedrock-agentcore/runtimes/&lt;agent_id&gt;-&lt;endpoint_name&gt;）。您现在可以在一个位置关联追踪和日志、将 IAM 策略和 CMK 加密范围限定至单个代理，并通过订阅单个日志组来导出所有遥测数据。对于多代理系统，每个代理的完整执行历史记录将保存在一起，使端到端调试变得简单明了。 自 2026 年 7 月 20 日起，在受支持的 AWS 区域中创建的所有新代理将默认使用统一可观测性，无需额外配置。对于现有代理，请在代理运行时上设置 `UNIFIED_TRACES_DESTINATION_ENABLED=true` 环境变量，并将 ADOT 升级至 0.17.1 或更高版本。此功能现已在支持 AgentCore 运行时的所有 AWS 商业区域推出。请在 AgentCore 开发人员指南 中了解更多信息。</dd>
+    <dt>Original URL</dt>
+    <dd><a href="https://aws.amazon.com/cn/about-aws/whats-new/2026/07/amazon-bedrock-agentcore-unified-observability-single-log-group">https://aws.amazon.com/cn/about-aws/whats-new/2026/07/amazon-bedrock-agentcore-unified-observability-single-log-group</a></dd>
+    </dl>
+  </main>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <title>AI News Radar Pulse — News Item</title>
+</head>
+<body>
+  <main>
+    <h1>AI News Radar Pulse — News Item</h1>
+    <dl>
+    <dt>Radar ID</dt>
+    <dd>119006fdd172fc07ce42c2ab5931cf1d7c39a320</dd>
+    <dt>Title</dt>
+    <dd>Your executable is a SQLite database</dd>
+    <dt>Source</dt>
+    <dd>Simon Willison</dd>
+    <dt>Published</dt>
+    <dd>2026-08-24T11:38:15Z</dd>
+    <dt>Summary</dt>
+    <dd>Your executable is a SQLite database Farid Zakaria describes a neat Linux pattern for creating a SQLite database file that can be directly used as an executable binary. The trick sets the SQLite file format&#x27;s 4-byte application ID (68 bytes into the file) to SELF, standing for Structured Executable &amp; Linkable Format. The various components of the ELF executable format are then arranged into a number of different SQLite tables, using this schema . Their self-exec interpreter ( C code here ) can then extract and execute the necessary pieces. You can additionally use a Linux mechanism called binfmt_misc to teach the kernel to execute that any time it encounters an executable matching that binary pattern. Farid uses NixOS here, but without NixOS I think registration looks something like this: printf &#x27;%s\n&#x27; &#x27;:self:M:68:SELF::/usr/local/bin/self-exec:&#x27; \ &gt; /proc/sys/fs/binfmt_misc/register Via Hacker News Tags: c , linux , sqlite</dd>
+    <dt>Original URL</dt>
+    <dd><a href="https://simonwillison.net/2026/Aug/24/your-executable-is-a-sqlite-database">https://simonwillison.net/2026/Aug/24/your-executable-is-a-sqlite-database</a></dd>
+    </dl>
+  </main>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <title>AI News Radar Pulse — News Item</title>
+</head>
+<body>
+  <main>
+    <h1>AI News Radar Pulse — News Item</h1>
+    <dl>
+    <dt>Radar ID</dt>
+    <dd>a64a3da8927622a779197bdeed1788b97d4917a6</dd>
+    <dt>Title</dt>
+    <dd>smolmachines / smolvm as a sandbox for untrusted Python &amp; JavaScript</dd>
+    <dt>Source</dt>
+    <dd>Simon Willison</dd>
+    <dt>Published</dt>
+    <dd>2026-08-19T23:16:00Z</dd>
+    <dt>Summary</dt>
+    <dd>Research: smolmachines / smolvm as a sandbox for untrusted Python &amp; JavaScript I tasked Claude Fable 5 running in Claude Code for web with the following research task: Put https://smolmachines.com through its paces as a fast secure sandbox. Explore what it would take to use this to run untrusted Python and JavaScript code in a way that is limited in what RAM and CPU time it can take up (protection against &quot;while true&quot;) with no network access and filesystem access only to designated files Goal is to be able to use this to execute user-provided tasks for things like data transformations It quickly ran into a problem: the Claude Code for web environment can&#x27;t run smol machines . Quoting the notes it wrote : This Claude Code container: Linux 6.18.5-fc-v20 (itself a Firecracker guest), 4 vCPU, 15GB RAM. No /dev/kvm, no vmx/svm CPU flags → no nested virt. smolvm machine run fails as expected: &quot;kvm not available&quot;. Plan B: GitHub Actions ubuntu runners DO expose /dev/kvm → run the real test battery via a temporary workflow on this branch, collect logs, remove workflow in final commit. And Plan B is what it did , installing smolvm and running these tests directly in a GitHub Actions runner against that branch. That was a creative solution to the environmental limits posed by Claude Code for web. Another example of Fable being relentlessly proactive . Tags: research , sandboxing , ai , github-actions , generative-ai , llms , coding-agents , claude-mythos-fable</dd>
+    <dt>Original URL</dt>
+    <dd><a href="https://simonwillison.net/2026/Aug/19/smolmachines-untrusted-sandbox">https://simonwillison.net/2026/Aug/19/smolmachines-untrusted-sandbox</a></dd>
+    </dl>
+  </main>
+</body>
+</html>

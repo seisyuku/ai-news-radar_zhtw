@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <title>AI News Radar Pulse — News Item</title>
+</head>
+<body>
+  <main>
+    <h1>AI News Radar Pulse — News Item</h1>
+    <dl>
+    <dt>Radar ID</dt>
+    <dd>db306bf940117053ff5e07c57e6ca77f68cc3655</dd>
+    <dt>Title</dt>
+    <dd>Markdown SVG upgrades</dd>
+    <dt>Source</dt>
+    <dd>Simon Willison</dd>
+    <dt>Published</dt>
+    <dd>2026-08-16T23:59:37Z</dd>
+    <dt>Summary</dt>
+    <dd>I started building my markdown-svg-renderer tool in May , but I&#x27;ve since added enough features to it that it&#x27;s worth talking about here again. It&#x27;s evolved into my ideal tool for sharing Markdown transcripts that include SVG documents. Given my proclivity for drawing pelicans riding bicycles this is a problem that I needed to solve! The tool is very simple. Navigate to markdown-svg-renderer in your browser and paste in some Markdown to see it rendered... or save that Markdown to a CORS-friendly URL or a GitHub Gist and paste in a URL to that document. The URL option will give you a bookmarkable page, for example https://tools.simonwillison.net/markdown-svg-renderer#url=https%3A%2F%2Fgist.github.com%2Fsimonw%2F6f9e48293be5c916652d29f0dc0b0657 - which bakes in the URL to this Gist . If you visit the Gist you&#x27;ll see raw SVG: In the rendered tool that looks like this instead: As you can see, that SVG block in the Markdown has been transformed into a rendered SVG (in this case animated) plus several tabs. The tabs are the really fun bit. The PNG and JPEG tabs render that SVG to those image formats in the browser and lets you copy or download them - useful for sharing on platforms that don&#x27;t support SVG directly. The MP4 tab is new today - it examines the SVG to see if it contains any animations, attempts to guess how long the looped video should be, then renders a whole bunch of frames of the animation and loads 30+MB of ffmpeg.wasm so it can compile those frames into an MP4 video using the full power of FFMPEG compiled to WebAssembly and running in the browser. Being able to tu</dd>
+    <dt>Original URL</dt>
+    <dd><a href="https://simonwillison.net/2026/Aug/16/markdown-svg-upgrades">https://simonwillison.net/2026/Aug/16/markdown-svg-upgrades</a></dd>
+    </dl>
+  </main>
+</body>
+</html>

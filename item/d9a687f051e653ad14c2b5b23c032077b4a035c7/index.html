@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <title>AI News Radar Pulse — News Item</title>
+</head>
+<body>
+  <main>
+    <h1>AI News Radar Pulse — News Item</h1>
+    <dl>
+    <dt>Radar ID</dt>
+    <dd>d9a687f051e653ad14c2b5b23c032077b4a035c7</dd>
+    <dt>Title</dt>
+    <dd>Amazon RDS 现在支持查看存储卷初始化状态</dd>
+    <dt>Source</dt>
+    <dd>AWS News</dd>
+    <dt>Published</dt>
+    <dd>2026-08-06T16:00:00Z</dd>
+    <dt>Summary</dt>
+    <dd>Amazon RDS 现在支持查看基于快照创建的数据库存储卷的初始化状态。您可以依据此状态来判断存储是否在还原后已完全初始化，以及是否能以完全预置的性能支撑对延迟敏感的数据库工作负载。 当您将数据库实例还原到某个时间点、创建只读副本或从单可用区转换为多可用区时，Amazon RDS 会基于快照创建存储卷。这些存储卷需进行初始化，期间系统会从 Amazon S3 下载存储块并将其写入存储卷中，随后方可进行访问。初始化速率因工作负载以及所访问的块而异，在此期间，您可能会发现 I/O 延迟有所增加。之前，Amazon RDS 在整个初始化过程中将实例报告为“可用”，使得您无法直接判断性能何时达到稳定。利用 RDS 控制台和 DescribeDBInstances API 上新增的 StorageOperationStatus 和 StorageOperationPercentProgress 字段，您可以实时监控存储初始化进度，从而验证所有存储块是否已写入完成。您可以使用这些信息来安排工作负载的时间，使其与初始化完成时间保持一致。这两个字段还会报告存储优化进度，以便您能够在存储修改后，规划获得完全预置性能的时间。 默认情况下，所有 AWS 商业区域和美国 GovCloud 区域中的所有 Amazon RDS 数据库实例均可访问存储卷初始化状态。您可以立即通过 Amazon RDS 管理控制台、AWS 命令行界面（CLI）或 AWS SDK 开始使用此功能。要了解更多信息，请参阅《Amazon RDS 用户指南》中的 Amazon RDS 存储 。</dd>
+    <dt>Original URL</dt>
+    <dd><a href="https://aws.amazon.com/cn/about-aws/whats-new/2026/08/amazon-rds-storage-volume-initialization-visibility">https://aws.amazon.com/cn/about-aws/whats-new/2026/08/amazon-rds-storage-volume-initialization-visibility</a></dd>
+    </dl>
+  </main>
+</body>
+</html>

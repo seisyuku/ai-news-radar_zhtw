@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <title>AI News Radar Pulse — News Item</title>
+</head>
+<body>
+  <main>
+    <h1>AI News Radar Pulse — News Item</h1>
+    <dl>
+    <dt>Radar ID</dt>
+    <dd>a83bb3fc25c029ab42f5b5f80c5488547b402176</dd>
+    <dt>Title</dt>
+    <dd>sqlite-utils 4.2.1</dd>
+    <dt>Source</dt>
+    <dd>Simon Willison</dd>
+    <dt>Published</dt>
+    <dd>2026-08-13T23:53:47Z</dd>
+    <dt>Summary</dt>
+    <dd>Release: sqlite-utils 4.2.1 Fixes a crashing bug in sqlite-utils 4.2 . I&#x27;d introduced code that looks like this: from typing_extensions import Self It turned out the typing-extensions package was not listed as a dependency for sqlite-utils - it was installed by one of the other dependencies in the dev dependency group , but when you uvx sqlite-utils directly you don&#x27;t get those dependencies. As part of fixing this I figured out how to run a smoke test to ensure the CLI tool still works even without those dev dependencies, which can be run from the project checkout: uv run --isolated --no-default-groups sqlite-utils --help The --no-default-groups argument prevents it from installing that default dev group, and --isolated means that even if there is a .venv/ folder containing extra dependencies they will be ignored for the duration of that uv run command. Tags: packaging , python , sqlite-utils , uv</dd>
+    <dt>Original URL</dt>
+    <dd><a href="https://simonwillison.net/2026/Aug/13/sqlite-utils-2">https://simonwillison.net/2026/Aug/13/sqlite-utils-2</a></dd>
+    </dl>
+  </main>
+</body>
+</html>

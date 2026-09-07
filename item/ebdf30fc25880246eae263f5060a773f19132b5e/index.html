@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <title>AI News Radar Pulse — News Item</title>
+</head>
+<body>
+  <main>
+    <h1>AI News Radar Pulse — News Item</h1>
+    <dl>
+    <dt>Radar ID</dt>
+    <dd>ebdf30fc25880246eae263f5060a773f19132b5e</dd>
+    <dt>Title</dt>
+    <dd>Introducing Hy4 Preview</dd>
+    <dt>Source</dt>
+    <dd>Simon Willison</dd>
+    <dt>Published</dt>
+    <dd>2026-08-29T23:53:13Z</dd>
+    <dt>Summary</dt>
+    <dd>Introducing Hy4 Preview New open weight text input (no vision) LLM from Chinese company Tencent today: 770B total parameters, 49B active parameters, 1M token context window, 1.56TB on Hugging Face . This is a big size increase from their previous Hy3 in July, which was 295B, 21B active, 256,000 context, 598GB. I recently started using model chat templates to better understand their capabilities. Here&#x27;s Hy4&#x27;s chat_template.jinja on Hugging Face, which includes this section: {% - if not reasoning_effort is defined %} {% - set reasoning_effort = &#x27;high&#x27; %} {% - elif reasoning_effort not in [ &#x27;high&#x27; , &#x27;no_think&#x27; ] %} {% - if reasoning_effort is none %} {{- raise_exception(&#x27;reasoning_effort error : None, should be no_think/high&#x27;) }} {% - else %} {{- raise_exception(&#x27;reasoning_effort error : &#x27; + reasoning_effort + &#x27;, should be no_think/high&#x27;) }} {% - endif %} {% - endif %} So it looks like there are just two reasoning effort levels: &quot;high&quot; (the default) and &quot;no_think&quot; (reason by disabled). I tried my &quot;Generate an SVG of a pelican riding a bicycle&quot; prompt with the default high reasoning via OpenRouter and got this : Quoting the reasoning trace: [...] Let&#x27;s maybe add a helmet? It could improve riding theme, but may obscure head. Maybe a small cycling cap or helmet? The user didn&#x27;t ask; can add red helmet? Might be cute. But pelican with big beak; a helmet might obscure. Better maybe no. Maybe add sunglasses? no. Maybe add water? no. It&#x27;s interesting how the reasoning trace uses slightly truncated English, presumably because perfect grammar isn&#x27;t useful or token efficient for hidden</dd>
+    <dt>Original URL</dt>
+    <dd><a href="https://simonwillison.net/2026/Aug/29/hy4">https://simonwillison.net/2026/Aug/29/hy4</a></dd>
+    </dl>
+  </main>
+</body>
+</html>

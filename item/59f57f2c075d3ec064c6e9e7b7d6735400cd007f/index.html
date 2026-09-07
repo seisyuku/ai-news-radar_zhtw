@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <title>AI News Radar Pulse — News Item</title>
+</head>
+<body>
+  <main>
+    <h1>AI News Radar Pulse — News Item</h1>
+    <dl>
+    <dt>Radar ID</dt>
+    <dd>59f57f2c075d3ec064c6e9e7b7d6735400cd007f</dd>
+    <dt>Title</dt>
+    <dd>Stealing Reasoning Traces from Proprietary LLM APIs</dd>
+    <dt>Source</dt>
+    <dd>Simon Willison</dd>
+    <dt>Published</dt>
+    <dd>2026-08-11T22:40:45Z</dd>
+    <dt>Summary</dt>
+    <dd>Stealing Reasoning Traces from Proprietary LLM APIs A vanity domain name ( stolen-thoughts.com ) for a neat paper : Anthropic, OpenAI, and Google return encrypted chain-of-thought blocks to clients that can be replayed across sessions, users, and models. We take a trace produced by a frontier model, replay it into a weaker sibling, jailbreak the weaker model, and recover the stronger model’s hidden reasoning in plaintext You can see an example of these encrypted blocks by running: curl https://api.openai.com/v1/responses \ -H &quot; Content-Type: application/json &quot; \ -H &quot; Authorization: Bearer $( llm keys get openai ) &quot; \ -d &#x27; { &quot;model&quot;: &quot;gpt-5.6-luna&quot;, &quot;input&quot;: &quot;Solve step by step: What is the smallest positive integer divisible by every integer from 1 through 20?&quot;, &quot;reasoning&quot;: { &quot;effort&quot;: &quot;medium&quot; }, &quot;include&quot;: [&quot;reasoning.encrypted_content&quot;], &quot;store&quot;: false, &quot;stream&quot;: false } &#x27; Here&#x27;s the full output , which includes chunks that look like this: &quot;output&quot;: [ { &quot;id&quot;: &quot;rs_0a7479de7ebae170016a7ba1a0334c8198a95590217efe343c&quot;, &quot;type&quot;: &quot;reasoning&quot;, &quot;content&quot;: [], &quot;encrypted_content&quot;: &quot;gAAAAABqe6GjepE1wDjbFCZg0BHB6ucGnN0jvzqygG... The paper&#x27;s authors found that every model under the same family used the same encryption key, which meant you could feed those blocks back into the weakest model family members and jailbreak them into outputting the unencrypted raw reasoning blocks! Sadly it looks like this has now been fixed: All model providers acknowledged the receipt of our report and subsequently we were unable to launch the same attacks. Claude Haiku 4.5 was the easiest to attack. Th</dd>
+    <dt>Original URL</dt>
+    <dd><a href="https://simonwillison.net/2026/Aug/11/stealing-reasoning-traces">https://simonwillison.net/2026/Aug/11/stealing-reasoning-traces</a></dd>
+    </dl>
+  </main>
+</body>
+</html>
