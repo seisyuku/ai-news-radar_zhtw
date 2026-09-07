@@ -1,5 +1,20 @@
 # AI News Radar Pulse — 交接摘要（截至 2026-08-17）
 
+## 2026-09-07 News-ID resolver contract
+
+- Radar 前端既有「複製新聞 ID」維持複製普通 news item 的 40-char SHA-1
+  `id`；`make_item_id()` 演算法沒有變更。
+- 每次 `scripts/update_news.py` 產生快照時，會在 GitHub Pages 靜態資料下
+  輸出 `data/items/<item.id>.json`。公開 lookup URL 為
+  `https://seisyuku.github.io/ai-news-radar_zhtw/data/items/<item.id>.json`。
+- 每個 resolver 檔直接沿用 `archive.json` 的公開 item record schema，至少有
+  `id`、`title`、`source`、`published_at`、來源 `summary`（若來源有提供）與
+  原始新聞 `url`；原文連結固定讀 `url`，不是 `source_url`。沒有 API、
+  database、authentication 或 LLM 層。
+- resolver 在 archive prune 後寫入，與 archive 相同採 `last_seen_at` 的
+  21-day retention（workflow 的 `--archive-days 21`）。archive 已不存在的
+  40-char resolver 檔會在同輪刪除；過期 ID 回傳不存在是預期行為。
+
 ## 2026-09-03 Groq 摘要模型遷移
 
 - Groq 通知 `qwen/qwen3.6-27b` 即將停用，production primary 改為

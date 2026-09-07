@@ -2832,6 +2832,57 @@ def load_archive(path: Path) -> dict[str, dict[str, Any]]:
     return out
 
 
+def prune_archive_records(
+    archive: dict[str, dict[str, Any]], now: datetime, archive_days: int
+) -> dict[str, dict[str, Any]]:
+    """Keep the archive's existing last-seen-based retention behavior."""
+    keep_after = now - timedelta(days=archive_days)
+    pruned: dict[str, dict[str, Any]] = {}
+    for item_id, record in archive.items():
+        ts = (
+            parse_iso(record.get("last_seen_at"))
+            or parse_iso(record.get("published_at"))
+            or parse_iso(record.get("first_seen_at"))
+            or now
+        )
+        if ts >= keep_after:
+            pruned[item_id] = record
+    return pruned
+
+
+def write_item_resolvers(output_dir: Path, archive: dict[str, dict[str, Any]]) -> int:
+    """Write one public archive-schema JSON record per stable news item ID.
+
+    The directory is a GitHub Pages lookup surface, not a second item schema:
+    each file contains the same public record stored in archive.json. Removing
+    resolver files absent from the pruned archive keeps retention aligned with
+    the archive and prevents stale files from accumulating indefinitely.
+    """
+    resolver_dir = output_dir / "items"
+    resolver_dir.mkdir(parents=True, exist_ok=True)
+    active_ids = {
+        item_id
+        for item_id in archive
+        if re.fullmatch(r"[a-f0-9]{40}", str(item_id), flags=re.IGNORECASE)
+    }
+
+    for item_id in active_ids:
+        record = dict(archive[item_id])
+        # The filename, lookup key, and public field must always agree.
+        record["id"] = item_id
+        (resolver_dir / f"{item_id}.json").write_text(
+            json.dumps(sanitize_public_payload(record), ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
+
+    for path in resolver_dir.glob("*.json"):
+        is_resolver = re.fullmatch(r"[a-f0-9]{40}\.json", path.name, flags=re.IGNORECASE)
+        if is_resolver and path.stem not in active_ids:
+            path.unlink()
+
+    return len(active_ids)
+
+
 def load_source_status(path: Path) -> dict[str, Any]:
     if not path.exists():
         return {}
@@ -6513,19 +6564,8 @@ def main() -> int:
             existing["last_seen_at"] = iso(now)
             apply_public_raw_meta(existing, raw)
 
-    # Prune old archive
-    keep_after = now - timedelta(days=args.archive_days)
-    pruned: dict[str, dict[str, Any]] = {}
-    for item_id, record in archive.items():
-        ts = (
-            parse_iso(record.get("last_seen_at"))
-            or parse_iso(record.get("published_at"))
-            or parse_iso(record.get("first_seen_at"))
-            or now
-        )
-        if ts >= keep_after:
-            pruned[item_id] = record
-    archive = pruned
+    # Resolver files inherit the same last-seen-based retention as archive.json.
+    archive = prune_archive_records(archive, now, args.archive_days)
 
     # 24h view
     window_start = now - timedelta(hours=args.window_hours)
@@ -6741,6 +6781,7 @@ def main() -> int:
         json.dumps(sanitize_public_payload(archive_payload), ensure_ascii=False, separators=(",", ":")),
         encoding="utf-8",
     )
+    resolver_count = write_item_resolvers(output_dir, archive)
     status_path.write_text(json.dumps(sanitize_public_payload(status_payload), ensure_ascii=False, indent=2), encoding="utf-8")
     market_signals_path.write_text(
         json.dumps(sanitize_public_payload(market_signals_payload), ensure_ascii=False, indent=2),
@@ -6776,6 +6817,7 @@ def main() -> int:
     print(f"Wrote: {daily_brief_path} ({daily_brief_payload.get('total_items', 0)} brief items)")
     print(f"Wrote: {stories_merged_path} ({stories_merged_payload.get('total_stories', 0)} stories)")
     print(f"Wrote: {archive_path} ({len(archive)} items)")
+    print(f"Wrote: {output_dir / 'items'} ({resolver_count} resolvers)")
     print(f"Wrote: {status_path}")
     print(f"Wrote: {market_signals_path} ({len(market_signals_payload.get('signals', []))} signals)")
     print(f"Wrote: {llm_radar_path} ({llm_radar_payload.get('total_events', 0)} events)")
