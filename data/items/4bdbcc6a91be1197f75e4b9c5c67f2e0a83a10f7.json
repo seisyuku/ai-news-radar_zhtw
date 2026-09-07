@@ -7,6 +7,6 @@
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/08/amazon-eks-argo-cd-configuration",
   "published_at": "2026-08-21T17:00:00Z",
   "first_seen_at": "2026-08-28T16:05:34.658970Z",
-  "last_seen_at": "2026-09-07T12:35:25.445911Z",
+  "last_seen_at": "2026-09-07T13:05:25.272168Z",
   "summary": "适用于 Argo CD 的 Amazon Elastic Kubernetes Service（Amazon EKS）功能现已支持通过集群中的标准 argocd-cm ConfigMap 进行自定义配置。此功能可为您提供完全托管式 GitOps 持续交付体验，您现在可以对其进行调优以适配团队的工作方式。您可以为自定义资源定义自定义运行状况检查、定制 Argo CD UI 横幅内容、调整该功能监听并对比其所管理资源的方式等。您可以像在上游 Argo CD 中那样配置这些设置，AWS 会将其应用于您的托管功能。 通过此次发布，集群管理员现在可以对 Argo CD 报告应用程序运行状况的方式进行更精细的控制。默认情况下，Argo CD 未针对自定义资源提供内置的运行状况逻辑，因此，应用程序可能在其资源仍处于预置状态时报告为运行正常，同步波次也可能在这些资源准备就绪前向前推进。通过自定义运行状况检查，您可以自行定义此逻辑。例如，数据库资源的运行状况检查可让应用程序保持在处理中状态，直到数据库准备就绪。此功能还包括针对 AWS Controllers for Kubernetes（ACK）和 KRO（Kube 资源编排工具）资源的内置运行状况检查，因此，它们无需额外配置即可报告准确的运行状况。 您可以在提供适用于 Argo CD 的 EKS 功能的所有 AWS 区域配置该功能。要了解更多信息，请参阅 Amazon EKS 和《Amazon EKS 用户指南》中的 配置 Argo CD 设置 。"
 }
