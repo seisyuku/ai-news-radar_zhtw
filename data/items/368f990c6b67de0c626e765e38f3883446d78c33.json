@@ -7,6 +7,6 @@
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/amazon-kinesis-data-streams-api",
   "published_at": "2026-09-01T19:00:00Z",
   "first_seen_at": "2026-09-04T22:53:34.946977Z",
-  "last_seen_at": "2026-09-08T17:35:30.793951Z",
+  "last_seen_at": "2026-09-08T18:05:31.406831Z",
   "summary": "Amazon Kinesis Data Streams 现在支持空运行功能，用于检查 API 请求在不执行操作的情况下是否会成功。客户现在可以在其 API 请求中将新的可选参数“DryRun”设置为 true，以便在与生产环境中的数据流进行交互之前验证权限。 此前，客户无法通过安全的方式测试其应用程序是否拥有访问数据流所需的正确权限。他们通常会发送一个经过特殊设计的请求，该请求在检查权限后会失败，例如发送一个有效载荷故意超过最大支持大小的 PutRecord 请求。这种方法并不稳健，因为它依赖于当前的服务限制；一旦这些限制发生变化，请求就可能意外成功，从而将非预期的记录写入生产数据流以及任何下游使用者中。现在，客户只需将参数“DryRun”设置为 true，即表示他们只想验证 API 请求。如果所有检查都成功完成，API 会返回“DryRunOperationException”，确认如果没有“DryRun”参数，请求本来可以成功。 在所有提供 Amazon Kinesis Data Streams 的 AWS 区域中，有五个 API（PutRecord、PutRecords、GetRecords、GetShardIterator 和 SubscribeToShard）支持空运行功能。有关空运行的更多信息，请参阅《Amazon Kinesis Data Streams 开发人员指南》中的 使用空运行功能测试权限和请求输入 。要开始使用空运行功能，请参阅 Amazon Kinesis Data Streams API 参考 。"
 }

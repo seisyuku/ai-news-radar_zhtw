@@ -7,6 +7,6 @@
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/08/iam-roles-anywhere-java",
   "published_at": "2026-08-25T13:18:00Z",
   "first_seen_at": "2026-08-28T23:05:23.543716Z",
-  "last_seen_at": "2026-09-08T17:35:30.793951Z",
+  "last_seen_at": "2026-09-08T18:05:31.406831Z",
   "summary": "AWS Identity and Access Management（IAM）Roles Anywhere 现已提供面向 适用于 Java 的 AWS SDK v2 的插件，使得在 AWS 外部运行的工作负载能够直接从 Java 应用程序进程中获取临时 AWS 凭证。该插件在与您的应用程序相同的 Java 虚拟机（JVM）中运行，无需将 IAM Roles Anywhere 凭证助手作为单独的进程运行，也无需在 AWS 配置文件中配置 credential_process。 您可以在适用于 Java 的 AWS SDK v2 服务客户端生成器上配置该插件，以自动解析临时凭证，而无需编写凭证提取逻辑。该插件负责调用 CreateSession，并在凭证到期前自动刷新凭证。它支持 RSA、椭圆曲线（EC）和 ML-DSA 密钥类型，并且要求使用 Java 8 或更高版本。使用该插件无需支付额外费用。 IAM Roles Anywhere 已在所有 AWS 区域 推出，包括 AWS GovCloud（美国）区域、AWS European Sovereign Cloud（德国）区域和中国区域。要开始使用该 Java 插件，请参阅 IAM Roles Anywhere Java 插件文档 。有关当前版本、发行说明和签名验证说明，请参阅 Maven Central 网站上的 插件页面 和 GitHub 上的 roles-anywhere-java 存储库 。"
 }
