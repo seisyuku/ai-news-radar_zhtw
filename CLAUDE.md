@@ -26,7 +26,8 @@ fetchers only for stable, public, high-signal sources.
   「授權直接 merge push」。
 - `data/*.json` 為排程機器產物：不手改、merge 衝突一律取遠端。
 - `assets/`（`app.js`/`styles.css`/`motion.js`）有任何變更 → `index.html`
-  的 `?v=` 版號遞增 + `tests/asset_manifest.json` 同步更新。
+  的共用 `?v=` 版號遞增；`tests/test_asset_versions.py` 直接以 Git baseline
+  驗證，不維護檔案雜湊 manifest。
 - 修改評分邏輯（`ai_relevance` 公式本體）前停手回報，需 14 天回測。
 - 完成任何任務必附：修改清單、pytest 結果。
 
