@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v1",
   "entries": {
+    "e10ad29bb9304d3e1971300dd70c0e2b4a268eeadf1d0b1b46585132b41c973f": {
+      "summary": "Arm 推出 Arm Total Design for Physical AI 及新機器人框架，旨在為自動化系統建立共同標準。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-09-08T12:35:29.050065Z"
+    },
     "77c7ee1f9a4687357eb19a6c71a9ccc312f1be6ddb103a33128775f8fad7239c": {
       "summary": "Palo Alto Networks於9月2日揭露，攻擊者利用AI代理在不到10小時內攻破企業網路並竊取root憑證，大幅縮短原本需兩週的入侵時間。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.6-27b",
       "created_at": "2026-08-19T04:57:24.239156Z"
-    },
-    "2f6179b23efe5bbc21c5a5f29ff89f91026dbf952a9fd91dff72122bbe69f184": {
-      "summary": "資安公司watchTowr於8月18日警告，AI工程平臺MLflow存在伺服器請求偽造漏洞CVE-2026-64849，該漏洞已遭利用，攻擊者意圖竊取雲端憑證與機密資料。",
-      "provider": "groq",
-      "model": "qwen/qwen3.6-27b",
-      "created_at": "2026-08-19T04:57:24.239156Z"
     }
   },
   "rejections": {
@@ -3619,6 +3619,10 @@
     "a4f46760f6614b64a23579e24aa9ce84fe067cc83dfd96b4b9081aff34cf916e": {
       "reason": "validation_length",
       "created_at": "2026-09-08T08:35:27.584824Z"
+    },
+    "e2a308589a77c626310043a000dd9916f3938fc427014011be9f8c80fa70ca3c": {
+      "reason": "insufficient_context",
+      "created_at": "2026-09-08T12:35:29.050065Z"
     }
   }
 }
