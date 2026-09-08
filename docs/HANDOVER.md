@@ -1,5 +1,30 @@
 # AI News Radar Pulse — 交接摘要（截至 2026-08-17）
 
+## 2026-09-08 AIBASE 繁中優先與一般列表來源分級
+
+- AIBASE 讀取 `https://news.aibase.com/tw/news` 與
+  `https://news.aibase.com/news` 的公開 Nuxt 新聞列表資料，各取首頁相同
+  範圍；繁中欄位優先，英文補缺欄位與缺文章。不讀介紹頁或文章全文。
+- 原生繁中標題、摘要與連結直接使用；英文補入文字沿用既有翻譯。
+  以列表 `createTime` 作發布時間（無時區值按 UTC+8），雙語均無可確認
+  日期者保留 archive，但不以首次發現時間進入讀者 24 小時窗口。
+- 跨語言依 AIBASE 上游文章 ID 沿用既有 Radar ID；已取得繁中欄位不因
+  暫時英文回退而降級。歷史同文重複 ID 保留 resolver，但以
+  `duplicate_of` 排除重複展示；次要紀錄不刷新 last_seen，依原 21 天
+  規則自然退場。全站 `make_item_id()` 演算法未變更。
+- 一般列表改為「原始來源／專業媒體／聚合／二次整理／其他與觀察來源」
+  四個區塊（聚合／二次整理是同一區），內層依發布者分組，同級沿用既有
+  排序。AIBASE 在聚合區，台灣專業媒體在媒體區；機構自有研究發布在
+  原始來源區。RSS/OPML 依發布者辨識，未知來源與觀察名單置後。
+- 這是獨立的前端呈現分類；AIBASE 的共用資料身分仍為
+  `curated_media` / `AIBASE`。今日重點訊號位置、選取、來源多樣性、
+  全域評分及獨立雷達未改。已合併同事件沿用既有官方主來源優先規則，
+  不新增外部搜尋。
+- `source-status.json` 的 AIBASE 任務附 `language_status`、
+  `language_mode`、`english_supplemented_count`、`undated_count` 及
+  `degraded`。兩版皆失敗仍由既有任務錯誤處理回報。
+
+
 ## 2026-09-07 News-ID resolver contract
 
 - Radar 前端既有「複製新聞 ID」維持複製普通 news item 的 40-char SHA-1

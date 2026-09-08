@@ -29,6 +29,11 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
 try:
+    from scripts.aibase_source import aibase_article_key, fetch_aibase_payload
+except ModuleNotFoundError:  # pragma: no cover - direct script invocation
+    from aibase_source import aibase_article_key, fetch_aibase_payload
+
+try:
     from scripts.ai_relevance import add_ai_relevance_fields, score_ai_relevance
 except ModuleNotFoundError:  # pragma: no cover - direct `python scripts/update_news.py`
     from ai_relevance import add_ai_relevance_fields, score_ai_relevance
@@ -2322,45 +2327,19 @@ def fetch_juya_daily(session: requests.Session, now: datetime) -> list[RawItem]:
 
 
 def fetch_aibase(session: requests.Session, now: datetime) -> list[RawItem]:
-    # Reader-layer identity: AIBASE is a named curated-media sub-source, like
-    # The Decoder, not its own site category or a generic "AI website".
-    site_id = "curated_media"
-    site_name = "精選媒體"
-    source_name = "AIBASE"
+    return fetch_aibase_with_status(session, now)[0]
 
-    r = session.get("https://www.aibase.com/zh/news", timeout=30)
-    r.raise_for_status()
-    soup = BeautifulSoup(r.text, "html.parser")
 
-    out: list[RawItem] = []
-    for a in soup.select("a[href^='/news/']"):
-        h3 = a.select_one("h3")
-        if not h3:
-            continue
-        title = h3.get_text(" ", strip=True)
-        href = a.get("href", "").strip()
-        if not title or not href:
-            continue
-
-        time_text = ""
-        time_tag = a.select_one("div.text-sm.text-gray-400 span")
-        if time_tag:
-            time_text = time_tag.get_text(" ", strip=True)
-
-        published = parse_date_any(time_text, now)
-        out.append(
-            RawItem(
-                site_id=site_id,
-                site_name=site_name,
-                source=source_name,
-                title=title,
-                url=urljoin("https://www.aibase.com", href),
-                published_at=published,
-                meta={"time_hint": time_text},
-            )
-        )
-
-    return out
+def fetch_aibase_with_status(
+    session: requests.Session, now: datetime
+) -> tuple[list[RawItem], dict[str, Any]]:
+    rows, status = fetch_aibase_payload(session, now)
+    # Keep the shared scoring identity; the general list has its own grouping.
+    return [RawItem(
+        site_id="curated_media", site_name="精選媒體", source="AIBASE",
+        title=row["title"], url=row["url"], published_at=row["published_at"],
+        meta=row["meta"],
+    ) for row in rows], status
 
 
 def collect_all(session: requests.Session, now: datetime) -> tuple[list[RawItem], list[dict[str, Any]]]:
@@ -2370,7 +2349,7 @@ def collect_all(session: requests.Session, now: datetime) -> tuple[list[RawItem]
         ("llm_stats_models", "LLM Stats 模型查漏", fetch_llm_stats_model_releases),
         ("llm_rumors", "LLM Rumors 模型分析", fetch_llm_rumors),
         ("runtimewire", "RuntimeWire 模型媒體", fetch_runtimewire_models),
-        ("aibase", "精選媒體 · AIBASE", fetch_aibase),
+        ("aibase", "AIBASE", fetch_aibase),
         ("tw_media", "TW Media", fetch_tw_media),
         ("kr36_ai", "36Kr AI (Watchlist)", fetch_kr36_ai),
         (JUYA_DAILY_SITE_ID, "橘鴉AI早報 (Watchlist)", fetch_juya_daily),
@@ -2384,9 +2363,13 @@ def collect_all(session: requests.Session, now: datetime) -> tuple[list[RawItem]
         error = None
         count = 0
         fetch_path = None
+        source_details: dict[str, Any] = {}
         items: list[RawItem] = []
         try:
-            items = fn(session, now)
+            if site_id == "aibase":
+                items, source_details = fetch_aibase_with_status(session, now)
+            else:
+                items = fn(session, now)
             count = len(items)
             if items:
                 fetch_path = str(items[0].meta.get("feed_path") or "").strip() or None
@@ -2409,6 +2392,8 @@ def collect_all(session: requests.Session, now: datetime) -> tuple[list[RawItem]
                 status["degraded_reason"] = "primary_source_unavailable_using_fallback"
         if site_id == "llm_stats_models" and not items and error is None:
             status["empty_reason"] = "no_recent_allowlisted_models"
+        if source_details:
+            status.update(source_details)
         statuses.append(status)
 
     return raw_items, statuses
@@ -2832,6 +2817,112 @@ def load_archive(path: Path) -> dict[str, dict[str, Any]]:
     return out
 
 
+def is_aibase_record(record: dict[str, Any]) -> bool:
+    return str(record.get("site_id") or "") == "aibase" or (
+        str(record.get("site_id") or "") == "curated_media"
+        and str(record.get("source") or "").strip().casefold() == "aibase"
+    )
+
+
+def aibase_field_language(record: dict[str, Any], field: str) -> str:
+    language = (record.get("field_languages") or {}).get(field) or record.get("content_language")
+    if language:
+        return str(language)
+    # Retained records predate language metadata; the native TW route is an
+    # unambiguous signal, unlike Chinese text or the old /zh/ route.
+    return "tw" if urlparse(str(record.get("url") or "")).path.startswith("/tw/") else ""
+
+
+def merge_raw_items_into_archive(
+    archive: dict[str, dict[str, Any]], raw_items: list[RawItem], now: datetime
+) -> set[str]:
+    """Reuse AIBASE's first Radar ID across language/title/link updates.
+
+    Historical duplicate IDs stay resolvable until their normal retention
+    expires, but are excluded from reader windows. Other sources keep the
+    existing title-and-URL identity and update behavior.
+    """
+    article_ids: dict[str, str] = {}
+    aibase_rows = [(item_id, row) for item_id, row in archive.items() if is_aibase_record(row)]
+    aibase_rows.sort(key=lambda pair: (
+        bool(pair[1].get("duplicate_of")),
+        str(pair[1].get("first_seen_at") or ""), pair[0],
+    ))
+    for item_id, row in aibase_rows:
+        article_key = aibase_article_key(str(row.get("url") or ""))
+        if not article_key:
+            continue
+        primary_id = article_ids.setdefault(article_key, item_id)
+        if primary_id != item_id:
+            primary = archive[primary_id]
+            primary_before = dict(primary)
+            languages = dict(primary.get("field_languages") or {})
+            for field in ("title", "url", "summary"):
+                if row.get(field) and (
+                    not primary.get(field)
+                    or (aibase_field_language(row, field) == "tw" and aibase_field_language(primary_before, field) != "tw")
+                ):
+                    primary[field] = row[field]
+                    languages[field] = aibase_field_language(row, field)
+            if languages:
+                primary["field_languages"] = languages
+                primary["content_language"] = languages.get("title", primary.get("content_language", ""))
+            if not primary.get("published_at") and row.get("published_at"):
+                primary["published_at"] = row["published_at"]
+            row["duplicate_of"] = primary_id
+        else:
+            row.pop("duplicate_of", None)
+
+    seen: set[str] = set()
+    for raw in raw_items:
+        title, url = raw.title.strip(), normalize_url(raw.url)
+        if not title or not url or not url.startswith("http"):
+            continue
+        aibase = is_aibase_record({"site_id": raw.site_id, "source": raw.source})
+        article_key = aibase_article_key(url) if aibase else None
+        item_id = article_ids.get(article_key) if article_key else None
+        item_id = item_id or make_item_id(raw.site_id, raw.source, title, url)
+        if article_key:
+            article_ids[article_key] = item_id
+        seen.add(item_id)
+        existing = archive.get(item_id)
+        previous = dict(existing or {})
+        if existing is None:
+            existing = archive[item_id] = {
+                "id": item_id, "published_at": iso(raw.published_at),
+                "first_seen_at": iso(now),
+            }
+        existing.update({
+            "site_id": raw.site_id, "site_name": raw.site_name, "source": raw.source,
+            "title": title, "url": url, "last_seen_at": iso(now),
+        })
+        if raw.published_at and (aibase or raw.site_id == "opmlrss" or not existing.get("published_at")):
+            existing["published_at"] = iso(raw.published_at)
+        apply_public_raw_meta(existing, raw)
+        if aibase:
+            # Do not turn an already acquired Traditional version back into
+            # English merely because the Traditional endpoint failed this run.
+            old_languages = dict(previous.get("field_languages") or {})
+            new_languages = dict(raw.meta.get("field_languages") or {})
+            default_language = str(raw.meta.get("content_language") or "")
+            merged_languages = dict(old_languages)
+            for field in ("title", "url", "summary"):
+                incoming = title if field == "title" else url if field == "url" else raw.meta.get("summary")
+                if not incoming:
+                    continue
+                language = new_languages.get(field, default_language)
+                old_language = aibase_field_language(previous, field)
+                if previous.get(field) and old_language == "tw" and language != "tw":
+                    existing[field] = previous[field]
+                    merged_languages[field] = "tw"
+                elif language:
+                    merged_languages[field] = language
+            existing["aibase_article_id"] = str(raw.meta.get("aibase_article_id") or article_key or "")
+            existing["field_languages"] = merged_languages
+            existing["content_language"] = merged_languages.get("title", default_language)
+    return seen
+
+
 def prune_archive_records(
     archive: dict[str, dict[str, Any]], now: datetime, archive_days: int
 ) -> dict[str, dict[str, Any]]:
@@ -3061,6 +3152,10 @@ def report_persistent_source_failures(persistent_failures: list[dict[str, Any]])
 def event_time(record: dict[str, Any]) -> datetime | None:
     # RSS sources must rely on the source's publish time only.
     # first_seen_at is fetch time and would falsely mark historical items as "24h".
+    if is_aibase_record(record):
+        if record.get("duplicate_of"):
+            return None
+        return parse_iso(record.get("published_at"))
     if str(record.get("site_id") or "") == "opmlrss":
         return parse_iso(record.get("published_at"))
     return parse_iso(record.get("published_at")) or parse_iso(record.get("first_seen_at"))
@@ -6607,45 +6702,7 @@ def main() -> int:
                 }
             )
 
-    seen_this_run: set[str] = set()
-
-    for raw in raw_items:
-        title = raw.title.strip()
-        url = normalize_url(raw.url)
-        if not title or not url:
-            continue
-        if not url.startswith("http"):
-            continue
-
-        item_id = make_item_id(raw.site_id, raw.source, title, url)
-        seen_this_run.add(item_id)
-
-        existing = archive.get(item_id)
-        if existing is None:
-            archive[item_id] = {
-                "id": item_id,
-                "site_id": raw.site_id,
-                "site_name": raw.site_name,
-                "source": raw.source,
-                "title": title,
-                "url": url,
-                "published_at": iso(raw.published_at),
-                "first_seen_at": iso(now),
-                "last_seen_at": iso(now),
-            }
-            apply_public_raw_meta(archive[item_id], raw)
-        else:
-            existing["site_id"] = raw.site_id
-            existing["site_name"] = raw.site_name
-            existing["source"] = raw.source
-            existing["title"] = title
-            existing["url"] = url
-            if raw.published_at:
-                # OPML RSS may fix previously wrong publish times; allow overwrite.
-                if raw.site_id == "opmlrss" or not existing.get("published_at"):
-                    existing["published_at"] = iso(raw.published_at)
-            existing["last_seen_at"] = iso(now)
-            apply_public_raw_meta(existing, raw)
+    merge_raw_items_into_archive(archive, raw_items, now)
 
     # Resolver files inherit the same last-seen-based retention as archive.json.
     archive = prune_archive_records(archive, now, args.archive_days)

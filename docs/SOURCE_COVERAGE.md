@@ -323,12 +323,21 @@ Added:
   failures still carry a cross-run streak and become `persistent_failures`
   after three consecutive runs.
 
-- **AIBASE** is a named sub-source of `curated_media` (`精選媒體`), alongside
-  sources such as The Decoder. Its reader label is always `AIBASE`, never the
-  generic `AI網站`; it uses curated-media relevance and source-tier scoring
-  rather than the old default-source floor. It remains in the Chinese
-  aggregator ecosystem for duplicate corroboration, so it cannot inflate
-  multi-source heat by relaying the same story.
+- **AIBASE** keeps its shared `curated_media` / `AIBASE` data identity and
+  existing relevance/tier scoring, but the general reader list now presents it
+  in **聚合／二次整理**, below original publishers and professional media.
+  It remains in the Chinese aggregator ecosystem for duplicate corroboration.
+  The source adapter reads the public news-list payloads at
+  `https://news.aibase.com/tw/news` (primary) and
+  `https://news.aibase.com/news` (English supplementation), using the same
+  first-page scope. Native Traditional fields win; English fills missing fields
+  and articles through the existing translation pipeline. No full bodies are
+  scraped. Publication dates come from the list payload, never fetch time;
+  undated records remain archived but cannot enter the 24-hour reader window.
+  Cross-language publisher article IDs reuse existing Radar IDs. Historical
+  duplicate IDs retain their resolvers until normal retention expiry while
+  being excluded from reader counts and heat. Per-language health and fallback
+  mode are exposed in the existing source-status task.
 
 zh-TW keyword support: `AI_KEYWORDS`/`TECH_KEYWORDS` in both
 `scripts/ai_relevance.py` (the gatekeeper used for `ai_is_related`/`ai_score`)

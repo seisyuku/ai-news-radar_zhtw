@@ -367,6 +367,77 @@ function sourceDisplayName(item) {
   return source.toLowerCase() === "aibase" ? "AIBASE" : (source || readerSiteName(item));
 }
 
+
+// Presentation-only levels for the general list. Never use these for scoring
+// or featured-event selection; feed transports are not publisher identities.
+const READER_SOURCE_LEVELS = {
+  original: { label: "原始來源", rank: 1, tone: "official" },
+  media: { label: "專業媒體", rank: 2, tone: "aihub" },
+  aggregate: { label: "聚合／二次整理", rank: 3, tone: "aggregate" },
+  other: { label: "其他與觀察來源", rank: 4, tone: "watchlist" },
+};
+
+const READER_PUBLISHERS = [
+  ["OpenAI", "original", ["openai.com"], ["OpenAI News", "OpenAI Skills"]],
+  ["Anthropic", "original", ["anthropic.com"], ["Anthropic News"]],
+  ["Google", "original", ["blog.google", "deepmind.google", "cloud.google.com"], ["Google DeepMind", "Google AI Blog", "Google Gemini Blog", "Google Cloud Blog"]],
+  ["Microsoft", "original", ["microsoft.com"], ["Microsoft Blog"]],
+  ["NVIDIA", "original", ["nvidia.com"], ["NVIDIA Blog"]],
+  ["AWS", "original", ["aws.amazon.com"], ["AWS News"]],
+  ["Hugging Face", "original", ["huggingface.co"], ["Hugging Face Blog"]],
+  ["GitHub", "original", ["github.blog"], ["GitHub AI & ML", "GitHub Changelog"]],
+  ["Thinking Machines Lab", "original", ["thinkingmachines.ai"], []],
+  ["Tencent", "original", ["tencent.com"], ["Tencent Newsroom"]],
+  ["Meta", "original", ["ai.meta.com", "about.fb.com"], []],
+  ["DeepSeek", "original", ["deepseek.com"], []],
+  ["xAI", "original", ["x.ai"], []],
+  ["LMArena", "original", ["lmarena.ai", "arena.ai"], ["LMArena Blog"]],
+  ["Epoch AI", "original", ["epoch.ai"], []],
+  ["Reuters", "media", ["reuters.com"], ["Reuters AI"]],
+  ["Bloomberg", "media", ["bloomberg.com"], []],
+  ["The Verge", "media", ["theverge.com"], []],
+  ["TechCrunch", "media", ["techcrunch.com"], ["TechCrunch AI"]],
+  ["The Decoder", "media", ["the-decoder.com"], ["The Decoder AI News"]],
+  ["MarkTechPost", "media", ["marktechpost.com"], ["MarkTechPost Research"]],
+  ["VentureBeat", "media", ["venturebeat.com"], ["VentureBeat AI"]],
+  ["Artificial Intelligence News", "media", ["artificialintelligence-news.com"], []],
+  ["CNBC", "media", ["cnbc.com"], ["CNBC Technology"]],
+  ["The Information", "media", ["theinformation.com"], []],
+  ["iThome", "media", ["ithome.com.tw"], ["iThome AI"]],
+  ["TechNews 科技新報", "media", ["technews.tw"], ["TechNews", "科技新報"]],
+  ["數位時代", "media", ["bnext.com.tw"], ["Business Next"]],
+  ["AIBASE", "aggregate", ["aibase.com"], ["AIbase基地"]],
+  ["站長之家", "aggregate", ["chinaz.com"], ["Chinaz"]],
+];
+
+function generalReaderSource(item) {
+  let host = "";
+  try { host = new URL(item.url || "").hostname.toLowerCase(); } catch { /* no URL */ }
+  const source = String(item.source || "").trim();
+  const googleNews = host === "news.google.com";
+  // Google News query names may name the subject (Meta, DeepSeek, xAI).
+  // Its title suffix names the actual publisher; never trust feed_home here.
+  const publisher = googleNews
+    ? String(item.title || "").split(" - ").slice(1).pop()?.trim() || ""
+    : source;
+  const hostMatch = !googleNews && READER_PUBLISHERS.find(([, , domains]) =>
+    domains.some((domain) => host === domain || host.endsWith(`.${domain}`)));
+  const match = hostMatch || READER_PUBLISHERS.find(([name, , , aliases]) =>
+    (!host || googleNews || item.site_id === "official_ai")
+      && [name, ...aliases].some((alias) => alias.toLowerCase() === publisher.toLowerCase()));
+  const legacyAibase = item.site_id === "aibase" || source.toLowerCase() === "aibase";
+  const watchlist = item.source_tier === "watchlist"
+    || ["kr36_ai", "juya_daily", "llm_stats_models", "llm_rumors", "runtimewire"].includes(item.site_id);
+  if (legacyAibase) return { level: "aggregate", publisher: "AIBASE" };
+  if (watchlist) return { level: "other", publisher: match?.[0] || publisher || sourceDisplayName(item) };
+  if (match) return { level: match[1], publisher: match[0] };
+  // Built-in official feeds are curated independently. Subject-query feeds
+  // belong to curated_media and do not reach this fallback.
+  if (item.site_id === "official_ai" && !googleNews) return { level: "original", publisher: sourceDisplayName(item) };
+  if (item.site_id === "tw_media" && !googleNews) return { level: "media", publisher: sourceDisplayName(item) };
+  return { level: "other", publisher: publisher || sourceDisplayName(item) };
+}
+
 function sourceKind(siteId) {
   return SOURCE_KINDS[readerSiteId(siteId)] || { label: "來源", tone: "default" };
 }
@@ -551,19 +622,18 @@ function clearAllFilters() {
 function computeSiteStats(items) {
   const m = new Map();
   items.forEach((item) => {
-    const siteId = readerSiteId(item);
+    const siteId = generalReaderSource(item).level;
     if (!m.has(siteId)) {
-      m.set(siteId, { site_id: siteId, site_name: readerSiteName(item), count: 0, raw_count: 0 });
+      m.set(siteId, { site_id: siteId, site_name: READER_SOURCE_LEVELS[siteId].label, count: 0, raw_count: 0 });
     }
     const row = m.get(siteId);
     row.count += 1;
     row.raw_count += 1;
   });
-  return Array.from(m.values()).sort((a, b) => b.count - a.count || a.site_name.localeCompare(b.site_name, "zh-CN"));
+  return Array.from(m.values()).sort((a, b) => READER_SOURCE_LEVELS[a.site_id].rank - READER_SOURCE_LEVELS[b.site_id].rank);
 }
 
 function currentSiteStats() {
-  if (state.mode === "ai") return safeAiSiteStats().filter((site) => site.count > 0);
   return computeSiteStats(modeItems());
 }
 
@@ -865,9 +935,11 @@ function sectionItems(items = modeItems(), sectionId = state.activeSection) {
 function getFilteredItems() {
   const q = state.query.trim().toLowerCase();
   const preliminary = sectionItems().filter((item) => {
-    if (state.siteFilter && readerSiteId(item) !== state.siteFilter) return false;
+    if (state.siteFilter && (state.siteFilter === "socialdata_x"
+      ? item.site_id !== "socialdata_x"
+      : generalReaderSource(item).level !== state.siteFilter)) return false;
     if (state.authorFilter && (item.site_id !== "socialdata_x" || item.source !== state.authorFilter)) return false;
-    if (state.sourceTypeFilter && itemSourceType(item) !== state.sourceTypeFilter) return false;
+    if (state.sourceTypeFilter && generalReaderSource(item).level !== state.sourceTypeFilter) return false;
     if (!q) return true;
     const hay = `${item.title || ""} ${item.title_zh || ""} ${item.title_en || ""} ${item.site_name || ""} ${item.source || ""}`.toLowerCase();
     return hay.includes(q);
@@ -2278,12 +2350,14 @@ function renderItemNode(item, context = {}) {
   const node = itemTpl.content.firstElementChild.cloneNode(true);
   const metaRow = node.querySelector(".meta-row");
   const siteEl = node.querySelector(".site");
-  const displaySource = sourceDisplayName(item);
+  const displaySource = generalReaderSource(item).publisher;
   siteEl.textContent = displaySource;
   if (context.source && context.source === displaySource) {
     siteEl.hidden = true;
   }
-  const kind = sourceKind(readerSiteId(item));
+  const kind = generalReaderSource(item).level === "other"
+    ? sourceKind(readerSiteId(item))
+    : READER_SOURCE_LEVELS[generalReaderSource(item).level];
   const categoryEl = node.querySelector(".category");
   categoryEl.textContent = kind.label;
   categoryEl.classList.add(`kind-${kind.tone}`);
@@ -2440,7 +2514,7 @@ function subgroupSummary(items, rawCount = items.length) {
 function sourceGroupEntries(items) {
   const groupMap = new Map();
   items.forEach((item) => {
-    const key = sourceDisplayName(item) || "未分割槽";
+    const key = generalReaderSource(item).publisher || "未知來源";
     if (!groupMap.has(key)) {
       groupMap.set(key, []);
     }
@@ -2502,8 +2576,8 @@ function buildSiteGroupNode(site) {
       moreBtn = addLoadMoreButton(
         siteSection,
         expanded
-          ? `收起，僅看前 ${SITE_SOURCE_GROUP_INITIAL_LIMIT} 個分割槽`
-          : `展開其餘 ${fmtNumber(hiddenCount)} 個分割槽`,
+          ? `收起，僅看前 ${SITE_SOURCE_GROUP_INITIAL_LIMIT} 個發布者`
+          : `展開其餘 ${fmtNumber(hiddenCount)} 個發布者`,
         () => {
           expanded = !expanded;
           renderSourceGroups();
@@ -2525,9 +2599,8 @@ function renderLoadingNotice(label, count) {
 function currentFilterLabel(filtered) {
   if (state.authorFilter) return `${listTitleText()} · X 博主 ${state.authorFilter}`;
   if (state.siteFilter) {
-    const item = filtered[0];
     const stat = currentSiteStats().find((s) => s.site_id === state.siteFilter);
-    return `${listTitleText()} · ${item?.site_name || stat?.site_name || state.siteFilter}`;
+    return `${listTitleText()} · ${stat?.site_name || state.siteFilter}`;
   }
   return listTitleText();
 }
@@ -2535,9 +2608,9 @@ function currentFilterLabel(filtered) {
 function groupedSites(items) {
   const siteMap = new Map();
   items.forEach((item) => {
-    const siteId = readerSiteId(item);
+    const siteId = generalReaderSource(item).level;
     if (!siteMap.has(siteId)) {
-      siteMap.set(siteId, { siteName: readerSiteName(item), rawItems: [] });
+      siteMap.set(siteId, { siteName: READER_SOURCE_LEVELS[siteId].label, rawItems: [] });
     }
     siteMap.get(siteId).rawItems.push(item);
   });
@@ -2553,13 +2626,7 @@ function groupedSites(items) {
       }];
     })
     .filter(([, site]) => site.items.length)
-    .sort((a, b) => {
-      const byScore = subgroupSortValue(b[1].items) - subgroupSortValue(a[1].items);
-      if (byScore !== 0) return byScore;
-      const byCount = b[1].items.length - a[1].items.length;
-      if (byCount !== 0) return byCount;
-      return a[1].siteName.localeCompare(b[1].siteName, "zh-CN");
-    });
+    .sort((a, b) => READER_SOURCE_LEVELS[a[0]].rank - READER_SOURCE_LEVELS[b[0]].rank);
 }
 
 function addLoadMoreButton(parent, label, onClick) {
