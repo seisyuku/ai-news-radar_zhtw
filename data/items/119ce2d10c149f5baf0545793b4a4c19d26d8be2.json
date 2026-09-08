@@ -7,6 +7,6 @@
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/08/agentcorememory-fine-grained-access-control",
   "published_at": "2026-08-28T20:00:00Z",
   "first_seen_at": "2026-09-02T02:05:26.280841Z",
-  "last_seen_at": "2026-09-08T19:35:30.624001Z",
+  "last_seen_at": "2026-09-08T20:05:32.228901Z",
   "summary": "Amazon Bedrock AgentCore Memory 现在支持精细访问控制（FGAC），使您能够通过 AgentCore Gateway 实施按用户和按租户的记忆隔离，而无需构建自定义授权逻辑。 借助 FGAC，您可以将一个针对 OAuth（JWT）身份验证进行了配置的 AgentCore Gateway 部署在 Memory 资源的前端，并附加 Cedar 策略，根据经过身份验证的调用方的身份来限制访问权限。您可以强制每个用户只能访问自己的角色数据，将记忆记录限制为源自用户令牌声明的命名空间，并按调用方允许或拒绝特定 Memory 操作。这使您能够利用加密身份证明，将访问控制的执行从应用程序代码转移到基础设施层。FGAC for Memory 基于 AgentCore Memory 连接器构建，该连接器是一个托管式网关连接器，它将网关目标与 Memory 数据面板连接起来，并将 12 项 Memory 操作作为 Cedar 操作公开，其请求属性可用于策略条件。 要开始使用，请参阅《Amazon Bedrock AgentCore 开发人员指南》中的 Memory 精细访问控制 。"
 }
