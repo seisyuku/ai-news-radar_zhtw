@@ -16,9 +16,18 @@ GitHub Actions refresh jobs, and GitHub Pages publishing.
 - Prefer stable public RSS/Atom/OPML sources before adding custom scrapers.
 - Keep the reader-facing product simple: default to a curated AI-focused view, hide noisy or advanced source details behind existing filters/docs.
 
-## Source Strategy
+## Authority and Routing
 
-Read `docs/SOURCE_COVERAGE.md` before adding or removing sources.
+- `README.md` defines the current public product boundary.
+- `docs/HANDOVER.md` records current decisions and active checkpoints.
+- `docs/SOURCE_COVERAGE.md` governs source status, acceptance, and replacement.
+- `docs/OPERATIONS.md` governs Actions, Pages, scheduled refreshes, and incidents.
+- `docs/ROADMAP.md` governs product direction and priorities.
+- `skills/ai-news-radar/SKILL.md` routes maintainer workflows to the relevant code, documents, and references.
+
+Read only the authority that governs the requested change.
+
+## Source Strategy
 
 Default source priority:
 
@@ -30,16 +39,23 @@ Default source priority:
 Avoid account-bound timelines, broad personal social feeds, login-gated pages,
 and fragile bridges unless the user explicitly accepts the maintenance cost.
 
-## Common Commands
+## Validation by Change Type
 
 ```bash
+# Environment setup, when needed
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements-dev.txt
+
+# Python fetch, generation, or schema changes
 python -m py_compile scripts/update_news.py
-python -m pytest -q
-python scripts/update_news.py --output-dir data --window-hours 24 --rss-opml feeds/follow.opml
-python -m http.server 8080
+python -m pytest -q <relevant-test-paths>
+
+# JavaScript changes
+node --check assets/app.js
+
+# Repository hygiene
+git diff --check
 ```
 
-For agent workflows, read `skills/ai-news-radar/SKILL.md`.
+Run the full Python suite when shared generation, schema, scoring, or release behavior changes. For source work, generate into a temporary output directory and inspect `source-status.json`; do not overwrite tracked snapshots as a side effect of validation.

@@ -1,24 +1,21 @@
 ---
 name: ai-news-radar
-description: "Use when maintaining seisyuku/ai-news-radar_zhtw: evaluating AI industry sources, adding RSS/Atom/OPML/public feeds, diagnosing source health, changing data generation or the web UI, and operating GitHub Actions or GitHub Pages."
+description: "Maintain AI News Radar sources, data generation, reader UI, and GitHub operations. Use for work in seisyuku/ai-news-radar_zhtw involving feeds or OPML, source health, the web app, Actions, or Pages."
 ---
 
 # AI News Radar
 
-## First Reads
+## Reference Routing
 
-When this skill triggers inside the repo, read the smallest relevant set in this
-order:
+Read only the routes that govern the requested change:
 
-1. `README.md` for the current product boundary.
-2. `docs/HANDOVER.md` for current decisions, known facts, and open checkpoints.
-3. `docs/SOURCE_COVERAGE.md` before adding, removing, or rerouting a source.
-4. `docs/OPERATIONS.md` for Actions, Pages, heartbeat, and incident procedures.
-5. `docs/ROADMAP.md` before changing product direction or priorities.
-6. `scripts/update_news.py` before changing generation or fetch behavior.
-7. `assets/app.js`, `assets/styles.css`, and `index.html` before UI changes.
-8. `references/source-intake.md` for source intake and
-   `references/v2-method.md` for product or architecture work.
+- Product scope or reader-layer changes: `README.md`; add `docs/ROADMAP.md` when priorities or direction change.
+- Resuming an active work stream or relying on a prior decision: `docs/HANDOVER.md`.
+- Adding, removing, evaluating, or rerouting sources: `docs/SOURCE_COVERAGE.md` and `references/source-intake.md`.
+- Actions, Pages, schedules, deployment, or incidents: `docs/OPERATIONS.md`.
+- Generation or fetch behavior: the relevant parts of `scripts/update_news.py` and its tests.
+- Reader UI: the affected parts of `assets/app.js`, `assets/styles.css`, or `index.html` and their tests.
+- Product or architecture method: `references/v2-method.md`.
 
 Do not use deleted upstream handoffs, marketing pages, Reader Skill assets, or
 the upstream site as current project authority.
@@ -41,8 +38,7 @@ sources.
 
 For non-trivial work:
 
-1. Inspect current repo state, relevant docs, recent commits, and the smallest
-   code surface.
+1. Inspect current repo state, the routed authority, and the smallest affected code surface.
 2. State the user-visible problem and the evidence that would count as fixed.
 3. For source work, classify the source as official feed, public generated feed,
    static page, OPML-only customization, secret-backed adapter, or reject.
@@ -67,36 +63,13 @@ For non-trivial work:
   into publication and accepts the privacy implications.
 - Do not hand-edit scheduled `data/*.json` unless the task explicitly requires
   a snapshot refresh.
-- Before changing the AI relevance scoring formula, stop and follow the repo's
-  backtest and approval rule.
+- For changes to AI relevance scoring or its `0.65` floor, follow the 14-day backtest requirement in `docs/HANDOVER.md`. A user request to change the scoring behavior authorizes local implementation and validation; request a product decision only when the requested outcome leaves the threshold or tradeoff unresolved.
 
 ## Source Intake
 
-Use the highest stable option that meets the need:
-
-1. Official RSS, Atom, or owner-published JSON.
-2. Maintained public generated feeds with canonical URLs and timestamps.
-3. Public newsletter archive or stable static page.
-4. Private OPML for maintainer-specific sources.
-5. Optional API adapter using user-owned secrets.
-6. Reject sources that require login state, cookies, unstable bridges, or add
-   mostly duplicate/noisy material.
-
-Before promoting a candidate RSS/Atom source into the public default, run:
-
-```bash
-python scripts/evaluate_source_overlap.py \
-  --source-url https://example.com/feed.xml \
-  --source-name "Example Source" \
-  --site-id example_candidate \
-  --baseline data/archive.json \
-  --lookback-days 7 \
-  --output reports/source-intake/example-overlap.json
-```
-
-Treat the report as advisory. Check sample size, source quality, canonicality,
-timeliness, unique coverage, and Actions compatibility before deciding. Details
-and parser patterns are in `references/source-intake.md`.
+Follow `references/source-intake.md` for source classes, evaluation commands,
+parser patterns, and promotion criteria. Record the resulting source status in
+`docs/SOURCE_COVERAGE.md` when the accepted default set changes.
 
 ## Personal OPML
 
@@ -114,17 +87,28 @@ fallback. Never commit the real file.
 
 ## Validation
 
-Run the fastest relevant checks:
+Choose checks by the affected surface:
 
 ```bash
-python -m py_compile scripts/update_news.py
-python -m pytest -q
-node --check assets/app.js
+# Markdown or metadata
 git diff --check
+
+# Python fetch or generation code
+python -m py_compile scripts/update_news.py
+
+# Python tests: start with affected files; use the full suite for shared
+# generation, schema, scoring, or release behavior
+python -m pytest -q <relevant-test-paths>
+
+# Reader JavaScript
+node --check assets/app.js
+
+# Skill structure
 python "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-creator/scripts/quick_validate.py" skills/ai-news-radar
 ```
 
-For source changes, generate into a temporary directory and inspect
+For source changes, also run the overlap evaluation from
+`references/source-intake.md`, generate into a temporary directory, and inspect
 `source-status.json` rather than overwriting tracked snapshots:
 
 ```bash
@@ -134,6 +118,10 @@ python scripts/update_news.py --output-dir /tmp/ai-news-radar-data \
 
 Confirm the source has an explicit success or failure status, item counts are
 plausible, and the AI/business-event views are not flooded with off-topic items.
+
+For AI relevance scoring changes, run the 14-day comparison with
+`scripts/backtest_scoring.py` and review inclusion/exclusion flips before treating
+the change as validated.
 
 After an authorized push, use the current repository coordinates:
 
