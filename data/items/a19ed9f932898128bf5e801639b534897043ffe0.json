@@ -7,6 +7,6 @@
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/08/amazon-redshift-supports-apache-iceberg-v3",
   "published_at": "2026-08-31T18:10:00Z",
   "first_seen_at": "2026-09-04T20:52:20.696106Z",
-  "last_seen_at": "2026-09-08T17:08:49.144609Z",
+  "last_seen_at": "2026-09-08T17:35:30.793951Z",
   "summary": "Amazon Redshift 现在支持读取和写入数据湖中的 Apache Iceberg v3 表。Apache Iceberg 是一种开放表格式，其 v3 版本新增了多项功能。 通过此次发布，Amazon Redshift 推出了对默认列值、行谱系和删除向量的支持。 借助默认列值，您可以定义在未提供值时 Amazon Redshift 应用的初始值，从而简化向现有表添加列时的架构演变流程。行谱系会暴露跟踪每行的标识和上次更新的序列号的伪列，因此您可以构建仅处理已修改行的增量管道和 CDC（变更数据捕获）工作流程。删除向量会将 Iceberg v2 的位置删除文件替换为紧凑的压缩位图，为高频更新和删除工作负载（例如合规性驱动的记录删除）提供更快的读写速度。您可以通过 CREATE TABLE <table> ...USING ICEBERG TABLE PROPERTIES ('format-version' = '3') 创建 v3 表，或通过 ALTER TABLE <table> SET TABLE PROPERTIES ('format-version' = '3') 就地升级现有的 v2 表。 Amazon Redshift 基于 Graviton 的预置和无服务器集群均支持新的 v3 格式。要了解更多信息，请参阅 Amazon Redshift 文档 中的 Apache Iceberg v3 功能 。"
 }
