@@ -7,6 +7,6 @@
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/08/amazon-emr-eks",
   "published_at": "2026-08-28T17:08:00Z",
   "first_seen_at": "2026-09-04T20:52:20.696106Z",
-  "last_seen_at": "2026-09-08T10:35:28.208840Z",
+  "last_seen_at": "2026-09-08T11:05:31.217889Z",
   "summary": "Amazon EMR on EKS 让您可以在 AWS EKS（Elastic Kubernetes Service）集群上运行开源大数据框架，例如 Apache Spark 和 Flink。您负责将作业提交至映射到 EKS 集群上命名空间的虚拟集群，EMR on EKS 负责打包、调度和运行您的应用程序。 今天，我们很高兴地宣布，在 EMR on EKS 上推出作业运行准入控制机制，并支持通过 StartJobRun API 实现作业运行并发和背压信号。 通过此次发布，您现在可以在虚拟集群上设置并发作业限制，从而精细控制同时执行的作业数量以及可排队等待的作业数量。这是一个逻辑队列，代表处于 PENDING/SUBMITTED 状态的作业。这些控制机制有助于在多租户共享环境中保护共享 EKS 集群免受过载影响，避免“吵闹邻居”调度失败，确保即使在需求高峰期，您的关键工作负载也能保持可预测的运行。 您可以在虚拟集群上配置两个可选限制：maxConcurrentJobRuns，即任何时候运行的作业数量上限；maxInQueueJobRuns，即 EMR on EKS 已接受但尚未开始的作业运行的队列深度上限。当队列已满时，StartJobRun 会返回 HTTP ValidationException，以便您可以优雅地将流量转移或重新路由到其他集群，而非让单个集群过载。您可以随时使用 DescribeVirtualCluster 查看当前限制和实时作业数量。默认不应用任何限制，因此现有工作负载不受影响，直到您选择启用。 并发作业限制已在提供 EMR on EKS 的所有 AWS 区域推出。 要开始使用，请参阅 管理虚拟集群 。"
 }
