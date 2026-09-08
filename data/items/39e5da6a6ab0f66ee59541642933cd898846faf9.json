@@ -7,6 +7,6 @@
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/08/aws-announce-neuron-2-32-0",
   "published_at": "2026-08-21T21:11:00Z",
   "first_seen_at": "2026-08-28T17:05:41.324010Z",
-  "last_seen_at": "2026-09-08T07:35:30.986036Z",
+  "last_seen_at": "2026-09-08T08:05:30.194380Z",
   "summary": "AWS Neuron 2.32.0 现已推出，引入了 NKI 0.6.0，包含设备内 Top-K 指令，为等级包含不同大小张量的内核提供可变长度的 all-gather 集合通信，以及用于数据依赖迭代的新循环构造。 此版本还引入了 13 个新的 NKI Library 内核，用于混合专家（MoE）训练和稀疏注意力，以及一项新的 Neuron 代理式开发技能，可将转换器模型移植到 vLLM Neuron 插件。NKI Library 内核涵盖 DeepSeek-V3.2 稀疏多头潜在注意力的上下文编码、用于解码步骤的 MXFP8 注意力，以及一个匹配的 MXFP8 前向和后向传递，使块级 MoE 层能够在 MXFP8 中进行端到端训练，同时还为 22 个额外内核提供 PyTorch 参考实现。 Neuron Runtime 在 Trn2 和 Trn3 上增加了可变大小的 all-gather、reduce-scatter 和 all-to-all 集合通信，让每个等级都能贡献或接收不同数量的元素。vLLM Neuron 插件已升级至 vLLM 0.24.0，并包含在所有 Neuron 深度学习 AMI 和深度学习容器中。Neuron Compiler 增加了对 64 位整数编译的显式控制，而 Neuron Explorer 则在系统跟踪视图中增加了每核主机的 CPU 利用率。 AWS Neuron 已在提供 Amazon EC2 Trn1、Trn2、Trn3、Inf2 和 Inf1 实例的所有 AWS 区域推出。有关区域可用性的更多信息，请参阅 AWS 区域表 。 要开始使用，请参阅以下资源： AWS Neuron 2.32.0 发行说明 Neuron Kernel 接口（NKI）文档 Neuron Agentic Development AWS Neuron"
 }
