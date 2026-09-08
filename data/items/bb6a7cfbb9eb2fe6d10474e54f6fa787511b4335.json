@@ -7,6 +7,6 @@
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/08/amazon-ecs-agent-connectivity-health",
   "published_at": "2026-08-24T22:42:00Z",
   "first_seen_at": "2026-08-28T17:05:41.324010Z",
-  "last_seen_at": "2026-09-08T09:35:31.531754Z",
+  "last_seen_at": "2026-09-08T10:05:29.152794Z",
   "summary": "Amazon Elastic Container Service （Amazon ECS）现在可以自动检测和修复容器实例，使客户无需手动干预，即可减少未检测到的工作负载故障，并提高应用程序可用性。 通过此次发布，Amazon ECS 将持续监控跨容器实例的代理连接。基础设施事件（如 EBS 卷性能下降、主机过热事件或网络连接故障）可能会切断 ECS 代理与 ECS 控制面板的连接。Amazon ECS 现在为所有计算选项引入了一类新的容器实例运行状况变更事件（AGENT_CONNECTIVITY）：AWS Fargate、Amazon ECS 托管实例和 Amazon ECS on EC2。对于 ECS 托管实例和 AWS Fargate，ECS 会自动执行恢复操作，即自动停止正在运行的任务并启动替换容量，同时注销受损实例。在 Amazon ECS on EC2 上运行工作负载的客户，可以使用此运行状况变更事件来加速实例更换工作流程。 此功能已在所有 AWS 商业区域和 AWS GovCloud（美国） 区域 推出，无需额外付费。要了解更多信息，请参阅 监控 Amazon ECS 容器实例运行状况 。"
 }
