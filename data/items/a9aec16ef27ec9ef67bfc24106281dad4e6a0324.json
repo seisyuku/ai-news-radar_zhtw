@@ -7,6 +7,6 @@
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/08/amazon-msk-replicator-OAuth-support",
   "published_at": "2026-08-24T15:00:00Z",
   "first_seen_at": "2026-08-28T23:05:23.543716Z",
-  "last_seen_at": "2026-09-09T11:35:30.649583Z",
+  "last_seen_at": "2026-09-09T11:59:05.992000Z",
   "summary": "Amazon MSK 复制器现已支持 OAuth 2.0（SASL/OAUTHBEARER）身份验证，用于将数据从外部 Apache Kafka 集群（包括本地集群、AWS 上自管理的集群或其他云提供商）复制到 Amazon MSK 预置集群 。借助此功能，配置了 OAuth/OIDC 身份验证的外部 Apache Kafka 集群，现在可以使用 MSK 复制器将工作负载迁移到 Amazon MSK，使用基于 MSK 的集群作为失效转移或备份目标来支持灾难恢复，并实现跨混合和多云环境分发数据。 MSK 复制器是 Amazon MSK 的一项功能，可自动在 Kafka 集群之间复制数据，而无需管理自定义复制基础设施或配置开源工具。以前，MSK 复制器支持 SASL/SCRAM 和 mTLS 身份验证，用于连接到外部 Apache Kafka 集群。通过此次发布，您现在还可以结合使用 OAuth 2.0 身份验证与 MSK 复制器，将数据从外部 Kafka 集群复制到 Amazon MSK。与自管理的复制工具不同，MSK 复制器允许您在复制期间保留原始 Kafka 主题名称，同时自动避免无限的复制循环。它还可以双向同步使用者组偏移，使您能够按任何顺序在集群之间独立移动生产者和使用者，而不会出现协调限制或数据丢失的风险。 提供 MSK 复制器的所有 AWS 区域都支持这项新功能。要了解更多信息，请参阅 MSK 复制器 文档 、 产品页面 、 定价页面 和此 AWS 博客文章 。"
 }
