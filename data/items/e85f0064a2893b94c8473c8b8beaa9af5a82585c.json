@@ -7,6 +7,6 @@
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/08/workload-credentials-provider-install",
   "published_at": "2026-08-31T07:00:00Z",
   "first_seen_at": "2026-09-04T20:52:20.696106Z",
-  "last_seen_at": "2026-09-09T15:05:39.760232Z",
+  "last_seen_at": "2026-09-09T15:35:30.063374Z",
   "summary": "今天，AWS Secrets Manager 宣布可以在 Amazon Linux 和 Windows 上一键安装 AWS 工作负载凭证提供程序（AWCP），将设置过程从多步骤的源代码构建流程简化为单个命令。 AWCP 从 AWS Secrets Manager 解析密钥并将其缓存在本地，从而使应用程序能够通过本地 HTTP 端点检索密钥。AWCP 还支持您从 AWS Certificate Manager 提取证书。以前，想要在 Amazon EC2 实例上使用 AWCP 的客户需要完成大约 6 个步骤，从克隆 Github 存储库开始，到编译二进制文件和设置配置。这个多步骤流程要求每位开发人员学习 Rust 专业知识并构建基础设施。 现在，客户可以直接从公共下载 URL 下载适用于 Linux（x86_64 和 ARM64）和 Windows（x64）的预建签名二进制文件。此外，AWCP 现已在 Amazon Linux 存储库中提供。Amazon Linux EC2 客户可以通过单个命令进行安装。所有二进制文件均经过代码签名，以确保完整性和真实性，并提供具有内存密钥缓存的即用型代理。 在提供 AWS Secrets Manager 的所有 AWS 区域，AWS 工作负载凭证提供程序均可一键安装在 Amazon Linux 2023（x86_64 和 ARM64）和 Windows Server（x64）上，除了 Secrets Manager 标准定价外，无需支付任何额外费用。要开始使用，请参阅以下资源：AWS 工作负载凭证提供程序 文档 、ACM 文档 和 GitHub 上的 AWCP。"
 }
