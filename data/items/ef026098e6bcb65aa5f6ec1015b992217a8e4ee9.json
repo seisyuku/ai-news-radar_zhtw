@@ -7,6 +7,6 @@
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/08/amazon-cloudwatch-agent-journald",
   "published_at": "2026-08-28T16:00:00Z",
   "first_seen_at": "2026-09-02T02:05:26.280841Z",
-  "last_seen_at": "2026-09-09T03:05:32.435671Z",
+  "last_seen_at": "2026-09-09T03:35:29.205416Z",
   "summary": "AWS 宣布支持使用 Amazon CloudWatch 代理收集 systemd 日记（journald）日志。现在，您可以将 CloudWatch 代理配置为直接从 Linux 实例上的 systemd 日记中读取日志条目并将其发送到 Amazon CloudWatch Logs，而无需先将这些日志写入磁盘上的文件中。 许多现代 Linux 发行版（包括 Amazon Linux 2023）都使用 systemd 日记作为主日志记录系统，默认情况下不再写入传统的文本日志文件，例如 /var/log/messages。此前，使用 CloudWatch 代理收集这类日志需要额外的配置，才能将日记导出到磁盘上的文件中。此次发布后，CloudWatch 代理能以原生方式读取日记条目，保留 journald 捕获的结构化元数据，例如 systemd 单元、优先级和流程信息。您可以使用 systemd 单元、日记优先级和日记字段匹配来筛选日志条目，也可以在将日志发布到 CloudWatch Logs 之前应用正则表达式筛选条件。这可以帮助您减少冗余信息并控制日志量和成本。 所有 AWS 商业区域和 GovCloud（美国）区域均支持 CloudWatch 代理中的 journald。摄取的日志按标准 Amazon CloudWatch Logs 定价收费。有关更多信息，请参阅 Amazon CloudWatch 定价页面 。 要开始使用，请将 CloudWatch 代理更新至最新版本并在代理配置文件中添加 journald 部分。要开始使用，请参阅《Amazon CloudWatch 用户指南》中的 手动创建或编辑 CloudWatch 代理配置文件 。"
 }
