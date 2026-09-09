@@ -2,6 +2,18 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v1",
   "entries": {
+    "5538beefee85247cf1ce8e5d50bcb1516bbc9f79e4ca7b3eae271dc98929942e": {
+      "summary": "Meta 推出私有 AI 代理 Muse，同時美國指責 DeepSeek 與阿里巴巴複製美國 AI 模型。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-09-09T07:35:30.466852Z"
+    },
+    "bdbe19c8a7fa30ebc670be740de4d096c81a46bce385843abd19022179d3f10e": {
+      "summary": "OpenAI 推出 AI 模型 Astra，開發者 Sharif Shameem 實測其連破 48 關 CAPTCHA 驗證，OpenAI 因此憂資安風險並急祭防禦性開放。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-09-09T07:35:30.466852Z"
+    },
     "12e4ab88157dd8a321206671c8828910b0b8c67e780b676660df7f3278871c71": {
       "summary": "OpenAI 分享 AI 生成的納維-斯托克斯千禧年大獎問題解決方案，包含說明文件及 Lean 形式化證明。",
       "provider": "groq",
@@ -2989,18 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.6-27b",
       "created_at": "2026-08-19T18:57:35.897046Z"
-    },
-    "30e9a3a6bf10819976f7af75e7cf99669ac4863e4decd7d6c4db6a96dee4cc66": {
-      "summary": "GitHub 發布針對初學者的 Copilot 應用程式指南，建議使用者利用「My work」面板來追蹤多個 Copilot 工作階段，以掌握進行中、已完成及下一步的工作狀態。",
-      "provider": "groq",
-      "model": "qwen/qwen3.6-27b",
-      "created_at": "2026-08-19T18:12:37.263089Z"
-    },
-    "5972b79c98231a48e4b32555053d932d5b78022d3e98ba09dd6c7d2eff52f281": {
-      "summary": "Waymo 正將 Gemini 引入其自訂的 Ojai 車輛中，旨在創造更貼心且個人化的乘車體驗。",
-      "provider": "groq",
-      "model": "qwen/qwen3.6-27b",
-      "created_at": "2026-08-19T17:45:54.541293Z"
     }
   },
   "rejections": {
@@ -3620,10 +3620,6 @@
       "reason": "validation_length",
       "created_at": "2026-09-08T14:35:29.970938Z"
     },
-    "8fa364c900a076726bd24a1696e167a68482d3ed0e3710f8fc3eadfc2592fe90": {
-      "reason": "validation_length",
-      "created_at": "2026-09-09T01:35:26.450336Z"
-    },
     "e2a308589a77c626310043a000dd9916f3938fc427014011be9f8c80fa70ca3c": {
       "reason": "insufficient_context",
       "created_at": "2026-09-09T02:05:25.695560Z"
@@ -3635,6 +3631,10 @@
     "410826824c7caae0f636ff190bc596dd3efb6579e5d8d142b3e4423e99b92ed7": {
       "reason": "validation_length",
       "created_at": "2026-09-09T05:05:28.383975Z"
+    },
+    "8fa364c900a076726bd24a1696e167a68482d3ed0e3710f8fc3eadfc2592fe90": {
+      "reason": "validation_length",
+      "created_at": "2026-09-09T07:35:30.466852Z"
     }
   }
 }
