@@ -7,6 +7,6 @@
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/08/secrets-manager-cisco-netskope",
   "published_at": "2026-08-25T07:00:00Z",
   "first_seen_at": "2026-08-28T23:05:23.543716Z",
-  "last_seen_at": "2026-09-09T13:35:30.599477Z",
+  "last_seen_at": "2026-09-09T13:37:02.946321Z",
   "summary": "AWS Secrets Manager 现已扩展其托管式外部密钥功能以包含 Cisco Security Platform API 密钥和 Netskope API 令牌，使您能够直接从 AWS 管理控制台自动轮换这些第三方凭证，而无需编写任何自定义轮换代码。 对于 Cisco Security Platform（Security Cloud Control），AWS Secrets Manager 会按您的计划自动轮换 API 密钥的刷新令牌，使凭证始终保持有效，并捕获 Cisco 定期重新颁发的新的刷新令牌。遵循 Cisco 的标准 OAuth 模式，您的应用程序可按需将存储的刷新令牌交换为短期访问令牌。对于 Netskope，Secrets Manager 通过 Netskope 的 SCIM API 轮换 RBACv3 服务账户 REST API 令牌，并在轮换完成之前验证新生成的令牌。这两种集成均具备自认证能力，即存储的凭证可自行授权完成轮换，因此无需额外提供管理员凭证。 这两项新增集成被纳入托管式外部密钥现有支持范围，现已支持的对象包括 BigID、Confluent Cloud、Datadog、GitLab、Jenkins、MongoDB Atlas、Okta、Paddle、Salesforce、Snowflake 和 SonarQube。 Cisco Security Platform 和 Netskope 托管式外部密钥已在支持 AWS Secrets Manager 托管式外部密钥的所有 AWS 区域推出。要了解更多信息，请访问 AWS Secrets Manager 托管式外部密钥文档 。"
 }
