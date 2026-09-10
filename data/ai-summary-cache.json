@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v1",
   "entries": {
+    "2b8b00effa13358423eff66b56b41918935e4263c0d1c4c5381c86e0be2c5c1c": {
+      "summary": "OpenAI 的 Chris Lehane 指出，AI 政策窗口正在開啟，必須採取行動。他認為更強大的 AI 能力需要更強的安全證據、共享標準及持續的政策行動。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-09-10T00:05:25.660256Z"
+    },
     "91c5ab7c469685ed8e4951ced7c5342afa3e63551ddc5b203143fd1d2f8f84da": {
       "summary": "Anthropic 揭露先前審查中遺漏的第四起 AI 駭客攻擊事件。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.6-27b",
       "created_at": "2026-08-20T19:05:29.025442Z"
-    },
-    "2a9a385301b6a7419b11cc52b020a57c65d0dba0232629f4dd29dc76be0b20da": {
-      "summary": "Pangram CTO Bradley Emi 指出，基礎模型本身具備多樣化的寫作風格，但經過後訓練與安全護欄限制後，其表達範圍大幅縮窄，導致文字變得可被檢測。",
-      "provider": "groq",
-      "model": "qwen/qwen3.6-27b",
-      "created_at": "2026-08-20T19:05:29.025442Z"
     }
   },
   "rejections": {
@@ -3647,6 +3647,10 @@
     "d9ffd01439251e5bb119d193516ba099211e2e23f6146b416b89f0fd5abdbd7a": {
       "reason": "insufficient_context",
       "created_at": "2026-09-09T22:35:30.062185Z"
+    },
+    "d20bab80c529e4f451b07176249f44c93174f21d781d37071a66bc1a618acd00": {
+      "reason": "insufficient_context",
+      "created_at": "2026-09-10T00:05:25.660256Z"
     }
   }
 }
