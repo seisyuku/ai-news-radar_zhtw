@@ -7,6 +7,6 @@
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/08/elastic-beanstalk-active-directory-domain-join",
   "published_at": "2026-08-31T04:00:00Z",
   "first_seen_at": "2026-09-04T20:52:20.696106Z",
-  "last_seen_at": "2026-09-10T19:51:10.041644Z",
+  "last_seen_at": "2026-09-10T20:35:26.844679Z",
   "summary": "现在，AWS Elastic Beanstalk 会自动将您环境中的 Windows Server 实例加入您使用 AWS Directory Service 管理的 Active Directory 域。以前，在 Elastic Beanstalk 上运行已加入域的 Windows 工作负载需要使用您自行维护的自定义加入脚本。通过此次发布，您只需设置几个配置选项，环境中的每个实例（包括之后由自动扩缩启动的实例）即会在应用程序部署之前于启动时加入域，无需自定义脚本。 已加入域的实例可以使用 Windows 集成的身份验证、应用组策略，并访问域资源，如文件共享和使用 Windows 身份验证的 SQL Server 数据库。您可以将实例放置在要使用组策略定位的组织单位中，并且每个实例都采用从其实例 ID 派生的可预测计算机名称。该功能在设计上具有弹性：如果实例无法加入域，您的部署仍会完成，并且环境会报告问题，因此加入失败永远不会阻止部署。 在所有 AWS 商业区域以及提供 Elastic Beanstalk 的 AWS GovCloud（美国）区域，Active Directory 域加入功能已针对 2026 年 8 月 18 日当天或之后发布的 Windows Server 平台版本推出。有关受支持区域的完整列表，请参阅 AWS 区域 。 要了解更多信息，请参阅 AWS Elastic Beanstalk 开发人员指南 中的 将实例加入 Active Directory 域 。要了解有关 Elastic Beanstalk 的更多信息，请访问 AWS Elastic Beanstalk 产品页面 。"
 }
