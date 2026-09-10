@@ -7,6 +7,6 @@
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/08/lambda-recursion-regions",
   "published_at": "2026-08-31T17:30:00Z",
   "first_seen_at": "2026-09-04T20:52:20.696106Z",
-  "last_seen_at": "2026-09-10T08:35:28.708584Z",
+  "last_seen_at": "2026-09-10T08:52:01.206869Z",
   "summary": "AWS Lambda 递归循环检测 已将支持范围扩展到所有 AWS 商业区域。此功能默认处于启用状态，是一种护栏，可自动检测和停止 Lambda 函数与其他支持的服务之间的递归调用，防止工作负载失控。 当使用 Amazon S3、Amazon SQS 和 Amazon SNS 等事件源触发 Lambda 函数时，配置错误或代码缺陷会导致事件被发送回触发 Lambda 函数的那个事件源，从而造成递归循环、意外使用和意外计费。当检测到此类循环时，Lambda 递归循环检测会自动停止处理该事件，并通过 AWS Health Dashboard 向您发送包含故障排除步骤的通知。 通过此次扩展，当使用 支持的 SDK 版本或更高版本 时，您现在可以在所有 AWS 商业区域 受益于递归循环检测。如果您的函数使用有目的性的递归循环，您可以使用 PutFunctionRecursionConfig API 关闭 Lambda 函数上的递归循环检测。 要了解有关 Lambda 递归循环检测的更多信息，请参阅 Lambda 文档 。"
 }
