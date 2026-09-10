@@ -7,6 +7,6 @@
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/08/mountpoint-for-S3-adds-memory-usage-controls",
   "published_at": "2026-08-26T18:00:00Z",
   "first_seen_at": "2026-09-01T07:05:28.237021Z",
-  "last_seen_at": "2026-09-10T14:35:44.112202Z",
+  "last_seen_at": "2026-09-10T15:05:43.843897Z",
   "summary": "适用于 Amazon S3 的 Mountpoint 现在可以限制内存使用量，可以根据其运行环境自动限制，也可以按照您的定义进行限制。这样一来，您可以将 Mountpoint 与内存密集型应用一同运行，例如在多个应用共享同一内存预算的机器学习训练或分析工作负载中。 此前，Mountpoint 的内存使用量可能随着时间推移，根据使用模式而扩展，因此在与其它内存密集型应用竞争时可能导致性能或稳定性问题。通过此次发布，您可以为 Mountpoint 定义内存目标，以便为您的应用预留内存。或者，Mountpoint 可以根据其运行环境自动确定安全默认值。例如，在 Amazon EKS 中运行时，Mountpoint 可以自动检测容器的指定内存预算。在内存压力下，Mountpoint 会减慢操作速度以保持在此预算范围内，从而使您能够在具有严格内存分配的容器中运行 Mountpoint。 Mountpoint 在所有 AWS 区域均可用。要升级到最新版本，请访问 Mountpoint GitHub 存储库 。要了解有关 Mountpoint 的更多信息，请参阅 Mountpoint GitHub 存储库中的 概述页面 和 配置指南 。"
 }
