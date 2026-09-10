@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "Amazon SageMaker 融通式合作开发工作室 CI/CD 新增 Notebook 提升和 AI 辅助清单生成功能",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/sagemaker-cicd-notebook-ai-manifest",
-  "last_seen_at": "2026-09-10T03:35:29.583474Z",
+  "last_seen_at": "2026-09-10T03:56:13.022294Z",
   "summary": "Amazon SageMaker 融通式合作开发工作室 CI/CD 通过两项新功能扩展了其开源部署工具包：（1）一项可自动编写清单的 AI 智能体技能，以及（2）跨环境的原生 Notebook 提升功能。这两项功能相结合，可帮助数据团队更快地将项目推向生产环境，同时在各个阶段保持符合最佳实践的默认设置。 AI 辅助清单生成。 新的 generate-bundle-manifest 智能体技能会检查项目的连接、存储和工作流，并生成一份可直接使用的部署清单。该技能遵循最低权限 IAM 准则，用环境变量替换硬编码的资源标识符，并设置安全的默认值（例如“选择加入”式目录处理）。团队可以将该技能导入自己的智能体，从而标准化在开发、测试和生产账户之间打包和提升 SageMaker 融通式合作开发工作室项目的方式。 原生 Notebook 提升。 CI/CD 工具包现在支持将原生 SMUS Notebook 与代码、工作流和目录资产一起提升。Notebook 提升采用就地同步模型：在首次部署时创建 Notebook，并在后续部署时进行更新，从而保留各版本的运行历史记录。团队可以提升项目中的所有 Notebook，或按 ID 选择特定 Notebook；空运行模式会在部署前验证 S3 连接、IAM 权限和 Notebook 数量。Notebook 提升功能与现有的 bundle、deploy、destroy 和 dry-run 命令集成，无需更改当前的管道结构。 这两项功能均为开源，并在所有提供 Amazon SageMaker 融通式合作开发工作室的 AWS 区域推出。 要开始使用，请访问 GitHub 上的 CICD-for-SageMakerUnifiedStudio 代码库。有关更多信息，请参阅 Amazon SageMaker 融通式合作开发工作室 CI/CD 文档 。"
 }
