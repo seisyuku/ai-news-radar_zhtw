@@ -2,6 +2,18 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v1",
   "entries": {
+    "3d5afc5fc6a5a491f8fbf867eb6d587052207e9ff3ffd7b0ad88a86b5d4c6ff4": {
+      "summary": "Arena.ai 分析數萬筆基準回應，指出 Claude Fable 5.1 相較於 Fable 5，語言風格更趨於陳述事實，但同時變得更加冗長。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-09-10T23:35:29.386519Z"
+    },
+    "82f4e3f3396e1d100de61f28567a51242d5bb4cd8c616efb6b3d3b8cd15d9d7a": {
+      "summary": "AI 領袖擔憂反壟斷法可能阻礙其協調 AI 發展放緩的行動。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-09-10T23:35:29.386519Z"
+    },
     "a6439ec34ebf55349990de5c58e5f511090434a56e123cb434f57ee673e1cd71": {
       "summary": "DeepSeek 發布多模態模型 V4.1-Flash，參數量達 552 億，KV 快取記憶體需求降至前代的四分之一。該模型在 DeepSWE 編碼基準測試中略勝 Opus 5 與 GPT-5.6 Sol，採用 MIT 授權。",
       "provider": "groq",
@@ -2989,18 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.6-27b",
       "created_at": "2026-08-22T03:28:56.146753Z"
-    },
-    "b7084a7eaaf906dc2f2c0fc9be4077f6437be014382c481a491f665c637ceeac": {
-      "summary": "Google DeepMind 工程師將全棧開發拆解為五個簡單層級，並解釋其對日常用戶的影響。",
-      "provider": "groq",
-      "model": "qwen/qwen3.6-27b",
-      "created_at": "2026-08-22T01:46:13.840726Z"
-    },
-    "13e5947b494597aa82d8d04c4eee9cc8571607a02ba8dd9b465ec50392d43705": {
-      "summary": "Deepseek 釋出實驗性多模態模型 V4-Flash-Vision-Exp，為 V4-Flash 新增影像理解功能。在該公司自有的多模態代理基準測試中，其表現接近 Opus 4.8，有時甚至超越對手。",
-      "provider": "groq",
-      "model": "qwen/qwen3.6-27b",
-      "created_at": "2026-08-21T19:33:15.478312Z"
     }
   },
   "rejections": {
@@ -3675,6 +3675,14 @@
     "e75bd37b42c1ba57c66d55c4c99525af574fb51d4d87314f091e9c039f6ffb42": {
       "reason": "validation_length",
       "created_at": "2026-09-10T22:35:28.982062Z"
+    },
+    "c3b0eed0bd5ce4b2a7150dd7002f2e36a47b7fad0ec579306739ca8ee733c226": {
+      "reason": "validation_length",
+      "created_at": "2026-09-10T23:35:29.386519Z"
+    },
+    "e95fd178ac9014d6fdcbaaa31eb1d0a47239a723f84f59b56a7f0ffe075cc105": {
+      "reason": "validation_length",
+      "created_at": "2026-09-10T23:35:29.386519Z"
     }
   }
 }
