@@ -273,12 +273,11 @@ class TopicFilterTests(unittest.TestCase):
                 self.queries = []
 
             def post(self, _url, json=None, **_kwargs):
-                items = __import__("json").loads(json["input"])["items"]
+                items = __import__("json").loads(json["contents"][0]["parts"][0]["text"])["items"]
                 self.queries.extend(item["text"] for item in items)
                 return FakeResponse(
                     {
-                        "status": "completed",
-                        "steps": [{"type": "model_output", "content": [{"type": "text", "text": __import__("json").dumps({"translations": [{"id": items[0]["id"], "text": "AI 出現在近四成美國選舉中，資料中心對電力成本的影響是主要討論焦點。"}]}, ensure_ascii=False)}]}],
+                        "candidates": [{"content": {"role": "model", "parts": [{"text": __import__("json").dumps({"translations": [{"id": items[0]["id"], "text": "AI 出現在近四成美國選舉中，資料中心對電力成本的影響是主要討論焦點。"}]}, ensure_ascii=False)}]}}],
                     }
                 )
 
@@ -625,7 +624,7 @@ class TopicFilterTests(unittest.TestCase):
                 self.queries = []
 
             def post(self, _url, json=None, **_kwargs):
-                items = __import__("json").loads(json["input"])["items"]
+                items = __import__("json").loads(json["contents"][0]["parts"][0]["text"])["items"]
                 self.queries.extend(item["text"] for item in items)
                 translated = [
                     item["text"].replace("unveils", "推出").replace(
@@ -634,7 +633,7 @@ class TopicFilterTests(unittest.TestCase):
                     for item in items
                 ]
                 return FakeResponse(
-                    {"status": "completed", "steps": [{"type": "model_output", "content": [{"type": "text", "text": __import__("json").dumps({"translations": [{"id": item["id"], "text": text} for item, text in zip(items, translated)]}, ensure_ascii=False)}]}]}
+                    {"candidates": [{"content": {"role": "model", "parts": [{"text": __import__("json").dumps({"translations": [{"id": item["id"], "text": text} for item, text in zip(items, translated)]}, ensure_ascii=False)}]}}]}
                 )
 
         session = FakeSession()
@@ -668,12 +667,12 @@ class TopicFilterTests(unittest.TestCase):
 
         class FakeSession:
             def post(self, _url, json=None, **_kwargs):
-                item = __import__("json").loads(json["input"])["items"][0]
+                item = __import__("json").loads(json["contents"][0]["parts"][0]["text"])["items"][0]
                 q = item["text"]
                 # Simulate MT dropping the opaque placeholder token entirely
                 # while still translating the surrounding English.
                 translated = re.sub(r"ZXQ\d+QXZ", "", q).replace("unveils", "推出").strip()
-                return FakeResponse({"status": "completed", "steps": [{"type": "model_output", "content": [{"type": "text", "text": __import__("json").dumps({"translations": [{"id": item["id"], "text": translated}]}, ensure_ascii=False)}]}]})
+                return FakeResponse({"candidates": [{"content": {"role": "model", "parts": [{"text": __import__("json").dumps({"translations": [{"id": item["id"], "text": translated}]}, ensure_ascii=False)}]}}]})
 
         item = {
             "title": "NVIDIA unveils a new chip",
@@ -785,11 +784,11 @@ class TopicFilterTests(unittest.TestCase):
                 self.queries = []
 
             def post(self, _url, json=None, **_kwargs):
-                items = __import__("json").loads(json["input"])["items"]
+                items = __import__("json").loads(json["contents"][0]["parts"][0]["text"])["items"]
                 self.queries.extend(item["text"] for item in items)
                 translated = [item["text"].replace("make", "讓").replace("permanent", "永久化") for item in items]
                 return FakeResponse(
-                    {"status": "completed", "steps": [{"type": "model_output", "content": [{"type": "text", "text": __import__("json").dumps({"translations": [{"id": item["id"], "text": text} for item, text in zip(items, translated)]}, ensure_ascii=False)}]}]}
+                    {"candidates": [{"content": {"role": "model", "parts": [{"text": __import__("json").dumps({"translations": [{"id": item["id"], "text": text} for item, text in zip(items, translated)]}, ensure_ascii=False)}]}}]}
                 )
 
         session = FakeSession()
@@ -896,7 +895,7 @@ class TopicFilterTests(unittest.TestCase):
                 self.queries = []
 
             def post(self, _url, json=None, **_kwargs):
-                items = __import__("json").loads(json["input"])["items"]
+                items = __import__("json").loads(json["contents"][0]["parts"][0]["text"])["items"]
                 self.queries.extend(item["text"] for item in items)
                 translated = [
                     item["text"].replace("outperforms", "表现优于").replace(
@@ -905,7 +904,7 @@ class TopicFilterTests(unittest.TestCase):
                     for item in items
                 ]
                 return FakeResponse(
-                    {"status": "completed", "steps": [{"type": "model_output", "content": [{"type": "text", "text": __import__("json").dumps({"translations": [{"id": item["id"], "text": text} for item, text in zip(items, translated)]}, ensure_ascii=False)}]}]}
+                    {"candidates": [{"content": {"role": "model", "parts": [{"text": __import__("json").dumps({"translations": [{"id": item["id"], "text": text} for item, text in zip(items, translated)]}, ensure_ascii=False)}]}}]}
                 )
 
         session = FakeSession()

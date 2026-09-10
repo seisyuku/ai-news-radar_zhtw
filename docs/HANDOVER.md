@@ -261,6 +261,12 @@
     translation 的單一 provider，不改動 Groq 摘要或私人產稿器；Actions 必須設定
     `GEMINI_API_KEY`，免費層只可傳送公開新聞內容。
 
+25. **9/11 Gemini 翻譯 endpoint 修復**：線上 Actions 仍有翻譯候選且 secret
+    已注入，但 Interactions endpoint 連線失敗，`translated_count` 連續為 0。
+    翻譯請求已改走同模型完整支援的單輪 `generateContent` endpoint，保留原有
+    JSON schema、項目 ID、placeholder／URL 驗證與 fail-open 邊界；翻譯狀態版本
+    提升至 3，部署後會捨棄故障期間寫入的六小時拒絕快取並立即重試。
+
 ## 部署
 
 實測 `gh api repos/{owner}/{repo}/pages`（2026-07-28）：

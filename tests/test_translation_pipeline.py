@@ -20,11 +20,12 @@ class FakeResponse:
 def gemini_response(translations):
     return FakeResponse(
         {
-            "status": "completed",
-            "steps": [
+            "candidates": [
                 {
-                    "type": "model_output",
-                    "content": [{"type": "text", "text": json.dumps({"translations": translations}, ensure_ascii=False)}],
+                    "content": {
+                        "role": "model",
+                        "parts": [{"text": json.dumps({"translations": translations}, ensure_ascii=False)}],
+                    },
                 }
             ],
         }
@@ -38,7 +39,7 @@ def test_gemini_translation_is_batched_masked_and_observable():
 
         def post(self, url, json=None, headers=None, **_kwargs):
             self.calls.append({"url": url, "headers": headers, "json": json})
-            items = json_module.loads(json["input"])["items"]
+            items = json_module.loads(json["contents"][0]["parts"][0]["text"])["items"]
             translations = [
                 {"id": item["id"], "text": item["text"].replace("releases a fresh model", "推出全新模型")}
                 for item in items
@@ -67,12 +68,15 @@ def test_gemini_translation_is_batched_masked_and_observable():
 
     assert len(session.calls) == 1
     call = session.calls[0]
-    assert call["url"] == "https://generativelanguage.googleapis.com/v1beta/interactions"
+    assert call["url"] == (
+        f"https://generativelanguage.googleapis.com/v1beta/models/"
+        f"{GEMINI_TRANSLATION_MODEL}:generateContent"
+    )
     assert call["headers"] == {"x-goog-api-key": "test-gemini-key"}
-    assert call["json"]["model"] == GEMINI_TRANSLATION_MODEL
-    assert "untrusted source material" in call["json"]["system_instruction"]
-    assert call["json"]["response_format"]["mime_type"] == "application/json"
-    assert all("OpenAI" not in item["text"] for item in json.loads(call["json"]["input"])["items"])
+    assert "untrusted source material" in call["json"]["systemInstruction"]["parts"][0]["text"]
+    assert call["json"]["generationConfig"]["responseMimeType"] == "application/json"
+    request_items = json.loads(call["json"]["contents"][0]["parts"][0]["text"])["items"]
+    assert all("OpenAI" not in item["text"] for item in request_items)
     assert ai_items[0]["title_zh"] == "OpenAI 推出全新模型"
     assert status["provider_used"] == "gemini"
     assert status["model"] == GEMINI_TRANSLATION_MODEL

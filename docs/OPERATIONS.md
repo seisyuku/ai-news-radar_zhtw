@@ -414,7 +414,8 @@ update-news.yml: freshness-check job
 英文標題的 zh-TW 顯示值（`title_zh`）與已有 RSS `summary`／`description`
 的顯示翻譯（`summary_zh`）都由 `scripts/update_news.py` 的
 `add_bilingual_fields()` 產生。唯一 provider 是 Gemini Developer API 的
-`gemini-3.5-flash-lite`，透過 GitHub Actions 的 `GEMINI_API_KEY` 使用；未設定
+`gemini-3.5-flash-lite`，透過單輪 `generateContent` endpoint 與 GitHub Actions
+的 `GEMINI_API_KEY` 使用；未設定
 時安全跳過，保留英文顯示，絕不讓翻譯失敗中斷快照更新。翻譯結果再經
 `CANONICAL_NAMES` 正典名稱表處理。`summary` 原文會保留作 AI 摘要的事實依據；
 前端優先顯示 `summary_zh`。沒有 RSS 摘要的條目會跳過此步驟，不新增抓取或猜測內容。完整規格與程式碼註解在
@@ -431,7 +432,9 @@ update-news.yml: freshness-check job
   只保留英文，不重送相同內容。成功後會自動移除該記錄。429 限流例外，避免
   正常額度恢復後仍被快取壓住。這個檔案不含 API key。
 - Provider 變更會提升該狀態檔版本並捨棄舊 provider 的短期拒絕，避免先前
-  的 credential 或 endpoint 故障阻止新 provider 嘗試。
+  的 credential 或 endpoint 故障阻止新 provider 嘗試。2026-09-11 從
+  Interactions endpoint 切回適合無狀態批次翻譯的 `generateContent` 時，已提升
+  版本以清除故障期間的拒絕快取。
 - `data/source-status.json` 的 `translations` 欄位記錄候選數、請求數、實際
   provider、模型、略過原因與拒絕快取命中數，不紀錄文章內容或任何 credential。
 - Gemini 只處理公開新聞的讀者顯示翻譯，不改動現有 Groq 新聞摘要 provider、

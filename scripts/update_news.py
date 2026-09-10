@@ -82,7 +82,7 @@ TRANSLATION_BATCH_MAX_CHARS = 4_800
 TRANSLATION_REJECTION_TTL_SECONDS = 6 * 60 * 60
 # Bump when the provider's failure semantics change so a prior provider's
 # short-lived rejections never suppress a newly configured provider.
-TRANSLATION_STATE_VERSION = 2
+TRANSLATION_STATE_VERSION = 3
 GEMINI_TRANSLATION_MODEL = "gemini-3.5-flash-lite"
 GEMINI_TRANSLATION_SYSTEM_INSTRUCTION = """You translate English AI-industry news text into natural Taiwan Traditional Chinese.
 
@@ -4828,22 +4828,22 @@ def _translation_provider_failure_type(exc: Exception) -> str:
 
 
 def _gemini_output_text(payload: Any) -> str:
-    """Extract the final text block from a completed Gemini Interaction."""
-    if not isinstance(payload, dict) or payload.get("status") != "completed":
-        raise ValueError("gemini_interaction_not_completed")
-    steps = payload.get("steps")
-    if not isinstance(steps, list):
-        raise ValueError("gemini_interaction_missing_steps")
-    for step in reversed(steps):
-        if not isinstance(step, dict) or step.get("type") != "model_output":
-            continue
-        content = step.get("content")
-        if not isinstance(content, list):
-            continue
-        texts = [str(part.get("text") or "") for part in content if isinstance(part, dict) and part.get("type") == "text"]
-        if texts:
-            return "".join(texts).strip()
-    raise ValueError("gemini_interaction_missing_text")
+    """Extract text from a Gemini generateContent response."""
+    if not isinstance(payload, dict):
+        raise ValueError("gemini_generate_content_invalid_response")
+    candidates = payload.get("candidates")
+    if not isinstance(candidates, list) or not candidates:
+        raise ValueError("gemini_generate_content_missing_candidates")
+    candidate = candidates[0]
+    content = candidate.get("content") if isinstance(candidate, dict) else None
+    parts = content.get("parts") if isinstance(content, dict) else None
+    if not isinstance(parts, list):
+        raise ValueError("gemini_generate_content_missing_parts")
+    texts = [str(part.get("text") or "") for part in parts if isinstance(part, dict) and "text" in part]
+    output = "".join(texts).strip()
+    if not output:
+        raise ValueError("gemini_generate_content_missing_text")
+    return output
 
 
 def _gemini_translation_response_texts(payload: Any, expected_count: int) -> list[str]:
@@ -4879,16 +4879,19 @@ def _translate_gemini_batch(
 ) -> list[str]:
     input_items = [{"id": str(index), "text": text} for index, text in enumerate(texts)]
     response = session.post(
-        "https://generativelanguage.googleapis.com/v1beta/interactions",
+        f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_TRANSLATION_MODEL}:generateContent",
         json={
-            "model": GEMINI_TRANSLATION_MODEL,
-            "system_instruction": GEMINI_TRANSLATION_SYSTEM_INSTRUCTION,
-            "input": json.dumps({"items": input_items}, ensure_ascii=False),
-            "generation_config": {"temperature": 0},
-            "response_format": {
-                "type": "text",
-                "mime_type": "application/json",
-                "schema": {
+            "systemInstruction": {"parts": [{"text": GEMINI_TRANSLATION_SYSTEM_INSTRUCTION}]},
+            "contents": [
+                {
+                    "role": "user",
+                    "parts": [{"text": json.dumps({"items": input_items}, ensure_ascii=False)}],
+                }
+            ],
+            "generationConfig": {
+                "temperature": 0,
+                "responseMimeType": "application/json",
+                "responseSchema": {
                     "type": "object",
                     "properties": {
                         "translations": {
