@@ -3,7 +3,12 @@ from datetime import datetime, timezone
 
 import requests
 
-from scripts.update_news import GEMINI_TRANSLATION_MODEL, add_bilingual_fields, empty_translation_state
+from scripts.update_news import (
+    GEMINI_TRANSLATION_MODEL,
+    add_bilingual_fields,
+    create_session,
+    empty_translation_state,
+)
 
 
 class FakeResponse:
@@ -83,6 +88,15 @@ def test_gemini_translation_is_batched_masked_and_observable():
     assert status["translated_count"] == 1
 
 
+def test_gemini_endpoint_does_not_inherit_feed_post_retries():
+    session = create_session()
+    try:
+        adapter = session.get_adapter("https://generativelanguage.googleapis.com/v1beta/models")
+        assert adapter.max_retries.total == 0
+    finally:
+        session.close()
+
+
 def test_gemini_response_requires_exact_item_ids():
     class InvalidResponseSession:
         def post(self, *_args, **_kwargs):
@@ -152,7 +166,7 @@ def test_rate_limit_is_not_stored_in_the_six_hour_negative_cache():
 
         def post(self, *_args, **_kwargs):
             self.calls += 1
-            response = type("Response", (), {"status_code": 429, "headers": {"Retry-After": "90"}})()
+            response = type("Response", (), {"status_code": 429, "headers": {"Retry-After": "180"}})()
             raise requests.HTTPError("rate limited", response=response)
 
     session = RateLimitedSession()

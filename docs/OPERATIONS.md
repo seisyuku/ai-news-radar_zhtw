@@ -425,16 +425,18 @@ update-news.yml: freshness-check job
 ### Provider 與失效界線
 
 - 每輪最多處理 `--translate-max-new`（預設 80）個候選；每個請求最多 30
-  段、4,800 字元，單次逾時 10 秒，整個翻譯階段最多 45 秒與 6 次請求。
+  段、4,800 字元，單次逾時 45 秒，整個翻譯階段最多 120 秒與 6 次請求。
   請求依序執行。429 只會在 `Retry-After` 落在剩餘預算內時重試，重試仍計入
-  六次上限；否則保留英文且不寫入六小時拒絕快取。
+  六次上限；否則保留英文且不寫入六小時拒絕快取。Gemini endpoint 使用獨立的
+  no-retry adapter，避免共用 feed session 把一次 POST transport timeout 暗中重試三次、
+  吃完整輪預算；是否重試只由這裡的明確上限控制。
 - 失敗候選會寫入 `data/translation-state.json` 六小時的短期拒絕快取；期間
   只保留英文，不重送相同內容。成功後會自動移除該記錄。429 限流例外，避免
   正常額度恢復後仍被快取壓住。這個檔案不含 API key。
 - Provider 變更會提升該狀態檔版本並捨棄舊 provider 的短期拒絕，避免先前
   的 credential 或 endpoint 故障阻止新 provider 嘗試。2026-09-11 從
-  Interactions endpoint 切回適合無狀態批次翻譯的 `generateContent` 時，已提升
-  版本以清除故障期間的拒絕快取。
+  Interactions endpoint 切回適合無狀態批次翻譯的 `generateContent`，並修正
+  timeout／retry 邊界時，已提升版本以清除故障期間的拒絕快取。
 - `data/source-status.json` 的 `translations` 欄位記錄候選數、請求數、實際
   provider、模型、略過原因與拒絕快取命中數，不紀錄文章內容或任何 credential。
 - Gemini 只處理公開新聞的讀者顯示翻譯，不改動現有 Groq 新聞摘要 provider、
