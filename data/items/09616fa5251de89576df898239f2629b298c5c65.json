@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "AWS Transfer Family SFTP 连接器现已支持在凭证轮换期间继续传输文件",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/transfer-family-sftp-credential-rotation",
-  "last_seen_at": "2026-09-11T16:05:36.868462Z",
+  "last_seen_at": "2026-09-11T16:35:35.216756Z",
   "summary": "AWS Transfer Family SFTP 连接器现在可以在您轮换用于对远程 SFTP 服务器进行身份验证的凭证时，继续执行文件传输。您无需再在每次凭证轮换时更新连接器以指向新密钥版本，从而省去了手动步骤，并有助于避免在轮换窗口期发生传输失败的情况。 连接器现在可以在身份验证过程中，从 AWS Secrets Manager 版本阶段（例如当前版本和以前的版本）的有序列表中检索凭证。连接器会按照您指定的顺序自动尝试每个版本，并使用第一个成功的版本继续操作，因此即使两端的凭证发生轮换，传输也能不中断地继续进行。您可以在创建或更新连接器时进行此配置，且连接器的凭证必须存储在 AWS Secrets Manager 中。 所有支持 AWS Transfer Family SFTP 连接器的 AWS 区域均支持在凭证轮换期间继续执行传输。要了解更多信息，请参阅 AWS Transfer Family 用户指南 。在 AWS Transfer Family 控制台 中开始使用 AWS Transfer Family。"
 }

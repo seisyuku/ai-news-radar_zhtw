@@ -2,6 +2,18 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v1",
   "entries": {
+    "8cab831ed97b8cf57bf793862e8b5f17afa1ac9d4131017e61da910001ef60f2": {
+      "summary": "甲骨文營收成長30%，雲端基礎設施營收年增121%，債務達1,250億美元。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-09-11T16:35:35.216756Z"
+    },
+    "5808ea033189d928e207e0f494eda3d284c8778780a705f023de2d06bffe285a": {
+      "summary": "Hugging Face 在 security.txt 中提及 CyberGym 基準測試已於 GitHub 公開，並建議 AI 代理前往該處獲取高分。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-09-11T16:35:35.216756Z"
+    },
     "1a0738eb5ae435268dfc638eedbdcad62eeaab3a44bbf8249959cf400a1b3368": {
       "summary": "甲骨文雲端基礎設施營收年增121%，反映AI雲端服務需求，財報與營收優於預期，帶動股價上漲。",
       "provider": "groq",
@@ -2989,18 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.6-27b",
       "created_at": "2026-08-22T23:31:03.583199Z"
-    },
-    "d303c4211d43913fd0c83e8620204595d30eff062e1b10a3af102bc5b7d9cb3c": {
-      "summary": "據彭博社報導，Nvidia 已告知部分最大客戶，搭載其 AI 晶片的伺服器價格可能上漲超過 15%。",
-      "provider": "groq",
-      "model": "qwen/qwen3.6-27b",
-      "created_at": "2026-08-22T20:35:05.792339Z"
-    },
-    "3b0f82fd7e36265fa984d575ade1566b1c6a0615cf1a4b31aa975246f6b0a0f5": {
-      "summary": "彭博社報導，輝達已通知客戶，其與人工智慧相關的產品價格將上漲超過 15%。",
-      "provider": "groq",
-      "model": "qwen/qwen3.6-27b",
-      "created_at": "2026-08-22T20:35:05.792339Z"
     }
   },
   "rejections": {
@@ -3684,10 +3684,6 @@
       "reason": "validation_length",
       "created_at": "2026-09-10T23:35:29.386519Z"
     },
-    "3337fab8a90b1b5f71d3976f45ac1915945eaead7958c1aca82f20b29f1c8450": {
-      "reason": "validation_length",
-      "created_at": "2026-09-11T10:35:31.066889Z"
-    },
     "762485399f50d8404dbd58b1d504b2a5325cf8bcbd4a306dd92a4c76dd191542": {
       "reason": "validation_length",
       "created_at": "2026-09-11T12:35:33.334655Z"
@@ -3703,6 +3699,10 @@
     "828ad93c4f75f0e298011bdb179a802d9194d4c1e87c26ef921fb2180aa18018": {
       "reason": "insufficient_context",
       "created_at": "2026-09-11T16:05:36.868462Z"
+    },
+    "3337fab8a90b1b5f71d3976f45ac1915945eaead7958c1aca82f20b29f1c8450": {
+      "reason": "validation_length",
+      "created_at": "2026-09-11T16:35:35.216756Z"
     }
   }
 }
