@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v1",
   "entries": {
+    "b285b10348955f131ff8562ce61bc3593ba3174156858bfe4e1d39e00b484965": {
+      "summary": "甲骨文上季財報亮眼，並拿下逾 300 億美元 AI 雲端訂單，股價盤後漲逾 4%。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-09-11T01:35:26.795030Z"
+    },
     "7034945f9eac6c7640d5c7fb4421f4491d74354d5b152caef525ae38ced61c71": {
       "summary": "Google 威脅報告指出，網路勒索與資料竊取集團的攻擊目標已轉向高價值的 AI 資產。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.6-27b",
       "created_at": "2026-08-22T11:32:20.057920Z"
-    },
-    "ea2dd5998bcbe637ef38cc89b1f99347415aa4b9eb324789425b465961e5b785": {
-      "summary": "北京一家AI酒吧在提供飲品的同時，免費供應DeepSeek代幣。",
-      "provider": "groq",
-      "model": "qwen/qwen3.6-27b",
-      "created_at": "2026-08-22T11:05:14.702961Z"
     }
   },
   "rejections": {
@@ -3687,6 +3687,10 @@
     "762485399f50d8404dbd58b1d504b2a5325cf8bcbd4a306dd92a4c76dd191542": {
       "reason": "validation_length",
       "created_at": "2026-09-11T00:04:58.718869Z"
+    },
+    "828ad93c4f75f0e298011bdb179a802d9194d4c1e87c26ef921fb2180aa18018": {
+      "reason": "insufficient_context",
+      "created_at": "2026-09-11T01:35:26.795030Z"
     }
   }
 }
