@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "AWS Lambda 现支持为容器映像函数启用 SnapStart 功能",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/07/aws-lambda-snapstart-container",
-  "last_seen_at": "2026-09-11T15:05:32.007902Z",
+  "last_seen_at": "2026-09-11T15:35:29.660752Z",
   "summary": "即日起，AWS Lambda 支持为打包为 容器映像 的函数启用 SnapStart 功能，从而将启动时间从几秒缩短至亚秒级。Lambda SnapStart 是一项可选功能，可让您更轻松地构建高响应和可扩展的应用程序，而无需预置资源或实施复杂的性能优化。 客户使用容器映像部署 Lambda 函数，以符合其组织基于容器的部署标准，或打包最大达 10 GB 的较大依赖项。然而，较大的容器映像在启动时可能需要几秒钟，因为 Lambda 需要下载映像层并初始化运行时和应用程序代码。SnapStart 可在函数部署期间对已初始化的执行环境拍摄快照、将其缓存，并在调用时从中恢复（而非从头开始初始化），从而解决了这一问题。此前，SnapStart 仅支持托管运行时（Python、.NET 和 Java）。即日起，客户可以为容器映像使用 SnapStart，从而缩短机器学习推理和交互式 API 等对延迟敏感的工作负载的启动时间。 适用于容器映像的 Lambda SnapStart 已在所有 AWS 商业区域 推出，亚太地区（新西兰）和亚太地区（中国台北）除外。 您可以通过 AWS Lambda API、AWS 管理控制台、AWS 命令行界面（AWS CLI）、AWS CloudFormation、AWS Serverless Application Model（AWS SAM）、AWS SDK 以及 AWS Cloud Development Kit（AWS CDK），为新的或现有的 容器映像 函数启用 SnapStart。如果您使用的是适用于 Lambda 的带有 Java（11 及以上版本）、Python（3.12 及以上版本）或 .NET（8 及以上版本）的基础映像，其使用体验与部署为 .zip 文件存档的函数完全相同。对于所有其他适用于 Lambda 的 AWS 基础映像（例如 Node.js 或 Ruby）或自定义基础映像，请参阅 开发人员指南 。 有关 SnapStart 的更多信息，请参阅 Lambda 文档 。 要详细了解适用于容器映像函数的 SnapStart 的定价，请访问 AWS Lambda 定价 。"
 }
