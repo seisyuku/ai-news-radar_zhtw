@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "Amazon Bedrock 上的 Web Search 现已在 AWS GovCloud（美国西部）推出",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/amazon-bedrock-web-aws-govcloud",
-  "last_seen_at": "2026-09-11T00:04:58.718869Z",
+  "last_seen_at": "2026-09-11T00:35:30.121495Z",
   "summary": "Amazon Bedrock 内置的服务器端工具 Web Search 现已在 AWS GovCloud（美国西部）推出，可为对合规性要求严格的政府及公共部门工作负载提供有据可查的 Web 搜索结果。Web Search 可帮助受支持的 OpenAI GPT 模型利用 Web 信息来完善其响应内容。响应中包含模型所引用来源的出处，用户可据此追溯每个论点的 Web 来源。当答案依赖于随时间变化的信息或比模型训练数据更新的信息（例如时事、最新发布内容或实时价格）时，这一功能尤为有价值。由于该工具在 Amazon Bedrock 内部运行，您无需自行托管搜索索引、管理爬网程序或编写工具调用循环。 Web Search 旨在满足 AWS GovCloud（美国）客户所需的治理和数据处理标准。默认情况下，它将您的请求数据保留在 AWS 边界内，并从由 Amazon 维护的 Web 索引和缓存提供结果。作为一项受 AWS Identity and Access Management（IAM）治理的 AWS 原生功能，管理员可以在账户或组织级别允许或拒绝它，并按区域进行限制，从而为团队提供集中控制，同时默认将请求数据保留在 AWS 边界内。要开始使用，请使用您的现有 OpenAI 客户端库和 Amazon Bedrock API 密钥，在 OpenAI Responses API 请求的 tools 数组中添加一个类型为 web_search 的工具。模型仅在确定请求需要最新信息时才会使用该工具。在发布时，AWS GovCloud（美国西部）中的 Web Search 支持 GPT-5.4、GPT-5.6 Terra 和 Luna 模型。 除美国东部（弗吉尼亚州北部）、美国东部（俄亥俄州）和美国西部（俄勒冈州）之外，Web Search 现也已经在 AWS GovCloud（美国西部）推出。要开始使用，请参阅 Web Search 技术博客 。有关实施指南，请参阅 Web Search 文档 。有关定价信息，请参阅 Amazon Bedrock 定价页面 。"
 }
