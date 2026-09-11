@@ -2,6 +2,18 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v1",
   "entries": {
+    "bf7524991f2b33efd2ab2c4c13ebcf6672e74789a01b2e2dff1ba8b0424da7a4": {
+      "summary": "Anthropic發布AI濫用威脅報告，點名阿里巴巴、DeepSeek等7家中國業者非法蒸餾Claude模型。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-09-11T04:32:07.551478Z"
+    },
+    "9f96af0f2ee5547cb567c305a88bd29f6e450c598bd99a5fd492a84e89381747": {
+      "summary": "輝達推出 BioNeMo 推論執行階段 (BioIR)，在 8xH100 上使 Boltz-2 摺疊吞吐量達 58.5K 殘基/GPU 小時，較基準提升 2.90 倍。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-09-11T04:32:07.551478Z"
+    },
     "6f4abbdbf667c86814d2077beda8e63125a45d516db0241b05d87d05dc1eb27d": {
       "summary": "Adobe 最新財報營收創高，AI 產品需求持續成長，但盤後股價仍下跌。",
       "provider": "groq",
@@ -2989,18 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.6-27b",
       "created_at": "2026-08-22T12:35:25.597955Z"
-    },
-    "599c2d52547b9677f1691635562465aa180ed7fc78827947c7bea1b9a4b3af8c": {
-      "summary": "Anthropic 正式宣告進軍半導體領域，並挖角 Google TPU 創始大將，藉人才、技術、資金佈局自主研發 AI 晶片。",
-      "provider": "groq",
-      "model": "qwen/qwen3.6-27b",
-      "created_at": "2026-08-22T11:53:17.372162Z"
-    },
-    "c83c432b4a1a90e2a5fb6a5784d49882be968e5162724d7ae7d9e01ee34d2b6d": {
-      "summary": "TechCrunch 測試發現，儘管 Anthropic 禁止 Claude 模型生成露骨性內容，但 Opus 4.6 仍易於繞過此限制。",
-      "provider": "groq",
-      "model": "qwen/qwen3.6-27b",
-      "created_at": "2026-08-22T11:53:17.372162Z"
     }
   },
   "rejections": {
@@ -3691,6 +3691,10 @@
     "828ad93c4f75f0e298011bdb179a802d9194d4c1e87c26ef921fb2180aa18018": {
       "reason": "insufficient_context",
       "created_at": "2026-09-11T01:35:26.795030Z"
+    },
+    "3337fab8a90b1b5f71d3976f45ac1915945eaead7958c1aca82f20b29f1c8450": {
+      "reason": "validation_length",
+      "created_at": "2026-09-11T04:32:07.551478Z"
     }
   }
 }
