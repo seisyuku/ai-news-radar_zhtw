@@ -1,6 +1,51 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-12T12:05:29.393899Z",
+  "generated_at": "2026-09-12T12:35:32.097525Z",
   "cadence_minutes": 30,
-  "signals": []
+  "signals": [
+    {
+      "event_type": "USAGE_POLICY_CANDIDATE",
+      "category": "usage_policy",
+      "urgency": "breaking",
+      "importance_rank": 3,
+      "timeliness_rank": 1,
+      "verification_status": "candidate",
+      "title": "速報候選：Claude Usage Monitor 偵測到額度相關變更",
+      "summary": "docs: state which quota types get a bar and event variables",
+      "provider": "",
+      "product": "",
+      "field": "",
+      "old_value": null,
+      "new_value": null,
+      "unit": "",
+      "detected_at": "2026-09-12T12:35:32.097525Z",
+      "effective_at": "2026-09-12T12:33:21Z",
+      "source_name": "Claude Usage Monitor",
+      "source_url": "https://github.com/jens-duttke/usage-monitor-for-claude",
+      "evidence_url": "https://github.com/jens-duttke/usage-monitor-for-claude/commit/3bd6d62c0898d5f0ab05047b576b123ff701e2e2",
+      "id": "194e0d04dd18e299025002ab5f86d758d1bc5bb6"
+    },
+    {
+      "event_type": "USAGE_POLICY_CANDIDATE",
+      "category": "usage_policy",
+      "urgency": "breaking",
+      "importance_rank": 3,
+      "timeliness_rank": 1,
+      "verification_status": "candidate",
+      "title": "速報候選：Claude Usage Monitor 偵測到額度相關變更",
+      "summary": "fix: hide quota types the API announces but has not activated (#91)",
+      "provider": "",
+      "product": "",
+      "field": "",
+      "old_value": null,
+      "new_value": null,
+      "unit": "",
+      "detected_at": "2026-09-12T12:35:32.097525Z",
+      "effective_at": "2026-09-12T12:32:18Z",
+      "source_name": "Claude Usage Monitor",
+      "source_url": "https://github.com/jens-duttke/usage-monitor-for-claude",
+      "evidence_url": "https://github.com/jens-duttke/usage-monitor-for-claude/commit/61fc445bd71843732a10987436cd472993fa5f5c",
+      "id": "a986a6c111fd5f48b2ad3f5910d358ed51e939b5"
+    }
+  ]
 }
