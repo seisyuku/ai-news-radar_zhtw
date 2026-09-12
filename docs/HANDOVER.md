@@ -1,5 +1,27 @@
 # AI News Radar Pulse — 交接摘要（截至 2026-08-17）
 
+## 2026-09-12 來源品質分級、同源去重與時間閘門
+
+- 以 2026-09-12 線上 21 天 archive 重算來源品質。iThome（133 筆、
+  48.1% 商業事件、0 同源重複）改用 publisher-level
+  `professional_media` rank 1；The Decoder（144 筆、19.4% 商業事件、
+  0.7% 同源重複）改用 `ai_vertical` rank 1。兩者仍保留原本共用的
+  `tw_media`／`curated_media` 抓取與健康狀態 ID。
+- 數位時代 Google News 路由在同一窗口有 26.4% 同源重複、5.0% 商業
+  事件率，改用 `advanced` rank 4。其 Google News publisher suffix 變體在
+  進入翻譯與讀者資料前依同一發布者標題去重。
+- 36Kr 維持 `watchlist`：它仍補中國市場邊際覆蓋，但 21 天 1,479 筆中
+  約 49.1% 是同源重複。單輪抓取與 24 小時 reader output 均限制最多 5
+  筆，並先折疊 `36 Kr`／`36kr.com`／`m-ai.36kr.com` 等標題尾碼變體。
+- RuntimeWire 的 21 天樣本為 43 筆，100% 通過 AI gate、32.6% 命中商業
+  事件、0 同源重複，跨來源估算 90.7% unique；由 watchlist 有限升至
+  `advanced` rank 4／「次級AI媒體」。LLM Rumors、LLM Stats、橘鴉維持
+  watchlist。AIBASE 維持既有 backend tier 與前端聚合呈現。
+- Reader 24 小時窗口新增發布時間上限：只接受
+  `published_at <= generated_at + 6h`，容許小幅來源時鐘／時區偏差，拒絕
+  提前數日的來源日期。Archive 與 resolver 仍保留原始發布時間，不竄改
+  上游資料。
+
 ## 2026-09-08 AIBASE 繁中優先與一般列表來源分級
 
 - AIBASE 讀取 `https://news.aibase.com/tw/news` 與

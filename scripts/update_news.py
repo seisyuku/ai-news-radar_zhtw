@@ -456,7 +456,8 @@ KR36_AI_FALLBACK_FEED_URL = (
     "when%3A7d&hl=zh-CN&gl=CN&ceid=CN%3Azh-Hans"
 )
 KR36_AI_MAX_AGE_DAYS = 3
-KR36_AI_MAX_ENTRIES = 10
+KR36_AI_MAX_ENTRIES = 5
+KR36_AI_READER_MAX_ITEMS = 5
 # 36Kr has no dedicated AI-channel feed (probed /feed-ai, /feed-motif/*,
 # /information/AI: none expose RSS/Atom). Try the general site feed first and
 # fall back to a site-scoped Google News RSS query when the direct endpoint is
@@ -2154,6 +2155,7 @@ def fetch_tw_media(session: requests.Session, now: datetime) -> list[RawItem]:
             feed_title = str(feed["title"])
             max_entries = max(1, int(feed.get("max_entries") or 8))
             seen_urls: set[str] = set()
+            seen_title_keys: set[str] = set()
             count = 0
             for entry in entries:
                 title, link, published = feed_entry_title_link_published(entry, now)
@@ -2166,7 +2168,14 @@ def fetch_tw_media(session: requests.Session, now: datetime) -> list[RawItem]:
                 normalized_url = normalize_url(link)
                 if normalized_url in seen_urls:
                     continue
+                title_key = _same_publisher_title_key(
+                    {"site_id": site_id, "source": feed_title, "title": title}
+                )
+                if title_key and title_key in seen_title_keys:
+                    continue
                 seen_urls.add(normalized_url)
+                if title_key:
+                    seen_title_keys.add(title_key)
                 out.append(
                     RawItem(
                         site_id=site_id,
@@ -2230,6 +2239,7 @@ def fetch_kr36_ai(session: requests.Session, now: datetime) -> list[RawItem]:
 
     out: list[RawItem] = []
     seen_urls: set[str] = set()
+    seen_title_keys: set[str] = set()
     for entry in entries:
         title, link, published = feed_entry_title_link_published(entry, now)
         if not title or not link or not published:
@@ -2241,13 +2251,21 @@ def fetch_kr36_ai(session: requests.Session, now: datetime) -> list[RawItem]:
         normalized_url = normalize_url(link)
         if normalized_url in seen_urls:
             continue
+        display_title = maybe_fix_mojibake(title)
+        title_key = _same_publisher_title_key(
+            {"site_id": site_id, "source": "36Kr", "title": display_title}
+        )
+        if title_key and title_key in seen_title_keys:
+            continue
         seen_urls.add(normalized_url)
+        if title_key:
+            seen_title_keys.add(title_key)
         out.append(
             RawItem(
                 site_id=site_id,
                 site_name=site_name,
                 source="36Kr",
-                title=maybe_fix_mojibake(title),
+                title=display_title,
                 url=link,
                 published_at=published,
                 meta={
@@ -3167,6 +3185,17 @@ def event_time(record: dict[str, Any]) -> datetime | None:
     return parse_iso(record.get("published_at")) or parse_iso(record.get("first_seen_at"))
 
 
+READER_FUTURE_TOLERANCE_HOURS = 6
+
+
+def is_within_reader_window(record: dict[str, Any], now: datetime, window_hours: int) -> bool:
+    """Accept reader items inside the rolling window with small clock skew only."""
+    ts = event_time(record)
+    if not ts:
+        return False
+    return now - timedelta(hours=window_hours) <= ts <= now + timedelta(hours=READER_FUTURE_TOLERANCE_HOURS)
+
+
 SOURCE_TIER_BY_SITE: dict[str, tuple[str, str, int]] = {
     "official_ai": ("official", "官方一手源", 0),
     "curated_media": ("ai_media", "精選AI媒體", 2),
@@ -3183,12 +3212,25 @@ SOURCE_TIER_BY_SITE: dict[str, tuple[str, str, int]] = {
     "juya_daily": ("watchlist", "觀察名單源", 6),
     "llm_stats_models": ("watchlist", "模型查漏源", 6),
     "llm_rumors": ("watchlist", "模型分析觀察源", 6),
-    "runtimewire": ("watchlist", "模型媒體觀察源", 6),
+    # RuntimeWire passed its follow-up signal-density review, but remains below
+    # established professional media while its young editorial process matures.
+    "runtimewire": ("advanced", "次級AI媒體", 4),
+}
+
+# Some fetch tasks intentionally share a site_id for health reporting. Apply
+# publisher-level scoring only where the evidence supports a different tier;
+# this keeps fetch status stable while avoiding one weak/strong sibling moving
+# every source in the same transport group.
+SOURCE_TIER_BY_PUBLISHER: dict[tuple[str, str], tuple[str, str, int]] = {
+    ("curated_media", "the decoder ai news"): ("ai_vertical", "AI垂直專業媒體", 1),
+    ("tw_media", "ithome"): ("professional_media", "專業科技媒體", 1),
+    ("tw_media", "數位時代 (google news)"): ("advanced", "台灣媒體觀察源", 4),
 }
 
 SOURCE_TIER_IMPORTANCE = {
     "official": 1.0,
     "ai_vertical": 0.78,
+    "professional_media": 0.7,
     "ai_media": 0.58,
     "community": 0.54,
     "builders": 0.62,
@@ -3274,14 +3316,26 @@ def source_tier_for_site(site_id: str) -> dict[str, Any]:
     return {"source_tier": tier, "source_tier_label": label, "source_tier_rank": rank}
 
 
+def source_tier_for_record(record: dict[str, Any]) -> dict[str, Any]:
+    site_id = str(record.get("site_id") or "").strip().lower()
+    if site_id.startswith("opmlrss"):
+        site_id = "opmlrss"
+    source = str(record.get("source") or "").strip().casefold()
+    tier, label, rank = SOURCE_TIER_BY_PUBLISHER.get(
+        (site_id, source),
+        SOURCE_TIER_BY_SITE.get(site_id, ("other", "其他來源", 9)),
+    )
+    return {"source_tier": tier, "source_tier_label": label, "source_tier_rank": rank}
+
+
 def add_source_tier_fields(record: dict[str, Any]) -> dict[str, Any]:
     out = dict(record)
-    out.update(source_tier_for_site(str(out.get("site_id") or "")))
+    out.update(source_tier_for_record(out))
     return out
 
 
 def source_tier_sort_key(record: dict[str, Any]) -> tuple[int, float, str]:
-    tier = source_tier_for_site(str(record.get("site_id") or ""))
+    tier = source_tier_for_record(record)
     ts = event_time(record)
     return (int(tier["source_tier_rank"]), -(ts.timestamp() if ts else 0), str(record.get("title") or ""))
 
@@ -5918,6 +5972,63 @@ def dedupe_items_by_title_url(items: list[dict[str, Any]], random_pick: bool = T
     return out
 
 
+def _same_publisher_title_key(item: dict[str, Any]) -> str:
+    """Normalize known Google News suffix variants for publisher-local dedupe."""
+    site_id = str(item.get("site_id") or "").strip().lower()
+    source = str(item.get("source") or "").strip().casefold()
+    title = html.unescape(str(item.get("title_original") or item.get("title") or "")).strip()
+    if site_id == "kr36_ai":
+        title = re.split(r"\s*[|｜]\s*", title, maxsplit=1)[0]
+        title = re.sub(
+            r"\s*[-–—]\s*(?:36\s*kr|36kr(?:\.com)?|m-ai\.36kr\.com)\s*$",
+            "",
+            title,
+            flags=re.IGNORECASE,
+        )
+    elif site_id == "tw_media" and source == "數位時代 (google news)".casefold():
+        title = re.sub(
+            r"\s*[-–—]\s*(?:數位時代|未來商務|(?:fc\.)?bnext\.com\.tw)\s*$",
+            "",
+            title,
+            flags=re.IGNORECASE,
+        )
+    else:
+        return ""
+    return re.sub(r"[^a-z0-9\u4e00-\u9fff]+", "", title.casefold())
+
+
+def dedupe_same_publisher_items(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Collapse duplicate publisher stories whose Google News URLs/suffixes differ."""
+    groups: dict[str, list[dict[str, Any]]] = {}
+    for index, item in enumerate(items):
+        title_key = _same_publisher_title_key(item)
+        if title_key:
+            site_id = str(item.get("site_id") or "").strip().lower()
+            source = str(item.get("source") or "").strip().casefold()
+            key = f"publisher::{site_id}::{source}::{title_key}"
+        else:
+            key = f"item::{index}"
+        groups.setdefault(key, []).append(item)
+
+    out = [min(values, key=source_tier_sort_key) for values in groups.values()]
+    out.sort(key=source_tier_sort_key)
+    return out
+
+
+def apply_reader_source_limits(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Keep low-priority high-volume sources from flooding the 24-hour reader."""
+    counts: dict[str, int] = {}
+    out: list[dict[str, Any]] = []
+    for item in items:
+        site_id = str(item.get("site_id") or "").strip().lower()
+        limit = KR36_AI_READER_MAX_ITEMS if site_id == "kr36_ai" else None
+        if limit is not None and counts.get(site_id, 0) >= limit:
+            continue
+        counts[site_id] = counts.get(site_id, 0) + 1
+        out.append(item)
+    return out
+
+
 def suppress_near_duplicate_items(
     items: list[dict[str, Any]],
     window_hours: float = 6.0,
@@ -6091,7 +6202,7 @@ def calculate_item_importance(
     window_hours: int,
     duplicate_count: int = 1,
 ) -> dict[str, Any]:
-    tier = str(item.get("source_tier") or source_tier_for_site(str(item.get("site_id") or "")).get("source_tier"))
+    tier = str(item.get("source_tier") or source_tier_for_record(item).get("source_tier"))
     source_score = SOURCE_TIER_IMPORTANCE.get(tier, SOURCE_TIER_IMPORTANCE["other"])
     relevance = ai_relevance_score(item)
     recency = headline_freshness_score(item, now)
@@ -6111,7 +6222,7 @@ def calculate_item_importance(
 
 
 def story_category(score: float, primary_item: dict[str, Any], duplicate_count: int) -> str:
-    tier = str(primary_item.get("source_tier") or source_tier_for_site(str(primary_item.get("site_id") or "")).get("source_tier"))
+    tier = str(primary_item.get("source_tier") or source_tier_for_record(primary_item).get("source_tier"))
     if tier == "official":
         return "official"
     if duplicate_count >= 3:
@@ -6138,7 +6249,7 @@ def choose_primary_story_item(
     duplicate_count = _group_aware_duplicate_count(items)
 
     def key(item: dict[str, Any]) -> tuple[int, float, float, str]:
-        tier_rank = int(source_tier_for_site(str(item.get("site_id") or "")).get("source_tier_rank", 9))
+        tier_rank = int(source_tier_for_record(item).get("source_tier_rank", 9))
         importance = calculate_item_importance(item, now, window_hours, duplicate_count=duplicate_count)["score"]
         ts = event_time(item)
         return (tier_rank, -importance, -(ts.timestamp() if ts else 0), str(item.get("title") or ""))
@@ -6165,7 +6276,7 @@ def story_item_link(item: dict[str, Any]) -> dict[str, Any]:
 
 def story_reasons(primary: dict[str, Any], score: float, duplicate_count: int) -> list[str]:
     reasons: list[str] = []
-    tier = source_tier_for_site(str(primary.get("site_id") or ""))
+    tier = source_tier_for_record(primary)
     if tier["source_tier"] == "official":
         reasons.append("official_source")
     if duplicate_count >= 2:
@@ -6490,7 +6601,7 @@ def build_llm_radar_payload(
         title = str(item.get("title_zh") or item.get("title") or "").strip()
         if not title:
             continue
-        source_tier = source_tier_for_site(str(item.get("site_id") or ""))
+        source_tier = source_tier_for_record(item)
         model_candidates.append(
             {
                 "id": f"model_release::{model_id or item.get('id') or item.get('url')}",
@@ -6716,13 +6827,9 @@ def main() -> int:
     archive = prune_archive_records(archive, now, args.archive_days)
 
     # 24h view
-    window_start = now - timedelta(hours=args.window_hours)
     latest_items_all: list[dict[str, Any]] = []
     for record in archive.values():
-        ts = event_time(record)
-        if not ts:
-            continue
-        if ts >= window_start:
+        if is_within_reader_window(record, now, args.window_hours):
             normalized = dict(record)
             normalized["title"] = to_zh_hant(maybe_fix_mojibake(str(normalized.get("title") or "")))
             if normalized.get("summary"):
@@ -6740,6 +6847,8 @@ def main() -> int:
 
     latest_items_all.sort(key=lambda x: event_time(x) or datetime.min.replace(tzinfo=UTC), reverse=True)
     latest_items = [record for record in latest_items_all if record.get("ai_is_related", is_ai_related_record(record))]
+    latest_items_ai_raw_count = len(latest_items)
+    latest_items = apply_reader_source_limits(dedupe_same_publisher_items(latest_items))
     title_cache = load_title_zh_cache(title_cache_path)
     translation_state = load_translation_state(translation_state_path)
     translation_status: dict[str, Any] = {}
@@ -6756,8 +6865,12 @@ def main() -> int:
     )
     model_releases_24h = build_model_releases_24h_items(archive, now)
     llm_radar_payload = build_llm_radar_payload(latest_items, now)
-    latest_items_ai_dedup = suppress_near_duplicate_items(dedupe_items_by_title_url(latest_items, random_pick=False))
-    latest_items_all_dedup = dedupe_items_by_title_url(latest_items_all, random_pick=True)
+    latest_items_ai_dedup = apply_reader_source_limits(
+        suppress_near_duplicate_items(dedupe_items_by_title_url(latest_items, random_pick=False))
+    )
+    latest_items_all_dedup = apply_reader_source_limits(
+        dedupe_same_publisher_items(dedupe_items_by_title_url(latest_items_all, random_pick=True))
+    )
     stories = merge_story_items(latest_items_ai_dedup, now=now, window_hours=args.window_hours)
     groq_api_key = str(os.environ.get("GROQ_API_KEY") or "").strip()
     groq_summary_model = str(os.environ.get("GROQ_SUMMARY_MODEL") or DEFAULT_GROQ_MODEL).strip()
@@ -6820,7 +6933,7 @@ def main() -> int:
         "generated_at": generated_at,
         "window_hours": args.window_hours,
         "total_items": len(latest_items_ai_dedup),
-        "total_items_ai_raw": len(latest_items),
+        "total_items_ai_raw": latest_items_ai_raw_count,
         "total_items_raw": len(latest_items_all),
         "total_items_all_mode": len(latest_items_all_dedup),
         "topic_filter": "ai_relevance_scoring_v0_4",

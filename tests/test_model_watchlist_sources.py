@@ -148,10 +148,15 @@ class ModelAnalysisFeedTests(unittest.TestCase):
         self.assertTrue(all(item.site_id == "runtimewire" for item in items))
         self.assertNotIn("fintech", " ".join(item.title.lower() for item in items))
 
-    def test_new_sources_remain_low_weight_watchlists(self):
-        for site_id in ("llm_stats_models", "llm_rumors", "runtimewire"):
+    def test_unverified_model_sources_remain_low_weight_watchlists(self):
+        for site_id in ("llm_stats_models", "llm_rumors"):
             with self.subTest(site_id=site_id):
                 self.assertEqual(source_tier_for_site(site_id)["source_tier"], "watchlist")
+
+    def test_runtimewire_moves_to_secondary_media_after_review(self):
+        tier = source_tier_for_site("runtimewire")
+        self.assertEqual(tier["source_tier"], "advanced")
+        self.assertEqual(tier["source_tier_rank"], 4)
 
     def test_qwen_model_identity_blocks_cross_version_story_merge(self):
         self.assertFalse(

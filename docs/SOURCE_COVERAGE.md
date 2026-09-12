@@ -94,12 +94,17 @@ baseline, then let the aggregator layer add breadth.
   capped per source and pass through the same
   AI relevance scoring as the rest of the radar. Research-heavy feeds are
   intentionally filtered and downweighted so they fill the research lane without
-  dominating the default hot view.
+  dominating the default hot view. The shared fetch task retains
+  `site_id="curated_media"`, while The Decoder receives the publisher-level
+  `ai_vertical` rank 1 tier after the 2026-09-12 review found 144 items over 21
+  days, 100% AI relevance, 19.4% business-event coverage, and 0.7% same-source
+  duplicates.
 ## Model Release Radar v1 Watchlists (2026-08-16)
 
 These sources address a specific blind spot: model releases and their follow-up
-technical/business analysis. They are intentionally assigned the low-weight
-`watchlist` tier and do not change the global importance formula.
+technical/business analysis. LLM Stats and LLM Rumors retain the low-weight
+`watchlist` tier. RuntimeWire uses the still-conservative `advanced` tier after
+passing its follow-up quality review; no global importance formula changed.
 Atomic discovery records remain visible for 24 hours in the「模型」section,
 matching the rest of the reader-facing dashboard.
 
@@ -126,13 +131,25 @@ view; neither lane changes the global news score.
   for named model labs, model economics, inference, pricing, and benchmarks.
   The broad feed's seven-day intake had 50 items, 0 hard duplicates, 2 possible
   duplicates, and 48 unique items against the live archive, but unrelated
-  startup coverage was visible; therefore only the focused subset is enabled
-  at watchlist tier. The high-volume automated Head-to-Head feed is not enabled.
+  startup coverage was visible; therefore only the focused subset is enabled.
+  The 2026-09-12 follow-up covered 43 items over 21 days: 100% passed the AI
+  gate, 32.6% carried a business event, none were same-source duplicates, and
+  90.7% were estimated unique against other sources. It therefore moves one
+  step to `advanced` rank 4 / `次級AI媒體`, below established professional
+  media. The high-volume automated Head-to-Head feed is not enabled.
 
 Intake evidence is stored in
 `reports/source-intake/llm-rumors-overlap.json` and
-`reports/source-intake/runtimewire-overlap.json`. Promotion above watchlist
-requires observed source health, AI signal density, and false-promotion review.
+`reports/source-intake/runtimewire-overlap.json`. Further promotion requires a
+longer editorial-accuracy record; current signal density alone does not justify
+professional-media weight.
+
+## Reader-window timestamp guard
+
+The rolling reader view accepts publication timestamps only through six hours
+after `generated_at`. This tolerance covers small source clock and timezone
+errors while keeping articles dated days in the future out of the 24-hour list.
+Archive and item-resolver records preserve the upstream timestamp for diagnosis.
 
 ## Disabled Default Sources
 
@@ -310,14 +327,22 @@ Added:
   **數位時代 (Google News)** — `bnext.com.tw` has no `/feed`, `/feed.xml`, or
   `/articles/rss`, and no autodiscovery link either; rescued via a zh-TW
   Google News query (`hl=zh-TW&gl=TW&ceid=TW:zh-Hant`) scoped to
-  `site:bnext.com.tw`, same tier and keyword filter as the other two.
+  `site:bnext.com.tw`, with the same keyword filter as the other two. Health
+  reporting remains grouped under `tw_media`, but ranking is publisher-level:
+  iThome uses `professional_media` rank 1, TechNews retains `tw_media` rank 2,
+  and the Google News-backed 數位時代 route uses `advanced` rank 4. Exact
+  數位時代 headline variants with `數位時代` / `未來商務` / `bnext.com.tw`
+  suffixes are folded before reader output.
 - **36Kr AI** (`site_id="kr36_ai"`, watchlist tier `观察名单源`): 36Kr has no
   dedicated AI-channel feed (`/feed-ai`, `/feed-motif/*`, `/information/AI`
   all probed with no RSS), and the general `36kr.com/feed` repeatedly serves a
   JavaScript WAF page. The scheduled reader path is therefore the public
   Google News RSS query scoped to `site:36kr.com`, not a degraded fallback.
   It retains the Simplified-Chinese AI-keyword title filter, watchlist tier,
-  and shared Simplified-to-Traditional output conversion. The direct URL stays
+  and shared Simplified-to-Traditional output conversion. Google News headline
+  variants from the same publisher are folded before translation; both a single
+  fetch and the rolling 24-hour reader output are capped at five 36Kr items.
+  The direct URL stays
   available only for occasional maintainer probes; its WAF behaviour no longer
   creates a false degraded status on every refresh. Unrecovered Google News
   failures still carry a cross-run streak and become `persistent_failures`

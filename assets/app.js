@@ -105,7 +105,7 @@ const SOURCE_KINDS = {
   juya_daily: { label: "橘鴉日報", tone: "watchlist" },
   llm_stats_models: { label: "模型查漏", tone: "watchlist" },
   llm_rumors: { label: "模型分析", tone: "watchlist" },
-  runtimewire: { label: "模型媒體", tone: "watchlist" },
+  runtimewire: { label: "次級AI媒體", tone: "aihub" },
 };
 
 const SECTION_DEFS = [
@@ -427,7 +427,7 @@ function generalReaderSource(item) {
       && [name, ...aliases].some((alias) => alias.toLowerCase() === publisher.toLowerCase()));
   const legacyAibase = item.site_id === "aibase" || source.toLowerCase() === "aibase";
   const watchlist = item.source_tier === "watchlist"
-    || ["kr36_ai", "juya_daily", "llm_stats_models", "llm_rumors", "runtimewire"].includes(item.site_id);
+    || ["kr36_ai", "juya_daily", "llm_stats_models", "llm_rumors"].includes(item.site_id);
   if (legacyAibase) return { level: "aggregate", publisher: "AIBASE" };
   if (watchlist) return { level: "other", publisher: match?.[0] || publisher || sourceDisplayName(item) };
   if (match) return { level: match[1], publisher: match[0] };

@@ -26,6 +26,15 @@ def rss(title="AI芯片公司发布新模型", link="https://36kr.com/p/123"):
 </item></channel></rss>""".encode("utf-8")
 
 
+def rss_many(rows):
+    items = "".join(
+        f"""<item><title>{title}</title><link>{link}</link>
+<pubDate>Sat, 15 Aug 2026 12:00:00 GMT</pubDate></item>"""
+        for title, link in rows
+    )
+    return f"<?xml version='1.0' encoding='UTF-8'?><rss><channel>{items}</channel></rss>".encode()
+
+
 class FakeResponse:
     def __init__(self, content, content_type):
         self.content = content
@@ -61,6 +70,19 @@ class Kr36GoogleNewsRouteTests(unittest.TestCase):
 
         self.assertNotIn(KR36_AI_FEED_URL, [call[0] for call in session.calls])
         self.assertEqual(items[0].meta["feed_path"], "google_news")
+
+    def test_same_story_suffix_variants_do_not_consume_the_five_item_cap(self):
+        rows = [
+            ("即夢AI大模型使用體驗 | 36氪AI測評 - 36 Kr", "https://news.google.com/rss/articles/1"),
+            ("即夢AI大模型使用體驗 | 36氪AI測評 - m-ai.36kr.com", "https://news.google.com/rss/articles/2"),
+            *((f"AI大模型產業新聞 {idx}", f"https://news.google.com/rss/articles/{idx + 2}") for idx in range(1, 7)),
+        ]
+        session = FakeSession([FakeResponse(rss_many(rows), "application/rss+xml")])
+
+        items = fetch_kr36_ai(session, NOW)
+
+        self.assertEqual(len(items), 5)
+        self.assertEqual(sum("即夢AI" in item.title for item in items), 1)
 
 
 class SourceHealthHistoryTests(unittest.TestCase):
