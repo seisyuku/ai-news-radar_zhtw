@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "Amazon EBS 卷克隆现在支持跨账户复制卷",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/ebs-volume-clones-cross-account-copy",
-  "last_seen_at": "2026-09-15T14:35:33.222699Z",
+  "last_seen_at": "2026-09-15T14:44:37.548219Z",
   "summary": "Amazon Elastic Block Store（Amazon EBS）卷克隆现在支持跨 AWS 账户复制 EBS 卷并重新加密。您可以将 EBS 卷复制到任何 AWS 账户，并使用目标账户中的 AWS Key Management Service（AWS KMS）密钥重新加密。这使将生产和开发工作负载分离到不同账户的组织，能够跨这些账户边界复制数据。 通过跨账户复制，您可以将生产数据库卷克隆到隔离的开发账户中，让开发人员获得生产数据的最新副本，以安全地进行实验。此功能还适用于需要跨环境分离加密密钥的团队，例如为生产和非生产账户维护单独的 KMS 密钥。所有卷类型都支持跨账户复制，包括未加密的卷和使用客户自主管理型密钥加密的卷。 要跨账户复制卷，您首先需要使用 AWS Resource Access Manager（AWS RAM）将该卷共享给目标账户，然后目标账户在同一可用区中创建共享卷的副本。您可以通过 AWS 管理控制台、AWS 命令行界面（CLI）和 AWS SDK 访问此功能。此功能已在支持 Amazon EBS 卷克隆的所有 AWS 区域推出，包括所有商业区域、AWS GovCloud（美国）区域、AWS 中国区域以及受支持的本地区域。 要了解更多信息，请参阅 Amazon EBS 卷克隆文档 。"
 }
