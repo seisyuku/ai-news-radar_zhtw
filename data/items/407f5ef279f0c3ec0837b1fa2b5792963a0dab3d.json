@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "Amazon SageMaker Feature Store 现在支持单个特征更新以降低写入延迟",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/08/sgm-feature-store-update-record",
-  "last_seen_at": "2026-09-15T20:05:30.978599Z",
+  "last_seen_at": "2026-09-15T20:29:00.368289Z",
   "summary": "Amazon SageMaker Feature Store 是一项完全托管的功能，可用于轻松计算、存储和检索用于训练和部署人工智能模型的特征。SageMaker Feature Store 现已支持特征级写入，这是一项用于更新记录中单个特征的新功能。数据科学家现在可以在单个请求中更新一个或多个特征值，而无需重写整个记录。 数据科学家可以使用一次更新调用来替换其管道目前运行的读取-修改-写入模式。每次写入仅更新请求中的特征，而记录中的其他特征保持不变，从而降低写入延迟和成本。当多个管道向同一特征组写入数据时，每个管道仅更新其计算的特征，因此流式处理作业和夜间批处理作业可以独立更新同一条记录。这项功能使数据科学家能够在高处理量下更新单个特征，而无需在数据摄取管道中构建合并逻辑。 此功能已在提供 Amazon SageMaker Feature Store 的所有 AWS 区域 推出。有关更多信息，请参阅 Amazon Feature Store Runtime 、 标准 V2 文档 和 发布博客 。"
 }
