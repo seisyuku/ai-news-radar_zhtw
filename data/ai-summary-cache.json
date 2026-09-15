@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v1",
   "entries": {
+    "1dfd836c1c09fb5b9b5c517bc59a6687a691e6c4bbe3cb46663b111e5e466afe": {
+      "summary": "專家指出，隨著 AI 代理導入企業生產環境，僅靠 API 金鑰不足以防堵資安漏洞，呼籲建立「數位身分」機制。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-09-15T00:35:39.033185Z"
+    },
     "a2e55bbd74973a8fb0329c1a4e724b254b22424326efbab1758c585202fea804": {
       "summary": "GitHub Copilot 自動模型選擇新增效率、平衡與智慧三個層級，讓使用者可依據成本、品質與回應時間進行設定。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.6-27b",
       "created_at": "2026-08-28T06:35:26.931659Z"
-    },
-    "98e46410265c41cfd176561b1e8db2ff66ef63e0c7e21560a178362683ad1417": {
-      "summary": "Google AI 發布 Gemini 3.5 Transcribe 語音轉文字模型，支援 85 多種語言，平均單字錯誤率為 2.6%。該模型提供串流與批次兩種端點，批次端點保留說話人分離與時間戳記，且成本為串流端點的一半。",
-      "provider": "groq",
-      "model": "qwen/qwen3.6-27b",
-      "created_at": "2026-08-28T05:35:24.075293Z"
     }
   },
   "rejections": {
@@ -3748,17 +3748,17 @@
       "reason": "validation_length",
       "created_at": "2026-09-14T17:05:32.187991Z"
     },
-    "c4e2ec4e06e3e2d099cd2883f796fad35778ef0cf4c1960ce525fced11a248a1": {
-      "reason": "insufficient_context",
-      "created_at": "2026-09-14T18:05:38.982202Z"
-    },
-    "696e4678aa145f0534e53af8cd5292c7b8e83a3f7af937cc4203dd8a3feb9b8f": {
-      "reason": "insufficient_context",
-      "created_at": "2026-09-14T18:35:33.279538Z"
-    },
     "2ee9bdcdd4e4ec52a999fb27809d2efca41164114058ad8d354b2d3f55091bed": {
       "reason": "validation_length",
       "created_at": "2026-09-14T22:05:29.023502Z"
+    },
+    "c4e2ec4e06e3e2d099cd2883f796fad35778ef0cf4c1960ce525fced11a248a1": {
+      "reason": "insufficient_context",
+      "created_at": "2026-09-15T00:35:39.033185Z"
+    },
+    "696e4678aa145f0534e53af8cd5292c7b8e83a3f7af937cc4203dd8a3feb9b8f": {
+      "reason": "insufficient_context",
+      "created_at": "2026-09-15T00:35:39.033185Z"
     }
   }
 }
