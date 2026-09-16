@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "AWS Lambda 当前支持在 Lambda Managed Instances 上配置 90 分钟函数超时",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/aws-lambda-90-minute-function",
-  "last_seen_at": "2026-09-16T15:35:36.013325Z",
+  "last_seen_at": "2026-09-16T16:05:28.768151Z",
   "summary": "AWS Lambda 现在支持针对 Lambda Managed Instances（LMI） 上的 异步 和 事件源映射（ESM） 调用，配置 90 分钟函数超时，相较之前的 15 分钟限制增加了 6 倍。现在，您可以在 Lambda 上运行数据处理、媒体转码、财务计算、AI 推理和批处理工作负载，适用于需要连续执行更长时间的任务，而无需重新架构应用程序。 客户可以使用 Lambda 构建无服务器应用程序，例如事件驱动的处理器、API 后端和数据处理管道。对于需要连续执行更长时间的数据密集型工作负载，例如媒体转码、蒙特卡洛模拟等财务计算和 AI 推理，Lambda 之前的 15 分钟函数超时限制要求客户采用架构变通方案。通过今天的发布，您可以在 Lambda Managed Instances 上，针对异步和 ESM 调用配置最长 90 分钟的函数超时。Lambda Managed Instances 让您可以处理每个实例的多个并发请求、访问专用计算配置，并通过 EC2 定价优势实现成本效益，而无需管理基础设施。增加后的函数超时也适用于 Lambda 持久函数 中的调用，允许您为运行时间较长的调用设置检查点和重放步骤。异步调用时，多步持久执行可以运行长达 1 年。 您可以通过 AWS Lambda 控制台、AWS CLI、Lambda API、基础设施即代码工具或 Agent Toolkit for AWS ，为异步和 ESM 调用配置最长 90 分钟的函数超时。同步调用保留现有的最长 15 分钟超时限制。此功能已在提供 Lambda Managed Instances 的所有 AWS 区域 推出。 要了解有关配置 90 分钟函数超时的更多信息，请参阅 Lambda 开发人员指南 。要了解如何将延长超时与检查点和重放韧性相结合，请参阅 持久函数文档 。有关定价详情，请参阅 AWS Lambda 定价 。要了解有关 AWS Lambda 的更多信息，请访问 aws.amazon.com/lambda 。"
 }
