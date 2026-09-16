@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "AWS CloudFormation 现在支持资源类型的契约测试 v2",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/aws-cloudformation-contract-tests-v2-resource-types",
-  "last_seen_at": "2026-09-16T01:05:31.061994Z",
+  "last_seen_at": "2026-09-16T01:28:54.763275Z",
   "summary": "AWS CloudFormation 现在支持契约测试 v2，可通过 CloudFormation CLI 中 cfn 测试命令的 --v2 标记获取。以前，契约测试套件仅涵盖围绕 CRUD 处理程序的基本场景。契约测试 v2 增加了更深层次的测试场景，可在每个处理程序操作中测试资源类型的实施。所有新资源类型均可在注册表提交期间通过 test-type API 运行契约测试 v2；基于 Java 的资源类型还可通过 cfn test --v2 在本地运行这些测试，仅需 Docker 和一个构建好的处理程序包即可。 契约测试 v2 推出了实时状态验证，该功能可在执行创建、更新和删除操作后，确认实际资源状态与请求状态是否一致。开发人员还可以从以下功能中受益：模式向后兼容性检查、能够标记硬编码区域、账户 ID 和分区的测试输入检查，以及用于本地契约测试执行的详细 HTML 和 JUnit XML 报告。这些改进通过在注册表提交之前发现问题，显著缩短迭代周期。 契约测试 v2 已在所有提供 AWS CloudFormation 的 AWS 区域推出。要了解更多信息，请访问 AWS CloudFormation 契约测试文档 和 AWS CloudFormation 产品页面 。"
 }
