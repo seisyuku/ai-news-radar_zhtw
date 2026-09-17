@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "Amazon ECS 扩展了针对 RunTask API 和 StartTask API 的 IAM 条件键支持",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/amazon-ecs-expands-condition-key-support",
-  "last_seen_at": "2026-09-17T22:54:31.932437Z",
+  "last_seen_at": "2026-09-17T23:35:30.474421Z",
   "summary": "Amazon Elastic Container Service （Amazon ECS）现已支持 RunTask API 和 StartTask API 上的 CPU 和内存资源的 IAM 条件键。管理员可以使用这些键，在用于启动 ECS 任务的所有方法中强制实施一致的 CPU 和内存限制。这有助于企业避免意外成本超支，并使工作负载与其资源策略保持一致。 以前，ecs:task-cpu 和 ecs:task-memory 条件键仅适用于 RegisterTaskDefinition、CreateService 和 UpdateService API。这两个条件键现已针对 RunTask API 和 StartTask API 进行了扩展。现在，在通过 RunTask 和 StartTask 启动任务时，也会对引用这两个条件键的 IAM 策略进行评估，从而为管理员提供一个统一的机制来管控其 ECS 环境中的资源分配。 此增强功能已在提供 Amazon ECS 的所有 AWS 区域推出，无需额外付费。要了解有关在 Amazon ECS 中使用条件键的更多信息，请参阅我们的 文档 。"
 }
