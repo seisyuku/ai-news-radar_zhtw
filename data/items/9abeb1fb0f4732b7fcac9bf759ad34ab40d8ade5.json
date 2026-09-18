@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "AWS Lambda 现已支持 Amazon S3 Files 的直接读取配置",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/aws-lambda-direct-read-s3files",
-  "last_seen_at": "2026-09-18T09:36:03.107330Z",
+  "last_seen_at": "2026-09-18T10:05:29.926420Z",
   "summary": "AWS Lambda 现已支持 Amazon S3 Files 的 直接读取 配置，这使您能够配置函数从中读取数据的存储：S3 Files 高性能存储或 S3 存储桶。本次发布后，您可以根据应用程序要求，优化针对 Lambda 函数的文件读取的吞吐量并减少延迟。 客户结合使用 S3 Files 与 Lambda 函数来构建可扩展的数据处理管道和有状态智能体工作负载，既获得文件系统般的性能与简易性，又获得 S3 所带来的可扩展性、持久性与成本效益。S3 Files 可从高性能存储中读取数据以实现低延迟，或直接从 S3 存储桶中读取数据以在大文件读取时实现高吞吐量，从而自动将每项操作路由至最适合它的存储。 默认情况下，仅当函数的内存配置为 512 MB 或更高时，Lambda 才支持直接从您的 S3 存储桶读取数据。但如果不能控制直接读取配置，就无法针对特定应用程序要求来优化读取性能。本次发布后，您可以在 Lambda 函数上为 S3 Files 显式启用或禁用直接读取，而不论函数内存大小如何。在启用直接读取时，函数将直接从 S3 存储桶读取 1 MB 或更大的文件以实现最大吞吐量，而小型文件将通过高性能存储提供。在禁用直接读取时，所有读取都将通过高性能存储提供以实现最少延迟。 此功能已在所有 AWS 商业区域、AWS GovCloud（美国东部）和 AWS GovCloud（美国西部）区域推出，但亚太地区（新西兰）、中东（巴林）和中东（阿联酋）除外。 您可以使用 AWS 管理控制台、AWS CLI、AWS SDK 和 AWS CloudFormation 配置 S3 Files 的直接读取。除了标准 Lambda 和 S3 Files 计费外，不产生任何额外费用。要详细了解如何结合使用 S3 Files 与 Lambda 函数，请参阅 AWS Lambda 开发人员指南 。"
 }
