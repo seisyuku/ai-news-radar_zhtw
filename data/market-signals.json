@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-19T03:05:36.007852Z",
+  "generated_at": "2026-09-19T03:35:27.458791Z",
   "cadence_minutes": 30,
   "signals": [
     {
@@ -156,6 +156,28 @@
       "source_url": "https://github.com/f-is-h/Usage4Claude",
       "evidence_url": "https://github.com/f-is-h/Usage4Claude/commit/e897012ec9392f1bfd7d9d75866fb763b5beb129",
       "id": "fe968566e86588b1fa38807f4e94d408a696e1bf"
+    },
+    {
+      "event_type": "USAGE_POLICY_CANDIDATE",
+      "category": "usage_policy",
+      "urgency": "breaking",
+      "importance_rank": 3,
+      "timeliness_rank": 1,
+      "verification_status": "candidate",
+      "title": "速報候選：Usage4Claude 偵測到額度相關變更",
+      "summary": "fix: stop refetching usage when the smart refresh interval changes",
+      "provider": "",
+      "product": "",
+      "field": "",
+      "old_value": null,
+      "new_value": null,
+      "unit": "",
+      "detected_at": "2026-09-19T03:35:27.458791Z",
+      "effective_at": "2026-09-18T19:14:53Z",
+      "source_name": "Usage4Claude",
+      "source_url": "https://github.com/f-is-h/Usage4Claude",
+      "evidence_url": "https://github.com/f-is-h/Usage4Claude/commit/b1b89f45266943a8344ffb101880db88513c60a9",
+      "id": "db9807f99df07758e39b78eee086f085f46b78fa"
     }
   ]
 }
