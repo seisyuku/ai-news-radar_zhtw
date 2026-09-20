@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "Amazon SageMaker HyperPod 现已支持模型缓存，可加快推理自动扩缩速度并减少冷启动耗时",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/sgm-hyperpod-model-caching-inf",
-  "last_seen_at": "2026-09-20T16:05:27.266689Z",
+  "last_seen_at": "2026-09-20T16:17:21.442922Z",
   "summary": "Amazon SageMaker HyperPod 现已支持模型缓存，这是一项推理优化功能，可将模型权重与容器映像预加载到集群节点上，使容器组（pod）的启动时间从几分钟缩短至几秒钟。 在针对聊天助手、智能体管道、RAG 和文档分析等工作负载大规模运行 LLM 推理时，冷启动会成为显著瓶颈。在部署和横向扩展事件中，大部分时间都花在了下载容器映像和模型权重上。模型越大，此问题就越严重，大型模型需要数十分钟才能开始处理流量。 模型缓存通过两项独立的功能解决了此问题。权重缓存将模型权重存储在本地 NVMe 上，这样一来，容器组便能从快速本地存储中读取数据，而不是通过网络从 S3 或 FSx 中拉取。映像缓存会预先拉取容器映像，让容器组完全跳过 ECR 下载这一步。如果容器组调度到无预热缓存的节点，它会自动降级以从原始来源拉取，从而消除容器组卡住或失败的风险。 在 57 GB 到 145 GB 的模型上进行的基准测试表明，横向扩展速度提升了约 60%，映像缓存将映像拉取时间缩短了两分钟以上（减少了 97%）。模型越大，优化效果越明显，并且将保留原始源路径的可靠性。 客户可通过向其 InferenceEndpointConfig 或 JumpStartModel 资源添加 modelCacheConfig 部分，利用 HyperPod Inference Operator 启用模型缓存。此算子可处理完整生命周期，而无需进行手动设置或清理。 模型缓存功能现已在提供 SageMaker HyperPod 的所有区域全面推出。要开始使用，请参阅 SageMaker HyperPod 文档 。"
 }
