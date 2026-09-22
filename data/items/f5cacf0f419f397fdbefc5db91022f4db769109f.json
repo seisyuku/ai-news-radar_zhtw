@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "AWS Lambda 耐用函数已支持与 Pydantic AI 集成",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/aws-lambda-durable-pydantic-ai",
-  "last_seen_at": "2026-09-22T18:05:31.401199Z",
+  "last_seen_at": "2026-09-22T18:35:34.600213Z",
   "summary": "即日起，AWS Lambda 耐用函数支持与 Pydantic AI 集成，后者是一个用于通过 Python 构建智能体的开源框架。AWS Lambda 耐用函数会在 Pydantic AI 智能体运行过程中保存其进度，这使得在发生超时等中断时，智能体可从最后一个已完成的步骤处继续执行，而无需从头开始。智能体可获得容错能力，而无需您自行编写检查点与重试逻辑。 借助此集成，智能体发出的每一次模型调用与工具调用均成为持久性执行步骤，这使得在运行中断时，不会重复执行已完成的调用。当重复执行工作的成本较高时，这一点尤为重要；例如，一系列模型调用，用于审阅一组文档或跨多个来源调研某个主题；在这类场景中，从头开始意味着需再次支付令牌费用来完成相同的工作。它还有助于在恢复执行时避免非预期的副作用，例如对某个客户重复计费。由于智能体在 AWS Lambda 上运行，您无需管理任何服务器，只需为服务器使用的计算资源付费。 您可以在任意 Python AWS Lambda 耐用函数中使用此集成。它已在提供 AWS Lambda 耐用函数的所有 AWS 区域推出。要开始使用，请安装 Pydantic AI 并关注其 AWS Lambda 持久性页面 。您也可以在 持久性执行 SDK 参考 中查看集成详细信息。有关 AWS Lambda 耐用函数的更多信息，请参阅 开发人员指南 和 AWS Lambda 产品页面 。"
 }
