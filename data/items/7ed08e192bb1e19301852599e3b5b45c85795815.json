@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "Amazon API Gateway 现在支持将双向 TLS 用于后端集成",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/amazon-api-gateway-mutual-tls-backend",
-  "last_seen_at": "2026-09-22T16:51:28.930607Z",
+  "last_seen_at": "2026-09-22T17:35:33.988311Z",
   "summary": "您现在可以配置 Amazon API Gateway REST API，以在 TLS 握手过程中向后端提供 AWS Certificate Manager（ACM）证书，从而启用双向 TLS（mTLS）。以前，API Gateway 只能提供其生成的自签名证书；现在，您可以使用由您信任的证书颁发机构签名的证书。您的集成端点将在握手过程中验证此证书，以确认连接来自您的 API。 您可以将证书从现有的公有密钥基础设施（PKI）导入 ACM，也可以让 ACM 通过 AWS 私有证书颁发机构为您签发并管理证书。当在 ACM 中重新导入或续订证书时，API Gateway 会自动传播该更新，无需重新部署，也不会造成停机。结合现有的针对客户端连接的入站 mTLS 支持，您可以在客户端到 API 以及 API 到后端的连接中应用双向身份验证，这是金融服务、医疗保健行业以及其他受监管或零信任环境中的常见要求。 用于后端集成的双向 TLS 已在提供 API Gateway REST API 的所有 AWS 商业区域和 AWS GovCloud（美国）区域推出。您可以通过 API Gateway 控制台、AWS CLI 或 AWS CloudFormation 对其进行配置。要开始使用，请参阅 Amazon API Gateway 文档 和 AWS 博客文章 。"
 }
