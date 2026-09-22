@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "AWS Elemental MediaLive 新增对 A/B 取证水印的支持",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/medialive-ab-forensic-watermarking",
-  "last_seen_at": "2026-09-22T14:35:41.549311Z",
+  "last_seen_at": "2026-09-22T15:05:44.444310Z",
   "summary": "AWS Elemental MediaLive 现已支持 A/B 取证水印，使内容所有者能够追踪直播视频内容的未经授权再分发来源。单个 MediaLive 频道可生成两个同步的输出变体，每个变体均带有独立隐形水印，该水印可在重新编码与屏幕录屏后持续存在。下游打包与 CDN 基础设施将这两个变体组合成每个会话专属的序列，从而识别出泄露内容的来源。 取证水印遵循 DASH 行业论坛（DASH-IF）的 A/B 水印规范（即欧洲电信标准化协会（ETSI）TS 104 002 标准），确保实现与符合该标准的打包程序及 CDN 基础设施的互操作性。客户可以通过 MediaLive API 或控制台，在通用媒体应用格式（CMAF））摄入输出组上配置水印。MediaLive 通过 CMAF 摄入将带水印的 A 和 B 变体输出至 AWS Elemental MediaPackage 或第三方打包程序，从而借助兼容的 CDN 基础设施（包括 Amazon CloudFront），在下游实现按会话的水印组合。 要了解更多信息，请访问 AWS Elemental MediaLive 用户指南 。 A/B 取证水印已在提供 AWS Elemental MediaLive 的所有 AWS 区域推出。"
 }
