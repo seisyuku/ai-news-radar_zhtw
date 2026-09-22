@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "Amazon Bedrock AgentCore Memory 现在支持直接摄取到长期记忆",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/agentcore-memory-direct-ingest",
-  "last_seen_at": "2026-09-22T09:43:25.867873Z",
+  "last_seen_at": "2026-09-22T10:35:33.612556Z",
   "summary": "Amazon Bedrock AgentCore Memory 现在支持开发人员直接提交内容以供长期记忆提取，无需将其作为短期记忆事件保存。新的 IngestData API 会接受内容，将其扇出到记忆中配置好的长期记忆策略中，并通过与用于任何其他长期记忆记录相同的检索操作提供生成的记忆记录，且整个过程不会创建短期事件。 到目前为止，所有内容都必须先作为短期记忆事件进行存储，然后提取策略才能将其处理成长期记忆记录。IngestData 消除了这一要求，使开发人员能够独立于短期记忆来采用长期记忆。 IngestData 同时支持对话型有效载荷（具有 USER/ASSISTANT 角色的消息）和 JSON 有效载荷（行为事件、活动日志、系统事件），并接受可选元数据，这些元数据会输入到与 CreateEvent 相同的提取管道中。处理后，开发人员可以使用 ListMemoryRecords 或 RetrieveMemoryRecords 验证提取结果，通过 Kinesis 流式传输实时通知，并使用 ListMemoryExtractionJobs 重启失败的提取。要开始使用，请参阅《Amazon Bedrock AgentCore 开发人员指南》中的 直接摄取到长期记忆 。IngestData 已在支持 Amazon Bedrock AgentCore Memory 的所有 AWS 区域推出。"
 }
