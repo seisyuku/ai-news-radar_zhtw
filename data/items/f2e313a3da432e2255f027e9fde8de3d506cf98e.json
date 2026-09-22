@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "Amazon API Gateway 现已支持 1 MB 的执行日志以及可配置的传输目标",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/amazon-api-gateway-1-mb-execution-logs",
-  "last_seen_at": "2026-09-22T07:35:43.469530Z",
+  "last_seen_at": "2026-09-22T08:05:33.405832Z",
   "summary": "Amazon API Gateway 现已支持 REST API 执行日志的可配置传输目标与更大的日志事件。以前，执行日志会传输到 API Gateway 管理的单个 CloudWatch Logs 日志组，并且日志事件会被截断为 1 KB，从而导致请求和响应数据的可见性受限。 现在，您可以将最大 1 MB 的执行日志路由至您自己的 Amazon CloudWatch Logs 日志组、Amazon S3 存储桶或 Amazon Data Firehose 流，并同时传输到多个目标。例如，您可以 Apache Parquet 格式将执行日志路由至 Amazon S3 以实现经济高效的长期存储，并通过 Amazon Athena 进行分析，同时将结构化 JSON 日志传输到 CloudWatch Logs 以支持实时警报。 此功能已在提供 API Gateway REST API 的所有 AWS 区域推出，包括 AWS GovCloud（美国）区域。通过此功能传输的执行日志按公开日志费率计费。有关定价详情，请参阅 Amazon CloudWatch 定价 。您可以通过 API Gateway 控制台、AWS CLI 或 AWS CloudFormation 设置传输 。 要开始使用，请参阅 Amazon API Gateway 文档 和 AWS 博客文章 。"
 }
