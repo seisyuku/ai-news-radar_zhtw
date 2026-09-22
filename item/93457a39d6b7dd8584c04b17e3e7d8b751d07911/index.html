@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <title>AI News Radar Pulse — News Item</title>
+</head>
+<body>
+  <main>
+    <h1>AI News Radar Pulse — News Item</h1>
+    <dl>
+    <dt>Radar ID</dt>
+    <dd>93457a39d6b7dd8584c04b17e3e7d8b751d07911</dd>
+    <dt>Title</dt>
+    <dd>llm-typesafe 0.1a0</dd>
+    <dt>Source</dt>
+    <dd>Simon Willison</dd>
+    <dt>Published</dt>
+    <dd>2026-09-22T15:54:16Z</dd>
+    <dt>Summary</dt>
+    <dd>Release: llm-typesafe 0.1a0 I built this new plugin for LLM to add support for TypeSafe AI&#x27;s new Jev model . Install it like this: llm install llm-typesafe Then set an API key ( get one here , the waitlist seems to move pretty fast): llm keys set typesafe # Paste key And now you can ask yes/no &quot;noul&quot; questions like this: llm -m jev &#x27;Please refund my last payment.&#x27; \ -s &#x27;Does this message explicitly request a refund?&#x27; Output: {&quot;type&quot;: &quot;noul&quot;, &quot;noul&quot;: 0.99} Or choice questions like this: cat message.txt | llm -m jev \ -s &#x27; Which team should handle this message? If billing and technical issues both occur, choose billing. &#x27; \ -o answer_type choice \ -o criteria &#x27; { &quot;billing&quot;:&quot;Charges, invoices, payments, or refunds&quot;, &quot;technical&quot;:&quot;Problems installing or using the product&quot;, &quot;other&quot;:&quot;Neither category fits&quot; } &#x27; Or scoring questions like this: cat report.txt | llm -m jev \ -s &#x27; How reproducible is the problem described in this report? &#x27; \ -o answer_type score \ -o criteria &#x27; [ &quot;No reproduction instructions&quot;, &quot;Some instructions, but important steps are missing&quot;, &quot;Complete steps with expected and actual results&quot; ] &#x27; See the README for more details. Tags: projects , llm , jev</dd>
+    <dt>Original URL</dt>
+    <dd><a href="https://simonwillison.net/2026/Sep/22/llm-typesafe">https://simonwillison.net/2026/Sep/22/llm-typesafe</a></dd>
+    </dl>
+  </main>
+</body>
+</html>
