@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "AWS Lambda 递归循环检测功能现已在 European Sovereign Cloud 中推出",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/lambda-recursion-europe-sovereign-cloud",
-  "last_seen_at": "2026-09-22T04:34:42.381555Z",
+  "last_seen_at": "2026-09-22T05:05:37.898472Z",
   "summary": "在 Europe Sovereign Cloud 中运行的函数现已支持 AWS Lambda 递归循环检测功能 。递归循环检测功能可自动检测并终止 Lambda 函数与其他受支持服务之间的递归调用，防止因意外递归循环产生意外计费。 客户使用各种事件源（例如 Amazon S3、Amazon SQS 和 Amazon SNS）构建可触发 Lambda 函数的事件驱动型应用程序。配置错误或代码缺陷可能导致事件被发送回触发 Lambda 函数的同一个源，从而导致递归循环和意外使用。当检测到此类循环时，递归循环检测功能会自动停止处理该事件，并通过 AWS Health Dashboard 向您发送包含故障排除步骤的通知。 默认情况下，为使用 受支持的 SDK 版本 的 Lambda 函数启用递归循环检测功能。如果您的函数有意使用递归循环，您可以使用 PutFunctionRecursionConfig API 关闭 Lambda 函数上的递归循环检测功能。 要了解递归循环检测功能，请访问 Lambda 文档 。"
 }
