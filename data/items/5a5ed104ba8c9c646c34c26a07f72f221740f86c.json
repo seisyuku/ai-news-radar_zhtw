@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "Amazon Connect Customer Profiles 现可在客户进入或退出细分群体时发送事件",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/connect-customer-profiles-segment-events",
-  "last_seen_at": "2026-09-22T20:36:20.255907Z",
+  "last_seen_at": "2026-09-22T21:05:31.073013Z",
   "summary": "Amazon Connect Customer Profiles 现可发送细分群体成员资格事件，使您能够在客户档案进入或退出细分群体（例如高价值客户或低满意度客户）时，接收实时和预定通知。以前，检测客户档案何时加入或离开细分群体，需要定期导出整个细分群体，并运行自定义脚本来识别差异。这一手动流程不仅消耗资源，还会引入错误，并在客户符合某细分群体条件与下游系统采取行动之间造成数小时的延迟。 借助细分群体成员资格事件，Customer Profiles 会自动评估成员资格变更，并将其直接流式传输到您的 Amazon Kinesis 数据流。对于使用标准条件构建的细分群体，变更会在档案属性更新时近实时检测到。对于增强型细分群体（使用 Spark SQL），周期性快照会按可配置的间隔评估成员资格，并通知您相关变更。每个事件都包含档案 ID、细分群体名称、操作类型（已加入或已离开），以及检测到的变更是实时还是在计划运行期间发生的，为您提供在数秒（而非数小时）内激活出站营销活动、个性化工作流或留存行动所需的一切信息。 您可以在提供 Amazon Connect Customer Profiles 的所有 AWS 区域，开始使用细分群体成员资格事件。要开始使用，请在您的域设置中配置 Amazon Kinesis 数据流并订阅细分群体。有关更多信息，请参阅我们的 管理员指南 。有关 Amazon Connect Customer Profiles 的更多信息，请访问我们的 产品页面 。"
 }
