@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v2",
   "entries": {
+    "68b1d74a3d8ab5252c50ac2ff1bc99c7ba316cab1d93995b831f6d7cded89b6a": {
+      "summary": "軟體公司對 AI 產品打折，以防止客戶轉向 Anthropic 與 OpenAI。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-09-23T11:06:07.752650Z"
+    },
     "0a817f92ce9eaaa5bcc71de3911ba0af65c4695545cce2e0f4694f333b26fbb9": {
       "summary": "阿里千問發佈 Qwen-Audio-3.1 系列，包含 TTS-Next 與 ASR-Next 等五款模型，覆蓋語音理解、生成、交互與創作。來源稱全線降價，其中 TTS 價格降低約 70%。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-09-07T12:21:44.367000Z"
-    },
-    "9e57402c655783771b7d7b755d940d86a50b9460da8ac4bbdf6e967c0a999c4e": {
-      "summary": "川普在Truth Social上發布了一系列AI生成的圖片，並宣稱他為美國在股票上賺了數千億美元。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-09-07T12:01:18.424470Z"
     }
   },
   "rejections": {
@@ -3868,18 +3868,6 @@
       "reason": "validation_length",
       "created_at": "2026-09-23T01:26:40.140739Z"
     },
-    "2d8e1b6bdb2597919e95c9a515364003441168ec37077730d2cdd09001f44ac4": {
-      "reason": "validation_length",
-      "created_at": "2026-09-23T05:05:34.041722Z"
-    },
-    "bad3e316e5a38fc60121cb3fcab6a0182b697b3d94e40f4f20df912632308839": {
-      "reason": "validation_length",
-      "created_at": "2026-09-23T05:05:34.041722Z"
-    },
-    "68b1d74a3d8ab5252c50ac2ff1bc99c7ba316cab1d93995b831f6d7cded89b6a": {
-      "reason": "insufficient_context",
-      "created_at": "2026-09-23T05:05:34.041722Z"
-    },
     "cf092768aacfa5361cf54afe7359ece2864fd20e8424543f335c975cf435db1f": {
       "reason": "validation_length",
       "created_at": "2026-09-23T10:35:30.921015Z"
@@ -3887,6 +3875,14 @@
     "7665217abcf877ba6910b3b581675f8d78cbeb851b92ed9f26ac98a7a00cc116": {
       "reason": "validation_length",
       "created_at": "2026-09-23T10:35:30.921015Z"
+    },
+    "2d8e1b6bdb2597919e95c9a515364003441168ec37077730d2cdd09001f44ac4": {
+      "reason": "validation_length",
+      "created_at": "2026-09-23T11:06:07.752650Z"
+    },
+    "bad3e316e5a38fc60121cb3fcab6a0182b697b3d94e40f4f20df912632308839": {
+      "reason": "validation_length",
+      "created_at": "2026-09-23T11:06:07.752650Z"
     }
   }
 }
