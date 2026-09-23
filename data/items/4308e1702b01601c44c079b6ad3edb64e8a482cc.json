@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "AWS Glue 零 ETL 新增目标表属性所有权和冲突检测",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/glue-zero-etl-ownership-conflicts",
-  "last_seen_at": "2026-09-23T15:05:42.929361Z",
+  "last_seen_at": "2026-09-23T15:35:41.886928Z",
   "summary": "AWS Glue 零 ETL 集成现已支持检测表属性冲突和跟踪集成所有权。当您配置源表和目标目录时，Glue 会将生成的表属性与所属的集成关联，因此，除非您知情，否则两个集成将无法再指向同一个目标表。这适用于 Amazon S3 表类数据存储服务和 SageMaker Lakehouse 目录。 运行多个零 ETL 集成的数据团队可以对每个源表的归属位置进行可预测的控制。如果您尝试创建或修改表属性为另一个集成所有的集成，Glue 会识别出所属集成并指导您选择其他目标或更新现有目标，这样您的管道就会保持隔离，数据可以准确地到达目标位置。 此功能已在支持 AWS Glue 零 ETL 集成的所有 AWS 商业区域和 AWS GovCloud（美国）区域推出。 要了解更多信息，请参阅 AWS Glue 开发人员指南 并在 AWS Glue 控制台 中开始使用。"
 }
