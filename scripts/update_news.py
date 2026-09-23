@@ -80,6 +80,7 @@ TRANSLATION_MAX_REQUESTS = 6
 TRANSLATION_BATCH_MAX_ITEMS = 30
 TRANSLATION_BATCH_MAX_CHARS = 4_800
 TRANSLATION_REJECTION_TTL_SECONDS = 6 * 60 * 60
+TRANSLATION_PROVIDER_FAILURE_TTL_SECONDS = 30 * 60
 # Bump when the provider's failure semantics change so a prior provider's
 # short-lived rejections never suppress a newly configured provider.
 TRANSLATION_STATE_VERSION = 4
@@ -4961,7 +4962,12 @@ def _translation_rejection_is_fresh(entry: Any, now: datetime) -> bool:
     created_at = parse_iso(str(entry.get("created_at") or ""))
     if not created_at:
         return False
-    return (now - created_at).total_seconds() < TRANSLATION_REJECTION_TTL_SECONDS
+    ttl_seconds = (
+        TRANSLATION_PROVIDER_FAILURE_TTL_SECONDS
+        if entry.get("reason") == "provider_unavailable"
+        else TRANSLATION_REJECTION_TTL_SECONDS
+    )
+    return (now - created_at).total_seconds() < ttl_seconds
 
 
 def _translation_provider_failure_type(exc: Exception) -> str:

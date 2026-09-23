@@ -430,9 +430,10 @@ update-news.yml: freshness-check job
   六次上限；否則保留英文且不寫入六小時拒絕快取。Gemini endpoint 使用獨立的
   no-retry adapter，避免共用 feed session 把一次 POST transport timeout 暗中重試三次、
   吃完整輪預算；是否重試只由這裡的明確上限控制。
-- 失敗候選會寫入 `data/translation-state.json` 六小時的短期拒絕快取；期間
-  只保留英文，不重送相同內容。成功後會自動移除該記錄。429 限流例外，避免
-  正常額度恢復後仍被快取壓住。這個檔案不含 API key。
+- 失敗候選會寫入 `data/translation-state.json` 的短期拒絕快取：暫時性
+  provider 故障保留 30 分鐘，無效譯文保留六小時；期間只保留英文，不重送
+  相同內容。成功後會自動移除該記錄。429 限流例外，避免正常額度恢復後
+  仍被快取壓住。這個檔案不含 API key。
 - Provider 變更會提升該狀態檔版本並捨棄舊 provider 的短期拒絕，避免先前
   的 credential 或 endpoint 故障阻止新 provider 嘗試。2026-09-11 從
   Interactions endpoint 切回適合無狀態批次翻譯的 `generateContent`，並修正

@@ -1,5 +1,5 @@
 import json
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 import requests
 
@@ -157,6 +157,50 @@ def test_provider_failure_uses_short_negative_cache_instead_of_retrying_every_ru
     assert first_status["failed_count"] == 1
     assert second_status["candidate_count"] == 0
     assert second_status["negative_cache_hits"] == 1
+
+
+def test_provider_failure_retries_after_thirty_minutes_and_recovers():
+    class RecoveringSession:
+        def __init__(self):
+            self.calls = 0
+
+        def post(self, _url, json=None, **_kwargs):
+            self.calls += 1
+            if self.calls == 1:
+                raise requests.Timeout("simulated provider outage")
+            items = json_module.loads(json["contents"][0]["parts"][0]["text"])["items"]
+            return gemini_response(
+                [{"id": item["id"], "text": "新模型已發布"} for item in items]
+            )
+
+    json_module = json
+    session = RecoveringSession()
+    state = empty_translation_state()
+    item = {"title": "A new model is released", "url": "https://example.com/recovery"}
+    now = datetime(2026, 9, 7, tzinfo=timezone.utc)
+
+    add_bilingual_fields(
+        [item], [item], session, {}, 10,
+        translation_state=state, now=now, gemini_api_key="test-gemini-key",
+    )
+    skipped_status = {}
+    add_bilingual_fields(
+        [item], [item], session, {}, 10,
+        translation_state=state, translation_status=skipped_status,
+        now=now + timedelta(minutes=29), gemini_api_key="test-gemini-key",
+    )
+    recovered_status = {}
+    recovered, _, _ = add_bilingual_fields(
+        [item], [item], session, {}, 10,
+        translation_state=state, translation_status=recovered_status,
+        now=now + timedelta(minutes=30), gemini_api_key="test-gemini-key",
+    )
+
+    assert session.calls == 2
+    assert skipped_status["negative_cache_hits"] == 1
+    assert recovered_status["translated_count"] == 1
+    assert recovered[0]["title_zh"] == "新模型已發布"
+    assert state["rejections"] == {}
 
 
 def test_rate_limit_is_not_stored_in_the_six_hour_negative_cache():
