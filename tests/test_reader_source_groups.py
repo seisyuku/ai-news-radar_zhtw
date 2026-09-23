@@ -58,6 +58,19 @@ console.log(JSON.stringify(cases.map(generalReaderSource)));
     assert result[5]["publisher"] == "Unknown outlet"
 
 
+def test_arc_prize_appears_as_an_original_benchmark_source():
+    extra = extract_declarations("SOURCE_KINDS", "sourceKind", "isCuratedItem")
+    result = run_js(DECLARATIONS + extra + HELPERS + '''
+const item = {site_id:"arc_prize", source:"ARC Prize", source_tier:"benchmark", url:"https://arcprize.org/blog/result"};
+console.log(JSON.stringify({group:generalReaderSource(item), kind:sourceKind(item.site_id), curated:isCuratedItem(item)}));
+''')
+    assert result == {
+        "group": {"level": "original", "publisher": "ARC Prize"},
+        "kind": {"label": "評測第三方", "tone": "research"},
+        "curated": True,
+    }
+
+
 def test_legacy_and_current_aibase_share_filter_and_publisher_group():
     result = run_js(DECLARATIONS + HELPERS + '''
 pool = [

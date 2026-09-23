@@ -1,5 +1,177 @@
 # AI News Radar Pulse — 交接摘要（截至 2026-08-17）
 
+## 2026-09-23 本機差異審閱與來源健康觀察（最新）
+
+- 已審閱本輪本機差異，確認三站只接入既有 RSS/Atom 路徑，ARC Prize
+  維持第三方評測身分；五個人工查漏站、其餘五個暫緩 feed、公開資料契約
+  與 24h 讀者窗口均未擴張。這些變更仍只在本機，尚未 push 或部署。
+- 修正新 feed 的健康判斷：有效但沒有近期合格文章維持健康零則；若整個
+  feed 缺少具日期的第一方文章，明確回報失敗，避免欄位失效被當成低頻。
+- 9/23 暫存生成的三站健康基線仍為 Mistral 6、MCP 1、ARC Prize 1，
+  16/16 任務成功；新增欄位失效回歸後完整測試 371 項通過，編譯、
+  Node 語法及差異格式檢查通過。
+- 使用者已取消本地 Codex 每日 09:00（Asia/Taipei）來源健康觀察；
+  後續改在推送後手動執行 GitHub 驗證並檢查 Actions log。
+- 已完成本機差異審閱與本地定時任務取消；下一階段是提交推送後核對
+  GitHub 上的來源健康紀錄，建議 GPT-6 Sol／Low。
+
+## 2026-09-23 准入來源最小接入與暫存驗證
+
+- 依已完成的准入判斷，沿用 RSS/Atom 抓取路徑接入 Mistral 官方公告、
+  MCP 官方協定公告與 ARC Prize 第三方評測；三站有獨立健康任務及每輪上限。
+  明確客戶案例／教學、一般協定說明、政策及募款文章在來源處排除。
+- ARC Prize 使用獨立評測來源身分及讀者標示，不冒用模型廠商官方公告；
+  ARC-AGI 原始結果可命中既有「評測基準」事件。前端只補必要來源標示，
+  資產版本已更新；六類事件與 24h 窗口未放寬。
+- 9/23 完整暫存生成寫入 `/private/tmp/ai-news-radar-admitted-20260923/`：
+  16/16 來源／任務健康，Mistral 6、MCP 1、ARC Prize 1 則進入 archive。
+  三站目前均無 24h 文章，網站新聞列表暫無新卡片屬預期。
+  五個原始人工查漏站及另五個暫緩直接 feed 仍未接入。
+- 暫存生成的精簡健康與收錄證據已歸檔於
+  `/Users/lordmi/Downloads/ai-news-radar-source-review-20260923/IMPLEMENTATION_VALIDATION.md`
+  及同目錄 `integration-validation.json`。
+- 完整測試 369 項通過，Python 編譯、Node 語法、差異格式檢查通過；
+  測試與生成未使用付費來源、翻譯或摘要憑證。保留既有本機修改，
+  未 commit、push 或部署。
+- 已完成准入來源最小接入與暫存驗證；下一階段是使用者審閱本機差異及
+  持續觀察來源健康，建議 GPT-6 Sol／Medium。
+
+## 2026-09-23 八站來源准入與最終複核（優先於下方歷史紀錄）
+
+- 八個 YunNEWS 公開出處候選的原始 feed 欄位、最近 45 日 51 則內容與
+  9/21 線上 8,723 筆 archive 已對照；直接網址零重複不代表事件零重複。
+- Mistral、MCP Blog 准入一手公告範圍；ARC Prize 有條件准入第三方評測，
+  接入前須保留正確評測身分並排除非評測文章。LM Studio、Cloudflare、
+  Modular、Zed、Google Antigravity 暫不准入，理由見 `SOURCE_COVERAGE.md`。
+- 完整欄位、原始 XML、准入限制及重疊例子存於
+  `/Users/lordmi/Downloads/ai-news-radar-source-review-20260923/`。
+  五個原始聚合／日報站仍只是人工查漏候選；本階段沒有啟用新來源。
+- 最終差異複核清除了通用資安回歸測試中已撤回的 TheAI 來源名稱，
+  不改測試的資安新聞／教學判定意義。先前保留的摘要歸因限制維持。
+- 使用本機 Node 路徑重跑完整測試 364 項通過；Python 編譯、Node 語法與
+  `git diff --check` 通過。既有工作區修改均保留，未 commit、push 或部署。
+- 已完成逐站欄位整理、來源准入判斷與最後複核；下一階段才是對准入來源
+  做最小接入及暫存輸出驗證，建議 GPT-6 Sol／High。
+
+## 2026-09-22 恢復與決策更新（優先於下方歷史試行紀錄）
+
+- 中斷完整性檢查：本機差異符合暫停點，18 份前次 JSON 全部可解析，
+  整合評估所引用四份原始紀錄皆存在。暫停前尚未開始撤回或新一輪抓取。
+- 使用者否決 YunNEWS 排版／維護收益與 TheAI 文章落差；五站統一改為
+  未來人工檢查內容缺漏的候選參考，不是自動查漏、編輯或寫作流程。
+- 撤回 YunNEWS／TheAI 抓取器、任務、分級、限量與專用佐證規則；
+  `scripts/update_news.py` 恢復至 HEAD，專用六項測試已先歸檔再移除。
+  既有摘要 prompt v2 與資安新聞回歸測試保留。
+- 先前驗證、撤回前 patch／文件／專用測試及校驗碼歸檔至
+  `/Users/lordmi/Downloads/ai-news-radar-source-review-20260922/`。
+- 已完成 YunNEWS 全部公開期別盤點：60 期、2,486 則，原始與佐證 URL
+  整理為 195 個出處網域。93 個 feed 兩次可解析；4 個只是 Google News
+  轉接；4 個有解析警告；85 個本輪未找到標準 feed；8 個社群／橋接依
+  產品邊界排除；Anthropic 1 個沿用既有靜態解析器驗證成功。
+  這是公開刊出內容的出處盤點，不代表私有完整訂閱設定；技術可讀也不等於
+  官方一手或准入。共享平台需逐 repo／組織驗證，本輪不新增上游站點。
+- 官方直接 feed 優先候選：Mistral、LM Studio、MCP Blog、Cloudflare、
+  Modular、Zed、ARC Prize、Google Antigravity。日期完整但部分更新低頻；
+  尚待內容與覆蓋增益驗收。Claude／Cursor／Cognition 靜態頁僅為備選。
+- 完整 pytest 364 項通過，Python 編譯、Node 語法、diff hygiene 通過。
+  撤回後暫存生成 108 則 AI、13/13 健康任務成功，兩站任務與文章皆不存在。
+  未修改正式 data、feeds、前端或 Actions，未 commit、push、部署。
+- 完整證據見上述歸檔的 REPORT.md、sources-verified.csv、completion.json，
+  含撤回前／後快照、逐站請求與雜湊。舊本機預覽仍是 9/21 試行快照，
+  不代表目前 repo；本輪最新可檢視資料在歸檔 generation/data/。
+- 已完成中斷完整性複核、五站撤回歸檔及上游一輪驗證；下一階段為優先官方
+  feed 的內容／重疊驗收，再決定最小接入。建議 GPT-5.6 Sol／High。
+
+
+## 2026-09-21 複核：清除跨專案污染
+
+- 外部 `AI_NEWS_RADAR_PULSE_CODEX_HANDOFF.md` 混入另一個 GPT 專案的
+  編輯流程。使用者要求以 README 為界；不引入選題分流、查證狀態、
+  競品採用研究或寫作交接，也不更改現有六類事件與一般列表的收錄範圍。
+- 污染清理階段先只把五站保留在 `SOURCE_COVERAGE.md` 的待評估清單，
+  移除外部編輯角色設定；來源註冊延後到文章層級驗收完成後。
+- 撤回本輪提前新增的 TheAI 專用閘門、公開 `article_categories` 欄位、
+  七處 feed 傳遞與對應測試。摘要中的兩段操作步驟不足以判斷整篇是教學：
+  合成資安新聞附補救步驟時會被誤殺。原有教學過濾及資料契約維持。
+- 程式只保留既有短摘要的歸因、供應商與版本忠實性限制，prompt 使用 v2
+  快取鍵；模型、呼叫上限及輸出結構未變。不增加外部查證，也不宣稱
+  prompt 更新等於模型語義驗證通過。回復 v1 可使用舊鍵，無須刪快取。
+- 污染清理階段的前一輪 374 項通過包含已撤回功能的 11 項合成測試，
+  不是來源准入或功能範圍正確的證明。本次另加 1 項誤判回歸（資安新聞
+  保留、明確教學仍排除），完整 `.venv/bin/python -m pytest -q` 在補上本機 Node 路徑後
+  364 項通過；Python 編譯及 `git diff --check` 通過，測試暫存放 Downloads。
+  當次未呼叫摘要模型或探測五站；抓取器與相關性程式已核對與 HEAD 一致。
+- 本輪維持本機修改，未 commit、push 或部署，未改受追蹤資料快照。
+
+### 五站技術探測完成（2026-09-21）
+
+- 以唯讀 HTTP 實測首頁、robots、sitemap、RSS autodiscovery、常見 feed
+  路徑及實際 feed 項目；中間 JSON 報告存於 Downloads，沒有寫入 repo
+  或變更正式資料快照。
+- YunNEWS RSS 當次有未關閉 CDATA，恢復解析會產生亂碼；Look AI 與
+  Array 的 RSS 有效，但內容單位是日報／多事件合輯，Array 還混入 glossary。
+- AIReiter 只有英文 RSS；繁中頁存在但需 HTML 清單解析或路徑改寫，不符合本輪
+  RSS 優先的最小維護方向。TheAI RSS 有日期、摘要、文章 tag 與離散 URL，
+  技術結構最可用。
+- 本階段沒有新增、刪除或啟用來源，也沒有修改抓取器。
+
+### 五站文章品質、成本與重疊評估完成（2026-09-21）
+
+- 額度中斷後先更新中繼資料：17 份既有 JSON 均可解析，90 個抽樣文章頁
+  均為 HTTP 200；四站抽樣仍吻合目前 feed。線上 archive 更新為 8,723 筆，
+  14 日對照窗口為 3,574 筆。整合報告存於 Downloads 的
+  `ai-news-radar-source-evaluation-20260921.json`。
+- YunNEWS 除破損 RSS 外有免金鑰公開 REST API；最新 20 則仍有 10 則原始
+  URL 已存在 archive，且 16 則為 `reported`、2 則 `unverified`。採用成本低，
+  只適合低量 watchlist；排除 `unverified`，連回原始發布者，且不增加獨立
+  佐證票數。
+- AIReiter 英文 RSS 的引用透明度尚可，但 20 篇只有約 5 篇是明確近期新聞，
+  其餘多為價格、評測、比較、教學或 SEO 題材。繁中 `/tw/blog` 清單可一頁
+  取得文章卡片，但 20 個同 slug 頁面有 2 篇仍是英文；成本與新聞增益不相稱，
+  本輪不接入。
+- Look AI 的內容與外部引用品質佳，但一頁含 6–8 個事件，RSS 只有整期日報；
+  先作缺漏對照而不接入。Array 最新 20 篇混有 6 篇 glossary，新聞日報又
+  缺少逐則原始新聞連結，判定不接入。
+- TheAI 的 60 篇 feed 中只有 6 篇 `/blog/`，其中 4 篇精確標為 `AI 時事`、
+  2 篇為 `時事評論`。實作只取 `/blog/` 且精確 `AI 時事`，不傳遞 tag 到
+  公開 schema，不納入評論、工具、評比、教學或企業軟文。
+- 已完成五站文章品質、接入成本與重疊評估，下一階段是最小來源實作：
+  YunNEWS API 低量觀察源與 TheAI 精確新聞閘門；建議使用
+  GPT-5.6 Sol／Medium。其他三站不加入。
+
+### 最小來源實作完成（2026-09-21）
+
+- 新增 YunNEWS 公開 JSON API 任務；只接受 `confirmed`／`reported`、三日內、
+  有效外部原始 URL 的項目，單輪及讀者窗口最多 5 則。讀者來源固定標為
+  YunNEWS，避免把 AI 聚合摘要誤認為原發布者文字；上游來源與信心只作
+  解析期私有資訊，不擴張公開 schema。YunNEWS 為 watchlist rank 6，合併
+  故事時不增加獨立佐證票數。
+- 新增 TheAI 獨立健康任務，但資料沿用 `tw_media` 讀者分組；只接受七日內、
+  `/blog/` 且 tag 精確為 `AI 時事` 的文章，單輪及讀者窗口最多 4 則。
+  TheAI 發布者級 tier 為 watchlist rank 6；評論、工具、評比、教學、企業
+  應用與其他 tag 均不進入。
+- 有效來源若暫時沒有符合條件的文章會回報健康的零項結果；介面或解析失敗
+  才累計來源故障。AIReiter、Look AI、Array 未加入任何抓取任務。
+- 完整暫存抓取寫入 `/private/tmp/ai-news-radar-validation-final`：TheAI 4 則、
+  YunNEWS 5 則，兩個健康任務皆成功；24 小時結果經既有時間窗、相關性與
+  去重後保留 YunNEWS 2 則，TheAI 4 則因較舊只進 archive。公開輸出沒有
+  `tags`、`article_categories`、內部信心或上游來源欄位。
+- 已完成最小來源實作與暫存輸出驗證，下一階段是最終範圍與回歸複核；
+  建議使用 GPT-6 Astra／High。
+
+### 最終範圍與回歸複核完成（2026-09-21）
+
+- 最終程式範圍只有兩個來源局部解析器、各自健康任務、低量上限、watchlist
+  tier 與 YunNEWS 非獨立佐證規則。AIReiter、Look AI、Array 沒有來源常數、
+  任務或解析器；沒有新增編輯／寫作流程。
+- 未修改 `data/`、`feeds/`、`.github/`、前端或既有公開資料 schema；完整抓取
+  只寫入 `/private/tmp`。先前保留的摘要 prompt v2 與資安新聞誤判回歸仍是
+  本輪其餘兩項程式修改。
+- 完整測試 370 項通過；Python 編譯、`node --check assets/app.js` 與
+  `git diff --check` 通過。未 commit、push 或部署。
+- 已完成最終範圍與回歸複核，下一階段是使用者審閱本機差異；本次原先
+  同意的最終複核建議為 GPT-6 Astra／High，現已完成。
+
 ## 2026-09-12 來源品質分級、同源去重與時間閘門
 
 - 以 2026-09-12 線上 21 天 archive 重算來源品質。iThome（133 筆、

@@ -207,6 +207,34 @@ OFFICIAL_AI_FEEDS: tuple[dict[str, str], ...] = (
         "include_keywords": "ai",
     },
 )
+ADMITTED_SOURCE_FEEDS: dict[str, dict[str, Any]] = {
+    "mistral_news": {
+        "title": "Mistral News",
+        "xml_url": "https://mistral.ai/news/rss",
+        "html_url": "https://mistral.ai/news/",
+        "allowed_host": "mistral.ai",
+        "selection": "mistral_announcements",
+        "max_entries": 8,
+    },
+    "mcp_blog": {
+        "title": "MCP Blog",
+        "xml_url": "https://blog.modelcontextprotocol.io/index.xml",
+        "html_url": "https://blog.modelcontextprotocol.io/",
+        "allowed_host": "blog.modelcontextprotocol.io",
+        "selection": "mcp_announcements",
+        "max_entries": 6,
+    },
+    "arc_prize": {
+        "title": "ARC Prize",
+        "xml_url": "https://arcprize.org/feed.xml",
+        "html_url": "https://arcprize.org/",
+        "allowed_host": "arcprize.org",
+        "site_id": "arc_prize",
+        "site_name": "ARC Prize",
+        "selection": "arc_benchmarks",
+        "max_entries": 6,
+    },
+}
 OFFICIAL_AI_MAX_AGE_DAYS = 45
 TENCENT_NEWSROOM_URL = "https://www.tencent.com/newsroom/all-news/"
 CURATED_AI_MEDIA_MAX_AGE_DAYS = 30
@@ -1251,6 +1279,13 @@ def business_event_score(item: dict[str, Any]) -> list[str]:
             if _model_release_title_cooccurs(title):
                 hits.append(category)
             continue
+        if category == "benchmark" and str(item.get("site_id") or "") == "arc_prize":
+            # ARC Prize's admitted feed contains benchmark announcements and
+            # results, whose titles often use the ARC-AGI name without the
+            # generic word "benchmark".
+            if admitted_feed_entry_allowed("arc_benchmarks", title, summary):
+                hits.append(category)
+            continue
         matched_kws = [kw for kw in keywords if _business_keyword_matches(kw, haystack)]
         matched = bool(matched_kws)
         if category == "market" and not matched:
@@ -1698,13 +1733,32 @@ def parse_openai_codex_changelog_items(page_html: str, now: datetime) -> list[Ra
     return out
 
 
-def fetch_feed_as_official_items(
+def admitted_feed_entry_allowed(selection: str, title: str, summary: str) -> bool:
+    if selection == "mistral_announcements":
+        # Mistral also publishes customer case studies and usage guides.
+        return not re.search(r"\b(how to|tutorial|guide|case study)\b", title, re.I) and not re.search(
+            r"\b(learn how|case study|step-by-step)\b", summary, re.I
+        )
+    if selection == "mcp_announcements":
+        return bool(re.search(
+            r"\b(roadmap|specification|sdks?|release|maintainer|foundation|adopting|seps?|mcp apps|mcp bundle)\b",
+            title, re.I,
+        ))
+    if selection == "arc_benchmarks":
+        return bool(re.search(
+            r"\b(arc-agi(?:-\d+)?|benchmark|results?|performance|tested|verified|milestone prize)\b",
+            title, re.I,
+        )) and not bool(re.search(r"\b(policy|recommendations?|donations?)\b", title, re.I))
+    return True
+
+
+def fetch_feed_as_source_items(
     session: requests.Session,
-    feed: dict[str, str],
+    feed: dict[str, Any],
     now: datetime,
 ) -> list[RawItem]:
-    site_id = "official_ai"
-    site_name = "Official AI Updates"
+    site_id = str(feed.get("site_id") or "official_ai")
+    site_name = str(feed.get("site_name") or "Official AI Updates")
     feed_url = feed["xml_url"]
     feed_title = feed["title"]
 
@@ -1723,8 +1777,12 @@ def fetch_feed_as_official_items(
     if feedparser is not None:
         parsed = feedparser.parse(resp.content)
         entries = list(parsed.entries)
+        if feed.get("selection") and parsed.bozo:
+            raise ValueError(f"Malformed feed: {feed_url}: {parsed.bozo_exception}")
     else:
         entries = parse_feed_entries_via_xml(resp.content)
+    if feed.get("selection") and not entries:
+        raise ValueError(f"No parseable feed entries: {feed_url}")
 
     out: list[RawItem] = []
     include_keywords = [
@@ -1732,21 +1790,28 @@ def fetch_feed_as_official_items(
         for keyword in str(feed.get("include_keywords") or "").split(",")
         if keyword.strip()
     ]
+    valid_source_entries = 0
     for entry in entries:
         title = str(entry.get("title", "")).strip()
         link = str(entry.get("link", "")).strip()
         if not title or not link:
             continue
-        if include_keywords:
-            haystack = f"{title} {link}".lower()
-            if not any(_feed_keyword_matches(keyword, haystack) for keyword in include_keywords):
-                continue
+        if feed.get("allowed_host") and urlparse(link).hostname != feed["allowed_host"]:
+            continue
         published = (
             parse_date_any(entry.get("published"), now)
             or parse_date_any(entry.get("updated"), now)
             or parse_date_any(entry.get("pubDate"), now)
         )
         if not published:
+            continue
+        valid_source_entries += 1
+        if include_keywords:
+            haystack = f"{title} {link}".lower()
+            if not any(_feed_keyword_matches(keyword, haystack) for keyword in include_keywords):
+                continue
+        summary = feed_entry_summary(entry)
+        if not admitted_feed_entry_allowed(str(feed.get("selection") or ""), title, summary):
             continue
         if published < now - timedelta(days=OFFICIAL_AI_MAX_AGE_DAYS):
             continue
@@ -1762,10 +1827,15 @@ def fetch_feed_as_official_items(
                 meta={
                     "feed_url": feed_url,
                     "feed_home": feed.get("html_url") or "",
-                    "summary": feed_entry_summary(entry),
+                    "summary": summary,
                 },
             )
         )
+        if feed.get("max_entries") and len(out) >= int(feed["max_entries"]):
+            break
+
+    if feed.get("selection") and not valid_source_entries:
+        raise ValueError(f"No dated first-party entries: {feed_url}")
 
     return out
 
@@ -2097,7 +2167,7 @@ def fetch_official_ai_updates(session: requests.Session, now: datetime) -> list[
 
     for feed in OFFICIAL_AI_FEEDS:
         try:
-            out.extend(fetch_feed_as_official_items(session, feed, now))
+            out.extend(fetch_feed_as_source_items(session, feed, now))
         except Exception:
             continue
 
@@ -2126,6 +2196,18 @@ def fetch_official_ai_updates(session: requests.Session, now: datetime) -> list[
         raise ValueError("No official AI update sources returned items")
 
     return out
+
+
+def fetch_mistral_news(session: requests.Session, now: datetime) -> list[RawItem]:
+    return fetch_feed_as_source_items(session, ADMITTED_SOURCE_FEEDS["mistral_news"], now)
+
+
+def fetch_mcp_blog(session: requests.Session, now: datetime) -> list[RawItem]:
+    return fetch_feed_as_source_items(session, ADMITTED_SOURCE_FEEDS["mcp_blog"], now)
+
+
+def fetch_arc_prize(session: requests.Session, now: datetime) -> list[RawItem]:
+    return fetch_feed_as_source_items(session, ADMITTED_SOURCE_FEEDS["arc_prize"], now)
 
 
 def fetch_tw_media(session: requests.Session, now: datetime) -> list[RawItem]:
@@ -2369,6 +2451,9 @@ def fetch_aibase_with_status(
 def collect_all(session: requests.Session, now: datetime) -> tuple[list[RawItem], list[dict[str, Any]]]:
     tasks = [
         ("official_ai", "Official AI Updates", fetch_official_ai_updates),
+        ("mistral_news", "Mistral News", fetch_mistral_news),
+        ("mcp_blog", "MCP Blog", fetch_mcp_blog),
+        ("arc_prize", "ARC Prize", fetch_arc_prize),
         ("curated_media", "精選媒體", fetch_curated_ai_media),
         ("llm_stats_models", "LLM Stats 模型查漏", fetch_llm_stats_model_releases),
         ("llm_rumors", "LLM Rumors 模型分析", fetch_llm_rumors),
@@ -3198,6 +3283,7 @@ def is_within_reader_window(record: dict[str, Any], now: datetime, window_hours:
 
 SOURCE_TIER_BY_SITE: dict[str, tuple[str, str, int]] = {
     "official_ai": ("official", "官方一手源", 0),
+    "arc_prize": ("benchmark", "評測第三方", 2),
     "curated_media": ("ai_media", "精選AI媒體", 2),
     # Legacy records may briefly retain this ID; their effective reader tier
     # must match the curated-media destination.
@@ -3229,6 +3315,7 @@ SOURCE_TIER_BY_PUBLISHER: dict[tuple[str, str], tuple[str, str, int]] = {
 
 SOURCE_TIER_IMPORTANCE = {
     "official": 1.0,
+    "benchmark": 0.58,
     "ai_vertical": 0.78,
     "professional_media": 0.7,
     "ai_media": 0.58,
@@ -6571,6 +6658,8 @@ def _llm_radar_model_verification(record: dict[str, Any]) -> tuple[str, str]:
     site_id = str(record.get("site_id") or "")
     if site_id == "official_ai":
         return "official", "官方公告"
+    if site_id == "arc_prize":
+        return "reported", "第三方評測"
     if site_id == "llm_stats_models":
         return "tracked", "模型追蹤"
     return "reported", "媒體報導"

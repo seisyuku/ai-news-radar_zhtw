@@ -197,6 +197,22 @@ class AiRelevanceScoringTests(unittest.TestCase):
         self.assertTrue(result["is_ai_related"])
         self.assertNotEqual(result["reason"], "tutorial_title_pattern")
 
+    def test_security_news_with_remediation_steps_remains_eligible(self):
+        # 合成案例：附補救步驟的資安新聞，不能只因步驟文字而當作教學。
+        rec = {
+            "site_id": "opmlrss",
+            "source": "Example News",
+            "title": "OpenAI 公布帳號安全事件調查",
+            "url": "https://example.com/news/security-fixture",
+            "summary": "官方說明受影響使用者的處理程序：步驟一：登入安全中心。"
+                       "步驟二：點選撤銷憑證。事件仍在調查中。",
+        }
+        self.assertTrue(score_ai_relevance(rec)["is_ai_related"])
+        rec["title"] = "OpenAI 帳號安全設定使用教學"
+        result = score_ai_relevance(rec)
+        self.assertFalse(result["is_ai_related"])
+        self.assertEqual(result["reason"], "tutorial_title_pattern")
+
     def test_adds_public_debug_fields(self):
         rec = {
             "site_id": "official_ai",

@@ -89,6 +89,7 @@ const llmRadarMetaEl = document.getElementById("llmRadarMeta");
 
 const SOURCE_KINDS = {
   official_ai: { label: "官方", tone: "official" },
+  arc_prize: { label: "評測第三方", tone: "research" },
   curated_media: { label: "精選媒體", tone: "aihub" },
   xapi: { label: "X API", tone: "builders" },
   socialdata_x: { label: "X 搜尋", tone: "builders" },
@@ -387,6 +388,7 @@ const READER_PUBLISHERS = [
   ["Hugging Face", "original", ["huggingface.co"], ["Hugging Face Blog"]],
   ["GitHub", "original", ["github.blog"], ["GitHub AI & ML", "GitHub Changelog"]],
   ["Thinking Machines Lab", "original", ["thinkingmachines.ai"], []],
+  ["ARC Prize", "original", ["arcprize.org"], []],
   ["Tencent", "original", ["tencent.com"], ["Tencent Newsroom"]],
   ["Meta", "original", ["ai.meta.com", "about.fb.com"], []],
   ["DeepSeek", "original", ["deepseek.com"], []],
@@ -647,7 +649,7 @@ function isHighPriorityItem(item) {
 
 function isCuratedItem(item) {
   const siteId = readerSiteId(item);
-  return siteId === "official_ai" || siteId === "curated_media" || item.source_tier === "official" || item.source_tier === "curated";
+  return siteId === "official_ai" || siteId === "curated_media" || item.source_tier === "official" || item.source_tier === "benchmark" || item.source_tier === "curated";
 }
 
 function itemSourceType(item) {

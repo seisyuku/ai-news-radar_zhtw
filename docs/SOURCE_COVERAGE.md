@@ -59,6 +59,58 @@ private forks because they need credentials, bridges, or ongoing maintenance.
 
 ## Source Selection Rules
 
+### 2026-09-22 五站決策：僅供未來人工查漏
+
+依使用者審閱結論，以下五站統一保留為未來檢查內容缺漏的候選參考。
+均不接入排程抓取、新聞列表、來源健康計數或重點排序；也沒有自動查漏工作。
+
+| 候選參考 | 入口 | 本次不接入原因 |
+| --- | --- | --- |
+| YunNEWS | https://news.yuhuanstudio.com/ | 彙整新聞格式不利現有排版，接入收益不值得維護成本。 |
+| TheAI學院 | https://www.theai.tw/ | 文章品質與類型落差大，不維護專用篩選。 |
+| AIReiter | https://aireiter.com/tw/ | 英文 RSS 新聞比例低，繁中頁需額外解析及語言檢查。 |
+| Look AI 一分鐘 | https://lukeverstopia.com/ | 整期多事件日報，沒有單則新聞 feed。 |
+| Array 報報 | https://ai-5min-news.israynotarray.dev/ | 日報混 glossary，逐則原始出處不足。 |
+
+9/21 的 RSS/API、文章品質、重疊及成本驗證保留為歷史證據；當時的
+YunNEWS／TheAI 試行建議已被本次決策取代，兩站試行程式及專用測試已撤回。
+完整歸檔（18 份 JSON、校驗碼、撤回前差異及文件）在本機：
+`/Users/lordmi/Downloads/ai-news-radar-source-review-20260922/`。
+保留摘要歸因限制與資安新聞誤判回歸，不擴張 README 產品邊界。
+
+YunNEWS 上游來源另做一次公開資料盤點與逐站探測：使用公開歷期文章的
+原始連結與 corroborations，去除片段及已知同發布者子網域重複。
+它不等同 YunNEWS 的私有完整訂閱設定；媒體、社群、聚合站也不因被列出
+就成為官方一手消息。本輪只驗證既有 RSS/Atom／公開資料接法，不自動新增來源。
+
+本輪結果：60 個公開期別、2,486 則文章、195 個出處網域；93 個 feed
+通過兩次欄位解析，4 個為第三方搜尋轉接、4 個有解析警告、85 個未找到
+有效標準 feed、8 個因社群／橋接邊界排除，另 1 個 Anthropic 既有靜態
+解析器成功。未找到 feed 僅代表本次有限探測結果，不是永久不支援。
+完整逐站列表與證據見歸檔中的 `sources-verified.csv`、`REPORT.md`。
+
+2026-09-23 已完成下列直接 feed 的欄位、45 日文章及線上 archive 對照。
+Mistral、MCP Blog 與 ARC Prize 已依准入範圍註冊於本機生成任務，尚未部署；完整逐站證據存於本機
+`/Users/lordmi/Downloads/ai-news-radar-source-review-20260923/ADMISSION_REVIEW.md`。
+
+| 出處 | 公開 Feed | 目前狀態 |
+| --- | --- | --- |
+| Mistral | https://mistral.ai/news/rss | 本地已接入官方公告，尚未部署；排除明確客戶案例／教學，單輪上限 8 則。 |
+| MCP Blog | https://blog.modelcontextprotocol.io/index.xml | 本地已接入官方協定公告，尚未部署；只收規格、SDK、roadmap 等發布與治理變更，單輪上限 6 則。 |
+| ARC Prize | https://arcprize.org/feed.xml | 本地已接入第三方評測，尚未部署；只收基準與結果，來源與模型雷達均不標為模型廠商官方公告，單輪上限 6 則。 |
+| LM Studio | https://lmstudio.ai/rss.xml | 暫不准入；教學／操作文章混入。 |
+| Cloudflare | https://blog.cloudflare.com/rss/ | 暫不准入；一般基建與工程文章比例高。 |
+| Modular | https://www.modular.com/blog/rss.xml | 暫不准入；既有 AI 閘門未辨識近期公告，專用例外成本高。 |
+| Zed | https://zed.dev/blog.rss | 暫不准入；一般編輯器與使用內容混入。 |
+| Google Antigravity | https://antigravity.google/blog/rss.xml | 暫不准入；無摘要、部分文章不符範圍，與既有 Google 來源可能重疊。 |
+
+八站入口重取均成功，標題、連結與日期完整；45 日共 51 則，與 9/21
+線上 8,723 筆 archive 無相同原文網址，但 Mistral、ARC Prize、Cloudflare
+的部分事件已有媒體報導，不能把網址差異算作全新事件。這一輪不能證明
+Actions 長期網路穩定；低頻來源沒有 24h 文章時自然為零，不擴張內容邊界。
+三站各有獨立來源健康任務；有效 feed 暫無近期合格文章記為健康零則，
+格式、必要欄位與網路錯誤則可見為失敗。只採各自網站的原文連結，不使用第三方轉接。
+
 Add a source only when it passes most of these checks:
 
 - Publishes AI, model, developer tool, or tech industry updates with low noise.
@@ -80,10 +132,15 @@ The public site should directly track these high-signal official sources:
 - Hugging Face Blog RSS
 - GitHub AI & ML RSS
 - GitHub Changelog RSS
+- Mistral News RSS（已排除明確客戶案例／教學）
+- MCP Blog RSS（協定公告、規格與 SDK 發布）
 
 Aggregator sites may already surface some of these updates, but they are not
 guaranteed to be complete or timely. Keep these official sources as a stable
 baseline, then let the aggregator layer add breadth.
+
+ARC Prize 另以 `arc_prize` 記錄第三方評測公告；其來源層級與模型雷達標示
+不同於 `official_ai`，評測文章可沿用既有「評測基準」事件徽章。
 
 ## Built-In Curated Feeds
 
