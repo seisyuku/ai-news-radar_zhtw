@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "AWS Elemental MediaTailor 变现功能新增广告响应挂钩",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/aws-elemental-mediatailor-functions-ad-response-hooks",
-  "last_seen_at": "2026-09-24T16:05:35.537073Z",
+  "last_seen_at": "2026-09-24T16:35:37.893063Z",
   "summary": "AWS Elemental MediaTailor 现为变现功能新增了两个生命周期挂钩：广告决策服务器（ADS）响应后挂钩和清单插入前挂钩。MediaTailor 是一项视频服务，可对直播和点播流进行个性化处理并插入广告。变现功能可在广告个性化播放会话的指定节点执行客户定义的逻辑，从而无需在 MediaTailor 与 ADS 之间设置中间件层。 ADS 响应后挂钩在 MediaTailor 解析 ADS 响应并解析所有视频广告投放模板（VAST）封装后执行，此时广告尚未被选定和转码。客户可利用该挂钩，在主 ADS 返回的广告需求量不足以填满广告时段时调用备用广告源；移除内容或品牌政策不允许的广告；以及添加来自自身营销系统的自有广告或促销内容。清单插入前挂钩在 MediaTailor 将广告单元返回给观众前的最后一个节点运行，并通过单次调用接收所有新个性化的广告时段。客户将其用作对即将播放内容的最终检查，包括在广告时段无法通过其他方式填满时插入个性化占位画面。MediaTailor 控制台中的预构建配方为客户提供了针对上述每种使用案例的起点。这两个挂钩均采用“失效时开放”机制：若发生超时、表达式错误或资源限制，MediaTailor 将丢弃函数输出并继续执行默认广告插入，因此不会影响观众的播放体验。 这两个新挂钩已在所有提供 AWS Elemental MediaTailor 的 AWS 区域推出。如需了解更多信息，请参阅“AWS Elemental MediaTailor 用户指南”中的 变现功能 部分以及 MediaTailor 定价页面 。要开始使用，请登录 AWS Elemental MediaTailor 控制台 。"
 }
