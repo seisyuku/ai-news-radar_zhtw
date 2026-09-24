@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "AWS PCS 现支持自定义 GRES、硬件拓扑和 MIG",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/aws-pcs-gres-hardware-topology-mig",
-  "last_seen_at": "2026-09-24T09:05:37.217767Z",
+  "last_seen_at": "2026-09-24T09:14:44.561952Z",
   "summary": "AWS 并行计算服务（AWS PCS） 现已支持自定义通用资源（GRES）设置和硬件拓扑，并新增对 Slurm 26.05 版本的支持。这些功能使您能够更精细地控制 Slurm 对集群硬件的识别和调度方式，从而优化高性能计算（HPC）和机器学习工作负载的任务置放。此外，这些功能还支持 NVIDIA 多实例 GPU（MIG），该技术可将单个 GPU 划分为多个相互隔离的实例，由 Slurm 独立调度。 借助 Slurm 26.05，AWS PCS 默认会配置硬件拓扑，将每个节点的 NUMA 域视为 Slurm 套接字。它还会在 GPU 节点上自动检测并配置 GPU 核心亲和性以及 GPU 间互连。紧密耦合的 MPI 作业现在可以利用套接字亲和性来优化排名放置，GPU 作业则会落在其分配 GPU 所在的核心上。自定义的 Slurm 和 GRES 设置可在您需要时提供更大的灵活性。您可以声明额外的加速器、使用 MIG 对 GPU 进行分区、将 L3 缓存域用作套接字，或覆盖 AWS PCS 的默认设置。 AWS PCS 是一项托管服务，可简化在 AWS 上使用 Slurm 运行和扩展高性能计算（HPC）工作负载的过程。您可以构建集成了计算、存储、联网和可视化工具的完整弹性环境，该服务负责管理集群更新并提供内置的可观测性。 这些功能已在提供 AWS PCS 服务的所有 AWS 区域推出。Slurm 26.05 还带来了更广泛的调度和可观测性改进，具体内容详见 Slurm 26.05 发行说明 。如需了解更多信息，请参阅“AWS PCS 用户指南”中的 配置自定义 GRES 设置 、 配置硬件拓扑 和 配置多实例 GPU（MIG） 章节。"
 }
