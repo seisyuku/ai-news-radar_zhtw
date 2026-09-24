@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "AWS Elemental MediaTailor 现已支持低延迟 HLS 广告插入",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/aws-elemental-mediatailor-low-latency-hls-ad-insertion",
-  "last_seen_at": "2026-09-24T00:35:32.288556Z",
+  "last_seen_at": "2026-09-24T01:05:42.481169Z",
   "summary": "AWS Elemental MediaTailor 现已支持使用 HLS Interstitials 实现低延迟 HTTP Live Streaming（LL-HLS）广告插入。MediaTailor 是一项面向视频提供商的频道组装与个性化广告插入服务，可对直播流、线性频道和点播视频内容进行变现。本次发布后，视频提供商可以在低延迟直播流中插入广告，同时维持观众所需的低时延体验。 LL-HLS 通过传输部分分段并允许播放器将播放列表请求保持开启状态，直至下一个分段就绪，以此降低直播延迟；这要求媒体播放列表可在内容分发网络（CDN）边缘上缓存。MediaTailor 借助 HLS Interstitials​ 实现这一支持，以独立播放列表的形式引用广告，而不是将广告拼入每位观众的媒体播放列表。每位观众均收到同一个可缓存的播放列表，因此 MediaTailor 能够大规模维持低延迟播放，并将广告决策服务的调用移出清单请求路径。该功能已在拥有数百万观看量的直播体育赛事的生产环境中得到验证，非常适合直播体育、新闻、博彩投注、观影派对以及各类对延迟有硬性产品要求的互动直播场景。 低延迟 HLS 广告插入已在提供 AWS Elemental MediaTailor 的所有 AWS 区域推出。要了解更多信息，请访问 AWS Elemental MediaTailor 产品页面 和 MediaTailor 服务器引导式广告插入文档 。要开始使用，请登录 MediaTailor 控制台 。"
 }
