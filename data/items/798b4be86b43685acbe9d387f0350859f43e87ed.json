@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "Qwen3.6-35B-A3B-NVFP4 和 Wan2.1-T2V-1.3B-Diffusers 模型现已在 Amazon SageMaker JumpStart 中推出",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/01/qwen3.6-35b-a3b-nvfp4-wan2.1-t2v-1.3B-diffusers-jumpstart",
-  "last_seen_at": "2026-09-24T04:35:33.789920Z",
+  "last_seen_at": "2026-09-24T05:05:39.151577Z",
   "summary": "NVIDIA 的 Qwen3.6-35B-A3B-NVFP4 和 Alibaba 的 Wan2.1-T2V-1.3B-Diffusers 模型现已在 Amazon SageMaker JumpStart 中推出，为 AWS 客户提供了更丰富的基础模型选择。这两款模型带来了涵盖“具备长上下文推理能力的智能体编码”与“轻量级文生视频生成”的专项能力，使客户能够在 AWS 基础设施上部署高性能、可扩展的人工智能解决方案。 这些模型利用专业功能应对不同的企业人工智能挑战： Qwen3.6-35B-A3B-NVFP4 是 Alibaba 的 Qwen3.6-35B-A3Bis 的 NVIDIA 量化变体，已针对 智能体编码、多模态推理和长上下文理解 进行了优化。这款混合专家模型的总参数量为 350 亿，每个 token 仅激活 30 亿参数（即从 256 个专家中激活 8 个），支持 26.2 万 token 上下文窗口，并可借助 YaRN 缩放技术扩展至约 100 万 token。该模型通过 NVIDIA 的 ModelOpt 框架量化为 NVFP4，能够在多轮对话、多 token 预测以及面向多步骤智能体管道的工具调用场景下保持推理能力，而这一切都是在显著减少内存占用的前提下实现的。 Wan2.1-T2V-1.3B-Diffusers 在消费级硬件上的文生视频生成任务 中表现出色。这款 13 亿参数模型基于扩散 Transformer 范式构建，并采用全新视频变分自编码器（VAE），可根据文本提示生成高质量、符合物理规律的视频片段，且仅需 8.19 GB VRAM。在 RTX 4090 上，该模型约 4 分钟即可生成一段 5 秒的 480p 视频，这使其成为目前最易上手的开源视频生成模型之一。 借助 SageMaker JumpStart，客户只需点击几下即可部署这些模型中的任何一个，以解决其特定的人工智能使用案例。 要开始使用这些模型，请导航到 SageMaker 控制台中的 SageMaker JumpStart 模型目录，或使用 SageMaker Python SDK 将模型部署到您的 AWS 账户。有关在 SageMaker JumpStart 中部署和使用基础模型的更多信息，请参阅 Amazon SageMaker JumpStart 文档 。"
 }
