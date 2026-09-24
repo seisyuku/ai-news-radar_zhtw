@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "AWS Transfer Family 现在支持为网络负载均衡器（NLB）后面的 SFTP 服务器保留源 IP",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/transfer-family-sftp-source-ip-nlb",
-  "last_seen_at": "2026-09-24T14:45:32.316991Z",
+  "last_seen_at": "2026-09-24T15:35:32.370210Z",
   "summary": "现在，当您在使用 VPC 托管端点的 SFTP 服务器前放置网络负载均衡器（NLB）时，AWS Transfer Family 会使用代理协议 v2（PPv2）保留客户端的源 IP 地址。现在，当您使用自己的 NLB 时，您可以保留客户端源 IP 的可见性，用于基于 IP 的审计、访问控制和合规性审查。 以前，NLB 会使用自己的私有 IP 地址替换客户端的源 IP，因此 Transfer Family 日志和事件记录的是 NLB 的地址，而不是客户端的源 IP。由于 NLB 的私有 IP 是身份验证期间提供给您的自定义身份提供者的地址，因此您无法根据用户的真实源 IP 对其进行授权。此次发布后，您可以在 SFTP 服务器上启用源 IP 保留功能，以便保留客户端的源 IP。保留的源 IP 记录在您的日志和事件中，并在身份验证期间提供给您的自定义身份提供者。您可以通过控制台、CLI 或 API 在每台 Transfer Family 服务器上单独启用该功能。 SFTP 服务器的源 IP 保留功能已在所有 提供 AWS Transfer Family 的 AWS 区域 推出。要开始使用，请访问 AWS Transfer Family 控制台或使用 AWS CLI/SDK。要了解更多信息，请参阅 Transfer Family 用户指南 。"
 }
