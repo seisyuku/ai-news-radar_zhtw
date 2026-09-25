@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "AWS STS 简化会话令牌大小限制并新增会话令牌大小监控",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/aws-sts",
-  "last_seen_at": "2026-09-25T20:44:17.885152Z",
+  "last_seen_at": "2026-09-25T21:35:32.110409Z",
   "summary": "AWS Security Token Service（AWS STS）现对会话令牌实施统一的 4,096 字节大小限制。此前，STS 对会话令牌大小和传入参数（即内联策略、托管策略和会话标签）分别实施限制。STS 已取消这种区分，为更大规模的会话策略与会话标签组合提供更大的灵活性。 此外，STS 现在会返回响应元素，其中包含会话令牌的大小以及相对于令牌大小限制的利用率百分比。STS 会将这些值记录在 AWS CloudTrail 中，并在 Amazon CloudWatch 中发布相应的指标。一个新的可选 API 参数还允许您生成更大的会话令牌（上限为 4,096 字节），以测试您的应用程序和基础设施是否能够处理这些令牌。 这些功能已在所有商业 AWS 区域、AWS GovCloud（美国）区域以及 AWS European Sovereign Cloud 区域推出。 要了解更多信息，请参阅 AWS 安全博客文章 、 AWS IAM 用户指南 和 AWS STS API 参考 。"
 }
