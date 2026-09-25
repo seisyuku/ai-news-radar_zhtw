@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v2",
   "entries": {
+    "34f2a4202d7cad99f19d53516f6ac5767d52d0f2b49beda7e4714766f9cdf680": {
+      "summary": "Google Cloud 推出 GKE agentic migration，為具備內建治理功能的 AI 輔助外掛程式，用於 EKS 至 GKE 遷移。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-09-25T06:53:24.510987Z"
+    },
     "75bb03c203e5c4bd28db2ce25b87febe979987b7c7a572fb1bfc01f519a074af": {
       "summary": "GitHub 宣佈為 Copilot Business 與 Enterprise 推出新的全域預設政策，涵蓋一般可用功能與支援的用戶端能力，並提供 28 天的調整期間。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-09-08T14:06:42.142115Z"
-    },
-    "a8bd6276b37b88071accaf7c2c0b6f17deea8d815a66bdf6213e1621974684f7": {
-      "summary": "OpenAI 新聞指出，更強大且平價的 AI 可擴展個人與企業的工作能力，並使成長更具經濟效益。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-09-08T13:35:29.438115Z"
     }
   },
   "rejections": {
@@ -3915,6 +3915,14 @@
     "35e8aa43f2b0466c057e65b6ab647175c6ccc30a41b3dbcbac7fb15c78db21d9": {
       "reason": "validation_length",
       "created_at": "2026-09-25T05:05:36.768313Z"
+    },
+    "53479ac2b78ae5f4afb1dd9617f39fd03de97b070d566b809c18139816009aac": {
+      "reason": "validation_length",
+      "created_at": "2026-09-25T06:53:24.510987Z"
+    },
+    "a8e6cb6bec13eb1b100c1ce0cab746d8d77c5b0230f21a4785c74b5fb2b8d9d8": {
+      "reason": "insufficient_context",
+      "created_at": "2026-09-25T06:53:24.510987Z"
     }
   }
 }
