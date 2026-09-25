@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "AWS Batch 现在支持批量取消和终止作业",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/aws-batch-bulk-cancellation",
-  "last_seen_at": "2026-09-25T22:05:46.139869Z",
+  "last_seen_at": "2026-09-25T22:36:07.995051Z",
   "summary": "AWS Batch 现在支持批量取消和终止作业，使您能够通过一次 API 调用取消或终止多达 50 个作业。新的 CancelJobs API、TerminateJobs API 和 TerminateServiceJobs API 可降低管理大规模批处理工作负载的运营复杂性，使您能够一次性对一组作业执行操作，并在单个响应中获取每个作业的结果。此外，ListJobs 现在可返回 isCancelled 和 isTerminated 字段，ListServiceJobs 可返回 isTerminated 字段，这使您能够更轻松地跟踪作业的生命周期状态。 要开始使用，请调用 CancelJobs 来处理处于 SUBMITTED、PENDING 或 RUNNABLE 状态的作业，或者调用 TerminateJobs 和 TerminateServiceJobs 来处理处于任何状态（包括 STARTING 和 RUNNING 状态）的作业。所有三个 API 均支持最多 50 个作业 ID，并且均可处理单个作业和阵列作业。您可以通过 AWS CLI 或 AWS SDK 获取上述 API。 批量取消和终止作业功能已在提供 AWS Batch 的所有 AWS 区域 推出。有关更多信息，请参阅《AWS Batch API 参考指南》中的 CancelJobs 、 TerminateJobs 和 TerminateServiceJobs 页面。"
 }
