@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "新一代 AgentCore 运行时现已在 Amazon Bedrock AgentCore 中推出",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/new-agentcore-runtime-generally-available",
-  "last_seen_at": "2026-09-25T01:05:34.095911Z",
+  "last_seen_at": "2026-09-25T01:16:49.457716Z",
   "summary": "今天，AWS 宣布推出下一代 AgentCore 运行时 ，这是 Amazon Bedrock AgentCore 中的无服务器 microVM 计算。新运行时提供弹性内存管理，可在整个会话期间回收未使用的内存，因此您按实际用量付费，而不是按峰值付费；同时，无论容器映像大小或并发量如何，冷启动时间都保持稳定。您仍可沿用已经依赖的无服务器模式：无需预置、可缩容至零、硬件强制会话隔离，以及仅按实际使用量付费，而且现在成本更低、启动更快。 使用新运行时，每个会话都以较小且高效的内存配置起步。工作负载需要时会按需分配更多内存；不再使用的内存会被回收，而不是一直占用到会话结束。对于冷启动，新运行时会一次性准备代理环境并生成快照。每个新实例都从该快照还原，而不再重复完整启动流程，因此无论映像大小如何，启动时间都保持一致。在测试中，对于 200 MB 至 2 GB 的容器映像，新运行时的 P75 冷启动时间为 1.9 至 2.0 秒，而 V1 为 5.4–30 秒。 新的 AgentCore 运行时现已在以下区域推出：us-east-1、us-east-2、us-west-2、eu-west-1 和 ap-northeast-1。 要开始使用，请在创建或更新运行时时将 platformVersion 设置为 V2。 要了解更多信息，请访问 AgentCore 运行时文档 或 AWS 新闻博客 。有关定价详细信息，请访问 AgentCore 定价 。"
 }
