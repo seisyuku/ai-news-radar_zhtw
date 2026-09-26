@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v2",
   "entries": {
+    "dcac910923d133af34103159ff49f3f35276d139a5d9909a9cc63d04d5cb5ac7": {
+      "summary": "Google Deepmind 研究員 Robert O'Callahan 離職，稱 AI 當前變化速度過高，短期打造超級智慧 AI 是「本質上的不負責任」。他曾任職於晶片設計工具，認為該貢獻已無法自圓其說。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-09-26T02:04:02.065123Z"
+    },
     "0dadd504ed1e5010e33d1539c08ed60fa4f0648b6558c6c842ad57145c9c7286": {
       "summary": "GitHub 部落格文章介紹初學者如何利用 Copilot 應用程式的畫布功能，以英文描述介面需求，讓代理建構可即時使用與更新的自訂工作流程。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-09-09T14:36:06.994257Z"
-    },
-    "43a43ca0bad1193a353a52f125ed546d51687da16b69ba796ee2d11fe3ac5ee7": {
-      "summary": "Anthropic 科學家 Evan Hubinger 表示，未來十年內失調超智慧 AI 毀滅人類的機率超過百分之十。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-09-09T13:05:32.963669Z"
     }
   },
   "rejections": {
@@ -3920,10 +3920,6 @@
       "reason": "validation_length",
       "created_at": "2026-09-25T17:35:21.444465Z"
     },
-    "904ccb385b4c9a585e7fd66ddd276e40a54d1cd44f5a32b0237a7c8ce379c94e": {
-      "reason": "insufficient_context",
-      "created_at": "2026-09-25T19:35:33.583787Z"
-    },
     "4cfa9e89ea92f4a99501143d69f643dfa4a75208ce61089dcb6ec67a0180f5ae": {
       "reason": "insufficient_context",
       "created_at": "2026-09-25T20:05:39.221893Z"
@@ -3943,6 +3939,10 @@
     "25b1cfd82ade72a336cf0921fe1140a76e6b5aedace90188e06ffb5b64ced082": {
       "reason": "validation_length",
       "created_at": "2026-09-26T00:35:33.346452Z"
+    },
+    "904ccb385b4c9a585e7fd66ddd276e40a54d1cd44f5a32b0237a7c8ce379c94e": {
+      "reason": "validation_length",
+      "created_at": "2026-09-26T02:04:02.065123Z"
     }
   }
 }
