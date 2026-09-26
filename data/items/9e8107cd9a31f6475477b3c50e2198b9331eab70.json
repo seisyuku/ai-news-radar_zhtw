@@ -1,0 +1,12 @@
+{
+  "id": "9e8107cd9a31f6475477b3c50e2198b9331eab70",
+  "published_at": "2026-09-23T22:51:00Z",
+  "first_seen_at": "2026-09-26T20:05:34.928065Z",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "Amazon Kinesis Data Streams 宣布推出服务托管式分区键以简化数据摄取",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/kinesis/service-managed-partition-keys",
+  "last_seen_at": "2026-09-26T20:05:34.928065Z",
+  "summary": "Amazon Kinesis Data Streams 现在为“按需标准型”和“按需增强型”数据流提供服务托管式分区键支持，可在无需客户指定分区键发布数据的情况下，自动将记录分配到各个分片中。此功能简化了无需记录排序的工作负载的数据摄取流程，消除了热分区键，并缩短了流式工作负载投入生产的时间。 Amazon Kinesis Data Streams 是一项无服务器串流数据服务，可简化任何规模的数据流捕获、处理和存储。许多流式处理使用案例（如日志聚合、指标收集和物联网遥测）并不需要顺序保证，且能从预热容量带来的即时扩展中获益。此前，客户会生成随机分区键（如 UUID）来分配数据，但随机分区仍可能导致各分片之间的吞吐量不均衡，以致于某些分区键出现节流，即使数据流具有足够的聚合容量也是如此。通过启用服务托管式分区键，客户在按需模式下向流发布数据时，无需再指定分区键。该服务会根据可用的预热容量自动分发记录，使客户无需维护任何分发逻辑，即可实现每秒数数十亿字节的扩展能力。希望在不指定分区键的情况下发送记录的客户只需升级到最新的 AWS SDK 或 Kinesis Producer Library（KPL）版本，即可享受此功能。 Amazon Kinesis Data Streams 的服务托管式分区键现已在所有 AWS 商业区域推出，无需额外费用。要开始使用，请访问 Amazon Kinesis Data Streams 文档（ https://aws.amazon.com/kinesis ）。"
+}
