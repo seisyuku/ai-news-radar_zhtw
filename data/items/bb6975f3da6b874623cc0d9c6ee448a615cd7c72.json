@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "Amazon MQ 现已支持 RabbitMQ 4.3",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/amazon-mq-rabbitmq-43",
-  "last_seen_at": "2026-09-26T05:35:32.669448Z",
+  "last_seen_at": "2026-09-26T06:05:47.704776Z",
   "summary": "Amazon MQ 现已支持 RabbitMQ 版本 4.3，该版本新增多项仲裁队列功能增强，例如压缩、优先级层级扩展、原生延迟重试和消费者超时优雅处理。 RabbitMQ 4.3 还包括针对内存管理的各种错误修复和性能改进。 RabbitMQ 4.3 上的仲裁队列可执行压缩以减少队列的磁盘占用，并且原生支持 32 个严格优先级层级；而早期版本的 RabbitMQ 仅支持 2 个相对优先级层级。仲裁队列现在可自动将失败的消息暂时搁置，并在设定的冷却延迟结束后重试发送。消费者超时已从全局协议通道迁移至仲裁队列，并且现在可以按具体协议进行配置。 消费者超时和延迟重试都可以由 RabbitMQ 策略配置和管理。RabbitMQ 4.3 不再支持临时非独占队列、全局 QoS 以及经典队列 v1 存储。此外，消费者超时也不适用于经典队列。 要开始在 Amazon MQ 上使用 RabbitMQ 4.3，只需在通过 AWS 管理控制台、AWS CLI 或 AWS SDK 使用 m7g 实例类型创建新代理时选择 RabbitMQ 4.3 即可。Amazon MQ 会自动管理您的 RabbitMQ 4.3 代理的补丁版本升级，因此您只需要指定主要和次要版本即可。要了解有关 RabbitMQ 4.3 中变更的更多信息，请参阅 Amazon MQ 发行说明 和 Amazon MQ 开发人员指南 。这一版本现已在目前提供 Amazon MQ m7g 类型实例的所有 区域 推出。"
 }
