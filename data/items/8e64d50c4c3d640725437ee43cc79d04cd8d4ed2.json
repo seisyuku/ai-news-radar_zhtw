@@ -7,6 +7,6 @@
   "source": "Simon Willison",
   "title": "llm 0.36",
   "url": "https://simonwillison.net/2026/Sep/22/llm",
-  "last_seen_at": "2026-09-26T02:35:46.018897Z",
+  "last_seen_at": "2026-09-26T03:05:33.839393Z",
   "summary": "Release: llm 0.36 New OpenAI models: gpt-6-sol for GPT-6 Sol and gpt-6-luna for GPT-6 Luna . #1702 Model plugins can now declare supports_conversation = False for models that only accept single-turn prompts. LLM raises llm.ConversationNotSupported when these models receive assistant or tool history, and llm chat rejects them before starting a session. See Models that do not support conversations . The first plugin to use this is llm-typesafe . #1692 Reasoning traces in the Markdown output of llm logs are now wrapped in <details><summary> tags. #1701 Plus bug fixes from five new contributors . Tags: openai , llm"
 }
