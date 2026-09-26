@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v2",
   "entries": {
+    "510481371110d82183f17d070f9b3e9c140cde4401d18b5776964945749b3c53": {
+      "summary": "據路透社報導，美中在習近平訪問期間同意進行人工智慧對話，並對300億美元的商品進行關稅削減。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-09-26T19:28:22.421814Z"
+    },
     "f3f9ed29f658e5c0b8c9a7e9a95dd8542601b092c1b98164fc04f19830699524": {
       "summary": "中國廉價且開源的AI模型現已驅動全球多數開發者流量，引發華盛頓擔憂。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-09-10T06:05:31.555106Z"
-    },
-    "47fc071f5980e4b8bf14e604b7189cc9b2b58e61fe44e0a33e5c13f1cfdd4573": {
-      "summary": "財躍星辰與上海交大開源8B參數金融推理模型Alpha-R1，採用語義門控推理與兩階段強化學習框架，在資產配置等金融投研場景的樣本外評測中領先通用大模型。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-09-10T06:05:31.555106Z"
     }
   },
   "rejections": {
@@ -3971,6 +3971,10 @@
     "ebefa1edd30dcf0c48c095a6fbe2d098d18d8ef1f44d89de61ea1af94d388229": {
       "reason": "insufficient_context",
       "created_at": "2026-09-26T19:06:07.214902Z"
+    },
+    "7a59bd21d4db6cf92537c35268045f0344db9a40a220ea220f981ef5d3b329eb": {
+      "reason": "validation_length",
+      "created_at": "2026-09-26T19:28:22.421814Z"
     }
   }
 }
