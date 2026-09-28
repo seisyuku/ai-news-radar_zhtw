@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v2",
   "entries": {
+    "a6fe0d8dc3b8546b23864725d3ad3046c168b4689ef22c5429265b7fbee8b223": {
+      "summary": "Nvidia 週一宣佈推出 Open Agent Safety Platform，該平臺旨在監控並隔離試圖越界的 AI 代理，Nvidia 稱其可在毫秒內完成此動作。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-09-28T14:06:00.610867Z"
+    },
     "c7c7dd1809757a2e1906dddad0913df28f90c281b5647b35c254b9118c4c1042": {
       "summary": "Sam Altman 表示，OpenAI 在處理安全漏洞方面未達預期速度，夏季進一步事件導致其再次暫停訓練最強大的模型。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-09-12T16:35:32.336118Z"
-    },
-    "aaca6a5c3dd9bc165c5ac3de3bc1db3c0f5895c5e22b9f4727aeff7b65394cac": {
-      "summary": "GPT-6 Astra在StationeryBench機器人基準測試中，以雙臂機器人完成100項任務中的7項，而競爭對手MolmoAct2未能完成任何一項。研究人員稱此為空間推理的「階躍式變化」。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-09-12T14:36:04.509239Z"
     }
   },
   "rejections": {
@@ -4000,10 +4000,6 @@
       "reason": "insufficient_context",
       "created_at": "2026-09-28T00:05:30.324585Z"
     },
-    "16ee442102c206dc6c6edbca542369811f99300b0edba4f10b0e28678177dd79": {
-      "reason": "insufficient_context",
-      "created_at": "2026-09-28T07:37:33.292353Z"
-    },
     "27c915634e412fb8b9675327db3af4ce7060e31ac12bbfb631f14af3951915d4": {
       "reason": "insufficient_context",
       "created_at": "2026-09-28T11:05:40.284813Z"
@@ -4019,6 +4015,10 @@
     "4fcee6ff6737f703df6a154cf78194f9547157bf623a359b74efa12a246c6e25": {
       "reason": "validation_length",
       "created_at": "2026-09-28T12:35:37.910949Z"
+    },
+    "16ee442102c206dc6c6edbca542369811f99300b0edba4f10b0e28678177dd79": {
+      "reason": "insufficient_context",
+      "created_at": "2026-09-28T14:06:00.610867Z"
     }
   }
 }
