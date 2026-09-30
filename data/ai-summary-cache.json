@@ -2,6 +2,18 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v2",
   "entries": {
+    "819a59f3244b57f042c6c7ef6c32749996c3178e6db76fa03ef0752d01bbf2f9": {
+      "summary": "Simon Willison 評論 GPT 6.1 Sol，稱其以 Astra 五分之一的價格提供接近的智慧。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-09-30T17:35:36.695948Z"
+    },
+    "4dffca212be5c2e974e30a7ca959dba05e53b03dd0bf13d95ea335338bc50184": {
+      "summary": "CoreWeave 於舊金山 CoreWeave Fully Connected 活動宣佈，將新一代 NVIDIA 基礎設施投入生產環境。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-09-30T17:35:36.695948Z"
+    },
     "cd7f11d0ced6f097e2b96aa4c5611b0711148c16b3a1d532968e7e16dc6e9da2": {
       "summary": "Nvidia於9月28日推出Open Agent Safety Platform，結合開源軟體OpenShell與基於BlueField-4 DPU的Sentry參考系統設計。Nvidia表示，目前已有超過100家廠商支援或參與相關技術。",
       "provider": "groq",
@@ -2989,18 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-09-14T02:35:27.797648Z"
-    },
-    "b3054d34756ca9ecec57c4ca212e69d68989b9a438944e66de33cf97c6dd95ac": {
-      "summary": "MiniMax H3 視頻大模型結合 vLLM-Omni 與 FastH3，透過長序列注意力優化、融合 DiT 算子及並行 VAE 解碼等系統級手段，大幅壓縮端到端時延，提供高效實時視頻生成服務方案。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-09-14T02:05:36.227006Z"
-    },
-    "ba9b4c68223b9458d4550b60e6de3b59c9fe25bddadb49cdf6f6c82c90127cc4": {
-      "summary": "蘋果計劃今秋推出新一代Apple TV，搭載更強芯片並接入Apple Intelligence生態，以支持具備深度情境理解的新一代Siri。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-09-14T02:05:36.227006Z"
     }
   },
   "rejections": {
@@ -4055,6 +4055,10 @@
     "2f003e8707eefe87dae3bb027594fe3f46e10a4b94c6fa76b246a219489df80e": {
       "reason": "validation_length",
       "created_at": "2026-09-30T17:05:39.027916Z"
+    },
+    "42b7c51387875979e5e48c51c163ff444147f196e996be514d4f9c5facca6ec8": {
+      "reason": "insufficient_context",
+      "created_at": "2026-09-30T17:35:36.695948Z"
     }
   }
 }
