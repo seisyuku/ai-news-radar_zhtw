@@ -20,6 +20,25 @@ The first screen may show coverage and health as read-only status signals:
 source health, AI signal density, official/newsletter coverage, builders/X,
 aggregator breadth, and private extension readiness.
 
+`source-status.json.sites` reports subsource health for
+`official_ai`, `curated_media`, and `tw_media` in `subsources`. Each row has a
+stable, public `source_id`, `ok`, `item_count`, and a safe `error` code
+(`invalid_source` or `fetch_failed`; `null` on success). A valid feed or page
+with no recent matching articles is successful with `item_count: 0`; malformed
+content or unusable article fields fail. If some subsources fail, the group
+keeps successful articles and sets `degraded: true` with
+`degraded_reason: partial_subsource_failure`. If all fail, group `ok` is false
+and `error` is `all_subsources_failed`. Each child also carries `skipped`,
+`attempted`, `last_attempt_ok`, `consecutive_failures`, `first_failure_at`,
+`last_failure_at`, `last_success_at`, and `persistent_failure`. These history
+fields match only the exact `(site_id, source_id)` in the previous snapshot;
+a new or renamed child starts fresh, and an older snapshot without children
+does not transfer its group streak. A skipped child keeps its prior history
+without adding a failure or updating success time. Once its streak reaches the
+configured threshold, `persistent_failures` identifies both `site_id` and
+`source_id`; an all-failed group does not produce a duplicate group alert.
+Group-level history remains a separate summary of whole-group failure.
+
 RSS/Atom adapters preserve a sanitized plain-text `summary`/`description` when
 the publisher supplies one. This text supports the optional short-summary layer;
 the project does not scrape full article bodies for that purpose, and title-only

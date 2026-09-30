@@ -19,7 +19,7 @@ from dataclasses import dataclass
 from datetime import date, datetime, timedelta, timezone
 from difflib import SequenceMatcher
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 from urllib.parse import parse_qsl, urlencode, urljoin, urlparse, urlunparse
 
 import requests
@@ -27,6 +27,21 @@ from bs4 import BeautifulSoup
 from dateutil import parser as dtparser
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
+
+try:
+    from scripts import archive_output, source_health
+except ModuleNotFoundError:  # pragma: no cover - direct script invocation
+    import archive_output
+    import source_health
+
+# Keep these existing imports callable by maintainers and regression tests.
+Archive = archive_output.Archive
+atomic_write_text = archive_output.atomic_write_text
+prune_item_outputs = archive_output.prune_item_outputs
+load_source_status = source_health.load_source_status
+apply_subsource_health_history = source_health.apply_subsource_health_history
+_group_subsource_status = source_health.fetch_subsource_with_status
+_group_source_details = source_health.summarize_subsources
 
 try:
     from scripts.aibase_source import aibase_article_key, fetch_aibase_payload
@@ -119,16 +134,19 @@ RSS_FEED_SKIP_EXACT: set[str] = {
 
 OFFICIAL_AI_FEEDS: tuple[dict[str, str], ...] = (
     {
+        "source_id": "openai_news",
         "title": "OpenAI News",
         "xml_url": "https://openai.com/news/rss.xml",
         "html_url": "https://openai.com/news",
     },
     {
+        "source_id": "google_deepmind",
         "title": "Google DeepMind",
         "xml_url": "https://deepmind.google/blog/rss.xml",
         "html_url": "https://deepmind.google/blog",
     },
     {
+        "source_id": "google_ai_blog",
         "title": "Google AI Blog",
         "xml_url": "https://blog.google/innovation-and-ai/technology/ai/rss/",
         "html_url": "https://blog.google/innovation-and-ai/technology/ai/",
@@ -136,26 +154,31 @@ OFFICIAL_AI_FEEDS: tuple[dict[str, str], ...] = (
     {
         # Gemini-specific channel RSS, more precise than the general Google AI
         # Blog / DeepMind feeds above for Gemini product/model coverage.
+        "source_id": "google_gemini_blog",
         "title": "Google Gemini Blog",
         "xml_url": "https://blog.google/products-and-platforms/products/gemini/rss/",
         "html_url": "https://blog.google/products/gemini/",
     },
     {
+        "source_id": "hugging_face_blog",
         "title": "Hugging Face Blog",
         "xml_url": "https://huggingface.co/blog/feed.xml",
         "html_url": "https://huggingface.co/blog",
     },
     {
+        "source_id": "github_ai_ml",
         "title": "GitHub AI & ML",
         "xml_url": "https://github.blog/ai-and-ml/feed/",
         "html_url": "https://github.blog/ai-and-ml/",
     },
     {
+        "source_id": "github_changelog",
         "title": "GitHub Changelog",
         "xml_url": "https://github.blog/changelog/feed/",
         "html_url": "https://github.blog/changelog/",
     },
     {
+        "source_id": "openai_skills",
         "title": "OpenAI Skills",
         "xml_url": "https://github.com/openai/skills/commits/main.atom",
         "html_url": "https://github.com/openai/skills",
@@ -166,6 +189,7 @@ OFFICIAL_AI_FEEDS: tuple[dict[str, str], ...] = (
         # /atom.xml, but thinkingmachines.ai is a Hugo site and exposes the
         # standard Hugo RSS output at /index.xml (verified: valid RSS 2.0,
         # "Thinking Machines Lab" channel, includes the Inkling launch post).
+        "source_id": "thinking_machines_lab",
         "title": "Thinking Machines Lab",
         "xml_url": "https://thinkingmachines.ai/index.xml",
         "html_url": "https://thinkingmachines.ai/blog/",
@@ -175,6 +199,7 @@ OFFICIAL_AI_FEEDS: tuple[dict[str, str], ...] = (
         # working /rss feed; this is NVIDIA's actual public feed and mixes
         # GeForce/gaming posts with AI posts, so it relies on the shared
         # downstream ai_relevance_score gate like GitHub Changelog does.
+        "source_id": "nvidia_blog",
         "title": "NVIDIA Blog",
         "xml_url": "https://blogs.nvidia.com/feed/",
         "html_url": "https://blogs.nvidia.com/",
@@ -185,6 +210,7 @@ OFFICIAL_AI_FEEDS: tuple[dict[str, str], ...] = (
         # every entry fails the OFFICIAL_AI_MAX_AGE_DAYS window. Using the
         # actively updated Microsoft (corporate) Blog feed instead, which is
         # heavily AI-focused already and filtered downstream like NVIDIA Blog.
+        "source_id": "microsoft_blog",
         "title": "Microsoft Blog",
         "xml_url": "https://blogs.microsoft.com/feed/",
         "html_url": "https://blogs.microsoft.com/",
@@ -193,6 +219,7 @@ OFFICIAL_AI_FEEDS: tuple[dict[str, str], ...] = (
         # AWS "What's New" feed (aws.amazon.com/new). Broad service-update
         # firehose; AI-relevant entries (Bedrock, SageMaker, etc.) are kept
         # by the downstream ai_relevance_score gate.
+        "source_id": "aws_news",
         "title": "AWS News",
         "xml_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/",
         "html_url": "https://aws.amazon.com/new/",
@@ -202,6 +229,7 @@ OFFICIAL_AI_FEEDS: tuple[dict[str, str], ...] = (
         # no autodiscovery link (no working native feed found), so this
         # queries Google News scoped to Google's own blog domain instead,
         # same rescue pattern as the Reuters entry below.
+        "source_id": "google_cloud_blog_news",
         "title": "Google Cloud Blog (Google News)",
         "xml_url": "https://news.google.com/rss/search?q=site%3Acloud.google.com%2Fblog+AI+when%3A7d&hl=en-US&gl=US&ceid=US%3Aen",
         "html_url": "https://cloud.google.com/blog/",
@@ -241,12 +269,14 @@ TENCENT_NEWSROOM_URL = "https://www.tencent.com/newsroom/all-news/"
 CURATED_AI_MEDIA_MAX_AGE_DAYS = 30
 CURATED_AI_MEDIA_FEEDS: tuple[dict[str, Any], ...] = (
     {
+        "source_id": "the_decoder",
         "title": "The Decoder AI News",
         "xml_url": "https://the-decoder.com/feed/",
         "html_url": "https://the-decoder.com/",
         "max_entries": 10,
     },
     {
+        "source_id": "techcrunch_ai",
         "title": "TechCrunch AI",
         "xml_url": "https://techcrunch.com/category/artificial-intelligence/feed/",
         "html_url": "https://techcrunch.com/category/artificial-intelligence/",
@@ -255,6 +285,7 @@ CURATED_AI_MEDIA_FEEDS: tuple[dict[str, Any], ...] = (
     {
         # The Verge's AI topic RSS endpoint is not currently public/stable;
         # keep the all-site RSS behind strict title-level AI filtering.
+        "source_id": "the_verge",
         "title": "The Verge",
         "xml_url": "https://www.theverge.com/rss/index.xml",
         "html_url": "https://www.theverge.com/ai-artificial-intelligence",
@@ -263,6 +294,7 @@ CURATED_AI_MEDIA_FEEDS: tuple[dict[str, Any], ...] = (
         "strict_title_filter": True,
     },
     {
+        "source_id": "marktechpost",
         "title": "MarkTechPost Research",
         "xml_url": "https://www.marktechpost.com/feed/",
         "html_url": "https://www.marktechpost.com/",
@@ -272,18 +304,21 @@ CURATED_AI_MEDIA_FEEDS: tuple[dict[str, Any], ...] = (
         "research_only": True,
     },
     {
+        "source_id": "venturebeat_ai",
         "title": "VentureBeat AI",
         "xml_url": "https://venturebeat.com/category/ai/feed",
         "html_url": "https://venturebeat.com/category/ai/",
         "max_entries": 8,
     },
     {
+        "source_id": "ai_news",
         "title": "Artificial Intelligence News",
         "xml_url": "https://www.artificialintelligence-news.com/feed/",
         "html_url": "https://www.artificialintelligence-news.com/",
         "max_entries": 8,
     },
     {
+        "source_id": "cnbc_technology",
         "title": "CNBC Technology",
         "xml_url": "https://www.cnbc.com/id/19854910/device/rss/rss.html",
         "html_url": "https://www.cnbc.com/technology/",
@@ -296,6 +331,7 @@ CURATED_AI_MEDIA_FEEDS: tuple[dict[str, Any], ...] = (
         # arena.ai/blog/rss/. Entire feed is AI model evaluation content, so
         # it is listed in CURATED_MEDIA_TRUSTED_SOURCE_KEYWORDS to bypass the
         # per-title AI keyword check like other narrow-topic trusted feeds.
+        "source_id": "lmarena_blog",
         "title": "LMArena Blog",
         "xml_url": "https://blog.lmarena.ai/rss/",
         "html_url": "https://lmarena.ai/blog",
@@ -305,6 +341,7 @@ CURATED_AI_MEDIA_FEEDS: tuple[dict[str, Any], ...] = (
         # Reuters closed its own public RSS; this queries Google News for
         # Reuters AI coverage instead. Titles/links point back to the
         # original Reuters article via Google News's redirect link.
+        "source_id": "reuters_ai_news",
         "title": "Reuters AI (Google News)",
         "xml_url": "https://news.google.com/rss/search?q=site:reuters.com%20AI%20when:2d&hl=en-US&gl=US&ceid=US:en",
         "html_url": "https://www.reuters.com/technology/artificial-intelligence/",
@@ -316,6 +353,7 @@ CURATED_AI_MEDIA_FEEDS: tuple[dict[str, Any], ...] = (
         # The Information's own /feed and /feed.rss return 403 Forbidden even
         # with a browser UA (Cloudflare/bot block); rescued via Google News,
         # same pattern as Reuters. Titles/summaries only, no paywall bypass.
+        "source_id": "the_information_news",
         "title": "The Information (Google News)",
         "xml_url": "https://news.google.com/rss/search?q=site%3Atheinformation.com+AI+when%3A7d&hl=en-US&gl=US&ceid=US%3Aen",
         "html_url": "https://www.theinformation.com/",
@@ -327,6 +365,7 @@ CURATED_AI_MEDIA_FEEDS: tuple[dict[str, Any], ...] = (
         # ai.meta.com/blog/ returns 400 to non-browser requests (no working
         # feed, scraping is also unreliable), so this is third-party coverage
         # of Meta AI/Meta FAIR via Google News, not Meta's own blog content.
+        "source_id": "meta_ai_news",
         "title": "Meta AI (Google News)",
         "xml_url": "https://news.google.com/rss/search?q=%28%22Meta+AI%22+OR+%22Meta+FAIR%22%29+when%3A7d&hl=en-US&gl=US&ceid=US%3Aen",
         "html_url": "https://ai.meta.com/",
@@ -337,6 +376,7 @@ CURATED_AI_MEDIA_FEEDS: tuple[dict[str, Any], ...] = (
     {
         # DeepSeek has no official blog RSS; third-party news coverage via
         # Google News instead.
+        "source_id": "deepseek_news",
         "title": "DeepSeek (Google News)",
         "xml_url": "https://news.google.com/rss/search?q=DeepSeek+AI+model+when%3A3d&hl=en-US&gl=US&ceid=US%3Aen",
         "html_url": "https://www.deepseek.com/",
@@ -347,6 +387,7 @@ CURATED_AI_MEDIA_FEEDS: tuple[dict[str, Any], ...] = (
     {
         # docs.x.ai has no RSS changelog/release feed; third-party news
         # coverage of xAI/Grok via Google News instead.
+        "source_id": "xai_grok_news",
         "title": "xAI / Grok (Google News)",
         "xml_url": "https://news.google.com/rss/search?q=%28xAI+OR+%22Elon+Musk%22+Grok+OR+%22Grok+4%22+OR+%22Grok+5%22%29+when%3A7d&hl=en-US&gl=US&ceid=US%3Aen",
         "html_url": "https://x.ai/news",
@@ -360,6 +401,7 @@ CURATED_AI_MEDIA_FEEDS: tuple[dict[str, Any], ...] = (
         # homepage autodiscovery: none found); rescued via Google News scoped
         # to their own domain. Listed in CURATED_MEDIA_TRUSTED_SOURCE_KEYWORDS
         # since the whole feed is AI benchmark/forecasting research.
+        "source_id": "epoch_ai_news",
         "title": "Epoch AI (Google News)",
         "xml_url": "https://news.google.com/rss/search?q=site%3Aepoch.ai+when%3A14d&hl=en-US&gl=US&ceid=US%3Aen",
         "html_url": "https://epoch.ai/",
@@ -445,6 +487,7 @@ TW_MEDIA_INCLUDE_KEYWORDS = (
 )
 TW_MEDIA_FEEDS: tuple[dict[str, Any], ...] = (
     {
+        "source_id": "ithome",
         "title": "iThome",
         "xml_url": "https://www.ithome.com.tw/rss",
         "html_url": "https://www.ithome.com.tw/",
@@ -453,6 +496,7 @@ TW_MEDIA_FEEDS: tuple[dict[str, Any], ...] = (
         "strict_title_filter": True,
     },
     {
+        "source_id": "technews_tw",
         "title": "TechNews 科技新報",
         "xml_url": "https://technews.tw/feed/",
         "html_url": "https://technews.tw/",
@@ -465,6 +509,7 @@ TW_MEDIA_FEEDS: tuple[dict[str, Any], ...] = (
         # /feed.xml, /articles/rss, homepage autodiscovery: none found);
         # rescued via a zh-TW Google News query scoped to their own domain,
         # same pattern as Reuters/The Information above.
+        "source_id": "bnext_news",
         "title": "數位時代 (Google News)",
         "xml_url": (
             "https://news.google.com/rss/search?q=site%3Abnext.com.tw+"
@@ -496,7 +541,7 @@ KR36_AI_READER_MAX_ITEMS = 5
 KR36_AI_INCLUDE_KEYWORDS = (
     "ai,人工智能,大模型,大语言模型,智能体,机器人,算力,大模型,生成式ai,深度学习,机器学习,芯片,英伟达,nvidia"
 )
-SOURCE_PERSISTENT_FAILURE_THRESHOLD = 3
+SOURCE_PERSISTENT_FAILURE_THRESHOLD = source_health.SOURCE_PERSISTENT_FAILURE_THRESHOLD
 # Watchlist source: 橘鴉AI早報 (Juya AI Daily), self-hosted (not GitHub Pages -
 # the original imjuya/juya-ai-daily GitHub channel is gone). One entry per
 # day, title is just the date ("2026-07-15"), summary is a short truncated
@@ -1371,6 +1416,30 @@ def parse_feed_entries_via_xml(feed_xml: bytes) -> list[dict[str, Any]]:
     return out
 
 
+def parse_group_feed_entries(feed_content: bytes, now: datetime) -> list[dict[str, Any]]:
+    """Reject a broken feed, while allowing a valid feed with no recent matches."""
+    if feedparser is not None:
+        parsed = feedparser.parse(feed_content)
+        if parsed.bozo or not parsed.version:
+            raise ValueError("invalid_feed")
+        entries = list(parsed.entries)
+    else:
+        try:
+            root = ET.fromstring(feed_content)
+        except ET.ParseError as exc:
+            raise ValueError("invalid_feed") from exc
+        if root.tag.split("}")[-1].lower() not in {"rss", "rdf", "feed"}:
+            raise ValueError("invalid_feed")
+        entries = parse_feed_entries_via_xml(feed_content)
+        if not entries and any(
+            node.tag.split("}")[-1].lower() in {"item", "entry"} for node in root.iter()
+        ):
+            raise ValueError("invalid_feed_fields")
+    if entries and not any(all(feed_entry_title_link_published(entry, now)) for entry in entries):
+        raise ValueError("invalid_feed_fields")
+    return entries
+
+
 def feed_entry_summary(entry: dict[str, Any], max_chars: int = 1600) -> str:
     """Extract plain publisher-provided RSS/Atom text for safe downstream use."""
 
@@ -1609,12 +1678,13 @@ def extract_balanced_json(decoded: str, key: str) -> Any:
     return json.loads(snippet)
 
 
-def parse_anthropic_news_items(page_html: str, now: datetime) -> list[RawItem]:
+def parse_anthropic_news_items(page_html: str, now: datetime, *, require_valid: bool = False) -> list[RawItem]:
     site_id = "official_ai"
     site_name = "Official AI Updates"
     soup = BeautifulSoup(page_html, "html.parser")
     out: list[RawItem] = []
     seen: set[str] = set()
+    valid_source_entries = 0
 
     for a in soup.select('a[href^="/news/"]'):
         href = str(a.get("href") or "").strip()
@@ -1638,6 +1708,7 @@ def parse_anthropic_news_items(page_html: str, now: datetime) -> list[RawItem]:
             published = parse_date_any(time_tag.get("datetime") or time_tag.get_text(" ", strip=True), now)
         if not published:
             continue
+        valid_source_entries += 1
         if now and published < now - timedelta(days=OFFICIAL_AI_MAX_AGE_DAYS):
             continue
 
@@ -1653,16 +1724,19 @@ def parse_anthropic_news_items(page_html: str, now: datetime) -> list[RawItem]:
             )
         )
 
+    if require_valid and not valid_source_entries:
+        raise ValueError("invalid_page_fields")
     return out
 
 
-def parse_tencent_newsroom_items(page_html: str, now: datetime) -> list[RawItem]:
+def parse_tencent_newsroom_items(page_html: str, now: datetime, *, require_valid: bool = False) -> list[RawItem]:
     """Parse Tencent's dated public Newsroom cards without relying on its fake RSS route."""
     site_id = "official_ai"
     site_name = "Official AI Updates"
     soup = BeautifulSoup(page_html, "html.parser")
     out: list[RawItem] = []
     seen: set[str] = set()
+    valid_source_entries = 0
 
     for card in soup.select("article.tc-blog-grid"):
         title_link = card.select_one("h2.blog-title a[href]")
@@ -1675,6 +1749,7 @@ def parse_tencent_newsroom_items(page_html: str, now: datetime) -> list[RawItem]
         published = parse_date_any(date_node.get_text(" ", strip=True), now)
         if not title or not url or not published or url in seen:
             continue
+        valid_source_entries += 1
         if now and published < now - timedelta(days=OFFICIAL_AI_MAX_AGE_DAYS):
             continue
 
@@ -1691,15 +1766,18 @@ def parse_tencent_newsroom_items(page_html: str, now: datetime) -> list[RawItem]
             )
         )
 
+    if require_valid and not valid_source_entries:
+        raise ValueError("invalid_page_fields")
     return out
 
 
-def parse_openai_codex_changelog_items(page_html: str, now: datetime) -> list[RawItem]:
+def parse_openai_codex_changelog_items(page_html: str, now: datetime, *, require_valid: bool = False) -> list[RawItem]:
     site_id = "official_ai"
     site_name = "Official AI Updates"
     soup = BeautifulSoup(page_html, "html.parser")
     out: list[RawItem] = []
     seen: set[str] = set()
+    valid_source_entries = 0
 
     for node in soup.select("#codex-changelog-content li[id], li[id]"):
         item_id = str(node.get("id") or "").strip()
@@ -1715,6 +1793,7 @@ def parse_openai_codex_changelog_items(page_html: str, now: datetime) -> list[Ra
         published = parse_date_any(time_tag.get("datetime") or time_tag.get_text(" ", strip=True), now)
         if not title or not published:
             continue
+        valid_source_entries += 1
         if now and published < now - timedelta(days=OFFICIAL_AI_MAX_AGE_DAYS):
             continue
 
@@ -1731,6 +1810,8 @@ def parse_openai_codex_changelog_items(page_html: str, now: datetime) -> list[Ra
             )
         )
 
+    if require_valid and not valid_source_entries:
+        raise ValueError("invalid_page_fields")
     return out
 
 
@@ -1757,6 +1838,8 @@ def fetch_feed_as_source_items(
     session: requests.Session,
     feed: dict[str, Any],
     now: datetime,
+    *,
+    validate_group_feed: bool = False,
 ) -> list[RawItem]:
     site_id = str(feed.get("site_id") or "official_ai")
     site_name = str(feed.get("site_name") or "Official AI Updates")
@@ -1775,7 +1858,9 @@ def fetch_feed_as_source_items(
     resp.raise_for_status()
 
     entries: list[dict[str, Any]]
-    if feedparser is not None:
+    if validate_group_feed:
+        entries = parse_group_feed_entries(resp.content, now)
+    elif feedparser is not None:
         parsed = feedparser.parse(resp.content)
         entries = list(parsed.entries)
         if feed.get("selection") and parsed.bozo:
@@ -1887,13 +1972,17 @@ def parse_curated_ai_media_feed_items(
     feed_content: bytes,
     feed: dict[str, Any],
     now: datetime,
+    *,
+    validate_group_feed: bool = False,
 ) -> list[RawItem]:
     site_id = "curated_media"
     site_name = "精選媒體"
     feed_url = str(feed["xml_url"])
     feed_title = str(feed["title"])
 
-    if feedparser is not None:
+    if validate_group_feed:
+        entries = parse_group_feed_entries(feed_content, now)
+    elif feedparser is not None:
         parsed = feedparser.parse(feed_content)
         entries = list(parsed.entries)
     else:
@@ -1937,12 +2026,14 @@ def parse_curated_ai_media_feed_items(
     return out
 
 
-def fetch_curated_ai_media(session: requests.Session, now: datetime) -> list[RawItem]:
+def fetch_curated_ai_media_with_status(
+    session: requests.Session, now: datetime,
+) -> tuple[list[RawItem], dict[str, Any]]:
     out: list[RawItem] = []
-    failures: list[str] = []
+    subsources: list[dict[str, Any]] = []
 
     for feed in CURATED_AI_MEDIA_FEEDS:
-        try:
+        def fetch_one() -> list[RawItem]:
             resp = session.get(
                 str(feed["xml_url"]),
                 timeout=20,
@@ -1953,13 +2044,18 @@ def fetch_curated_ai_media(session: requests.Session, now: datetime) -> list[Raw
                 },
             )
             resp.raise_for_status()
-            out.extend(parse_curated_ai_media_feed_items(resp.content, feed, now))
-        except Exception:
-            failures.append(str(feed.get("title") or feed.get("xml_url") or "unknown"))
+            return parse_curated_ai_media_feed_items(
+                resp.content, feed, now, validate_group_feed=True,
+            )
+        items, status = _group_subsource_status(str(feed["source_id"]), fetch_one)
+        out.extend(items)
+        subsources.append(status)
 
-    if not out and failures:
-        raise ValueError(f"No curated media items parsed; failed feeds: {', '.join(failures[:4])}")
-    return out
+    return out, _group_source_details(subsources)
+
+
+def fetch_curated_ai_media(session: requests.Session, now: datetime) -> list[RawItem]:
+    return fetch_curated_ai_media_with_status(session, now)[0]
 
 
 def extract_llm_stats_latest_models(page_html: str, now: datetime) -> list[RawItem]:
@@ -2163,40 +2259,41 @@ def fetch_runtimewire_models(session: requests.Session, now: datetime) -> list[R
     )
 
 
-def fetch_official_ai_updates(session: requests.Session, now: datetime) -> list[RawItem]:
+def fetch_official_ai_updates_with_status(
+    session: requests.Session, now: datetime,
+) -> tuple[list[RawItem], dict[str, Any]]:
     out: list[RawItem] = []
+    subsources: list[dict[str, Any]] = []
 
     for feed in OFFICIAL_AI_FEEDS:
-        try:
-            out.extend(fetch_feed_as_source_items(session, feed, now))
-        except Exception:
-            continue
+        items, status = _group_subsource_status(
+            str(feed["source_id"]),
+            lambda feed=feed: fetch_feed_as_source_items(
+                session, feed, now, validate_group_feed=True,
+            ),
+        )
+        out.extend(items)
+        subsources.append(status)
 
-    try:
-        r = session.get("https://www.anthropic.com/news", timeout=20)
-        r.raise_for_status()
-        out.extend(parse_anthropic_news_items(r.text, now))
-    except Exception:
-        pass
+    pages = (
+        ("anthropic_news", "https://www.anthropic.com/news", parse_anthropic_news_items),
+        ("tencent_newsroom", TENCENT_NEWSROOM_URL, parse_tencent_newsroom_items),
+        ("openai_codex_changelog", "https://developers.openai.com/codex/changelog", parse_openai_codex_changelog_items),
+    )
+    for source_id, url, parser in pages:
+        def fetch_page(url=url, parser=parser) -> list[RawItem]:
+            response = session.get(url, timeout=20)
+            response.raise_for_status()
+            return parser(response.text, now, require_valid=True)
+        items, status = _group_subsource_status(source_id, fetch_page)
+        out.extend(items)
+        subsources.append(status)
 
-    try:
-        r = session.get(TENCENT_NEWSROOM_URL, timeout=20)
-        r.raise_for_status()
-        out.extend(parse_tencent_newsroom_items(r.text, now))
-    except Exception:
-        pass
+    return out, _group_source_details(subsources)
 
-    try:
-        r = session.get("https://developers.openai.com/codex/changelog", timeout=20)
-        r.raise_for_status()
-        out.extend(parse_openai_codex_changelog_items(r.text, now))
-    except Exception:
-        pass
 
-    if not out:
-        raise ValueError("No official AI update sources returned items")
-
-    return out
+def fetch_official_ai_updates(session: requests.Session, now: datetime) -> list[RawItem]:
+    return fetch_official_ai_updates_with_status(session, now)[0]
 
 
 def fetch_mistral_news(session: requests.Session, now: datetime) -> list[RawItem]:
@@ -2211,14 +2308,16 @@ def fetch_arc_prize(session: requests.Session, now: datetime) -> list[RawItem]:
     return fetch_feed_as_source_items(session, ADMITTED_SOURCE_FEEDS["arc_prize"], now)
 
 
-def fetch_tw_media(session: requests.Session, now: datetime) -> list[RawItem]:
+def fetch_tw_media_with_status(
+    session: requests.Session, now: datetime,
+) -> tuple[list[RawItem], dict[str, Any]]:
     site_id = "tw_media"
     site_name = "TW Media"
     out: list[RawItem] = []
-    failures: list[str] = []
+    subsources: list[dict[str, Any]] = []
 
     for feed in TW_MEDIA_FEEDS:
-        try:
+        def fetch_one() -> list[RawItem]:
             resp = session.get(
                 str(feed["xml_url"]),
                 timeout=20,
@@ -2229,17 +2328,14 @@ def fetch_tw_media(session: requests.Session, now: datetime) -> list[RawItem]:
                 },
             )
             resp.raise_for_status()
-            if feedparser is not None:
-                parsed = feedparser.parse(resp.content)
-                entries = list(parsed.entries)
-            else:
-                entries = parse_feed_entries_via_xml(resp.content)
+            entries = parse_group_feed_entries(resp.content, now)
 
             feed_title = str(feed["title"])
             max_entries = max(1, int(feed.get("max_entries") or 8))
             seen_urls: set[str] = set()
             seen_title_keys: set[str] = set()
             count = 0
+            feed_items: list[RawItem] = []
             for entry in entries:
                 title, link, published = feed_entry_title_link_published(entry, now)
                 if not title or not link or not published:
@@ -2259,7 +2355,7 @@ def fetch_tw_media(session: requests.Session, now: datetime) -> list[RawItem]:
                 seen_urls.add(normalized_url)
                 if title_key:
                     seen_title_keys.add(title_key)
-                out.append(
+                feed_items.append(
                     RawItem(
                         site_id=site_id,
                         site_name=site_name,
@@ -2277,12 +2373,16 @@ def fetch_tw_media(session: requests.Session, now: datetime) -> list[RawItem]:
                 count += 1
                 if count >= max_entries:
                     break
-        except Exception:
-            failures.append(str(feed.get("title") or feed.get("xml_url") or "unknown"))
+            return feed_items
+        items, status = _group_subsource_status(str(feed["source_id"]), fetch_one)
+        out.extend(items)
+        subsources.append(status)
 
-    if not out and failures:
-        raise ValueError(f"No TW media items parsed; failed feeds: {', '.join(failures[:4])}")
-    return out
+    return out, _group_source_details(subsources)
+
+
+def fetch_tw_media(session: requests.Session, now: datetime) -> list[RawItem]:
+    return fetch_tw_media_with_status(session, now)[0]
 
 
 def fetch_kr36_ai(session: requests.Session, now: datetime) -> list[RawItem]:
@@ -2478,6 +2578,13 @@ def collect_all(session: requests.Session, now: datetime) -> tuple[list[RawItem]
         try:
             if site_id == "aibase":
                 items, source_details = fetch_aibase_with_status(session, now)
+            elif site_id in {"official_ai", "curated_media", "tw_media"}:
+                group_fetch = {
+                    "official_ai": fetch_official_ai_updates_with_status,
+                    "curated_media": fetch_curated_ai_media_with_status,
+                    "tw_media": fetch_tw_media_with_status,
+                }[site_id]
+                items, source_details = group_fetch(session, now)
             else:
                 items = fn(session, now)
             count = len(items)
@@ -2903,28 +3010,9 @@ def normalize_reader_source_identity(record: dict[str, Any]) -> dict[str, Any]:
     return normalized
 
 
-def load_archive(path: Path) -> dict[str, dict[str, Any]]:
-    if not path.exists():
-        return {}
-    try:
-        payload = json.loads(path.read_text(encoding="utf-8"))
-    except Exception:
-        return {}
-
-    items = payload.get("items", [])
-    out: dict[str, dict[str, Any]] = {}
-    if isinstance(items, list):
-        for it in items:
-            item_id = it.get("id")
-            if item_id:
-                out[item_id] = normalize_reader_source_identity(it)
-    elif isinstance(items, dict):
-        for item_id, it in items.items():
-            if isinstance(it, dict):
-                normalized = dict(it)
-                normalized["id"] = item_id
-                out[item_id] = normalize_reader_source_identity(normalized)
-    return out
+def load_archive(path: Path) -> Archive:
+    """Compatibility entrypoint with the existing reader identity policy."""
+    return archive_output.load_archive(path, normalize_record=normalize_reader_source_identity)
 
 
 def is_aibase_record(record: dict[str, Any]) -> bool:
@@ -2944,7 +3032,7 @@ def aibase_field_language(record: dict[str, Any], field: str) -> str:
 
 
 def merge_raw_items_into_archive(
-    archive: dict[str, dict[str, Any]], raw_items: list[RawItem], now: datetime
+    archive: Archive, raw_items: list[RawItem], now: datetime
 ) -> set[str]:
     """Reuse AIBASE's first Radar ID across language/title/link updates.
 
@@ -3034,11 +3122,11 @@ def merge_raw_items_into_archive(
 
 
 def prune_archive_records(
-    archive: dict[str, dict[str, Any]], now: datetime, archive_days: int
-) -> dict[str, dict[str, Any]]:
+    archive: Archive, now: datetime, archive_days: int
+) -> Archive:
     """Keep the archive's existing last-seen-based retention behavior."""
     keep_after = now - timedelta(days=archive_days)
-    pruned: dict[str, dict[str, Any]] = {}
+    pruned: Archive = {}
     for item_id, record in archive.items():
         ts = (
             parse_iso(record.get("last_seen_at"))
@@ -3051,130 +3139,22 @@ def prune_archive_records(
     return pruned
 
 
-def write_item_resolvers(output_dir: Path, archive: dict[str, dict[str, Any]]) -> int:
-    """Write one public archive-schema JSON record per stable news item ID.
-
-    The directory is a GitHub Pages lookup surface, not a second item schema:
-    each file contains the same public record stored in archive.json. Removing
-    resolver files absent from the pruned archive keeps retention aligned with
-    the archive and prevents stale files from accumulating indefinitely.
-    """
-    resolver_dir = output_dir / "items"
-    resolver_dir.mkdir(parents=True, exist_ok=True)
-    active_ids = {
-        item_id
-        for item_id in archive
-        if re.fullmatch(r"[a-f0-9]{40}", str(item_id), flags=re.IGNORECASE)
-    }
-
-    for item_id in active_ids:
-        record = dict(archive[item_id])
-        # The filename, lookup key, and public field must always agree.
-        record["id"] = item_id
-        (resolver_dir / f"{item_id}.json").write_text(
-            json.dumps(sanitize_public_payload(record), ensure_ascii=False, indent=2),
-            encoding="utf-8",
-        )
-
-    for path in resolver_dir.glob("*.json"):
-        is_resolver = re.fullmatch(r"[a-f0-9]{40}\.json", path.name, flags=re.IGNORECASE)
-        if is_resolver and path.stem not in active_ids:
-            path.unlink()
-
-    return len(active_ids)
+def write_item_resolvers(
+    output_dir: Path, archive: Archive, *, prune: bool = True
+) -> int:
+    """Compatibility entrypoint with the existing public sanitization policy."""
+    return archive_output.write_item_resolvers(
+        output_dir, archive, sanitize_record=sanitize_public_payload, prune=prune
+    )
 
 
-def write_item_html_adapters(output_dir: Path, archive: dict[str, dict[str, Any]]) -> int:
-    """Write one static, human-readable resolver page per archived item ID.
-
-    JSON resolvers live below ``data/items``. These documents deliberately live
-    at the Pages root (``item/<id>/``) so browser and LLM retrieval can use a
-    deterministic HTML path without a client-side lookup. They use the same
-    pruned archive records and cleanup rule as the JSON resolvers.
-    """
-    adapter_dir = output_dir.parent / "item"
-    adapter_dir.mkdir(parents=True, exist_ok=True)
-    active_ids = {
-        item_id
-        for item_id in archive
-        if re.fullmatch(r"[a-f0-9]{40}", str(item_id), flags=re.IGNORECASE)
-    }
-
-    def definition_row(label: str, value: Any) -> str:
-        text = str(value or "").strip()
-        if not text:
-            return ""
-        return f"    <dt>{html.escape(label)}</dt>\n    <dd>{html.escape(text, quote=True)}</dd>"
-
-    for item_id in active_ids:
-        record = sanitize_public_payload(dict(archive[item_id]))
-        record["id"] = item_id
-        rows = [definition_row("Radar ID", item_id)]
-        for label, field in (
-            ("Title", "title"),
-            ("Source", "source"),
-            ("Published", "published_at"),
-            ("Summary", "summary"),
-        ):
-            row = definition_row(label, record.get(field))
-            if row:
-                rows.append(row)
-
-        original_url = str(record.get("url") or "").strip()
-        if original_url:
-            escaped_url = html.escape(original_url, quote=True)
-            rows.append(
-                "    <dt>Original URL</dt>\n"
-                f'    <dd><a href="{escaped_url}">{escaped_url}</a></dd>'
-            )
-
-        page = "\n".join((
-            "<!doctype html>",
-            '<html lang="zh-Hant">',
-            "<head>",
-            '  <meta charset="utf-8">',
-            "  <title>AI News Radar Pulse — News Item</title>",
-            "</head>",
-            "<body>",
-            "  <main>",
-            "    <h1>AI News Radar Pulse — News Item</h1>",
-            "    <dl>",
-            *rows,
-            "    </dl>",
-            "  </main>",
-            "</body>",
-            "</html>",
-            "",
-        ))
-        item_dir = adapter_dir / item_id
-        item_dir.mkdir(parents=True, exist_ok=True)
-        (item_dir / "index.html").write_text(page, encoding="utf-8")
-
-    for item_dir in adapter_dir.iterdir():
-        is_adapter_dir = (
-            item_dir.is_dir()
-            and re.fullmatch(r"[a-f0-9]{40}", item_dir.name, flags=re.IGNORECASE)
-        )
-        if is_adapter_dir and item_dir.name not in active_ids:
-            page_path = item_dir / "index.html"
-            if page_path.exists():
-                page_path.unlink()
-            try:
-                item_dir.rmdir()
-            except OSError:
-                pass
-
-    return len(active_ids)
-
-
-def load_source_status(path: Path) -> dict[str, Any]:
-    if not path.exists():
-        return {}
-    try:
-        payload = json.loads(path.read_text(encoding="utf-8"))
-    except Exception:
-        return {}
-    return payload if isinstance(payload, dict) else {}
+def write_item_html_adapters(
+    output_dir: Path, archive: Archive, *, prune: bool = True
+) -> int:
+    """Compatibility entrypoint with the existing public sanitization policy."""
+    return archive_output.write_item_html_adapters(
+        output_dir, archive, sanitize_record=sanitize_public_payload, prune=prune
+    )
 
 
 def apply_source_health_history(
@@ -3183,80 +3163,11 @@ def apply_source_health_history(
     now: datetime,
     *,
     threshold: int = SOURCE_PERSISTENT_FAILURE_THRESHOLD,
-) -> list[dict[str, Any]]:
-    """Carry source failure streaks across generated source-status snapshots."""
-    previous_sites = {
-        str(item.get("site_id") or ""): item
-        for item in (previous_status or {}).get("sites", [])
-        if isinstance(item, dict) and item.get("site_id")
-    }
-    persistent_failures: list[dict[str, Any]] = []
-    now_iso = iso(now)
-
-    for status in statuses:
-        site_id = str(status.get("site_id") or "")
-        previous = previous_sites.get(site_id, {})
-        if status.get("ok"):
-            status["consecutive_failures"] = 0
-            status["first_failure_at"] = None
-            status["last_failure_at"] = previous.get("last_failure_at")
-            status["last_success_at"] = now_iso
-            status["persistent_failure"] = False
-            continue
-
-        previous_was_failure = previous.get("ok") is False
-        previous_count = int(previous.get("consecutive_failures") or (1 if previous_was_failure else 0))
-        consecutive_failures = previous_count + 1 if previous_was_failure else 1
-        first_failure_at = previous.get("first_failure_at") if previous_was_failure else now_iso
-        status["consecutive_failures"] = consecutive_failures
-        status["first_failure_at"] = first_failure_at or now_iso
-        status["last_failure_at"] = now_iso
-        status["last_success_at"] = previous.get("last_success_at")
-        status["persistent_failure"] = consecutive_failures >= max(1, threshold)
-        if status["persistent_failure"]:
-            persistent_failures.append(
-                {
-                    "site_id": site_id,
-                    "site_name": status.get("site_name") or site_id,
-                    "consecutive_failures": consecutive_failures,
-                    "first_failure_at": status["first_failure_at"],
-                    "last_failure_at": now_iso,
-                    "last_success_at": status.get("last_success_at"),
-                    "error": status.get("error"),
-                }
-            )
-    return persistent_failures
-
-
-def report_persistent_source_failures(persistent_failures: list[dict[str, Any]]) -> None:
-    if not persistent_failures:
-        return
-    for failure in persistent_failures:
-        annotation_error = (
-            str(failure.get("error") or "unknown error")
-            .replace("%", "%25")
-            .replace("\r", "%0D")
-            .replace("\n", "%0A")
-        )
-        print(
-            "::warning file=data/source-status.json,title=Persistent source failure::"
-            f"{failure['site_id']} failed {failure['consecutive_failures']} consecutive runs: "
-            f"{annotation_error}"
-        )
-
-    summary_path = str(os.environ.get("GITHUB_STEP_SUMMARY") or "").strip()
-    if not summary_path:
-        return
-    with Path(summary_path).open("a", encoding="utf-8") as summary:
-        summary.write("\n### Persistent source failures\n\n")
-        summary.write("| Source | Consecutive failures | Since | Error |\n")
-        summary.write("| --- | ---: | --- | --- |\n")
-        for failure in persistent_failures:
-            error = str(failure.get("error") or "unknown error").replace("|", "\\|").replace("\n", " ")
-            summary.write(
-                f"| {failure['site_id']} | {failure['consecutive_failures']} | "
-                f"{failure.get('first_failure_at') or 'unknown'} | {error} |\n"
-            )
+) -> list[source_health.PersistentFailure]:
+    """Keep the generator's datetime API while delegating health calculation."""
+    return source_health.apply_source_health_history(
+        statuses, previous_status, iso(now), threshold=threshold,
+    )
 
 
 def event_time(record: dict[str, Any]) -> datetime | None:
@@ -3578,6 +3489,13 @@ def sanitize_public_payload(payload: dict[str, Any]) -> dict[str, Any]:
     return sanitize_public_value(payload)
 
 
+def report_persistent_source_failures(
+    persistent_failures: list[source_health.PersistentFailure],
+) -> None:
+    """Publish diagnostics with the same redaction policy as public JSON."""
+    source_health.report_persistent_source_failures(sanitize_public_value(persistent_failures))
+
+
 def compact_public_snippet(text: str, max_chars: int = 240) -> str:
     """Return a short redacted snippet suitable for public/static JSON."""
     snippet = re.sub(r"\s+", " ", str(text or "")).strip()
@@ -3708,6 +3626,7 @@ def sync_paid_source_status_timestamps(
     entry = paid_source_state_entry(state, source_key)
     status["last_run_at"] = entry.get("last_run_at")
     status["last_success_at"] = entry.get("last_success_at")
+    status["last_attempt_ok"] = entry.get("last_ok") if isinstance(entry.get("last_ok"), bool) else None
 
 
 def x_api_should_run_now(now: datetime) -> bool:
@@ -3837,6 +3756,7 @@ def maybe_fetch_x_api_updates(
 
     query = str(os.environ.get("X_API_QUERY") or X_API_DEFAULT_QUERY).strip()
     base_url = str(os.environ.get("X_API_BASE_URL") or X_API_BASE_DEFAULT).strip()
+    status["attempted"] = True
     try:
         items = fetch_x_api_recent_search(
             session,
@@ -6843,6 +6763,7 @@ def main() -> int:
                 "item_count": int(x_api_status.get("item_count") or 0),
                 "duration_ms": 0,
                 "error": x_api_status.get("error"),
+                "attempted": bool(x_api_status.get("attempted")),
                 "skipped": bool(x_api_status.get("skipped")),
                 "skip_reason": x_api_status.get("skip_reason"),
             }
@@ -6860,8 +6781,12 @@ def main() -> int:
                 "item_count": int(socialdata_status.get("item_count") or 0),
                 "duration_ms": 0,
                 "error": socialdata_status.get("error"),
+                "attempted": bool(socialdata_status.get("attempted")),
                 "skipped": bool(socialdata_status.get("skipped")),
                 "skip_reason": socialdata_status.get("skip_reason"),
+                "last_attempt_ok": socialdata_status.get("last_attempt_ok"),
+                "last_run_at": socialdata_status.get("last_run_at"),
+                "last_success_at": socialdata_status.get("last_success_at"),
             }
         )
     tikhub_items, tikhub_status = maybe_fetch_tikhub_updates(session, now, paid_source_state)
@@ -6886,8 +6811,12 @@ def main() -> int:
                     "item_count": tikhub_counts.get(site_id, 0),
                     "duration_ms": 0,
                     "error": tikhub_status.get("error"),
+                    "attempted": bool(tikhub_status.get("attempted")),
                     "skipped": bool(tikhub_status.get("skipped")),
                     "skip_reason": tikhub_status.get("skip_reason"),
+                    "last_attempt_ok": tikhub_status.get("last_attempt_ok"),
+                    "last_run_at": tikhub_status.get("last_run_at"),
+                    "last_success_at": tikhub_status.get("last_success_at"),
                 }
             )
 
@@ -7123,51 +7052,54 @@ def main() -> int:
 
     latest_payload, latest_all_payload = build_latest_payloads(latest_payload)
 
-    latest_path.write_text(json.dumps(sanitize_public_payload(latest_payload), ensure_ascii=False, indent=2), encoding="utf-8")
-    latest_all_path.write_text(json.dumps(sanitize_public_payload(latest_all_payload), ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
-    daily_brief_path.write_text(
+    atomic_write_text(latest_path, json.dumps(sanitize_public_payload(latest_payload), ensure_ascii=False, indent=2))
+    atomic_write_text(latest_all_path, json.dumps(sanitize_public_payload(latest_all_payload), ensure_ascii=False, separators=(",", ":")))
+    atomic_write_text(
+        daily_brief_path,
         json.dumps(sanitize_public_payload(daily_brief_payload), ensure_ascii=False, indent=2),
-        encoding="utf-8",
     )
-    stories_merged_path.write_text(
+    atomic_write_text(
+        stories_merged_path,
         json.dumps(sanitize_public_payload(stories_merged_payload), ensure_ascii=False, separators=(",", ":")),
-        encoding="utf-8",
     )
-    archive_path.write_text(
+    atomic_write_text(
+        archive_path,
         json.dumps(sanitize_public_payload(archive_payload), ensure_ascii=False, separators=(",", ":")),
-        encoding="utf-8",
     )
-    resolver_count = write_item_resolvers(output_dir, archive)
-    html_adapter_count = write_item_html_adapters(output_dir, archive)
-    status_path.write_text(json.dumps(sanitize_public_payload(status_payload), ensure_ascii=False, indent=2), encoding="utf-8")
-    market_signals_path.write_text(
+    resolver_count = write_item_resolvers(output_dir, archive, prune=False)
+    html_adapter_count = write_item_html_adapters(output_dir, archive, prune=False)
+    atomic_write_text(status_path, json.dumps(sanitize_public_payload(status_payload), ensure_ascii=False, indent=2))
+    atomic_write_text(
+        market_signals_path,
         json.dumps(sanitize_public_payload(market_signals_payload), ensure_ascii=False, indent=2),
-        encoding="utf-8",
     )
-    llm_radar_path.write_text(
+    atomic_write_text(
+        llm_radar_path,
         json.dumps(sanitize_public_payload(llm_radar_payload), ensure_ascii=False, indent=2),
-        encoding="utf-8",
     )
-    market_sensor_state_path.write_text(
+    atomic_write_text(
+        market_sensor_state_path,
         json.dumps(sanitize_public_payload(market_sensor_state), ensure_ascii=False, separators=(",", ":")),
-        encoding="utf-8",
     )
     report_persistent_source_failures(persistent_failures)
-    paid_source_state_path.write_text(
+    atomic_write_text(
+        paid_source_state_path,
         json.dumps(sanitize_public_payload(paid_source_state), ensure_ascii=False, indent=2),
-        encoding="utf-8",
     )
-    title_cache_path.write_text(json.dumps(sanitize_public_payload(title_cache), ensure_ascii=False, indent=2), encoding="utf-8")
+    atomic_write_text(title_cache_path, json.dumps(sanitize_public_payload(title_cache), ensure_ascii=False, indent=2))
     if translation_state_path.exists() or translation_state.get("rejections"):
-        translation_state_path.write_text(
+        atomic_write_text(
+            translation_state_path,
             json.dumps(sanitize_public_payload(translation_state), ensure_ascii=False, indent=2),
-            encoding="utf-8",
         )
     if groq_api_key or ai_summary_cache_path.exists():
-        ai_summary_cache_path.write_text(
+        atomic_write_text(
+            ai_summary_cache_path,
             json.dumps(sanitize_public_payload(ai_summary_cache), ensure_ascii=False, indent=2),
-            encoding="utf-8",
         )
+
+    # A later HTML/state/cache failure must not remove previous item links.
+    prune_item_outputs(output_dir, archive)
 
     print(f"Wrote: {latest_path} ({len(latest_items)} items)")
     print(f"Wrote: {latest_all_path} ({len(latest_items_all_dedup)} all-mode items)")

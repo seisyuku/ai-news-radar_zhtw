@@ -1,21 +1,50 @@
 # Operations Notes
 
+## Generated file replacement and resolver cleanup
+
+The I/O implementation lives in `scripts/archive_output.py`; `update_news.py`
+supplies the existing normalization/public policies and coordinates generation.
+See [the archive/output contract](ARCHIVE_OUTPUT.md) for module APIs and shapes.
+
+`scripts/update_news.py` writes each JSON snapshot, state/cache file, JSON
+resolver and HTML item page to a temporary file in the target directory, then
+uses `os.replace` after the UTF-8 write closes successfully. Existing file modes
+are retained; new generated files use mode `0644`. Temporary names follow
+`.<target-name>.<random>.tmp`; a handled write/replace failure removes only that
+invocation's temporary file and leaves the previous target intact.
+
+The main generation run prunes expired JSON and HTML resolvers only after all
+snapshot, resolver, state and optional cache writes succeed. Standalone resolver
+writers retain their default cleanup behavior after their own writes succeed;
+callers coordinating multiple outputs can pass `prune=False` and call
+`prune_item_outputs` after the complete write phase.
+
+Replacement is atomic **per file**. A later failure can leave complete files from
+different generations together; earlier successful replacements are not rolled
+back. Resolver cleanup itself is not transactional. This does not guarantee
+durability after power loss, and forced termination may leave a recognizable
+temporary file. Offline audit/evaluation reports and diagnostic outputs are
+outside this scheduled-generation protection.
+
 ## Front-end asset cache busting
 
-`index.html` references `assets/styles.css`, `assets/motion.js`, and
-`assets/app.js` with a `?v=<tag>` query parameter, e.g.:
+`index.html` references `assets/styles.css`, `assets/motion.js`,
+`assets/loader.js`, and `assets/app.js` with a shared `?v=<tag>` query parameter.
+The deferred loader script must precede app.js; see the
+[frontend loader contract](FRONTEND_LOADER.md). For example:
 
 ```html
 <link rel="stylesheet" href="./assets/styles.css?v=taste-ui-0716a" />
 <script src="./assets/motion.js?v=taste-ui-0716a" defer></script>
+<script src="./assets/loader.js?v=taste-ui-0716a" defer></script>
 <script src="./assets/app.js?v=taste-ui-0716a" defer></script>
 ```
 
-**Rule: any PR that changes `assets/app.js`, `assets/styles.css`, or
-`assets/motion.js` must bump the `?v=` tag on every reference to that file in
+**Rule: any PR that changes `assets/app.js`, `assets/styles.css`,
+`assets/loader.js`, or `assets/motion.js` must bump the shared `?v=` tag in
 `index.html`, in the same PR, and say why in the PR description.**
 
-`tests/test_asset_versions.py` 直接比較目前資產與 Git baseline。只要三個
+`tests/test_asset_versions.py` 直接比較目前資產與 Git baseline。只要四個
 資產之一相對 baseline 有內容變更，目前 `index.html` 的共用 `?v=` tag
 也必須不同。測試不維護檔案雜湊或人工 manifest；CI 使用 push 前一個
 commit 或 pull request base commit 作為 baseline。
@@ -36,7 +65,7 @@ structure it doesn't understand.
 ### How to bump it
 
 Pick a new tag and replace `?v=<old-tag>` with `?v=<new-tag>` on every
-reference in `index.html` (`styles.css`, `motion.js`, `app.js` - keep them in
+reference in `index.html` (`styles.css`, `motion.js`, `loader.js`, `app.js` - keep them in
 sync even if only one file actually changed, so there is only ever one tag to
 reason about). The existing convention is `taste-ui-MMDDx` (month, day, and a
 letter suffix for same-day revisions, e.g. `taste-ui-0715a`, then
@@ -522,6 +551,33 @@ entry、並補上對應 pytest 案例，屬於例行維護，不需要為此開�
 匹配演算法本身（吞尾規則、共現閘門邏輯、佔位符格式）的變更才需要走
 完整的工單/驗收流程。BRAND_GLOSSARY 舊機制已完全併入 CANONICAL_NAMES
 並移除，程式碼內不再有雙軌並存。
+
+## 排程跳過時的來源健康紀錄
+
+來源健康計算與診斷格式由 `scripts/source_health.py` 管理；API、最小型別、
+子來源擴充條件及公開診斷邊界見 [來源健康契約](SOURCE_HEALTH.md)。
+
+X API、SocialData 與 TikHub 在憑證已設定但尚未到抓取視窗時，
+`source-status.json.sites` 會保留該站的 `skipped: true`、`attempted: false`。
+這一輪沒有新抓取結果：`consecutive_failures`、`first_failure_at`、
+`last_failure_at` 與 `last_success_at` 都沿用最近一次實際檢查的歷史。
+`last_attempt_ok` 是最近一次非跳過檢查的結果；首次即跳過時為 `null`。
+若最近一次檢查失敗，跳過輪會標為 `degraded`，但不增加失敗次數，
+也不再次發出 persistent failure annotation；下一次真正失敗才延續計數。
+真正成功才清除失敗連續次數並更新成功時間。SocialData／TikHub 的
+`paid-source-state.json` 亦只在實際嘗試時更新 `last_run_at` 與結果。
+
+這些欄位區分「尚未到視窗」與「本輪成功」，不代表每個排程輪次都曾
+對付費來源發出請求。舊狀態若已把跳過誤記為成功，且沒有可用的
+付費來源狀態紀錄，過去失去的精確故障次數無法還原。
+
+官方群組、精選媒體與台灣媒體的 `sites[].subsources` 另以固定
+`source_id` 分別保留失敗次數與成功／失敗時間。部分失敗時群組仍可保留
+成功來源新聞；連續故障達門檻時，`persistent_failures` 會列出
+`site_id` 和 `source_id`，Actions warning／job summary 以
+`site_id/source_id` 指向實際失效來源。群組全失敗時不再另發一筆重複
+的群組警報。跳過輪不增加子來源失敗次數；舊快照若沒有 `subsources`，
+新的子來源歷史從首次可辨識的當輪結果開始，不能從群組次數推回。
 
 ## Market Sensor 與速報區
 

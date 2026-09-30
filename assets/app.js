@@ -24,6 +24,7 @@ const state = {
   query: "",
   mode: "selected",
   sourceStatus: null,
+  sourceStatusError: null,
   generatedAt: null,
   dailyBrief: null,
   storiesMerged: null,
@@ -318,7 +319,7 @@ function setStats() {
   const status = state.sourceStatus;
   const totalSites = Array.isArray(status?.sites) ? status.sites.length : 0;
   const okSites = Number(status?.successful_sites || 0);
-  const health = totalSites ? `${fmtNumber(okSites)}/${fmtNumber(totalSites)}正常` : "載入中";
+  const health = status ? `${fmtNumber(okSites)}/${fmtNumber(totalSites)}正常` : (state.sourceStatusError ? "異常" : "載入中");
   const cards = [
     ["AI", `${fmtNumber(items.length)}條`],
     ["高優", `${fmtNumber(highCount)}條`],
@@ -327,7 +328,7 @@ function setStats() {
   ];
   statsEl.setAttribute(
     "aria-label",
-    `過去 24 小時：AI 訊號 ${fmtNumber(items.length)} 條，高優先順序 ${fmtNumber(highCount)} 條，重點故事 ${fmtNumber(curatedCount)} 條，源狀態 ${totalSites ? `${fmtNumber(okSites)}/${fmtNumber(totalSites)} 源正常` : "載入中"}`,
+    `過去 24 小時：AI 訊號 ${fmtNumber(items.length)} 條，高優先順序 ${fmtNumber(highCount)} 條，重點故事 ${fmtNumber(curatedCount)} 條，源狀態 ${status ? `${fmtNumber(okSites)}/${fmtNumber(totalSites)} 源正常` : (state.sourceStatusError ? "異常" : "載入中")}`,
   );
 
   const prefix = document.createElement("div");
@@ -1995,7 +1996,7 @@ function storyCandidateSiteId(story) {
   return siteId;
 }
 
-function renderBriefPicks() {
+function renderBriefPicks({ animate = true } = {}) {
   if (!briefPicksListEl || !briefPicksMetaEl) return;
   briefPicksListEl.innerHTML = "";
   briefPicksListEl.className = "top-stories-grid";
@@ -2060,7 +2061,7 @@ function renderBriefPicks() {
   if (followup) {
     briefPicksListEl.appendChild(followup);
   }
-  document.dispatchEvent(new CustomEvent("aiRadar:briefRendered"));
+  if (animate) document.dispatchEvent(new CustomEvent("aiRadar:briefRendered"));
 }
 
 function rankedClustersForItems(items) {
@@ -2706,9 +2707,11 @@ function renderList() {
   });
 }
 
-function rerenderCurrentView() {
-  state.briefExpanded = false;
-  state.siteGroupsExpanded = false;
+function rerenderCurrentView({ resetExpansion = true } = {}) {
+  if (resetExpansion) {
+    state.briefExpanded = false;
+    state.siteGroupsExpanded = false;
+  }
   renderSectionTabs();
   renderModeSwitch();
   renderSiteFilters();
@@ -3121,154 +3124,88 @@ function renderLlmRadar() {
   }
 }
 
-async function loadMarketSignalsData() {
-  const res = await fetch(`./data/market-signals.json?t=${Date.now()}`);
-  if (!res.ok) throw new Error(`載入 market-signals.json 失敗: ${res.status}`);
-  return res.json();
-}
-
-async function loadLlmRadarData() {
-  const res = await fetch(`./data/llm-radar.json?t=${Date.now()}`);
-  if (!res.ok) throw new Error(`載入 llm-radar.json 失敗: ${res.status}`);
-  return res.json();
-}
-
-async function loadNewsData() {
-  const res = await fetch(`./data/latest-24h.json?t=${Date.now()}`);
-  if (!res.ok) throw new Error(`載入 latest-24h.json 失敗: ${res.status}`);
-  return res.json();
-}
-
-async function loadAllModeData() {
-  if (state.allDataLoaded) return;
-  if (!state.allDataPromise) {
-    state.allDataPromise = fetch(`./${state.allDataUrl}?t=${Date.now()}`)
-      .then((res) => {
-        if (!res.ok) throw new Error(`載入 latest-24h-all.json 失敗: ${res.status}`);
-        return res.json();
-      })
-      .then((payload) => {
-        state.itemsAllRaw = payload.items_all_raw || payload.items_all || state.itemsAi;
-        state.itemsAll = payload.items_all || state.itemsAi;
-        state.totalRaw = payload.total_items_raw || state.itemsAllRaw.length;
-        state.totalAllMode = payload.total_items_all_mode || state.itemsAll.length;
-        state.allDataLoaded = true;
-      })
-      .catch((err) => {
-        state.allDataPromise = null;
-        throw err;
-      });
-  }
-  return state.allDataPromise;
-}
-
-async function loadSourceStatusData() {
-  const res = await fetch(`./data/source-status.json?t=${Date.now()}`);
-  if (!res.ok) throw new Error(`載入 source-status.json 失敗: ${res.status}`);
-  return res.json();
-}
-
-async function loadDailyBriefData() {
-  const res = await fetch(`./data/daily-brief.json?t=${Date.now()}`);
-  if (!res.ok) throw new Error(`載入 daily-brief.json 失敗: ${res.status}`);
-  return res.json();
-}
-
-async function loadStoriesData() {
-  const res = await fetch(`./${state.storiesDataUrl}?t=${Date.now()}`);
-  if (!res.ok) throw new Error(`載入 stories-merged.json 失敗: ${res.status}`);
-  return res.json();
-}
+const {
+  loadNewsData, loadAllModeData, loadSourceStatusData, loadDailyBriefData,
+  loadStoriesData, loadMarketSignalsData, loadLlmRadarData,
+} = AiRadarLoader.createLoader({ state });
 
 async function init() {
-  const [newsResult, statusResult, briefResult, storiesResult, marketSignalsResult, llmRadarResult] = await Promise.allSettled([
-    loadNewsData(),
-    loadSourceStatusData(),
-    loadDailyBriefData(),
-    loadStoriesData(),
-    loadMarketSignalsData(),
-    loadLlmRadarData(),
-  ]);
-
-  if (briefResult.status === "fulfilled") {
-    state.dailyBrief = briefResult.value;
-  } else {
-    state.dailyBrief = null;
-  }
-
-  if (storiesResult.status === "fulfilled") {
-    state.storiesMerged = storiesResult.value;
-  } else {
-    state.storiesMerged = null;
-  }
-
-  if (marketSignalsResult.status === "fulfilled") {
-    state.marketSignals = marketSignalsResult.value.signals || [];
-    state.marketSignalsGeneratedAt = marketSignalsResult.value.generated_at || null;
-  } else {
-    state.marketSignals = [];
-    state.marketSignalsGeneratedAt = null;
-  }
-  renderMarketSignals();
-
-  if (llmRadarResult.status === "fulfilled") {
-    state.llmRadar = llmRadarResult.value.events || [];
-    state.llmRadarGeneratedAt = llmRadarResult.value.generated_at || null;
-  } else {
-    state.llmRadar = [];
-    state.llmRadarGeneratedAt = null;
-  }
-  renderLlmRadar();
-
-  if (newsResult.status === "fulfilled") {
-    const payload = newsResult.value;
-    const loadedStoriesDataUrl = state.storiesDataUrl;
-    state.itemsAi = payload.items_ai || payload.items || [];
-    state.modelReleases24h = payload.model_releases_24h || [];
-    state.itemsAllRaw = payload.items_all_raw || payload.items_all || [];
-    state.itemsAll = payload.items_all || [];
-    state.statsAi = payload.site_stats || [];
-    state.totalAi = payload.total_items || state.itemsAi.length;
-    state.totalRaw = payload.total_items_raw || state.itemsAllRaw.length;
-    state.totalAllMode = payload.total_items_all_mode || state.itemsAll.length;
-    state.allDataUrl = payload.all_mode_data_url || state.allDataUrl;
-    state.storiesDataUrl = payload.stories_data_url || state.storiesDataUrl;
-    if (state.storiesDataUrl !== loadedStoriesDataUrl) {
-      try {
-        state.storiesMerged = await loadStoriesData();
-      } catch {
-        state.storiesMerged = null;
-      }
-    }
-    state.allDataLoaded = Boolean(payload.items_all || payload.items_all_raw);
-    state.generatedAt = payload.generated_at;
-
-    setStats();
-    renderStaleBanner();
-    renderSectionTabs();
-    renderModeSwitch();
-    renderListSortTools();
-    renderCoverageStrip();
-    renderSiteFilters();
-    renderBriefPicks();
-    renderList();
-    updatedAtEl.textContent = fmtTime(state.generatedAt);
-  } else {
+  let payload;
+  try {
+    payload = await loadNewsData();
+  } catch (error) {
+    const message = String(error?.message || error);
     updatedAtEl.textContent = "新聞資料載入失敗";
-    newsListEl.innerHTML = `<div class="empty">${newsResult.reason.message}</div>`;
-    renderCoverageStrip(newsResult.reason.message);
+    newsListEl.innerHTML = `<div class="empty">${message}</div>`;
+    renderCoverageStrip(message);
+    document.dispatchEvent(new CustomEvent("aiRadar:ready"));
+    return;
   }
 
-  if (statusResult.status === "fulfilled") {
-    state.sourceStatus = statusResult.value;
-    renderSourceHealth();
-    renderCoverageStrip();
-  } else {
-    renderSourceHealth(statusResult.reason.message);
-    renderCoverageStrip(statusResult.reason.message);
-  }
+  state.itemsAi = payload.items_ai || payload.items || [];
+  state.modelReleases24h = payload.model_releases_24h || [];
+  state.itemsAllRaw = payload.items_all_raw || payload.items_all || [];
+  state.itemsAll = payload.items_all || [];
+  state.statsAi = payload.site_stats || [];
+  state.totalAi = payload.total_items || state.itemsAi.length;
+  state.totalRaw = payload.total_items_raw || state.itemsAllRaw.length;
+  state.totalAllMode = payload.total_items_all_mode || state.itemsAll.length;
+  state.allDataUrl = payload.all_mode_data_url || state.allDataUrl;
+  state.storiesDataUrl = payload.stories_data_url || state.storiesDataUrl;
+  state.allDataLoaded = Boolean(payload.items_all || payload.items_all_raw);
+  state.generatedAt = payload.generated_at;
+
+  setStats();
+  renderStaleBanner();
+  renderSectionTabs();
+  renderModeSwitch();
+  renderListSortTools();
+  renderCoverageStrip();
+  renderSiteFilters();
+  renderBriefPicks();
+  renderList();
+  renderSourceHealth();
+  renderMarketSignals();
+  renderLlmRadar();
+  updatedAtEl.textContent = fmtTime(state.generatedAt);
 
   document.dispatchEvent(new CustomEvent("aiRadar:ready"));
+
+  // These requests only enrich the rendered news. Each settles independently;
+  // a slow or failed auxiliary file never keeps the main list in loading state.
+  void loadSourceStatusData().then((status) => {
+    state.sourceStatus = status;
+    state.sourceStatusError = null;
+    setStats();
+    renderSourceHealth();
+    renderCoverageStrip();
+  }, (error) => {
+    const message = String(error?.message || error);
+    state.sourceStatusError = message;
+    setStats();
+    renderSourceHealth(message);
+    renderCoverageStrip(message);
+  });
+  void loadDailyBriefData().then((brief) => {
+    state.dailyBrief = brief;
+    renderBriefPicks({ animate: false });
+    setStats();
+  }, () => { state.dailyBrief = null; });
+  void loadStoriesData().then((stories) => {
+    state.storiesMerged = stories;
+    renderBriefPicks({ animate: false });
+    setStats();
+  }, () => { state.storiesMerged = null; });
+  void loadMarketSignalsData().then((signals) => {
+    state.marketSignals = signals.signals || [];
+    state.marketSignalsGeneratedAt = signals.generated_at || null;
+    renderMarketSignals();
+  }, () => { state.marketSignals = []; });
+  void loadLlmRadarData().then((radar) => {
+    state.llmRadar = radar.events || [];
+    state.llmRadarGeneratedAt = radar.generated_at || null;
+    renderLlmRadar();
+  }, () => { state.llmRadar = []; });
 }
 
 searchInputEl.addEventListener("input", (e) => {
@@ -3326,6 +3263,8 @@ modeAiBtnEl.addEventListener("click", () => {
 });
 
 modeAllBtnEl.addEventListener("click", async () => {
+  const requestId = (state.allModeRequestId || 0) + 1;
+  state.allModeRequestId = requestId;
   state.mode = "all";
   renderModeSwitch();
   newsListEl.innerHTML = "";
@@ -3335,8 +3274,10 @@ modeAllBtnEl.addEventListener("click", async () => {
   newsListEl.appendChild(loading);
   try {
     await loadAllModeData();
-    rerenderCurrentView();
+    if (state.mode !== "all" || requestId !== state.allModeRequestId) return;
+    rerenderCurrentView({ resetExpansion: false });
   } catch (err) {
+    if (state.mode !== "all" || requestId !== state.allModeRequestId) return;
     newsListEl.innerHTML = "";
     const failed = document.createElement("div");
     failed.className = "empty";

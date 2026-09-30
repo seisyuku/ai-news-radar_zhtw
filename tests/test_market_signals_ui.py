@@ -21,12 +21,15 @@ def test_llm_radar_surface_is_optional_between_today_signals_and_market_changes(
 
 def test_ui_loads_sensor_payload_and_keeps_candidate_wording():
     js = (ROOT / "assets" / "app.js").read_text(encoding="utf-8")
-    assert "data/market-signals.json" in js
+    loader = (ROOT / "assets" / "loader.js").read_text(encoding="utf-8")
+    assert "data/market-signals.json" in loader
+    assert "loadMarketSignalsData().then" in js
     assert 'return "待確認"' in js
     assert 'signal.urgency === "breaking"' in js
     assert 'sortMode === "importance"' in js
     assert "renderMarketSignals();" in js
-    assert "data/llm-radar.json" in js
+    assert "data/llm-radar.json" in loader
+    assert "loadLlmRadarData().then" in js
     assert "renderLlmRadar();" in js
     assert "renderCompactSignalGroup(" in js
     assert "buildCompactSignalLink(signal)" in js
