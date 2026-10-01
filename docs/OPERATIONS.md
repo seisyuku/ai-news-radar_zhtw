@@ -29,22 +29,23 @@ outside this scheduled-generation protection.
 ## Front-end asset cache busting
 
 `index.html` references `assets/styles.css`, `assets/motion.js`,
-`assets/loader.js`, and `assets/app.js` with a shared `?v=<tag>` query parameter.
-The deferred loader script must precede app.js; see the
+`assets/loader.js`, `assets/selection.js`, and `assets/app.js` with a shared `?v=<tag>` query parameter.
+The deferred loader and selection scripts must precede app.js; see the
 [frontend loader contract](FRONTEND_LOADER.md). For example:
 
 ```html
 <link rel="stylesheet" href="./assets/styles.css?v=taste-ui-0716a" />
 <script src="./assets/motion.js?v=taste-ui-0716a" defer></script>
 <script src="./assets/loader.js?v=taste-ui-0716a" defer></script>
+<script src="./assets/selection.js?v=taste-ui-0716a" defer></script>
 <script src="./assets/app.js?v=taste-ui-0716a" defer></script>
 ```
 
 **Rule: any PR that changes `assets/app.js`, `assets/styles.css`,
-`assets/loader.js`, or `assets/motion.js` must bump the shared `?v=` tag in
+`assets/loader.js`, `assets/selection.js`, or `assets/motion.js` must bump the shared `?v=` tag in
 `index.html`, in the same PR, and say why in the PR description.**
 
-`tests/test_asset_versions.py` 直接比較目前資產與 Git baseline。只要四個
+`tests/test_asset_versions.py` 直接比較目前資產與 Git baseline。只要五個
 資產之一相對 baseline 有內容變更，目前 `index.html` 的共用 `?v=` tag
 也必須不同。測試不維護檔案雜湊或人工 manifest；CI 使用 push 前一個
 commit 或 pull request base commit 作為 baseline。
@@ -65,7 +66,7 @@ structure it doesn't understand.
 ### How to bump it
 
 Pick a new tag and replace `?v=<old-tag>` with `?v=<new-tag>` on every
-reference in `index.html` (`styles.css`, `motion.js`, `loader.js`, `app.js` - keep them in
+reference in `index.html` (`styles.css`, `motion.js`, `loader.js`, `selection.js`, `app.js` - keep them in
 sync even if only one file actually changed, so there is only ever one tag to
 reason about). The existing convention is `taste-ui-MMDDx` (month, day, and a
 letter suffix for same-day revisions, e.g. `taste-ui-0715a`, then
@@ -611,3 +612,54 @@ watchdog／external heartbeat 三層排程影響。
 若要提高速報時效，先量測事件的來源發布延遲；不可只增加 GitHub Actions
 cron。現行 30 分鐘輪詢已使抓取成本接近零，品質成本主要是誤報覆核，而非
 網路或運算資源。
+
+
+## Generation duration observations
+
+`source-status.json.metrics.phases` records monotonic wall milliseconds for
+input loading, built-in collection, sensors, each paid gate/fetch path, OPML,
+reader preparation, translations, story aggregation, summaries, payload assembly
+and output. This is observational; retry, timeout, cron, concurrency, provider
+policy and six-success summary limits are unchanged. Phase `state` describes
+completion, a disabled/skipped gate, or a raised error; returned source/provider
+failures still use their existing health/error fields. A fatal exception records
+its phase in memory and propagates without publishing a successful snapshot.
+
+Translation `provider_request_count` copies the existing explicit request count.
+Summary `provider_enabled` is separate from phase wall time, which includes cache
+and candidate work even without a credential. Summary candidate failures are
+not interpreted as HTTP attempt counts. Metrics contain no URLs, content,
+credentials or exception details.
+
+Grouped children gain current `duration_ms` around their fetch/parse operation;
+a skipped child has zero duration and retains its failure history. OPML's legacy
+site `duration_ms` remains the sum of feed work; metrics `opml.duration_ms` is the
+wall span including concurrent work and is not that sum.
+
+Output wall time covers snapshots, resolvers, states and optional caches.
+`source-status.json` is now published after these writes succeed, before resolver
+cleanup. Its own serialization/replacement and resolver cleanup are explicitly
+excluded from output timing. This does not create a cross-file transaction:
+failed later writes can leave earlier complete files from the new generation.
+Cleanup still begins only after every file, including source status, succeeds.
+
+
+## Free-tier catalog input protection
+
+Free-tier input must be a provider list with unique nonempty string IDs and a
+list of nonempty string model names (missing/null models still mean an empty
+list). Model names are stripped/deduplicated. Known retirement prose such as
+`Retired - the model catalog is gone` is rejected as a catalog format error;
+it is not converted into model-added/model-removed reader messages. Errors use
+fixed validation codes without echoing the upstream payload.
+
+The existing 80% dataset-retention policy now also guards each retained
+provider's model count, using the same floor and minimum-one calculation as
+provider/price counts. When a catalog is malformed or collapses, the source is
+failed for that round, its previous free-tier baseline remains intact, and no
+new free-tier differences are published; existing unexpired signals and other
+sensors remain available. Normal small changes still publish existing event
+shapes. This can suppress a real bulk retirement until maintainer review; it
+cannot prove whether an upstream change is genuine. Large same-size replacement
+and arbitrary prose detection are not claimed to be solved by a count guard.
+No new source, API call, schedule, public schema, UI or scoring policy is added.

@@ -36,3 +36,14 @@ def test_loader_module_direct_contracts():
     script = SCRIPT.with_name("frontend_loader_module.test.cjs")
     result = subprocess.run(["node", "--test", str(script)], capture_output=True, text=True, timeout=10)
     assert result.returncode == 0, result.stdout + result.stderr
+
+
+def test_selection_module_direct_contracts():
+    script = SCRIPT.with_name("frontend_selection_module.test.cjs")
+    result = subprocess.run(["node", "--test", str(script)], capture_output=True, text=True, timeout=10)
+    assert result.returncode == 0, result.stdout + result.stderr
+
+
+def test_section_filters_keep_source_search_and_modes():
+    result = subprocess.run(["node", str(SCRIPT), "section-filters"], capture_output=True, text=True, timeout=10)
+    assert result.returncode == 0, result.stdout + result.stderr

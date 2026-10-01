@@ -40,6 +40,7 @@ class SubsourceStatus(HealthHistory, total=False):
     ok: bool | None
     item_count: int
     error: str | None
+    duration_ms: int
 
 
 class SiteStatus(HealthHistory, total=False):
@@ -143,6 +144,7 @@ def apply_subsource_health_history(
         row["skipped"] = skipped
         row["attempted"] = not skipped
         if skipped:
+            row["duration_ms"] = 0
             if isinstance(row.get("last_attempt_ok"), bool):
                 last_attempt_ok = row["last_attempt_ok"]
             if last_attempt_ok is False and not old_count:

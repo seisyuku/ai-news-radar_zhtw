@@ -219,3 +219,91 @@ def test_main_redacts_persistent_non_group_failure_in_all_public_outputs(offline
     assert failure["consecutive_failures"] == 3
     assert failure["first_failure_at"] == first_failure
     assert current[0]["error"] == "secret=synthetic-only-marker user@example.invalid"
+
+
+def test_generation_phase_records_elapsed_and_failure_without_exception_text(monkeypatch):
+    clock = [10.0]
+    monkeypatch.setattr(u.time, "perf_counter", lambda: clock[0])
+    metrics = {}
+    with u.record_generation_phase(metrics, "quiet"):
+        clock[0] += 0.25
+    assert metrics["quiet"] == {"state": "completed", "duration_ms": 250}
+    with pytest.raises(ValueError):
+        with u.record_generation_phase(metrics, "failed"):
+            clock[0] += 0.5
+            raise ValueError("secret=never-export")
+    assert metrics["failed"] == {"state": "failed", "duration_ms": 500}
+    assert "never-export" not in str(metrics)
+
+
+@pytest.mark.parametrize("fails", [False, True])
+def test_generator_subsource_duration_retains_safe_health_result(monkeypatch, fails):
+    clock = [0.0]
+    monkeypatch.setattr(u.time, "perf_counter", lambda: clock[0])
+    def fetch():
+        clock[0] += 0.375
+        if fails:
+            raise RuntimeError("secret=do-not-export")
+        return [object()]
+    items, status = u._group_subsource_status("stable_id", fetch)
+    assert status["duration_ms"] == 375
+    assert status["ok"] is not fails
+    assert len(items) == (0 if fails else 1)
+    assert "do-not-export" not in str(status)
+
+
+def test_main_phase_metrics_separate_opml_wall_skips_and_output(offline_generation, monkeypatch):
+    clock = [0.0]
+    monkeypatch.setattr(u.time, "perf_counter", lambda: clock[0])
+    def collect(*args):
+        clock[0] += 0.5
+        return [], []
+    monkeypatch.setattr(u, "collect_all", collect)
+    opml = offline_generation.parent / "public.opml"
+    opml.write_text("<opml/>")
+    def rss(*args, **kwargs):
+        clock[0] += 0.25
+        return [], {"site_id": "opmlrss", "ok": True, "item_count": 0,
+                    "duration_ms": 700}, []
+    monkeypatch.setattr(u, "fetch_opml_rss", rss)
+    monkeypatch.setattr(sys, "argv", ["update_news.py", "--output-dir", str(offline_generation),
+                                    "--rss-opml", str(opml), "--translate-max-new", "0"])
+    monkeypatch.setattr(u, "maybe_fetch_socialdata_updates", lambda *_: ([], {
+        "enabled": True, "attempted": False, "skipped": True, "ok": None,
+        "item_count": 0, "skip_reason": "interval"}))
+    original_write = u.atomic_write_text
+    def slow_write(*args, **kwargs):
+        clock[0] += 0.005
+        return original_write(*args, **kwargs)
+    monkeypatch.setattr(u, "atomic_write_text", slow_write)
+    assert u.main() == 0
+    payload = json.loads((offline_generation / "source-status.json").read_text())
+    phases = payload["metrics"]["phases"]
+    assert phases["collect"]["duration_ms"] == 500
+    assert phases["opml"]["duration_ms"] == 250
+    assert next(s for s in payload["sites"] if s["site_id"] == "opmlrss")["duration_ms"] == 700
+    assert phases["socialdata"]["state"] == "skipped"
+    assert phases["x_api"]["state"] == "skipped"
+    assert phases["translations"]["provider_request_count"] == 0
+    assert phases["summaries"]["provider_enabled"] is False
+    assert phases["output"]["duration_ms"] >= 50
+    assert payload["metrics"]["output_excludes"] == ["source_status_publication", "resolver_cleanup"]
+
+
+def test_main_disabled_opml_and_providers_are_explicit(offline_generation):
+    assert u.main() == 0
+    phases = json.loads((offline_generation / "source-status.json").read_text())["metrics"]["phases"]
+    assert phases["opml"]["state"] == "skipped"
+    assert phases["summaries"]["provider_enabled"] is False
+    assert phases["translations"]["provider_request_count"] == 0
+
+
+def test_skipped_child_duration_is_current_zero_without_resetting_failure():
+    current = [{"site_id": "official_ai", "skipped": True, "ok": None, "subsources": []}]
+    previous = {"sites": [{"site_id": "official_ai", "subsources": [
+        {"source_id": "child", "ok": False, "duration_ms": 1234,
+         "consecutive_failures": 2, "last_failure_at": "2026-09-27T00:00:00Z"}]}]}
+    assert u.apply_source_health_history(current, previous, NOW) == []
+    row = current[0]["subsources"][0]
+    assert row["duration_ms"] == 0 and row["attempted"] is False
+    assert row["consecutive_failures"] == 2

@@ -89,3 +89,12 @@ This module does not define reader source categories. The reader's header and
 `successful_sites` remain group-level `ok` counts; child degradation and history
 remain maintainer diagnostics. A reader-facing child warning would need a
 separate product decision and frontend task.
+
+
+## Child duration observation
+
+The generator `_group_subsource_status` wrapper measures fetch/parse wall time
+and adds optional `duration_ms` to the stable child result. The standalone health
+formatter/fetch policy still reads no clock. Skipped child observations have
+zero current duration; old durations are not replayed, and skipped failure
+history remains intact. See Operations for phase versus OPML-sum semantics.

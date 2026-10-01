@@ -49,7 +49,8 @@ script imports (`archive_output` from the scripts directory) both work.
 
 JSON resolver serialization remains `ensure_ascii=False, indent=2`; HTML keeps
 its existing structure and trailing newline. The main coordinator retains the
-serialization options and write order for all other snapshots/state/caches.
+serialization options for all other snapshots/state/caches. Source status is
+published last, before cleanup, to include observed output duration.
 Standalone writers prune after their own writes succeed. Main passes
 `prune=False` to both and cleans up only after all snapshot, resolver, state and
 optional cache writes succeed.

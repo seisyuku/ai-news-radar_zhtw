@@ -2,7 +2,7 @@
 
 `assets/loader.js` exposes `AiRadarLoader` as a classic browser script and the
 same API through CommonJS for direct Node tests. It has no DOM or app imports.
-Load it with `defer` before `assets/app.js`; the loader, app, motion and stylesheet
+Load it with `defer` before `assets/app.js`; the loader, app, selection, motion and stylesheet
 references share one cache tag in `index.html`. No bundler or framework is needed.
 
 ## Interface and ownership
@@ -59,12 +59,16 @@ Real-browser smoke remains necessary for script order, startup and DOM behavior.
 
 The offline workflow covers `assets/**` and runs loader syntax plus these tests.
 The asset-version workflow covers the new loader explicitly. Current HTML must
-reference all four versioned assets once; Git comparison can still read a
-historical three-asset baseline. Local runs may exclude the Git-baseline check
+reference all five versioned assets once; Git comparison can still read
+historical three- or four-asset baselines. Local runs may exclude the Git-baseline check
 when required by the task, while retaining reference/order checks.
 
-Potential later extraction should begin with a bounded selection helper such
-as `itemMatchesSection`, with focused contract tests before moving it.
+`assets/selection.js` now owns `itemSections` and `itemMatchesSection`, with
+unchanged classification regexes and field handling. It exports `AiRadarSelection`
+and CommonJS APIs without DOM, state, loader or scoring dependencies. Load it
+with defer before app.js. Direct Node contracts cover empty/missing fields,
+hot/unknown sections, model/tool distinctions, multilingual/source/signals and
+non-mutation; whole-app VM contracts retain source/search and AI/all modes.
 `storyMatchesFilteredItems` currently reads app state and would need explicit
 filter inputs before becoming a pure helper. DOM rendering, source categories,
 scoring and featured-selection policies remain outside this loader boundary.

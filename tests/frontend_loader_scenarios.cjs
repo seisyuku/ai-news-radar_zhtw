@@ -5,6 +5,7 @@ const path = require("node:path");
 const vm = require("node:vm");
 
 const source = fs.readFileSync(path.join(__dirname, "../assets/app.js"), "utf8");
+const selectionSource = fs.readFileSync(path.join(__dirname, "../assets/selection.js"), "utf8");
 const loaderSource = fs.readFileSync(path.join(__dirname, "../assets/loader.js"), "utf8");
 // Suppress only automatic startup so each scenario controls when init runs.
 // Functions, state, loader wiring and registered handlers execute unchanged.
@@ -63,6 +64,7 @@ function environment({ pending = [], failures = [], sequence = {} } = {}) {
   };
   vm.createContext(context);
   vm.runInContext(loaderSource, context, { filename: "assets/loader.js" });
+  vm.runInContext(selectionSource, context, { filename: "assets/selection.js" });
   vm.runInContext(app, context, { filename: "assets/app.js" });
   const state = vm.runInContext("state", context);
   context.fetchJson = vm.runInContext("AiRadarLoader.createLoader({ state }).fetchJson", context);
@@ -81,7 +83,31 @@ function environment({ pending = [], failures = [], sequence = {} } = {}) {
 
 async function main() {
   const scenario = process.argv[2];
-  if (scenario === "aux-pending") {
+  if (scenario === "section-filters") {
+    const env = environment();
+    const items = [
+      { id: "qwen", title: "Qwen model released", site_id: "official_ai", source: "OpenAI", url: "https://openai.com/a", ai_score: 0.99 },
+      { id: "media", title: "Qwen model reviewed", site_id: "curated_media", source: "Reuters", url: "https://reuters.com/a", ai_score: 0.99 },
+      { id: "funding", title: "Company IPO", site_id: "official_ai", source: "OpenAI", url: "https://openai.com/b", ai_score: 0.99 },
+    ];
+    env.state.itemsAi = items;
+    env.state.itemsAll = [...items, { id: "raw", title: "Qwen model", site_id: "official_ai", source: "OpenAI", ai_score: 0.99 }];
+    env.state.itemsAllRaw = env.state.itemsAll;
+    env.state.allDataLoaded = true;
+    env.state.modelReleases24h = [];
+    env.state.activeSection = "models";
+    env.state.query = "qwen";
+    env.state.siteFilter = "original";
+    env.state.mode = "ai";
+    assert.deepEqual(Array.from(env.context.getFilteredItems(), (i) => i.id), ["qwen"]);
+    env.state.mode = "all";
+    assert.deepEqual(Array.from(env.context.getFilteredItems(), (i) => i.id), ["qwen", "raw"]);
+    env.state.mode = "ai";
+    env.state.siteFilter = "";
+    assert.deepEqual(Array.from(env.context.getFilteredItems(), (i) => i.id), ["qwen", "media"]);
+    env.state.query = "absent";
+    assert.equal(env.context.getFilteredItems().length, 0);
+  } else if (scenario === "aux-pending") {
     const key = process.argv[3];
     const env = environment({ pending: [key] });
     const started = env.context.init();

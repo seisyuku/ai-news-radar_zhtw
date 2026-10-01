@@ -522,6 +522,13 @@ and ecosystem entries were removed with their adapters.
 縮至前次 80% 以下會 fail closed，保留既有 state；單一 Sensor 失效不拖垮
 新聞更新，錯誤會進入 `source-status.json`。
 
+免費額度資料另驗證 provider 清單、唯一字串 ID 與模型名稱陣列；字串被
+拆成逐字模型、非字串模型或已知退休說明文字都視為格式失效。80% 數量
+保護亦套用於仍在清單內的每個 provider 模型數，沿用既有取整／至少一筆
+規則。拒絕時保留前次 baseline，不發布該輪新免費額度異動；真實大量
+退場可能需人工確認。此保護不判斷同數量的大幅替換或任意說明文字，
+詳細限制見 `OPERATIONS.md`。
+
 所有寫入公開 `market-signals.json` 的事件，不論價格、免費額度或 usage
 policy 候選，讀者可見窗口一律為 24 小時。供 old/new 比對的 sensor state
 另行保存，並不延長首頁事件的可見期限。

@@ -25,6 +25,7 @@ PRICE_HOME = "https://github.com/llerandi/llm-price-tracker"
 FREE_TIER_URL = "https://raw.githubusercontent.com/xyzs996/free-llm-api/main/data/providers.json"
 FREE_TIER_HOME = "https://github.com/xyzs996/free-llm-api"
 MARKET_SIGNAL_WINDOW_HOURS = 24
+DATASET_MIN_RETAINED_RATIO = 0.8
 
 PRICE_FIELDS: dict[str, tuple[str, str]] = {
     "input_per_1m_usd": ("輸入價格", "USD / 1M tokens"),
@@ -238,13 +239,33 @@ def diff_price_snapshots(
 
 
 def build_free_tier_snapshot(payload: Any) -> dict[str, Any]:
+    if not isinstance(payload, list):
+        raise ValueError("free_tier_invalid_catalog")
     providers: dict[str, dict[str, Any]] = {}
-    for raw in payload if isinstance(payload, list) else []:
+    for raw in payload:
         if not isinstance(raw, dict):
-            continue
-        provider_id = str(raw.get("id") or "").strip()
+            raise ValueError("free_tier_invalid_provider")
+        provider_id = raw.get("id")
+        if not isinstance(provider_id, str):
+            raise ValueError("free_tier_invalid_provider_id")
+        provider_id = provider_id.strip()
         if not provider_id:
-            continue
+            raise ValueError("free_tier_invalid_provider_id")
+        if provider_id in providers:
+            raise ValueError("free_tier_duplicate_provider_id")
+        raw_models = raw.get("models")
+        if raw_models is None:
+            raw_models = []
+        if not isinstance(raw_models, list):
+            raise ValueError("free_tier_invalid_models")
+        models: set[str] = set()
+        for model in raw_models:
+            if not isinstance(model, str) or not model.strip():
+                raise ValueError("free_tier_invalid_model_name")
+            model = model.strip()
+            if re.search(r"(?i)^retired(?:\s*[—–:]|\s+-)|the model catalog is gone", model):
+                raise ValueError("free_tier_model_description_not_identifier")
+            models.add(model)
         limits = raw.get("limits") if isinstance(raw.get("limits"), dict) else {}
         availability = raw.get("availability") if isinstance(raw.get("availability"), dict) else {}
         sources = raw.get("official_sources") if isinstance(raw.get("official_sources"), list) else []
@@ -255,7 +276,7 @@ def build_free_tier_snapshot(payload: Any) -> dict[str, Any]:
         providers[provider_id] = {
             "name": str(raw.get("name") or provider_id).strip(),
             "category": str(raw.get("category") or "").strip(),
-            "models": sorted(str(model).strip() for model in raw.get("models") or [] if str(model).strip()),
+            "models": sorted(models),
             "requests_per_minute": limits.get("requests_per_minute"),
             "requests_per_day": limits.get("requests_per_day"),
             "availability_status": availability.get("status"),
@@ -264,6 +285,19 @@ def build_free_tier_snapshot(payload: Any) -> dict[str, Any]:
             "official_url": official_url,
         }
     return {"providers": providers}
+
+
+def validate_free_tier_retention(previous: dict[str, Any], current: dict[str, Any]) -> None:
+    """Reject provider/model collapse before replacing the comparison baseline."""
+    old = previous.get("providers") or {}
+    new = current.get("providers") or {}
+    if old and len(new) < max(1, int(len(old) * DATASET_MIN_RETAINED_RATIO)):
+        raise ValueError("Free-tier dataset shrank below the 80% safety gate")
+    for provider_id in old.keys() & new.keys():
+        old_models = set(old[provider_id].get("models") or [])
+        new_models = set(new[provider_id].get("models") or [])
+        if old_models and len(new_models) < max(1, int(len(old_models) * DATASET_MIN_RETAINED_RATIO)):
+            raise ValueError("free_tier_model_catalog_shrank_below_80_percent")
 
 
 def diff_free_tier_snapshots(
@@ -469,7 +503,7 @@ def run_market_sensors(
         current_price = build_price_snapshot(_fetch_json(session, PRICE_URL))
         old_price = state.get("price") if isinstance(state.get("price"), dict) else {}
         price_signals = diff_price_snapshots(old_price, current_price, detected_at)
-        if old_price and len(current_price.get("models") or {}) < max(1, int(len(old_price.get("models") or {}) * 0.8)):
+        if old_price and len(current_price.get("models") or {}) < max(1, int(len(old_price.get("models") or {}) * DATASET_MIN_RETAINED_RATIO)):
             raise ValueError("Price dataset shrank below the 80% safety gate")
         state["price"] = current_price
         signals.extend(price_signals)
@@ -485,9 +519,8 @@ def run_market_sensors(
     try:
         current_free = build_free_tier_snapshot(_fetch_json(session, FREE_TIER_URL))
         old_free = state.get("free_tier") if isinstance(state.get("free_tier"), dict) else {}
+        validate_free_tier_retention(old_free, current_free)
         free_signals = diff_free_tier_snapshots(old_free, current_free, detected_at)
-        if old_free and len(current_free.get("providers") or {}) < max(1, int(len(old_free.get("providers") or {}) * 0.8)):
-            raise ValueError("Free-tier dataset shrank below the 80% safety gate")
         state["free_tier"] = current_free
         signals.extend(free_signals)
         statuses.append({"site_id": "market_free_tier", "site_name": "Free LLM APIs", "ok": True,

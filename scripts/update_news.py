@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from contextlib import contextmanager
 from email.utils import parseaddr
 import html
 import hashlib
@@ -40,8 +41,30 @@ atomic_write_text = archive_output.atomic_write_text
 prune_item_outputs = archive_output.prune_item_outputs
 load_source_status = source_health.load_source_status
 apply_subsource_health_history = source_health.apply_subsource_health_history
-_group_subsource_status = source_health.fetch_subsource_with_status
 _group_source_details = source_health.summarize_subsources
+
+
+@contextmanager
+def record_generation_phase(metrics: dict[str, Any], name: str):
+    """Observe wall time without changing failures, retries or provider policy."""
+    started = time.perf_counter()
+    observation: dict[str, Any] = {"state": "completed"}
+    try:
+        yield observation
+    except BaseException:
+        observation["state"] = "failed"
+        raise
+    finally:
+        observation["duration_ms"] = max(0, round((time.perf_counter() - started) * 1000))
+        metrics[name] = observation
+
+
+def _group_subsource_status(source_id: str, fetch: Callable[[], list[Any]]):
+    """Keep clocks at the generator boundary; health policy remains clock-free."""
+    started = time.perf_counter()
+    items, status = source_health.fetch_subsource_with_status(source_id, fetch)
+    status["duration_ms"] = max(0, round((time.perf_counter() - started) * 1000))
+    return items, status
 
 try:
     from scripts.aibase_source import aibase_article_key, fetch_aibase_payload
@@ -6730,373 +6753,411 @@ def main() -> int:
     market_sensor_state_path = output_dir / "market-sensor-state.json"
     llm_radar_path = output_dir / "llm-radar.json"
 
-    archive = load_archive(archive_path)
-    previous_source_status = load_source_status(status_path)
-    paid_source_state = load_paid_source_state(paid_source_state_path)
-    try:
-        previous_market_signals = json.loads(market_signals_path.read_text(encoding="utf-8"))
-    except (OSError, ValueError, TypeError):
-        previous_market_signals = {}
-    try:
-        previous_market_state = json.loads(market_sensor_state_path.read_text(encoding="utf-8"))
-    except (OSError, ValueError, TypeError):
-        previous_market_state = {}
+    phase_metrics: dict[str, Any] = {}
+    with record_generation_phase(phase_metrics, "inputs") as phase:
+        archive = load_archive(archive_path)
+        previous_source_status = load_source_status(status_path)
+        paid_source_state = load_paid_source_state(paid_source_state_path)
+        try:
+            previous_market_signals = json.loads(market_signals_path.read_text(encoding="utf-8"))
+        except (OSError, ValueError, TypeError):
+            previous_market_signals = {}
+        try:
+            previous_market_state = json.loads(market_sensor_state_path.read_text(encoding="utf-8"))
+        except (OSError, ValueError, TypeError):
+            previous_market_state = {}
 
-    session = create_session()
-    raw_items, statuses = collect_all(session, now)
-    market_signals_payload, market_sensor_state, market_sensor_statuses = run_market_sensors(
-        session,
-        now,
-        previous_market_state,
-        previous_market_signals,
-    )
-    statuses.extend(market_sensor_statuses)
+        session = create_session()
+
+    with record_generation_phase(phase_metrics, "collect") as phase:
+        raw_items, statuses = collect_all(session, now)
+
+    with record_generation_phase(phase_metrics, "sensors") as phase:
+        market_signals_payload, market_sensor_state, market_sensor_statuses = run_market_sensors(
+            session,
+            now,
+            previous_market_state,
+            previous_market_signals,
+        )
+        statuses.extend(market_sensor_statuses)
+
     rss_feed_statuses: list[dict[str, Any]] = []
-    x_api_items, x_api_status = maybe_fetch_x_api_updates(session, now)
-    if x_api_status.get("enabled"):
-        raw_items.extend(x_api_items)
-        statuses.append(
-            {
-                "site_id": "xapi",
-                "site_name": "X API",
-                "ok": bool(x_api_status.get("ok")) if x_api_status.get("ok") is not None else True,
-                "item_count": int(x_api_status.get("item_count") or 0),
-                "duration_ms": 0,
-                "error": x_api_status.get("error"),
-                "attempted": bool(x_api_status.get("attempted")),
-                "skipped": bool(x_api_status.get("skipped")),
-                "skip_reason": x_api_status.get("skip_reason"),
-            }
+    with record_generation_phase(phase_metrics, "x_api") as phase:
+        x_api_items, x_api_status = maybe_fetch_x_api_updates(session, now)
+        if x_api_status.get("enabled"):
+            raw_items.extend(x_api_items)
+            statuses.append(
+                {
+                    "site_id": "xapi",
+                    "site_name": "X API",
+                    "ok": bool(x_api_status.get("ok")) if x_api_status.get("ok") is not None else True,
+                    "item_count": int(x_api_status.get("item_count") or 0),
+                    "duration_ms": 0,
+                    "error": x_api_status.get("error"),
+                    "attempted": bool(x_api_status.get("attempted")),
+                    "skipped": bool(x_api_status.get("skipped")),
+                    "skip_reason": x_api_status.get("skip_reason"),
+                }
+            )
+        if not x_api_status.get("enabled") or x_api_status.get("skipped"):
+            phase["state"] = "skipped"
+
+    with record_generation_phase(phase_metrics, "socialdata") as phase:
+        socialdata_items, socialdata_status = maybe_fetch_socialdata_updates(session, now, paid_source_state)
+        update_paid_source_state(paid_source_state, "socialdata", socialdata_status, now)
+        sync_paid_source_status_timestamps(socialdata_status, paid_source_state, "socialdata")
+        if socialdata_status.get("enabled"):
+            raw_items.extend(socialdata_items)
+            statuses.append(
+                {
+                    "site_id": "socialdata_x",
+                    "site_name": "SocialData X",
+                    "ok": bool(socialdata_status.get("ok")) if socialdata_status.get("ok") is not None else True,
+                    "item_count": int(socialdata_status.get("item_count") or 0),
+                    "duration_ms": 0,
+                    "error": socialdata_status.get("error"),
+                    "attempted": bool(socialdata_status.get("attempted")),
+                    "skipped": bool(socialdata_status.get("skipped")),
+                    "skip_reason": socialdata_status.get("skip_reason"),
+                    "last_attempt_ok": socialdata_status.get("last_attempt_ok"),
+                    "last_run_at": socialdata_status.get("last_run_at"),
+                    "last_success_at": socialdata_status.get("last_success_at"),
+                }
+            )
+        if not socialdata_status.get("enabled") or socialdata_status.get("skipped"):
+            phase["state"] = "skipped"
+
+    with record_generation_phase(phase_metrics, "tikhub") as phase:
+        tikhub_items, tikhub_status = maybe_fetch_tikhub_updates(session, now, paid_source_state)
+        update_paid_source_state(paid_source_state, "tikhub", tikhub_status, now)
+        sync_paid_source_status_timestamps(tikhub_status, paid_source_state, "tikhub")
+        if tikhub_status.get("enabled"):
+            raw_items.extend(tikhub_items)
+            tikhub_counts: dict[str, int] = {}
+            for item in tikhub_items:
+                tikhub_counts[item.site_id] = tikhub_counts.get(item.site_id, 0) + 1
+            for site_id, site_name in (
+                ("tikhub_douyin", "TikHub Douyin"),
+                ("tikhub_xiaohongshu", "TikHub Xiaohongshu"),
+            ):
+                if site_id.split("_", 1)[1] not in set(tikhub_status.get("platforms") or []):
+                    continue
+                statuses.append(
+                    {
+                        "site_id": site_id,
+                        "site_name": site_name,
+                        "ok": bool(tikhub_status.get("ok")) if tikhub_status.get("ok") is not None else True,
+                        "item_count": tikhub_counts.get(site_id, 0),
+                        "duration_ms": 0,
+                        "error": tikhub_status.get("error"),
+                        "attempted": bool(tikhub_status.get("attempted")),
+                        "skipped": bool(tikhub_status.get("skipped")),
+                        "skip_reason": tikhub_status.get("skip_reason"),
+                        "last_attempt_ok": tikhub_status.get("last_attempt_ok"),
+                        "last_run_at": tikhub_status.get("last_run_at"),
+                        "last_success_at": tikhub_status.get("last_success_at"),
+                    }
+                )
+        if not tikhub_status.get("enabled") or tikhub_status.get("skipped"):
+            phase["state"] = "skipped"
+
+    with record_generation_phase(phase_metrics, "opml") as phase:
+        if args.rss_opml:
+            opml_path = Path(args.rss_opml).expanduser()
+            if opml_path.exists():
+                rss_items, rss_summary_status, rss_feed_statuses = fetch_opml_rss(
+                    now,
+                    opml_path,
+                    max_feeds=max(0, int(args.rss_max_feeds)),
+                )
+                raw_items.extend(rss_items)
+                statuses.append(rss_summary_status)
+            else:
+                statuses.append(
+                    {
+                        "site_id": "opmlrss",
+                        "site_name": "OPML RSS",
+                        "ok": False,
+                        "item_count": 0,
+                        "duration_ms": 0,
+                        "error": f"OPML not found: {opml_path}",
+                        "feed_count": 0,
+                        "ok_feed_count": 0,
+                        "failed_feed_count": 0,
+                    }
+                )
+        if not args.rss_opml:
+            phase["state"] = "skipped"
+        elif not opml_path.exists():
+            phase["state"] = "failed"
+
+    with record_generation_phase(phase_metrics, "preparation") as phase:
+        merge_raw_items_into_archive(archive, raw_items, now)
+
+        # Resolver files inherit the same last-seen-based retention as archive.json.
+        archive = prune_archive_records(archive, now, args.archive_days)
+
+        # 24h view
+        latest_items_all: list[dict[str, Any]] = []
+        for record in archive.values():
+            if is_within_reader_window(record, now, args.window_hours):
+                normalized = dict(record)
+                normalized["title"] = to_zh_hant(maybe_fix_mojibake(str(normalized.get("title") or "")))
+                if normalized.get("summary"):
+                    normalized["summary"] = to_zh_hant(str(normalized.get("summary") or ""))
+                normalized["source"] = maybe_fix_mojibake(normalize_source_for_display(
+                    str(normalized.get("site_id") or ""),
+                    str(normalized.get("source") or ""),
+                    str(normalized.get("url") or ""),
+                ))
+                normalized["site_name"] = apply_site_name_alias(str(normalized.get("site_name") or ""))
+                normalized["business_events"] = business_event_score(normalized)
+                normalized = add_ai_relevance_fields(normalized)
+                normalized = add_source_tier_fields(normalized)
+                latest_items_all.append(normalized)
+
+        latest_items_all.sort(key=lambda x: event_time(x) or datetime.min.replace(tzinfo=UTC), reverse=True)
+        latest_items = [record for record in latest_items_all if record.get("ai_is_related", is_ai_related_record(record))]
+        latest_items_ai_raw_count = len(latest_items)
+        latest_items = apply_reader_source_limits(dedupe_same_publisher_items(latest_items))
+        title_cache = load_title_zh_cache(title_cache_path)
+        translation_state = load_translation_state(translation_state_path)
+        translation_status: dict[str, Any] = {}
+        ai_summary_cache = load_summary_cache(ai_summary_cache_path)
+
+    with record_generation_phase(phase_metrics, "translations") as phase:
+        latest_items, latest_items_all, title_cache = add_bilingual_fields(
+            latest_items,
+            latest_items_all,
+            session,
+            title_cache,
+            max_new_translations=max(0, args.translate_max_new),
+            translation_state=translation_state,
+            translation_status=translation_status,
+            now=now,
         )
-    socialdata_items, socialdata_status = maybe_fetch_socialdata_updates(session, now, paid_source_state)
-    update_paid_source_state(paid_source_state, "socialdata", socialdata_status, now)
-    sync_paid_source_status_timestamps(socialdata_status, paid_source_state, "socialdata")
-    if socialdata_status.get("enabled"):
-        raw_items.extend(socialdata_items)
-        statuses.append(
-            {
-                "site_id": "socialdata_x",
-                "site_name": "SocialData X",
-                "ok": bool(socialdata_status.get("ok")) if socialdata_status.get("ok") is not None else True,
-                "item_count": int(socialdata_status.get("item_count") or 0),
-                "duration_ms": 0,
-                "error": socialdata_status.get("error"),
-                "attempted": bool(socialdata_status.get("attempted")),
-                "skipped": bool(socialdata_status.get("skipped")),
-                "skip_reason": socialdata_status.get("skip_reason"),
-                "last_attempt_ok": socialdata_status.get("last_attempt_ok"),
-                "last_run_at": socialdata_status.get("last_run_at"),
-                "last_success_at": socialdata_status.get("last_success_at"),
-            }
+        phase["provider_request_count"] = int(translation_status.get("request_count") or 0)
+
+    with record_generation_phase(phase_metrics, "aggregation") as phase:
+        model_releases_24h = build_model_releases_24h_items(archive, now)
+        llm_radar_payload = build_llm_radar_payload(latest_items, now)
+        latest_items_ai_dedup = apply_reader_source_limits(
+            suppress_near_duplicate_items(dedupe_items_by_title_url(latest_items, random_pick=False))
         )
-    tikhub_items, tikhub_status = maybe_fetch_tikhub_updates(session, now, paid_source_state)
-    update_paid_source_state(paid_source_state, "tikhub", tikhub_status, now)
-    sync_paid_source_status_timestamps(tikhub_status, paid_source_state, "tikhub")
-    if tikhub_status.get("enabled"):
-        raw_items.extend(tikhub_items)
-        tikhub_counts: dict[str, int] = {}
-        for item in tikhub_items:
-            tikhub_counts[item.site_id] = tikhub_counts.get(item.site_id, 0) + 1
-        for site_id, site_name in (
-            ("tikhub_douyin", "TikHub Douyin"),
-            ("tikhub_xiaohongshu", "TikHub Xiaohongshu"),
-        ):
-            if site_id.split("_", 1)[1] not in set(tikhub_status.get("platforms") or []):
+        latest_items_all_dedup = apply_reader_source_limits(
+            dedupe_same_publisher_items(dedupe_items_by_title_url(latest_items_all, random_pick=True))
+        )
+        stories = merge_story_items(latest_items_ai_dedup, now=now, window_hours=args.window_hours)
+        groq_api_key = str(os.environ.get("GROQ_API_KEY") or "").strip()
+        groq_summary_model = str(os.environ.get("GROQ_SUMMARY_MODEL") or DEFAULT_GROQ_MODEL).strip()
+
+    with record_generation_phase(phase_metrics, "summaries") as phase:
+        stories, ai_summary_status, ai_summary_cache = summarize_stories(
+            stories,
+            api_key=groq_api_key,
+            model=groq_summary_model,
+            max_new=max(0, env_int("GROQ_SUMMARY_MAX_NEW", DEFAULT_MAX_NEW_SUMMARIES)),
+            cache=ai_summary_cache,
+            now=now,
+        )
+        phase["provider_enabled"] = bool(ai_summary_status.get("enabled"))
+
+    with record_generation_phase(phase_metrics, "payloads") as phase:
+        generated_at = iso(now)
+        daily_brief_payload = build_daily_brief_payload(stories, generated_at=generated_at, window_hours=args.window_hours)
+        stories_merged_payload = build_stories_payload(stories, generated_at=generated_at, window_hours=args.window_hours)
+
+        # source-status.json embeds `statuses` (fetch-time site_name, set by
+        # collect_all()/individual fetchers) directly - normalize in place here so
+        # every downstream reader (site_name_by_id fallback, empty_advanced_sources,
+        # status_payload["sites"]) sees the aliased name without needing its own fix.
+        for s in statuses:
+            s["site_name"] = apply_site_name_alias(str(s.get("site_name") or ""))
+
+        # site stats
+        site_stat: dict[str, dict[str, Any]] = {}
+        raw_count_by_site: dict[str, int] = {}
+        for record in latest_items_all:
+            sid = record["site_id"]
+            raw_count_by_site[sid] = raw_count_by_site.get(sid, 0) + 1
+
+        site_name_by_id: dict[str, str] = {}
+        for record in latest_items_all:
+            site_name_by_id[record["site_id"]] = record["site_name"]
+        for s in statuses:
+            sid = s["site_id"]
+            if sid not in site_name_by_id:
+                site_name_by_id[sid] = s.get("site_name") or sid
+
+        for record in latest_items_ai_dedup:
+            sid = record["site_id"]
+            if sid not in site_stat:
+                site_stat[sid] = {
+                    "site_id": sid,
+                    "site_name": record["site_name"],
+                    "count": 0,
+                    "raw_count": raw_count_by_site.get(sid, 0),
+                }
+            site_stat[sid]["count"] += 1
+
+        for sid, site_name in site_name_by_id.items():
+            if sid in site_stat:
                 continue
-            statuses.append(
-                {
-                    "site_id": site_id,
-                    "site_name": site_name,
-                    "ok": bool(tikhub_status.get("ok")) if tikhub_status.get("ok") is not None else True,
-                    "item_count": tikhub_counts.get(site_id, 0),
-                    "duration_ms": 0,
-                    "error": tikhub_status.get("error"),
-                    "attempted": bool(tikhub_status.get("attempted")),
-                    "skipped": bool(tikhub_status.get("skipped")),
-                    "skip_reason": tikhub_status.get("skip_reason"),
-                    "last_attempt_ok": tikhub_status.get("last_attempt_ok"),
-                    "last_run_at": tikhub_status.get("last_run_at"),
-                    "last_success_at": tikhub_status.get("last_success_at"),
-                }
-            )
-
-    if args.rss_opml:
-        opml_path = Path(args.rss_opml).expanduser()
-        if opml_path.exists():
-            rss_items, rss_summary_status, rss_feed_statuses = fetch_opml_rss(
-                now,
-                opml_path,
-                max_feeds=max(0, int(args.rss_max_feeds)),
-            )
-            raw_items.extend(rss_items)
-            statuses.append(rss_summary_status)
-        else:
-            statuses.append(
-                {
-                    "site_id": "opmlrss",
-                    "site_name": "OPML RSS",
-                    "ok": False,
-                    "item_count": 0,
-                    "duration_ms": 0,
-                    "error": f"OPML not found: {opml_path}",
-                    "feed_count": 0,
-                    "ok_feed_count": 0,
-                    "failed_feed_count": 0,
-                }
-            )
-
-    merge_raw_items_into_archive(archive, raw_items, now)
-
-    # Resolver files inherit the same last-seen-based retention as archive.json.
-    archive = prune_archive_records(archive, now, args.archive_days)
-
-    # 24h view
-    latest_items_all: list[dict[str, Any]] = []
-    for record in archive.values():
-        if is_within_reader_window(record, now, args.window_hours):
-            normalized = dict(record)
-            normalized["title"] = to_zh_hant(maybe_fix_mojibake(str(normalized.get("title") or "")))
-            if normalized.get("summary"):
-                normalized["summary"] = to_zh_hant(str(normalized.get("summary") or ""))
-            normalized["source"] = maybe_fix_mojibake(normalize_source_for_display(
-                str(normalized.get("site_id") or ""),
-                str(normalized.get("source") or ""),
-                str(normalized.get("url") or ""),
-            ))
-            normalized["site_name"] = apply_site_name_alias(str(normalized.get("site_name") or ""))
-            normalized["business_events"] = business_event_score(normalized)
-            normalized = add_ai_relevance_fields(normalized)
-            normalized = add_source_tier_fields(normalized)
-            latest_items_all.append(normalized)
-
-    latest_items_all.sort(key=lambda x: event_time(x) or datetime.min.replace(tzinfo=UTC), reverse=True)
-    latest_items = [record for record in latest_items_all if record.get("ai_is_related", is_ai_related_record(record))]
-    latest_items_ai_raw_count = len(latest_items)
-    latest_items = apply_reader_source_limits(dedupe_same_publisher_items(latest_items))
-    title_cache = load_title_zh_cache(title_cache_path)
-    translation_state = load_translation_state(translation_state_path)
-    translation_status: dict[str, Any] = {}
-    ai_summary_cache = load_summary_cache(ai_summary_cache_path)
-    latest_items, latest_items_all, title_cache = add_bilingual_fields(
-        latest_items,
-        latest_items_all,
-        session,
-        title_cache,
-        max_new_translations=max(0, args.translate_max_new),
-        translation_state=translation_state,
-        translation_status=translation_status,
-        now=now,
-    )
-    model_releases_24h = build_model_releases_24h_items(archive, now)
-    llm_radar_payload = build_llm_radar_payload(latest_items, now)
-    latest_items_ai_dedup = apply_reader_source_limits(
-        suppress_near_duplicate_items(dedupe_items_by_title_url(latest_items, random_pick=False))
-    )
-    latest_items_all_dedup = apply_reader_source_limits(
-        dedupe_same_publisher_items(dedupe_items_by_title_url(latest_items_all, random_pick=True))
-    )
-    stories = merge_story_items(latest_items_ai_dedup, now=now, window_hours=args.window_hours)
-    groq_api_key = str(os.environ.get("GROQ_API_KEY") or "").strip()
-    groq_summary_model = str(os.environ.get("GROQ_SUMMARY_MODEL") or DEFAULT_GROQ_MODEL).strip()
-    stories, ai_summary_status, ai_summary_cache = summarize_stories(
-        stories,
-        api_key=groq_api_key,
-        model=groq_summary_model,
-        max_new=max(0, env_int("GROQ_SUMMARY_MAX_NEW", DEFAULT_MAX_NEW_SUMMARIES)),
-        cache=ai_summary_cache,
-        now=now,
-    )
-    generated_at = iso(now)
-    daily_brief_payload = build_daily_brief_payload(stories, generated_at=generated_at, window_hours=args.window_hours)
-    stories_merged_payload = build_stories_payload(stories, generated_at=generated_at, window_hours=args.window_hours)
-
-    # source-status.json embeds `statuses` (fetch-time site_name, set by
-    # collect_all()/individual fetchers) directly - normalize in place here so
-    # every downstream reader (site_name_by_id fallback, empty_advanced_sources,
-    # status_payload["sites"]) sees the aliased name without needing its own fix.
-    for s in statuses:
-        s["site_name"] = apply_site_name_alias(str(s.get("site_name") or ""))
-
-    # site stats
-    site_stat: dict[str, dict[str, Any]] = {}
-    raw_count_by_site: dict[str, int] = {}
-    for record in latest_items_all:
-        sid = record["site_id"]
-        raw_count_by_site[sid] = raw_count_by_site.get(sid, 0) + 1
-
-    site_name_by_id: dict[str, str] = {}
-    for record in latest_items_all:
-        site_name_by_id[record["site_id"]] = record["site_name"]
-    for s in statuses:
-        sid = s["site_id"]
-        if sid not in site_name_by_id:
-            site_name_by_id[sid] = s.get("site_name") or sid
-
-    for record in latest_items_ai_dedup:
-        sid = record["site_id"]
-        if sid not in site_stat:
             site_stat[sid] = {
                 "site_id": sid,
-                "site_name": record["site_name"],
+                "site_name": site_name,
                 "count": 0,
                 "raw_count": raw_count_by_site.get(sid, 0),
             }
-        site_stat[sid]["count"] += 1
 
-    for sid, site_name in site_name_by_id.items():
-        if sid in site_stat:
-            continue
-        site_stat[sid] = {
-            "site_id": sid,
-            "site_name": site_name,
-            "count": 0,
-            "raw_count": raw_count_by_site.get(sid, 0),
+        latest_payload = {
+            "generated_at": generated_at,
+            "window_hours": args.window_hours,
+            "total_items": len(latest_items_ai_dedup),
+            "total_items_ai_raw": latest_items_ai_raw_count,
+            "total_items_raw": len(latest_items_all),
+            "total_items_all_mode": len(latest_items_all_dedup),
+            "topic_filter": "ai_relevance_scoring_v0_4",
+            "ai_relevance_threshold": 0.65,
+            "archive_total": len(archive),
+            "site_count": len(site_stat),
+            "source_count": len({f"{i['site_id']}::{i['source']}" for i in latest_items_ai_dedup}),
+            "site_stats": sorted(site_stat.values(), key=lambda x: x["count"], reverse=True),
+            "items": latest_items_ai_dedup,
+            "items_ai": latest_items_ai_dedup,
+            "model_release_window_hours": MODEL_RELEASE_RADAR_WINDOW_HOURS,
+            "model_releases_24h": model_releases_24h,
+            "items_all_raw": latest_items_all,
+            "items_all": latest_items_all_dedup,
         }
 
-    latest_payload = {
-        "generated_at": generated_at,
-        "window_hours": args.window_hours,
-        "total_items": len(latest_items_ai_dedup),
-        "total_items_ai_raw": latest_items_ai_raw_count,
-        "total_items_raw": len(latest_items_all),
-        "total_items_all_mode": len(latest_items_all_dedup),
-        "topic_filter": "ai_relevance_scoring_v0_4",
-        "ai_relevance_threshold": 0.65,
-        "archive_total": len(archive),
-        "site_count": len(site_stat),
-        "source_count": len({f"{i['site_id']}::{i['source']}" for i in latest_items_ai_dedup}),
-        "site_stats": sorted(site_stat.values(), key=lambda x: x["count"], reverse=True),
-        "items": latest_items_ai_dedup,
-        "items_ai": latest_items_ai_dedup,
-        "model_release_window_hours": MODEL_RELEASE_RADAR_WINDOW_HOURS,
-        "model_releases_24h": model_releases_24h,
-        "items_all_raw": latest_items_all,
-        "items_all": latest_items_all_dedup,
-    }
-
-    archive_payload = {
-        "generated_at": generated_at,
-        "total_items": len(archive),
-        "items": sorted(
-            archive.values(),
-            key=lambda x: parse_iso(x.get("last_seen_at")) or datetime.min.replace(tzinfo=UTC),
-            reverse=True,
-        ),
-    }
-
-    empty_advanced_sources = [
-        {
-            "site_id": s["site_id"],
-            "site_name": s.get("site_name") or s["site_id"],
-            "reason": "connected_no_matching_results",
+        archive_payload = {
+            "generated_at": generated_at,
+            "total_items": len(archive),
+            "items": sorted(
+                archive.values(),
+                key=lambda x: parse_iso(x.get("last_seen_at")) or datetime.min.replace(tzinfo=UTC),
+                reverse=True,
+            ),
         }
-        for s in statuses
-        if s.get("ok")
-        and int(s.get("item_count") or 0) == 0
-        and str(s.get("site_id") or "") in {"xapi", "socialdata_x", "tikhub_douyin", "tikhub_xiaohongshu"}
-        and not s.get("skipped")
-    ]
-    empty_advanced_site_ids = {item["site_id"] for item in empty_advanced_sources}
-    persistent_failures = apply_source_health_history(statuses, previous_source_status, now)
 
-    status_payload = {
-        "generated_at": generated_at,
-        "sites": statuses,
-        "successful_sites": sum(1 for s in statuses if s["ok"]),
-        "failed_sites": [s["site_id"] for s in statuses if not s["ok"]],
-        "degraded_sites": [s["site_id"] for s in statuses if s.get("degraded")],
-        "persistent_failure_threshold": SOURCE_PERSISTENT_FAILURE_THRESHOLD,
-        "persistent_failures": persistent_failures,
-        "zero_item_sites": [
-            s["site_id"]
+        empty_advanced_sources = [
+            {
+                "site_id": s["site_id"],
+                "site_name": s.get("site_name") or s["site_id"],
+                "reason": "connected_no_matching_results",
+            }
             for s in statuses
             if s.get("ok")
             and int(s.get("item_count") or 0) == 0
+            and str(s.get("site_id") or "") in {"xapi", "socialdata_x", "tikhub_douyin", "tikhub_xiaohongshu"}
             and not s.get("skipped")
-            and str(s.get("site_id") or "") not in empty_advanced_site_ids
-        ],
-        "empty_advanced_sources": empty_advanced_sources,
-        "fetched_raw_items": len(raw_items),
-        "items_before_topic_filter": len(latest_items_all),
-        "items_in_24h": len(latest_items_ai_dedup),
-        "translations": translation_status,
-        "rss_opml": {
-            "enabled": bool(args.rss_opml),
-            "path": "configured" if args.rss_opml else None,
-            "feed_total": len(rss_feed_statuses),
-            "effective_feed_total": sum(1 for s in rss_feed_statuses if not s.get("skipped")),
-            "ok_feeds": sum(1 for s in rss_feed_statuses if s["ok"] and not s.get("skipped")),
-            "failed_feeds": [s.get("effective_feed_url") or s["feed_url"] for s in rss_feed_statuses if not s["ok"]],
-            "zero_item_feeds": [
-                s.get("effective_feed_url") or s["feed_url"]
-                for s in rss_feed_statuses
-                if s["ok"] and not s.get("skipped") and int(s.get("item_count") or 0) == 0
-            ],
-            "skipped_feeds": [
-                {"feed_url": s["feed_url"], "reason": s.get("skip_reason")}
-                for s in rss_feed_statuses
-                if s.get("skipped")
-            ],
-            "replaced_feeds": [
-                {"from": s["feed_url"], "to": s.get("effective_feed_url")}
-                for s in rss_feed_statuses
-                if s.get("replaced") and s.get("effective_feed_url")
-            ],
-            "feeds": rss_feed_statuses,
-        },
-        "x_api": x_api_status,
-        "socialdata": socialdata_status,
-        "tikhub": tikhub_status,
-        "ai_summaries": ai_summary_status,
-    }
+        ]
+        empty_advanced_site_ids = {item["site_id"] for item in empty_advanced_sources}
+        persistent_failures = apply_source_health_history(statuses, previous_source_status, now)
 
-    latest_payload, latest_all_payload = build_latest_payloads(latest_payload)
+        status_payload = {
+            "metrics": {"clock": "monotonic_wall", "phases": phase_metrics,
+                        "output_excludes": ["source_status_publication", "resolver_cleanup"]},
+            "generated_at": generated_at,
+            "sites": statuses,
+            "successful_sites": sum(1 for s in statuses if s["ok"]),
+            "failed_sites": [s["site_id"] for s in statuses if not s["ok"]],
+            "degraded_sites": [s["site_id"] for s in statuses if s.get("degraded")],
+            "persistent_failure_threshold": SOURCE_PERSISTENT_FAILURE_THRESHOLD,
+            "persistent_failures": persistent_failures,
+            "zero_item_sites": [
+                s["site_id"]
+                for s in statuses
+                if s.get("ok")
+                and int(s.get("item_count") or 0) == 0
+                and not s.get("skipped")
+                and str(s.get("site_id") or "") not in empty_advanced_site_ids
+            ],
+            "empty_advanced_sources": empty_advanced_sources,
+            "fetched_raw_items": len(raw_items),
+            "items_before_topic_filter": len(latest_items_all),
+            "items_in_24h": len(latest_items_ai_dedup),
+            "translations": translation_status,
+            "rss_opml": {
+                "enabled": bool(args.rss_opml),
+                "path": "configured" if args.rss_opml else None,
+                "feed_total": len(rss_feed_statuses),
+                "effective_feed_total": sum(1 for s in rss_feed_statuses if not s.get("skipped")),
+                "ok_feeds": sum(1 for s in rss_feed_statuses if s["ok"] and not s.get("skipped")),
+                "failed_feeds": [s.get("effective_feed_url") or s["feed_url"] for s in rss_feed_statuses if not s["ok"]],
+                "zero_item_feeds": [
+                    s.get("effective_feed_url") or s["feed_url"]
+                    for s in rss_feed_statuses
+                    if s["ok"] and not s.get("skipped") and int(s.get("item_count") or 0) == 0
+                ],
+                "skipped_feeds": [
+                    {"feed_url": s["feed_url"], "reason": s.get("skip_reason")}
+                    for s in rss_feed_statuses
+                    if s.get("skipped")
+                ],
+                "replaced_feeds": [
+                    {"from": s["feed_url"], "to": s.get("effective_feed_url")}
+                    for s in rss_feed_statuses
+                    if s.get("replaced") and s.get("effective_feed_url")
+                ],
+                "feeds": rss_feed_statuses,
+            },
+            "x_api": x_api_status,
+            "socialdata": socialdata_status,
+            "tikhub": tikhub_status,
+            "ai_summaries": ai_summary_status,
+        }
 
-    atomic_write_text(latest_path, json.dumps(sanitize_public_payload(latest_payload), ensure_ascii=False, indent=2))
-    atomic_write_text(latest_all_path, json.dumps(sanitize_public_payload(latest_all_payload), ensure_ascii=False, separators=(",", ":")))
-    atomic_write_text(
-        daily_brief_path,
-        json.dumps(sanitize_public_payload(daily_brief_payload), ensure_ascii=False, indent=2),
-    )
-    atomic_write_text(
-        stories_merged_path,
-        json.dumps(sanitize_public_payload(stories_merged_payload), ensure_ascii=False, separators=(",", ":")),
-    )
-    atomic_write_text(
-        archive_path,
-        json.dumps(sanitize_public_payload(archive_payload), ensure_ascii=False, separators=(",", ":")),
-    )
-    resolver_count = write_item_resolvers(output_dir, archive, prune=False)
-    html_adapter_count = write_item_html_adapters(output_dir, archive, prune=False)
+        latest_payload, latest_all_payload = build_latest_payloads(latest_payload)
+
+    with record_generation_phase(phase_metrics, "output") as phase:
+        atomic_write_text(latest_path, json.dumps(sanitize_public_payload(latest_payload), ensure_ascii=False, indent=2))
+        atomic_write_text(latest_all_path, json.dumps(sanitize_public_payload(latest_all_payload), ensure_ascii=False, separators=(",", ":")))
+        atomic_write_text(
+            daily_brief_path,
+            json.dumps(sanitize_public_payload(daily_brief_payload), ensure_ascii=False, indent=2),
+        )
+        atomic_write_text(
+            stories_merged_path,
+            json.dumps(sanitize_public_payload(stories_merged_payload), ensure_ascii=False, separators=(",", ":")),
+        )
+        atomic_write_text(
+            archive_path,
+            json.dumps(sanitize_public_payload(archive_payload), ensure_ascii=False, separators=(",", ":")),
+        )
+        resolver_count = write_item_resolvers(output_dir, archive, prune=False)
+        html_adapter_count = write_item_html_adapters(output_dir, archive, prune=False)
+        atomic_write_text(
+            market_signals_path,
+            json.dumps(sanitize_public_payload(market_signals_payload), ensure_ascii=False, indent=2),
+        )
+        atomic_write_text(
+            llm_radar_path,
+            json.dumps(sanitize_public_payload(llm_radar_payload), ensure_ascii=False, indent=2),
+        )
+        atomic_write_text(
+            market_sensor_state_path,
+            json.dumps(sanitize_public_payload(market_sensor_state), ensure_ascii=False, separators=(",", ":")),
+        )
+        report_persistent_source_failures(persistent_failures)
+        atomic_write_text(
+            paid_source_state_path,
+            json.dumps(sanitize_public_payload(paid_source_state), ensure_ascii=False, indent=2),
+        )
+        atomic_write_text(title_cache_path, json.dumps(sanitize_public_payload(title_cache), ensure_ascii=False, indent=2))
+        if translation_state_path.exists() or translation_state.get("rejections"):
+            atomic_write_text(
+                translation_state_path,
+                json.dumps(sanitize_public_payload(translation_state), ensure_ascii=False, indent=2),
+            )
+        if groq_api_key or ai_summary_cache_path.exists():
+            atomic_write_text(
+                ai_summary_cache_path,
+                json.dumps(sanitize_public_payload(ai_summary_cache), ensure_ascii=False, indent=2),
+            )
+
     atomic_write_text(status_path, json.dumps(sanitize_public_payload(status_payload), ensure_ascii=False, indent=2))
-    atomic_write_text(
-        market_signals_path,
-        json.dumps(sanitize_public_payload(market_signals_payload), ensure_ascii=False, indent=2),
-    )
-    atomic_write_text(
-        llm_radar_path,
-        json.dumps(sanitize_public_payload(llm_radar_payload), ensure_ascii=False, indent=2),
-    )
-    atomic_write_text(
-        market_sensor_state_path,
-        json.dumps(sanitize_public_payload(market_sensor_state), ensure_ascii=False, separators=(",", ":")),
-    )
-    report_persistent_source_failures(persistent_failures)
-    atomic_write_text(
-        paid_source_state_path,
-        json.dumps(sanitize_public_payload(paid_source_state), ensure_ascii=False, indent=2),
-    )
-    atomic_write_text(title_cache_path, json.dumps(sanitize_public_payload(title_cache), ensure_ascii=False, indent=2))
-    if translation_state_path.exists() or translation_state.get("rejections"):
-        atomic_write_text(
-            translation_state_path,
-            json.dumps(sanitize_public_payload(translation_state), ensure_ascii=False, indent=2),
-        )
-    if groq_api_key or ai_summary_cache_path.exists():
-        atomic_write_text(
-            ai_summary_cache_path,
-            json.dumps(sanitize_public_payload(ai_summary_cache), ensure_ascii=False, indent=2),
-        )
 
     # A later HTML/state/cache failure must not remove previous item links.
     prune_item_outputs(output_dir, archive)
