@@ -12,6 +12,8 @@
   run created_at API使用相同raw media header也已唯讀驗證。
 - O01為github_observing，三個完整臺北日的event=schedule／時效／09:00前完成與
   artifact零值待實際驗收；手動成功不算三日驗收，未啟用本機automation。
+- 首次[真實GitHub手動驗證](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/37079245894)
+  已成功，程式commit 9d42a0419a5a7f021e475290c1d74eaf23f1c9ca；完整Offline tests同樣成功。
 - [GitHub操作與驗收](DIGEST_GITHUB_VALIDATION.md)。發布／真實手動run／測試證據落於
   `/Users/lordmi/Downloads/ai-news-radar-digest-20261003/O01-GITHUB-20261003-073958/`。
   run ID／commit／結果以該目錄RELEASE.md為準；下一階段GPT-6.1 Sol／Medium。

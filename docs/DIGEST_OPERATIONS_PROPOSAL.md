@@ -114,6 +114,6 @@ commit三檔到Downloads隔離目錄，再執行目前本機CLI；不pull覆蓋�
    連續3天記錄主／備援起止、時效、ready狀態及人工下載時間。沒有實際run前不標啟用成功。
 6. 發布仍由人操作；LLM、資料源品質／去重修改不由此核准默認包含。
 
-O01進度：提案與診斷完成，已採用本機方案；手動入口已實作，排程／3日驗收仍待下一階段。
-下一階段建議GPT-6.1 Sol／Medium，重點為本機automation時刻、執行權限與實際交付觀察。
+O01目前進度：私人手動交付已完成，後續驗證已依使用者決定移至GitHub，三日schedule證據待累積。
+下一階段建議GPT-6.1 Sol／Medium，核對GitHub實際觸發、上午時效與三日紀錄。
 詳見 [OPERATIONS](OPERATIONS.md)、[DIGEST_USAGE](DIGEST_USAGE.md)、[HANDOVER](HANDOVER.md)。

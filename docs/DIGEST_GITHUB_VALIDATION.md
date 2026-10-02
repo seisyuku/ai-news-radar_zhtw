@@ -6,6 +6,7 @@ GitHub跑的是生成／時效／配對驗證，沒有草稿下載交付或自�
 ## 驗證流程
 
 Workflow：`.github/workflows/digest-validation.yml`，名稱Daily digest validation。
+[GitHub執行紀錄](https://github.com/seisyuku/ai-news-radar_zhtw/actions/workflows/digest-validation.yml)。
 
 - 每日臺北07:15／08:15（UTC23:15／00:15）兩次獨立驗證，並可手動指定期別。
   第二次仍執行以觀察後續快照，不宣稱已完成本機自動備援／交付。
@@ -56,3 +57,8 @@ gh run list --repo seisyuku/ai-news-radar_zhtw --workflow digest-validation.yml 
 
 O01狀態為github_observing；下一階段建議GPT-6.1 Sol／Medium，整理三日run證據與時效。
 若要將私人日報交付也改至雲端，需另定私人儲存／下載方案，不能用這份驗證摘要當交付物。
+
+首次手動實測：2026-10-03，
+[run 37079245894](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/37079245894)
+成功，驗證程式commit為`9d42a0419a5a7f021e475290c1d74eaf23f1c9ca`。
+這筆event=workflow_dispatch只證明流程可執行，不計入三日schedule驗收。
