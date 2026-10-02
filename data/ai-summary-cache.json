@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v2",
   "entries": {
+    "13fd70294410bf6e1059d6def99da20d4222fafac7b665dadce20f96e4cf0e23": {
+      "summary": "Gartner預測2030年部署面向公眾AI服務的企業，有80%將經歷成本耗盡攻擊，致營運成本超額。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-02T05:36:10.603660Z"
+    },
     "cf499ab94be9d2c8710ff6b886eb9fc2b91e9609999b39ff169e9789d77b85dc": {
       "summary": "埃森哲財報超乎預期，新簽約訂單恢復成長且顧問業務表現強勁，股價因此上漲。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-09-14T17:35:30.782178Z"
-    },
-    "09290d0185a5431610d163768cc807b69a49b6d18cbd5ea9be33d16c90c27854": {
-      "summary": "Google AI Blog 發布 DevFest 2026 回歸資訊，並邀請參與 Google Developer Groups 活動。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-09-14T16:35:32.245289Z"
     }
   },
   "rejections": {
@@ -4088,10 +4088,6 @@
       "reason": "validation_length",
       "created_at": "2026-10-01T22:01:20.115927Z"
     },
-    "b7b5d8e53626d84431ec36ef3d2ed414d81ec7a26725ab3c6de6d2dfa5cf212a": {
-      "reason": "insufficient_context",
-      "created_at": "2026-10-01T23:05:44.612164Z"
-    },
     "730abf29f9cddbf73b1d6fb051a3c79063c227bcb99ed45950d90e2803a3e257": {
       "reason": "validation_length",
       "created_at": "2026-10-02T00:05:49.548642Z"
@@ -4103,6 +4099,10 @@
     "e8b17d74edce74bcf61a6d0f4402c7d1c3f990ad59170793a461ecadeef6c6fc": {
       "reason": "validation_length",
       "created_at": "2026-10-02T05:05:36.094040Z"
+    },
+    "b7b5d8e53626d84431ec36ef3d2ed414d81ec7a26725ab3c6de6d2dfa5cf212a": {
+      "reason": "insufficient_context",
+      "created_at": "2026-10-02T05:36:10.603660Z"
     }
   }
 }
