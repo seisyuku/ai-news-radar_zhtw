@@ -27,6 +27,7 @@ The loader accepts historical non-hex IDs; resolver writers accept only
 | API | Behavior |
 | --- | --- |
 | `load_archive(path, *, normalize_record)` | Validate the existing input structure, then apply the supplied record identity policy. |
+| `archive_from_payload(payload, *, normalize_record, label="archive")` | Apply the same structural/ID validation and identity policy to an already decoded payload; no file access. The path loader delegates here after its existing read/decode step. |
 | `atomic_write_text(path, text)` | UTF-8 text to a same-directory temporary file, close, then replace. The target directory must already exist. |
 | `write_item_resolvers(output_dir, archive, *, sanitize_record, prune=True)` | Write `output_dir/items/<id>.json`, using the supplied public policy, and return the valid ID count. |
 | `write_item_html_adapters(output_dir, archive, *, sanitize_record, prune=True)` | Write `output_dir.parent/item/<id>/index.html` from the same record, escaping displayed fields/links, and return the valid ID count. |
@@ -44,6 +45,12 @@ Dependency direction is `update_news -> archive_output -> standard library`.
 Policies are invoked as callables; the I/O module does not look them up by
 importing the generator. Package imports (`scripts.archive_output`) and direct
 script imports (`archive_output` from the scripts directory) both work.
+
+The digest loader captures each of its three input files once, decodes those
+bytes, and calls `archive_from_payload`; it never reopens the archive to validate
+another generation. This adds an input entrypoint, not a second archive validator.
+The path loader still treats a missing file as first generation and preserves
+its existing errors. The digest separately makes missing archive input fatal.
 
 ## Retained behavior and boundaries
 

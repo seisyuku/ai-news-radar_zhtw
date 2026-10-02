@@ -28,6 +28,18 @@
 - 變更 `assets/` 時同步遞增 `index.html` 的共用 `?v=`；由 Git baseline
   測試驗證資產變更與版號更新成對出現。
 
+## P1：維護者日報與持久交接（2026-10-02 設計已確認）
+
+- 收錄台北時間前一天 06:00 至當天 06:00，半開區間；無擴散等待或跨窗口例外。
+- 先做唯讀既有資料、確定性候選與繁中 Markdown，上午人工校稿，約 11:30
+  人工發布為目標。D01～D11與本機私人手動交付已完成，排程尚未啟用。
+  既有公開網站、新聞排序與來源邊界維持原設計。
+- 依 [DIGEST_PLAN](DIGEST_PLAN.md) 的 D01～D11 小任務推進；每項起點即保存
+  Downloads 檢查點，完成後更新台帳、HANDOVER 與下一階段模型／思考建議。
+- 可選 LLM、正式生成排程與部署各自準備可審閱結果後再啟用；不自動發文。
+- 已知 bug B01～B03 已於提交前複查修正；Social snapshot／Threads、model aliases 與
+  新來源屬條件後續，不綁入第一份可用日報。不建立 velocity 或 social history。
+
 ## P1：Model Release Radar
 
 - v1 已加入低權重模型查漏與分析觀察源：LLM Stats `latestModels`、

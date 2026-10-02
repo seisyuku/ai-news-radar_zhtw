@@ -1,5 +1,25 @@
 # Operations Notes
 
+## Daily digest — private local manual delivery (2026-10-03)
+
+使用者已選本機私人交付，手動入口 `scripts/deliver_digest.py --date YYYY-MM-DD`
+固定遠端commit三檔，下載至Downloads、核對後交付私人版本目錄；見
+[DIGEST_USAGE](DIGEST_USAGE.md)。來源刷新／Pages／CI artifact不變，無需發布本機程式。
+資料不足僅review-only；下載／核對失敗不覆蓋舊成功稿，同期有程序鎖。
+07:15主／08:15備援／09:00人工檢查／11:30人工發布為下一階段安排，尚未建立automation。
+O01排程與3日實際交付驗收尚未完成；Mac睡眠／離線不能保證交付。
+
+## Pre-push source boundary fixes (2026-10-03)
+
+OPML uses the existing grouped-feed validator, preserving valid empty feeds and
+successful peers. TikHub newly observed missing/invalid creator counts are null,
+while reported zeroes and historical archive values stay intact. SocialData
+search stops after 10 pages or after observing 100 raw reads before the next
+request; a whole page can exceed that threshold. Retained-item estimates are
+separate from billing limits; no exact cost ceiling is claimed. Later malformed
+search responses preserve earlier results with a diagnostic. No paid live probe
+or source schedule change was used to validate these fixes.
+
 ## Generated file replacement and resolver cleanup
 
 The I/O implementation lives in `scripts/archive_output.py`; `update_news.py`

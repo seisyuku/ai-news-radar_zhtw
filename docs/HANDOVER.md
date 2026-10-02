@@ -1,4 +1,363 @@
-# AI News Radar Pulse — 交接摘要（截至 2026-09-24）
+# AI News Radar Pulse — 交接摘要（截至 2026-10-03）
+
+## 2026-10-03 全專案複查與提交前修正
+
+- 使用者授權全專案複查並朝commit/push完成，只有範圍擴充才需裁決；本輪無此類擴充。
+- 審閱所有待提交日報模組／測試與共享archive入口、公開產品／來源治理、Actions／前端契約。
+- B01修正：OPML採既有group feed驗證，非feed HTML／malformed／全缺欄位標失敗，
+  合法空feed與成功peer保留；不增加新來源或調整AI評分。
+- B02修正：新creator_metrics缺失／非法值為null，明確0仍0；UI／scoring無數值消費者，
+  不改既有archive的0、不遷移資料。B03修正：搜尋10頁硬上限／100 raw觀測停止下一請求，
+  整頁可超過閾值，保留早先成功頁；保留數估算不再冒稱帳單上限。
+- 修正交付失敗仍留ready staging manifest的狀態矛盾；來源治理、ROADMAP與台帳已同步。
+- 最終完整850 passed；24份Python模組、4份JavaScript語法與4份workflow YAML結構通過。
+  暫存生成健康檔已檢查；憑證樣式掃描唯一命中既有FakeSession測試字串，私人feed／日報不入版控。
+- 遠端只新增data/item自動快照；整合時保留遠端資料，不以本機舊快照覆蓋。
+- 原始與最終驗證／差異／提交推送結果保存至
+  `/Users/lordmi/Downloads/ai-news-radar-digest-20261003/PREPUSH-20261003-072022/`。
+- 日報私人產物不入Git；本機排程尚未啟用，O01下一步仍為本機排程／3日觀察，
+  建議GPT-6.1 Sol／Medium。提交SHA／推送結果以該目錄RELEASE.md為準。
+
+
+## 2026-10-03 O01 本機私人交付實作與手動驗收
+
+- 使用者選擇「本機私人交付」，新增 `scripts/deliver_digest.py` 及21項測試；
+  不需發布程式或CI artifact。O01為local_manual_ready，尚未建立排程／3日觀察。
+- 手動交付2026-10-03成功：19題，窗口固定10/2 06:00～10/3 06:00；固定遠端
+  `27156f411f326aa2cfdeea491e05771486420400`，archive as-of臺北10/3 07:04:40，
+  MD/meta配對與來源三檔SHA已核對；ready表示時效達標，不保證選題或事實查證完成。
+  生成版本／校稿副本在
+  `/Users/lordmi/Downloads/ai-news-radar-digests/2026-10-03/4c34f92f7488560da54090a1d497c191e101bde78116e218e99de8b67975dfc3/`。
+- 私人attempt保存原始輸入／manifest，目錄700、檔案600；同一期flock、先驗 staging
+  再rename新版本，既有配對／人工稿不覆蓋。archive未知／早於截止／過舊／未來
+  exit3 review-only，失敗exit1，ready含真空日exit0，不改既有generator契約。
+- 初次urllib下載卡住已終止；curl硬逾時版第一次raw主機下載仍失敗，沒有正常交付。
+  改官方contents API raw media、固定ref，真實交付成功；不是忽略錯誤或放寬資料門檻。
+  下載10秒連線／45秒傳輸／50秒外層逾時、64MiB上限；無credentials或新抓取。
+- 最終相關67 passed，完整830 passed，語法與格式通過。交接、失敗／成功logs、
+  起點、增量patch與固定副本重跑證據在
+  `/Users/lordmi/Downloads/ai-news-radar-digest-20261003/O01-LOCAL-20261003-065944/`。
+- [操作說明](DIGEST_USAGE.md) 已補入口／狀態／復原。真實草稿第1題職涯技能、第3題模型
+  使用指南、第6題月度回顧須人工判斷；同publisher/URL refs不當獨立查證，不改選題算法。
+  沒有pull、正式data變更、來源刷新、provider／LLM、workflow／automation、commit/push或部署。
+- 下一階段O01本機排程／3日交付觀察，建議 **GPT-6.1 Sol／Medium**：手動入口已驗證，
+  重點為07:15／08:15時刻、執行權限與Mac睡眠／離線限制。依提案在手動審閱後再啟用，
+  不把本輪選擇渠道宣稱成已啟用。B01～B03與新聞品質缺口仍另案。
+
+## 2026-10-03 O01 資料時效與上午交付提案
+
+- **O01提案完成，實作／正式啟用待核准**；臺帳proposal_ready，沒有將整項O01標done。
+- `run o01` 唯讀診斷：本機HEAD/cached origin停541e493、data臺北10/1 23:11；
+  真遠端master已c32d582705a7ea54ca241cfe50afb914753cbdb8，固定commit archive/health
+  同為臺北10/3 06:05:32，最新刷新run成功。本次過舊空日是本機落後，不是遠端停抓。
+  該遠端commit沒有generate_digest.py，本機日報程式未提交／發布，CI方案需額外核准。
+- [O01完整提案](DIGEST_OPERATIONS_PROPOSAL.md)：07:15主生成、08:15備援、09:00人工檢查、
+  11:30人工發布；固定同commit輸入，MD/meta核對，時效交付guard不改06～06新聞窗口。
+  建議唯讀CI artifact7天，公開repo草稿可見性需接受；備選本機私人交付。
+- 初次沙盒gh網路失敗後，升權僅做GitHub GET；8筆run與固定commit資料時間、
+  CLI404保存在remote-facts/read-commands。成功run可能僅freshness-check，不能替代as-of。
+  官方schedule/artifact限制已核對，提案有原始連結；不承諾準時／私人artifact／已開通知。
+- 證據、文件快照與提案交接：
+  `/Users/lordmi/Downloads/ai-news-radar-digest-20261003/O01-20261003-062352/`。
+  只改四份文件；未pull/刷新來源/dispatch/workflow/automation/commit/push/deploy。
+- 下一階段仍為O01實作／啟用驗收，**GPT-6.1 Sol／High**：需跨commit下載／固定身份、
+  交付guard、artifact邊界、互斥與故障驗收。先待使用者核准CI或本機渠道、時間與發布前提，
+  然後新checkpoint；不可把run o01提案當作啟用排程授權。B01～B03與選題品質缺口仍未修。
+
+## 2026-10-03 D11 本機日報與人工校稿交付
+
+- **D11 已完成交付**：三組 MD/meta 核對與 byte-identical 重跑通過，交接已落檔。D01～D11 離線主線完成；人工校稿尚待使用者。
+- 使用者 `run d11`；客戶日期10/3，沿 D10 先交10/2真實草稿，另交10/3當期空日與
+  明確分開的合成空日。固定三輸入副本、生成 MD/meta、manifest／命令／logs、校稿說明：
+  `/Users/lordmi/Downloads/ai-news-radar-digest-20261003/D11-20261003-061422/`。
+- archive/health as-of 臺北 **10/1 23:11:39**，早於兩期截止；10/2有8題（89候選），
+  10/3無窗內題目，均提示 input_before_cutoff。這是現有過舊快照的結果，不代表當日無新聞。
+  新增 [DIGEST_USAGE](DIGEST_USAGE.md)，說明生成、核對、重跑與校稿副本。
+- 10/2第6題是提示詞教學，建議校稿移除；第4～8題的多筆refs各自同publisher/URL，
+  不當獨立查證。摘要可能只是標題或缺失；cache譯文 unversioned。已列 REVIEW_NOTES，
+  本輪不改 score／gate／去重，保留生成配對與独立校稿副本；不是全部8題刊出合格的保證。
+- 初次固定副本步驟使用系統Python3.9 import失敗，起點已保存且未讀三輸入；改專案
+  .venv恢复。程序碼不變，沿用 D10 809 passed，不冒稱本輪全套再驗。
+  正式data/feeds/workflow未改，未抓取/provider/commit/push/deploy。
+- **建議下一項 O01：資料時效、上午生成與人工交付提案**，先核對現有更新來源與本機
+  快照流程，再提出時間／儲存／失敗與通知安排，實際啟用須另核准；仍 conditional。
+  **GPT-6.1 Sol／Medium**：需對齊資料更新與人工校稿流程，尚無部署改動。
+  本輪沒有建立 automation 或启用新排程；不自動推進 LLM/其他optional來源。B01～B03未修。
+
+## 2026-10-02 D10 整合與公開相容性驗收
+
+- **D10 已完成**：日報聚焦 281 passed，完整 Python 809 passed，交接已落檔。
+- 使用者 `run d10`。新增真實 CLI／composer／pair 核對的離線整合測試；
+  [D10 實作／驗收](DIGEST_PLAN.md#d10-已實作與整合驗收2026-10-02) 記範圍與限制。
+- F01～F19 對照保存於 ACCEPTANCE_MATRIX.md；晚發現新聞同日改稿、窗口證據、空日／
+  非 AI、健康失效／不同輪、單次預設日期、record reorder、fake/no key 封鎖外部函式、
+  程序兩檔之間 exit 73 與 stream.write 故障均有端到端證據。缺失／不一致配對拒絕交付，
+  重跑恢復；失敗不報成功、不暴露原錯誤。
+- 初次新測例 **2 failed** 證實顯示缺口；已修臺北日期／本地窗口、出版者摘要／既有快取
+  譯文標示與段落。renderer 核對固定期別窗口、拒絕非法日或無支持的摘要 kind。
+  render_version=markdown-v3；schema/pipeline 不改。D08 舊 fixture 窗口錯一日已校正，
+  原歷史驗收保留。本輪最終聚焦 **281 passed**、完整 **809 passed**。
+- 原生成器／所有日報模組語法、差異格式通過；full suite 使用 bundled Node PATH。
+  起點、每次命令／環境／失敗及成功 logs、矩陣、六檔增量 patch／文件快照／交接：
+  `/Users/lordmi/Downloads/ai-news-radar-digest-20261002/D10-20261002-233733/`。
+  原二十三份差異保留；十八份本輪未碰的既有差異保持起點 bytes。
+- 正式 JSON／來源／workflow／公開生成器未改，未 commit、push、部署或呼叫 provider。
+  不把離線全套成功宣稱 live API 可用、歷史整日 coverage、斷電／多 writer 交易或人工校稿完成。
+- **下一階段 D11：本機真實日報與人工交付**。先新 checkpoint，僅核對 archive/cache/health
+  時效與指定期別（未另指定可先評估 2026-10-02），保存可重现的輸入副本到 Downloads，
+  用 D09 CLI 生成 MD/meta，核對 identity/hash，保留成功配對；人工校稿另存發布副本。
+  同時交空日合成樣本、實際命令／重跑說明／未啟用功能與資料限制。若輸入過舊或當期為空，
+  如實呈現，不能借其他期新聞填當期或把合成資料當真實日報，不自行抓新資料。
+  **建議 GPT-6.1 Sol／Medium**：流程已验證，重點是期別／時效、新聞證據與可操作交付。
+  B01～B03 未修；D11 不自動推進 LLM、排程、部署或 optional 來源。
+
+## 2026-10-02 D09 離線 CLI 與双檔核對
+
+- **D09 已完成**：聚焦 209 passed，語法／格式通過，交接已落檔。
+- 使用者 `run d09`。新增 digest_document composer、generate_digest CLI 與測試；
+  [D09 實際接口](DIGEST_PLAN.md#d09-已實作接口與驗收2026-10-02) 記參數、identity 與恢復界線。
+- CLI `--input-dir` 必填，date 預設臺北當天，output 預設 Downloads/ai-news-radar-digests；
+  日期／參數錯誤 exit 2，生成失敗 exit 1，成功含空日 exit 0。明確 output 可指定新目錄，
+  不能寫 input 樹或專案 data/item。全程離線，固定輸入／日期／設定重跑完全一致。
+- Markdown comment 與 meta sidecar 共享 identity；meta 記 Markdown SHA-256，核對重算
+  metadata identity。先完整建構再用既有 atomic writer 寫兩檔，各自原子；第二檔失敗可能
+  留下不一致配對，回報失敗／核對拒絕，重跑恢復。輸入／render 失敗保留舊成功配對。
+- 同期快照或設定／版本改變會改 identity；不借 Git HEAD／路徑／mtime／clock。衍生內容
+  亦納入身份；未提供多 writer 鎖。校稿編輯會使 SHA 不符，發布副本與生成配對分開保存。
+- 修正已證實 D08 bug：URL 括號 percent-encode、文字換行 collapse、HTML escaping、URL host
+  檢查，新增回歸；原 D08 交接反映當時結果，本次版本 render=markdown-v2。
+- 聚焦 **209 passed**；composer/CLI/renderer/原生成器 py_compile、diff check 通過。
+  未跑完整 suite，D10 待整合複核；正式 data／來源／workflow 未改，原二十份差異保留，
+  未 commit／push／部署。起點、命令／環境／logs、增量 patch 與交接：
+  `/Users/lordmi/Downloads/ai-news-radar-digest-20261002/D09-20261002-232821/`。
+- **下一階段 D10：整合驗收**，先新 checkpoint，核對 D01 fixture matrix 與實際 D09
+  API；跨窗口證據、晚發現重跑、optional health、全失效仍有 archive、空日／非 AI、
+  終端 CLI、寫入中斷、同輪身份與 Markdown 證據連結逐項查缺。按改動範圍驗共享相容性，
+  必要時使用 bundled Node PATH 跑完整 suite，保留首次失敗 log。
+  **建議 GPT-6.1 Sol／High**：多階段證據／identity／原子寫入與相容性需獨立審查。
+  D11 人工交付仍待執行，B01～B03 未修；不啟用排程或 provider。
+
+## 2026-10-02 D08 繁中 Markdown renderer
+
+- **D08 已完成**：聚焦 115 passed，語法／格式通過，交接已落檔。
+- 使用者 `run D08`。新增 `scripts/digest_render.py` 與 renderer 測試；
+  [DIGEST_PLAN 的 D08 接口](DIGEST_PLAN.md#d08-已實作接口與驗收2026-10-02) 記實際欄位與限制。
+- `render_digest(document) -> str` 是純格式化接口：窗口、候選、health notices、diagnostics
+  由呼叫端提供；不抓取、不翻譯、不排序、不呼叫模型。空候選合法，候選缺標題安全失敗。
+- 標題／摘要／來源文字做 Markdown escaping；連結只接受 http(s)，保留合法證據 URL，拒絕
+  javascript 等 scheme。缺摘要、缺來源與未知日期如實標示。health 只映射固定 notice code，
+  不輸出原始錯誤、ID、path 或未知 code。輸入不變、輸出 deterministic。
+- 聚焦 **115 passed**（D08＋D07＋D06＋D05）；`py_compile`、`git diff --check` 通過。
+  新增隔離 renderer，未重跑完整 suite；正式資料／來源／workflow 未改，未 commit、push、
+  部署或呼叫 provider。原十六份差異保留。
+- 起點、命令／結果、增量 patch、文件快照及交接：
+  `/Users/lordmi/Downloads/ai-news-radar-digest-20261002/D08-20261002-225500/`。
+- **下一階段 D09：CLI 與原子寫入**。先建立新 checkpoint，讀 D01 contract 及 D08 實際
+  renderer，再定義 `generate_digest.py` 的 date／input／output 參數、input identity、
+  重跑與 fatal 行為。產生 Markdown 與 meta sidecar，先建構／驗證再原子替換；兩檔不保證
+  交易，人工交付前核對 identity。測 exit 0/1/2、空日、缺 archive、health mismatch、
+  已存在成功檔與寫入失敗。**建議 GPT-6.1 Sol／Medium**：跨輸入、renderer、identity、
+  原子檔案與錯誤碼的整合需要較強介面審查；不自動切模型。B01～B03 未修，D09 不啟用
+  排程、provider 或公開部署。
+
+## 2026-10-02 D07 來源健康與資料時效摘要
+
+- **D07 已完成**：聚焦 77 passed，語法／格式通過，交接已落檔。
+- 使用者 `run d07`。新增 `scripts/digest_health.py` 與測試；
+  [DIGEST_PLAN 的 D07 接口](DIGEST_PLAN.md#d07-已實作接口與驗收2026-10-02) 記實際欄位與文案界線。
+- summarize_digest_health(snapshot, window) 產生 DigestHealth 與可選 RoundHealth。
+  取 D03 descriptor as-of 解析／比較；matched 且 loaded 才附同輪統計；不同輪／未知
+  保留時間但不借健康數字。input_before_cutoff 是提示，不更改 06:00～06:00 窗口。
+- site_counts 與 child_counts 分開，provider availability 另列固定四鍵；不重複加總。
+  成功、健康零則、失敗、部分失敗、skip、disabled、未知互斥；skip/disabled/未嘗試的父列
+  不把舊子列算成功。不重播 history，不輸出輸入的 ID、名稱、錯誤或 reason/path。
+- notices 是受控代碼；始終明示健康不是歷史日 coverage、留存新聞不是本輪新採集。
+  不推算 fetched_raw_items 或獨立文章總數；D03 未保留該頂層指標。
+- **77 passed**（D07＋D03 input＋既有 source_health）；語法及格式通過。
+  新隔離接口未改共享程式，未重跑 full suite。正式資料／來源／workflow 未改；
+  原十六份未提交差異保留，未 commit、push、部署或呼叫 provider。
+- 起點、每次命令／環境／結果、增量 patch、文件快照及交接：
+  `/Users/lordmi/Downloads/ai-news-radar-digest-20261002/D07-20261002-224029/`。
+- **下一階段 D08：繁中 Markdown renderer**。先建立新 checkpoint，讀 D01 contract、
+  D05 candidates、D06 selection、D07 health 的實際接口，再決定最小 document 組合入口。
+  以 render_digest(document)->str 輸出窗口、入選新聞、publisher 摘要與原文證據；
+  受控 health 文案，缺摘要／缺譯文如實保留，空日合法，測 Markdown escaping/連結。
+  **建議 GPT-6 Luna／Medium**：接口與內容來源已確定，工作集中在格式與邊界測例。
+  若 renderer 組合接口出現跨模組矛盾再評估 Sol／Medium；不自動切模型。
+  B01～B03 未修；CLI／整合／人工交付待 D09～D11，D08 不启用排程或 provider。
+
+## 2026-10-02 D06 選題與來源證據
+
+- **D06 已完成**：聚焦 107 passed，語法／格式通過，交接已落檔。
+- 使用者 `runmd06` 依前文續接 D06。新增 `scripts/digest_selection.py` 與選題測試；
+  介面與限制見 [DIGEST_PLAN 的 D06 接口](DIGEST_PLAN.md#d06-已實作接口與驗收2026-10-02)。
+- 對原 story 重用 brief gate／來源降權／同事件抑制；預設 limit 20、penalty 0.03、
+  gate 0.72 或多來源。快取譯文不影響排序；同分同標題依 ID 固定順序。
+  唯一且集合一致的 story/candidate ID 對回完整證據，deep-copy，不補分、不強湊題數。
+- 回傳 DigestSelection 的 candidates/counts/settings/階段 diagnostics；D08 可取 candidates，
+  D09 需將 settings 納入 identity。沒有摘要如實保留；缺漏／重複 ID 不偷偷替補。
+- 聚焦 **107 passed**，含既有 brief／quality 與 D04/D05；語法／格式通過。
+  隔離新模組，未重跑完整 suite；不把 D04 的 642 當本階段完整驗收。
+  正式資料、來源、workflow 未改；原十四份未提交差異保留，未 commit、push 或部署。
+- 起點、精確命令／環境／結果、增量 patch、文件快照與交接：
+  `/Users/lordmi/Downloads/ai-news-radar-digest-20261002/D06-20261002-213319/`。
+- **下一階段 D07：來源健康／資料時效摘要**。先保存新 checkpoint，讀 D01 health contract、
+  D03 allowlist 與既有 source_health 狀態規則；區分 leaf/group、成功零則、失敗、partial、
+  skip/disabled。只有 as-of matched 可描述同輪計數，不宣稱歷史整日 coverage。
+  archive 有窗內新聞不等於本輪全新採集；input_before_cutoff 提示不改窗口／不加等待。
+  對未知／缺欄位保持未知，用受控文案，避免輸出原始錯誤／私密字串。
+  **建議 GPT-6.1 Sol／Medium**：既有快照接口已齊，重點是健康分類、時間對齊與薄 metadata。
+  若實際狀態契約互相矛盾再評估 High；B01～B03 未修，renderer／CLI 尚未實作。
+
+## 2026-10-02 D05 候選 adapter
+
+- **D05 已完成**：最終聚焦 63 passed，語法／格式通過，交接已落檔。
+
+- 使用者要求 `run d05`。新增 `scripts/digest_candidates.py` 與 31 項候選測試；
+  介面與欄位來源見 [DIGEST_PLAN 的 D05 接口](DIGEST_PLAN.md#d05-已實作接口與驗收2026-10-02)。
+- adapt_story/adapt_stories 保留排序／ID；schema v1，缺 optional 欄位 nullable，
+  verification null。主來源依 primary ID 唯一回查，日期不取 latest_at、摘要不借其他來源。
+  每題與每個來源保留 publisher 原文、URL、日期、精確 cache 譯文及 unversioned provenance。
+- summary_kind 區分 publisher/publisher_translation/none；不搬 AI summary、未對證據的
+  summary_zh 或不明 raw payload。缺主來源保留 metadata origin，不假裝查證；source_count
+  僅 refs 長度。legacy ID 原樣保留，無 provider／翻譯／選題／重排。
+- 最終聚焦 **63 passed**（D05 31＋D04 32）；語法／格式通過。無共享程式修改，
+  未重跑 full suite，不把 D04 的 642 當 D05 全套驗收。正式資料、來源、workflow 未改。
+- 起點、精確命令與結果、任務增量 patch／交接：
+  `/Users/lordmi/Downloads/ai-news-radar-digest-20261002/D05-20261002-211348/`。原十二份差異保留；未 commit、push 或部署。
+- **下一階段 D06：日報選題與來源證據整理**。先建新 checkpoint，讀 D06 卡與現有
+  select_diverse_stories／story_passes_brief_gate 及 D04/D05 接口；對原 story 做既有選擇，
+  再按 story ID 對回 candidate，保留證據與摘要來源，不補分／強湊題數／添加新來源配額。
+  **建議 GPT-6.1 Sol／Medium**：來源與候選已齊，重點是選題參數、對應與確定性測例。
+  D07 亦可開始；預設先 D06，B01～B03 未修；renderer／CLI 尚未實作。
+
+## 2026-10-02 D04 窗口篩選與故事重用
+
+- **D04 已完成**：聚焦 50 passed／完整 642 passed，交接已落檔。
+
+- 使用者要求 `run d04`。新增 `scripts/digest_pipeline.py` 與 32 項日報 pipeline 測試；
+  實際 stage API 與限制見 [DIGEST_PLAN 的 D04 接口](DIGEST_PLAN.md#d04-已實作接口與驗收2026-10-02)。
+- `build_digest_stories(snapshot, window)` 先排 alias／嚴格發布窗口／無 title 或 link，
+  再 deep-copy、重用現有繁中顯示、相關性、分級、去重、來源上限與 merge。
+  merge 固定 end_utc/24h，同時刻以 item ID 固定順序；現有公開 ID 算法與 scoring 不改。
+- 回傳 DigestStories 的 stories/items/diagnostics；items 是去重後實際 merge 證據，
+  diagnostics 僅此 stage，另有 D03 input diagnostics。尚無候選adapter、選題、renderer 或 CLI。
+  不翻譯／呼叫 provider；缺出版者「未標示來源」，不猜 host；窗口外證據不混入。
+- 最終聚焦 **50 passed**、完整 suite **642 passed**，語法與差異檢查通過。
+  首次兩個 fixture假設不符現有 source relevance/title門檻，已修fixture，失敗 log保留；
+  未改既有生成器或其他 H00～D03 程式。無正式資料、來源、workflow、commit、push、部署。
+- 起始 checkpoint、最小查碼、每次命令／環境／結果、本任務增量 patch 與交接：
+  `/Users/lordmi/Downloads/ai-news-radar-digest-20261002/D04-20261002-194958/`。原十份未提交差異保留。
+- **下一階段 D05：story → EditorialCandidate 薄 adapter**。先保存新起點，再讀 D01
+  candidate contract、D04 stage API；逐 sources／primary ID 回查日期與 publisher evidence，
+  接 exact title/summary cache，schema version/nullable verification 明確，不借用 AI cache。
+  **建議 GPT-6.1 Sol／Medium**：stage 輸出與欄位來源已明確，重點是 nullable mapping、
+  cache 命中與單／多源測例。保留 story ID 限制，勿把 sources 數量說成獨立查證次數。
+  D06 尚需 D05；D07 也可做，預設先 D05；B01～B03 仍未修。
+
+## 2026-10-02 D03 唯讀輸入快照
+
+- **D03 已完成**：最終完整測試 610 passed，交接已落檔。
+
+- 使用者要求 `run d03`。新增 `scripts/digest_input.py` 與輸入測試；既有
+  archive loader 的結構驗證抽成 `archive_from_payload()`，原 path API 行為保留。
+  介面與限制見 [DIGEST_PLAN 的 D03 接口](DIGEST_PLAN.md#d03-已實作接口與驗收2026-10-02)。
+- 三檔各讀一次；raw bytes immutable、每檔 SHA-256、目錄無關 fingerprint；
+  缺 archive fatal、cache/health 降級、strict as-of/UTC 對齊。不抓取／翻譯／呼叫模型，
+  不寫輸入、不套用 AI 摘要快取、不修改公開 ID 或 scoring。
+- 原始 bytes 不可直接匯出；health 已限縮到狀態、subsources、disabled/skip metadata，
+  不帶原始 error、credential presence、URL/path 欄位。health 不同輪／未知仍保留證據，
+  D07 不能將其計數說成同輪或整日 coverage；input_before_cutoff 亦留 D07 判斷。
+- 最終完整 Python suite **610 passed**；語法與差異檢查通過。
+  首次完整 suite 39 項缺 node 失敗，bundled Node PATH 修正後通過，原失敗 log 保留。
+  沒有正式資料、來源、workflow、commit、push 或部署。
+- 起始 checkpoint、確切命令／環境 override、逐命令 logs 與 task-only patch：
+  `/Users/lordmi/Downloads/ai-news-radar-digest-20261002/D03-20261002-193322/`。H00～D02 原差異保留。
+- **下一階段 D04：先按發布窗口篩原始新聞，再重用 story 生成**。
+  先建立新檢查點，讀 D01/D02/D03 實際接口與必要預處理／merge symbols；
+  用 window.end_utc 固定排序時間，無 first_seen fallback、無窗外證據、固定 ID tie-break。
+  **建議 GPT-6.1 Sol／High**：涉及時間篩選、去重／ID 與現有排序重用的相容性；
+  不重寫 scoring 或來源系統。D07 也可開始，預設先依序做 D04；B01～B03 仍未修。
+
+## 2026-10-02 D02 日期窗口與發布時間解析
+
+- **D02 已完成**：49 項聚焦測試與語法／格式檢查通過，交接已落檔。
+
+- 使用者要求 `run d02`。新增獨立 `scripts/digest_window.py` 與
+  `tests/test_digest_window.py`；時間契約、實際 signature 與 wire 格式見
+  [DIGEST_PLAN 的 D02 接口](DIGEST_PLAN.md#d02-已實作接口與驗收2026-10-02)。
+- 窗口仍為臺北 `[前一天 06:00, 當天 06:00)`。`window_for_date()` 回傳 frozen
+  DigestWindow 與 UTC aware 邊界；預設日期只捕捉一次 clock，06:00 前不換期。
+  `parse_published_at()` 拒絕缺值／date-only／naive／非法格式，輸出安全診斷 code；
+  不接 first_seen，不更改既有 `parse_iso()`／`event_time()`。
+- 聚焦 49 項測試通過；新模組與既有生成器語法檢查、差異格式檢查通過。
+  已驗證無生成器／requests／bs4／dateutil 依賴；不是新日報整合驗收。
+  原四份未提交文件保留；無正式資料、feed、workflow、commit、push 或部署。
+- 起點檢查點、命令與環境 override、逐命令 log、task-only patch 與交接保存在
+  `/Users/lordmi/Downloads/ai-news-radar-digest-20261002/D02-20261002-192502/`。
+- **下一階段 D03：唯讀 archive／cache／health 輸入快照**。先建立 D03 起始檢查點，
+  讀 D01 三檔 contract 與 archive I/O 權威，重用 validated loader 與 D02 strict parser；
+  不抓取／翻譯／呼叫模型。D04 尚需 D03 完成，B01～B03 仍未修。
+  **建議 GPT-6.1 Sol／Medium**：現有 loader 可重用，主要處理缺檔、optional cache
+  降級、as-of 對齊與 captured bytes；若共用 decode 邊界需要改公開 loader 語意，
+  先找兼容做法，實際產生相容性矛盾再升 High。
+
+## 2026-10-02 D01 輸入契約與 fixture 清單
+
+- **D01 已完成**：契約／fixture 清單與文件驗收通過，交接已落檔；新日報行為尚未實作。
+
+- 使用者要求 `run d01`。契約與 19 組 fixture 情境已記於
+  [DIGEST_PLAN.md 的 D01 已定契約](DIGEST_PLAN.md#d01-已定契約2026-10-02)。
+  本輪只補文件，尚未新增 generator、fixture 或測試，也未修 B01～B03。
+- 必要輸入 `archive.json`；可選 `title-zh-cache.json`、`source-status.json`。
+  缺 archive 是 fatal，合法空 items 才是空日；legacy keyed archive 沿用既有 loader。
+  日期仍為 `[前一天 06:00, 當天 06:00)`，只用帶時區 published_at，不用 first_seen。
+- archive／health 各自保存 producer as-of；相異或未知時不聲稱同輪健康。
+  翻譯快取沒有生成時間，標 unversioned。只指紋三個指定輸入，無 repo 掃描。
+  多檔讀取與多檔輸出都不是交易；同一輸入／日期／設定／版本才保證確定性。
+- 第一期 publisher 摘要／既有譯文，無摘要保留標題與證據；不套用依賴
+  title/context/model/prompt 的 AI 快取，也不觸發現有 translator 或摘要 provider。
+- 輸入／候選／文件 schema、CLI 與 exit codes、缺檔／壞檔／早於截止提示、
+  19 組測例責任及候選檔案位置已定；全部是後續待實作契約，並非現成 CLI。
+- 起始檢查點、唯讀查碼、D01 文件增量與驗收證據保存在
+  `/Users/lordmi/Downloads/ai-news-radar-digest-20261002/D01-20261002-191535/`。
+  延續 H00 四份未提交文件，不覆蓋原差異；HEAD 仍為
+  `541e493957e01168434dd8eb22de414f11045096`。無產品程式／正式資料變更、commit、push 或部署。
+- **下一階段 D02：06:00 日期窗口純函式與邊界測試**。先建立新檢查點，
+  讀 D01 時間 contract，新增 `scripts/digest_window.py` 與聚焦測試。
+  **建議 GPT-6.1 Sol／Medium**：接口已明確，主要是時區、半開邊界及嚴格解析；
+  不需讀整個生成器或提高至 High。D03 依賴亦已滿足，但預設先依序做 D02。
+
+## 2026-10-02 日報設計確認與小任務交接機制
+
+- 使用者同意日報採台北時間 `[前一天 06:00, 當天 06:00)`；無 8h 擴散等待、
+  跨窗口補充證據或其他新時間規則。06:00 截止後生成，上午人工校稿、
+  約 11:30 人工發布為工作目標，尚無日報生成排程或自動發布。
+- 已建立 [DIGEST_PLAN.md](DIGEST_PLAN.md)：28 項小任務，H00 完成；
+  D01～D11 主線為無新 LLM 的本機日報；LLM、排程、bug、社群與模型／來源
+  後續各有獨立卡片與條件。本輪僅文件，不修改程式、正式快照、feed 或 workflow。
+- 日期與輸入契約要先處理：現有 stories／brief 是滾動 24h，需先從指定 archive
+  snapshot 篩選發布時間再重用生成。固定 snapshot 才能確定性重跑；story ID
+  不宣稱跨輪永久固定。缺日期不臆造，當下健康也不等同歷史日 coverage。
+- 已在本聊天完成無網路 main() fixture：RSS 全失效仍可用非 RSS 5 筆形成
+  4 stories；全失效空 archive 合法為空，近期 archive 仍可供新聞。
+  10 個相關既有測試檔 112 passed；不是完整 suite 或新日報驗收。
+  先前暫存已清除，這些數值來自工具結果；不得假稱已有原始 log 檔。
+- 三項既有缺口已離線重現，尚未修：OPML 非 feed HTML → healthy zero、
+  TikHub metrics 缺值 → 0、SocialData search 缺明確分頁上限。詳見 B01～B03。
+  social snapshot 不包含 velocity；既有新聞／健康／付費間隔 state 不能因此刪除。
+- [TASK_HANDOFF_TEMPLATE.md](TASK_HANDOFF_TEMPLATE.md) 要求任務起點先落檔、
+  小步後更新、長命令前記 pending action；證據與檢查點放 Downloads。
+  硬中斷後先查實際 diff／結果，不 reset 或盲目重跑有費用的呼叫。
+- 本輪文件驗收與初始檢查點：
+  `/Users/lordmi/Downloads/ai-news-radar-digest-20261002/H00/`。
+  Repo 基線 `master`／`541e493957e01168434dd8eb22de414f11045096`，起始乾淨；
+  文件保留本機差異，未 commit、push 或部署。
+- 已完成 H00。**下一階段 D01：日報輸入契約與 fixture 清單**；首個動作為
+  讀 DIGEST_PLAN 的 D01 卡與必要的 archive／時間／story symbols，落 D01
+  起始 CHECKPOINT，補定最低工程語意與實際檔案／測試方案，不重做全 repo 盤點。
+  **建議 GPT-6.1 Sol／Medium**：有明確產品窗口，主要處理跨輸入與缺值語意；
+  若發現 producer 相容性矛盾再提高至 High。建議不會自動更換模型。
 
 ## 2026-10-01 本地健康檢查後續完成
 

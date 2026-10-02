@@ -1391,17 +1391,18 @@ class TopicFilterTests(unittest.TestCase):
         # Cost still counts the stale tweet — we paid to READ it before dropping it.
         self.assertEqual(status["raw_reads"], 2)
 
-    def test_socialdata_status_cost_ceiling_includes_list(self):
+    def test_socialdata_retained_estimate_includes_list_without_claiming_cost_ceiling(self):
         env = {"SOCIALDATA_API_KEY": "test"}  # list on by default
         with patch.dict("os.environ", env, clear=True):
             status = socialdata_status_base(
                 __import__("datetime").datetime.fromisoformat("2026-05-03T01:00:00+00:00")
             )
-        # search cap (20) + list cap (50) both counted in the per-run ceiling.
+        # Retained results are not a ceiling on billed raw reads.
         self.assertEqual(status["search_result_cap"], 20)
         self.assertEqual(status["list_result_cap"], 50)
         self.assertEqual(status["combined_result_cap"], 70)
-        self.assertEqual(status["estimated_max_cost_usd_per_run"], round(70 * 0.0002, 4))
+        self.assertIsNone(status["estimated_max_cost_usd_per_run"])
+        self.assertEqual(status["retained_result_cost_estimate_usd"], round(70 * 0.0002, 4))
 
     def test_socialdata_paginates_until_result_cap(self):
         class FakeResponse:

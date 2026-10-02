@@ -594,6 +594,8 @@ SOCIALDATA_TWEET_READ_COST_USD = 0.0002
 SOCIALDATA_DEFAULT_QUERY = '(AI OR "artificial intelligence" OR LLM OR "large language model" OR 人工智能 OR 大模型 OR 大语言模型 OR AIGC OR 智能体 OR Agent) (lang:en OR lang:zh) -filter:retweets'
 SOCIALDATA_DEFAULT_MAX_RESULTS = 20
 SOCIALDATA_MAX_QUERY_CHARS = 512
+SOCIALDATA_SEARCH_MAX_PAGES = 10
+SOCIALDATA_SEARCH_RAW_READ_THRESHOLD = 100
 # Curated X list "AI is cool, i guess" (owner @aiwarts). The list timeline pulls
 # each member's own posts by identity, which is far higher-signal than the broad
 # keyword search. No member is excluded by default; set SOCIALDATA_LIST_EXCLUDE
@@ -2903,25 +2905,12 @@ def fetch_opml_rss(
                     source_name=feed_title,
                     source_url=feed_url,
                 )
-            elif feedparser is not None:
-                parsed = feedparser.parse(resp.content)
-                source_name = first_non_empty(
-                    feed_title,
-                    getattr(parsed, "feed", {}).get("title"),
-                    host_of_url(feed_url),
-                )
-                entries = parsed.entries
+            else:
+                entries = parse_group_feed_entries(resp.content, now)
+                source_name = first_non_empty(feed_title, host_of_url(feed_url))
                 for entry in entries:
-                    title = str(entry.get("title", "")).strip()
-                    link = str(entry.get("link", "")).strip()
-                    if not title or not link:
-                        continue
-                    published = (
-                        parse_date_any(entry.get("published"), now)
-                        or parse_date_any(entry.get("updated"), now)
-                        or parse_date_any(entry.get("pubDate"), now)
-                    )
-                    if not published:
+                    title, link, published = feed_entry_title_link_published(entry, now)
+                    if not (title and link and published):
                         continue
                     local_items.append(
                         RawItem(
@@ -2930,28 +2919,6 @@ def fetch_opml_rss(
                             source=source_name,
                             title=title,
                             url=link,
-                            published_at=published,
-                            meta={
-                                "feed_url": feed_url,
-                                "feed_home": feed.get("html_url") or "",
-                                "summary": feed_entry_summary(entry),
-                            },
-                        )
-                    )
-            else:
-                source_name = first_non_empty(feed_title, host_of_url(feed_url))
-                entries = parse_feed_entries_via_xml(resp.content)
-                for entry in entries:
-                    published = parse_date_any(entry.get("published"), now)
-                    if not published:
-                        continue
-                    local_items.append(
-                        RawItem(
-                            site_id="opmlrss",
-                            site_name="OPML RSS",
-                            source=source_name,
-                            title=entry.get("title", ""),
-                            url=entry.get("link", ""),
                             published_at=published,
                             meta={
                                 "feed_url": feed_url,
@@ -3812,7 +3779,8 @@ def socialdata_status_base(now: datetime, paid_source_state: dict[str, Any] | No
     enable_toggle = env_flag_default("SOCIALDATA_ENABLED", True)
     api_key_present = bool(str(os.environ.get("SOCIALDATA_API_KEY") or "").strip())
     # The curated KOL list is a SECOND paid path on top of the keyword search,
-    # so the per-run cost ceiling must include it (search cap + list cap).
+    # Retained caps are not billable-read ceilings: filtering and full pages
+    # can read more posts than the number retained.
     list_id = str(os.environ.get("SOCIALDATA_LIST_ID") or SOCIALDATA_LIST_ID_DEFAULT).strip()
     list_enabled = bool(list_id) and env_flag_default("SOCIALDATA_LIST_ENABLED", True)
     list_cap = max(0, min(env_int("SOCIALDATA_LIST_MAX_RESULTS", SOCIALDATA_LIST_DEFAULT_MAX_RESULTS), 200)) if list_enabled else 0
@@ -3833,7 +3801,10 @@ def socialdata_status_base(now: datetime, paid_source_state: dict[str, Any] | No
         "list_result_cap": list_cap,
         "combined_result_cap": combined_cap,
         "recency_days": SOCIALDATA_RECENCY_DAYS,
-        "estimated_max_cost_usd_per_run": round(combined_cap * SOCIALDATA_TWEET_READ_COST_USD, 4),
+        "estimated_max_cost_usd_per_run": None,
+        "retained_result_cost_estimate_usd": round(combined_cap * SOCIALDATA_TWEET_READ_COST_USD, 4),
+        "search_max_pages": SOCIALDATA_SEARCH_MAX_PAGES,
+        "search_raw_read_threshold": SOCIALDATA_SEARCH_RAW_READ_THRESHOLD,
         "run_interval_hours": paid_source_interval_hours("SOCIALDATA"),
         "run_utc_hour": max(0, min(env_int("SOCIALDATA_RUN_UTC_HOUR", 0), 23)),
         "run_utc_minute_max": max(0, min(env_int("SOCIALDATA_RUN_UTC_MINUTE_MAX", 10), 59)),
@@ -3866,7 +3837,10 @@ def fetch_socialdata_search(
     seen_cursors: set[str] = set()
     seen_tweet_ids: set[str] = set()
     pagination_error: str | None = None
-    while len(out) < capped_max_results:
+    next_cursor = ""
+    while (len(out) < capped_max_results
+           and page_count < SOCIALDATA_SEARCH_MAX_PAGES
+           and raw_tweet_count < SOCIALDATA_SEARCH_RAW_READ_THRESHOLD):
         params = {
             "query": query,
             "type": effective_search_type,
@@ -3884,13 +3858,15 @@ def fetch_socialdata_search(
                 timeout=30,
             )
             response.raise_for_status()
+            payload = response.json()
+            if not isinstance(payload, dict) or not isinstance(payload.get("tweets"), list):
+                raise ValueError("invalid_socialdata_page")
         except Exception as exc:
             if page_count == 0:
                 raise
             pagination_error = type(exc).__name__
             break
 
-        payload = response.json()
         page_count += 1
         if isinstance(payload, dict) and not response_top_level_keys:
             response_top_level_keys = sorted(payload.keys())[:12]
@@ -3945,6 +3921,10 @@ def fetch_socialdata_search(
         "raw_tweet_count": raw_tweet_count,
         "mapped_tweet_count": len(out),
         "page_count": page_count,
+        "max_pages": SOCIALDATA_SEARCH_MAX_PAGES,
+        "raw_read_threshold": SOCIALDATA_SEARCH_RAW_READ_THRESHOLD,
+        "hit_page_cap": bool(next_cursor) and page_count >= SOCIALDATA_SEARCH_MAX_PAGES and len(out) < capped_max_results,
+        "hit_raw_read_threshold": bool(next_cursor) and raw_tweet_count >= SOCIALDATA_SEARCH_RAW_READ_THRESHOLD and len(out) < capped_max_results,
         "cursor_request_count": max(0, page_count - 1),
         "reached_result_cap": len(out) >= capped_max_results,
     }
@@ -4192,7 +4172,8 @@ def maybe_fetch_socialdata_updates(
 
     # SocialData bills per tweet READ (raw), not per kept item; the list discards
     # retweets/replies/stale posts, so raw reads exceed mapped items. Cost and the
-    # ceiling in socialdata_status_base both track raw reads across BOTH paths.
+    # estimate track observed reads across BOTH paths. A retained-item estimate
+    # is not a hard cost ceiling; server page size can overshoot our threshold.
     search_raw = int((status.get("diagnostics") or {}).get("raw_tweet_count") or 0)
     list_raw = int((status.get("list_diagnostics") or {}).get("raw_tweet_count") or 0)
     status["list_enabled"] = list_enabled
@@ -4368,18 +4349,21 @@ def is_credible_xiaohongshu_published_at(published: datetime | None, now: dateti
     return datetime(2013, 1, 1, tzinfo=UTC) <= published <= now.astimezone(UTC)
 
 
-def creator_metric_count(*values: Any) -> int:
+def creator_metric_count(*values: Any) -> int | None:
+    """Unknown/invalid counts stay unknown; a reported zero remains zero."""
     for value in values:
-        if value is None or value == "":
+        if value is None or value == "" or isinstance(value, bool):
             continue
         try:
-            return max(0, int(float(str(value).replace(",", "").strip())))
-        except (TypeError, ValueError):
+            number = float(str(value).replace(",", "").strip())
+            if number >= 0:
+                return int(number)
+        except (TypeError, ValueError, OverflowError):
             continue
-    return 0
+    return None
 
 
-def normalize_creator_metrics(platform: str, *records: dict[str, Any]) -> dict[str, int]:
+def normalize_creator_metrics(platform: str, *records: dict[str, Any]) -> dict[str, int | None]:
     merged: dict[str, Any] = {}
     for record in records:
         if isinstance(record, dict):

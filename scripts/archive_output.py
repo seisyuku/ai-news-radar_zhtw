@@ -66,6 +66,18 @@ def load_archive(path: Path, *, normalize_record: RecordTransform) -> Archive:
         payload = json.loads(path.read_text(encoding="utf-8"))
     except (UnicodeError, json.JSONDecodeError) as exc:
         raise ValueError(f"Invalid archive at {path}: cannot decode JSON") from exc
+    return archive_from_payload(payload, normalize_record=normalize_record, label=str(path))
+
+
+def archive_from_payload(
+    payload: object, *, normalize_record: RecordTransform, label: str = "archive"
+) -> Archive:
+    """Validate an already captured payload using the path loader's policy.
+
+    No filesystem access: callers can parse and fingerprint the same bytes.
+    The legacy path loader keeps its missing-file and decoding semantics.
+    """
+    path = label
 
     if not isinstance(payload, dict) or "items" not in payload:
         raise ValueError(f"Invalid archive at {path}: expected an object with items")

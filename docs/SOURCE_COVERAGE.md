@@ -44,6 +44,11 @@ the publisher supplies one. This text supports the optional short-summary layer;
 the project does not scrape full article bodies for that purpose, and title-only
 items remain ineligible for AI summarization.
 
+OPML RSS/Atom now uses the same feed validity checks as grouped sources:
+HTML/error pages, malformed XML and feeds whose entries all lack usable fields
+fail; valid empty feeds remain healthy. A failed OPML peer does not discard
+successful peers. Explicit Telegram/Jike page adapters retain their own parsers.
+
 ## Coverage Claim
 
 The project can be packaged as a Skill because it covers the common public paths
@@ -244,8 +249,18 @@ Archive and item-resolver records preserve the upstream timestamp for diagnosis.
   setting still controls the first run window when no paid-source state exists
   yet. SocialData search normally returns about 20
   tweets per page; the fetcher follows `next_cursor` with the `cursor`
-  parameter until the configured effective cap is reached or the API stops
-  returning a cursor.
+  parameter until the configured retained-result cap, 10-page request cap,
+  100 observed raw reads, or cursor exhaustion/repetition. The raw threshold
+  stops the next request; a whole response page can overshoot it. Invalid later
+  search pages retain earlier usable results and report a pagination error.
+  `estimated_max_cost_usd_per_run` is null because retained items and server
+  page sizes do not establish a hard billing ceiling; the separate
+  `retained_result_cost_estimate_usd` is only a retained-item estimate.
+New TikHub `creator_metrics` retain the same four keys, but missing/invalid
+counts are null and a reported zero remains 0. Existing archive zeroes are not
+reinterpreted or migrated. These fields have no numeric consumer in the current
+reader UI or scoring pipeline; exporters should preserve nullable values.
+
 - **TikHub Douyin/Xiaohongshu search**: supported as an advanced,
   secret-backed adapter through `TIKHUB_ENABLED=1` and `TIKHUB_API_KEY`, but
   disabled by default. It reads public Douyin and Xiaohongshu keyword search
