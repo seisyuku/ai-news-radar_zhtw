@@ -2,6 +2,18 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v2",
   "entries": {
+    "e3cead5234525a7942ed0399b8dbcdaf9e92ab5e48456f0692d546d4a6c9ad3b": {
+      "summary": "臺灣8月至少發生20起勒索軟體事件，柏文、神腦、鈊象等上市櫃公司發布資安重訊，華碩亦通知部分客戶資料可能遭未授權存取。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-02T10:05:38.364062Z"
+    },
+    "800c9e0c27b8bf02bfd64aada9d489777746e525245c9cf428c289ebc9645454": {
+      "summary": "Wired AI 報導指出，ChatGPT 的 Mac 應用程式近期修復了一個漏洞，該漏洞可能讓駭客竊取敏感資料。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-02T10:05:38.364062Z"
+    },
     "e9ed330ca1cc4c94919072c716f67139b4449964624a7c158fb428490ef8415f": {
       "summary": "微軟 AI 發布 MAI-Transcribe-2-Streaming 模型，用於即時語音轉錄。",
       "provider": "groq",
@@ -2989,18 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-09-15T00:35:39.033185Z"
-    },
-    "a2e55bbd74973a8fb0329c1a4e724b254b22424326efbab1758c585202fea804": {
-      "summary": "GitHub Copilot 自動模型選擇新增效率、平衡與智慧三個層級，讓使用者可依據成本、品質與回應時間進行設定。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-09-15T00:05:27.932754Z"
-    },
-    "9a7cd51f3cd0e75587e9ea7e0270046974269e5f900e8a20086a2a1cc880fd71": {
-      "summary": "博通執行長陳福陽表示，儘管對日益強大的模型存在擔憂，AI 基礎設施需求依然強勁，且 AI 營收目標未曾改變。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-09-14T23:05:27.655902Z"
     }
   },
   "rejections": {
@@ -4111,6 +4111,10 @@
     "9d31fc55d5359f4eb63585c3bf968c881354fc36ba2074fa92f710d0ed67d491": {
       "reason": "validation_length",
       "created_at": "2026-10-02T09:35:38.121585Z"
+    },
+    "cbf167976b03eda7bd603e67f92024829bd1ef5108c35ce79f79cb82df3d2749": {
+      "reason": "insufficient_context",
+      "created_at": "2026-10-02T10:05:38.364062Z"
     }
   }
 }
