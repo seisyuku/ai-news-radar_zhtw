@@ -6,8 +6,10 @@
 固定遠端commit三檔，下載至Downloads、核對後交付私人版本目錄；見
 [DIGEST_USAGE](DIGEST_USAGE.md)。來源刷新／Pages／CI artifact不變，無需發布本機程式。
 資料不足僅review-only；下載／核對失敗不覆蓋舊成功稿，同期有程序鎖。
-07:15主／08:15備援／09:00人工檢查／11:30人工發布為下一階段安排，尚未建立automation。
-O01排程與3日實際交付驗收尚未完成；Mac睡眠／離線不能保證交付。
+2026-10-03使用者將後續驗證移至GitHub；新增Daily digest validation，07:15／08:15
+跑唯讀固定快照、pair核對與相同bytes重跑，只留安全Step Summary，不上傳草稿／輸入。
+見 [三日驗收](DIGEST_GITHUB_VALIDATION.md)。私人稿仍由本機手動交付；沒有本機automation。
+O01三日schedule驗收待實際紀錄，09:00人工檢查／11:30人工發布維持；不保證準時。
 
 ## Pre-push source boundary fixes (2026-10-03)
 

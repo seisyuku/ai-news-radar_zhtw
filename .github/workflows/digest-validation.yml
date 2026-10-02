@@ -1,0 +1,51 @@
+name: Daily digest validation
+
+on:
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Taipei issue YYYY-MM-DD (blank: today)"
+        required: false
+        type: string
+  schedule:
+    # Taipei 07:15 primary / 08:15 second observation. Both validate independently.
+    - cron: "15 23 * * *"
+    - cron: "15 0 * * *"
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: digest-validation
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+          cache: "pip"
+          cache-dependency-path: "requirements-dev.txt"
+      - name: Install validation dependencies
+        run: python -m pip install -r requirements-dev.txt
+      - name: Offline digest boundary and failure checks
+        run: python -m pytest -q -p no:cacheprovider tests/test_digest*.py tests/test_generate_digest.py tests/test_deliver_digest.py tests/test_validate_digest.py
+      - name: Validate current pinned snapshot and byte-identical rerun
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_DATE: ${{ inputs.date || '' }}
+        run: |
+          if [ -n "$ISSUE_DATE" ]; then
+            python scripts/validate_digest.py --date "$ISSUE_DATE"
+          else
+            python scripts/validate_digest.py
+          fi
+      # Drafts and raw inputs live only in an automatically removed temp directory.
+      # No upload-artifact, commit, source refresh, provider key or publishing step.

@@ -1,5 +1,22 @@
 # AI News Radar Pulse — 交接摘要（截至 2026-10-03）
 
+## 2026-10-03 O01 後續驗證移至GitHub
+
+- 使用者明確要求「o01之後步驟改為在GitHub上面繼續驗證」，後續路徑改為
+  Daily digest validation；先前本機automation建議被本項覆蓋，私人交付仍在本機。
+- 新workflow每天臺北07:15／08:15（UTC23:15／00:15）兩次獨立觀察，先跑離線故障測試，
+  再唯讀固定遠端commit、生成／配對核對、相同bytes重跑。只有安全摘要，不上傳MD/meta／輸入。
+- scripts/validate_digest.py使用runner讀取token，不傳provider憑證；暫存用完清除。
+  schedule以run created_at固定臺北期別，跨日標missed_issue；舊資料review-only不當正常空日。
+- 相關52 passed、完整863 passed，workflow actionlint／YAML、語法與diff格式通過；
+  run created_at API使用相同raw media header也已唯讀驗證。
+- O01為github_observing，三個完整臺北日的event=schedule／時效／09:00前完成與
+  artifact零值待實際驗收；手動成功不算三日驗收，未啟用本機automation。
+- [GitHub操作與驗收](DIGEST_GITHUB_VALIDATION.md)。發布／真實手動run／測試證據落於
+  `/Users/lordmi/Downloads/ai-news-radar-digest-20261003/O01-GITHUB-20261003-073958/`。
+  run ID／commit／結果以該目錄RELEASE.md為準；下一階段GPT-6.1 Sol／Medium。
+
+
 ## 2026-10-03 全專案複查與提交前修正
 
 - 使用者授權全專案複查並朝commit/push完成，只有範圍擴充才需裁決；本輪無此類擴充。

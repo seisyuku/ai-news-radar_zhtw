@@ -40,7 +40,9 @@
 
 確認 exit 0 後，從該版本複製MD為 `review-YYYY-MM-DD.md` 再編輯；保留生成配對。
 資料未ready時人工查既有遠端刷新，不自行dispatch可能付費的新聞更新。
-目前沒有建立automation；07:15主／08:15備援、09:00檢查與11:30發布仍是下一階段時刻。
+目前沒有本機automation。使用者已將後續驗證移至GitHub：07:15與08:15跑
+獨立生成／時效驗證；見 [GitHub驗證說明](DIGEST_GITHUB_VALIDATION.md)。
+GitHub只留安全狀態，不傳草稿到Mac；本機交付／09:00檢查／11:30人工發布仍由人操作。
 
 ### 已保存輸入的離線生成
 

@@ -84,7 +84,7 @@ TikHub parsers。此結果不涵蓋尚未實作的日報。
 | L01 | 可選 daily synthesis boundary＋離線 stub | D11 | conditional | GPT-6.1 Sol／Medium |
 | L02 | 逐故事歸因、數字／版本與失敗測試 | L01 | conditional | GPT-6.1 Sol／High |
 | L03 | 小樣本真實 provider 評估與成本報告 | L02、真實呼叫授權 | conditional | GPT-6.1 Sol／Medium |
-| O01 | 日報生成排程提案與正式啟用驗收 | D11、排程／部署授權 | local_manual_ready | GPT-6.1 Sol／Medium；實作 High |
+| O01 | 日報生成排程提案與正式啟用驗收 | D11、排程／部署授權 | github_observing | GPT-6.1 Sol／Medium；實作 High |
 | B01 | OPML 非 feed HTML 被判健康零則 | H00 | done | GPT-6.1 Sol／Medium |
 | B02 | TikHub missing metrics 與 0 的區分 | H00 | done | GPT-6.1 Sol／Medium |
 | B03 | SocialData search 分頁／讀取成本上界 | H00 | done | GPT-6.1 Sol／High |
@@ -663,6 +663,17 @@ D01 只設計矩陣，實際 fixture 與測試由下列任務建立。
 | E01 | 逐來源增益、日期、來源身分、重疊、terms與單輪上界；RSSHub route 若有用才評估，區分代理 RSS 與 API／HTML。此任務不部署 RSSHub，也不自動註冊來源。 |
 
 ## 交接協定
+
+### 2026-10-03 O01 後續改在GitHub驗證
+
+- 使用者明確要求O01之後在GitHub繼續驗證，覆蓋先前本機排程後續安排。
+- 新增Daily digest validation與安全驗證入口：07:15／08:15兩次獨立觀察，固定SHA、
+  時效／pair核對與同bytes重跑；草稿與輸入在runner暫存，用完清除、不upload artifact。
+- 公開只留受控Step Summary；私人交付仍由本機手動入口執行，沒有本機automation或自動發文。
+- github_observing表示流程已轉GitHub並待三日schedule證據；不能以workflow_dispatch取代。
+  [驗收條件](DIGEST_GITHUB_VALIDATION.md)，下一階段GPT-6.1 Sol／Medium。
+- 交接：`/Users/lordmi/Downloads/ai-news-radar-digest-20261003/O01-GITHUB-20261003-073958/`。
+
 
 ### 2026-10-03 提交前全專案複查
 

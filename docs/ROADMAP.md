@@ -36,7 +36,8 @@
   既有公開網站、新聞排序與來源邊界維持原設計。
 - 依 [DIGEST_PLAN](DIGEST_PLAN.md) 的 D01～D11 小任務推進；每項起點即保存
   Downloads 檢查點，完成後更新台帳、HANDOVER 與下一階段模型／思考建議。
-- 可選 LLM、正式生成排程與部署各自準備可審閱結果後再啟用；不自動發文。
+- 2026-10-03後續驗證改在GitHub：兩個上午時刻觀察生成／時效，僅安全摘要；
+  私人交付仍在本機，三日schedule驗收待完成。可選LLM與自動發文不包含在驗證排程。
 - 已知 bug B01～B03 已於提交前複查修正；Social snapshot／Threads、model aliases 與
   新來源屬條件後續，不綁入第一份可用日報。不建立 velocity 或 social history。
 
