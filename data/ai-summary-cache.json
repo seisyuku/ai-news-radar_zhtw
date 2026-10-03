@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v2",
   "entries": {
+    "7a3925a368cd2c258ab3e0a98c83fe85f5c544783c0dd4b740f0837005528365": {
+      "summary": "DeepSeek 預覽一款新 AI 模型，該模型已適配以在華為晶片上執行。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-03T13:05:43.483953Z"
+    },
     "f16e35f87ad3e178f490318da4de455a88a76975748b157eba11143a4078e426": {
       "summary": "Meta 宣佈免費提供 Muse 程式碼，希望將其整合至電視與烤麵包機等裝置中。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-09-15T22:35:29.309455Z"
-    },
-    "0aab8268d0face0a52727f45492ddb44fe088904a6aefa708de4f6a138d63bf5": {
-      "summary": "美國聯邦貿易委員會（FTC）主席對要求提供 AI 反托拉斯豁免的呼籲抱持懷疑態度。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-09-15T20:29:00.368289Z"
     }
   },
   "rejections": {
@@ -4123,6 +4123,10 @@
     "8942893cbca4fb150dc40ff8d480689e3ffa3449502bc1de9e3bbd72b63c9995": {
       "reason": "validation_length",
       "created_at": "2026-10-03T10:05:49.077874Z"
+    },
+    "a37da25635f466e6aa9bb27385a82ee1c7cbcc36d5a49f15667b9512d7bc1ac4": {
+      "reason": "insufficient_context",
+      "created_at": "2026-10-03T13:05:43.483953Z"
     }
   }
 }
