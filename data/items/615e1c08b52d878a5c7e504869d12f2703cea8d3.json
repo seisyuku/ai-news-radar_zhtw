@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "Amazon DocumentDB（兼容 MongoDB）在 8.0.2 版本中新增对 5 个 MongoDB 聚合阶段和变更流功能的支持",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/amazon-documentdb-8-0-2",
-  "last_seen_at": "2026-10-04T11:05:37.759696Z",
+  "last_seen_at": "2026-10-04T11:35:36.493370Z",
   "summary": "Amazon DocumentDB（兼容 MongoDB）现在从次要版本 8.0.2 开始支持可重试写入、5 个新的聚合阶段以及变更流增强功能。此版本扩展了与 MongoDB API 的兼容性，并提升了查询性能，使您无需更改应用程序代码，即可更轻松地将 MongoDB 工作负载迁移到 Amazon DocumentDB。 8.0.2 版本的主要新功能包括： – 可重试写入：插入、更新和删除操作在遇到瞬时网络错误时会自动重试，从而提高应用程序在失效转移期间的韧性。 – 新增聚合阶段：$setWindowFields（及其全套窗口运算符）、$bucketAuto、$facet、$graphLookup 以及相关 $lookup，支持高级分析、分面搜索和分层查询。 – 变更流增强功能：$changeStreamSplitLargeEvent 阶段可将超过 16MB 限制的变更事件拆分为多个片段，且变更流现可针对 createCollection 和 createIndex 操作发出事件。 – 查询性能改进：查询规划器的增强功能包括为 find 和聚合查询添加仅索引扫描、对 $expr 谓词进行索引扫描、增量排序，以及更快的 count 和 countDocuments() 操作。 – 索引管理：支持对部分索引执行 reIndex 命令。 从 Amazon DocumentDB 8.0.2 开始，这些功能可在提供 Amazon DocumentDB 的所有区域使用。要了解更多信息，请参阅 受支持的 MongoDB API、操作和数据类型 和 Amazon DocumentDB 发行说明 。"
 }
