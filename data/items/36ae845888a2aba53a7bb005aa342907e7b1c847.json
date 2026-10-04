@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "AWS Backup 新增对适用于 NetApp ONTAP 的 Amazon FSx 的逻辑上受物理隔离的保管库支持",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/aws-backup-air-gapped-vault-fsx-ontap",
-  "last_seen_at": "2026-10-04T15:35:31.404183Z",
+  "last_seen_at": "2026-10-04T16:05:40.661404Z",
   "summary": "AWS Backup 逻辑上受物理隔离的保管库现在支持适用于 NetApp ONTAP 的 Amazon FSx。逻辑上受物理隔离的保管库是一种 AWS Backup 保管库，允许跨账户和 AWS Organizations 安全共享备份，支持直接恢复，有助于缩短从数据丢失事件恢复所需的时间。 现在，您可以在逻辑上受物理隔离的保管库中保护适用于 NetApp ONTAP 的 Amazon FSx 集群。逻辑上受物理隔离的保管库存储不可变的备份，这些备份在默认情况下处于锁定状态，并使用 AWS 拥有的密钥或客户管理的密钥进行加密隔离。您可以将适用于 NetApp ONTAP 的 FSx 备份存储在逻辑上受物理隔离的保管库中，该保管库既可位于同一账户中，也可位于其他账户和区域中。这有助于降低停机风险，确保实现业务连续性，并满足合规性和灾难恢复要求。 您可以通过 AWS Backup 控制台、AWS 命令行界面（CLI）或 AWS SDK 开始使用。通过在备份计划中将逻辑上受物理隔离的保管库指定为主目标或副本的目标位置，将适用于 NetApp ONTAP 的 FSx 备份保存在该保管库中。使用 AWS Resource Access Manager（RAM）与其他账户共享保管库，以便进行恢复或还原测试；或在账户遭到入侵时利用 多方审批功能 保护保管库的访问权限。一旦可用，您就可以从该账户启动直接还原任务，从而省去了先复制备份的开销。 此支持现已在所有提供逻辑上受物理隔离的保管库和适用于 NetApp ONTAP 的 Amazon FSx 的 AWS 区域推出。有关更多信息和详细的区域可用性，请访问 AWS Backup 文档 。要了解有关逻辑上受物理隔离的保管库的更多信息，请参阅 功能文档 和 定价页面 。"
 }
