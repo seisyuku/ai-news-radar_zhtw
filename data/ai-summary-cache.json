@@ -2,6 +2,18 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v2",
   "entries": {
+    "ae142ac5efa570eb953f1b72346604c69444759dcd9739859f95fbbc8ea77fa3": {
+      "summary": "華爾街日報報導，川普任命情報主管傑・克雷頓領導AI工作小組，並要求在120天內提交報告。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-04T15:05:50.355663Z"
+    },
+    "b1169a6c4874d2edc6f1d07bd64c6eadcdb4d58f370924938ce9b72594364de2": {
+      "summary": "Google Research 推出聯邦學習系統，將梯度計算移至可驗證的伺服器端 TEE，並透過 Sigstore Rekor 發布存取政策。Gboard 已用於英文及日文下一詞預測訓練，實現外部可驗證的差分隱私。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-04T15:05:50.355663Z"
+    },
     "10eab8abf563f20fd22e990633119f8ef8f02357de25a96bf34740088c9760b9": {
       "summary": "Apple、Google 與 Meta 正推動新的 AI 裝置與助理，同時穿戴式裝置的隱私問題日益受到關注。",
       "provider": "groq",
@@ -2989,18 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-09-17T01:05:28.708364Z"
-    },
-    "e788fc972f2df48ce062f05aab1d9286c297ed807f3be5624fc35f7540eb6034": {
-      "summary": "GitHub 將 Copilot 執行階段遷移至 Rust，涉及 80 萬行生產環境程式碼。該重寫工作藉助 AI 代理完成，此前因成本考量難以執行。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-09-17T00:35:24.931728Z"
-    },
-    "152f2dadf1ef03e5ba246501de20acddc561fab6abc2b470c7ce77373213aedc": {
-      "summary": "Mimecast 全球 Field CISO Beth Miller 於 10 日在《富比士》專欄指出，AI 風險的真正起點在於早期的人類決策，而非僅限於技術漏洞。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-09-16T23:35:31.459448Z"
     }
   },
   "rejections": {
@@ -4151,6 +4151,10 @@
     "6e0ccb848e59c3656401ef638f4549f56c19def140fb2db1360703ba099f4985": {
       "reason": "validation_length",
       "created_at": "2026-10-04T12:35:35.293984Z"
+    },
+    "d7fff57b5302888c58d9c029bd0ec476624a09459edb42eb311da7da09629377": {
+      "reason": "validation_length",
+      "created_at": "2026-10-04T15:05:50.355663Z"
     }
   }
 }
