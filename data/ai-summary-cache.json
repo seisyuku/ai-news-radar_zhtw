@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v2",
   "entries": {
+    "b1d9ff6b35419fdd8786001870b6242791cf8935a9c1d2af2acd98c9208dcfcc": {
+      "summary": "AI 推論成本每年下降 13 倍，其下跌速度超越摩爾定律所描述的晶片發展趨勢，大廠訂閱制將面臨考驗。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-04T23:35:37.529018Z"
+    },
     "36ec575f9644f2eabcac9db0436ee640d9315904752f4062c6b32a3d4bc0a303": {
       "summary": "MarkTechPost 研究指出，GPT-6 Astra 在電腦使用方面領先，Gemini 4 Argon 擅長法律與金融工作，GPT-6.1 Sol 則在編碼代理價格上具優勢。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-09-17T09:35:41.320013Z"
-    },
-    "d08453c7ddf29902986e490fa1c4fa9868ff6135c745586693ee58d5cfe9c18b": {
-      "summary": "歐洲資安獨角獸Exein完成2.7億美元募資，由Headline領投，並進軍臺灣搶攻Physical AI資安市場。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-09-17T09:35:41.320013Z"
     }
   },
   "rejections": {
@@ -4175,6 +4175,10 @@
     "138203cd1eb132e3fe7b8aed75ca904e0184caf8285ceb9c345c22985f175fc6": {
       "reason": "validation_length",
       "created_at": "2026-10-04T22:35:52.436750Z"
+    },
+    "581f798c845bb86a5bd37c0f296aa1b9f59021b60999267b867379118f1026c2": {
+      "reason": "insufficient_context",
+      "created_at": "2026-10-04T23:35:37.529018Z"
     }
   }
 }
