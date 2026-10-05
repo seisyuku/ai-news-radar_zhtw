@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "Amazon Transcribe 为自定义资源新增客户自主管理型 KMS 密钥",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/amazon-transcribe",
-  "last_seen_at": "2026-10-05T08:35:46.910809Z",
+  "last_seen_at": "2026-10-05T09:05:42.721180Z",
   "summary": "Amazon Transcribe 现在支持您使用自己拥有并控制的客户自主管理型 AWS KMS 密钥，对静止状态下的自定义词汇表、自定义词汇表筛选条件和自定义语言模型进行加密。 此前，这些自定义资源始终使用 AWS 拥有的密钥进行加密。现在，您可以在创建或更新这些资源时提供自己的对称 AWS KMS 密钥，这样 Transcribe 代您存储的构件将使用您账户中的密钥进行加密。如果您未提供密钥，您的资源将继续使用 AWS 拥有的密钥进行加密。除非您主动选择启用该功能，否则无需采取任何操作。 使用客户自主管理型密钥，您可以控制密钥权限，并精确决定哪些主体和服务可以对您的自定义资源进行加密和解密。密钥的每次使用都会记录在 AWS CloudTrail 中，从而为您提供完整的审计跟踪记录，以满足合规性和监控需求。您还可以根据自己的计划禁用该密钥或将资源切换到其他密钥，以便撤销访问权限。 此功能现已在提供 Amazon Transcribe 的所有 AWS 区域推出。要了解更多信息，请参阅 Amazon Transcribe 开发人员指南 。"
 }
