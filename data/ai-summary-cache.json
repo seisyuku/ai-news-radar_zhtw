@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v2",
   "entries": {
+    "47409e55a38a0fb4c7694873ce702d70dfe7911136fd90ce68a170193ddc34b1": {
+      "summary": "法國施耐德電機宣佈將斥資 226 億美元收購美國工業軟體大廠 PTC，以強化工業 AI 實力。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-06T00:35:36.956131Z"
+    },
     "a379f27ca4ffad6c11ff96dfb68ffdd94f84f1584dad13bc7223761611e075e0": {
       "summary": "Google 宣佈自 10 月 9 日起調整 Gemini 應用程式模型權限，免費使用者僅可使用 Flash-Lite，AI Plus 訂閱者則無法再使用 Pro 模型。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-09-18T19:05:47.138051Z"
-    },
-    "5abfffd639beadf102502e0cd4af682c75ef42fc127689b892de8b473beaf363": {
-      "summary": "Epoch AI 發布基準評測文件說明，內容包含所納入的基準評測項目。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-09-18T18:05:39.977631Z"
     }
   },
   "rejections": {
@@ -4199,6 +4199,10 @@
     "dce788bfb2a26ae24d8873a0a2f9b17eac7fb0c0e3d3e57a57ceaba465f1fd55": {
       "reason": "insufficient_context",
       "created_at": "2026-10-06T00:06:11.206179Z"
+    },
+    "e721c7465ac74c8dbe5f6c0f015949bdbbc994cd07ca3a2846e6c66e0cf2b37d": {
+      "reason": "validation_length",
+      "created_at": "2026-10-06T00:35:36.956131Z"
     }
   }
 }
