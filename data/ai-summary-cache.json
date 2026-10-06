@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v2",
   "entries": {
+    "cf76f816daa2705a61fcf57561af7c1e893690ad7994eb292b6c57b258185c4e": {
+      "summary": "韓國總統李在明指出，近期針對韓國金融業的網路攻擊可能使用人工智慧技術，警方已展開調查。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-06T08:35:45.292853Z"
+    },
     "e0e02d90565cb3a9b412b42cc7cd26948c732257cc2b3333a2e70d5bd9110733": {
       "summary": "Google 擬斥資 1,000 萬美元收購已停業廉航精神航空（Spirit Airlines）的商業資料，用於訓練 AI，該交易有望獲放行。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-09-19T06:35:32.979275Z"
-    },
-    "c1da7ef2d3b86d9ff6fe5280faeaf4b1f2ff9cb6c3d05b6ed9952a45d6b01b99": {
-      "summary": "36Kr報導指出Gemini 4 Pro疑似洩露，並稱「AI減速」說法又成空話。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-09-19T04:05:35.591401Z"
     }
   },
   "rejections": {
@@ -4203,6 +4203,10 @@
     "e721c7465ac74c8dbe5f6c0f015949bdbbc994cd07ca3a2846e6c66e0cf2b37d": {
       "reason": "validation_length",
       "created_at": "2026-10-06T06:35:39.732367Z"
+    },
+    "b6368469147f4bf6a2d73f6be8fe3a1e86fa0d452ae3c045ffe534df6fd2780f": {
+      "reason": "insufficient_context",
+      "created_at": "2026-10-06T08:35:45.292853Z"
     }
   }
 }
