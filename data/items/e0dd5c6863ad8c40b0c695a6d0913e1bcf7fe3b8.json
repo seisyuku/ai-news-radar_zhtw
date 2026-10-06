@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "用于可扩展 LLM 推理的 Amazon SageMaker HyperPod Inference Gateway",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/sagemaker-hyperpod-inference-gateway",
-  "last_seen_at": "2026-10-06T10:35:51.160935Z",
+  "last_seen_at": "2026-10-06T11:05:33.142818Z",
   "summary": "Amazon SageMaker HyperPod Inference Gateway 是一套 Kubernetes 原生并可感知 GPU 的路由系统，可作为单个 EKS 托管附加组件部署到现有 SageMaker HyperPod 基础设施上，无需更改应用程序。通过用实时推理信号驱动的路由取代不感知状态的轮询负载均衡，它可将首个令牌延迟降低多达 82%，并在混合硬件和突发流量场景中将 p99 TTFT 降低 97%–98%。 该网关由 3 个核心组件构成。Envoy 端点会终止 HTTPS 流量，并为每个集群公开一个私有端点。基于请求体的路由器直接从每条传入请求中读取模型名称，并将其路由到正确的 GPU 池，从而使一个网关能通过单个端点 URL 为多个模型提供服务，且无需更改客户端。端点选择器根据 6 项推理级信号（KV 缓存利用率、队列深度、LoRA 适配器驻留情况、前缀缓存命中率、预测延迟和正在运行的请求）持续对每个模型服务器容器组（pod）进行实时评分，并为每条请求选择最优 Pod。 该网关可与任何兼容 OpenAI 的模型服务器配合使用，包括 vLLM 和 SGLang，无需更改应用程序代码。 按集群路由现已在支持 SageMaker HyperPod 推理附加组件的所有 AWS 区域推出。即将推出：通过集中式集群组网关实现跨集群和跨区域路由、全局速率限制，以及感知成本层级的流量调控。 要了解更多信息，请阅读 发布博客 并查看 文档"
 }
