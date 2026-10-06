@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "AWS IAM 外站身份联合验证现支持用于 OIDC 发现的接口 VPC 端点",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/aws-sts-vpc-oidc",
-  "last_seen_at": "2026-10-06T08:35:45.292853Z",
+  "last_seen_at": "2026-10-06T08:53:29.988323Z",
   "summary": "AWS Identity and Access Management（IAM）外站身份联合验证 现在支持通过 Amazon Virtual Private Cloud（VPC）端点调用 OpenID Connect（OIDC）发现 API。现在，您可以通过 AWS PrivateLink 从 VPC 内部访问 OIDC 发现元数据和 JSON Web Key Set（JWKS）验证密钥端点，而无需让流量经过公共互联网。 当您的 AWS 工作负载访问外部服务时，IAM 外站身份联合验证功能可消除对长期有效凭证的需求。您的工作负载会向 AWS Security Token Service（AWS STS）请求短期有效的 JSON Web 令牌（JWT）。外部服务会使用 OIDC 发现端点提供的公有验证密钥和元数据来验证这些令牌。此前，OIDC 发现端点仅可通过公共互联网访问，因此，在无法访问互联网的 VPC 中运行的验证工作负载无法检索这些信息。此次发布后，您可以创建一个接口 VPC 端点，以私有方式访问这些端点，从而将验证密钥的检索流量限制在 AWS 网络内。此功能可帮助您满足在互联网访问受限的 VPC 中运行的工作负载的网络安全要求，同时仍允许外部服务验证 JWT。 这一功能已在所有 AWS 商业区域、AWS GovCloud（美国）区域和中国区域推出。除标准的 AWS PrivateLink 定价 外，此功能不收取任何额外费用。要了解更多信息，请参阅 IAM 用户指南 。"
 }
