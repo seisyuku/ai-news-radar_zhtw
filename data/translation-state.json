@@ -1,14 +1,6 @@
 {
   "version": 4,
   "rejections": {
-    "summary::Colossus 2 Epoch AI": {
-      "reason": "invalid_translation",
-      "created_at": "2026-10-06T18:05:43.044290Z"
-    },
-    "Colossus 2 - Epoch AI": {
-      "reason": "invalid_translation",
-      "created_at": "2026-10-06T18:05:43.044290Z"
-    },
     "summary::Colossus 2 epoch.ai": {
       "reason": "invalid_translation",
       "created_at": "2026-10-06T21:35:53.932383Z"
@@ -20,6 +12,46 @@
     "llm-mistral 0.16": {
       "reason": "invalid_translation",
       "created_at": "2026-10-06T22:05:34.109840Z"
+    },
+    "summary::If your Copilot usage metrics have shown agent activity or agent lines of code falling while Copilot usage kept growing, we’ve found the cause, and a fix is rolling out… The post Update your IDE to restore agent activity in Copilot usage metrics appeared first on The GitHub Blog .": {
+      "reason": "provider_unavailable",
+      "created_at": "2026-10-07T00:35:32.568359Z"
+    },
+    "Update your IDE to restore agent activity in Copilot usage metrics": {
+      "reason": "provider_unavailable",
+      "created_at": "2026-10-07T00:35:32.568359Z"
+    },
+    "summary::Who is most exposed to a chip supply shock? Epoch AI": {
+      "reason": "provider_unavailable",
+      "created_at": "2026-10-07T00:35:32.568359Z"
+    },
+    "Who is most exposed to a chip supply shock? - Epoch AI": {
+      "reason": "provider_unavailable",
+      "created_at": "2026-10-07T00:35:32.568359Z"
+    },
+    "summary::Colossus 2 Epoch AI": {
+      "reason": "provider_unavailable",
+      "created_at": "2026-10-07T00:35:32.568359Z"
+    },
+    "Colossus 2 - Epoch AI": {
+      "reason": "provider_unavailable",
+      "created_at": "2026-10-07T00:35:32.568359Z"
+    },
+    "summary::OpenAI “rogue” agent activities found on Wikimedia projects Given how tempting a target wikis are for rogue agent swarms, it's not a huge surprise that Wikipedia found evidence of that activity once they went looking: The Wikimedia Foundation conducted its own investigation to see whether Wikimedia websites had been similarly affected by AI agents, focusing on those operated by OpenAI. We can confirm that we have discovered some activity by these “rogue” OpenAI agents on Wikimedia platforms. The unauthorized bot activities included edits to our wikis, some unsuccessful attempts to exploit a public note-taking tool we host, and heavy traffic, which are described more below. They found evidence of agents editing sandbox pages, trying to use pieces of infrastructure such as Etherpad to help proxy content from elsewhere, and saw widespread crawling and \"hundreds of thousands of data queries\" to their Wikidata Query Service. My best guess is that most of this was a similar (or the same) swarm of agents as those that defaced that German wiki while training for research tasks. The Wikipedia sandbox wiki edits appear to have started on May 12th, and the initial test edits to the UseModWiki Sandbox page reported by that incident started on May 11th. Tags: wikimedia , wikipedia , wikis , ai , generative-ai , llms , ai-ethics , accidental-cyberattacks": {
+      "reason": "provider_unavailable",
+      "created_at": "2026-10-07T00:35:32.568359Z"
+    },
+    "OpenAI “rogue” agent activities found on Wikimedia projects": {
+      "reason": "provider_unavailable",
+      "created_at": "2026-10-07T00:35:32.568359Z"
+    },
+    "summary::Release: llm-openai-decisions 0.1a0 OpenAI released their new Jev-style Decisions API , as previously announced at last week's DevDay. Since I already have an llm-typesafe plugin for talking to Jev, I had GPT-6 Astra read the new OpenAI API documentation and build an llm-openai-decisions plugin inspired by llm-typesafe . Unlike Jev, the new gpt-6-luna decision model supports image input in addition to text. Both models charge for input it and not for output: OpenAI's is 10 cents per million input tokens, Jev's is 4.2 cents per million. Otherwise the API shape is very similar to Jev, at least conceptually. Jev supports three question types for yes/no, choices, or scores. OpenAI Decisions supports the same three types. Install the plugin like this: llm install llm-openai-decisions Here's an example query against an image attachment: llm -m openai-decisions/gpt-6-luna \\ -a https://static.simonwillison.net/static/2025/two-pelicans.jpg \\ -s ' Does this image contain any mammals? ' And example output: { \"type\" : \" predicate \" , \"name\" : \" evaluation \" , \"probability\" : 0.0 } Consult the README for full details of how to run the other types of questions. Tags: openai , llm , coding-agents , jev": {
+      "reason": "provider_unavailable",
+      "created_at": "2026-10-07T00:35:32.568359Z"
+    },
+    "llm-openai-decisions 0.1a0": {
+      "reason": "provider_unavailable",
+      "created_at": "2026-10-07T00:35:32.568359Z"
     }
   }
 }
