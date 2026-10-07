@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "Amazon SageMaker 融通式合作开发工作室现支持两项新的连接功能：Iceberg REST Catalog 连接和 Amazon DocumentDB 的 IAM 身份验证",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/sagemaker-iceberg-rest-iam-documentdb",
-  "last_seen_at": "2026-10-07T14:35:50.625979Z",
+  "last_seen_at": "2026-10-07T15:35:37.197845Z",
   "summary": "Amazon SageMaker 融通式合作开发工作室现在支持两项新的连接功能：（1）用于外部 Apache Iceberg 目录的 Iceberg REST Catalog（IRC）连接，以及（2）Amazon DocumentDB 的 IAM 身份验证。这两项功能相结合，使数据团队能够连接到更广泛的受管数据来源，并跨项目使用无凭证身份验证。 Iceberg REST Catalog 连接。 SageMaker 融通式合作开发工作室现在支持 Iceberg REST Catalog（IRC）连接，支持客户连接到遵循 Iceberg REST 规范的外部 Apache Iceberg 目录。支持的目录类型包括 Snowflake Open Catalog（Polaris）、Databricks Unity Catalog，以及适用于任何其他符合规范的目录的通用 IRC 类型。连接成功后，客户可以在 Data Explorer 中浏览目录（列出目录/模式/表、查看列、对数据进行采样），在可视化 ETL 中将其作为源或追加/覆盖目标进行读写，并从数据笔记本中对其进行查询。身份验证使用 OAuth2 或 Bearer 令牌，数据访问则使用由服务商提供的短期 Amazon S3 凭证。连接生命周期管理（创建、编辑、删除和测试连接）现已得到全面支持。 Amazon DocumentDB 的 IAM 身份验证。 SageMaker 融通式合作开发工作室现在支持 Amazon DocumentDB 的 IAM 身份验证连接，因此客户无需在连接或笔记本中存储数据库用户名或密码即可连接到 DocumentDB。该连接使用其自身的 IAM 角色进行身份验证，DocumentDB 通过 AWS Security Token Service（AWS STS）进行验证。此功能要求使用启用了 TLS 的 Amazon DocumentDB 5.0 或更高版本的基于实例的集群。该连接可在数据笔记本、Data Explorer、测试连接和可视化 ETL数据预览中使用。 这两项连接功能现已在所有提供 Amazon SageMaker 融通式合作开发工作室的 AWS 区域 中推出，无需额外付费。 要了解有关 Amazon SageMaker 融通式合作开发工作室的更多信息，请参阅 Amazon SageMaker 融通式合作开发工作室用户指南 。"
 }
