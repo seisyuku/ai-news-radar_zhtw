@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "AWS DataSync 现支持共享 VPC",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/aws-datasync-shared-vpcs",
-  "last_seen_at": "2026-10-08T21:53:26.971984Z",
+  "last_seen_at": "2026-10-08T22:35:37.875937Z",
   "summary": "AWS DataSync 现在支持共享虚拟私有云（VPC）。您可以利用 AWS Resource Access Manager（RAM）在多个 AWS 账户间共享子网，从而创建 DataSync 代理并运行传输任务。这使您能够通过由中央账户管理的共享子网和 VPC 端点私密地传输数据，而无需为每个账户分别配置。 此前，集中管理网络的客户必须在每个账户中分别创建独立的 DataSync VPC 端点，并通过 AWS PrivateLink 以私密方式进行连接。每个端点都会占用 IP 地址，且跨账户维护会增加运营开销。借助共享 VPC 支持，VPC 所属账户中的单个端点即可为共享该子网的所有账户提供服务，从而节省 IP 地址空间，并消除了为每个账户单独设置端点的必要性。此次发布还简化了单个账户内的配置。现在，您可以在多个子网间共享一个 VPC 端点，不必再要求每个子网都有对应的 VPC 端点。 共享 VPC 同时支持增强模式和基本模式的基于代理的任务。要开始使用，请通过控制台或 CreateAgent API 创建一个 DataSync 代理，并指定通过 AWS RAM 与您的账户共享的子网。AWS DataSync 对共享 VPC 的支持已在所有提供 AWS DataSync 的 AWS 区域推出，AWS Secret Region 除外。要了解更多信息，请访问 AWS DataSync 功能文档 。"
 }
