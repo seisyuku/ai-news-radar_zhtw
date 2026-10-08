@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "Amazon S3 Vectors 推出元数据预筛选功能，使筛选搜索的召回率提升高达 5 倍",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/s3-vectors-introduces-metadata-pre-filtering",
-  "last_seen_at": "2026-10-08T22:35:37.875937Z",
+  "last_seen_at": "2026-10-08T23:05:38.269751Z",
   "summary": "Amazon S3 Vectors 现在支持预筛选功能，该功能会在执行相似度搜索之前评估元数据筛选条件，当您的筛选条件具有选择性时，可返回多达 5 倍的匹配向量。S3 Vectors 还新增了前缀匹配运算符（$startsWith），用于对路径和 URL 等值进行筛选。这些改进共同作用，可在您进行筛选时为检索增强生成（RAG）应用程序、智能体应用程序和语义搜索应用程序提供更全面的结果，从而使您的应用程序返回更相关的答案。 S3 Vectors 原生支持在 Amazon S3 中存储和查询向量，提供专为数十亿级向量规模设计的、成本优化的向量存储和查询服务。此次发布后，新向量存储桶中的索引将默认启用元数据预筛选功能，而您使用 PutVectors 写入向量或使用 QueryVectors 运行筛选查询的方式保持不变。要在现有索引上使用预筛选功能，请使用 UpdateIndexMode API 对其进行就地更新。在更新之前，您还可以通过 QueryVectors 中的按查询参数，在同一索引上比较预筛选与当前筛选的效果。 元数据预筛选功能已在AWS 中国区域以及提供 Amazon S3 Vectors 服务的所有 AWS 商业区域推出。我们正在部署此项变更，并计划在未来几天内完成部署。要开始使用，请通过 AWS CLI、AWS SDK 或 Amazon S3 控制台进行操作。要了解更多信息，请访问 Amazon S3 Vectors 文档 和 AWS 新闻博客 。"
 }
