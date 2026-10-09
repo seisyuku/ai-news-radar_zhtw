@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "AWS 账户现支持电话号码验证",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/aws-accounts-phone-number-verification",
-  "last_seen_at": "2026-10-09T10:05:38.320887Z",
+  "last_seen_at": "2026-10-09T10:35:34.778978Z",
   "summary": "AWS 账户现在支持对主要联系人的电话号码进行验证。此前，AWS 账户联系信息中的电话号码仅会进行格式验证，但从未通过带外机制进行验证。现在，客户可以通过短信一次性验证码（OTP）来验证其电话号码。 要验证电话号码，客户可通过 AWS 管理控制台发起验证，或通过新的 SendPhoneNumberVerification API 以编程方式发起验证，该 API 会发送一个 6 位数的 OTP。在您输入验证码后，VerifyPhoneNumber API 将验证并保存已验证状态。当通过 PutContactInformation API 更改电话号码时，系统将提示客户重新完成验证。GetContactInformation API 现在可以提供验证状态，客户可据此确认哪些电话号码已完成验证。 对于 AWS Organizations 客户，电话号码验证支持从管理账户继承。当从管理账户将已验证的电话号码应用到成员账户时，如果该号码与管理账户一致，这些成员账户将继承已验证状态，从而无需在数千个账户中重复验证同一号码。自行独立更改电话号码的成员账户则需要单独完成验证。 这项功能已在所有 AWS 商业区域推出。要了解有关电话号码验证的更多信息，请访问 AWS 账户管理文档 。"
 }
