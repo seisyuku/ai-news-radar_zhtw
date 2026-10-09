@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "AWS IAM Identity Center 现在支持对 Identity Store 的网络访问控制",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/aws-identity-store-network-controls",
-  "last_seen_at": "2026-10-09T18:48:10.487425Z",
+  "last_seen_at": "2026-10-09T19:35:35.322548Z",
   "summary": "AWS IAM Identity Center 可帮助您为员工配置访问 AWS 账户和应用程序的单点登录体验。IAM Identity Center 现在支持对 Identity Store（用于存储您的用户和组）的网络访问控制。您可以根据请求来源网络，限制对 Identity Store API 和 SCIM API 的访问。您的自定义应用程序和用户预置工作流程使用 Identity Store API 来管理和查找用户和组，您的外部身份提供者使用 SCIM API 来同步用户和组。 对于 Identity Store API，您可以要求请求只能通过您的账户或组织中允许的 VPC 端点到达，或只能来自特定的源 VPC。对于这两个 API，您可以仅允许来自特定 IP 范围的请求。在同一配置中，您可以对每个 API 应用不同的限制。例如，您可以要求 Identity Store API 请求仅通过 VPC 端点到达，同时允许来自外部身份提供者已发布 IP 范围的 SCIM 请求。 网络访问控制是可选的，并且默认处于关闭状态。AWS 服务代表您发出的请求不受此限制。您可以通过 AWS SDK 和 AWS CLI 使用 Identity Store API 来配置网络访问控制。此功能已在提供 IAM Identity Center 的所有 AWS 区域推出。 要了解有关 IAM Identity Center 的更多信息，请访问 产品详细信息页面 。要开始使用网络访问控制，请参阅 Identity Store API 参考 。"
 }
