@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "Amazon Aurora DSQL 现在支持部分索引",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/aurora-dsql-partial-indexes",
-  "last_seen_at": "2026-10-09T17:05:48.713227Z",
+  "last_seen_at": "2026-10-09T17:35:35.155290Z",
   "summary": "Amazon Aurora DSQL 现在允许您针对表的特定子集创建索引，仅存储符合条件的行，而非整个表中的每一行，从而提高查询性能并降低索引存储成本。 许多表除了包含庞大的历史数据外，还包含一个较小的活跃数据集，例如在已完成订单的各年度数据中，还包含未结订单。在 CREATE INDEX 中添加一个 WHERE 子句以仅针对该活跃数据集建立索引。随着表的增长，索引规模仍能保持较小，且针对这些行的查询所需读取的数据量也较少。Aurora DSQL 对筛选条件符合索引条件的所有查询均使用部分索引。 部分索引已在提供 Aurora DSQL 的所有 AWS 区域 推出。要了解更多信息，请参阅《Aurora DSQL 用户指南》中的 创建索引 。"
 }
