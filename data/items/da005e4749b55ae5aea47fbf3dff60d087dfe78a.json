@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "Amazon EKS 自动模式现在支持高级计算配置",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/eks-auto-mode-advanced-compute-config",
-  "last_seen_at": "2026-10-10T22:20:47.833565Z",
+  "last_seen_at": "2026-10-10T22:26:38.239721Z",
   "summary": "Amazon Elastic Kubernetes Service（EKS）自动模式现在支持直接在 NodeClass Kubernetes 资源中调整 kubelet 设置、Linux 内核 sysctl 和大页内存。您现在可以在 EKS 自动模式上运行需要特定节点调优的工作负载，EKS 自动模式会为您自动执行节点预置、扩缩、修补和升级。 借助 NodeClass 中新增的 advancedCompute 字段，您可以为 CI/CD 管道中的无根容器构建配置用户命名空间，调整驱逐阈值和容器日志轮换以保护节点免受磁盘和内存压力影响，提高大型集群的网络和 ARP 缓存限制，并为 HPC、数据库和延迟敏感型工作负载预先分配 2Mi 或 1Gi 的大页内存。您可以使用 Kubernetes API 以声明方式应用这些设置。EKS 自动模式会验证这些设置，在节点启动时应用它们，并在扩缩和升级事件中保留它们，因此您的工作负载可以获得所需的调优，同时 EKS 自动模式会继续管理底层基础设施，无需维护 EC2 启动模板、自定义 AMI 或特权 DaemonSet。 Amazon EKS 自动模式高级计算配置已在提供 EKS 自动模式的所有 AWS 区域推出。 要开始使用，请参阅 Amazon EKS 自动模式 产品页面，并参阅 Amazon EKS 文档中的 为 Amazon EKS 创建节点类 。"
 }
