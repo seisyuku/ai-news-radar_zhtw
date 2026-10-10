@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "Amazon RDS 现已在控制台和 API 中新增完整快照大小信息",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/amazon-rds-full-snapshot-size-available",
-  "last_seen_at": "2026-10-10T08:35:42.799971Z",
+  "last_seen_at": "2026-10-10T08:39:35.330784Z",
   "summary": "Amazon RDS 现在可以显示 RDS 快照的完整大小。借助此增强功能，客户现在可以使用新字段“FullSnapshotSizeInBytes”，通过 DescribeDBSnapshots API 以编程方式检索完整快照大小。此外，客户还可以在控制台中通过“完整快照大小”列查看此信息。 Amazon RDS 快照采用增量式存储。这意味着如果您在一段时间内为一个卷创建多个快照，每个快照将仅存储新的或修改后的数据块，同时保留对先前快照中未更改数据块的引用。“FullSnapshotSizeInBytes”字段显示构成快照的所有数据块的总大小，包括直接存储在该快照中的数据块以及从先前快照中引用的所有数据块。例如，如果您的数据库卷大小为 100GB，其中存储了 50GB 的数据，则无论是第一个快照还是后续快照，“完整快照大小”都会显示 50GB。请注意，该字段不同于增量快照大小，增量快照大小仅指存储在该具体快照中的新更改数据块的大小。 完整快照大小已在所有 AWS 商业区域的所有 Amazon RDS 数据库实例上提供。您可以立即通过 Amazon RDS 管理控制台、AWS 命令行界面（CLI）或 AWS SDK 开始使用此功能。要了解更多信息，请参阅 Amazon RDS 用户指南 。"
 }
