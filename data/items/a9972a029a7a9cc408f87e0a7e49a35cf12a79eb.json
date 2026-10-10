@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "AgentCore Gateway 支持 VPC 端点的私有 TLS 证书",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/agentcore-gateway-private-tls-vpc",
-  "last_seen_at": "2026-10-10T08:05:34.347192Z",
+  "last_seen_at": "2026-10-10T08:35:42.799971Z",
   "summary": "Amazon Bedrock AgentCore Gateway 现已在 MCP、OpenAPI 和 HTTP 代理目标上支持由私有证书颁发机构（CA）签发的 TLS 证书。此功能使您能够安全地连接到使用您自己的私有证书颁发机构颁发的 TLS 证书的网关目标。借助此功能，您可以直接与 VPC 中的私有端点建立原生连接，而无需通过中间的应用程序负载均衡器建立连接。 您可以为使用由 Amazon VPC Lattice 支持的私有端点的网关目标注册私有 CA 证书。网关从 Amazon S3 或 AWS Secrets Manager 获取您的 PEM 编码的 CA 证书，并将其用作出站 TLS 连接的信任锚。私有 CA 支持适用于 MCP 服务器目标、OpenAPI 目标和 HTTP 代理（直通）目标。 在同时提供 AgentCore Gateway 和 Amazon VPC Lattice 的所有区域中，AgentCore Gateway 均支持私有证书。要了解更多信息，请参阅 AgentCore 开发人员指南 。"
 }
