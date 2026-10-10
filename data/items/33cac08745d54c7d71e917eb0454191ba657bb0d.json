@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "Apache Iceberg 实体化视图现已支持系统管理的写入保护",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/system-managed-iceberg-materialized-views",
-  "last_seen_at": "2026-10-10T02:16:18.177260Z",
+  "last_seen_at": "2026-10-10T03:05:38.121816Z",
   "summary": "今天，AWS 宣布针对 Apache Iceberg 推出系统管理的实体化视图。借助实体化视图，您可以预先计算一次成本高昂的查询，然后跨引擎重复使用结果。该结果是数据湖中的一个开放 Iceberg 表，因此任何拥有写入权限的人都可以通过目录或写入 Amazon S3 中的文件来对其进行更改。系统管理的实体化视图弥补了这一不足，它仅允许 AWS Glue 写入实体化视图的数据和定义，因此无论谁拥有表或底层 S3 文件的写入权限，该结果都与计算结果完全相同 。 要开始使用，请编写定义实体化视图的 SQL 以及刷新计划（可选）。然后，AWS Glue 会计算结果，将这些结果作为标准 Apache Iceberg 表存储在 Amazon S3 表类数据存储服务存储桶中，并按照您的计划保持最新状态。由于结果是 AWS Glue Data Catalog 中的一个普通 Iceberg 表，因此任何兼容 Iceberg 的引擎都可以直接读取它，而该服务能够保证没有其他写入者可以对其进行修改。您将获得一个受监管、始终如一的数据集，可以放心地共享该数据集。您仍然可以在需要时刷新、重新计划或删除视图。 系统管理的 Apache Iceberg 实体化视图已在支持 Apache Iceberg 实体化视图的所有区域推出。要了解更多信息，请参阅 AWS Glue 开发人员指南 中的 系统管理的实体化视图 。"
 }
