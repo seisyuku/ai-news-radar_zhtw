@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "Amazon Redshift 使用联合身份验证权限简化对安全日志记录的访问",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/redshift-secure-logging-permissions",
-  "last_seen_at": "2026-10-10T14:49:09.682352Z",
+  "last_seen_at": "2026-10-10T15:35:32.572617Z",
   "summary": "Amazon Redshift 现在利用精细访问控制（FGAC）支持更轻松地对受联合身份验证权限保护的数据查询进行故障排除和审计。使用新的 DEBUG 权限，数据所有者可以让特定身份查看多个 Redshift 数据仓库中未脱敏的安全日志记录。 借助 Amazon Redshift 联合身份验证权限，您只需定义一次数据权限，Redshift 会自动在 AWS 账户中的每个 Redshift 仓库中实施这些权限。如果查询访问受 FGAC 保护的数据，安全日志记录会对系统表记录中的敏感值（例如重写的查询文本、错误消息和对象名称）进行脱敏。这可以保护生产者的数据免受使用者的侵害。与此同时，授权的审计员和管理员需要能够查看这些记录，以便在不关闭安全日志记录的情况下对查询进行故障排除并满足合规性要求。 有了新的 DEBUG 权限，超级用户或数据库所有者可以选择哪些身份能够在不脱敏的情况下查看这些记录。您通常可以使用标准 Redshift GRANT 命令向 IAM 用户、IAM 角色或 IAM Identity Center 用户或组授予 DEBUG 权限，让相关身份能够查看自身查询的未脱敏记录。您还可以向使用者账户的管理员授予 DEBUG 权限，让他们能够在故障排除和审计期间全面查看日志。当您将 Redshift 系统表数据导出到 Amazon S3 表类数据存储服务时，已授权给账户管理员的记录也会保持未脱敏状态。您可以通过可审计的方式精确地控制谁可以查看日志，同时确保安全日志记录始终开启。 此功能已在所有支持 Amazon Redshift 的 AWS 区域推出。要了解更多信息，请参阅 Amazon Redshift 文档中的 联合身份验证权限 、 使用说明 和 安全日志记录 。"
 }
