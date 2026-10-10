@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "AWS Transfer Family 现已支持适用于托管工作流的自定义 CloudWatch 日志组",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/transfer-family-custom-cloudwatch-log-groups",
-  "last_seen_at": "2026-10-10T21:05:51.121877Z",
+  "last_seen_at": "2026-10-10T21:35:30.642569Z",
   "summary": "AWS Transfer Family 现在可让您在 Amazon CloudWatch Logs 中为托管工作流执行日志选择自定义日志组。您可以整理工作流日志来单独监控各个工作流，也可以将来自相关工作流的日志汇总在一起。 以前，连接到 Transfer Family 服务器的每个工作流都会将其执行日志发送到该服务器的 CloudWatch 日志组，因此您无法为每个工作流设置单独的日志目的地。通过 AWS Transfer Family 控制台或 API 创建工作流时，您现在可以选择工作流级别的日志组，该日志组与服务器的日志组是分开的。Transfer Family 仅向选定的组传送工作流日志，因此不需要服务器日志记录角色。工作流日志保留其现有的结构化 JSON 格式，并且仍然可以使用 Amazon CloudWatch Logs Insights 进行查询。您还可以将来自多个工作流的日志发送到共享日志组，以创建用于跟踪工作流执行的综合指标和控制面板。如果您未选择结构化日志目的地，则配置后，工作流日志将继续使用服务器基于角色的日志记录配置。现有工作流继续使用其当前的日志记录配置。 此功能已在提供 Transfer Family 托管工作流的所有 AWS 区域推出。要了解更多信息，请访问 Transfer Family 托管工作流用户指南 。"
 }
