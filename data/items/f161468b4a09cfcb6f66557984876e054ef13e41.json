@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "适用于 Valkey 的 Amazon ElastiCache 现在支持 OpenTelemetry 指标和详细监控",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/amazon-elasticache-valkey-opentelemetry-metrics-detailed-monitoring",
-  "last_seen_at": "2026-10-10T14:35:31.936302Z",
+  "last_seen_at": "2026-10-10T14:49:09.682352Z",
   "summary": "适用于 Valkey 的 Amazon ElastiCache 现已支持将基于节点的集群的 OpenTelemetry 指标发布到 Amazon CloudWatch，每个指标都带有属性，而您可以使用 Prometheus 查询语言（PromQL）表达式对这些属性进行筛选和聚合。ElastiCache 现在提供两种监控模式。标准监控（即现有模式）仍会每 60 秒发布一次 CloudWatch 指标（经典），现在还会以相同的间隔发布一组核心的 OpenTelemetry 指标，且不额外收费。详细监控（即新模式）允许您从全套 OpenTelemetry 指标中进行选择，并且每 15 秒发布一次。 使用 OpenTelemetry 指标，您可以检测集群中接近其连接限制的任何节点，在事件发生期间按类型细分错误，或者预测节点是否会耗尽内存。您可以在 CloudWatch 和 Grafana 中运行这些查询，同时充分利用团队现有的 PromQL 技能。借助详细监控，您可以平衡诊断深度和成本，而 15 秒指标可帮助检测延迟骤升等短暂事件。OpenTelemetry 的核心指标集还可为 Amazon CloudWatch 中的预构建控制面板 ElastiCache Insights 提供支持。 要开始使用，请在 Amazon ElastiCache 控制台 中打开集群的 Metrics（指标）选项卡，选择 Detailed（详细），然后选择 Configure detailed metrics（配置详细指标）。 在 Amazon CloudWatch 支持 OpenTelemetry 指标的所有 AWS 区域中，基于节点的 Valkey 集群均可使用 OpenTelemetry 指标和详细监控。ElastiCache 不会对详细监控收取额外费用。 CloudWatch 针对 OpenTelemetry 指标的定价 适用于您选择的详细监控指标、创建的警报以及运行的 PromQL API 查询。 要了解更多信息，请参阅《Amazon ElastiCache 用户指南》中的 使用 OpenTelemetry 指标监控 ElastiCache 。"
 }
