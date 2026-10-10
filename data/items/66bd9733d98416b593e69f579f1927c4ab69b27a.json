@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "Amazon EKS 和 Amazon EKS Distro 现在支持 Kubernetes 版本 1.37",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/amazon-eks-distro-kubernetes-version-1-37",
-  "last_seen_at": "2026-10-10T09:35:34.223189Z",
+  "last_seen_at": "2026-10-10T10:05:32.559351Z",
   "summary": "Kubernetes 版本 1.37 引入了多项新功能和错误修复程序，AWS 很高兴宣布，您现在可以使用 Amazon Elastic Kubernetes Service （EKS）和 Amazon EKS Distro 来运行 Kubernetes 版本 1.37。即日起，您可以使用版本 1.37 创建新的 EKS 集群，并使用 EKS 控制台、eksctl 命令行界面或通过基础设施即代码工具，将现有集群升级到版本 1.37。 Kubernetes 版本 1.37 引入了多项重要改进，将 Metrics API 提升为正式发布版本，即 metrics.k8s.io/v1 。此 API 为 Horizontal Pod Autoscaler 和 kubectl top 提供容器组（pod）和节点 CPU 以及内存使用情况。动态资源分配（DRA）设备污点和容忍度也逐渐升级为正式发布版本，这使得 DRA 驱动程序和管理员能够对 GPU 等设备设置污点，从而使调度器在未被容忍的情况下避开这些设备。Horizontal Pod Autoscaler 缩减至零升级到测试版并默认处于启用状态，允许具有 minReplicas: 0 的自动扩缩器使用对象或外部指标在空闲时将工作负载缩减至零容器组，并在需求恢复时进行备份。要了解有关 Kubernetes 版本 1.37 的更多信息，请参阅我们的 文档 和 Kubernetes 项目 发行说明 。 EKS 现已在提供 EKS 的所有 AWS 区域支持 Kubernetes 版本 1.37，包括 AWS GovCloud（美国）区域。 要详细了解 EKS 上可用的 Kubernetes 版本，以及如何将集群更新到版本 1.37 的说明，请参阅 EKS 文档。您可以使用 EKS 集群洞察 来检查是否存在任何可能影响 Kubernetes 集群升级的问题。Kubernetes 版本 1.37 的 EKS Distro 版本已通过 ECR 公有库和 GitHub 提供。要了解有关 EKS 版本生命周期策略的更多信息，请参阅 文档 。"
 }
