@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "Amazon CloudWatch Logs 现可自动为频繁查询的字段建立索引",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/cloudwatch-logs-auto-indexes-fields",
-  "last_seen_at": "2026-10-10T22:26:38.239721Z",
+  "last_seen_at": "2026-10-10T23:05:33.368825Z",
   "summary": "Amazon CloudWatch Logs 现在可以自动为频繁查询的字段字段建立索引，从而加快 CloudWatch Logs Insights 查询速度，且无需任何手动设置。此前，您需要根据查询模式和使用情况手动选择要建立索引的字段，这会给查询模式随时间变化的团队带来额外工作量。 CloudWatch Logs 会识别您在查询中使用 = 和 IN 运算符进行筛选的字段，并自动为其建立索引，从而加快查询速度并减少数据扫描量。自动建立索引的字段不计入每个日志组 20 个字段的限制，并且会保留 30 天。随着查询模式的变化，自动建立索引的字段列表也会相应更新。要将某个字段永久保持索引状态，请通过控制台或 API 将其提升为字段索引策略。 自动索引功能已在支持 CloudWatch Logs 字段索引的所有 AWS 区域推出，无需额外费用。要了解更多信息，请参阅 Amazon CloudWatch Logs 用户指南 。"
 }
