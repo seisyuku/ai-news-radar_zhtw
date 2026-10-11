@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v2",
   "entries": {
+    "79c25ef2b6915903ffef463ba261a635e482dbd9f3de524ff2b3576f6281d5a4": {
+      "summary": "The Verge 報導作者開始嘗試在本地端運行強大的人工智慧模型，以解決將個人資料交給雲端服務的顧慮。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-11T12:35:32.203291Z"
+    },
     "ec8f549506ac5122fabf3422998acf10117c5dbc57c9d06202e2a3607dcfeecc": {
       "summary": "據36Kr報導，英偉達正就收購Reflection AI或增加投資進行磋商。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-09-22T12:35:33.223455Z"
-    },
-    "44ac9a22f6ccdf9f3344d45f2bbc4de7c8a5de8787d8255a784471858fd89425": {
-      "summary": "中國針對 AI 新創公司 DeepSeek 與月之暗面展開調查，涉及 Claude 資料路由與違規行為。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-09-22T12:35:33.223455Z"
     }
   },
   "rejections": {
@@ -4276,10 +4276,6 @@
       "reason": "insufficient_context",
       "created_at": "2026-10-11T00:05:49.072156Z"
     },
-    "0852ceca6d3955cc766f8f506dc37bd13e80ee2128cdee6f41e948345271b08a": {
-      "reason": "validation_length",
-      "created_at": "2026-10-11T06:35:31.728811Z"
-    },
     "298f2ebe76b6b9fa2bb293bc5475570aa6b096650c4633739919cd354dee7c24": {
       "reason": "validation_length",
       "created_at": "2026-10-11T07:05:32.473128Z"
@@ -4295,6 +4291,10 @@
     "3b65a12afe2e30629e30e1142ae0d194231f79454947875c2493f201a2ce52f2": {
       "reason": "insufficient_context",
       "created_at": "2026-10-11T12:05:34.604438Z"
+    },
+    "0852ceca6d3955cc766f8f506dc37bd13e80ee2128cdee6f41e948345271b08a": {
+      "reason": "validation_length",
+      "created_at": "2026-10-11T12:35:32.203291Z"
     }
   }
 }
