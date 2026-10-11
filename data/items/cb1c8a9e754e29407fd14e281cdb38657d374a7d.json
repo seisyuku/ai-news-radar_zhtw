@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "Amazon DocumentDB（兼容 MongoDB）现支持可重试写入",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/amazon-documentdb-retryable-writes",
-  "last_seen_at": "2026-10-11T18:35:37.258652Z",
+  "last_seen_at": "2026-10-11T19:00:19.980305Z",
   "summary": "对于开发兼容 MongoDB 的应用程序的开发者而言，可重试写入功能可在发生瞬时错误（例如网络中断或主节点失效转移）时提高应用程序的韧性。从引擎版本 8.0.2 开始，Amazon DocumentDB（兼容 MongoDB）开始支持可重试写入，启用此功能时无需进行额外的代码更改。 借助可重试写入功能，当发生瞬时错误时，MongoDB 驱动程序会自动对某些写入操作重试一次。目前大多数兼容 MongoDB 的驱动程序默认启用了可重试写入功能。此次发布后，连接到 Amazon DocumentDB 8.0.2 的应用程序不再需要在连接字符串中设置 retryWrites=false 来避免错误。除 updateMany 和 deleteMany 以及事务提交和中止命令外，所有写入命令均支持可重试写入。8.0.2 之前的引擎版本仍不支持可重试写入，必须予以禁用。 可重试写入已在所有提供 Amazon DocumentDB 8.0 的区域中通过 Amazon DocumentDB 8.0.2 基于实例的集群和无服务器集群提供。要开始使用可重试写入，请参阅 Amazon DocumentDB 开发人员指南 。"
 }
