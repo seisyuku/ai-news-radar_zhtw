@@ -197,10 +197,12 @@ runpy.run_path('scripts/generate_digest_job.py', run_name='__main__')
     assert result.returncode == 3 and json.loads(result.stdout)["pair_verified"]
 
 
-def test_manual_workflow_cannot_publish_or_enable_daily_schedule():
+def test_workflow_preserves_explicit_manual_date_and_approved_completion_trigger():
     path = Path(__file__).resolve().parents[1] / ".github/workflows/digest-generation.yml"
     workflow = yaml.load(path.read_text(), Loader=yaml.BaseLoader)
-    assert set(workflow["on"]) == {"workflow_dispatch"}
+    assert set(workflow["on"]) == {"workflow_dispatch", "workflow_run"}
+    assert workflow["on"]["workflow_run"] == {
+        "workflows": ["Update AI News Snapshot"], "types": ["completed"], "branches": ["master"]}
     assert workflow["on"]["workflow_dispatch"]["inputs"]["date"]["required"] == "true"
     assert workflow["permissions"] == {"contents": "read"}
     assert workflow["concurrency"]["cancel-in-progress"] == "false"

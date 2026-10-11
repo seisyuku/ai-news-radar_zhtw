@@ -1,5 +1,13 @@
 # 私人雲端日報 C02：離線模擬契約 v1
 
+## 2026-10-12 已批准：每日觸發A與固定期別
+
+使用者選A並確認接受日期固定期別。本路線沿用同repo/master的新聞更新完成事件；以GitHub記錄的上游created_at固定臺北期別，updated_at選主／補試時段，runner延遲至次日拒絕。這是GitHub觀測時間，不冒充外部cron的scheduled_for；取代本路線下方歷史v1獨立持久intent issuer與固定三slot要求，不另建發行服務。
+
+主時段07:15～08:15、補試08:15～08:45，各一次實際嘗試，私人Drive小型attempt紀錄去重；當期資料達標才保存。首次完整保存／讀回後留私人delivery紀錄，後續核對既有pair、原稿及校稿存在後跳過，不因較新快照換人工校稿。部分保存或原稿被改停止，不自動更換base或清除。每日及手動共用同一workflow concurrency；沒有跨檔交易承諾。06～06／90分鐘資料時效／09:00目標與人工發布不改。
+
+設定automation_enabled只接受JSON布林，true啟用此已部署每日入口，false暂停每日入口；它不能新增排程、選provider或改窗口。手動仍須明確date／選deliver_drive。既有來源刷新、外部心跳/PAT、scope、通知與公開新聞發布不改。實作與啟用證據以HANDOVER頂部為準。
+
 ## 2026-10-12 已批准：GitHub + 私人Drive單人交付標準
 
 使用者明確許可簡化本路線的C02控制層要求。以下單人Drive標準優先於本文件歷史v1的不可變儲存／原子交易／request receipt／服務端revision控制要求；既有mock與候選runtime保留為歷史試驗，不能再作Drive接線前置。

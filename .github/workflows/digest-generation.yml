@@ -1,6 +1,10 @@
 name: Daily digest generation check
 
 on:
+  workflow_run:
+    workflows: [Update AI News Snapshot]
+    types: [completed]
+    branches: [master]
   workflow_dispatch:
     inputs:
       date:
@@ -27,6 +31,13 @@ concurrency:
 
 jobs:
   generate:
+    # UTC 23/00 cover the Taipei morning; Python applies the exact approved windows.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.head_repository.full_name == github.repository &&
+       (github.event.workflow_run.event == 'schedule' || github.event.workflow_run.event == 'workflow_dispatch') &&
+       (contains(github.event.workflow_run.updated_at, 'T23:') || contains(github.event.workflow_run.updated_at, 'T00:')))
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
@@ -35,18 +46,26 @@ jobs:
       - uses: actions/checkout@v6
         with:
           persist-credentials: false
+      - name: Check the fixed daily issue and attempt window
+        id: daily
+        if: github.event_name == 'workflow_run'
+        run: python3 scripts/digest_daily_job.py --preflight --event-file "$GITHUB_EVENT_PATH"
       - uses: actions/setup-python@v6
+        if: github.event_name == 'workflow_dispatch' || steps.daily.outputs.eligible == 'true'
         with:
           python-version: "3.12"
           cache: "pip"
           cache-dependency-path: "requirements.txt"
       - name: Install generation and test dependencies
+        if: github.event_name == 'workflow_dispatch' || steps.daily.outputs.eligible == 'true'
         run: python -m pip install -r requirements.txt pytest==8.3.4 PyYAML==6.0.2
       - name: Check offline generation boundaries
+        if: github.event_name == 'workflow_dispatch' || steps.daily.outputs.eligible == 'true'
         run: |
           mkdir -p "$HOME/Downloads/ai-news-radar-generation-tests"
-          python -m pytest -q -p no:cacheprovider --basetemp "$HOME/Downloads/ai-news-radar-generation-tests/pytest" tests/test_generate_digest_job.py tests/test_generate_digest.py tests/test_digest_integration.py
+          python -m pytest -q -p no:cacheprovider --basetemp "$HOME/Downloads/ai-news-radar-generation-tests/pytest" tests/test_generate_digest_job.py tests/test_generate_digest.py tests/test_digest_integration.py tests/test_digest_daily_job.py
       - name: Generate and verify the requested static digest
+        if: github.event_name == 'workflow_dispatch'
         env:
           ISSUE_DATE: ${{ inputs.date }}
           HISTORICAL: ${{ inputs.historical }}
@@ -59,6 +78,14 @@ jobs:
           if [ "$HISTORICAL" = "true" ]; then args+=(--historical); fi
           if [ "$DELIVER_DRIVE" = "true" ]; then args+=(--deliver-drive); fi
           python scripts/generate_digest_job.py "${args[@]}"
+      - name: Generate or retain the daily private digest
+        if: github.event_name == 'workflow_run' && steps.daily.outputs.eligible == 'true'
+        env:
+          GOOGLE_DRIVE_OAUTH_CREDENTIALS: ${{ secrets.GOOGLE_DRIVE_OAUTH_CREDENTIALS }}
+          GOOGLE_DRIVE_DIGEST_TARGET: ${{ secrets.GOOGLE_DRIVE_DIGEST_TARGET }}
+        run: |
+          python scripts/digest_daily_job.py --event-file "$GITHUB_EVENT_PATH" --input-dir data \
+            --output-dir "$HOME/Downloads/ai-news-radar-generation/$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
       - name: Remove private runner output
         if: ${{ always() }}
         run: |
@@ -69,4 +96,4 @@ jobs:
           if target.exists():
               shutil.rmtree(target)
           PY
-      # Optional private Drive storage. No schedule, public artifact, source refresh or publication.
+      # Existing refresh completion drives daily storage; no new cron, artifact, refresh or publication.

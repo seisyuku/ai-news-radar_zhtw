@@ -15,7 +15,15 @@ GitHub Secrets：
 
 credentials Secret使用compact單行JSON，避免GitHub把多行Secret中單獨括號也自動遮罩而污染安全摘要；沒有把憑證加入日誌。真正的私人目的地與本機試稿分開，原設定Doc沿用，其狀態已更新為GitHub手動交付驗證完成。
 
-只讀已選定私人設定Doc：schema_version=1、timezone=Asia/Taipei、cutoff=06:00、generation_location=github-actions、automation_enabled=false；其餘只允許mode/trial_status等既有欄位。未知欄位/改窗口/要求其他生成服務拒絕。改設定不是排程啟用指令。
+只讀已選定私人設定Doc：schema_version=1、timezone=Asia/Taipei、cutoff=06:00、generation_location=github-actions；automation_enabled只能是JSON布林。使用者已批准每日觸發A，true允許已部署的每日入口、false暂停每日入口；不影響明確date的手動交付。其餘只允許mode/trial_status等既有欄位。未知欄位/改窗口/要求其他生成服務拒絕，設定不能建立新排程或選其他provider。
+
+## 已批准的每日入口A
+
+同一workflow監聽Update AI News Snapshot在本repo/master成功完成，沿用現有外部心跳與內部刷新來源，沒有新cron。created_at固定臺北期別，updated_at選07:15～08:15主／08:15～08:45補試；開工仍须同日期、同slot，延遲不換期或slot。一般心跳下約07:35／08:35開始，不保證準時。
+
+私人`日期｜automation`資料夾各slot留一次attempt紀錄。未達標資料不保存，補試可取較新快照；已有`日期｜current`但缺delivery紀錄，停止為existing_issue_incomplete，不換base或覆寫。首次交付後在當期資料夾保存並讀回delivery.json，記原始pair／Docs IDs及首次核對時間。後續核對已保存pair、可讀原稿與校稿存在，跳過生成；人工校稿可不同，首次時效不因重送改寫。成功紀錄無法核對則停止。它是單人去重與交付證據，不是跨檔原子交易。
+
+首次有效當期自動交付及三日準時觀察仍需真正的workflow_run與保存紀錄，不以歷史run或夜間跳過冒充。詳見[觸發方案](DIGEST_DAILY_TRIGGER_PROPOSAL.md)及HANDOVER。
 
 ## 保存及重送
 

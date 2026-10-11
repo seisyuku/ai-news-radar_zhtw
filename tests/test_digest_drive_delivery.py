@@ -153,7 +153,7 @@ def test_different_base_and_date_crossing_do_not_replace_previous(tmp_path):
 
 
 @pytest.mark.parametrize("patch", [{"cutoff": "03:00"}, {"timezone": "UTC"},
-                                  {"generation_location": "cloudflare"}, {"automation_enabled": True},
+                                  {"generation_location": "cloudflare"}, {"automation_enabled": "true"},
                                   {"command": "PRIVATE shell instruction"}])
 def test_settings_cannot_expand_actions_or_change_agreed_window(tmp_path, patch):
     client, raw = MemoryDrive(), pair(tmp_path)

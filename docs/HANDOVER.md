@@ -1,5 +1,13 @@
 # AI News Radar Pulse — 交接摘要（截至 2026-10-12）
 
+## 2026-10-12 每日觸發A已批准；接線測試完成，啟用中
+
+- 使用者選A並確認接受日期固定期別，授權按提案實作／測試／啟用。同步C02頂部：本路線以GitHub上游created_at固定期別、updated_at選07:15～08:15主／08:15～08:45補試，各一次；取代獨立持久intent issuer與歷史三slot要求。沒有新增發行服務、PAT或外部cron設定。
+- 新增digest_daily_job.py，workflow監聽同repo/master正式新聞刷新成功完成，手動date／historical／deliver_drive入口保留，同一concurrency串行。凌晨／過期時段不刷新token或生成；跨日拒絕。設定JSON布林true／false啟停已部署每日入口，不接受任意新規則。
+- 私人attempt紀錄限制每slot一次；僅資料達標才保存。首次pair／native原稿／副本完成後保存並讀回delivery紀錄；後續核對既有pair、原稿及校稿存在後跳過，不生成新base或改人工校稿。部分保存停止為existing_issue_incomplete；没有跨檔原子交易或自動清理承諾。
+- 20項必要每日案例加既有交付／生成，相關48 passed；完整 **1062 passed in 5.83s**，編譯及diff check通過。沒有新增SHA驗證、重測手機或重跑歷史交付。尚待本輪push／CI、設定Doc automation true並讀回；第一筆有效當期與三日驗收仍未出現，不冒稱達標。
+- 私人檢查點仍Downloads `ai-news-radar-daily-trigger-20261012/`；任務拆分T01固定日期（完成）、T02去重／交付紀錄（完成）、T03GitHub發布與私人啟用（進行中）、T04真當期／三日觀察（待上午實際證據）。下一段例行Sol／High，後續純觀察Sol／Medium。
+
 ## 2026-10-12 新正式憑證GitHub交付已驗；每日觸發待選
 
 - 使用者要求繼續執行。當時臺北約02:00、10/12窗口尚未06:00截止，故明確以10/11歷史模式實跑新正式憑證，不保存未完成的10/12當期稿。[38162146429](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/38162146429)success，3則；pair/rerun/delivery_verified均true，storage_saved_at為2026-10-11T18:03:11.303087+00:00。仍是manual_historical／review-only，不算今天或每日準時達標；本輪新token已由runner消費。

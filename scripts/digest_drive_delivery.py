@@ -152,7 +152,7 @@ def read_settings(client, id):
                 or type(data.get("schema_version")) is not int or data["schema_version"] != 1
                 or data.get("timezone") != "Asia/Taipei" or data.get("cutoff") != "06:00"
                 or data.get("generation_location") != "github-actions"
-                or data.get("automation_enabled") is not False):
+                or type(data.get("automation_enabled")) is not bool):
             raise ValueError()
     except Exception:
         raise DriveDeliveryError("invalid_drive_settings") from None
