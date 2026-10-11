@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "Amazon ECS 新增对 Amazon VPC Lattice 的支持，适用于蓝绿部署、线性部署和金丝雀部署",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/amazon-ecs-vpc-lattice-blue-green-deployments",
-  "last_seen_at": "2026-10-11T19:00:19.980305Z",
+  "last_seen_at": "2026-10-11T19:35:36.632205Z",
   "summary": "Amazon Elastic Container Service （Amazon ECS）现在支持使用 Amazon VPC Lattice 的 ECS 服务的内置蓝绿部署、线性部署和金丝雀部署策略。现在，使用 VPC Lattice 在 VPC 和 AWS 账户之间进行服务间通信的应用程序，可以在推出更新时利用从 Amazon ECS 本地转移的托管流量。 此次发布后，使用 VPC Lattice 的 ECS 客户可以在部署过程中以受控方式转移流量，并根据对每个版本的信心程度选择流量转移的速度：采用蓝绿部署一次性全部转移、采用线性部署以等量递增形式逐步转移，或者采用金丝雀部署从较小比例开始转移。团队可以在转移生产流量之前使用测试流量验证新版本，并使用部署生命周期挂钩（包括 Lambda 和暂停挂钩）运行自定义验证步骤或手动审批。这些服务还可以使用 Amazon CloudWatch 警报和 Amazon ECS 部署断路器，在检测到问题时自动回滚部署；而烘焙时间则会确保上一版本始终处于就绪状态，以便在不造成停机的情况下快速回滚。 要开始使用，请通过 AWS 管理控制台、AWS CLI、AWS SDK 或基础设施即代码工具，在 ECS 服务配置中选择您的 VPC Lattice 目标组、侦听器规则和首选部署策略。在所有提供 VPC Lattice 的 AWS 区域 ，新的和现有的 ECS 服务均可启用此功能。有关更多信息，请参阅 使用 VPC Lattice 进行 Amazon ECS 部署 。"
 }
