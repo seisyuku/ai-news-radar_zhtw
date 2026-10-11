@@ -38,6 +38,23 @@
   Downloads 檢查點，完成後更新台帳、HANDOVER 與下一階段模型／思考建議。
 - 2026-10-03後續驗證改在GitHub：兩個上午時刻觀察生成／時效，僅安全摘要；
   私人交付仍在本機，三日schedule驗收待完成。可選LLM與自動發文不包含在驗證排程。
+- 2026-10-09 已核准 [私人雲端日報架構 A](DIGEST_CLOUD_DELIVERY_PROPOSAL.md)
+  的本機離線模擬；目的為 Mac 關機也可交付、iPhone 語音校稿。C00 準備與
+  62 項既有離線測試完成；C02 六項設計審查已完成，
+  [正式契約與36項驗收案例](DIGEST_CLOUD_CONTRACT.md)，C03～C06 本機生成、保存、
+  校稿版本與[合成私人網頁預覽](DIGEST_CLOUD_PREVIEW.md)已完成，
+  [C07 接入審查與C07a](DIGEST_CLOUD_C07_REVIEW.md)、[C07b/C07c本機接入](DIGEST_CLOUD_RUNTIME.md)及[C08本機工作協調](DIGEST_CLOUD_JOBS.md)已完成，完整966項測試通過。
+  2026-10-10使用者校正順序：先做 [C08-G GitHub日報生成](DIGEST_GITHUB_GENERATION.md)，
+  新增手動直接讀checkout的生成與核對工作；私人保存去向待決定，還沒有完成每日交付。
+  後續使用者選擇先嘗試 [Google Drive校稿與設定](DIGEST_GOOGLE_DRIVE_TRIAL.md)，實際合成保存、
+  副本校稿/原稿保留、設定讀回與權限核對通過；手機新連結及GitHub專案OAuth授權仍待確認。
+  2026-10-11手機三份新文件已由使用者確認，帳號為一般Google；[手機OAuth helper準備](DIGEST_GOOGLE_DRIVE_AUTH.md)
+  及25項合成測試完成，完整1007項通過。需選定Google Cloud專案才進真client/授權；不使用裸露控制碼交付。
+  使用者隨後已選日報專用專案，建立表單已提交；控制台載入錯誤使結果未知，需 [手機確認實際專案](DIGEST_GOOGLE_PROJECT_SETUP.md)，再進client與授權。
+  [C09部署前置](DIGEST_CLOUD_DEPLOYMENT_GATE.md)延後至正式私人服務接入，不能阻擋生成驗證。
+  真雲端保存/部署與手機遠端校稿尚未實作，
+  現行交付仍在本機；C01 已用現成 Google Drive 外掛完成 iPhone 帳號能力代理驗證，
+  C01b 專案自建工具的實機驗收移至核准後 C10a 合成環境；真日報與三日驗收仍待完成。
 - 已知 bug B01～B03 已於提交前複查修正；Social snapshot／Threads、model aliases 與
   新來源屬條件後續，不綁入第一份可用日報。不建立 velocity 或 social history。
 

@@ -1,4 +1,218 @@
-# AI News Radar Pulse — 交接摘要（截至 2026-10-03）
+# AI News Radar Pulse — 交接摘要（截至 2026-10-12）
+
+## 2026-10-12 單人Drive契約已批准；手動GitHub交付接線
+
+- 使用者已許可簡化C02，現行單人路線以 [Drive交付操作](DIGEST_GOOGLE_DRIVE_DELIVERY.md) 及C02頂部2026-10-12決策為準。舊不可變/交易控制mock保留歷史，不新增服務、不拿舊要求阻塞此路線。
+- 新增 `digest_drive_delivery.py`，手動生成入口/workflow可選deliver_drive（預設false）。保存原始MD/meta並下載讀回，native原稿/獨立校稿副本，owner-only目的地及設定字段核對。同mode/issue/base重送讀取既有文件、不改人工副本；不同base停止，不自動换稿。部分保存失敗不宣稱成功，不清除或覆寫。
+- 新增12項必要接線測試，相關28通過，完整 **1042 passed in 5.72s**，編譯及diff check通過。未新增SHA清冊/遠端比對或重測手機語音。本機真API歷史審閱保存成功，原始pair/可讀原稿/副本讀回驗證；本機快照為10/03，對10/12資料不足、選題零則，不宣稱今日有效日報。
+- GitHub登入/儲存庫擁有者seisyuku及push權限確認；已用標準輸入設定GOOGLE_DRIVE_OAUTH_CREDENTIALS及GOOGLE_DRIVE_DIGEST_TARGET Secrets，未輸出值或寫repo。兩個名稱原先不存在，未改其他Secrets。
+- 尚待推送並執行一次明確historical+deliver_drive手動GitHub驗證；沒有新schedule、分享、發布、Cloudflare部署或改來源刷新。OAuth仍Testing，長期使用前需處理7天期限。真run結果在本輪交接補記。
+- 本輪檢查點 `/Users/lordmi/Downloads/ai-news-radar-drive-delivery-20261012/`。下一階段例行Sol／High；新的身份/交易範圍裁決再Astra／High。
+
+## 2026-10-12 iPhone新app校稿驗收與交付契約裁決（已批准，見頂部）
+
+- 使用者已確認iPhone新校稿副本顯示「校稿保存成功」。新app的API保存/內容/owner-only、connector可讀及手機開啟驗收完成，不重測既有連結或語音。
+- 自動續行檢查 [C02契約](DIGEST_CLOUD_CONTRACT.md)：它明確保留不可變MD/meta物件、交易式delivery/attempt/request receipts及revision控制為正式自動交付要求；目前Drive三份文件試用不具備這層控制。不能在未裁決下假定舊契約已取消，或擅自加交易服務。
+- 建議單人GitHub+Drive路線採簡化交付標準：私人保存原始MD/meta、native原稿及獨立校稿副本；程序不覆寫既有原稿/人工校稿，沿用pair核對，保存與讀回核對後標私人保存成功。清楚保留owner可手動修改Drive原稿及無跨檔原子交易的界線；生成/快照時效分開，不新增SHA查驗或保守驗證程序。本建議尚未批准，沒有修改C02條款或實作workflow。
+- 具體提案及交接存Downloads `ai-news-radar-desktop-auth-20261012/NEXT-DESIGN.md` / HANDOFF.md。需使用者決定簡化本路線的C02控制層要求，或保留原要求另行設計；決策前不新增服務、scope、GitHub secret、push、OAuth正式狀態或schedule。
+- 設計裁決建議Astra／High；確定後例行接線Sol／High。Google External/Testing七天期限仍是正式運作前需處理的外部設定。
+
+## 2026-10-12 新app私人合成Drive/Docs交付驗證完成
+
+- 使用者授權在已同意範圍內自動續行；不加SHA核驗，不因保守寫法擴大驗證。以已授權的desktop client刷新token，在私人Downloads的一次性probe建立三份合成native Docs：原稿、native copy校稿副本、合成設定。未更改既有試用文件或分享。
+- 新app只要求drive.file；app可見的ChatGPT根資料夾與私人試用子資料夾由app建立，不假設既有connector資料夾已向此app授權。三份新文件讀回內容吻合；副本第一則「校稿保存成功」，原稿文字/revision保持。設定是保存試用，06～06/GitHub生成/automation false，尚未由生成程式消費。
+- 三份文件與目的資料夾metadata/permissions只有user owner、shared=false、owners.me=true。此證據未擴大為匿名/其他帳號拒絕測試，也未宣稱Drive滿足C02完整不可變/原子交易契約。
+- 現有ChatGPT Drive connector已讀回三份文件，內容/標題/設定吻合。使用者後續確認新校稿連結在iPhone開啟，最新停點見本文件頂部；不把歷史舊連結驗收冒充本次證據。
+- 私人IDs/URLs/完整讀回只存Downloads `drive-live-evidence.json`、`connector-readback.json` 及HANDOFF。沒有新增產品程式/workflow、重跑測試、SHA查驗、GitHub secret、push、排程、Cloudflare或公開分享。先前1030項為桌面helper歷史測試結果，本輪證據是真API建立/複製/修改/讀回/權限與connector讀取。
+- 正式長期自動化仍待處理External/Testing七天refresh token期限、GitHub私人交付及MD/meta保存；本機API成功不是GitHub runner已驗。下一階段例行Sol／High，C02交易/身份契約有新裁決再用Astra／High。
+
+## 2026-10-12 桌面Google Drive授權準備
+
+- 使用者已回報專案ID/編號、Drive/Docs APIs、External/Testing自己為test user及僅`drive.file`範圍完成。商業與私人帳號須隔離；使用專用profile或新無痕工作階段，先確認帳號和專案。以上控制台狀態為使用者回報。
+- 使用者指定Downloads桌面client JSON；僅核對installed格式、專案ID及必要欄位，未輸出密鑰。改用 [桌面授權入口](DIGEST_GOOGLE_DRIVE_AUTH.md)，修正先前device flow適用性判斷。新增PKCE/state、127.0.0.1暫時listener、15分鐘超時、錯Host/state拒絕及私密保存；不自動開瀏覽器。
+- 23項新桌面合成測試與25項歷史測試共48通過；配置現有bundled Node至本次PATH後全套 **1030 passed in 5.57s**，py_compile與diff check通過。先前測試因Downloads父目錄缺少而出現4項setup errors；第一輪全套因PATH沒有node出現39項前端測試失敗，配置既有runtime後完整重跑通過，未為環境問題改產品程式。
+- 真Google登入同意已完成：使用者回報「Response received」，本輪CLI正常exit 0、回報authorized/credentials_saved。私人檔案讀回核對有refresh token及client欄位、scope僅drive.file、Bearer、未保存access token，檔案0600/目錄0700。授權流程不要求profile/email，故未藉token獨立辨認帳號信箱；帳號由使用者在隔離瀏覽器選取。
+- 下一步為使用新app建立合成原稿/校稿/設定，保存讀回與owner-only ACL、iPhone/Chat connector可讀驗收；不能直接假設既有connector試用文件對此app已授權。沒有Drive寫入、GitHub secret、push、啟排程或新增SHA比對。External/Testing為短期授權驗證，正式自動化前須處理7天refresh token期限。
+- 私人交接目錄：`/Users/lordmi/Downloads/ai-news-radar-desktop-auth-20261012/`。下一阶段例行授權接線建議Sol／High；新的身份/交易裁決用Astra／High。
+
+## 2026-10-11 已選日報專用Google專案；建立結果待手機核對
+
+- 使用者選擇「建立日報專用專案」，選型已定，不再詢問是否沿用舊專案。已在登入中的Google Cloud控制台填入 `AI News Radar Daily` 並提交；表單曾顯示候選ID，跳到creatingProject頁，但沒有可驗證的成功結果。
+- 控制台的近期專案、通知、資源選擇器及目標專案核對頁持續顯示載入錯誤；核對頁按「重試」一次後仍無法載入。**專案是否建立成功未知**，不得將候選ID當成正式配置、重複建立或在未知專案啟API/client。
+- [Google專案建立交接](DIGEST_GOOGLE_PROJECT_SETUP.md)。下一動作由使用者在iPhone控制台搜尋 `AI News Radar Daily`，回報是否出現及實際專案ID；不重做已完成的Drive文件手機測試。
+- 未連結帳單、啟Drive/Docs API、建立OAuth client、簽發憑證、改workflow、push或啟排程。程式沒有改動，本輪不重跑歷史1007項測試，亦不新增SHA查驗。
+- 檢查點 `/Users/lordmi/Downloads/ai-news-radar-google-project-20261011/` 保存狀態、錯誤畫面及交接。例行接線Sol／High；新的身份／交易裁決再用Astra／High。
+
+## 2026-10-11 iPhone確認與個人Google授權準備完成
+
+- 使用者確認三份Google文件均可於iPhone開啟，校稿內容吻合，使用一般Google帳號。新連結手機驗收完成，不再要求重做；不擴大為跨帳號／匿名拒絕已驗。
+- 使用者回報citation控制碼外露，後續改普通Markdown文字連結；[正式交付顯示規則與授權入口](DIGEST_GOOGLE_DRIVE_AUTH.md)。已把手機確認、帳號類型及顯示偏好寫回設定文件並讀回；不改原稿或校稿、不變分享。
+- 新增Google Drive-file-only手機device authorization helper及25項合成測試；全套 **1007 passed in 5.84s**。沒有呼叫真Google授權、建立OAuth app、讀取真憑證、設GitHubsecret或改workflow。手機登入短碼只在有專案client後才產生，不製造預先可用的授權連結。
+- 下一個需要使用者決定的項目是 **Google Cloud專案：使用現有專案或新建日報專用專案**。決定後再準備API/client與手機授權。生成仍在GitHub、Cloudflare延後、沒有啟每日保存或排程；沒有新增SHA查驗。
+- 完整交接：`/Users/lordmi/Downloads/ai-news-radar-drive-auth-prep-20261011/HANDOFF.md`。例行授權接線Sol／High；若需新身份或交易裁決，Astra／High。
+
+## 2026-10-10 C08-D Google Drive校稿與設定試用完成
+
+- 使用者選擇先嘗試Google Drive，已以現有connector完成 [校稿與設定實測](DIGEST_GOOGLE_DRIVE_TRIAL.md)。建立設定、合成原稿及native校稿副本；修改副本讀回正確，原稿內容/revision未改。舊revision寫入被400拒絕，讀回沒有副作用。
+- 設定的合成JSON已讀回解析；只是設定保存試用，尚未供生成程式消費。三份文件及目的資料夾的權限metadata只列owner／shared=false；未變更分享，匿名/另一帳號拒絕與iPhone開啟仍待驗。
+- 本輪精確搜尋未找到舊C01文件，不推定手機與桌面Google帳號相同。請手機開校稿副本核對「校稿保存成功」，並確認一般Google帳號或Workspace，才能決定下一段GitHub寫入授權。
+- GitHub生成位置與06～06窗口保持。connector不是GitHub的已配置憑證；正式寫入需要專案自己的Google授權，Cloudflare繼續延後。
+- 私人file IDs/URLs/revisions及讀回只保存在 `/Users/lordmi/Downloads/ai-news-radar-drive-trial-20261010/connector-evidence.json`，公開repo不含它們。沒有改生成程式/workflow、push、啟排程、發通知或上傳真日報；本輪不用歷史982測試冒充Drive驗收。
+- 下一入口為手機連結/帳號類型確認，再準備Google授權方案。例行接線Sol／High；若保存交易/身份需新裁決，Astra／High。完整交接在同檢查點HANDOFF.md。
+
+## 2026-10-10 最新範圍校正：先完成 GitHub 生成，Cloudflare 接入延後
+
+- 使用者確認架構 A 的生成在 GitHub；Cloudflare 是正式私人保存／手機入口的候選，不能當作生成前置。先前將帳號、預算視為下一步阻塞的安排已撤回。下方 C09 停點是歷史紀錄，以本節為目前入口。
+- [C08-G GitHub 生成與驗證](DIGEST_GITHUB_GENERATION.md)：新增直接讀 checkout 的生成入口與手動 workflow，產生 MD/meta、配對核對及確定性重跑；不呼叫遠端查 SHA 或建立程式雜湊清冊。保留既有稿件完整性核對。
+- 生成、私人持久保存、手機閱讀／校稿分開驗收。新工作回 `delivery_verified=false`；runner 收尾清除私人稿，只留安全摘要。每日外部觸發、跨工作去重、保存與手機交付仍未接通。
+- 原 C07～C08 模擬及 Cloudflare 本機試驗保留為後續參考，不把它們當成本階段前置。既有來源刷新／Pages／驗證 schedule 未改。
+- 本輪初次相關75項通過；最終全套 **982 passed in 5.40s**，Python編譯、workflow shell／YAML與差異檢查通過。新增workflow變更納入原Offline tests的push/PR路徑範圍；既有schedule未改。
+- 本機真checkout產稿已完成MD/meta核對及相同bytes重跑；本機快照as-of為 `2026-10-02T23:35:46.191951Z`，對10/10期別只可review-only，選題零則不代表當日無新聞。試跑明確標historical且delivery_verified=false，私人產物保留在本輪Downloads檢查點。沒有為此刷新來源或同步遠端。
+- 尚未 push、GitHub run、部署或啟用新排程；GitHub真run與有效當期日報不能用本機舊快照試跑代替。
+- 此階段的保存位置待決已由後續Google Drive合成試用續接；目前尚未正式接通GitHub保存。交接在 `/Users/lordmi/Downloads/ai-news-radar-github-generation-20261010/HANDOFF.md`，以頂部C08-D為最新入口。
+
+## 2026-10-10 自動工作重新核對：C08 本機完成，C09 待外部設定
+
+- 最終完整 **966 passed in 5.19s**；Python 編譯、JavaScript 語法、workflow 結構與差異檢查通過。重啟後沿既有檢查點核對，沒有清除先前工作。
+- [C08 本機工作協調](DIGEST_CLOUD_JOBS.md) 已完成可信模擬意圖、生成前排他 guard、固定 commit、租約與最多三次 execution、通知去重計畫及公開摘要白名單。修正暫時失敗被標為終態、重新生成時間污染去重，以及提交成功後協調紀錄失敗的恢復問題。
+- Python MCP/crypto 直接打包至 Workers 的實際試驗失敗；改用 TypeScript 身份/MCP 外層經私人 binding 呼叫同一 Python 核心，本機已驗證授權、保存讀回與重開持久性。詳見 [runtime 證據](DIGEST_CLOUD_RUNTIME.md)，這仍是合成試驗。
+- 新增手動合成合約 workflow；修正既有兩份驗證 workflow 的測試暫存目錄，使其符合 Downloads 路徑規則。既有觸發時刻未改，尚未於 GitHub 執行這批新變更。
+- [C09 部署前置與設定範本](DIGEST_CLOUD_DEPLOYMENT_GATE.md) 可審閱；本機未有可用 Cloudflare 登入設定，月費上限及真 OAuth 尚未指定。正式持久控制／intent issuer／交付 workflow、C01b 手機自建工具、C10a～C12 驗收仍未完成。沒有部署、啟用新排程或發送通知。
+- 完整自動工作交接：`/Users/lordmi/Downloads/ai-news-radar-cloud-20261009/AUTO-C07-C09-20261010/HANDOFF.md`。下一步 **C09 配置與 provider 定案審查，Astra／High**；定案後例行接線用 GPT-6.1 Sol／High。
+
+## 2026-10-10 C07b／C07c 本機接入完成
+
+- [Runtime、身份與MCP證據](DIGEST_CLOUD_RUNTIME.md)。C07b實際workerd本機試驗通過DO交易、R2條件寫入、程序重開與版本重送；C07c resource-server使用官方SDK及RS256 owner/scope驗證，HTTP讀寫／讀回與未授權拒絕通過。
+- 此階段新增15項C07c測試；階段完整 **953 passed in 3.55s**。真OAuth登入、JWKS／撤銷與C01b手機自建外掛仍待驗；後續套件打包失敗及替代試驗見頂部最新交接，不能將本機成功稱為正式接通。
+- C07b過程在Downloads/C07b-local-probe，C07c log與快照在Downloads/C07c-local（完整絕對路徑見runtime文件）。依使用者新授權自動繼續C08；模型建議仍為GPT-6.1 Sol／High。
+
+## 2026-10-10 自動續行與 C07a 完成
+
+- 使用者授權自動執行至無可執行任務，並要求換模型後從此階段起點重新核對；這取代先前每到 High 就停止的續行限制。平台帳號、實際預算、登入與實機證據仍須具體確認，不能假設存在。
+- C07a 已抽出 [純校稿交易規則](../scripts/digest_cloud_editorial_rules.py)、[儲存與身份介面](../scripts/digest_cloud_ports.py)，服務透過交易回傳的結果保存成功／永久拒絕 receipt，再在交易外回報錯誤。既有 mock 與預覽相容。
+- [共用 JSON/identity](../scripts/digest_json.py) 與 [bytes 配對核對](../scripts/digest_integrity.py) 避免雲端校稿服務匯入新聞生成器；`digest_document` 與檔案核對入口保留原 API 與既有核對規則。
+- [SQLite 交易邊界測試](../tests/test_digest_cloud_ports.py) 驗證拒絕紀錄、重開後重送、後續版本不被舊回應覆蓋，以及授權失敗先於儲存操作；SQLite adapter 僅為測試 fixture。另驗證檔案/bytes 邊界均拒絕竄改及錯誤編碼。
+- 模型重啟後首輪相關 69 項通過、首輪全套 932 項通過；完成共用 bytes 抽取後最終 **938 passed in 3.51s**。下一步 C07b 候選平台本機 runtime 試驗，已準備隔離工具與合成資料，尚未宣稱平台驗收。
+- C07a 檢查點：`/Users/lordmi/Downloads/ai-news-radar-cloud-20261009/C07a-20261010-023104/`。本輪尚無正式雲端服務、真登入或排程啟用。
+
+## 2026-10-09 C07 雲端接入審查完成
+
+- [C07 審查、裁決與下一步](DIGEST_CLOUD_C07_REVIEW.md)：架構 A 有條件可行，C07 實作與線上驗收仍未完成。C01a 現成外掛代理驗證完成；C01b 自建工具的手機登入與讀寫保留待驗。
+- C05 與記憶體私有欄位直接耦合，不能只換儲存設定。特別是記下永久拒絕後拋錯的做法，移入真正資料庫交易會回滾 receipt；先拆出規則與交易邊界，再接平台。
+- 優先評估 Workers + SQLite-backed Durable Objects + 私人 R2；Python 執行相容性、身份服務、帳號及費用尚待驗證／定案。Google Drive 不自動成為正式校稿資料庫。
+- 解開驗收次序：C07a～c 做本機接入準備，C09 準備具體部署設定，核准後 C10a 用受保護合成環境完成 C01b/C07 實機門檻，再進真日報；不以 mock 通過冒充雲端驗收。
+- 本輪 **65 項相關合成測試通過**，只改文件；沒有改程式或正式稿、部署、啟排程或 commit/push。檢查點：`/Users/lordmi/Downloads/ai-news-radar-cloud-20261009/C07-review-185036/`。
+- 下一步 **`run C07a`，GPT-6.1 Sol／High**：抽出儲存與身份介面，保留單一校稿規則、相容 mock 與拒絕 receipt 語意。停於下一 High 任務前。
+
+## 2026-10-09 C01 iPhone 雲端能力代理驗證
+
+- 使用者在 iPhone 一般 Chat／Work 以 `@Google Drive` 實際搜尋、建立、編輯並跨對話讀回私人合成文件；內文「藍色貓咪七號」由手機畫面核對。建立時需點選批准，編輯時未再次要求批准；分享設定查得僅本人可存取。
+- Mac 離線時，使用者回報 iPhone 一般 Chat 仍可處理該 Google Drive 文件。這證明此帳號的現成外掛路徑不依賴已配對的 Mac；未記錄離線時執行的精確讀寫動作。
+- 使用者可少量觸控，目標是避免大量手機編輯；持續語音朗讀與逐字聽寫不是驗收條件。外掛曾正確列出內容但未發聲。
+- 此為**現成 Google Drive 外掛的代理驗證**，不代表專案自建 MCP/API、候選儲存服務、OAuth 權限範圍、持久交易或跨帳號拒絕已驗收。C07 仍須先審查真實平台與身份邊界；停在 C07 High，建議 **Astra／High**。
+- C01 詳細交接：`/Users/lordmi/Downloads/ai-news-radar-cloud-20261009/C01-mobile-validation/HANDOFF.md`。本輪未改程式、部署或啟用排程。
+
+## 2026-10-09 C06 合成私人網頁本機預覽完成
+
+- 新增 [C06 本機預覽服務](../scripts/digest_cloud_preview.py)、
+  [手機尺寸介面](../private_preview/index.html)、
+  [操作與限制](DIGEST_CLOUD_PREVIEW.md)、
+  [五項驗收測試](../tests/test_digest_cloud_preview.py)。頁面直接使用 C05 的
+  原稿、校稿 revision 與選版 API，不另造一套編輯狀態。
+- 顯示期別、狀態、原稿、revision、來源及題號→story ID；可保留/排除、
+  重排、聽寫欄位校稿、儲存讀回、還原、明確選版與匯出。寫入帶
+  request ID 與 expected revision；衝突顯示目前版本及重新讀取入口，
+  不把單次 HTTP 成功當成保存完成。
+- 本機瀏覽器實際操作標題校稿與讀回、還原，以及兩頁並發導致的
+  revision 衝突；手機寬度排版可讀。這**不是** iPhone 實機、語音控制、
+  真正私人遠端網頁、持久保存或 Mac 關機驗收。
+- 首次新測試有四個 fixture token 設定錯誤；第二輪有一個合成 slot 重複
+  而被正確拒絕。修正測試配置後五項通過；最終完整離線套件
+  **928 passed in 3.37s**，Python 編譯、JS 語法與差異檢查通過。
+- [C06 完整交接與 C07 精確入口](DIGEST_CLOUD_CONTRACT.md)。停於 C07 High，
+  C01 現成外掛的手機能力代理查核已完成，真實專案工具仍待驗證。建議 **Astra／High** 審查路線，
+  若只按已驗證平台接線可改 **GPT-6.1 Sol／High**。
+  未部署、連外、啟用排程、取得憑證、修改真實私人稿或 commit/push。
+- C06 交接證據：`/Users/lordmi/Downloads/ai-news-radar-cloud-20261009/C06-handoff/`。
+
+## 2026-10-09 C05 校稿版本與匯出模擬完成
+
+- 新增 [C05校稿服務](../scripts/digest_cloud_editorial.py) 與
+  [驗收測試](../tests/test_digest_cloud_editorial.py)。同base的修改以revision條件交易，
+  語音/網頁並發只有一方成功；request去重保留首次結果及目前版本，不靜默覆蓋。
+- 可按story ID保留、排除、改標題/摘要、重排；restore建立新revision，
+  無變更仍記receipt；owner明確選base後可匯出指定版本的可讀JSON。
+  原稿、來源欄位及其他base校稿不會被修改。
+- 有效但衝突的request留安全結果，格式不合法在建立request身份前拒絕；
+  匿名/錯owner拒絕。owner身份仍為**模擬注入**，不是手機登入或OAuth驗證。
+- F26～F33及C05適用的F34～F36合成測試通過；最終完整離線套件
+  **923 passed in 3.35s**，程式編譯通過。首次一項測試預期錯誤已修正，
+  命令/差異/文件檢查記於C05 checkpoint。
+- [C05完整交接與C06精確入口](DIGEST_CLOUD_CONTRACT.md)。停於C06前；
+  建議 **GPT-6.1 Sol／Medium**。未連網、部署、啟用排程、修改私人稿或commit/push。
+- C05交接證據：`/Users/lordmi/Downloads/ai-news-radar-cloud-20261009/C05-handoff/`。
+
+
+## 2026-10-09 C04 本機保存與原子控制模擬完成
+
+- 新增 [C04本機假服務](../scripts/digest_cloud_mock.py) 與
+  [故障/併發測試](../tests/test_digest_cloud_mock.py)。上傳不可變原稿、讀回核對後，
+  以每期copy-on-write控制紀錄原子提交交付、request去重、嘗試終態與revision 0。
+- 真實時效只在模擬交易提交時取clock；09:00準時、90分鐘來源時效分開。
+  上傳半途失敗、manifest失敗、資料損壞或補跑失敗都不清除先前成功稿。
+- C04 F11～F25 適用案例及C03回歸已通過。此服務只在單程序記憶體運作，
+  真provider的持久性、CAS及手機登入仍待C01/C09/C10驗證。
+- 首次完整測試因PATH缺Node.js導致39個前端用例無法啟動、862通過；使用桌面
+  附帶Node後最終完整 **903 passed in 3.06s**；此前相關 **101 passed in 0.74s**。
+  編譯及文件/差異檢查結果、版本與快照在C04 checkpoint。
+- [完整契約、C04範圍及C05精確入口](DIGEST_CLOUD_CONTRACT.md)。停於C05前；
+  建議 **GPT-6.1 Sol／High**，若revision交易一致性有難題再用Astra／High。
+- 未連網、部署、啟用排程、取得憑證、修改私人稿或commit/push。
+- C04交接證據：`/Users/lordmi/Downloads/ai-news-radar-cloud-20261009/C04-handoff/`。
+
+
+## 2026-10-09 C03 離線生成入口完成
+
+- 新增 [C03離線準備入口](../scripts/digest_cloud_prepare.py) 與
+  [合成測試](../tests/test_digest_cloud_prepare.py)，重用既有composer、原稿配對驗證與獨立重跑；
+  只回傳可交給C04的不可變bytes和來源證據，不標ready或已交付。
+- 檢查固定期別、可信模擬issuer、slot及手動歷史期別、三檔同commit/hash、
+  跨日拒絕及Downloads暫存邊界。歷史稿只標mode；真雲端來源/手機授權未驗證。
+- C03子集與原有生成/交付/驗證離線測試通過；首次失敗及修正保存在C03檢查點。
+  [C02契約末尾](DIGEST_CLOUD_CONTRACT.md)載明C04精確入口與未完成案例。
+- 停於C04前。建議 **GPT-6.1 Sol／High**；遇交易一致性疑難再用Astra／High。
+  本輪未連網、部署、啟用排程、取得憑證、修改私人稿或commit/push。
+- C03交接證據：`/Users/lordmi/Downloads/ai-news-radar-cloud-20261009/C03-handoff/`。
+
+
+## 2026-10-09 C02 六項契約審查完成
+
+- 使用者標註續行指令，完成 C02 設計審查；[正式契約與36項驗收案例](DIGEST_CLOUD_CONTRACT.md)。
+- 固定可信期別意圖、原稿 identity、題號與 story_id 分離、原子交付、revision 交易去重、
+  提交當下時效與準時性分開。review-only 不冒充正常交付，舊成功與人工稿保持可追溯。
+- 重要修正：靜態 cron 直接 dispatch 無法證明期別；物件最後寫 manifest 不足以保證交易。
+  正式供應商須另驗可信意圖發行及原子控制層，可能需要配套服務；C01/C08/C09 待驗。
+- 本輪只改文件，36項是待實作驗收規格，沒有宣稱新測試通過；C00 的62項為歷史基線。
+- 停於下一 High 關卡 C03；建議 **Astra / High**。精確入口在契約末尾。
+  未連網、部署、啟用排程、改私人稿、改正式程式或 commit/push。
+- C02 交接證據：`/Users/lordmi/Downloads/ai-news-radar-cloud-20261009/C02-review/`。
+
+
+## 2026-10-09 私人雲端日報架構 A 模擬核准與 Astra 停點
+
+- 使用者核准架構 A 本機模擬，授權自動續行至下一高難度任務時停止，
+  由使用者開啟 Astra 審查；未授權正式部署、外部排程啟用、通知或雲端清理。
+- 本輪 C00 範圍登記/環境核對完成；既有生成、私人交付、GitHub 驗證
+  三組離線測試 **62 passed in 0.63s**。scripts/tests/workflows 雜湊前後相同。
+- 依既定分級，離線路徑首個 High 為 C02 資料契約，已在開始前停止。
+  尚未建立新雲端入口/storage adapter/revision API/網頁/MCP，不宣稱模擬實作完成。
+- [核准範圍與提案](DIGEST_CLOUD_DELIVERY_PROPOSAL.md)、
+  [C02 Astra 六項審查決策與續行提示](DIGEST_CLOUD_ASTRA_REVIEW.md)。
+- 檢查點 `/Users/lordmi/Downloads/ai-news-radar-cloud-20261009/C00-20261009-095013/`，
+  含起點、命令、測試、結果、最終交接與差異；下一階段 **Astra / High**。
+- C01 帳號/手機雲端語音讀寫仍待復線實測。平台、費用、通知渠道與清理政策未定。
+  原 O01 尚未達上午準時驗收，新外部觸發驗收須明確改版，不能改寫舊失敗。
+- 本輪沒有連網、改正式程式/排程、觸發刷新、取得憑證、修改私人稿、commit/push。
 
 ## 2026-10-03 O01 後續驗證移至GitHub
 

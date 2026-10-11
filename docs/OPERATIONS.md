@@ -1,5 +1,32 @@
 # Operations Notes
 
+## Daily digest — optional private Drive delivery (2026-10-12)
+
+使用者批准單人Drive交付，不增加交易控制服務。手動Daily digest generation check新增deliver_drive預設false；勾選後保存原始pair及native原稿/校稿，既有人工稿不覆寫，公開log不含私人內容/URLs。Secrets、設定格式、重送與失敗規則見 [Drive交付操作](DIGEST_GOOGLE_DRIVE_DELIVERY.md)。iPhone新app副本開啟已驗；OAuth仍Testing，正式每日使用前處理7天期限。生成位置與06～06不改，沒有新schedule/來源刷新/通知/發布。
+
+## Daily digest — personal Google phone authorization preparation (2026-10-11)
+
+iPhone已實測三份試用文件可開，帳號為個人Google；Google設定保存手機確認與普通文字連結偏好。
+新增Drive-file-only OAuth device helper及合成測試；沒有啟真OAuth或更動workflow。
+需要先選Google Cloud專案，再設專案client與手機登入；見 [Google授權準備](DIGEST_GOOGLE_DRIVE_AUTH.md)。
+refresh憑證只入Downloads私人檔案與未來指定GitHub secret，不放對話／公開稿；正式每日保存仍待驗。
+
+## Daily digest — Google Drive editorial/settings trial (2026-10-10)
+
+現有connector已完成合成設定、原稿、副本校稿及讀回；metadata只列owner，沒有改分享。
+設定尚未供runner使用，GitHub尚未具有專案Google授權；沒有啟動每日保存或修改生成工作。
+手機新連結與帳號類型確認後才準備具體授權接線，見 [Drive試用與限制](DIGEST_GOOGLE_DRIVE_TRIAL.md)。
+私人文件URL/ID只保存在Downloads交接，不進公開repo／Actions摘要。
+
+## Daily digest — GitHub generation before private cloud delivery (2026-10-10)
+
+最新決策：生成在 GitHub Actions，Cloudflare／私人登入接入延後，不能阻擋生成準備。
+新增手動 `digest-generation.yml` 與 `generate_digest_job.py`，直接讀 checkout 的三檔資料，
+以明確期別生成 MD/meta、核對及獨立重跑；工作結束清除稿件，只留安全摘要。
+這批變更尚未發布；`generated` 不代表持久保存或手機可讀，私人保存位置待選。
+不新增遠端或正本 SHA 查驗；原稿 pair 完整性核對保留。
+詳見 [生成操作與範圍](DIGEST_GITHUB_GENERATION.md)。既有刷新、Pages與日報驗證排程保持原設定。
+
 ## Daily digest — private local manual delivery (2026-10-03)
 
 使用者已選本機私人交付，手動入口 `scripts/deliver_digest.py --date YYYY-MM-DD`

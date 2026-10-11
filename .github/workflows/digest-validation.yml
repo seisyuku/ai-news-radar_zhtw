@@ -36,7 +36,9 @@ jobs:
       - name: Install validation dependencies
         run: python -m pip install -r requirements-dev.txt
       - name: Offline digest boundary and failure checks
-        run: python -m pytest -q -p no:cacheprovider tests/test_digest*.py tests/test_generate_digest.py tests/test_deliver_digest.py tests/test_validate_digest.py
+        run: |
+          mkdir -p "$HOME/Downloads/ai-news-radar-digest-tests"
+          python -m pytest -q -p no:cacheprovider --basetemp "$HOME/Downloads/ai-news-radar-digest-tests/pytest" tests/test_digest*.py tests/test_generate_digest.py tests/test_deliver_digest.py tests/test_validate_digest.py
       - name: Validate current pinned snapshot and byte-identical rerun
         env:
           GH_TOKEN: ${{ github.token }}

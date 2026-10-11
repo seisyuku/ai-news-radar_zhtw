@@ -1,0 +1,72 @@
+name: Daily digest generation check
+
+on:
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Taipei issue YYYY-MM-DD (required; no date inference)"
+        required: true
+        type: string
+      historical:
+        description: "Historical manual review; does not count as daily success"
+        required: false
+        default: false
+        type: boolean
+      deliver_drive:
+        description: "Save verified original and separate review to private Google Drive"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: digest-generation
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: "pip"
+          cache-dependency-path: "requirements.txt"
+      - name: Install generation and test dependencies
+        run: python -m pip install -r requirements.txt pytest==8.3.4 PyYAML==6.0.2
+      - name: Check offline generation boundaries
+        run: |
+          mkdir -p "$HOME/Downloads/ai-news-radar-generation-tests"
+          python -m pytest -q -p no:cacheprovider --basetemp "$HOME/Downloads/ai-news-radar-generation-tests/pytest" tests/test_generate_digest_job.py tests/test_generate_digest.py tests/test_digest_integration.py
+      - name: Generate and verify the requested static digest
+        env:
+          ISSUE_DATE: ${{ inputs.date }}
+          HISTORICAL: ${{ inputs.historical }}
+          DELIVER_DRIVE: ${{ inputs.deliver_drive }}
+          GOOGLE_DRIVE_OAUTH_CREDENTIALS: ${{ secrets.GOOGLE_DRIVE_OAUTH_CREDENTIALS }}
+          GOOGLE_DRIVE_DIGEST_TARGET: ${{ secrets.GOOGLE_DRIVE_DIGEST_TARGET }}
+        run: |
+          export DIGEST_OUTPUT="$HOME/Downloads/ai-news-radar-generation/$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
+          args=(--date "$ISSUE_DATE" --input-dir data --output-dir "$DIGEST_OUTPUT")
+          if [ "$HISTORICAL" = "true" ]; then args+=(--historical); fi
+          if [ "$DELIVER_DRIVE" = "true" ]; then args+=(--deliver-drive); fi
+          python scripts/generate_digest_job.py "${args[@]}"
+      - name: Remove private runner output
+        if: ${{ always() }}
+        run: |
+          python - <<'PY'
+          import os, shutil
+          from pathlib import Path
+          target = Path.home() / "Downloads" / "ai-news-radar-generation" / (os.environ["GITHUB_RUN_ID"] + "-" + os.environ["GITHUB_RUN_ATTEMPT"])
+          if target.exists():
+              shutil.rmtree(target)
+          PY
+      # Optional private Drive storage. No schedule, public artifact, source refresh or publication.
