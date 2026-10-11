@@ -1,5 +1,14 @@
 # AI News Radar Pulse — 交接摘要（截至 2026-10-12）
 
+## 2026-10-12 正式OAuth已授權；Google品牌設定擋住發布
+
+- 使用者已同意Testing改In production並授權自動執行，不重問這項許可。唯讀查看可用瀏覽器後，以先前本人授權用的Mac Chrome無痕視窗開Console；確認個人帳號與ai-news-radar-daily，不沿用IAB商業帳號。
+- 真Audience頁仍Testing，發布應用程式按鈕disabled，畫面明確要求在Branding完成設定。Branding已有名稱/支援信箱/聯絡資訊，首頁/隱私政策/條款連結與授權網域空白；未填假URL或嘗試绕過disabled UI。
+- [Google品牌說明](https://support.google.com/cloud/answer/15549049)列外部正式app的連結要求；[個人自用免OAuth審查](https://support.google.com/cloud/answer/13464323)不等同此專案UI已可發布。沒有額外要求買網域或申請審查，也未假定免除目前品牌設定。
+- 已將工具說明/隱私權說明/使用說明三份可閱HTML草稿與具體方案存Downloads `ai-news-radar-google-production-20261012/`；不含私人email、Docs IDs/URLs或憑證。另合併成一份私人native Google Doc供iPhone審閱，內容讀回及owner-only核對通過，真URL僅存該目錄draft-drive-evidence.json。建議用既有GitHub Pages的三個獨立資訊頁補OAuth品牌，不改新聞首頁產品規則、不新增hosting/付費服務。
+- 待使用者裁決的是新增公開說明頁範圍，不是再授權In production。尚未把草稿放repo或公開網站、填品牌URL、提交審查、改正式狀態或產生新token；GitHub現有手動交付仍可短期使用Testing token。新排程未啟。
+- 下一步讀該Downloads/HANDOFF.md；得到公開資訊頁範圍許可後再發布/填品牌/切正式OAuth/重新授權及更新既有Secret。既有手機與歷史交付不重跑，無SHA查驗。例行Sol／High；新公開定位或資料用途裁決再Astra／High。
+
 ## 2026-10-12 單人Drive契約已批准；手動GitHub交付接線
 
 - 使用者已許可簡化C02，現行單人路線以 [Drive交付操作](DIGEST_GOOGLE_DRIVE_DELIVERY.md) 及C02頂部2026-10-12決策為準。舊不可變/交易控制mock保留歷史，不新增服務、不拿舊要求阻塞此路線。
