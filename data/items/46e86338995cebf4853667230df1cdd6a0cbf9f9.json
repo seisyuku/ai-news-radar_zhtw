@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "AWS Certificate Manager 现在支持通过 AWS PrivateLink 颁发 ACME",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/AWS-Certificate-Manager-ACME-Privatelink",
-  "last_seen_at": "2026-10-11T02:35:30.031075Z",
+  "last_seen_at": "2026-10-11T03:05:32.952029Z",
   "summary": "AWS Certificate Manager（ACM）现在支持通过 AWS PrivateLink 颁发 ACME 公有证书，允许您通过位于 AWS 网络内的私有网络路径申请和续订公有 TLS 证书。现在，您可以创建一个连接到 ACM ACME 服务的 VPC 接口端点，并将来自任何兼容 ACMEv2 的客户端的证书颁发流量路由到您的 VPC 中。 如果您已经在 ACM 中使用 ACME，则无需对 ACME 客户端进行任何更改即可完成配置。在 ACM 中创建托管的 ACME 端点后，您可以使用 VPC 控制台、AWS CLI 或 AWS CloudFormation 创建标准 VPC 接口端点。私有 DNS 会自动将您现有的 ACME 目录 URL 解析为 VPC 内的接口端点，因此无需重新配置，原有的客户端配置和目录 URL 仍可正常使用。然后，颁发操作（账户创建、订单创建、域验证、最终确定和证书检索）将通过 PrivateLink 进行。所有活动都显示在 ACM 控制台中，并配合 AWS CloudTrail 日志记录和 Amazon CloudWatch 指标以实现可审计性。 AWS PrivateLink 对 ACME 证书颁发的支持已在所有 AWS 商业区域推出。接口端点将按 AWS PrivateLink 收费标准计费；请参阅 AWS PrivateLink 定价页面。有关 ACM 定价详情，请参阅 ACM 定价页面 。要开始使用 ACME 和 PrivateLink，请访问 AWS 新闻博客文章 或阅读 文档 。"
 }
