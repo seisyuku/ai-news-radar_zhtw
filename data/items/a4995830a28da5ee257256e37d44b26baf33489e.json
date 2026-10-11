@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "Aurora PostgreSQL 现支持查询 Apache Iceberg 和 Parquet 数据",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/aurora-postgresql-query-apache-iceberg-and-parquet",
-  "last_seen_at": "2026-10-11T18:05:35.610250Z",
+  "last_seen_at": "2026-10-11T18:35:37.258652Z",
   "summary": "从今天起，您可以使用现有的 PostgreSQL 应用程序和工具，直接查询运营数据以及存储在数据湖中的 Apache Iceberg 和 Parquet 格式数据，无需提取、转换、加载（ETL）管道或数据复制。 为了做出更明智的决策并实现业务流程自动化，应用程序越来越需要访问数据湖中的数据（这些数据通常以 Apache Iceberg 和 Parquet 格式存储）。以往，访问这些数据通常需要通过管道将数据从数据湖复制到 Aurora，随着数据模式的演变，这会增加成本和工程工作量。此次发布后，您可以创建 PostgreSQL 外部表，引用存储在 Amazon S3、Amazon S3 表类数据存储服务或 AWS Glue Data Catalog 中的 Iceberg 或 Parquet 数据。当客户查询这些外部表时，Aurora 会利用嵌入在 PostgreSQL 中的 DuckDB 高性能查询引擎，针对底层的 Iceberg 和 Parquet 数据执行查询。您的现有应用程序和 BI 工具仍可继续使用相同的 PostgreSQL 接口。 您还可以查询通过 AWS Glue Data Catalog 联合的、兼容外部 Iceberg REST Catalog（IRC）的目录中的表，而无需迁移或复制数据。对于延迟敏感型工作负载，您可以使用标准 SQL 语句将 Iceberg 或 Parquet 数据物化到原生 Aurora PostgreSQL 表中，无需 ETL 管道。 此功能自 Aurora PostgreSQL 17.11、18.6 及更高版本起，已在所有 AWS 商业和 GovCloud（美国）区域正式推出，不收取额外费用。要开始使用，请通过 Amazon RDS 控制台 或任何 PostgreSQL 客户端进行操作。要了解更多信息，请参阅 博客文章 或 文档 。"
 }
