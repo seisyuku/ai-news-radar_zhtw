@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "AWS Private CA 现在提供详细的证书颁发日志",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/aws-private-ca-certificate-issuance-logs",
-  "last_seen_at": "2026-10-11T00:05:49.072156Z",
+  "last_seen_at": "2026-10-11T00:35:51.375554Z",
   "summary": "AWS Private CA 宣布推出详细的证书颁发日志，这是一种新的 AWS CloudTrail 服务事件，会记录每次颁发的完整证书内容、颁发 CA 信息、请求者身份和签名状态。您可以将这些事件用于合规性审计、证书清单、算法迁移跟踪和颁发失败监控。以前，IssueCertificate API 的 CloudTrail 管理事件通过提供证书 ARN 来确认 API 调用成功，但不会记录证书内容、对其进行签名的 CA 的信息，也不会记录在签名之前失败的颁发操作。 新的 IssueCertificateDetails 事件会记录完整的待签名（TBS）证书及所有 X.509 字段和扩展，同时还提供便于使用的字段，例如主体、颁发者、序列号、有效期、模板和签名算法。无论颁发成功还是失败，系统都会发出事件，因此签名前失败（例如名称约束违规）现在也会生成一条带有失败说明的记录。每个事件都会标识请求者：对于直接调用 API 的请求者，会标识其账户和 IAM 主体；对于通过 AWS Private CA 连接器或集成的 AWS 服务颁发的证书，则会标识服务主体。在跨账户配置中，事件会传送到 CA 所有者账户。 该事件会作为 CloudTrail 管理事件自动传送，无需配置或选择启用，除标准 AWS CloudTrail 定价外不产生额外费用。由于它通过 CloudTrail 传送，您可以使用 Amazon EventBridge 实时对其采取操作，或使用 Amazon Athena 批量查询，以进行证书审计、清单管理、跟踪和监控。 此功能已在提供 AWS Private CA 的所有 AWS 区域推出。要了解更多信息，请参阅 AWS Private CA 用户指南 。"
 }
