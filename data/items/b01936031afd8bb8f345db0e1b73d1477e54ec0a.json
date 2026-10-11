@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "AWS CloudFormation 和 CDK 现在默认预置基础设施的速度最多可提升 2 倍",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/aws-cloudformation-cdk",
-  "last_seen_at": "2026-10-11T03:35:29.914824Z",
+  "last_seen_at": "2026-10-11T04:05:32.188954Z",
   "summary": "根据内部基准， AWS CloudFormation 和 CDK 现在默认预置基础设施的速度最多可提升 2 倍。客户的堆栈可以在不改变其运作方式的情况下更快地部署。这项改进自动应用于所有堆栈操作（创建、更新、删除、回滚），不提供选择加入选项。提升幅度最大的是常用的云资源，包括 AWS Identity and Access Management（IAM）、Amazon S3、AWS Lambda 和 Amazon VPC 资源。这缩短了使用 CloudFormation 和 CDK 构建基础设施的开发人员、CI/CD 管道和智能体的迭代周期。 在预置基础设施时，客户希望资源操作能够快速可靠地完成。CloudFormation 现在可以更快地预置基础设施，IAM 策略、安全组和 VPC 路由表等资源可在几秒钟内完成。默认模式仍会执行稳定性检查（流量就绪、区域传播、资源清理），并在每个资源准备好后立即推进 。 稳定时间较长的资源（例如数据库实例和负载均衡器）的提升幅度各不相同。对于需要更快反馈循环的迭代开发，可以选择使用 快速模式 ，在应用资源配置后立即完成堆栈操作，跳过扩展的稳定性检查。 无需进行任何操作。这项改进通过 AWS CLI 、AWS SDK、 AWS 管理控制台 和 AWS CDK 自动应用。通过 AWS CDK 应用时，标准 cdk deploy 无需任何标志便会使用。要改用快速模式，请针对所有堆栈操作运行 cdk deploy --express 或 set --deployment-config '{\"mode\": \"EXPRESS\"}'。要了解更多信息，请访问 AWS CloudFormation User Guide ，或参加 AWS Skill Builder 课程 Faster and Safer Infrastructure Deployment with AWS CloudFormation and CDK 。 此功能现已在支持 CloudFormation 的所有 AWS 区域推出。有关服务可用性的详细信息，请参阅 AWS 区域表 。"
 }
