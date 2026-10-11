@@ -1,5 +1,14 @@
 # AI News Radar Pulse — 交接摘要（截至 2026-10-12）
 
+## 2026-10-12 新正式憑證GitHub交付已驗；每日觸發待選
+
+- 使用者要求繼續執行。當時臺北約02:00、10/12窗口尚未06:00截止，故明確以10/11歷史模式實跑新正式憑證，不保存未完成的10/12當期稿。[38162146429](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/38162146429)success，3則；pair/rerun/delivery_verified均true，storage_saved_at為2026-10-11T18:03:11.303087+00:00。仍是manual_historical／review-only，不算今天或每日準時達標；本輪新token已由runner消費。
+- 既有外部心跳近期:05／:35有成功工作；[38160263615](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/38160263615)guard真SOURCE heartbeat、30分鐘間隔並接管更新，確認可沿用。沒有登入或修改cron-job.org、PAT、刷新schedule與設定Doc。
+- 完成 [每日觸發具體提案](DIGEST_DAILY_TRIGGER_PROPOSAL.md)：A沿用既有刷新完成事件，通常07:35主嘗試／08:35補試；B專用外部07:15／08:15觸發。兩者都需明確接受GitHub觀測建立時間固定臺北期別，取代本路線歷史C02獨立持久intent issuer要求；未默默取消契約或直接啟排程。
+- 規劃當期已保存稿核對後跳過、第一次完成時間私人紀錄、人工校稿保留與部分保存停止；不新增交易服務、通知、來源刷新、LLM或私人稿公開發布。等待觸發選項與期別簡化方式裁決，尚未改產品程式或workflow。只做文件差異，diff check通過，不重跑本機完整套件或SHA核驗。
+- ROADMAP的舊PAT約10/17到期提醒與既有10/01使用者替換紀錄矛盾，已更正為使用者回報無到期日，沒有重建PAT或改續期政策。
+- 私人檢查點Downloads `ai-news-radar-daily-trigger-20261012/` 保存安全report、已觀測原稿／校稿真URL與交接；真URL／IDs不入repo。下一階段例行Sol／High，選A或B且接受期別方式後接線；每日尚未啟用。
+
 ## 2026-10-12 正式OAuth與GitHub憑證更新完成
 
 - 使用者在最後動作當下回覆「確認執行」。於既有私人Chrome無痕工作階段、ai-news-radar-daily專案確認發布；Google Audience顯示「實際運作中」及「返回測試應用程式」，External保持。沒有新增scope、帳號、付費服務或審查申請。

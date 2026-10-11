@@ -2,7 +2,7 @@
 
 更新：2026-10-12。使用者已批准 [簡化交付標準](DIGEST_CLOUD_CONTRACT.md)，不新增交易控制服務。
 
-實測結果：GitHub [38157491285](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/38157491285)手動historical+deliver_drive成功，runner私人保存/readback、pair/rerun核對完成，沒有公開artifact。這是06:00截止前的歷史驗證，0題review-only，不是有效當期日報。現有Offline tests亦成功，無新排程。Google正式狀態與重新授權現已完成，既有憑證Secret已更新；新token本機刷新／私人設定讀取成功，本輪未重跑GitHub交付。下一階段為每日觸發方案與有效當期驗收，不再重問Drive選型或重測iPhone。
+實測結果：GitHub [38157491285](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/38157491285)手動historical+deliver_drive成功，runner私人保存/readback、pair/rerun核對完成，沒有公開artifact。這是06:00截止前的歷史驗證，0題review-only，不是有效當期日報。現有Offline tests亦成功，無新排程。Google正式狀態與重新授權現已完成，既有憑證Secret已更新；新token本機刷新／私人設定讀取成功，後續[38162146429](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/38162146429)已由runner完成10/11歷史交付3則，不算10/12當期。下一階段為[每日觸發方案](DIGEST_DAILY_TRIGGER_PROPOSAL.md)與有效當期驗收，不再重問Drive選型或重測iPhone。
 
 ## 操作入口
 

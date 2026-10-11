@@ -11,7 +11,7 @@
 - 臺北06～06、明確期別、跨日拒絕、既有90分鐘快照時效、生成與保存時效分開保持。保存完成時間是runner觀測，不宣稱交易服務可信提交時鐘。historical不算每日成功。
 - 設定僅已同意欄位；自由文字不當指令、網址或憑證。這輪只接手動workflow，deliver_drive預設false；不启每日排程/通知/發布/清理，也不改既有新聞刷新與公開站。
 
-使用者已確認新app校稿副本在iPhone正常。OAuth仍External/Testing，正式長期自動化前處理7天期限。
+使用者已確認新app校稿副本在iPhone正常。2026-10-12 OAuth已為External／In production並重新授權，GitHub新憑證歷史交付通過；每日觸發與本路線期別發行簡化仍待[提案裁決](DIGEST_DAILY_TRIGGER_PROPOSAL.md)，下文持久intent issuer沒有被默默取消。
 
 ## 2026-10-10 最新適用範圍
 
