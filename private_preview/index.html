@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="preview-token" content="{{TOKEN}}">
+  <title>私人日報校稿｜本機合成預覽</title>
+  <link rel="stylesheet" href="/preview.css">
+  <script defer src="/preview.js"></script>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">AI News Radar · C06 本機預覽</p>
+      <h1>私人日報校稿</h1>
+      <p class="notice">合成新聞示範。僅在這部電腦的本機伺服器運作；重新啟動後校稿會消失。</p>
+      <div class="facts" aria-label="日報狀態">
+        <p>期別：<strong id="issue-date">載入中</strong></p>
+        <p>交付：<strong id="delivery-status">載入中</strong></p>
+        <p>目前原稿：<strong id="selected-base">載入中</strong></p>
+        <p>正在校稿：<strong id="working-base">載入中</strong></p>
+        <p>版本：<strong id="revision">載入中</strong></p>
+      </div>
+      <details>
+        <summary>查看完整原稿識別碼</summary>
+        <p>目前原稿：<code id="selected-base-full"></code></p>
+        <p>正在校稿：<code id="working-base-full"></code></p>
+      </details>
+    </header>
+
+    <p id="message" class="message" role="status" aria-live="polite">正在讀取合成日報…</p>
+    <section id="conflict" class="conflict" role="alert" hidden>
+      <p id="conflict-text"></p>
+      <button id="reload-conflict" type="button">重新讀取最新版本</button>
+    </section>
+
+    <section aria-labelledby="base-heading">
+      <h2 id="base-heading">原稿版本</h2>
+      <label for="base-choice">選擇要查看的原稿</label>
+      <select id="base-choice"></select>
+      <button id="choose-base" type="button">明確選用這份原稿</button>
+      <p class="hint">切換原稿只改預設選版；不同原稿的校稿歷史各自保留。</p>
+    </section>
+
+    <section aria-labelledby="stories-heading">
+      <h2 id="stories-heading">新聞與校稿</h2>
+      <p class="hint">題號從 1 起算，旁邊顯示固定的 story ID。可以用手機內建聽寫輸入標題與摘要。</p>
+      <ol id="stories" class="stories"></ol>
+      <div class="actions">
+        <button id="save" type="button" class="primary">儲存並讀回核對</button>
+        <button id="readback" type="button">重新讀取目前版本</button>
+        <button id="export" type="button">匯出此版本 JSON</button>
+      </div>
+    </section>
+
+    <section aria-labelledby="history-heading">
+      <h2 id="history-heading">還原歷史內容</h2>
+      <label for="restore-revision">要還原的版本號（0 到目前版本）</label>
+      <input id="restore-revision" type="number" min="0" step="1" inputmode="numeric" value="0">
+      <button id="restore" type="button">還原並讀回核對</button>
+      <p class="hint">還原會建立新的版本，不會刪除任何舊版。</p>
+    </section>
+  </main>
+</body>
+</html>

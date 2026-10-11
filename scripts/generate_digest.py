@@ -5,16 +5,17 @@ import hashlib
 import json
 import math
 from pathlib import Path
-import re
 import sys
 
 if __package__:
+    from .digest_integrity import verify_digest_bytes
     from .archive_output import atomic_write_text
     from .digest_document import build_digest_document, document_identity
     from .digest_input import load_digest_input
     from .digest_render import render_digest
     from .digest_window import DigestTimeError, window_for_date
 else:
+    from digest_integrity import verify_digest_bytes
     from archive_output import atomic_write_text
     from digest_document import build_digest_document, document_identity
     from digest_input import load_digest_input
@@ -34,13 +35,7 @@ def verify_digest_pair(markdown_path, metadata_path):
     """Read the pair and reject incomplete, stale or altered handoff artifacts."""
     try:
         markdown = Path(markdown_path).read_bytes()
-        metadata = json.loads(Path(metadata_path).read_text(encoding="utf-8"))
-        match = re.match(rb"<!-- digest-identity: ([0-9a-f]{64}) -->\n", markdown)
-        if (not isinstance(metadata, dict) or not match
-                or match.group(1).decode() != metadata.get("input_identity")
-                or hashlib.sha256(markdown).hexdigest() != metadata.get("markdown_sha256")
-                or document_identity(metadata) != metadata.get("input_identity")):
-            raise DigestOutputError("digest_pair_mismatch")
+        metadata = verify_digest_bytes(markdown, Path(metadata_path).read_bytes())
     except (OSError, UnicodeError, ValueError, TypeError):
         raise DigestOutputError("digest_pair_invalid") from None
     return metadata

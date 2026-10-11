@@ -1,0 +1,29 @@
+name: Private digest cloud contract checks
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  synthetic-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: "pip"
+          cache-dependency-path: "requirements*.txt"
+      - name: Install contract test dependencies
+        run: python -m pip install -r requirements-dev.txt
+      - name: Test synthetic generation, delivery, editorial, auth and retry contracts
+        run: |
+          mkdir -p "$HOME/Downloads/ai-news-radar-contract"
+          python -m pytest -q -p no:cacheprovider --basetemp "$HOME/Downloads/ai-news-radar-contract/pytest" tests/test_digest_cloud*.py tests/test_digest_integrity.py
+      # Manual synthetic validation only. No schedule, real inputs, cloud secret,
+      # draft upload, notification, source refresh or publishing is enabled here.

@@ -1,15 +1,15 @@
 """Compose the offline digest stages into a JSON-safe versioned document."""
 
 from dataclasses import asdict
-import hashlib
-import json
 
 if __package__:
+    from .digest_json import canonical_json, document_identity
     from .digest_candidates import adapt_stories
     from .digest_health import summarize_digest_health
     from .digest_pipeline import build_digest_stories
     from .digest_selection import select_digest_candidates
 else:
+    from digest_json import canonical_json, document_identity
     from digest_candidates import adapt_stories
     from digest_health import summarize_digest_health
     from digest_pipeline import build_digest_stories
@@ -18,16 +18,6 @@ else:
 
 PIPELINE_VERSION = "daily-digest-v1"
 RENDER_VERSION = "markdown-v3"
-
-
-def canonical_json(value):
-    return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"), allow_nan=False)
-
-
-def document_identity(document):
-    material = {key: value for key, value in document.items()
-                if key not in {"input_identity", "markdown_sha256"}}
-    return hashlib.sha256(canonical_json(material).encode("utf-8")).hexdigest()
 
 
 def build_digest_document(snapshot, window, *, limit=20, same_source_penalty=0.03):
