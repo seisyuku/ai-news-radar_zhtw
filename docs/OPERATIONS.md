@@ -2,7 +2,7 @@
 
 ## Daily digest — optional private Drive delivery (2026-10-12)
 
-使用者批准單人Drive交付，不增加交易控制服務。手動Daily digest generation check新增deliver_drive預設false；勾選後保存原始pair及native原稿/校稿，既有人工稿不覆寫，公開log不含私人內容/URLs。Secrets、設定格式、重送與失敗規則見 [Drive交付操作](DIGEST_GOOGLE_DRIVE_DELIVERY.md)。iPhone新app副本開啟已驗；OAuth仍Testing，正式每日使用前處理7天期限。生成位置與06～06不改，沒有新schedule/來源刷新/通知/發布。
+使用者批准單人Drive交付，不增加交易控制服務。手動Daily digest generation check新增deliver_drive預設false；勾選後保存原始pair及native原稿/校稿，既有人工稿不覆寫，公開log不含私人內容/URLs。Secrets、設定格式、重送與失敗規則見 [Drive交付操作](DIGEST_GOOGLE_DRIVE_DELIVERY.md)。iPhone新app副本開啟已驗；OAuth已切In production並完成新授權、刷新與既有憑證Secret更新；新token本輪未重跑GitHub交付，每日觸發待定。生成位置與06～06不改，沒有新schedule/來源刷新/通知/發布。
 
 ## Daily digest — personal Google phone authorization preparation (2026-10-11)
 

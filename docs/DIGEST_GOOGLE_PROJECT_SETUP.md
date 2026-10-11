@@ -2,7 +2,7 @@
 
 ## 2026-10-12 最新狀態
 
-使用者已確認專案ai-news-radar-daily/636810668699、Drive/Docs API啟用、External/Testing及本人test user、drive.file-only scopes，並下載電腦版應用程式client。真桌面授權、新app私人合成保存、connector讀回與iPhone校稿驗收完成；以下控制台建立未知是歷史紀錄。商業與私人帳號隔離，不能依既有登入猜用途。後續入口見 [Drive交付操作](DIGEST_GOOGLE_DRIVE_DELIVERY.md) 及HANDOVER。
+使用者已確認專案ai-news-radar-daily/636810668699、Drive/Docs API啟用、External/Testing及本人test user、drive.file-only scopes，並下載電腦版應用程式client。真桌面授權、新app私人合成保存、connector讀回與iPhone校稿驗收完成；以下控制台建立未知是歷史紀錄。商業與私人帳號隔離，不能依既有登入猜用途。2026-10-12已補公開工具說明／品牌設定，Audience顯示實際運作中；同一client正式重新授權完成且既有GitHub憑證Secret更新。後續入口見 [Drive交付操作](DIGEST_GOOGLE_DRIVE_DELIVERY.md) 及HANDOVER。
 
 日期：2026-10-11。使用者選擇建立日報專用專案，已授權這項工作；不再詢問沿用／新建。
 **狀態：建立表單已提交，建立成功尚未核對。**

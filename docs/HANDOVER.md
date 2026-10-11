@@ -1,5 +1,15 @@
 # AI News Radar Pulse — 交接摘要（截至 2026-10-12）
 
+## 2026-10-12 正式OAuth與GitHub憑證更新完成
+
+- 使用者在最後動作當下回覆「確認執行」。於既有私人Chrome無痕工作階段、ai-news-radar-daily專案確認發布；Google Audience顯示「實際運作中」及「返回測試應用程式」，External保持。沒有新增scope、帳號、付費服務或審查申請。
+- 以同一Desktop client／PKCE／loopback新授權，Google已有存取權清單僅一項特定Drive檔案權限。一次Google同意頁500，正常刷新一次即恢復；不是權限不足或程式錯誤，未為此改程式或繞過安全提示。CLI exit0、authorized／credentials_saved；新憑證另存Downloads私人檔案，舊憑證保留，未輸出授權code/token。
+- 新授權JSON的drive.file-only／Bearer／必要refresh欄位、無access token保存及0600／0700核對通過。以新refresh token取得短期token，既有私人目的資料夾／設定文件metadata及固定設定唯讀成功；Drive文件與分享不變。
+- 以compact JSON經標準輸入成功更新既有GOOGLE_DRIVE_OAUTH_CREDENTIALS Secret；目標Secret與其他Secrets不變。本輪沒有重跑歷史交付，故不宣稱新token已由GitHub runner實際消費；先前runner交付成功證據仍見下方。
+- Testing固定七天到期前提已解除；正式refresh token仍受Google一般撤銷／到期規則約束，不能稱永久有效。[Google token條件](https://developers.google.com/identity/protocols/oauth2#expiration)。
+- 本階段只處理授權／憑證與同步交接，未改產品程式、重跑完整套件或新增SHA查驗；diff check通過。每日私人生成排程、外部觸發、有效當期驗收與人工發布仍未啟用。下一段先定每日觸發時間／來源及失敗補觸發方式，不擅自新增服務或排程。例行接線Sol／High；若新增服務或權限邊界再裁決。
+- 私人檢查點Downloads `ai-news-radar-google-production-20261012/` 的STATUS.json、authorization-result.json與HANDOFF.md；真憑證／私人IDs不入repo。以下待確認段落為先前歷史紀錄，以本節為準。
+
 ## 2026-10-12 三份OAuth公開說明頁已批准
 
 - 使用者已同意三份工具說明／隱私權說明／使用說明發布於既有GitHub Pages，並用於Google OAuth品牌設定。此許可接續先前Testing→In production授權；不新增主機、付費服務或私人稿件公開分享。

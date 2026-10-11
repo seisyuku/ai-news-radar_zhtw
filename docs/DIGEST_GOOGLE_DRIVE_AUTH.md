@@ -1,5 +1,13 @@
 # C08-O：一般 Google 帳號的 GitHub → Drive 授權準備
 
+## 目前狀態：正式授權完成（2026-10-12）
+
+Google Audience已顯示「實際運作中」。三份既有GitHub Pages公開說明及品牌URL／授權網域已保存；同一Desktop client重新授權成功，仍只要求drive.file。新私人憑證已成功刷新並唯讀既有目的地／設定，既有GitHub憑證Secret已更新為compact JSON；舊本機憑證保留。沒有新scope、Drive分享或每日私人排程。
+
+External/Testing固定七天期限的前提已解除；仍須遵守[Google一般token撤銷／到期條件](https://developers.google.com/identity/protocols/oauth2#expiration)，不代表永久有效。本輪沒有再次執行GitHub私人交付；已完成的歷史交付與待啟用的每日流程見 [Drive交付操作](DIGEST_GOOGLE_DRIVE_DELIVERY.md) 及HANDOVER頂部。
+
+以下為首次桌面授權及更早device準備的歷史紀錄，Testing／未接通描述不代表目前狀態。
+
 ## 2026-10-12 更新：採用桌面授權入口
 
 使用者回報專案 `ai-news-radar-daily`（編號 `636810668699`）已選取、Drive/Docs API均啟用、External/Testing授權畫面已建立、自己已加入test users、scopes只有`drive.file`。這些為使用者控制台回報，沒有另作遠端控制台查驗。

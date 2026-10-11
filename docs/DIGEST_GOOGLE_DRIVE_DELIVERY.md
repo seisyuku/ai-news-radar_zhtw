@@ -2,7 +2,7 @@
 
 更新：2026-10-12。使用者已批准 [簡化交付標準](DIGEST_CLOUD_CONTRACT.md)，不新增交易控制服務。
 
-實測結果：GitHub [38157491285](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/38157491285)手動historical+deliver_drive成功，runner私人保存/readback、pair/rerun核對完成，沒有公開artifact。這是06:00截止前的歷史驗證，0題review-only，不是有效當期日報。現有Offline tests亦成功，無新排程。最新停點為Google授權正式狀態及新授權，不再重問Drive選型或重測iPhone。
+實測結果：GitHub [38157491285](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/38157491285)手動historical+deliver_drive成功，runner私人保存/readback、pair/rerun核對完成，沒有公開artifact。這是06:00截止前的歷史驗證，0題review-only，不是有效當期日報。現有Offline tests亦成功，無新排程。Google正式狀態與重新授權現已完成，既有憑證Secret已更新；新token本機刷新／私人設定讀取成功，本輪未重跑GitHub交付。下一階段為每日觸發方案與有效當期驗收，不再重問Drive選型或重測iPhone。
 
 ## 操作入口
 
@@ -31,4 +31,4 @@ owner可手動改Drive文件。這是程序不覆寫規則，不宣稱儲存層�
 
 delivery_verified代表私人保存與內容核對，資料陳舊/遲到仍不算每日達標。當期資料不足仍exit3；明確historical且保存成功可exit0，摘要仍review-only/historical，這是歷史保存驗證，不是有效當日日報。
 
-OAuth External/Testing的refresh token有7天期限，這輪可做短期手動接線；正式每日排程前需要處理app正式狀態及重新授權。没有啟新schedule、分享、通知、Pages、Cloudflare或新帳號。真GitHub執行結果與下一停點以HANDOVER為準。
+OAuth已為External／In production並完成新授權，Testing固定七天期限的前提已解除；仍受[Google一般token條件](https://developers.google.com/identity/protocols/oauth2#expiration)約束。既有GitHub憑證Secret已更新，目標Secret不變。三份公開工具說明已在既有Pages發布，私人稿未公開；没有啟新schedule、分享、通知、Cloudflare或新帳號。真GitHub執行結果與下一停點以HANDOVER為準。
