@@ -2,9 +2,9 @@
 
 ## 目前狀態：正式授權完成（2026-10-12）
 
-Google Audience已顯示「實際運作中」。三份既有GitHub Pages公開說明及品牌URL／授權網域已保存；同一Desktop client重新授權成功，仍只要求drive.file。新私人憑證已成功刷新並唯讀既有目的地／設定，既有GitHub憑證Secret已更新為compact JSON；舊本機憑證保留。沒有新scope、Drive分享或每日私人排程。
+Google Audience已顯示「實際運作中」。三份既有GitHub Pages公開說明及品牌URL／授權網域已保存；同一Desktop client重新授權成功，仍只要求drive.file。新私人憑證已成功刷新並唯讀既有目的地／設定，既有GitHub憑證Secret已更新為compact JSON；舊本機憑證保留。沒有新scope或Drive分享；每日觸發後續啟用狀態見下段及HANDOVER。
 
-External/Testing固定七天期限的前提已解除；仍須遵守[Google一般token撤銷／到期條件](https://developers.google.com/identity/protocols/oauth2#expiration)，不代表永久有效。本輪沒有再次執行GitHub私人交付；已完成的歷史交付與待啟用的每日流程見 [Drive交付操作](DIGEST_GOOGLE_DRIVE_DELIVERY.md) 及HANDOVER頂部。
+External/Testing固定七天期限的前提已解除；仍須遵守[Google一般token撤銷／到期條件](https://developers.google.com/identity/protocols/oauth2#expiration)，不代表永久有效。後續[38162146429](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/38162146429)已實跑新憑證歷史交付3則成功，每日觸發A亦已部署／私人設定啟用。第一筆有效當期與三日觀察仍待；流程見 [Drive交付操作](DIGEST_GOOGLE_DRIVE_DELIVERY.md) 及HANDOVER頂部。
 
 以下為首次桌面授權及更早device準備的歷史紀錄，Testing／未接通描述不代表目前狀態。
 

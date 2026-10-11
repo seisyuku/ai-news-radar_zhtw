@@ -1,8 +1,28 @@
 # Operations Notes
 
+## Daily private digest — enabled with existing heartbeat (2026-10-12)
+
+[每日觸發A](DIGEST_DAILY_TRIGGER_PROPOSAL.md)已獲准並部署；私人設定已true，GitHub workflow active／[CI success](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/38163403768)。本機完整1062測試通過。第一筆真正當期與連續三日觀察仍待上午實際事件，不以歷史稿或夜間skipped補驗。
+
+每日操作：Mac可以關機。上午在iPhone一般Chat使用Google Drive找「AI 新聞日報｜當天日期｜校稿副本」，要求列出標題，再口述保留題目／校稿；原稿與副本分開。原文連結在文件內，發布仍由維護者人工決定，約11:30為目標。沒有要求09:00操作Mac或逐字語音轉寫驗收。
+
+主嘗試窗口07:15～08:15、補試08:15～08:45，依既有外部心跳通常約07:35／08:35。已成功保存的當期，補試核對後跳過；沒有新資料或部分保存失敗就不冒稱成功。[Actions執行紀錄](https://github.com/seisyuku/ai-news-radar_zhtw/actions/workflows/digest-generation.yml)可手機查閱，當期應有event=workflow_run與delivery_verified=true；skipped／automation_disabled不是新交付。歷史mode不計當日。
+
+| 當期狀態 | 操作 |
+| --- | --- |
+| generated、delivery_verified=true、storage_quality=ready-for-review | 開當期校稿副本並人工核對新聞；storage_timeliness=on_time才算09:00前保存 |
+| skipped、already_delivered、delivery_verified=true | 已核對原先保存的當期；保留首次完成時間，繼續使用同一副本 |
+| review-only／archive_stale等 | 沒有新的自動私人稿；補試尚未用掉可等待，之後用明確期別手動補跑 |
+| existing_issue_incomplete／existing_delivery_invalid | 已有部分檔案或核對失敗；停止，保留現況交給維護者，不自動換base或刪檔 |
+| attempt_already_recorded／outside_attempt_window | 沒有開始新生成，不代表當期已完成；查同日期其他執行紀錄 |
+
+暫停方法：在原「日報設定」Google Doc把JSON的automation_enabled改為false，保存即可；復原true只恢復已部署每日入口。它不建立新排程或改新聞窗口。手動workflow仍需明確date、選historical／deliver_drive。設定Doc保持本人存取，真連結只在私人交接與使用者交付。
+
+連續三日驗收：每天查真正workflow_run、當期期別、首次delivery紀錄及storage_saved_at／timeliness，至少一筆ready且09:00前保存；漏觸發／過舊／部分保存記實際原因。每日紀錄由Actions與私人Drive保存，人工校稿不是自動發布驗收。不能拿後來重送時間改寫第一筆交付，或用手動歷史成功填補缺日。
+
 ## Daily digest — optional private Drive delivery (2026-10-12)
 
-使用者批准單人Drive交付，不增加交易控制服務。手動Daily digest generation check新增deliver_drive預設false；勾選後保存原始pair及native原稿/校稿，既有人工稿不覆寫，公開log不含私人內容/URLs。Secrets、設定格式、重送與失敗規則見 [Drive交付操作](DIGEST_GOOGLE_DRIVE_DELIVERY.md)。iPhone新app副本開啟已驗；OAuth已切In production並完成新授權、刷新與既有憑證Secret更新；新token本輪未重跑GitHub交付，每日觸發待定。生成位置與06～06不改，沒有新schedule/來源刷新/通知/發布。
+使用者批准單人Drive交付，不增加交易控制服務。手動Daily digest generation check新增deliver_drive預設false；勾選後保存原始pair及native原稿/校稿，既有人工稿不覆寫，公開log不含私人內容/URLs。Secrets、設定格式、重送與失敗規則見 [Drive交付操作](DIGEST_GOOGLE_DRIVE_DELIVERY.md)。iPhone新app副本開啟已驗；OAuth已切In production並完成新授權，新token runner歷史交付已驗。每日觸發A已部署，私人設定automation_enabled=true讀回成功；生成位置與06～06不改，沒有新cron/來源刷新/通知/公開稿發布。
 
 ## Daily digest — personal Google phone authorization preparation (2026-10-11)
 

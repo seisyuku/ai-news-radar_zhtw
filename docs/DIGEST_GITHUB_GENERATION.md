@@ -1,6 +1,6 @@
 # C08-G：GitHub 靜態日報生成驗證
 
-2026-10-12最新：使用者批准單人Drive交付標準，手動workflow新增預設false的deliver_drive輸入。可在生成與既有pair/rerun核對後選擇私人保存；詳見 [Drive交付操作](DIGEST_GOOGLE_DRIVE_DELIVERY.md)。以下delivery_verified固定false、保存未選定與不含憑證為歷史生成階段；目前未選deliver_drive時仍是純生成。新排程沒有啟用，真GitHub驗收以HANDOVER最新紀錄為準。
+2026-10-12最新：使用者批准單人Drive交付標準，手動workflow新增預設false的deliver_drive輸入。可在生成與既有pair/rerun核對後選擇私人保存；詳見 [Drive交付操作](DIGEST_GOOGLE_DRIVE_DELIVERY.md)。以下delivery_verified固定false、保存未選定與不含憑證為歷史生成階段；目前未選deliver_drive時仍是純生成。後續使用者批准每日觸發A，現已部署workflow_run及私人設定true，沿用既有刷新事件；沒有新cron。真當期及三日驗收以HANDOVER最新紀錄為準。
 
 更新：2026-10-10。最新使用者確認：日報在 GitHub Actions 生成；Cloudflare 延後到正式私人保存／手機接入，不能阻擋生成工作。專案正本僅本機與 GitHub，不新增正本、遠端或程式檔案 SHA 清冊／比較。
 

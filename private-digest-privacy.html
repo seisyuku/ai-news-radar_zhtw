@@ -5,7 +5,7 @@
 <main><h1>AI News Radar Daily｜隱私權說明</h1>
 <nav><a href="private-digest-info.html">工具說明</a> · <a href="private-digest-privacy.html">隱私權說明</a> · <a href="private-digest-terms.html">使用說明</a></nav>
 <h2>存取哪些資料</h2>
-<p>程式使用 Google Drive／Docs API 保存日報原始 Markdown 與 metadata、可讀原稿、校稿副本，並讀取私人設定。只要求 drive.file，不要求讀取全部 Drive、Gmail、聯絡人或個人帳號資料。API 可回傳檔案名稱、ID、內容、連結及權限資料；程式用於保存、讀回與確認本人存取。</p>
+<p>程式使用 Google Drive／Docs API 保存日報原始 Markdown 與 metadata、可讀原稿、校稿副本，並讀取私人設定。另在同一私人 Drive 保存每日嘗試及首次交付的小型紀錄，包含期別、觸發工作識別、完成時間及對應檔案識別，用於避免重複生成或覆寫人工校稿；不包含憑證。只要求 drive.file，不要求讀取全部 Drive、Gmail、聯絡人或個人帳號資料。API 可回傳檔案名稱、ID、內容、連結及權限資料；程式用於保存、讀回與確認本人存取。</p>
 <h2>資料用途與位置</h2>
 <p>文件內容只用於維護者的日報生成、閱讀、校稿及設定。檔案保存於本人私人 Google Drive；GitHub Actions 暫時處理產物，工作收尾清除本次暫存資料。不將私人稿件或輸入放進公開儲存庫、公開 artifact 或執行摘要。若工作被強制終止，收尾可能無法執行，暫存仍依執行環境回收。</p>
 <h2>授權憑證</h2>

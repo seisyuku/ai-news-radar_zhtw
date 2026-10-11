@@ -6,7 +6,7 @@
 
 主時段07:15～08:15、補試08:15～08:45，各一次實際嘗試，私人Drive小型attempt紀錄去重；當期資料達標才保存。首次完整保存／讀回後留私人delivery紀錄，後續核對既有pair、原稿及校稿存在後跳過，不因較新快照換人工校稿。部分保存或原稿被改停止，不自動更換base或清除。每日及手動共用同一workflow concurrency；沒有跨檔交易承諾。06～06／90分鐘資料時效／09:00目標與人工發布不改。
 
-設定automation_enabled只接受JSON布林，true啟用此已部署每日入口，false暂停每日入口；它不能新增排程、選provider或改窗口。手動仍須明確date／選deliver_drive。既有來源刷新、外部心跳/PAT、scope、通知與公開新聞發布不改。實作與啟用證據以HANDOVER頂部為準。
+設定automation_enabled只接受JSON布林，true啟用此已部署每日入口，false暫停每日入口；它不能新增排程、選provider或改窗口。手動仍須明確date／選deliver_drive。既有來源刷新、外部心跳/PAT、scope、通知與公開新聞發布不改。實作與啟用證據以HANDOVER頂部為準。
 
 ## 2026-10-12 已批准：GitHub + 私人Drive單人交付標準
 

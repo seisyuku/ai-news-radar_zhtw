@@ -1,12 +1,13 @@
 # AI News Radar Pulse — 交接摘要（截至 2026-10-12）
 
-## 2026-10-12 每日觸發A已批准；接線測試完成，啟用中
+## 2026-10-12 每日觸發A已部署啟用；待首筆當期與三日觀察
 
 - 使用者選A並確認接受日期固定期別，授權按提案實作／測試／啟用。同步C02頂部：本路線以GitHub上游created_at固定期別、updated_at選07:15～08:15主／08:15～08:45補試，各一次；取代獨立持久intent issuer與歷史三slot要求。沒有新增發行服務、PAT或外部cron設定。
 - 新增digest_daily_job.py，workflow監聽同repo/master正式新聞刷新成功完成，手動date／historical／deliver_drive入口保留，同一concurrency串行。凌晨／過期時段不刷新token或生成；跨日拒絕。設定JSON布林true／false啟停已部署每日入口，不接受任意新規則。
 - 私人attempt紀錄限制每slot一次；僅資料達標才保存。首次pair／native原稿／副本完成後保存並讀回delivery紀錄；後續核對既有pair、原稿及校稿存在後跳過，不生成新base或改人工校稿。部分保存停止為existing_issue_incomplete；没有跨檔原子交易或自動清理承諾。
-- 20項必要每日案例加既有交付／生成，相關48 passed；完整 **1062 passed in 5.83s**，編譯及diff check通過。沒有新增SHA驗證、重測手機或重跑歷史交付。尚待本輪push／CI、設定Doc automation true並讀回；第一筆有效當期與三日驗收仍未出現，不冒稱達標。
-- 私人檢查點仍Downloads `ai-news-radar-daily-trigger-20261012/`；任務拆分T01固定日期（完成）、T02去重／交付紀錄（完成）、T03GitHub發布與私人啟用（進行中）、T04真當期／三日觀察（待上午實際證據）。下一段例行Sol／High，後續純觀察Sol／Medium。
+- 20項必要每日案例加既有交付／生成，相關48 passed；完整 **1062 passed in 5.83s**，編譯及diff check通過。沒有新增SHA驗證、重測手機或重跑歷史交付。正常push完成；[Offline CI38163403768](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/38163403768)success，actionlint通過。GitHub日報workflow active；既有私人設定Doc以requiredRevisionId精確更新automation=true及啟用說明／狀態，讀回吻合，06～06與分享不改，標題改為日報設定。第一筆有效當期與三日驗收仍未出現，不冒稱達標。
+- OAuth公開工具說明同步每日操作，隱私說明加入小型私人attempt／delivery紀錄用途；不公開私人稿或IDs。手機操作及失敗／暫停規則寫入OPERATIONS頂部。沒有新增外部job、PAT、來源刷新、LLM、通知或自動公開發布。
+- 私人檢查點仍Downloads `ai-news-radar-daily-trigger-20261012/`；任務拆分T01固定日期（完成）、T02去重／交付紀錄（完成）、T03GitHub發布與私人啟用（完成）、T04真當期／三日觀察（待上午實際證據）。下一段例行Sol／High，後續純觀察Sol／Medium。
 
 ## 2026-10-12 新正式憑證GitHub交付已驗；每日觸發待選
 
