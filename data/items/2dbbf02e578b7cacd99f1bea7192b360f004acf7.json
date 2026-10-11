@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "Amazon Redshift 新增对创建和刷新 Apache Iceberg 实体化视图的支持",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/redshift-iceberg-materialized-views",
-  "last_seen_at": "2026-10-11T16:05:33.740132Z",
+  "last_seen_at": "2026-10-11T16:35:41.689863Z",
   "summary": "Amazon Redshift 现在支持创建和刷新 Apache Iceberg 实体化视图。实体化视图会一次性预先计算开销高昂的联接和聚合，并将结果存储在 Amazon S3 或 Amazon S3 表存储桶中的 Apache Iceberg 表中，且注册到 AWS Glue Data Catalog。实体化视图使用熟悉的 SQL 创建，即 CREATE MATERIALIZED VIEW ...USING ICEBERG，并且任何与 Iceberg 兼容的引擎都可以立即查询结果，包括 Amazon Athena、Amazon EMR 和 AWS Glue 上的 Apache Spark，以及 Trino 或 Snowflake 等第三方引擎。Redshift 通过手动增量刷新仅重新计算已更改的内容，从而使其保持最新，并且由于结果是 Glue Data Catalog 中的 Iceberg 表，因此可以像任何其他目录表一样对其进行管理和发现。 数据团队通常分阶段构建分析，将不同的引擎拼接在一起，以便在对外提供之前清理和转换原始数据。这会增加管道编排开销，并可能在引擎之间引入语义差异。Iceberg 实体化视图通过两种方式带来价值。首先，无需数百个用户和团队反复运行相同的开销高昂的联接和聚合操作，也无需在每次查询时重新扫描源表，而是只计算一次结果，然后所有人都读取预计算好的表。其次，您可以使用 Apache Spark 以及现在的 Amazon Redshift 等单一引擎运行端到端管道，每个下游使用者共享相同的开放结果，而无需承担编排多个引擎的开销。无论采用哪种方式，输出都是开放的 Iceberg 表，任何引擎都可以读取，无需复制或转换。您仍然可以将这些表作为原生 RMS 实体化视图加载到 Redshift 托管存储（RMS）中，以用于对性能最敏感的控制面板。 您可以在支持 Redshift Serverless 和预置的 Graviton 实例的任何区域中创建 Iceberg 实体化视图。要了解更多信息，请参阅《Amazon Redshift 数据库开发人员指南》中的 存储为 Apache Iceberg 表的实体化视图 、 CREATE MATERIALIZED VIEW 命令参考，以及 一次实体化，随处查询 博客文章。"
 }
