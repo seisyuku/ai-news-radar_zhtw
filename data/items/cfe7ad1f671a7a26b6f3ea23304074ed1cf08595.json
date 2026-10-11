@@ -7,6 +7,6 @@
   "source": "AWS News",
   "title": "AWS Batch 现在支持 Amazon EKS 访问条目身份验证",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/aws-batch-access-entries",
-  "last_seen_at": "2026-10-11T01:05:31.852136Z",
+  "last_seen_at": "2026-10-11T01:12:44.882596Z",
   "summary": "AWS Batch 现在支持计算环境的 Amazon EKS 访问条目身份验证。EKS 访问条目提供了一种由 API 驱动的方法，用于向 IAM 主体授予对 Kubernetes 集群的访问权限，作为对现有 aws-auth ConfigMap 的补充。AWS Batch 现在可以通过访问条目机制对您的集群进行身份验证，从而简化集群设置和身份验证生命周期管理。 要开始使用，请使用 CreateComputeEnvironment 或 UpdateComputeEnvironment API，在所有面向您的集群的 AWS Batch 计算环境上将 accessEntry.desiredState 设置为“ENABLED”。AWS Batch 会为每个集群创建一个访问条目，并将 AWSBatchClusterPolicy 与之关联。您可以通过 AWS CLI、AWS SDK 或 AWS 管理控制台配置访问条目。 Amazon EKS 上 AWS Batch 的访问条目身份验证现已在提供 AWS Batch 的所有 AWS 区域 推出。有关更多信息，请参阅 AWS Batch 用户指南 中的 Amazon EKS 访问条目身份验证。"
 }
