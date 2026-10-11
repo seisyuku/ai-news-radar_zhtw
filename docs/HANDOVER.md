@@ -6,7 +6,9 @@
 - 新增 `digest_drive_delivery.py`，手動生成入口/workflow可選deliver_drive（預設false）。保存原始MD/meta並下載讀回，native原稿/獨立校稿副本，owner-only目的地及設定字段核對。同mode/issue/base重送讀取既有文件、不改人工副本；不同base停止，不自動换稿。部分保存失敗不宣稱成功，不清除或覆寫。
 - 新增12項必要接線測試，相關28通過，完整 **1042 passed in 5.72s**，編譯及diff check通過。未新增SHA清冊/遠端比對或重測手機語音。本機真API歷史審閱保存成功，原始pair/可讀原稿/副本讀回驗證；本機快照為10/03，對10/12資料不足、選題零則，不宣稱今日有效日報。
 - GitHub登入/儲存庫擁有者seisyuku及push權限確認；已用標準輸入設定GOOGLE_DRIVE_OAUTH_CREDENTIALS及GOOGLE_DRIVE_DIGEST_TARGET Secrets，未輸出值或寫repo。兩個名稱原先不存在，未改其他Secrets。
-- 尚待推送並執行一次明確historical+deliver_drive手動GitHub驗證；沒有新schedule、分享、發布、Cloudflare部署或改來源刷新。OAuth仍Testing，長期使用前需處理7天期限。真run結果在本輪交接補記。
+- 推送完成：先前已授權的合成基礎/依賴與本輪接線分兩個提交；首次push因遠端較新拒絕，正常pull --rebase後重推，未force或做額外SHA核驗。GitHub [手動歷史交付38157491285](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/38157491285) **success**，delivery_verified/pair_verified/rerun_identical均true，historical/review-only、零題；as-of在本期06:00前，不算今日達標。原MD/meta与可讀原稿/校稿由runner保存，實際私人入口只存Downloads。既有 [Offline tests38157457066](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/38157457066) success。
+- 多行credentials Secret的單獨JSON括號被GitHub自動遮罩，污染安全摘要JSON；已將同內容改compact單行保存，沒有變更token/scope或重跑成功交付。既有設定Doc僅更新驗證狀態及已供手動流程讀取的說明，requiredRevisionId写入并讀回；automation false，未改窗口/分享/原稿/校稿。
+- 下一停點：OAuth仍External/Testing，需使用者許可將app publishing status改In production並重新授權，解除固定7天測試期限。正式狀態允許其他Google帳號提出自己資料的授權，不會自動分享本人的Drive；不加scope、不啟排程。沒有新schedule、分享、發布稿件、Cloudflare部署或改來源刷新。下一階段授權例行Sol／High。
 - 本輪檢查點 `/Users/lordmi/Downloads/ai-news-radar-drive-delivery-20261012/`。下一階段例行Sol／High；新的身份/交易範圍裁決再Astra／High。
 
 ## 2026-10-12 iPhone新app校稿驗收與交付契約裁決（已批准，見頂部）

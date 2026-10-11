@@ -2,6 +2,8 @@
 
 更新：2026-10-12。使用者已批准 [簡化交付標準](DIGEST_CLOUD_CONTRACT.md)，不新增交易控制服務。
 
+實測結果：GitHub [38157491285](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/38157491285)手動historical+deliver_drive成功，runner私人保存/readback、pair/rerun核對完成，沒有公開artifact。這是06:00截止前的歷史驗證，0題review-only，不是有效當期日報。現有Offline tests亦成功，無新排程。最新停點為Google授權正式狀態及新授權，不再重問Drive選型或重測iPhone。
+
 ## 操作入口
 
 Actions → **Daily digest generation check** → Run workflow：填明確臺北期別；舊資料補驗勾historical；需要私人保存時勾deliver_drive（預設false）。固定前日06:00～當日06:00，不推測日期、不新增來源刷新或LLM呼叫。
@@ -10,6 +12,8 @@ GitHub Secrets：
 
 - `GOOGLE_DRIVE_OAUTH_CREDENTIALS`：desktop授權產出的私人JSON（client_id/client_secret/refresh_token/scope/token_type）。
 - `GOOGLE_DRIVE_DIGEST_TARGET`：JSON含app有權操作的`folder_id`與`settings_id`。真值只放Secrets與Downloads，不寫repo、公開log或Step Summary。
+
+credentials Secret使用compact單行JSON，避免GitHub把多行Secret中單獨括號也自動遮罩而污染安全摘要；沒有把憑證加入日誌。真正的私人目的地與本機試稿分開，原設定Doc沿用，其狀態已更新為GitHub手動交付驗證完成。
 
 只讀已選定私人設定Doc：schema_version=1、timezone=Asia/Taipei、cutoff=06:00、generation_location=github-actions、automation_enabled=false；其餘只允許mode/trial_status等既有欄位。未知欄位/改窗口/要求其他生成服務拒絕。改設定不是排程啟用指令。
 
