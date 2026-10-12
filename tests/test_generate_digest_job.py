@@ -60,6 +60,7 @@ def test_nonempty_checkout_generation_without_network_or_git(tmp_path, monkeypat
 def test_fresh_zero_news_is_generated_not_claim_of_no_news(tmp_path):
     report = job.generate(DATE, inputs(tmp_path / "input"), tmp_path / "output", clock=lambda: NOW)
     assert report["status"] == "generated" and report["selected_count"] == 0
+    assert report["selection_empty_reason"] == "no_candidates"
     assert not report["delivery_verified"]
 
 

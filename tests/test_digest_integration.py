@@ -38,7 +38,9 @@ def inputs(path, rows=(), *, archive_as_of=AS_OF, health_as_of=AS_OF, cache=None
 
 
 def generate(source, output, *, extra=()):
-    assert cli.main(["--input-dir", str(source), "--output-dir", str(output), "--date", DATE, *extra]) == 0
+    # Preserve the original wire/render contract as an explicit legacy replay.
+    assert cli.main(["--input-dir", str(source), "--output-dir", str(output), "--date", DATE,
+                     "--policy", "existing_daily_brief", *extra]) == 0
     paths = (output / f"digest-{DATE}.md", output / f"digest-{DATE}.meta.json")
     return paths[0].read_text(), cli.verify_digest_pair(*paths)
 

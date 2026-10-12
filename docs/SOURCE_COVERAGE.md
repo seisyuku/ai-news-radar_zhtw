@@ -44,6 +44,16 @@ the publisher supplies one. This text supports the optional short-summary layer;
 the project does not scrape full article bodies for that purpose, and title-only
 items remain ineligible for AI summarization.
 
+Private-digest exception approved on 2026-10-12: selected TechNews items whose
+RSS summaries end in `[…]` may use `scripts/digest_article_excerpts.py` to read
+the publisher article's first complete paragraph. Preparation is limited to
+ten selected items, uses a private URL/version cache, fetches HTML only, and
+does not call an LLM. The captured excerpt is applied without network access
+on replay, with the article URL/method recorded and the original RSS references
+retained. Failed reads fall back to title/link. The daily job prepares these inputs after V2 selection and captures them for
+independent offline replay; the public refresh and feed-summary policy above
+remain unchanged.
+
 OPML RSS/Atom now uses the same feed validity checks as grouped sources:
 HTML/error pages, malformed XML and feeds whose entries all lack usable fields
 fail; valid empty feeds remain healthy. A failed OPML peer does not discard

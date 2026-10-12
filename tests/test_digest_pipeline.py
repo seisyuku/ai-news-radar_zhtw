@@ -127,6 +127,15 @@ def test_same_event_different_sources_merge_but_model_versions_do_not():
     assert next(s for s in result.stories if s["source_count"] == 2)["primary_item"]["id"] == "a"
 
 
+def test_one_group_with_two_publishers_keeps_both_story_references():
+    rows = [row("a", site_id="curated_media", source="Reuters"),
+            row("b", site_id="curated_media", source="The Decoder")]
+    result = build_digest_stories(snapshot(rows), WINDOW)
+    assert len(result.items) == 2 and len(result.stories) == 1
+    assert {ref["source"] for ref in result.stories[0]["sources"]} == {"Reuters", "The Decoder"}
+    assert result.stories[0]["source_count"] == 2
+
+
 def test_archive_permutations_cannot_change_equal_time_story_anchor():
     rows = [row("a", site_id="curated_media", source="Media A"), row("b", site_id="tw_media", source="Media B"), row("c", site_id="opmlrss", source="Media C")]
     results = [build_digest_stories(snapshot(list(order)), WINDOW) for order in permutations(rows)]

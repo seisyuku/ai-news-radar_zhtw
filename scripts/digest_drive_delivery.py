@@ -162,6 +162,12 @@ def read_settings(client, id):
 def native_content(metadata, review_only):
     """Readable native paragraphs and links; identities stay in the raw pair."""
     date = metadata["window"]["date"]
+    compact = metadata.get("pipeline_version") == "daily-digest-v2"
+    if compact:
+        if __package__:
+            from .digest_news_policy import clean_summary, nature
+        else:
+            from digest_news_policy import clean_summary, nature
     window = window_for_date(date)
     title = "AI 新聞日報｜" + date + "｜原稿"
     lines, styles, links = [], [], []
@@ -183,11 +189,24 @@ def native_content(metadata, review_only):
     line("狀態：歷史審閱稿。" if review_only else "狀態：供人工校稿；是否達標另見本次生成結果。")
     line("今日重點", "HEADING_1")
     candidates = metadata.get("candidates", [])
+    if compact:
+        line("共 " + str(len(candidates)) + " 則")
     if not candidates:
         line("本次選題零則。")
     for index, item in enumerate(candidates, 1):
         line(str(index) + ". " + (item.get("title") or item.get("title_original") or "未標示標題"),
              "HEADING_2", item.get("primary_url"))
+        if compact:
+            label = nature(item)
+            if label:
+                line(label)
+            summary = clean_summary(item)
+            if summary:
+                line(summary)
+            source = next((ref for ref in item.get("sources", [])
+                           if ref.get("item_id") == item.get("primary_item_id")), {})
+            line("來源：" + (source.get("source") or "原文"), url=item.get("primary_url"))
+            continue
         label = "出版者摘要（既有快取譯文）：" if item.get("summary_kind") == "publisher_translation" else "出版者摘要："
         line(label + item["summary"] if item.get("summary") else "摘要：目前沒有可用的出版者摘要。")
         for source in item.get("sources", []):

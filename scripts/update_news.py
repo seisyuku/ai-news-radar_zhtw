@@ -6054,7 +6054,7 @@ def suppress_near_duplicate_items(
     window_hours: float = 6.0,
     similarity_threshold: float = 0.9,
 ) -> list[dict[str, Any]]:
-    """Collapse near-identical items from the same site (rewritten syndication,
+    """Collapse near-identical items from the same publisher (rewritten syndication,
     e.g. "推出法案" vs "推出立法") that exact title||url dedup cannot catch.
     Keeps the more authoritative copy (tier, then ai_score, then earliest)."""
 
@@ -6071,12 +6071,17 @@ def suppress_near_duplicate_items(
         ts = event_time(item) or datetime.max.replace(tzinfo=UTC)
         return (-tier_rank, score, -ts.timestamp())
 
-    by_site: dict[str, list[dict[str, Any]]] = {}
+    by_publisher: dict[tuple[str, str], list[dict[str, Any]]] = {}
     for item in items:
-        by_site.setdefault(str(item.get("site_id") or ""), []).append(item)
+        # A site such as curated_media contains multiple publishers. Preserve
+        # their evidence for story merging rather than dropping another outlet.
+        publisher = str(item.get("source") or "").strip().casefold()
+        if not publisher:
+            publisher = urlparse(str(item.get("url") or "")).hostname or ""
+        by_publisher.setdefault((str(item.get("site_id") or ""), publisher), []).append(item)
 
     dropped_ids: set[str] = set()
-    for site_items in by_site.values():
+    for site_items in by_publisher.values():
         ordered = sorted(site_items, key=lambda x: event_time(x) or datetime.min.replace(tzinfo=UTC))
         kept: list[tuple[dict[str, Any], str, set[str], datetime | None]] = []
         for item in ordered:
@@ -6504,6 +6509,40 @@ def select_diverse_stories(
     return picked
 
 
+def brief_selection_diagnostics(
+    stories: list[dict[str, Any]], selected_count: int,
+) -> dict[str, Any]:
+    """Explain an empty selection without claiming source coverage or no news."""
+    eligible_count = sum(story_passes_brief_gate(story) for story in stories)
+    scores, source_counts = [], []
+    for story in stories:
+        try:
+            score = float(story.get("score") or 0)
+            if math.isfinite(score):
+                scores.append(score)
+        except (TypeError, ValueError, OverflowError):
+            pass
+        try:
+            source_counts.append(int(story.get("source_count") or 1))
+        except (TypeError, ValueError, OverflowError):
+            pass
+    return {
+        "candidate_count": len(stories),
+        "eligible_count": eligible_count,
+        "selected_count": selected_count,
+        "below_gate_count": len(stories) - eligible_count,
+        "diversity_or_limit_count": eligible_count - selected_count,
+        "max_score": max(scores, default=None),
+        "max_source_count": max(source_counts, default=None),
+        "score_gate": BRIEF_SCORE_GATE,
+        "empty_reason": (
+            None if selected_count else
+            "no_candidates" if not stories else
+            "below_brief_gate" if not eligible_count else "diversity_or_limit"
+        ),
+    }
+
+
 def build_daily_brief_payload(
     stories: list[dict[str, Any]],
     generated_at: str,
@@ -6517,6 +6556,7 @@ def build_daily_brief_payload(
         "window_hours": window_hours,
         "total_items": len(items),
         "items": items,
+        "selection_diagnostics": brief_selection_diagnostics(stories, len(items)),
     }
 
 
@@ -7044,6 +7084,7 @@ def main() -> int:
             "metrics": {"clock": "monotonic_wall", "phases": phase_metrics,
                         "output_excludes": ["source_status_publication", "resolver_cleanup"]},
             "generated_at": generated_at,
+            "brief_selection": daily_brief_payload["selection_diagnostics"],
             "sites": statuses,
             "successful_sites": sum(1 for s in statuses if s["ok"]),
             "failed_sites": [s["site_id"] for s in statuses if not s["ok"]],
@@ -7149,6 +7190,8 @@ def main() -> int:
     print(f"Wrote: {latest_path} ({len(latest_items)} items)")
     print(f"Wrote: {latest_all_path} ({len(latest_items_all_dedup)} all-mode items)")
     print(f"Wrote: {daily_brief_path} ({daily_brief_payload.get('total_items', 0)} brief items)")
+    brief_diagnostics = daily_brief_payload["selection_diagnostics"]
+    print("Brief selection: " + json.dumps(brief_diagnostics, sort_keys=True, allow_nan=False))
     print(f"Wrote: {stories_merged_path} ({stories_merged_payload.get('total_stories', 0)} stories)")
     print(f"Wrote: {archive_path} ({len(archive)} items)")
     print(f"Wrote: {output_dir / 'items'} ({resolver_count} resolvers)")

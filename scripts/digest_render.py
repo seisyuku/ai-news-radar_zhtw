@@ -12,8 +12,10 @@ from urllib.parse import quote, urlsplit
 
 if __package__:
     from .digest_window import DigestTimeError, TAIPEI, parse_published_at, window_for_date
+    from .digest_news_policy import clean_summary, nature
 else:
     from digest_window import DigestTimeError, TAIPEI, parse_published_at, window_for_date
+    from digest_news_policy import clean_summary, nature
 
 
 class RenderError(ValueError):
@@ -111,7 +113,7 @@ def _notice_lines(health: object) -> list[str]:
     return lines
 
 
-def _candidate_lines(candidate: Mapping[str, object], number: int) -> list[str]:
+def _candidate_lines(candidate: Mapping[str, object], number: int, *, compact=False) -> list[str]:
     title = _text(candidate.get("title")) or _text(candidate.get("title_original"))
     if not title:
         raise RenderError("candidate_missing_title")
@@ -122,6 +124,18 @@ def _candidate_lines(candidate: Mapping[str, object], number: int) -> list[str]:
     kind = candidate.get("summary_kind")
     if summary and kind not in {"publisher", "publisher_translation"}:
         raise RenderError("unsupported_summary_kind")
+    if compact:
+        label = nature(candidate)
+        if label:
+            lines += [_inline(label), ""]
+        summary = clean_summary(candidate)
+        if summary:
+            lines += [_inline(summary), ""]
+        primary_id = candidate.get("primary_item_id")
+        refs = candidate.get("sources") or []
+        source = next((ref for ref in refs if isinstance(ref, Mapping) and ref.get("item_id") == primary_id), {})
+        lines += ["來源：" + _link(source.get("source") or "原文", primary), ""]
+        return lines
     label = "出版者摘要（既有快取譯文）：" if kind == "publisher_translation" else "出版者摘要："
     lines += [label + _inline(summary) if summary else "摘要：目前沒有可用的出版者摘要。", ""]
     date = _date(candidate.get("primary_published_at"))
@@ -147,6 +161,7 @@ def render_digest(document: Mapping[str, object]) -> str:
     if not isinstance(document, Mapping):
         raise RenderError("invalid_document")
     date, interval = _window(document)
+    compact = document.get("pipeline_version") == "daily-digest-v2"
     lines = [f"# AI 新聞日報｜{_inline(date)}", "", f"涵蓋窗口：{interval}"]
     health_lines = _notice_lines(document.get("health"))
     if health_lines:
@@ -154,6 +169,8 @@ def render_digest(document: Mapping[str, object]) -> str:
     candidates = document.get("candidates", [])
     if not isinstance(candidates, Sequence) or isinstance(candidates, (str, bytes)):
         raise RenderError("invalid_candidates")
+    if compact:
+        lines += ["", f"共 {len(candidates)} 則"]
     lines += ["", "## 今日重點", ""]
     if not candidates:
         lines.append("本期沒有符合既有選題條件且可供刊出的新聞。")
@@ -161,10 +178,10 @@ def render_digest(document: Mapping[str, object]) -> str:
         for number, candidate in enumerate(candidates, 1):
             if not isinstance(candidate, Mapping):
                 raise RenderError("invalid_candidate")
-            lines += _candidate_lines(candidate, number)
+            lines += _candidate_lines(candidate, number, compact=compact)
             lines.append("")
     diagnostics = document.get("diagnostics")
-    if isinstance(diagnostics, Sequence) and not isinstance(diagnostics, (str, bytes)):
+    if not compact and isinstance(diagnostics, Sequence) and not isinstance(diagnostics, (str, bytes)):
         safe = [d for d in diagnostics if isinstance(d, Mapping) and isinstance(d.get("code"), str)]
         if safe:
             lines += ["", "## 生成備註", "", "本段僅記錄生成階段的受控診斷，不代表新聞查證結果。"]

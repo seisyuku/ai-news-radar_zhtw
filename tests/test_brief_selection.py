@@ -34,6 +34,22 @@ class TestBriefGate:
         payload = build_daily_brief_payload(weak, generated_at="2026-06-11T12:00:00Z", window_hours=24)
         assert payload["total_items"] == 0
         assert payload["items"] == []
+        info = payload["selection_diagnostics"]
+        assert info["candidate_count"] == info["below_gate_count"] == 8
+        assert info["eligible_count"] == 0
+        assert info["max_score"] == 0.5 and info["max_source_count"] == 1
+        assert info["empty_reason"] == "below_brief_gate"
+
+    def test_empty_input_is_distinct_from_limit_exclusion(self):
+        empty = build_daily_brief_payload([], "fixture", 24)["selection_diagnostics"]
+        assert empty["empty_reason"] == "no_candidates" and empty["max_score"] is None
+        capped = build_daily_brief_payload([make_story(1)], "fixture", 24, max_items=0)
+        assert capped["selection_diagnostics"]["empty_reason"] == "diversity_or_limit"
+        assert capped["selection_diagnostics"]["eligible_count"] == 1
+
+    def test_nonempty_selection_does_not_report_an_empty_reason(self):
+        info = build_daily_brief_payload([make_story(1)], "fixture", 24)["selection_diagnostics"]
+        assert info["empty_reason"] is None and info["selected_count"] == 1
 
 
 class TestClusterSuppression:

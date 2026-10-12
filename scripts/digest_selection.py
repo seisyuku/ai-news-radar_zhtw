@@ -25,7 +25,7 @@ class SelectionError(ValueError):
 class SelectionSettings:
     limit: int
     same_source_penalty: float
-    brief_score_gate: float
+    brief_score_gate: float | None
     policy: str = "existing_daily_brief"
 
 
@@ -49,6 +49,25 @@ def select_digest_candidates(
     belong to selection only; decoded input and pipeline diagnostics stay
     in their own stages. The returned evidence is independently owned.
     """
+    stories, by_id, penalty = validate_selection_inputs(stage, candidates, limit, same_source_penalty)
+
+    # Existing selector sorts score/title stably; seed exact ties by story ID.
+    eligible = [stories[key] for key in sorted(stories) if news.story_passes_brief_gate(stories[key])]
+    selected = news.select_diverse_stories(eligible, limit, same_source_penalty=penalty)
+    output = tuple(deepcopy(by_id[story["story_id"]]) for story in selected)
+    diagnostics = []
+    if len(stories) > len(eligible):
+        diagnostics.append(Diagnostic("below_brief_gate", len(stories) - len(eligible), "digest_selection"))
+    if len(eligible) > len(output):
+        diagnostics.append(Diagnostic("diversity_or_limit", len(eligible) - len(output), "digest_selection"))
+    return DigestSelection(
+        output, len(stories), len(eligible),
+        SelectionSettings(limit, penalty, news.BRIEF_SCORE_GATE), tuple(diagnostics),
+    )
+
+
+def validate_selection_inputs(stage, candidates, limit, same_source_penalty):
+    """Shared structural validation, independent of editorial policy."""
     if isinstance(limit, bool) or not isinstance(limit, int) or limit < 0:
         raise SelectionError("invalid_limit")
     try:
@@ -84,16 +103,4 @@ def select_digest_candidates(
     if set(by_id) != set(stories):
         raise SelectionError("candidate_story_mismatch")
 
-    # Existing selector sorts score/title stably; seed exact ties by story ID.
-    eligible = [stories[key] for key in sorted(stories) if news.story_passes_brief_gate(stories[key])]
-    selected = news.select_diverse_stories(eligible, limit, same_source_penalty=penalty)
-    output = tuple(deepcopy(by_id[story["story_id"]]) for story in selected)
-    diagnostics = []
-    if len(stories) > len(eligible):
-        diagnostics.append(Diagnostic("below_brief_gate", len(stories) - len(eligible), "digest_selection"))
-    if len(eligible) > len(output):
-        diagnostics.append(Diagnostic("diversity_or_limit", len(eligible) - len(output), "digest_selection"))
-    return DigestSelection(
-        output, len(stories), len(eligible),
-        SelectionSettings(limit, penalty, news.BRIEF_SCORE_GATE), tuple(diagnostics),
-    )
+    return stories, by_id, penalty

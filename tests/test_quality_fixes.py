@@ -91,6 +91,30 @@ def make_dup_item(idx: int, title: str, minutes_ago: int, site_id: str = "test_s
 
 
 class TestSuppressNearDuplicateItems:
+    def test_publishers_in_one_site_survive_and_merge_as_evidence(self):
+        from scripts.update_news import merge_story_items
+        a = make_dup_item(1, "OpenAI releases a new Codex cloud agent for teams", 10, site_id="curated_media")
+        b = make_dup_item(2, "OpenAI releases a new Codex cloud agent for teams", 9, site_id="curated_media")
+        a["source"], b["source"] = "Reuters", "The Decoder"
+        kept = suppress_near_duplicate_items([a, b])
+        assert len(kept) == 2
+        now = datetime(2026, 6, 2, 12, tzinfo=timezone.utc)
+        stories = merge_story_items(kept, now, 24)
+        assert len(stories) == 1 and stories[0]["source_count"] == 2
+
+    def test_same_publisher_case_and_whitespace_still_collapse(self):
+        a = make_dup_item(1, "OpenAI releases a new Codex cloud agent for teams", 10)
+        b = make_dup_item(2, "OpenAI releases a new Codex cloud agent for teams", 9)
+        a["source"], b["source"] = " Reuters ", "reuters"
+        assert len(suppress_near_duplicate_items([a, b])) == 1
+
+    def test_unknown_publishers_use_different_hosts(self):
+        a = make_dup_item(1, "OpenAI releases a new Codex cloud agent for teams", 10)
+        b = make_dup_item(2, "OpenAI releases a new Codex cloud agent for teams", 9)
+        a["source"] = b["source"] = ""
+        a["url"], b["url"] = "https://a.example/news", "https://b.example/news"
+        assert len(suppress_near_duplicate_items([a, b])) == 2
+
     def test_rewritten_syndication_collapses(self):
         a = make_dup_item(1, "加拿大推出法案，禁止16岁以下儿童使用社交媒体，并对人工智能聊天机器人进行监管 - Reuters", 10)
         b = make_dup_item(2, "加拿大推出立法，禁止16岁以下儿童使用社交媒体，并对人工智能聊天机器人进行监管 - Reuters", 9)

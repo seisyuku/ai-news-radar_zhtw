@@ -87,7 +87,9 @@ def main(argv=None):
     parser.add_argument("--date", help="Taipei issue date YYYY-MM-DD (default: today)")
     parser.add_argument("--input-dir", type=Path, required=True, help="directory containing archive.json")
     parser.add_argument("--output-dir", type=Path, default=Path.home() / "Downloads" / "ai-news-radar-digests")
-    parser.add_argument("--limit", type=_nonnegative_int, default=20)
+    parser.add_argument("--limit", type=_nonnegative_int, default=None)
+    parser.add_argument("--policy", choices=("daily-news-v2", "existing_daily_brief"), default="daily-news-v2")
+    parser.add_argument("--article-excerpts", type=Path, help="previously captured excerpts; offline replay only")
     parser.add_argument("--same-source-penalty", type=_penalty, default=0.03)
     args = parser.parse_args(argv)
     try:
@@ -102,7 +104,8 @@ def main(argv=None):
             parser.error("output directory must be outside inputs and project data/item")
         snapshot = load_digest_input(args.input_dir)
         document = build_digest_document(snapshot, window, limit=args.limit,
-                                         same_source_penalty=args.same_source_penalty)
+                                         same_source_penalty=args.same_source_penalty, policy=args.policy,
+                                         article_excerpts=json.loads(args.article_excerpts.read_text()) if args.article_excerpts else None)
         write_digest(document, output)
     except Exception:
         # Never replay arbitrary filesystem/payload/provider exception text.

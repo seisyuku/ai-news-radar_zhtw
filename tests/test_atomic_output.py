@@ -194,6 +194,11 @@ def test_successful_main_prunes_both_expired_links_after_all_writes(offline_gene
     assert (root / "item" / ACTIVE_ID / "index.html").exists()
     assert not list(root.rglob("*.tmp"))
     assert json.loads((offline_generation / "archive.json").read_text())["total_items"] == 1
+    brief = json.loads((offline_generation / "daily-brief.json").read_text())
+    status = json.loads((offline_generation / "source-status.json").read_text())
+    assert status["brief_selection"] == brief["selection_diagnostics"]
+    assert brief["selection_diagnostics"]["selected_count"] == brief["total_items"]
+    assert brief["selection_diagnostics"]["eligible_count"] >= brief["total_items"]
 
 
 def test_main_redacts_persistent_non_group_failure_in_all_public_outputs(offline_generation, monkeypatch, capsys):

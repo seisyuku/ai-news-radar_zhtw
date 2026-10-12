@@ -77,6 +77,18 @@ production 接線前必須完成 `OPERATIONS.md` 的 Gemini acceptance gates。
 `story_passes_brief_gate()`、`calculate_item_importance()` 及 `BRIEF_*`
 常數控制。產品原則是「寧缺勿濫」，不可只為填滿版位而降低門檻。
 
+合法空結果的原因記在 `selection_diagnostics`，包括候選數、符合門檻數、
+未達門檻數、最高分與來源數；`empty_reason` 區分 `no_candidates`、
+`below_brief_gate`、`diversity_or_limit`。有入選時為 null。
+`source-status.json.brief_selection` 與 Actions 生成日誌同步同一組診斷。
+零精選不等於沒有新聞，也不代表來源覆蓋完整。
+
+私人日報使用獨立的 `daily-news-v2` 政策：明顯噪音先排除，產業與實用
+消息共同排序，每期最多10則，不設0.72或兩來源硬門檻；不另附人工候選池。
+`--limit`只能縮小第二版題數，不能超過10；公開精選門檻與全域分數不變。
+同來源群組內的不同出版者報導保留供故事合併；同出版者近似轉載仍去重。
+相似度、時間與模型／廠商合併限制維持原設定。
+
 評分公式屬高影響變更；修改前依 repo 規則取得同意並完成所需回測。
 
 ## 本機驗證

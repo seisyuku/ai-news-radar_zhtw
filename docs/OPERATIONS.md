@@ -1,5 +1,21 @@
 # Operations Notes
 
+## 第二版日報與公開精選診斷（2026-10-12）
+
+公開 daily-brief 的 `selection_diagnostics`、來源健康快照 `brief_selection`
+及生成日誌保留候選／入選／排除數、最高分與空結果原因。公開精選的0.72／
+兩來源門檻不變，不能與私人日報政策混為一談。
+
+私人日報預設 `daily-news-v2`：自動選最多10則，不設最低篇數，也不另附
+人工候選池；只用既有標題與出版者摘要，不新增LLM。無摘要則只列標題／連結。
+入選科技新報的截斷摘要可補讀原文第一段一次，捕捉值寫入私人metadata；
+配對核對／重建讀取該值，不能重新抓取。頁面讀取失敗只留標題／連結。
+
+原有06～06期別、主／補試時段、設定啟停、來源時效與原稿／校稿保存規則
+保持。已交付當期仍核對後跳過，不為新政策重送或覆寫。安全生成摘要只輸出
+題數與 `selection_empty_reason` 等受控欄位，不公開稿件或來源網址。
+正式接入狀態與CI結果以HANDOVER最新記錄為準。
+
 ## Daily private digest — enabled with existing heartbeat (2026-10-12)
 
 [每日觸發A](DIGEST_DAILY_TRIGGER_PROPOSAL.md)已獲准並部署；私人設定已true，GitHub workflow active／[CI success](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/38163403768)。本機完整1062測試通過。第一筆真正當期與連續三日觀察仍待上午實際事件，不以歷史稿或夜間skipped補驗。

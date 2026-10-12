@@ -17,12 +17,14 @@ if __package__:
     from .digest_input import load_digest_input
     from .digest_window import TAIPEI, window_for_date
     from .generate_digest import verify_digest_pair, write_digest
+    from .digest_article_excerpts import capture_excerpts
 else:
     from deliver_digest import readiness
     from digest_document import build_digest_document
     from digest_input import load_digest_input
     from digest_window import TAIPEI, window_for_date
     from generate_digest import verify_digest_pair, write_digest
+    from digest_article_excerpts import capture_excerpts
 
 
 def _now(clock):
@@ -33,7 +35,7 @@ def _now(clock):
 
 
 def generate(date, input_dir, output_dir, *, historical=False,
-             clock=lambda: datetime.now(timezone.utc)):
+             clock=lambda: datetime.now(timezone.utc), excerpt_fetcher=None, excerpt_capture=None):
     """Leave one verified pair in a new Downloads directory, or no pair.
 
     Read the checkout once. Rebuild independently from the captured input bytes;
@@ -72,9 +74,22 @@ def generate(date, input_dir, output_dir, *, historical=False,
                     path.write_bytes(raw)
                     path.chmod(0o600)
             document = build_digest_document(snapshot, window)
+            if excerpt_capture is None:
+                captured, _ = capture_excerpts(document["candidates"], base / "article-excerpts-cache.json",
+                                                fetcher=excerpt_fetcher)
+            else:
+                captured = excerpt_capture
+            # Capture once; independently rebuild with the saved supplemental
+            # input, without fetching again during verification.
+            captured_path = scratch / "article-excerpts.json"
+            captured_path.write_text(json.dumps(captured, ensure_ascii=False), encoding="utf-8")
+            if captured["entries"]:
+                document = build_digest_document(snapshot, window, article_excerpts=captured)
             first = write_digest(document, scratch / "first")
             verify_digest_pair(*first)
-            repeated = write_digest(build_digest_document(load_digest_input(source), window), scratch / "repeat")
+            repeated_document = build_digest_document(load_digest_input(source), window,
+                **({"article_excerpts": json.loads(captured_path.read_text())} if captured["entries"] else {}))
+            repeated = write_digest(repeated_document, scratch / "repeat")
             verify_digest_pair(*repeated)
             if [p.read_bytes() for p in first] != [p.read_bytes() for p in repeated]:
                 report["reason"] = "rerun_mismatch"
@@ -94,6 +109,7 @@ def generate(date, input_dir, output_dir, *, historical=False,
                 reason="historical_review" if historical else reason,
                 quality=quality, pair_verified=True, rerun_identical=True,
                 selected_count=document["selection_counts"]["selected_count"], archive_as_of=as_of,
+                selection_empty_reason=document["selection_diagnostics"]["empty_reason"],
                 checked_at=checked.isoformat(),
                 generation_timeliness="historical" if historical else (
                     "on_time" if checked <= deadline else "late"),

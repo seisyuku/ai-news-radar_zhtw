@@ -2,7 +2,7 @@
 
 from collections.abc import Mapping, Sequence
 import math
-from typing import Any, Literal, TypedDict
+from typing import Any, Literal, NotRequired, TypedDict
 
 if __package__:
     from .digest_window import DigestTimeError, parse_published_at
@@ -52,6 +52,8 @@ class EditorialCandidate(TypedDict):
     business_events: list[str]
     reasons: list[str]
     verification: None
+    editorial_selection: NotRequired[dict]
+    summary_origin: NotRequired[dict[str, str]]
 
 
 class CandidateError(ValueError):
