@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v2",
   "entries": {
+    "8469795174a1910b5f96cc849e35bbcbf9771bd124b2f06a9005c253094fa512": {
+      "summary": "SailPoint自2017年推出融入AI與機器學習的解決方案，並針對代理型AI應用於今年陸續推出相關產品，其創辦人強調統一治理的重要性。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-12T07:05:40.985950Z"
+    },
     "fe09abe38c2df4273d06774564ae8fdb47a2f407468f5faa154d8b88416cf935": {
       "summary": "IREN 被報導其神祕 AI 客戶可能是 Anthropic，相關消息曝光後股價飆升。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-09-23T06:05:31.861598Z"
-    },
-    "7497e185337ad52af1d7e62f8f25d28b64c8d5eec0fff9c703d0e83c04702ccf": {
-      "summary": "Shopify 與 Meta 合作，結合 Meta 推出的 AI 助理「Muse」以最佳化消費者線上購物體驗，此消息帶動 Shopify 股價上漲。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-09-23T06:05:31.861598Z"
     }
   },
   "rejections": {
@@ -4299,6 +4299,10 @@
     "9d93a8b14ec80bee16d6f1fcc48233ab7d164c8f95dbd28be8076f5fe6ca10b0": {
       "reason": "validation_length",
       "created_at": "2026-10-12T05:05:31.716057Z"
+    },
+    "0e7f4114008430bd84c9ee3680cc7af9eaff75e8dc9c81b09288294939efc951": {
+      "reason": "insufficient_context",
+      "created_at": "2026-10-12T07:05:40.985950Z"
     }
   }
 }
