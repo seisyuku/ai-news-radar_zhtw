@@ -1,6 +1,15 @@
 # AI News Radar Pulse — 交接摘要（截至 2026-10-12）
 
-## 2026-10-12 每日觸發A已部署啟用；待首筆當期與三日觀察
+## 2026-10-12 當期零則已重現：41個候選均未達brief門檻
+
+- 使用者要求檢查digest-2026-10-12.md。以Drive current原MD/meta及delivery紀錄確認真當期自動稿，[38184951028](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/38184951028)success，臺北07:35:34快照、07:37:37保存，automatic_daily／ready-for-review／on_time，pair及rerun核對通過。第一筆當期技術交付已完成；三日驗收尚未完成，零入選不是內容查證或來源完整覆蓋的證明。
+- 當次archive7979筆：7928窗口外、51窗口內；4非AI、6 reader去重／來源限制，形成41個候選。41個source_count均1，分數0.4694～0.6622。既有story_passes_brief_gate要求source_count>=2或score>=0.72，故below_brief_gate=41、eligible=0、selected=0。8個有business_events，仍不豁免此門檻；官方候選0。日報沿用重點brief選題，不等於候選池無新聞。
+- 為因果重現，取得當次checkout三個輸入，在Downloads離線重建selection_counts／diagnostics／archive_as_of與原meta吻合；不是額外程式／遠端SHA稽核。沒有來源刷新、LLM、降低門檻、重發或改Drive原稿／校稿／設定。未發現本次計算偏離現行規則的bug，不因零則自動放寬已批准的選題政策。
+- 同名舊稿已分辨：本機live-historical是10/3快照、8395窗口外；Drive historical是凌晨00:35快照、33候選全below gate。這兩份均不能代替今天current診斷。
+- 後續[38186793780](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/38186793780)及[38188692036](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/38188692036)實際already_delivered、selected_count0、保留首次saved_at；補試不自行換base或降低門檻。若要把41個未達重點門檻候選提供人工挑選，需另討論候選池／重點層設計，未執行。
+- 私人診斷Downloads `ai-news-radar-zero-news-20261012/`：current／historical原pair、delivery、同次輸入、filter-analysis.json完整41候選、run及later-run報告、REPORT.md／STATUS.json。公開交接只有計數與原因，不含私人稿件標題／IDs。僅更新交接，沒有產品程式變更，不重跑完整套件。內容策略討論Sol／High；後續三日純觀察Sol／Medium。
+
+## 2026-10-12 每日觸發A已部署啟用；首筆證據見上方，三日觀察中
 
 - 使用者選A並確認接受日期固定期別，授權按提案實作／測試／啟用。同步C02頂部：本路線以GitHub上游created_at固定期別、updated_at選07:15～08:15主／08:15～08:45補試，各一次；取代獨立持久intent issuer與歷史三slot要求。沒有新增發行服務、PAT或外部cron設定。
 - 新增digest_daily_job.py，workflow監聽同repo/master正式新聞刷新成功完成，手動date／historical／deliver_drive入口保留，同一concurrency串行。凌晨／過期時段不刷新token或生成；跨日拒絕。設定JSON布林true／false啟停已部署每日入口，不接受任意新規則。
