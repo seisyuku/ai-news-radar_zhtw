@@ -1,6 +1,6 @@
 # AI News Radar Pulse — 交接摘要（截至 2026-10-12）
 
-## 2026-10-12 當期事件辨識正式接入；本機驗收完成
+## 2026-10-12 當期事件辨識已推送GitHub；CI通過
 
 - 使用者已確認同新聞引用、同事件不同談論點不能合併、不同報導需保留，並批准正式接入。
   私人第二版啟用`current-event-v1`：明確引用本期另一篇且主體／談論點相符才去除重複名額，
@@ -17,7 +17,10 @@
   本機完整 **1125 passed in 5.70s**，語法與diff check通過，已檢查暫存source-status。
 - 私人接入檢查點位於Downloads `ai-news-radar-current-events-20261012/INTEGRATION/`，
   包含確認證據、pair、回放、測試與交接。此次不重送或替換已保存日報／人工校稿。
-  GitHub推送／CI由本階段繼續完成；真新期別交付與原三日觀察仍待既有排程。
+  已正常整合排程快照並推送master，沒有force push；
+  [Offline CI38231414511](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/38231414511)success。
+  真新期別交付、runner的RSS新字段保存與原三日觀察仍待既有排程。
+  後續例行驗收沿用GPT-6.1 Sol／Medium。
 
 ## 2026-10-12 第二版日報已推送GitHub；CI通過
 
