@@ -9,10 +9,12 @@ if __package__:
     from . import update_news as news
     from .digest_input import Diagnostic
     from .digest_selection import DigestSelection, SelectionSettings, validate_selection_inputs
+    from .digest_events import VERSION as EVENT_VERSION, different_aspects, group_cited_reports
 else:
     import update_news as news
     from digest_input import Diagnostic
     from digest_selection import DigestSelection, SelectionSettings, validate_selection_inputs
+    from digest_events import VERSION as EVENT_VERSION, different_aspects, group_cited_reports
 
 POLICY = "daily-news-v2"
 
@@ -70,6 +72,8 @@ def classify(candidate):
 
 
 def near_duplicate(a, b):
+    if different_aspects(a, b):
+        return False
     ta, tb = news.normalized_story_title(a), news.normalized_story_title(b)
     if not news.title_is_mergeable(ta) or not news.title_is_mergeable(tb):
         return False
@@ -79,11 +83,16 @@ def near_duplicate(a, b):
     return news.title_similarity(ta, tb) >= .86 and news.story_titles_can_merge(ta, tb)
 
 
-def select_news_candidates(stage, candidates, *, limit=10, same_source_penalty=.03):
+def select_news_candidates(stage, candidates, *, limit=10, same_source_penalty=.03,
+                           event_citations=None):
     stories, by_id, penalty = validate_selection_inputs(stage, candidates, limit, same_source_penalty)
     limit = min(limit, 10)
     decisions = {key: classify(candidate) for key, candidate in by_id.items()}
-    remaining = [stories[key] for key in sorted(stories) if decisions[key].eligible]
+    eligible = [by_id[key] for key in sorted(stories) if decisions[key].eligible]
+    groups = group_cited_reports(eligible, rank_key=lambda key: (
+        -decisions[key].priority, -float(stories[key].get('score') or 0), key),
+        confirmations=event_citations)
+    remaining = [stories[key] for key in groups.representatives]
     eligible_count = len(remaining)
     picked, counts = [], Counter()
     while remaining and len(picked) < limit:
@@ -104,13 +113,20 @@ def select_news_candidates(stage, candidates, *, limit=10, same_source_penalty=.
         decision = decisions[key]
         candidate['editorial_selection'] = {'level': 'Full', 'priority': decision.priority,
                                             'signals': list(decision.signals)}
+        if key in groups.metadata:
+            candidate['event_group'] = deepcopy(groups.metadata[key])
         output.append(candidate)
     rejected = Counter(d.reason for d in decisions.values() if not d.eligible)
     diagnostics = [Diagnostic(code, count, 'digest_selection') for code, count in sorted(rejected.items())]
+    if groups.removed_count:
+        diagnostics.append(Diagnostic('cited_duplicate', groups.removed_count, 'digest_selection'))
     if eligible_count > len(output):
         diagnostics.append(Diagnostic('diversity_or_limit', eligible_count-len(output), 'digest_selection'))
     return DigestSelection(tuple(output), len(stories), eligible_count,
-                           SelectionSettings(limit, penalty, None, POLICY), tuple(diagnostics))
+                           SelectionSettings(limit, penalty, None, POLICY), tuple(diagnostics),
+                           {'policy': EVENT_VERSION, 'eligible_reports': len(eligible),
+                            'selection_units': eligible_count, 'cited_duplicates': groups.removed_count,
+                            'applied_confirmations': groups.confirmation_count})
 
 
 def clean_summary(candidate):

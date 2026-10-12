@@ -29,6 +29,7 @@ class SourceRef(TypedDict):
     summary_original: str | None
     summary_kind: Literal["publisher", "publisher_translation", "none"]
     summary_translation: TranslationRef | None
+    publisher_links: NotRequired[list[str]]
 
 
 class EditorialCandidate(TypedDict):
@@ -54,6 +55,7 @@ class EditorialCandidate(TypedDict):
     verification: None
     editorial_selection: NotRequired[dict]
     summary_origin: NotRequired[dict[str, str]]
+    event_group: NotRequired[dict]
 
 
 class CandidateError(ValueError):
@@ -101,7 +103,7 @@ def _source_ref(row: Mapping[str, Any], cache: Mapping[str, str]) -> SourceRef:
     title, title_translation = _display(title_original, cache)
     summary_original = _publisher_text(row.get("summary"))
     summary, summary_translation = _display(summary_original, cache, "summary::")
-    return {
+    ref = {
         "item_id": _identity(row.get("id")), "title": title, "title_original": title_original,
         "title_translation": title_translation, "url": _text(row.get("url")),
         "source": _text(row.get("source")), "site_id": _text(row.get("site_id")),
@@ -110,6 +112,9 @@ def _source_ref(row: Mapping[str, Any], cache: Mapping[str, str]) -> SourceRef:
         "summary_kind": "publisher_translation" if summary_translation else ("publisher" if summary_original else "none"),
         "summary_translation": summary_translation,
     }
+    if isinstance(row.get("publisher_links"), list):
+        ref["publisher_links"] = [url for url in row["publisher_links"][:24] if isinstance(url, str)]
+    return ref
 
 
 def adapt_story(story: Mapping[str, Any], *, title_cache: Mapping[str, str] | None = None) -> EditorialCandidate:

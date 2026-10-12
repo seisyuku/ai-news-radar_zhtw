@@ -36,6 +36,7 @@ class DigestSelection:
     eligible_count: int
     settings: SelectionSettings
     diagnostics: tuple[Diagnostic, ...]
+    event_analysis: dict | None = None
 
 
 def select_digest_candidates(

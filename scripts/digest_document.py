@@ -11,6 +11,7 @@ if __package__:
     from .digest_selection import select_digest_candidates
     from .digest_news_policy import POLICY, select_news_candidates
     from .digest_article_excerpts import apply_excerpts
+    from .digest_events import confirmed_article_pairs
 else:
     from digest_json import canonical_json, document_identity
     from digest_candidates import adapt_stories
@@ -19,6 +20,7 @@ else:
     from digest_selection import select_digest_candidates
     from digest_news_policy import POLICY, select_news_candidates
     from digest_article_excerpts import apply_excerpts
+    from digest_events import confirmed_article_pairs
 
 
 PIPELINE_VERSION = "daily-digest-v2"
@@ -26,16 +28,20 @@ RENDER_VERSION = "markdown-v4"
 
 
 def build_digest_document(snapshot, window, *, limit=None, same_source_penalty=0.03,
-                          policy=POLICY, article_excerpts=None):
-    stage = build_digest_stories(snapshot, window)
-    candidates = adapt_stories(stage.stories, title_cache=snapshot.title_cache)
+                          policy=POLICY, article_excerpts=None, event_citations=None):
     if policy not in {POLICY, "existing_daily_brief"}:
         raise ValueError("invalid_digest_policy")
     legacy = policy == "existing_daily_brief"
+    if legacy and event_citations is not None:
+        raise ValueError("legacy_digest_has_no_event_citations")
+    stage = build_digest_stories(snapshot, window, protect_event_aspects=not legacy,
+                                 preserve_citations=confirmed_article_pairs(event_citations))
+    candidates = adapt_stories(stage.stories, title_cache=snapshot.title_cache)
     selector = select_digest_candidates if legacy else select_news_candidates
     limit = (20 if legacy else 10) if limit is None else limit
     selection = selector(stage, candidates, limit=limit,
-                                         same_source_penalty=same_source_penalty)
+                         same_source_penalty=same_source_penalty,
+                         **({"event_citations": event_citations} if not legacy else {}))
     document = {
         "schema_version": 1,
         "pipeline_version": "daily-digest-v1" if legacy else PIPELINE_VERSION,
@@ -60,6 +66,9 @@ def build_digest_document(snapshot, window, *, limit=None, same_source_penalty=0
         document["candidates"] = apply_excerpts(document["candidates"], article_excerpts)
         document["article_excerpts"] = deepcopy(article_excerpts)
     if not legacy:
+        document["event_analysis"] = deepcopy(selection.event_analysis)
+        if event_citations is not None:
+            document["event_citations"] = deepcopy(event_citations)
         document["selection_diagnostics"] = {
             "candidate_count": selection.total_candidates,
             "eligible_count": selection.eligible_count,

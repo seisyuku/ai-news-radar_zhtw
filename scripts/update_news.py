@@ -654,6 +654,7 @@ PUBLIC_RAW_META_FIELDS: tuple[str, ...] = (
     "creator_metrics",
     "search_surface",
     "summary",
+    "publisher_links",
     "model_id",
     "model_name",
     "model_vendor",
@@ -1465,8 +1466,8 @@ def parse_group_feed_entries(feed_content: bytes, now: datetime) -> list[dict[st
     return entries
 
 
-def feed_entry_summary(entry: dict[str, Any], max_chars: int = 1600) -> str:
-    """Extract plain publisher-provided RSS/Atom text for safe downstream use."""
+def feed_entry_evidence(entry: dict[str, Any], max_chars: int = 1600) -> dict[str, Any]:
+    """Keep plain publisher text and bounded links from the same RSS parse."""
 
     candidates: list[Any] = [entry.get("summary"), entry.get("description")]
     content = entry.get("content")
@@ -1477,16 +1478,37 @@ def feed_entry_summary(entry: dict[str, Any], max_chars: int = 1600) -> str:
 
     raw = next((str(value) for value in candidates if str(value or "").strip()), "")
     if not raw:
-        return ""
+        return {"summary": ""}
+    links = []
     if re.search(r"<[/!?A-Za-z]", raw):
         soup = BeautifulSoup(raw, "html.parser")
         for unsafe in soup.select("script, style, iframe, object"):
             unsafe.decompose()
+        for anchor in soup.select("a[href]"):
+            link = urljoin(str(entry.get("link") or ""), str(anchor.get("href") or ""))
+            try:
+                parsed = urlparse(link)
+                usable = (parsed.scheme.lower() in {"http", "https"} and parsed.hostname and
+                          not parsed.username and not parsed.password and len(link) <= 2048)
+            except ValueError:
+                usable = False
+            if usable and link not in links:
+                links.append(link)
+                if len(links) == 24:
+                    break
         plain = soup.get_text(" ", strip=True)
     else:
         plain = html.unescape(raw)
     clean = re.sub(r"\s+", " ", plain).strip()
-    return maybe_fix_mojibake(clean[:max_chars].rstrip())
+    evidence = {"summary": maybe_fix_mojibake(clean[:max_chars].rstrip())}
+    if links:
+        evidence["publisher_links"] = links
+    return evidence
+
+
+def feed_entry_summary(entry: dict[str, Any], max_chars: int = 1600) -> str:
+    """Compatibility wrapper for callers needing only the existing plain text."""
+    return feed_entry_evidence(entry, max_chars)["summary"]
 
 
 def make_item_id(site_id: str, source: str, title: str, url: str) -> str:
@@ -1921,7 +1943,8 @@ def fetch_feed_as_source_items(
             haystack = f"{title} {link}".lower()
             if not any(_feed_keyword_matches(keyword, haystack) for keyword in include_keywords):
                 continue
-        summary = feed_entry_summary(entry)
+        evidence = feed_entry_evidence(entry)
+        summary = evidence["summary"]
         if not admitted_feed_entry_allowed(str(feed.get("selection") or ""), title, summary):
             continue
         if published < now - timedelta(days=OFFICIAL_AI_MAX_AGE_DAYS):
@@ -1938,7 +1961,7 @@ def fetch_feed_as_source_items(
                 meta={
                     "feed_url": feed_url,
                     "feed_home": feed.get("html_url") or "",
-                    "summary": summary,
+                    **evidence,
                 },
             )
         )
@@ -2041,7 +2064,7 @@ def parse_curated_ai_media_feed_items(
                     "feed_home": feed.get("html_url") or "",
                     "research_only": bool(feed.get("research_only")),
                     "strict_title_filter": bool(feed.get("strict_title_filter")),
-                    "summary": feed_entry_summary(entry),
+                    **feed_entry_evidence(entry),
                 },
             )
         )
@@ -2225,7 +2248,7 @@ def parse_model_analysis_feed_items(
                     "feed_url": feed_url,
                     "feed_home": feed.get("html_url") or "",
                     "strict_title_filter": bool(feed.get("strict_title_filter")),
-                    "summary": feed_entry_summary(entry),
+                    **feed_entry_evidence(entry),
                 },
             )
         )
@@ -2391,7 +2414,7 @@ def fetch_tw_media_with_status(
                         meta={
                             "feed_url": str(feed["xml_url"]),
                             "feed_home": feed.get("html_url") or "",
-                            "summary": feed_entry_summary(entry),
+                            **feed_entry_evidence(entry),
                         },
                     )
                 )
@@ -2480,7 +2503,7 @@ def fetch_kr36_ai(session: requests.Session, now: datetime) -> list[RawItem]:
                     "feed_url": KR36_AI_FALLBACK_FEED_URL,
                     "feed_home": "https://36kr.com/",
                     "feed_path": "google_news",
-                    "summary": feed_entry_summary(entry),
+                    **feed_entry_evidence(entry),
                 },
             )
         )
@@ -2532,7 +2555,8 @@ def fetch_juya_daily(session: requests.Session, now: datetime) -> list[RawItem]:
             continue
         seen_urls.add(normalized_url)
 
-        summary = feed_entry_summary(entry)
+        evidence = feed_entry_evidence(entry)
+        summary = evidence["summary"]
         # Entry titles from this feed are bare dates ("2026-07-15"); prefix
         # with the digest name so it reads as a headline in the item list.
         title = f"{feed_title} {raw_title}" if raw_title and raw_title not in feed_title else feed_title
@@ -2548,7 +2572,7 @@ def fetch_juya_daily(session: requests.Session, now: datetime) -> list[RawItem]:
                 meta={
                     "feed_url": JUYA_DAILY_FEED_URL,
                     "feed_home": "https://daily.juya.uk/",
-                    "summary": maybe_fix_mojibake(summary),
+                    **evidence,
                 },
             )
         )
@@ -2923,7 +2947,7 @@ def fetch_opml_rss(
                             meta={
                                 "feed_url": feed_url,
                                 "feed_home": feed.get("html_url") or "",
-                                "summary": feed_entry_summary(entry),
+                                **feed_entry_evidence(entry),
                             },
                         )
                     )
@@ -6053,6 +6077,7 @@ def suppress_near_duplicate_items(
     items: list[dict[str, Any]],
     window_hours: float = 6.0,
     similarity_threshold: float = 0.9,
+    *, can_merge_items=None,
 ) -> list[dict[str, Any]]:
     """Collapse near-identical items from the same publisher (rewritten syndication,
     e.g. "推出法案" vs "推出立法") that exact title||url dedup cannot catch.
@@ -6101,7 +6126,9 @@ def suppress_near_duplicate_items(
                 jaccard = len(tokens & other_tokens) / len(tokens | other_tokens)
                 if jaccard < 0.5:
                     continue
-                if title_similarity(title, other_title) >= similarity_threshold and story_titles_can_merge(title, other_title):
+                if (title_similarity(title, other_title) >= similarity_threshold and
+                        story_titles_can_merge(title, other_title) and
+                        (can_merge_items is None or can_merge_items(item, other))):
                     duplicate_of = kept_entry
                     break
             if duplicate_of is None:
@@ -6283,7 +6310,7 @@ def choose_primary_story_item(
 
 
 def story_item_link(item: dict[str, Any]) -> dict[str, Any]:
-    return {
+    ref = {
         "id": item.get("id"),
         "title": item.get("title_bilingual") or item.get("title"),
         "title_zh": item.get("title_zh"),
@@ -6297,6 +6324,9 @@ def story_item_link(item: dict[str, Any]) -> dict[str, Any]:
         "site_id": item.get("site_id"),
         "published_at": item.get("published_at"),
     }
+    if isinstance(item.get("publisher_links"), list):
+        ref["publisher_links"] = item["publisher_links"][:24]
+    return ref
 
 
 def story_reasons(primary: dict[str, Any], score: float, duplicate_count: int) -> list[str]:
@@ -6382,6 +6412,7 @@ def merge_story_items(
     window_hours: int,
     title_window_hours: int = 6,
     title_threshold: float = 0.86,
+    *, can_merge_items=None,
 ) -> list[dict[str, Any]]:
     groups: dict[str, list[dict[str, Any]]] = {}
     group_titles: dict[str, str] = {}
@@ -6405,7 +6436,9 @@ def merge_story_items(
                     if delta_hours > title_window_hours:
                         continue
                 sim = title_similarity(title, candidate_title)
-                if sim >= title_threshold and story_titles_can_merge(title, candidate_title):
+                if (sim >= title_threshold and story_titles_can_merge(title, candidate_title) and
+                        (can_merge_items is None or all(can_merge_items(item, member)
+                                                        for member in groups[candidate_id]))):
                     story_id = candidate_id
                     break
 

@@ -44,6 +44,14 @@ the publisher supplies one. This text supports the optional short-summary layer;
 the project does not scrape full article bodies for that purpose, and title-only
 items remain ineligible for AI summarization.
 
+RSS/Atom evidence also retains up to 24 HTTP(S) anchor URLs as optional
+`publisher_links`, using the same HTML parse and existing feed request. This
+preserves citations that plain-text conversion removes. The field is additive
+in the archive/resolver and private source refs; it does not alter public
+selection, imply independent verification, or fetch linked pages. The private
+daily digest may use an exact link to another eligible in-window article to
+group derivative reports while retaining different foreground aspects.
+
 Private-digest exception approved on 2026-10-12: selected TechNews items whose
 RSS summaries end in `[…]` may use `scripts/digest_article_excerpts.py` to read
 the publisher article's first complete paragraph. Preparation is limited to

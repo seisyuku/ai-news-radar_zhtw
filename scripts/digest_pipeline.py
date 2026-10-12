@@ -14,10 +14,12 @@ if __package__:
     from .digest_input import Diagnostic, DigestInput
     from .digest_window import DigestTimeError, DigestWindow, parse_published_at
     from . import update_news as news
+    from .digest_events import different_aspects, article_cites, url_key
 else:
     from digest_input import Diagnostic, DigestInput
     from digest_window import DigestTimeError, DigestWindow, parse_published_at
     import update_news as news
+    from digest_events import different_aspects, article_cites, url_key
 
 
 @dataclass(frozen=True)
@@ -43,7 +45,8 @@ def _valid_source_url(value: object) -> bool:
         return False
 
 
-def build_digest_stories(snapshot: DigestInput, window: DigestWindow) -> DigestStories:
+def build_digest_stories(snapshot: DigestInput, window: DigestWindow, *, protect_event_aspects=False,
+                         preserve_citations=()) -> DigestStories:
     """Filter source publish timestamps first, then reuse reader AI/story rules.
 
     Never use first/last seen to admit a record; never pull evidence from
@@ -104,14 +107,21 @@ def build_digest_stories(snapshot: DigestInput, window: DigestWindow) -> DigestS
     # Same deterministic reader policy, without translation or random all-mode.
     publisher_dedup = news.dedupe_same_publisher_items(prepared)
     limited = news.apply_reader_source_limits(publisher_dedup)
-    dedup = news.suppress_near_duplicate_items(news.dedupe_items_by_title_url(limited, random_pick=False))
+    pairs = set(preserve_citations)
+    def compatible(a, b):
+        pair = (url_key(a.get("url")), url_key(b.get("url")))
+        return not (different_aspects(a, b) or article_cites(a, b) or article_cites(b, a) or
+                    pair in pairs or pair[::-1] in pairs)
+    guard = compatible if protect_event_aspects else None
+    dedup = news.suppress_near_duplicate_items(news.dedupe_items_by_title_url(limited, random_pick=False),
+                                             can_merge_items=guard)
     items = news.apply_reader_source_limits(dedup)
     removed = len(prepared) - len(items)
     if removed:
         counts["reader_dedup_or_limit"] += removed
     # merge_story_items uses a stable time sort. Seed equal times with IDs.
     items.sort(key=lambda item: (parse_published_at(item["published_at"]), item["id"]))
-    stories = news.merge_story_items(items, now=window.end_utc, window_hours=24)
+    stories = news.merge_story_items(items, now=window.end_utc, window_hours=24, can_merge_items=guard)
     # Retain the existing story ranking; add only a final tie breaker.
     stories.sort(key=lambda story: (
         -float(story.get("score") or 0), str(story.get("latest_at") or ""),

@@ -34,6 +34,7 @@ class ArchiveRecord(TypedDict, total=False):
     first_seen_at: str | None
     last_seen_at: str | None
     summary: str
+    publisher_links: list[str]
     content_language: str
     field_languages: dict[str, str]
     aibase_article_id: str

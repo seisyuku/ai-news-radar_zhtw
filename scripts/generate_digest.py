@@ -90,6 +90,7 @@ def main(argv=None):
     parser.add_argument("--limit", type=_nonnegative_int, default=None)
     parser.add_argument("--policy", choices=("daily-news-v2", "existing_daily_brief"), default="daily-news-v2")
     parser.add_argument("--article-excerpts", type=Path, help="previously captured excerpts; offline replay only")
+    parser.add_argument("--event-citations", type=Path, help="explicit same-news confirmations; optional offline input")
     parser.add_argument("--same-source-penalty", type=_penalty, default=0.03)
     args = parser.parse_args(argv)
     try:
@@ -105,7 +106,8 @@ def main(argv=None):
         snapshot = load_digest_input(args.input_dir)
         document = build_digest_document(snapshot, window, limit=args.limit,
                                          same_source_penalty=args.same_source_penalty, policy=args.policy,
-                                         article_excerpts=json.loads(args.article_excerpts.read_text()) if args.article_excerpts else None)
+                                         article_excerpts=json.loads(args.article_excerpts.read_text()) if args.article_excerpts else None,
+                                         event_citations=json.loads(args.event_citations.read_text()) if args.event_citations else None)
         write_digest(document, output)
     except Exception:
         # Never replay arbitrary filesystem/payload/provider exception text.
