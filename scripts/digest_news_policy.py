@@ -118,14 +118,18 @@ def select_news_candidates(stage, candidates, *, limit=10, same_source_penalty=.
         output.append(candidate)
     rejected = Counter(d.reason for d in decisions.values() if not d.eligible)
     diagnostics = [Diagnostic(code, count, 'digest_selection') for code, count in sorted(rejected.items())]
-    if groups.removed_count:
-        diagnostics.append(Diagnostic('cited_duplicate', groups.removed_count, 'digest_selection'))
+    if groups.removed_count - groups.content_removed_count:
+        diagnostics.append(Diagnostic('cited_duplicate', groups.removed_count - groups.content_removed_count, 'digest_selection'))
+    if groups.content_removed_count:
+        diagnostics.append(Diagnostic('content_duplicate', groups.content_removed_count, 'digest_selection'))
     if eligible_count > len(output):
         diagnostics.append(Diagnostic('diversity_or_limit', eligible_count-len(output), 'digest_selection'))
     return DigestSelection(tuple(output), len(stories), eligible_count,
                            SelectionSettings(limit, penalty, None, POLICY), tuple(diagnostics),
                            {'policy': EVENT_VERSION, 'eligible_reports': len(eligible),
-                            'selection_units': eligible_count, 'cited_duplicates': groups.removed_count,
+                            'selection_units': eligible_count,
+                            'cited_duplicates': groups.removed_count - groups.content_removed_count,
+                            'content_duplicates': groups.content_removed_count,
                             'applied_confirmations': groups.confirmation_count})
 
 

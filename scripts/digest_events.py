@@ -1,8 +1,8 @@
 """Same-window citation grouping for the private digest; no I/O or providers.
 
 Sharing an event, company or product is not sufficient to suppress a report.
-Only an explicit article citation or a supplied same-news confirmation may
-remove a slot. Different foreground aspects retain separate slots.
+Explicit citations and overlapping same-publisher product reports may remove
+a slot. Different foreground aspects retain separate slots.
 """
 
 from copy import deepcopy
@@ -11,7 +11,7 @@ import html
 import re
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
-VERSION = "current-event-v1"
+VERSION = "current-event-v2"
 _LINK = re.compile(r"https?://[^\s<>\"\[\]]+", re.I)
 _ASPECTS = {
     "api-key-use": r"\bAPI keys?\b|API\s*金鑰|API\s*金钥",
@@ -21,7 +21,7 @@ _ASPECTS = {
     "software-jobs": r"\bsoftware (?:developer|engineer).*job|軟體.{0,8}職缺",
     "tech-jobs": r"\btech(?:nology)? (?:jobs|job openings)|科技業.{0,8}職缺",
     "pricing": r"\b(?:price cut|cuts? prices?|reduces? prices?|price increase)\b|降價|調漲",
-    "release": r"\b(?:releases?|released|launch(?:es|ed|ing)?|ships?)\b|發布|发布|推出|釋出",
+    "release": r"\b(?:releases?|released|launch(?:es|ed|ing)?|ships?)\b|發布|发布|推出|釋出|上線|上线",
     "response": r"\b(?:responds?|denies?|investigation)\b|回應|回应|否認|調查",
 }
 _ROUNDUP = re.compile(r"\b(?:news roundup|daily digest|weekly roundup)\b|早報|早报|新聞彙整|一週回顧", re.I)
@@ -107,12 +107,50 @@ def confirmed_article_pairs(confirmations):
     return pairs
 
 
+def _content_features(candidate):
+    """Cheap recall from original material, without translations or providers."""
+    title = heading(candidate)
+    body = str(candidate.get("summary_original") or "")
+    body = re.split(r"\bThe (?:article|post)\b", body, maxsplit=1, flags=re.I)[0]
+    compact = re.sub(r"[^a-z0-9\u4e00-\u9fff]", "", body.casefold())
+    if len(compact) < 80:
+        return None
+    primary = next((r for r in candidate.get("sources", [])
+                    if r.get("item_id") == candidate.get("primary_item_id")), {})
+    publisher = str(primary.get("source") or "").strip().casefold()
+    if not publisher:
+        return None
+    names = set()
+    normalized_title = re.sub(r"\s+", "", title.casefold())
+    for name in re.findall(r'[“「『"‘]([^”」』"’]{2,32})[”」』"’]', title + "\n" + body):
+        name = re.sub(r"\s+", "", name.casefold())
+        # AI + a Chinese product name is an optional descriptive prefix.
+        if re.fullmatch(r"ai[\u4e00-\u9fff]{2,}", name):
+            name = name[2:]
+        if (re.fullmatch(r"[a-z0-9\u4e00-\u9fff.-]{2,32}", name) and name in normalized_title and
+                name not in {"ai", "model", "models", "agent", "人工智能", "人工智慧", "ai代理", "ai助手", "模型"}):
+            names.add(name)
+    if not names or not aspect_keys(candidate):
+        return None
+    return publisher, names, {compact[i:i+2] for i in range(len(compact)-1)}
+
+
+def _same_content(a, b, left, right):
+    if (left is None or right is None or left[0] != right[0] or not left[1] & right[1] or
+            aspect_keys(a) != aspect_keys(b) or different_aspects(a, b) or
+            _ROUNDUP.search(heading(a)) or _ROUNDUP.search(heading(b))):
+        return False
+    shared = len(left[2] & right[2])
+    return shared >= 30 and shared / min(len(left[2]), len(right[2])) >= .45
+
+
 @dataclass(frozen=True)
 class EventGroups:
     representatives: tuple[str, ...]
     metadata: dict
     removed_count: int
     confirmation_count: int
+    content_removed_count: int = 0
 
 
 def group_cited_reports(candidates, *, rank_key, confirmations=None):
@@ -122,6 +160,8 @@ def group_cited_reports(candidates, *, rank_key, confirmations=None):
     never data-specific rules or a cross-day event store. Stale URLs do nothing.
     A reference alone can be background: automatic citations additionally need
     the same explicit foreground aspect and overlapping headline tokens.
+    Content matching requires a shared publisher, quoted product in both
+    headlines, matching foreground aspects and substantial publisher summary.
     """
     rows = {c["story_id"]: c for c in candidates}
     keys = {key: _article_keys(c) for key, c in rows.items()}
@@ -166,6 +206,15 @@ def group_cited_reports(candidates, *, rank_key, confirmations=None):
                     ((len(common) >= 3 and len(common) / max(1, len(left | right)) >= .25) or
                      bool(models_a & models_b))):
                 links.setdefault((a, b), "publisher-article-link")
+    features = {sid: _content_features(candidate) for sid, candidate in rows.items()}
+    ordered_ids = sorted(rows)
+    for index, a in enumerate(ordered_ids):
+        if features[a] is None:
+            continue
+        for b in ordered_ids[index+1:]:
+            if ((a, b) not in links and (b, a) not in links and
+                    _same_content(rows[a], rows[b], features[a], features[b])):
+                links[(a, b)] = "same-publisher-content"
     groups = []
     for sid in sorted(rows):
         if _ROUNDUP.search(heading(rows[sid])):
@@ -177,22 +226,27 @@ def group_cited_reports(candidates, *, rank_key, confirmations=None):
                 break
         else:
             groups.append([sid])
-    representatives, metadata = [], {}
+    representatives, metadata, content_removed = [], {}, 0
     for group in groups:
-        # Prefer the cited original to its derivative, even if the latter has
-        # a higher existing importance score. Cycles use deterministic ranking.
-        roots = [sid for sid in group if not any((sid, other) in links for other in group)]
-        chosen = min(roots or group, key=lambda sid: rank_key(sid))
+        # Keep the higher existing editorial rank; never boost a score because
+        # another report repeats the same news. IDs break exact ranking ties.
+        chosen = min(group, key=lambda sid: rank_key(sid))
         representatives.append(chosen)
         if len(group) > 1:
             metadata[chosen] = {
                 "policy": VERSION, "representative_story_id": chosen,
                 "citations": [{"citing_story_id": a, "cited_story_id": b, "basis": basis}
-                              for (a, b), basis in sorted(links.items()) if a in group and b in group],
+                              for (a, b), basis in sorted(links.items())
+                              if a in group and b in group and basis != "same-publisher-content"],
+                "content_duplicates": [{"story_ids": [a, b], "basis": basis}
+                                       for (a, b), basis in sorted(links.items())
+                                       if a in group and b in group and basis == "same-publisher-content"],
                 "related_reports": [deepcopy(rows[sid]) for sid in sorted(group) if sid != chosen],
             }
-            # Counts/scores/source refs of the original stay unchanged. Derivative
-            # reports are retained separately, never promoted to independent proof.
+            content_removed += sum((links.get((sid, chosen)) or links.get((chosen, sid))) == "same-publisher-content"
+                                   for sid in group if sid != chosen)
+            # Counts/scores/source refs of the representative stay unchanged.
+            # Other reports stay separate, never promoted to independent proof.
     return EventGroups(tuple(representatives), metadata, len(rows) - len(groups),
                        sum(citation["basis"] == "user-confirmed-same-news"
-                           for group in metadata.values() for citation in group["citations"]))
+                           for group in metadata.values() for citation in group["citations"]), content_removed)
