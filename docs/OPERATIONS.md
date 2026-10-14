@@ -23,6 +23,11 @@
 題數與 `selection_empty_reason` 等受控欄位，不公開稿件或來源網址。
 正式接入狀態與CI結果以HANDOVER最新記錄為準。
 
+2026-10-14起新Drive期別按`ChatGPT / AI日報草稿 / 日期 / 當期稿件`保存，
+同日期下另放`執行紀錄`或明確手動驗證的`歷史試稿`；設定Doc直接在AI日報草稿內。
+固定目的地／設定ID不變，未重設Secrets或授權；舊平列期別仍可續接。
+10月15日自然排程驗收新階層，既有06～06、主／補試及選題不改。
+
 ## Daily private digest — enabled with existing heartbeat (2026-10-12)
 
 [每日觸發A](DIGEST_DAILY_TRIGGER_PROPOSAL.md)已獲准並部署；私人設定已true，GitHub workflow active／[CI success](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/38163403768)。本機完整1062測試通過。第一筆真正當期與連續三日觀察仍待上午實際事件，不以歷史稿或夜間skipped補驗。

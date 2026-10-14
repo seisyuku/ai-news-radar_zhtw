@@ -130,7 +130,8 @@ def test_legacy_saved_delivery_survives_new_policy_without_regeneration(tmp_path
     first = daily.run_daily(daily.trigger_plan(event(), PRIMARY), client, TARGET, input_dir,
                             tmp_path / "out", clock=lambda:PRIMARY, generator=legacy_generator)
     assert first["delivery_verified"]
-    folder = client.find("root", DATE + "｜current")
+    from scripts import digest_drive_delivery as drive
+    folder = drive.issue_location(client, "root", DATE, "current")[2]
     receipt = json.loads(client.download(client.find(folder["id"], "delivery.json")["id"]))
     client.docs[receipt["file_ids"]["review"]] = "人工校稿必須保留"
     writes = deepcopy(client.writes)

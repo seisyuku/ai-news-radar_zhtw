@@ -93,7 +93,10 @@ def test_first_delivery_recorded_duplicate_skips_changed_inputs_and_keeps_human_
     report = daily.run_daily(daily.trigger_plan(event(), PRIMARY), client, TARGET, source(tmp_path),
                              tmp_path / "out", clock=lambda: PRIMARY)
     assert report["status"] == "generated" and report["delivery_verified"]
-    folder = client.find("root", DATE + "｜current")
+    folder = drive.issue_location(client, "root", DATE, "current")[2]
+    day = client.find("root", DATE)
+    assert folder["parents"] == [day["id"]]
+    assert client.find(day["id"], "執行紀錄")
     saved = json.loads(client.download(client.find(folder["id"], "delivery.json")["id"]))
     client.docs[saved["file_ids"]["review"]] = "人工口述校稿已保存"
     writes = deepcopy(client.writes)
@@ -113,13 +116,45 @@ def test_first_delivery_recorded_duplicate_skips_changed_inputs_and_keeps_human_
     assert client.writes == writes and "PRIVATE" not in json.dumps(rejected)
 
 
+def test_existing_flat_delivery_skips_generation_and_preserves_review(tmp_path):
+    client = enabled()
+    first = daily.run_daily(daily.trigger_plan(event(), PRIMARY), client, TARGET, source(tmp_path),
+                            tmp_path / "out", clock=lambda: PRIMARY)
+    day = client.find("root", DATE)
+    for mode in ("current", "automation"):
+        folder = drive.issue_location(client, "root", DATE, mode)[2]
+        client.files[folder["id"]].update(parents=["root"], name=DATE + "｜" + mode)
+    del client.files[day["id"]]
+    writes = list(client.writes)
+    def forbidden(*args, **kwargs):
+        pytest.fail("old delivery must not be regenerated")
+    result = daily.run_daily(daily.trigger_plan(event(BACKUP), BACKUP), client, TARGET,
+                            tmp_path / "missing-input", tmp_path / "backup", clock=lambda: BACKUP,
+                            generator=forbidden)
+    assert result["reason"] == "already_delivered" and result["delivery_verified"]
+    assert result["storage_saved_at"] == first["storage_saved_at"]
+    assert client.writes == writes and not client.find("root", DATE)
+
+
+def test_existing_flat_attempt_marker_prevents_second_primary_generation(tmp_path):
+    client = enabled()
+    control = client.new("old-control", DATE + "｜automation", drive.FOLDER_MIME, "root")
+    client.new("marker", "primary-attempt.json", "application/json", control["id"])
+    def forbidden(*args, **kwargs):
+        pytest.fail("recorded primary attempt must not be repeated")
+    result = daily.run_daily(daily.trigger_plan(event(), PRIMARY), client, TARGET,
+                            tmp_path, tmp_path / "out", clock=lambda: PRIMARY, generator=forbidden)
+    assert result["reason"] == "attempt_already_recorded"
+    assert not client.writes and not client.find("root", DATE)
+
+
 def test_stale_snapshot_does_not_deliver_and_each_slot_runs_once(tmp_path):
     client = enabled()
     input_dir = inputs(tmp_path / "input", as_of="2026-10-09T22:00:00Z")
     plan = daily.trigger_plan(event(), PRIMARY)
     report = daily.run_daily(plan, client, TARGET, input_dir, tmp_path / "out", clock=lambda: PRIMARY)
     assert report["reason"] == "archive_stale" and not report["delivery_verified"]
-    assert not client.find("root", DATE + "｜current")
+    assert not drive.issue_location(client, "root", DATE, "current")[2]
     again = daily.run_daily(plan, client, TARGET, input_dir, tmp_path / "again", clock=lambda: PRIMARY)
     assert again["reason"] == "attempt_already_recorded" and not (tmp_path / "again").exists()
     (input_dir / "archive.json").write_text(json.dumps({"generated_at": "2026-10-10T00:30:00Z", "items": []}))
@@ -136,7 +171,7 @@ def test_partial_save_stops_backup_without_replacing_base(tmp_path):
     client.write_document = interrupted
     daily.run_daily(daily.trigger_plan(event(), PRIMARY), client, TARGET, source(tmp_path),
                     tmp_path / "out", clock=lambda: PRIMARY)
-    folder = client.find("root", DATE + "｜current")
+    folder = drive.issue_location(client, "root", DATE, "current")[2]
     assert folder and not client.find(folder["id"], "delivery.json")
     writes = deepcopy(client.writes)
     client.write_document = original
@@ -153,7 +188,7 @@ def test_date_rollover_after_generation_never_starts_private_issue(tmp_path):
         return {"status": "generated", "pair_verified": True, "rerun_identical": True}
     result = daily.run_daily(daily.trigger_plan(event(), PRIMARY), client, TARGET, tmp_path,
                              tmp_path / "out", clock=lambda: next(times), generator=generator)
-    assert result["status"] == "missed_issue" and not client.find("root", DATE + "｜current")
+    assert result["status"] == "missed_issue" and not drive.issue_location(client, "root", DATE, "current")[2]
 
 
 def test_unknown_exception_not_in_public_report(tmp_path):

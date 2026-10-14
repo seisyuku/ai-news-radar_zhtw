@@ -132,16 +132,16 @@ def run_daily(plan, client, target, input_dir, output_dir, *, clock=None, genera
         if not drive.read_settings(client, target["settings_id"])["automation_enabled"]:
             report["reason"] = "automation_disabled"
             return report
-        folder = client.find(parent, date + "｜current")
+        _, _, folder = drive.issue_location(client, parent, date, "current")
         if folder:
-            drive.private(client.metadata(folder["id"]), parent, drive.FOLDER_MIME)
             verified = existing_delivery(client, folder, date, now)
             report.update(verified, reason="already_delivered")
             return report
-        control = client.find(parent, date + "｜automation")
+        control_parent, control_name, control = drive.issue_location(
+            client, parent, date, "automation", create_parent=True)
         if control is None:
-            control = client.create(parent, date + "｜automation", drive.FOLDER_MIME)
-        drive.private(client.metadata(control["id"]), parent, drive.FOLDER_MIME)
+            control = client.create(control_parent, control_name, drive.FOLDER_MIME)
+        drive.private(client.metadata(control["id"]), control_parent, drive.FOLDER_MIME)
         marker_name = slot + "-attempt.json"
         if client.find(control["id"], marker_name):
             report["reason"] = "attempt_already_recorded"
@@ -167,7 +167,7 @@ def run_daily(plan, client, target, input_dir, output_dir, *, clock=None, genera
         report.update(delivery_verified=True, storage_saved_at=delivered["saved_at"],
                       storage_quality=delivered["storage_quality"], storage_reason=delivered["storage_reason"],
                       storage_timeliness=delivered["storage_timeliness"])
-        folder = client.find(parent, date + "｜current")
+        _, _, folder = drive.issue_location(client, parent, date, "current")
         receipt = {"schema_version": 1, "date": date, "base": json.loads(meta)["input_identity"],
                    "saved_at": delivered["saved_at"], "storage_quality": delivered["storage_quality"],
                    "file_ids": delivered["file_ids"]}

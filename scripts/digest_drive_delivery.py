@@ -28,6 +28,7 @@ DOC_MIME = "application/vnd.google-apps.document"
 FOLDER_MIME = "application/vnd.google-apps.folder"
 FILE_FIELDS = "id,name,mimeType,parents,webViewLink,shared,owners(me),permissions(type,role),appProperties"
 ID = re.compile(r"[A-Za-z0-9_-]{1,200}\Z")
+ISSUE_FOLDERS = {"current": "當期稿件", "historical": "歷史試稿", "automation": "執行紀錄"}
 
 
 class DriveDeliveryError(ValueError):
@@ -136,6 +137,26 @@ def private(file, parent=None, mime=None):
         raise DriveDeliveryError("private_destination_required")
 
 
+def issue_location(client, root, date, mode, *, create_parent=False):
+    """Use root/date/role for new issues; resume existing flat issue folders."""
+    window_for_date(date)
+    name = ISSUE_FOLDERS[mode]
+    legacy = client.find(root, date + "｜" + mode)
+    if legacy:
+        private(client.metadata(legacy["id"]), root, FOLDER_MIME)
+        return root, legacy["name"], legacy
+    day = client.find(root, date)
+    if day is None and create_parent:
+        day = client.create(root, date, FOLDER_MIME)
+    if day is None:
+        return None, name, None
+    private(client.metadata(day["id"]), root, FOLDER_MIME)
+    folder = client.find(day["id"], name)
+    if folder:
+        private(client.metadata(folder["id"]), day["id"], FOLDER_MIME)
+    return day["id"], name, folder
+
+
 def document_text(document):
     return "".join(e.get("textRun", {}).get("content", "")
                    for item in document.get("body", {}).get("content", [])
@@ -241,16 +262,14 @@ def deliver_pair(client, target, markdown, metadata_bytes, *, historical=False,
     private(settings, mime=DOC_MIME)
     read_settings(client, settings_id)
     mode = "historical" if historical else "current"
-    name = date + "｜" + mode
-    folder = client.find(folder_id, name)
+    issue_parent, name, folder = issue_location(client, folder_id, date, mode, create_parent=True)
     base = metadata["input_identity"]
     if folder:
-        private(client.metadata(folder["id"]), folder_id, FOLDER_MIME)
         if folder.get("appProperties", {}).get("digest_base") != base:
             raise DriveDeliveryError("existing_issue_conflict")
     else:
-        folder = client.create(folder_id, name, FOLDER_MIME, base=base)
-        private(client.metadata(folder["id"]), folder_id, FOLDER_MIME)
+        folder = client.create(issue_parent, name, FOLDER_MIME, base=base)
+        private(client.metadata(folder["id"]), issue_parent, FOLDER_MIME)
     parent = folder["id"]
     md_file, read_md = retain(client, parent, "digest-" + date + ".md", "text/markdown", markdown)
     meta_file, read_meta = retain(client, parent, "digest-" + date + ".meta.json", "application/json", metadata_bytes)

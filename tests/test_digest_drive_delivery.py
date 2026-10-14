@@ -90,6 +90,10 @@ def test_real_pair_preserved_native_original_review_and_repeat_keeps_human_edit(
     assert result["delivery_verified"]
     assert result["storage_quality"] == "ready-for-review" and result["storage_timeliness"] == "on_time"
     ids = result["file_ids"]
+    day = client.find("root", DATE)
+    issue = client.find(day["id"], "當期稿件")
+    assert all(client.files[id]["parents"] == [issue["id"]] for id in ids.values())
+    assert not client.find("root", DATE + "｜current")
     assert client.bytes[ids["markdown"]] == raw[0] and client.bytes[ids["metadata"]] == raw[1]
     assert "原稿" in client.docs[ids["original"]] and "校稿副本" in client.docs[ids["review"]]
     assert "digest-identity" not in client.docs[ids["original"]]
@@ -139,7 +143,7 @@ def test_changed_original_never_overwritten_and_partial_pair_resumes(tmp_path):
 def test_different_base_and_date_crossing_do_not_replace_previous(tmp_path):
     client, raw = MemoryDrive(), pair(tmp_path)
     result = drive.deliver_pair(client, TARGET, *raw, clock=lambda: NOW)
-    folder = next(f for f in client.files.values() if f["mimeType"] == drive.FOLDER_MIME and f["id"] != "root")
+    folder = client.files[drive.issue_location(client, "root", DATE, "current")[2]["id"]]
     folder["appProperties"]["digest_base"] = "other-base"
     writes = list(client.writes)
     with pytest.raises(drive.DriveDeliveryError, match="existing_issue_conflict"):
@@ -150,6 +154,38 @@ def test_different_base_and_date_crossing_do_not_replace_previous(tmp_path):
     with pytest.raises(drive.DriveDeliveryError, match="missed_issue"):
         drive.deliver_pair(client, TARGET, *raw, clock=lambda: next(times))
     assert client.bytes[result["file_ids"]["markdown"]] == raw[0]
+
+
+def test_existing_flat_issue_resumes_without_creating_another_issue(tmp_path):
+    client, raw = MemoryDrive(), pair(tmp_path)
+    old = client.new("old-issue", DATE + "｜current", drive.FOLDER_MIME,
+                     "root", json.loads(raw[1])["input_identity"])
+    result = drive.deliver_pair(client, TARGET, *raw, clock=lambda: NOW)
+    assert not client.find("root", DATE)
+    assert all(client.files[id]["parents"] == [old["id"]] for id in result["file_ids"].values())
+    client.docs[result["file_ids"]["review"]] = "已口述校稿"
+    writes = list(client.writes)
+    assert drive.deliver_pair(client, TARGET, *raw, clock=lambda: NOW)["file_ids"] == result["file_ids"]
+    assert client.writes == writes and client.docs[result["file_ids"]["review"]] == "已口述校稿"
+
+
+def test_current_and_historical_share_date_parent_without_replacing_each_other(tmp_path):
+    client, raw = MemoryDrive(), pair(tmp_path)
+    current = drive.deliver_pair(client, TARGET, *raw, clock=lambda: NOW)
+    historical = drive.deliver_pair(client, TARGET, *raw, historical=True, clock=lambda: NOW)
+    day = client.find("root", DATE)
+    assert client.find(day["id"], "當期稿件") and client.find(day["id"], "歷史試稿")
+    assert not set(current["file_ids"].values()) & set(historical["file_ids"].values())
+    assert sum(f["parents"] == ["root"] and f["name"] == DATE for f in client.files.values()) == 1
+
+
+def test_shared_date_folder_is_rejected_before_draft_creation(tmp_path):
+    client, raw = MemoryDrive(), pair(tmp_path)
+    client.new("date", DATE, drive.FOLDER_MIME, "root")
+    client.files["date"]["shared"] = True
+    with pytest.raises(drive.DriveDeliveryError, match="private_destination_required"):
+        drive.deliver_pair(client, TARGET, *raw, clock=lambda: NOW)
+    assert not client.writes
 
 
 @pytest.mark.parametrize("patch", [{"cutoff": "03:00"}, {"timezone": "UTC"},
