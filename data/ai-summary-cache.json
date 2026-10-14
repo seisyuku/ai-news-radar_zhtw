@@ -2,6 +2,18 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v2",
   "entries": {
+    "28ec84a71d0e001c1ab60d9828d61a50f08fdc7ba666903551541fb5bf1a7280": {
+      "summary": "谷歌週二宣佈旗艦AI模型Argon向全球開發者開放，此前僅透過Fairwind計劃提供測試。該模型現可透過Google AI Studio API及Gemini App訂閱使用，定價資訊尚未完整披露。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-14T01:35:39.253653Z"
+    },
+    "f870678d38d1e2ef6ca4ce911390eb37ea453dc44987c680cff8367fdd35eec2": {
+      "summary": "輝達執行長黃仁勳表示，將收購法國醫療網站 Doctolib 的少數股權，並擬用 AI 改善服務。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-14T01:35:39.253653Z"
+    },
     "b380df32bde62fa30363b939d88a4e388def9459c4f37cbb0889f8c622f5f6a4": {
       "summary": "美國陪伴式AI聊天機器人平臺Character.AI聲請破產保護，迪士尼擬收購其部分資產。",
       "provider": "groq",
@@ -2989,18 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-09-25T06:05:33.413840Z"
-    },
-    "51491c96d97b4dac4a0f1d938aa3fedbab6c0313cf0ae3f1b10318cbb2c84586": {
-      "summary": "Google產品安全團隊開發的AI代理PageBreak，已在其第一方Web應用程式中找出超過500個XSS漏洞。該工具透過驗證機制執行實際酬載，Google表示此機制使誤判率接近零。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-09-25T03:35:30.074040Z"
-    },
-    "94af7763c820f2410755f185035e3addb12c33a03a99cbdaeebf5c003362b4b8": {
-      "summary": "TestingCatalog 報導 OpenAI 正探索推出 Pro Max 方案，以對較長的 ChatGPT 任務標定價格；該公司於 9 月 29 日 DevDay 前的定價頁面尚未列出此方案。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-09-24T21:35:29.346452Z"
     }
   },
   "rejections": {
@@ -4328,10 +4328,6 @@
       "reason": "insufficient_context",
       "created_at": "2026-10-13T19:05:36.492430Z"
     },
-    "e7ab4adadb8a43c54f6a43f4d85487e233755fec9b91b922c0ad8caf965ee64a": {
-      "reason": "validation_length",
-      "created_at": "2026-10-13T19:35:34.536426Z"
-    },
     "d1d852b319d514cf8ac99bd3f09c8e326321007d5f5dd80c64fea3117112e0af": {
       "reason": "validation_length",
       "created_at": "2026-10-13T23:52:53.654056Z"
@@ -4351,6 +4347,10 @@
     "425f818347bc6dd09470adb420bb19b8304161253a10576b5da7048e4ef4336f": {
       "reason": "validation_length",
       "created_at": "2026-10-14T01:05:33.367658Z"
+    },
+    "e7ab4adadb8a43c54f6a43f4d85487e233755fec9b91b922c0ad8caf965ee64a": {
+      "reason": "validation_length",
+      "created_at": "2026-10-14T01:35:39.253653Z"
     }
   }
 }
