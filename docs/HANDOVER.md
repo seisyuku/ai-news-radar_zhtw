@@ -1,6 +1,6 @@
 # AI News Radar Pulse — 交接摘要（截至 2026-10-14）
 
-## 2026-10-14 Drive目錄整理完成；新期別按日期分層
+## 2026-10-14 Drive目錄整理與接入完成；GitHub CI通過
 
 - 使用者明確批准清除截至今天所有舊草稿與紀錄，保留有效設定。10/10舊ChatGPT
   試用根目錄及三份合成文件已刪除；正式根目錄內已看過的測試／10/11～10/14稿件與
@@ -16,7 +16,9 @@
 - 37項針對測試通過；全套 **1140 passed in 6.41s**。語法與diff check提交前完成。
   本輪舊測試尋址假設已更新；保留舊平列交付與attempt的續接回歸案例。
   私人清理清單與交接在Downloads `ai-news-radar-drive-structure-20261014/`，不含憑證。
-  待正常推送與GitHub Offline tests；10/15首次自然交付才驗新階層，未提早生成或重送今日稿。
+  已正常整合排程快照並推送master；
+  [Offline tests38501548957](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/38501548957)成功。
+  10/15首次自然交付才驗新階層，未提早生成或重送今日稿。
 - 下一階段例行驗收建議 **GPT-6.1 Sol（gpt-6.1-sol）／Medium**；模型版本需完整列出。
 
 ## 2026-10-13 同新聞保留較高排名；已推送GitHub且CI通過
