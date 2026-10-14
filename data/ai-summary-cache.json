@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v2",
   "entries": {
+    "32a85442e4ad0f8aea3fdf5a5410729e5035f83879142dd75c7246587eba3e6a": {
+      "summary": "獨立遊戲開發者 Popcar 指出，AI 正大規模反編譯遊戲，促進舊遊戲移植與保存，但也引發軟體被任意反編譯與竊取的風險。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-14T16:35:43.467306Z"
+    },
     "97c09931370f7bd055fafb37906a4301bb2fba5815157772e9beaa76740a5fc3": {
       "summary": "Floqer 的 AI 代理程式會研究銷售潛在客戶，讓團隊省去這項工夫。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-09-25T22:05:46.139869Z"
-    },
-    "03aa7f9c00792f03eb4a8fff8bf336fcbf58bf4c5050fbfe69034da1c13f27bf": {
-      "summary": "GitHub 宣佈具備代理功能的自動修復現已使用 Copilot 記憶功能，供已啟用的客戶在解決安全警示時參考既有記憶作為上下文。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-09-25T18:21:43.020771Z"
     }
   },
   "rejections": {
@@ -4355,6 +4355,10 @@
     "2b626d7a64e4265bcafb618227bbee569516ace507ae43be9823995066c0941f": {
       "reason": "validation_length",
       "created_at": "2026-10-14T16:05:44.503854Z"
+    },
+    "82fc04f825a5d8adcf8b0ac0285fb2cffcc2ade7321274866408324ec6a9c156": {
+      "reason": "insufficient_context",
+      "created_at": "2026-10-14T16:35:43.467306Z"
     }
   }
 }
