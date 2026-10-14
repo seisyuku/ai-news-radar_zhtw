@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v2",
   "entries": {
+    "d8480ef4129a847a3687cc6776d1b65221dce970bc22a0772af6c64ec67842bd": {
+      "summary": "SentinelOne 表示，透過 OpenAI Daybreak，其惡意軟體分析時間從數週縮短至數小時，使其能調查更多威脅。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-14T18:35:47.700014Z"
+    },
     "32a85442e4ad0f8aea3fdf5a5410729e5035f83879142dd75c7246587eba3e6a": {
       "summary": "獨立遊戲開發者 Popcar 指出，AI 正大規模反編譯遊戲，促進舊遊戲移植與保存，但也引發軟體被任意反編譯與竊取的風險。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-09-26T01:19:14.966386Z"
-    },
-    "ed095c7906a7ba0121e8658b04ab04b365fb62898c68076c4b671af8b6c41fe9": {
-      "summary": "聯邦上訴法院維持五角大廈將Anthropic列為供應鏈安全風險並禁止其參與軍購合約的決定。國防部長Hegseth稱其安全限制恐危及軍事行動，Anthropic則表示該指定已造成數十億美元損失。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-09-25T22:05:46.139869Z"
     }
   },
   "rejections": {
@@ -4340,10 +4340,6 @@
       "reason": "validation_length",
       "created_at": "2026-10-14T06:05:35.243551Z"
     },
-    "ea634d558d540704a0eb6866be0f3b940f97a5fcde1835a41084e14cf10779f4": {
-      "reason": "validation_length",
-      "created_at": "2026-10-14T12:05:40.573925Z"
-    },
     "fd32ee89f24ae6fd5552cef2d166ef7fe5d29df2b0ba30e463d0718a4111951e": {
       "reason": "validation_length",
       "created_at": "2026-10-14T12:45:04.001331Z"
@@ -4359,6 +4355,10 @@
     "82fc04f825a5d8adcf8b0ac0285fb2cffcc2ade7321274866408324ec6a9c156": {
       "reason": "insufficient_context",
       "created_at": "2026-10-14T16:35:43.467306Z"
+    },
+    "ea634d558d540704a0eb6866be0f3b940f97a5fcde1835a41084e14cf10779f4": {
+      "reason": "validation_length",
+      "created_at": "2026-10-14T18:35:47.700014Z"
     }
   }
 }
