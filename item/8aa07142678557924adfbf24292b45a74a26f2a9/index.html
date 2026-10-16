@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <title>AI News Radar Pulse — News Item</title>
+</head>
+<body>
+  <main>
+    <h1>AI News Radar Pulse — News Item</h1>
+    <dl>
+    <dt>Radar ID</dt>
+    <dd>8aa07142678557924adfbf24292b45a74a26f2a9</dd>
+    <dt>Title</dt>
+    <dd>LaTeX renderer</dd>
+    <dt>Source</dt>
+    <dd>Simon Willison</dd>
+    <dt>Published</dt>
+    <dd>2026-10-15T02:07:28Z</dd>
+    <dt>Summary</dt>
+    <dd>Tool: LaTeX renderer Inspired by Paul Ford and Aboard Foundary&#x27;s new web app Tiny Little Office , which provides a suite of web app content editors (a Word Processor, Outliner, Presentation Builder, Spreadsheet, Calculator, Drawing Tool, Diagram Maker, Animator, Calendar, and Trip Planner). Tiny Little Office&#x27;s signature trick is to store all of the document data in the #fragment section of the URL, so every document created using it becomes a bookmarkable and shareable link. It also has an llms.txt file telling agents how to construct URLs that will render as documents. Claude used that file to generate this link to a deck that explains how the URL format works: Tiny Little Office inspired me to have Claude Code (Opus 5.5 Extra) build a similar tool that works with LaTeX. Here&#x27;s the sequence of prompts I used: I want a tool where you can link to it with a fragment hash #code-here and it treats that code as LaTeX and renders it really effectively. It should also support a prefix which means the latex is compressed with a custom compression dictionary optimized for latex. Use the best available latex render library from a CDN (consider WebAssembly too). If loaded without a fragment hash show an editor you can paste latex into and then toggle to a &quot;rendered&quot; view. That rendered view should be bookmarkable. The #fragment view should let you switch to edit source too. Since it was working in my tools repo I told it to take inspiration from the &lt;iframe sandbox=&quot;...&quot;&gt; mechanism used by my existing SVG in Markdown tool as protection against XSS risks: Safe from XSS? We could run i</dd>
+    <dt>Original URL</dt>
+    <dd><a href="https://simonwillison.net/2026/Oct/15/latex">https://simonwillison.net/2026/Oct/15/latex</a></dd>
+    </dl>
+  </main>
+</body>
+</html>
