@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "AWS DataSync 增强模式现支持适用于 OpenZFS 的 FSx、NFS 4.2 以及对象元数据控制",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/datasync-enhanced-openzfs-nfs42-metadata",
-  "last_seen_at": "2026-10-16T06:35:41.444774Z",
+  "last_seen_at": "2026-10-16T07:05:35.224426Z",
   "summary": "AWS DataSync 增强模式现在支持将适用于 OpenZFS 的 Amazon FSx 作为源或目标位置，支持用于本地 NFS 服务器的 NFS 版本 4.2 和适用于 OpenZFS 的 FSx 文件系统，并为对象存储传输新增了 ObjectMetadata 选项。此前，客户在向适用于 OpenZFS 的 FSx 传输数据或从中提取数据时，仅限于使用“基本模式”。 NFS 4.2 支持您从最新版本的 NFS 服务器传输数据，而无需将其重新配置为较旧的协议版本。ObjectMetadata 选项可让您控制是否将对象的用户元数据复制到目标位置，这在目标元数据必须保持完整时（例如由 AWS Storage Gateway 提供的存储桶）或源元数据键与目标不兼容时（例如 Azure Blob Storage）非常有用。现有任务不受影响，并将按计划继续运行。 在所有支持 AWS DataSync 增强模式的 AWS 区域中，增强模式任务均可使用这些功能。要了解更多信息，请访问 AWS DataSync 文档 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/datasync/latest/userguide/what-is-datasync.html"
