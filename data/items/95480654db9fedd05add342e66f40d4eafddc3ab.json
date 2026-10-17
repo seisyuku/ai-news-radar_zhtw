@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon RDS for Oracle 现支持次要版本升级预检查，并新增了一项 RDS 事件，有助于缩短修补停机时间",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/amazon-rds-oracle-minor-version-upgrade-precheck-new-patching-rds-event",
-  "last_seen_at": "2026-10-17T23:05:29.122144Z",
+  "last_seen_at": "2026-10-17T23:31:00.908689Z",
   "summary": "Amazon Relational Database Service（Amazon RDS） 现在支持您在启动升级之前或计划的维护时段开始之前自行运行次要版本升级预检查。RDS for Oracle 现在还会在修补期间发出一个新事件，告知您数据库实例何时再次接受连接。利用此事件，您可以在剩余维护任务仍在进行时恢复应用程序的连接，从而缩短应用程序在修补期间的停机时间。 在每次次要版本升级开始时，RDS for Oracle 都会检查是否存在阻碍升级完成的情况，例如可用存储空间不足、Oracle 维护的对象无效或触发器无效。如果检查发现问题，升级将停止，您必须修复问题并重新安排升级。此前，这些检查仅在升级过程中运行。借助新的 rdsadmin.rdsadmin_precheck_tasks.precheck_minor_upgrade 存储过程，您可以随时运行检查。预检查采用只读模式，不会影响您的工作负载。系统会将发现的所有问题汇总到一份日志中，以便您在维护时段开始之前修复问题并重新运行预检查，直至通过为止。 在进行次要版本升级或操作系统更新期间，RDS for Oracle 会在数据库实例接受连接后立即发出 RDS-EVENT-0596 事件。随后，所有剩余的维护任务都将在数据库在线状态下完成。您可以通过 Amazon RDS 事件通知或 Amazon EventBridge 订阅此事件，从而实现应用程序自动重新连接，或通知团队数据库已恢复在线状态。 这些功能现已在提供 Amazon RDS for Oracle 的所有 AWS 商业区域和 AWS GovCloud（美国）区域推出。要了解更多信息，请参阅“Amazon RDS 用户指南”中的 在 Amazon RDS for Oracle 中运行次要版本升级预检查 、 Amazon RDS 事件类别和事件消息 以及 监控 Amazon RDS 事件 。",
   "publisher_links": [
     "https://aws.amazon.com/rds/oracle/",
