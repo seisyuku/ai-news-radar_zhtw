@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v2",
   "entries": {
+    "6b70a1e9f1fbb4ad38179449a4fb0362e8b6183ba203b943a12d96af64e909f9": {
+      "summary": "DeepSeek 發表輕量化新模型，其單一任務成本僅為美國競爭對手的十分之一。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-17T17:05:29.843020Z"
+    },
     "c89055755a869bb65208e171657a243bfd1cd781218a7c4f376af40bb307ef99": {
       "summary": "DeepSeek V4.1 Flash 更新版在程式碼修復基準測試中超越 Claude Opus 5，且價格維持不變。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-09-28T05:05:33.408148Z"
-    },
-    "5602a5efe5e934135a71ea9df567237b6cb4304fe254d269a1f2562e1d7ad918": {
-      "summary": "Google上週宣佈其AI付費訂閱方案新增Colab進階權益，符合資格的訂戶可取得Colab運算單元，以及效能更高的GPU、TPU等運算資源。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-09-28T04:35:33.126640Z"
     }
   },
   "rejections": {
@@ -4400,13 +4400,13 @@
       "reason": "validation_length",
       "created_at": "2026-10-17T10:35:26.786514Z"
     },
-    "55e218232c9607f14ea79b3736b2c7c2a057710a50e69da073328138ae582049": {
-      "reason": "validation_length",
-      "created_at": "2026-10-17T10:57:14.636709Z"
-    },
     "d98dc57e5780156fb51ea90de40af8ccda1e68ef59f764aa4ff393cc293ba77a": {
       "reason": "insufficient_context",
       "created_at": "2026-10-17T15:05:28.602312Z"
+    },
+    "55e218232c9607f14ea79b3736b2c7c2a057710a50e69da073328138ae582049": {
+      "reason": "validation_length",
+      "created_at": "2026-10-17T17:05:29.843020Z"
     }
   }
 }
