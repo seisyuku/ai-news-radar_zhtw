@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "AWS Lambda 发布 Lambda Web Functions",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/aws-lambda-web-functions",
-  "last_seen_at": "2026-10-17T03:43:45.186682Z",
+  "last_seen_at": "2026-10-17T04:35:27.531771Z",
   "summary": "AWS Lambda 宣布推出 Lambda Web Functions，这是一种新的无服务器计算组件，借助该组件，您的代码可以直接处理 HTTP 请求。您的代码可以像在任何 HTTP 服务器上一样侦听端口和处理请求。您可以使用已经熟悉的框架（例如 Express 或 Hono），而无需适配器或自定义配置。这使您能够为人工智能推理端点、服务器端渲染（SSR）Web 应用程序、流式传输 API 端点、微服务和 Webhook 等工作负载提供服务。您只需为活跃的 CPU 时间和环境所占的内存付费，无需为代码等待数据库或下游服务所花费的空闲 CPU 时间付费。在此次发布中，我们还将现有的 Lambda 函数重命名为 Lambda Event Functions，这只是名称上的变更，无需更改代码，也无需重新部署现有函数。 构建者可以使用 Lambda 快速将代码投入生产环境，无需管理服务器，适用场景包括事件驱动的管道、请求-响应 API 和数据处理。随着人工智能驱动的开发加速，他们希望使用熟悉的编程模型在本地构建和部署，并根据活跃的 CPU 使用量为工作负载付费，同时在为用户服务时实现低延迟。Lambda Web Functions 可以帮助他们做到这一点。目前，Lambda Web Functions 支持 Node.js 运行时。单个热执行环境可以处理多个并发请求，从而将冷启动减少几个数量级。您可以使用原生 HTTP 流式传输以增量方式将结果流式传输到客户端。 您可以通过 AWS Lambda API、 Agent Toolkit for AWS 、AWS 管理控制台、AWS CLI、AWS CloudFormation、AWS SAM、AWS CDK 或 AWS SDK 创建和配置 Lambda Web Functions。利用多区域路由，您可以部署一次，然后从离终端用户最近的区域处理每个请求。Web Functions 支持 Amazon Virtual Private Cloud（VPC） 连接，允许您的函数访问 VPC 中的资源。 Lambda Web Functions 现已在以下 AWS 区域推出：美国东部（弗吉尼亚州北部）、美国东部（俄亥俄州）、美国西部（俄勒冈州）、亚太地区（东京）和欧洲地区（爱尔兰）。有关当前列表，请参阅 按区域探索 AWS 功能 页面。要了解更多信息，请参阅 Lambda Web Functions Developer Guide 。有关定价详情，请参阅 AWS Lambda 定价 。 要了解 Lambda Web Functions 的实际应用，请参阅 AWS 新闻博客公告 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/lambda/latest/dg/agent-setup-guide.html",
