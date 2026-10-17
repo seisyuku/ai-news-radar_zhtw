@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v2",
   "entries": {
+    "2b656efd482d652a218db535cc3ce65be7be49541a6c62fb068d77c754bc4d7f": {
+      "summary": "Meta 發言人表示，更新後的條款並未反映 Meta 爬取網路方式的改變。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-17T21:35:30.192290Z"
+    },
     "90b31edca7b8bb2a669106c36e23690c5fb666cc2135a4536fe25f94583f3446": {
       "summary": "Kyutai 與 Inria、École des Ponts 發布 2.4B 參數的 REKI 視覺語言動作模型，僅使用公開數據預訓練。在三個分佈外基準測試中，僅有約兩倍大小的模型表現優於它。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-09-28T07:06:27.682619Z"
-    },
-    "7a2e66b111c8f68202dde5ead4f437fe63b3cccc457c02a2d8e3397647f6d379": {
-      "summary": "初創公司費米宇宙推出全球首個全鏈路量子增強大模型FermiQLLM1.0，該模型融合張量網絡、量子模擬退火及規範自由度等量子方法，實現底層系統性升級。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-09-28T06:30:19.064281Z"
     }
   },
   "rejections": {
@@ -4400,13 +4400,13 @@
       "reason": "validation_length",
       "created_at": "2026-10-17T10:35:26.786514Z"
     },
-    "d98dc57e5780156fb51ea90de40af8ccda1e68ef59f764aa4ff393cc293ba77a": {
-      "reason": "insufficient_context",
-      "created_at": "2026-10-17T15:05:28.602312Z"
-    },
     "55e218232c9607f14ea79b3736b2c7c2a057710a50e69da073328138ae582049": {
       "reason": "validation_length",
       "created_at": "2026-10-17T17:05:29.843020Z"
+    },
+    "d98dc57e5780156fb51ea90de40af8ccda1e68ef59f764aa4ff393cc293ba77a": {
+      "reason": "insufficient_context",
+      "created_at": "2026-10-17T21:35:30.192290Z"
     }
   }
 }
