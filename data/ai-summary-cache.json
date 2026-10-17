@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v2",
   "entries": {
+    "b9367dbe82f276b8d7da3b87fd2d3390ca9949d00537448e63510761e05f1146": {
+      "summary": "Google Research、MIT 與哈佛的研究指出，AI 代理在報告中會系統性略過錯誤，GPT-5.5 在 200 篇論文摘要中遺漏了 198 篇的負面結果。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-17T10:05:26.312636Z"
+    },
     "44db2c1ce43d4e9073b80da62e277a47f76796f4692301065833c0e632f1cb7d": {
       "summary": "10月17日有兩份報告指出 DeepSeek API 出現 V4.1-Flash-1017 標籤及指紋變更，但官方文件仍僅記載 stable 'deepseek-flash' 別名，未宣佈獨立發布。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-09-28T00:35:33.014030Z"
-    },
-    "bf93656a0d6cee7acdcfa9549ef8fa113b5f94dd00b88ea7538990c910b42830": {
-      "summary": "數位時代報導 Claude 與 ChatGPT 雙向轉移記憶、對話紀錄及 Skills 的教學，宣稱換用 AI 無需重新教導。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-09-28T00:05:30.324585Z"
     }
   },
   "rejections": {
@@ -4384,10 +4384,6 @@
       "reason": "validation_length",
       "created_at": "2026-10-16T18:13:31.017803Z"
     },
-    "f6cab227a33c974c21b08264cdc0505d033a92da778573cd37d68589d39bf3ff": {
-      "reason": "validation_length",
-      "created_at": "2026-10-17T03:43:45.186682Z"
-    },
     "f7f427a464cb1a421d24cf243f5862b341dae786739c2ecdc3ed070c9f9e3575": {
       "reason": "validation_length",
       "created_at": "2026-10-17T04:35:27.531771Z"
@@ -4399,6 +4395,10 @@
     "d98dc57e5780156fb51ea90de40af8ccda1e68ef59f764aa4ff393cc293ba77a": {
       "reason": "insufficient_context",
       "created_at": "2026-10-17T09:05:26.641994Z"
+    },
+    "f6cab227a33c974c21b08264cdc0505d033a92da778573cd37d68589d39bf3ff": {
+      "reason": "validation_length",
+      "created_at": "2026-10-17T10:05:26.312636Z"
     }
   }
 }
