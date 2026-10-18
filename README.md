@@ -52,7 +52,7 @@ usage policy 的時效型線索放在獨立「額度與政策速報」區。速�
 - **官方一手**：OpenAI、Anthropic、Google DeepMind／Gemini、NVIDIA、Microsoft、AWS 等廠商官方頻道
 - **國際財經與產業媒體**：Reuters、CNBC、The Information、TechCrunch 等
 - **台灣媒體**：iThome、TechNews 科技新報、數位時代
-- **評測第三方**：LMArena 等 benchmark 機構
+- **評測第三方**：ARC Prize 等 benchmark 機構
 - **觀察名單**：訊噪比評估中的來源，權重較低並明確標示
 - **對照源**：人工策展日報，用於查漏比對，不參與重點排序
 

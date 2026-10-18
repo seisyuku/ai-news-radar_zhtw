@@ -1,4 +1,19 @@
-# AI News Radar Pulse — 交接摘要（截至 2026-10-14）
+# AI News Radar Pulse — 交接摘要（截至 2026-10-18）
+
+## 2026-10-18 移除三個持續失效的正式新聞入口
+
+- 使用者明確裁決：VentureBeat、Artificial Intelligence News、LMArena 若抓取
+  有障礙直接移除，不投入替代接法。移除三個固定 RSS 註冊與對應 AI 信任捷徑，
+  README 的現行評測來源例子改為已接入的 ARC Prize。
+- 下一次刷新不再請求這三個網址或輸出其子來源健康列；沒有替代來源、新服務、
+  重試策略、日報選題變更或歷史資料重寫。前台發布者辨識保留，供既有資料與
+  使用者 OPML 正確分類。其餘來源升降級建議尚未實施。
+- 本輪目標是已部署 Radar 的來源架構，日報僅間接受影響。
+  研究證據：Downloads `ai-news-radar-source-architecture-review-20261018/`。
+- 完整離線測試 **1140 passed in 5.35s**；合成 RSS 使用實際註冊清單完成
+  11 個剩餘來源的收件與健康輸出，確認三個移除 ID 不被請求且不延續舊故障列。
+  合成輸出與私人交接在 Downloads `ai-news-radar-source-removal-20261018/`。
+  語法與 diff 檢查通過；推送後由下一次自然刷新更新公開來源健康資料。
 
 ## 2026-10-14 Drive目錄整理與接入完成；GitHub CI通過
 

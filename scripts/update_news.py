@@ -327,20 +327,6 @@ CURATED_AI_MEDIA_FEEDS: tuple[dict[str, Any], ...] = (
         "research_only": True,
     },
     {
-        "source_id": "venturebeat_ai",
-        "title": "VentureBeat AI",
-        "xml_url": "https://venturebeat.com/category/ai/feed",
-        "html_url": "https://venturebeat.com/category/ai/",
-        "max_entries": 8,
-    },
-    {
-        "source_id": "ai_news",
-        "title": "Artificial Intelligence News",
-        "xml_url": "https://www.artificialintelligence-news.com/feed/",
-        "html_url": "https://www.artificialintelligence-news.com/",
-        "max_entries": 8,
-    },
-    {
         "source_id": "cnbc_technology",
         "title": "CNBC Technology",
         "xml_url": "https://www.cnbc.com/id/19854910/device/rss/rss.html",
@@ -348,17 +334,6 @@ CURATED_AI_MEDIA_FEEDS: tuple[dict[str, Any], ...] = (
         "include_keywords": "ai,artificial intelligence,openai,anthropic,claude,chatgpt,gpt,llm,machine learning,ai chip,ai chips,nvidia,deepseek,gemini",
         "max_entries": 6,
         "strict_title_filter": True,
-    },
-    {
-        # lmarena.ai (formerly LMSYS Chatbot Arena) blog; redirects to
-        # arena.ai/blog/rss/. Entire feed is AI model evaluation content, so
-        # it is listed in CURATED_MEDIA_TRUSTED_SOURCE_KEYWORDS to bypass the
-        # per-title AI keyword check like other narrow-topic trusted feeds.
-        "source_id": "lmarena_blog",
-        "title": "LMArena Blog",
-        "xml_url": "https://blog.lmarena.ai/rss/",
-        "html_url": "https://lmarena.ai/blog",
-        "max_entries": 6,
     },
     {
         # Reuters closed its own public RSS; this queries Google News for

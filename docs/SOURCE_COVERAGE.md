@@ -186,10 +186,21 @@ ARC Prize 另以 `arc_prize` 記錄第三方評測公告；其來源層級與模
 
 ## Built-In Curated Feeds
 
+### 2026-10-18 失效入口移除
+
+依使用者裁決，移除 VentureBeat AI、Artificial Intelligence News、LMArena Blog
+三個固定 RSS 入口與其 AI 來源信任捷徑，不研究替代抓法、不加重試或爬蟲。
+10/18 GitHub 子來源紀錄各有 897 次連續失敗；本輪單次公開探測分別遇到
+HTTP 429、TLS 錯誤及轉址後 HTML 而非 RSS。這是入口可用性裁決，不是
+媒體內容可信度的降級判決。下一次刷新不再抓取或產生這三個子來源的健康列。
+既有 archive、resolver 與歷史審查資料照原保留規則處理；發布者辨識仍供
+歷史資料與使用者 OPML 正確呈現。本輪不新增來源、不改日報選題規則。
+
 - **Curated AI media RSS**: reads a small set of public RSS/Atom feeds that add
   coverage without requiring login: The Decoder AI News, TechCrunch AI, The
   Verge RSS with strict AI-title filtering, MarkTechPost Research with research
-  filtering, VentureBeat AI, and Artificial Intelligence News. These feeds are
+  filtering, and selected business/research feeds listed in the source
+  configuration. These feeds are
   capped per source and pass through the same
   AI relevance scoring as the rest of the radar. Research-heavy feeds are
   intentionally filtered and downweighted so they fill the research lane without
@@ -399,9 +410,10 @@ Added:
   tech/finance feed). TechCrunch AI was already present in
   `CURATED_AI_MEDIA_FEEDS` before this change, so it was left as-is.
 - **LMArena Blog** (`blog.lmarena.ai/rss/`, redirects to `arena.ai/blog/rss/`)
-  — added to `CURATED_AI_MEDIA_FEEDS` and to `CURATED_MEDIA_TRUSTED_SOURCE_KEYWORDS`
+  — historically added to `CURATED_AI_MEDIA_FEEDS` and to `CURATED_MEDIA_TRUSTED_SOURCE_KEYWORDS`
   in `scripts/ai_relevance.py` (whole feed is AI model evaluation content, so
-  it bypasses the per-title AI check like other narrow-topic trusted feeds).
+  it bypassed the per-title AI check like other narrow-topic trusted feeds).
+  Removed on 2026-10-18 by the failed-entry decision above.
 - **Reuters AI (Google News)** — Reuters closed its own public RSS, so this
   queries Google News (`news.google.com/rss/search?q=site:reuters.com AI...`)
   instead, added to `CURATED_AI_MEDIA_FEEDS`. Links are Google News redirect

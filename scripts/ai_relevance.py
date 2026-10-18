@@ -256,10 +256,7 @@ SOURCE_PRIORS = {
 CURATED_MEDIA_TRUSTED_SOURCE_KEYWORDS = [
     "the decoder ai news",
     "techcrunch ai",
-    "venturebeat ai",
-    "artificial intelligence news",
     "claude code releases",
-    "lmarena blog",
     "epoch ai",
     "aibase",
 ]
