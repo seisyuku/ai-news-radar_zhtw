@@ -138,6 +138,10 @@ def platform_event_decision(record):
         return PlatformDecision()
     title = RELATED.split(str(record.get("title_original") or record.get("title") or ""), maxsplit=1)[0]
     summary = RELATED.split(str(record.get("summary") or ""), maxsplit=1)[0]
+    # Consumer storage claims cannot gain admission by adding AI to the
+    # headline, even when no deployment-platform subject was recognized.
+    if CONSUMER.search(title) and any(pattern.search(title) for pattern in (PRICE, ACCESS, EXIT, OUTAGE, SECURITY)):
+        return PlatformDecision(True, False, (), "personal_cloud_service_excluded")
     native_tw = publisher == "tw"
     title_subject = _subject(title, native_tw)
     if not title_subject and native_tw and BROAD_SERVICE.search(title) and SERVICE_USE.search(summary):
