@@ -132,14 +132,14 @@ YunNEWS 上游來源另做一次公開資料盤點與逐站探測：使用公開
 完整逐站列表與證據見歸檔中的 `sources-verified.csv`、`REPORT.md`。
 
 2026-09-23 已完成下列直接 feed 的欄位、45 日文章及線上 archive 對照。
-Mistral、MCP Blog 與 ARC Prize 已依准入範圍註冊於本機生成任務，尚未部署；完整逐站證據存於本機
+Mistral、MCP Blog 與 ARC Prize 已依准入範圍部署於正式生成任務；完整逐站證據存於本機
 `/Users/lordmi/Downloads/ai-news-radar-source-review-20260923/ADMISSION_REVIEW.md`。
 
 | 出處 | 公開 Feed | 目前狀態 |
 | --- | --- | --- |
-| Mistral | https://mistral.ai/news/rss | 本地已接入官方公告，尚未部署；排除明確客戶案例／教學，單輪上限 8 則。 |
-| MCP Blog | https://blog.modelcontextprotocol.io/index.xml | 本地已接入官方協定公告，尚未部署；只收規格、SDK、roadmap 等發布與治理變更，單輪上限 6 則。 |
-| ARC Prize | https://arcprize.org/feed.xml | 本地已接入第三方評測，尚未部署；只收基準與結果，來源與模型雷達均不標為模型廠商官方公告，單輪上限 6 則。 |
+| Mistral | https://mistral.ai/news/rss | 已正式接入官方公告；排除明確客戶案例／教學，單輪上限 8 則。 |
+| MCP Blog | https://blog.modelcontextprotocol.io/index.xml | 已正式接入官方協定公告；只收規格、SDK、roadmap 等發布與治理變更，單輪上限 6 則。 |
+| ARC Prize | https://arcprize.org/feed.xml | 已正式接入第三方評測；只收基準與結果，來源與模型雷達均不標為模型廠商官方公告，單輪上限 6 則。 |
 | LM Studio | https://lmstudio.ai/rss.xml | 暫不准入；教學／操作文章混入。 |
 | Cloudflare | https://blog.cloudflare.com/rss/ | 暫不准入；一般基建與工程文章比例高。 |
 | Modular | https://www.modular.com/blog/rss.xml | 暫不准入；既有 AI 閘門未辨識近期公告，專用例外成本高。 |
@@ -185,6 +185,32 @@ ARC Prize 另以 `arc_prize` 記錄第三方評測公告；其來源層級與模
 不同於 `official_ai`，評測文章可沿用既有「評測基準」事件徽章。
 
 ## Built-In Curated Feeds
+
+### 2026-10-18 平台事件與 RuntimeWire 文章分流
+
+INSIDE 原生 `https://www.inside.com.tw/feed/rss` 加入 `tw_media`，獨立子來源
+ID 為 `inside`，每輪最多八則合格新聞、五日收件窗口；維持 `tw_media`
+rank 2／importance 0.56，不加整站 AI trusted-source 捷徑。
+
+`scripts/source_scope.py` 共用於收件、AI 範圍與事件分類。原生 INSIDE、iThome、
+科技新報的部署／託管平台重大事件，可在無 AI 字樣、未知品牌時依 RSS 服務
+用途與事件證據納入。Zeabur、OpenCode、n8n、Dify 名稱只是辨識捷徑。
+個人相簿／雲端硬碟訂閱排除；價格與資料存取異動須具體新舊條件、既有用戶
+影響及生效安排，宣傳與未定案說法不走例外。相關性至少 0.65 表示符合 Radar
+範圍，不代表產品內建 AI 或已獨立證實報導；來源層級與全域分數公式不變。
+
+永久退場公告納入既有 `market`，不新增分類或保證重點席次。臨時中斷僅在
+RSS 明示實際連續超過 72 小時，或有帶時區的明確起訖／持續中斷時間證據時
+納入；不使用抓取時間推估，不累加短故障、不新增延後發稿或狀態頁監測。
+資安披露不必等三天；資料不足時不靠額外全文抓取補證。
+
+RuntimeWire 同一 RSS 只接受自身 `/article/`，七日收件窗口、每輪最多十則
+合格文章；維持 rank 4。模型分析與已知平台重大事件以 OR 收件，包含
+OpenCode 類憑證事件；`/models/` 與其他路徑不新收件。舊目錄在所有讀者列表
+及共享 AI 判斷排除，不翻譯、不改 archive／resolver 的保留政策。
+有效 feed 全是目錄／不合格內容記健康零則，壞 XML／HTML 假 RSS 仍失敗；
+LLM Rumors、LLM Stats 與獨立模型雷達未改。日報選題 policy 未改，來源範圍
+差異只間接影響候選；完整邊界見 [實作規格](RADAR_SOURCE_CHANGE_PLAN_20261018.md)。
 
 ### 2026-10-18 失效入口移除
 
@@ -237,8 +263,9 @@ view; neither lane changes the global news score.
   It adds low-frequency, long-form model strategy and deployment analysis. Its
   seven-day overlap sample contained zero recent items, so it remains a
   watchlist until cadence and unique coverage can be observed over time.
-- **RuntimeWire** reads `https://runtimewire.com/rss` with a strict title filter
-  for named model labs, model economics, inference, pricing, and benchmarks.
+- **RuntimeWire** reads `https://runtimewire.com/rss` as an article-only route,
+  retaining named-model/model-economics analysis and bounded platform events.
+  Catalog records are excluded; valid filtered-empty feeds are healthy.
   The broad feed's seven-day intake had 50 items, 0 hard duplicates, 2 possible
   duplicates, and 48 unique items against the live archive, but unrelated
   startup coverage was visible; therefore only the focused subset is enabled.
@@ -454,6 +481,9 @@ Added:
   and the Google News-backed 數位時代 route uses `advanced` rank 4. Exact
   數位時代 headline variants with `數位時代` / `未來商務` / `bnext.com.tw`
   suffixes are folded before reader output.
+  INSIDE joined this same native-feed group on 2026-10-18 with `source_id="inside"`
+  and rank 2. Native iThome/TechNews/INSIDE intake also applies the bounded
+  platform policy described above; the Google News-backed 數位時代 query is unchanged.
 - **36Kr AI** (`site_id="kr36_ai"`, watchlist tier `观察名单源`): 36Kr has no
   dedicated AI-channel feed (`/feed-ai`, `/feed-motif/*`, `/information/AI`
   all probed with no RSS), and the general `36kr.com/feed` repeatedly serves a

@@ -73,8 +73,10 @@ except ModuleNotFoundError:  # pragma: no cover - direct script invocation
 
 try:
     from scripts.ai_relevance import add_ai_relevance_fields, score_ai_relevance
+    from scripts.source_scope import platform_event_decision, runtimewire_article_allowed
 except ModuleNotFoundError:  # pragma: no cover - direct `python scripts/update_news.py`
     from ai_relevance import add_ai_relevance_fields, score_ai_relevance
+    from source_scope import platform_event_decision, runtimewire_article_allowed
 
 try:
     from scripts.news_summaries import (
@@ -448,9 +450,8 @@ RUNTIMEWIRE_MODEL_FEED: dict[str, Any] = {
     "title": "RuntimeWire",
     "xml_url": "https://runtimewire.com/rss",
     "html_url": "https://runtimewire.com/",
-    # RuntimeWire is a broad AI/startup wire. Only keep titles with a named
-    # model/lab or an explicit model-economics/evaluation phrase; its automated
-    # Head-to-Head feed is intentionally not included in the public default.
+    # Compatibility name: this is now the article-only route. Keep model
+    # analysis plus bounded platform events; catalogs/Head-to-Head stay out.
     "include_keywords": (
         "openai,anthropic,claude,gpt,gemini,grok,xai,qwen,deepseek,glm,kimi,llama,mistral,"
         "ai model,language model,open-weight,open weight,inference,benchmark,token pricing,"
@@ -459,6 +460,7 @@ RUNTIMEWIRE_MODEL_FEED: dict[str, Any] = {
     "strict_title_filter": True,
     "runtimewire_model_filter": True,
     "max_entries": 10,
+    "max_age_days": 7,
 }
 RUNTIMEWIRE_VERSIONED_MODEL_RE = re.compile(
     r"(?i)(?<![a-z0-9])(?:gpt|grok|qwen|glm|gemini|claude|llama|kimi|mistral)[-\s]?[a-z]*\d"
@@ -484,6 +486,15 @@ TW_MEDIA_INCLUDE_KEYWORDS = (
     "晶片,輝達,nvidia,英偉達"
 )
 TW_MEDIA_FEEDS: tuple[dict[str, Any], ...] = (
+    {
+        "source_id": "inside",
+        "title": "INSIDE",
+        "xml_url": "https://www.inside.com.tw/feed/rss",
+        "html_url": "https://www.inside.com.tw/",
+        "include_keywords": TW_MEDIA_INCLUDE_KEYWORDS,
+        "max_entries": 8,
+        "strict_title_filter": True,
+    },
     {
         "source_id": "ithome",
         "title": "iThome",
@@ -1350,6 +1361,13 @@ def business_event_score(item: dict[str, Any]) -> list[str]:
         if exclude_terms and any(_business_keyword_matches(term, haystack) for term in exclude_terms):
             continue
         hits.append(category)
+    platform = platform_event_decision(item)
+    if platform.applies:
+        # Price/access promotions do not earn a badge by adding AI or a
+        # recognized platform name. Other publishers keep their old policy.
+        if "pricing" not in platform.events:
+            hits = [hit for hit in hits if hit != "pricing"]
+        hits = sorted(set(hits).union(platform.events))
     return hits
 
 
@@ -2187,7 +2205,10 @@ def parse_model_analysis_feed_items(
     site_name: str,
 ) -> list[RawItem]:
     """Parse a low-weight model-analysis RSS watchlist source."""
-    if feedparser is not None:
+    runtimewire = site_id == "runtimewire"
+    if runtimewire:
+        entries = parse_group_feed_entries(feed_content, now)
+    elif feedparser is not None:
         entries = list(feedparser.parse(feed_content).entries)
     else:
         entries = parse_feed_entries_via_xml(feed_content)
@@ -2201,11 +2222,21 @@ def parse_model_analysis_feed_items(
         title, link, published = feed_entry_title_link_published(entry, now)
         if not title or not link or not published:
             continue
-        if published < now - timedelta(days=MODEL_ANALYSIS_MAX_AGE_DAYS):
+        if published < now - timedelta(days=int(feed.get("max_age_days") or MODEL_ANALYSIS_MAX_AGE_DAYS)):
             continue
-        if not curated_feed_entry_allowed(feed, title, link):
+        evidence = feed_entry_evidence(entry)
+        record = {"site_id": site_id, "source": feed_title, "title": title, "url": link,
+                  "published_at": iso(published), **evidence}
+        if runtimewire and not runtimewire_article_allowed(record):
             continue
-        if feed.get("runtimewire_model_filter") and not runtimewire_model_title_allowed(title):
+        policy = platform_event_decision(record) if runtimewire else None
+        if policy and policy.applies and not policy.admitted:
+            continue
+        model_allowed = (curated_feed_entry_allowed(feed, title, link)
+                         and (not feed.get("runtimewire_model_filter") or runtimewire_model_title_allowed(title)))
+        if not model_allowed and not (policy and policy.admitted):
+            continue
+        if policy and policy.admitted and not score_ai_relevance(record)["is_ai_related"]:
             continue
         normalized_url = normalize_url(link)
         if normalized_url in seen_urls:
@@ -2223,14 +2254,14 @@ def parse_model_analysis_feed_items(
                     "feed_url": feed_url,
                     "feed_home": feed.get("html_url") or "",
                     "strict_title_filter": bool(feed.get("strict_title_filter")),
-                    **feed_entry_evidence(entry),
+                    **evidence,
                 },
             )
         )
         if len(out) >= max_entries:
             break
 
-    if not out:
+    if not out and not runtimewire:
         raise ValueError(f"No recent {feed_title} model-analysis items parsed")
     return out
 
@@ -2278,7 +2309,7 @@ def fetch_runtimewire_models(session: requests.Session, now: datetime) -> list[R
         now,
         feed=RUNTIMEWIRE_MODEL_FEED,
         site_id="runtimewire",
-        site_name="RuntimeWire 模型媒體",
+        site_name="RuntimeWire AI媒體",
     )
 
 
@@ -2365,7 +2396,17 @@ def fetch_tw_media_with_status(
                     continue
                 if published < now - timedelta(days=TW_MEDIA_MAX_AGE_DAYS):
                     continue
-                if not curated_feed_entry_allowed(feed, title, link):
+                if feed.get("source_id") == "inside" and host_of_url(link) not in {"inside.com.tw", "www.inside.com.tw"}:
+                    continue
+                evidence = feed_entry_evidence(entry)
+                record = {"site_id": site_id, "source": feed_title, "title": title,
+                          "url": link, "published_at": iso(published), **evidence}
+                policy = platform_event_decision(record)
+                if policy.applies and not policy.admitted:
+                    continue
+                if not curated_feed_entry_allowed(feed, title, link) and not policy.admitted:
+                    continue
+                if policy.admitted and not score_ai_relevance(record)["is_ai_related"]:
                     continue
                 normalized_url = normalize_url(link)
                 if normalized_url in seen_urls:
@@ -2389,7 +2430,7 @@ def fetch_tw_media_with_status(
                         meta={
                             "feed_url": str(feed["xml_url"]),
                             "feed_home": feed.get("html_url") or "",
-                            **feed_entry_evidence(entry),
+                            **evidence,
                         },
                     )
                 )
@@ -2582,7 +2623,7 @@ def collect_all(session: requests.Session, now: datetime) -> tuple[list[RawItem]
         ("curated_media", "精選媒體", fetch_curated_ai_media),
         ("llm_stats_models", "LLM Stats 模型查漏", fetch_llm_stats_model_releases),
         ("llm_rumors", "LLM Rumors 模型分析", fetch_llm_rumors),
-        ("runtimewire", "RuntimeWire 模型媒體", fetch_runtimewire_models),
+        ("runtimewire", "RuntimeWire AI媒體", fetch_runtimewire_models),
         ("aibase", "AIBASE", fetch_aibase),
         ("tw_media", "TW Media", fetch_tw_media),
         ("kr36_ai", "36Kr AI (Watchlist)", fetch_kr36_ai),
@@ -3176,6 +3217,8 @@ READER_FUTURE_TOLERANCE_HOURS = 6
 
 def is_within_reader_window(record: dict[str, Any], now: datetime, window_hours: int) -> bool:
     """Accept reader items inside the rolling window with small clock skew only."""
+    if not runtimewire_article_allowed(record):
+        return False
     ts = event_time(record)
     if not ts:
         return False

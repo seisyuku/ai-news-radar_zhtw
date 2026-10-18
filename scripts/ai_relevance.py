@@ -7,6 +7,11 @@ import re
 from typing import Any
 from urllib.parse import urlparse
 
+try:
+    from .source_scope import platform_event_decision, runtimewire_article_allowed
+except ImportError:  # direct script invocation
+    from source_scope import platform_event_decision, runtimewire_article_allowed
+
 AI_KEYWORDS = [
     "a.i.",
     "agent view",
@@ -380,7 +385,7 @@ def _result(
     }
 
 
-def score_ai_relevance(record: dict[str, Any]) -> dict[str, Any]:
+def _score_base_ai_relevance(record: dict[str, Any]) -> dict[str, Any]:
     """Return an explainable relevance score while preserving the old keep/drop behavior."""
     site_id = str(record.get("site_id") or "")
     title = str(record.get("title") or "")
@@ -531,6 +536,22 @@ def score_ai_relevance(record: dict[str, Any]) -> dict[str, Any]:
         signals=ai_signals + tech_signals,
         noise=noise,
     )
+
+
+def score_ai_relevance(record: dict[str, Any]) -> dict[str, Any]:
+    base = _score_base_ai_relevance(record)
+    if not runtimewire_article_allowed(record):
+        return _result(is_ai_related=False, score=0, label="source_scope_drop",
+                       reason="runtimewire_article_only")
+    policy = platform_event_decision(record)
+    if policy.applies and not policy.admitted:
+        return _result(is_ai_related=False, score=0.15, label="source_scope_drop",
+                       reason=policy.reason)
+    if policy.admitted and base["label"] not in {"unsafe_content", "tutorial_excluded", "source_scope_drop"}:
+        return _result(is_ai_related=True, score=max(AI_RELEVANCE_THRESHOLD, base["score"]),
+                       label="industry_business", reason=policy.reason,
+                       signals=base["signals"], noise=base["noise"])
+    return base
 
 
 def is_ai_related_record(record: dict[str, Any]) -> bool:
