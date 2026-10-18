@@ -1,6 +1,6 @@
 # AI News Radar Pulse — 交接摘要（截至 2026-10-18）
 
-## 2026-10-18 Radar 來源修改已實作，本機驗收通過
+## 2026-10-18 Radar 來源修改已推送，待自然刷新觀察
 
 - 使用者授權「開始程式實作」。完成 `source_scope.py` 共用平台事件政策，
   接到來源收件、共享 AI 判斷與既有 `market` 分類。無 AI／未知品牌的原生
@@ -19,7 +19,11 @@
   合格；24h 為五則並含 OpenCode 資安事件。Zeabur 可納入、標 `market`，
   但原文已超過 24h，不倒灌今日列表。當次 RSS 十筆模型目錄均未收件。
 - 沒有新 LLM、DB、瀏覽器、工作排程、額外全文或正式快照重寫。語法與 diff
-  檢查通過；發布／GitHub CI／自然刷新結果接續記錄。私人 RSS、臨時輸出
+  檢查通過；程式已推送 master，
+  [最終程式 GitHub CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/39137015742)通過。
+  單次讀取 GitHub 健康資料仍為 14:22Z 快照、尚無 INSIDE；未額外 dispatch，
+  正式新來源健康與列表效果待下一次自然刷新，不把離線證據當線上驗收。
+  私人 RSS、臨時輸出
   與交接：Downloads `ai-news-radar-source-implementation-20261018/`。
 
 ## 2026-10-18 Radar 修改規劃完成，尚未實作
