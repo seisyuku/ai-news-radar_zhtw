@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v2",
   "entries": {
+    "886fcba8d07abe8c5e2c74968f3bdb98da64364e9f9b5a3bea4e7e08c929609a": {
+      "summary": "DeepSeek 的新 AI 模型輸出較少，據報導一個程式碼編寫任務的成本為 20 美分。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-18T07:05:30.228549Z"
+    },
     "2d79b1ff06ff47333f92af5035a09a4c653bfe5eb7c6db142066911b0df5571d": {
       "summary": "Voxel51 3.0 推出統一多模態資料平臺，整合搜尋、標註與評估功能，並新增含 45 個以上 MCP 工具的 Voxel51 Agent 及免費自助服務層級。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-09-28T15:35:35.227666Z"
-    },
-    "f35da9767239393ad7ff63ae278463d6b545c874c48dcf1655f9df856240a255": {
-      "summary": "Phil Sonicare Next-Generation DiamondClean 9900 Prestige 智慧牙刷已於歐洲和美國上市，預計 2027 年全球推出。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-09-28T15:05:35.960142Z"
     }
   },
   "rejections": {
@@ -4411,6 +4411,10 @@
     "55e218232c9607f14ea79b3736b2c7c2a057710a50e69da073328138ae582049": {
       "reason": "validation_length",
       "created_at": "2026-10-18T05:34:38.446831Z"
+    },
+    "24cdc0324d374e36b6ff6e990f9074d6226e4abb272369f2e6acefc1e50c3d8c": {
+      "reason": "insufficient_context",
+      "created_at": "2026-10-18T07:05:30.228549Z"
     }
   }
 }
