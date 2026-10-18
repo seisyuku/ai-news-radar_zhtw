@@ -1,5 +1,17 @@
 # AI News Radar Pulse — 交接摘要（截至 2026-10-18）
 
+## 2026-10-18 對話分工與日報研究移交
+
+- 本對話聚焦已部署 Radar 的來源架構修正，依
+  [來源修正工作入口](RADAR_SOURCE_REVISION_20261018.md)接續；日報只有間接受影響。
+- 日報選題另開對話，先讀
+  [日報選題研究交接](DIGEST_EDITORIAL_HANDOFF_20261018.md)。使用者已確認
+  10/18 五則紙上選題方向，尚需跨日期驗證；不要重問主要讀者或直接改正式規則。
+  私人樣本／裁決未上傳 GitHub，統一入口與本機證據位置均已記錄。
+- 三個失效入口移除已推送；
+  [GitHub Offline tests 39131377116](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/39131377116)
+  成功。其他來源建議尚未實施，兩邊不得把研究建議當成已批准變更。
+
 ## 2026-10-18 移除三個持續失效的正式新聞入口
 
 - 使用者明確裁決：VentureBeat、Artificial Intelligence News、LMArena 若抓取
