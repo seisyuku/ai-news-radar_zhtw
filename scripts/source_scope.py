@@ -117,9 +117,16 @@ def _time(value):
 
 
 def _long_outage(text, published_at):
-    if not OUTAGE.search(text) or FUTURE_OR_TOTAL.search(text):
+    if not OUTAGE.search(text) or re.search(r"累計|累積|間歇|斷斷續續|intermittent|cumulative", text, re.I):
         return False
     for match in DURATION.finditer(text):
+        # A forecast recovery after an already documented four-day outage
+        # must not erase the actual duration; exclude only forecast durations.
+        left = max(text.rfind("，", 0, match.start()), text.rfind(",", 0, match.start())) + 1
+        right = re.search(r"[，,]", text[match.end():])
+        clause = text[left:match.end() + right.start() if right else len(text)]
+        if FUTURE_OR_TOTAL.search(clause):
+            continue
         hours = _number(match["number"]) * (24 if match["unit"].lower() in {"天", "日", "day", "days"} else 1)
         if hours > 72 or (hours == 72 and match["over"]):
             return True
@@ -129,6 +136,9 @@ def _long_outage(text, published_at):
     # the same outage is ongoing, never merely because the article is old.
     end = _time(recovery[1]) if recovery else (_time(published_at) if ONGOING.search(text) else None)
     beginning = _time(start[1]) if start else None
+    publication = _time(published_at)
+    if recovery and (FUTURE_OR_TOTAL.search(text[:recovery.start()]) or not publication or end is None or end > publication):
+        return False
     return bool(beginning and end and (end - beginning).total_seconds() > 72 * 3600)
 
 
