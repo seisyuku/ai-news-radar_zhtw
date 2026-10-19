@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v2",
   "entries": {
+    "27e126a50331d2aba3803e7555b5356b6bdaf52b80c3618daa9b68bbb6daef1d": {
+      "summary": "DeepSeek 發表全新 AI 模型，大幅削減使用者使用 AI 服務的成本。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-19T05:14:37.546650Z"
+    },
     "299a8a088dee864fe9e776d3fe15e6d95ce8f1d8bf384b0c4d82226a07377d28": {
       "summary": "Anthropic 擬議成立公共利益基金，初始投入 5% 公司股份以應對 AI 就業衝擊，該計畫尚待股東覈準，且明定資金不得用於政治遊說。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-09-30T10:05:56.046782Z"
-    },
-    "77c8cccb90d8c962c13e72ca99d802412d1e00c7e356de75f3c5cfdec9a9bee7": {
-      "summary": "Anthropic披露IPO招股書，擬以約2萬億美元估值推進上市。2025年營收近46億美元，運營虧損突破80億美元，Claude按用量計費貢獻約38億美元收入。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-09-30T08:05:50.015562Z"
     }
   },
   "rejections": {
@@ -4420,10 +4420,6 @@
       "reason": "insufficient_context",
       "created_at": "2026-10-18T20:34:07.593858Z"
     },
-    "418f07c07051fc3947f2cf80790530aa99909df9482e9c105f59e9fe240394c5": {
-      "reason": "insufficient_context",
-      "created_at": "2026-10-18T23:05:30.688540Z"
-    },
     "24325df1da58de44f803e7f736c17e966aee08516b65199589faa06c164f1552": {
       "reason": "validation_length",
       "created_at": "2026-10-19T02:35:30.363639Z"
@@ -4431,6 +4427,10 @@
     "a2916ff52a812c83f236dc730a8657a4064706437704cd78b22822ab9689f4d6": {
       "reason": "validation_length",
       "created_at": "2026-10-19T02:35:30.363639Z"
+    },
+    "418f07c07051fc3947f2cf80790530aa99909df9482e9c105f59e9fe240394c5": {
+      "reason": "insufficient_context",
+      "created_at": "2026-10-19T05:14:37.546650Z"
     }
   }
 }
