@@ -1,6 +1,29 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-19T17:26:03.026308Z",
+  "generated_at": "2026-10-19T18:05:29.686065Z",
   "cadence_minutes": 30,
-  "signals": []
+  "signals": [
+    {
+      "event_type": "USAGE_POLICY_CANDIDATE",
+      "category": "usage_policy",
+      "urgency": "breaking",
+      "importance_rank": 3,
+      "timeliness_rank": 1,
+      "verification_status": "candidate",
+      "title": "速報候選：Claude Usage Monitor 偵測到額度相關變更",
+      "summary": "perf: read the prepaid balance only while the popup is open",
+      "provider": "",
+      "product": "",
+      "field": "",
+      "old_value": null,
+      "new_value": null,
+      "unit": "",
+      "detected_at": "2026-10-19T18:05:29.686065Z",
+      "effective_at": "2026-10-19T17:35:35Z",
+      "source_name": "Claude Usage Monitor",
+      "source_url": "https://github.com/jens-duttke/usage-monitor-for-claude",
+      "evidence_url": "https://github.com/jens-duttke/usage-monitor-for-claude/commit/6c176f1df555df8516adffb21e75f2960e5e7e3c",
+      "id": "4fd6f6d815b4f315995a49434d0064c5795872fd"
+    }
+  ]
 }
