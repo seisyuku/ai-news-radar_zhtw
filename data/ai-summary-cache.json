@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v2",
   "entries": {
+    "f018ec75c4f169eb44c41dd03245d95bdb8a05cb6ee87aef997b480cf14a8071": {
+      "summary": "Zeabur於10月16日通報14日發生的資安事件，攻擊者讀取逾321萬筆環境變數及32萬筆帳號資料，並發現8月事件後部分憑證未完成輪替。創辦人林沅霖說明事故始末，並宣佈該雲端部署平臺將於年底停止營運。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-20T06:35:28.882918Z"
+    },
     "89314207cd55fd193d9b92e94d687b63fa819be72124063b43c90910c0df7abc": {
       "summary": "Anthropic 正籌備首次公開發行（IPO），Google 前執行長施密特未來獲利可觀。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-10-02T09:35:38.121585Z"
-    },
-    "6638925eef6ff78b6276fba58a5b000f5dae1ab7fca2532ab84548d5d12e7af8": {
-      "summary": "據 TechNews 科技新報報導，AI 安全系統協助幣安在第一季攔截 19.8 億美元資產損失。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-02T07:36:19.778292Z"
     }
   },
   "rejections": {
@@ -4452,10 +4452,6 @@
       "reason": "insufficient_context",
       "created_at": "2026-10-19T21:05:27.096145Z"
     },
-    "e7ab4adadb8a43c54f6a43f4d85487e233755fec9b91b922c0ad8caf965ee64a": {
-      "reason": "validation_length",
-      "created_at": "2026-10-20T00:05:35.550219Z"
-    },
     "b5d074e4189c52c351b68411c62c89efbe4dd6bec172ca6e8292dbf5b0760bcb": {
       "reason": "validation_length",
       "created_at": "2026-10-20T00:35:35.624391Z"
@@ -4471,6 +4467,10 @@
     "981ced60b18056bbcb3308816960cf366cfae9caeaffd1ecf3bfd007f650b47e": {
       "reason": "validation_length",
       "created_at": "2026-10-20T05:26:00.412927Z"
+    },
+    "e7ab4adadb8a43c54f6a43f4d85487e233755fec9b91b922c0ad8caf965ee64a": {
+      "reason": "validation_length",
+      "created_at": "2026-10-20T06:35:28.882918Z"
     }
   }
 }
