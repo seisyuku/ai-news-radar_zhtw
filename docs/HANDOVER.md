@@ -1,4 +1,21 @@
-# AI News Radar Pulse — 交接摘要（截至 2026-10-18）
+# AI News Radar Pulse — 交接摘要（截至 2026-10-21）
+
+## 2026-10-21 台灣五站隔離影子准入工具完成
+
+- 依來源准入交接範圍完成 `evaluate_tw_source_admission.py`，明示 live 才
+  探測、可離線重播、保留短摘要與請求證據。robots、固定官方 host、
+  timeout／大小／次數限制；不讀全文、不用鏡像、不新增憑證或依賴。
+- CyberQ／網管人／DIGITIMES 原生 feed 可用，共 50 篇有效文章、12 篇
+  候選；資安人有限路徑未找到 feed，Meet 轉至另一 host 而停止跟隨。
+  候選尚無人工事件裁決，不能稱 12 個新增事件。Meet 與數位時代同集團，
+  不增加 corroboration；七天參數不等於已完成七天觀察。
+- 工具與正式生成隔離，正式四個台灣來源 ID、公開 schema、權重、排程及
+  日報邏輯未改。無正式准入；逐站建議與重播方式見
+  [台灣來源准入說明](TW_SOURCE_ADMISSION.md)。完整本機證據在 Downloads
+  `ai-news-radar-tw-source-admission-20261021/`，最終報告在 `final/`。
+- 56 項新驗收；完整離線回歸 **1240 passed in 5.64s**，使用既有內建
+  Node 修正本機 PATH 後通過。正式 `source-status.json` 僅唯讀核對四站成功，
+  不為影子驗證觸發正式刷新。正式准入須待對齊長窗與人工證據再裁決。
 
 ## 2026-10-18 Radar 來源修改已推送，待自然刷新觀察
 

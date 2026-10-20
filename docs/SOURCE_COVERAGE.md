@@ -101,6 +101,20 @@ private forks because they need credentials, bridges, or ongoing maintenance.
 
 ## Source Selection Rules
 
+### 2026-10-21 台灣媒體候選：隔離影子測試，未正式准入
+
+新增維護者工具 `scripts/evaluate_tw_source_admission.py`，僅在明示
+`--live` 時探測資安人、CyberQ、網管人、DIGITIMES 與 Meet 的原生入口，
+支援離線重播及人工事件／新增證據裁決。輸出強制在 repo 外，不寫
+正式新聞池、來源健康、分級、配額或日報，也沒有新增排程。
+CyberQ、網管人與 DIGITIMES 找到可解析 feed；資安人本輪未找到可用
+feed；Meet 官方內容站轉至另一 host，受限未確認，沒有繞過或第三方接法。
+單次 50 篇有效文章、12 篇初篩候選，不能推論新增事件或長期可靠性。
+Meet 與數位時代同屬 `bnext_media` 出版群組，不增加獨立 corroboration。
+逐站證據、分母、操作方式及准入前仍缺的人工／時間窗量測見
+[台灣來源影子准入評估](TW_SOURCE_ADMISSION.md)。所有候選仍未正式加入；
+P2 僅建檔、P3／商傳媒不自動抓取。
+
 ### 2026-09-22 五站決策：僅供未來人工查漏
 
 依使用者審閱結論，以下五站統一保留為未來檢查內容缺漏的候選參考。
