@@ -198,19 +198,12 @@ runpy.run_path('scripts/generate_digest_job.py', run_name='__main__')
     assert result.returncode == 3 and json.loads(result.stdout)["pair_verified"]
 
 
-def test_workflow_preserves_explicit_manual_date_and_approved_completion_trigger():
+def test_retired_generation_cannot_run_or_access_delivery_credentials():
     path = Path(__file__).resolve().parents[1] / ".github/workflows/digest-generation.yml"
     workflow = yaml.load(path.read_text(), Loader=yaml.BaseLoader)
-    assert set(workflow["on"]) == {"workflow_dispatch", "workflow_run"}
-    assert workflow["on"]["workflow_run"] == {
-        "workflows": ["Update AI News Snapshot"], "types": ["completed"], "branches": ["master"]}
-    assert workflow["on"]["workflow_dispatch"]["inputs"]["date"]["required"] == "true"
-    assert workflow["permissions"] == {"contents": "read"}
-    assert workflow["concurrency"]["cancel-in-progress"] == "false"
-    assert workflow["jobs"]["generate"]["timeout-minutes"] == "10"
-    steps = workflow["jobs"]["generate"]["steps"]
-    assert any("generate_digest_job.py" in step.get("run", "") for step in steps)
-    assert steps[-1]["if"] == "${{ always() }}"
-    assert all(not any(word in step.get("run", "") for word in
-                       ("git push", "gh api", "update_news.py", "requirements-cloud", "requirements-dev")) for step in steps)
-    assert not any("upload-artifact" in step.get("uses", "") for step in steps)
+    assert workflow["on"] == {"workflow_dispatch": {}}
+    assert workflow["permissions"] == {}
+    assert workflow["jobs"] and all(job["if"] == "${{ false }}" for job in workflow["jobs"].values())
+    assert "secrets." not in path.read_text()
+    assert all("uses" not in step and "digest_" not in step.get("run", "")
+               for job in workflow["jobs"].values() for step in job["steps"])

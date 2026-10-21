@@ -110,14 +110,14 @@ def test_github_read_hard_timeout(monkeypatch):
         validation.github_get("https://api.github.com/test")
 
 
-def test_workflow_is_read_only_and_has_no_artifact_publication():
+def test_retired_validation_has_no_schedule_or_executable_job():
     path = Path(__file__).resolve().parents[1] / ".github/workflows/digest-validation.yml"
     text = path.read_text()
     document = yaml.safe_load(text)
     triggers = document.get("on", document.get(True))
-    assert {row["cron"] for row in triggers["schedule"]} == {"15 23 * * *", "15 0 * * *"}
-    assert document["permissions"] == {"contents": "read", "actions": "read"}
-    steps = document["jobs"]["validate"]["steps"]
-    assert not any("upload-artifact" in row.get("uses", "") for row in steps)
-    assert all("git push" not in row.get("run", "") and "update_news.py" not in row.get("run", "") for row in steps)
-    assert document["concurrency"]["cancel-in-progress"] is False
+    assert triggers == {"workflow_dispatch": {}}
+    assert document["permissions"] == {}
+    assert document["jobs"] and all(job["if"] == "${{ false }}" for job in document["jobs"].values())
+    assert "secrets." not in text
+    assert all("uses" not in step and "digest_" not in step.get("run", "")
+               for job in document["jobs"].values() for step in job["steps"])
