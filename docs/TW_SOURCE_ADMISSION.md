@@ -155,6 +155,38 @@ P2 僅列候選：EE Times Taiwan、TechOrange、Cool3c、電腦王阿達、Tech
 
 ## 驗收與清理
 
+### 2026-10-21 08:58 真實採樣及逐事件複核
+
+使用者要求再執行一次實際測試。以 `6415ed93ae4a` 的最新資料，
+對照 08:55 臺北時間生成的 7,403 筆 archive，08:58:37～08:58:56
+執行五站探測，18 次 HTTP 請求、19.161 秒，結果為：CyberQ 10 篇／4 候選、
+網管人 10／3、DIGITIMES 30／5；資安人與 Meet 仍無可用樣本。
+與先前不同的篇數是最新 feed 的採樣結果，沒有調整過濾器。
+
+Codex 對 12 篇候選二次審閱：2 篇事件已覆蓋、3 篇可能新增實測證據、
+3 篇廠商公告待驗、3 篇範圍排除、1 篇基準未見待核。這不是人工已批准的
+裁決，未填入工具的人工統計或正式新聞池。
+
+- 是方虎尾資料中心動土與五成簽約率，已有 iThome／科技新報，不能列新增。
+  自動標題比對漏配，需中文公司名與事件詞擴搜。
+- LX Semicon 的 AI 設計採用是本輪唯一優先核對的基準未見事件；
+  [DIGITIMES 原稿](https://www.digitimes.com.tw/tech/dt/n/shwnws.asp?id=0000771952_IW3LSO4O4Q1MHF3PHJQQW)
+  的原採訪索引日期為 10/16，不能當成 10/21 新發生。80% 是特定模組
+  benchmark 的工作時間聲稱，不能泛化成所有晶片開發效率；原採訪直接
+  讀取 403，未繞過，尚待原始簡報／人工核對。
+- CyberQ 的 FLUX、MiniMax H3 與 DeepSeek GSM8K 是三篇新實測證據待核稿，
+  不重算模型發布事件；未重跑作者實驗或核准教學型內容。
+- 初篩誤收包括非 AI 跑車評論、租約解說與未定案收購評估；泛詞
+  labs／image／prompt／agentic 也會產生無關事件提示。本輪只記錄測試
+  發現，未改正式規則或以模糊 matches 宣告同事件。
+
+本次離線驗收 **56 passed in 0.10s**；真實採樣離線重播四個輸出檔案
+位元組一致；12 個正式程式／資料／workflow 保護檔案前後 hash 相同。
+沒有程式修改，未重跑全套，不把前輪 1240 項當本次紀錄。
+完整逐站報告、13 筆事件 CSV（12 候選＋1 篇邊界樣本）、原文／基準連結、
+命令／時間／exit code 與 hashes 在本機 Downloads：
+`ai-news-radar-tw-source-admission-20261021/acceptance-01/ACCEPTANCE_REPORT.md`。
+
 ```bash
 .venv/bin/python -m py_compile scripts/evaluate_tw_source_admission.py scripts/update_news.py
 .venv/bin/python -m pytest -q -p no:cacheprovider \
