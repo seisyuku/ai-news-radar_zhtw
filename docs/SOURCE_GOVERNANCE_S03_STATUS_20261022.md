@@ -1,6 +1,8 @@
 # S03隔離部署與退役驗證（2026-10-22）
 
 **S03進行中：D00日報退役已驗收；SMTP與兩封實收已驗，七日觀察已部署，待10/23首日驗真。**
+10/22啟動前報告誤查未來通知歷史已修復；目前釘選code為
+`f341a1157207254d953022881f23229146cd678c`，不沿用初版code SHA。
 使用者本輪指令為「執行s03」，授權依既定交接落實退役／推送與隔離部署。
 本次僅啟用有限七日來源觀察；沒有來源准入或外部heartbeat修改，尚無首日採樣證據。
 
@@ -17,9 +19,10 @@
 | D00入口退役 | `7b2f8e1f256f0bf28625d07c66c4069816de7d00`，已推送master。兩個workflow移除自動觸發與生成／派送步驟，手動也永久跳過；一般CI保留。 |
 | GitHub停用 | `digest-generation.yml`、`digest-validation.yml`均讀回`disabled_manually`。查核queued／in_progress／waiting／pending／requested皆0，未取消其他工作。 |
 | 私人開關 | 以原設定Doc revision保護，只替換1處`automation_enabled: true`為false；讀回JSON為false，其他設定／檔案位置保留。私人ID與連結只留Downloads。 |
-| 觀察程式 | `d4bfa7d693e31cbe2acd9254f7305249e3a97107`，已推送master。五支程式、三份測試與四份停用範例完整提交；正式workflow目錄沒有新增實驗檔案。 |
+| 觀察程式初版 | `d4bfa7d693e31cbe2acd9254f7305249e3a97107`，已推送master。五支程式、三份測試與四份停用範例完整提交；當時只提交停用範例，後續啟用與修復另列。 |
 | SMTP驗收 | `3c876099504127520353ea85a2e19e8c9768cb39`新增獨立手動驗收入口；[39644939363](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/39644939363)成功，兩封皆DATA250／provider_accepted，使用者確認「兩封都收到」。該入口已讀回disabled_manually。 |
 | 七日啟用版 | `.github/workflows/tw-source-observation.yml`、`tw-source-report.yml`及`config/tw-source-observation.json`獨立批次推送master；引用固定code SHA，日期／指紋見下節。遠端版本與active狀態讀回保存Downloads。 |
+| 啟動前修復 | code `f341a1157207254d953022881f23229146cd678c`：在D1前先驗空觀察列並正常返回before_experiment，避免查詢未來ledger；實驗期間仍拒絕缺列或不可讀通知歷史。兩份workflow及plan另批重釘此SHA，不變更日期、實驗ID或採樣／寄信規則。 |
 
 原本機HEAD為`3ac92d087586`；先fetch並核對遠端14個提交只改data／item，再快轉至
 `4cf3119c6b18`；249個非資料起始檔案hash均保持，沒有覆蓋未提交成果。
@@ -27,7 +30,8 @@
 
 ## 驗收與限制
 
-- 最新快照基準上完整離線回歸1495項通過（6.95s）。D00與觀察code的GitHub
+- 啟動前修復完整離線回歸1499項通過（6.32s），相關129項通過；新增4例先重現失敗再通過。
+  D00與觀察初版code的GitHub
   Offline tests／Pages均成功；部署候選兩份workflow的actionlint通過。
 - D00 CI：[39632826040](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/39632826040)；
   Pages：[39632824997](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/39632824997)。
@@ -66,12 +70,30 @@
   不回補10/22，不延長七個日曆日湊成功樣本。
 - **使用者本人接手**10/29 D7結束核查，最晚10/30 D8臺北08:00異常停用。
   自停仍需結案包及其接受receipt；通知不明／拒收時人工異常中止，不新增監督排程。
-- 最終workflow SHA256：觀察`d223c930324ed043cfa91854793c185637b5c9e7188921f88dff5b76d9dea6ef`；
-  報告`b774d73421ac0567e36b6b7f09173e7446ab770eaff2d2e0691cc0521e773100`。
+- 初版啟用workflow SHA256：觀察`d223c930324ed043cfa91854793c185637b5c9e7188921f88dff5b76d9dea6ef`；
+  報告初版`b774d73421ac0567e36b6b7f09173e7446ab770eaff2d2e0691cc0521e773100`，已由下列修復指紋取代。
+  **目前觀察**`9d406fe9672e94f5be6d50f5ff087aa912e448e3b35270b11058450deb41fb7b`；
+  **目前報告**`01023ed038f89f8fce53f8cbadb230acede5cc7211819f0da50ceed96e5c60e7`。
   評估契約SHA256維持`bcd7918d528c9256d56b0bbaefbce9b538b11c975a38a071d541cfa16ea074b2`。
   修改workflow任何byte須重算plan指紋。
 
 S03部署工作已由「執行s03」授權，憑證、實收及停止責任三項門檻均已具備。
+
+## 10/22啟動前實際故障與修復
+
+臺北06:06及06:36的報告run
+[39684000876](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/39684000876)、
+[39687749310](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/39687749310)
+在尚無D1日期時先讀通知ledger，因起日10/23晚於當日而blocked。
+同日採樣run [39687701234](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/39687701234)
+正確返回outside_experiment，沒有採樣。兩份故障artifact均只有核對診斷，沒有郵件intent／receipt；
+這些是啟動前錯誤，不算D1缺測或來源失敗，不回補資料。
+
+修復只改日期檢查順序並拒絕不合理空列：D1前rows必須空，返回before_experiment、
+mail_due=false、stop=false；D1起rows不得空，真ledger故障仍封鎖通知。
+重播涵蓋真實workflow_run喚醒、schedule、假造啟動前列及實驗期間缺列。
+修復證據／確切差異／新pin與部署讀回存Downloads的`prestart-fix-20261022/`。
+發布後手動核對僅驗證D0正常結束、不採樣／不寄信，不能當首日實驗驗收。
 
 ## 恢復S03的第一個動作
 
