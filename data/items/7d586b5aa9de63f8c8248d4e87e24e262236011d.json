@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "AWS Secrets Manager 新增对 Databricks 和 Twilio 的托管式外部密钥支持",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/secrets-manager-managed-external-secrets-databricks-twilio",
-  "last_seen_at": "2026-10-21T03:05:40.995036Z",
+  "last_seen_at": "2026-10-21T03:35:27.148031Z",
   "summary": "AWS Secrets Manager 现在扩展了其托管式外部密钥功能，以包括 Databricks 和 Twilio，使您能够自动轮换数据管道和消息传递应用程序用于调用这些服务的凭证。您可以直接通过 AWS 管理控制台或 API 设置轮换，无需编写或维护任何自定义轮换 Lambda 函数。 由于轮换难以设置，也很难安全地分发给使用更新凭证的应用程序，因此长期有效的凭证通常不会轮换。借助托管式外部密钥，您可以使用 Secrets Manager 轮换作业以及持续集成和持续交付（CI/CD）管道使用的 Databricks 个人访问令牌。您还可以轮换自动化工作流使用的服务主体 OAuth 客户端密钥。每个替换的个人访问令牌都会保留其所替换的令牌的范围，因此范围狭窄的令牌仍会保持在狭窄的范围内。 对于 Twilio，您可以使用 Secrets Manager 轮换应用程序用于发送消息和拨打电话的 API 密钥及身份验证令牌。对于这两项服务，您可以将凭证作为托管式外部密钥存储在 Secrets Manager 中，并设置轮换时间表。Secrets Manager 将始终返回当前凭证，因此您的应用程序会自动获取轮换后的值，无需更改代码。 这些集成被纳入托管式外部密钥现有支持范围，现已支持的对象包括 BigID、Cisco Security Platform、Confluent Cloud、Datadog、GitLab、Jenkins、MongoDB Atlas、Netskope、Paddle、Salesforce、Snowflake 和 SonarQube。 Databricks 和 Twilio 托管式外部密钥已在支持 AWS Secrets Manager 托管式外部密钥的所有 AWS 区域推出。要了解更多信息，请访问 AWS Secrets Manager 托管式外部密钥文档 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/secretsmanager/latest/userguide/managed-external-secrets.html"
