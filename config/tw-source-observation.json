@@ -1,0 +1,59 @@
+{
+  "schema_version": 2,
+  "enabled": true,
+  "experiment_id": "twso-20261023-01",
+  "timezone": "Asia/Taipei",
+  "start_date": "2026-10-23",
+  "duration_days": 7,
+  "primary_local_time": "06:00",
+  "recovery_local_time": "06:30",
+  "recovery_start_before": "06:50",
+  "daily_reconcile_local_time": "07:05",
+  "max_sampling_attempt_slots_per_day": 2,
+  "code_sha": "d4bfa7d693e31cbe2acd9254f7305249e3a97107",
+  "workflow_sha256": {
+    "tw-source-observation.yml": "d223c930324ed043cfa91854793c185637b5c9e7188921f88dff5b76d9dea6ef",
+    "tw-source-report.yml": "b774d73421ac0567e36b6b7f09173e7446ab770eaff2d2e0691cc0521e773100"
+  },
+  "source_ids": [
+    "informationsecurity",
+    "cyberq",
+    "netadmin",
+    "digitimes_tw",
+    "meet"
+  ],
+  "lookback_days": 7,
+  "max_baseline_age_hours": 2,
+  "artifact_retention_days": 30,
+  "heartbeat": {
+    "mode": "workflow_run",
+    "upstream_workflow": "Update AI News Snapshot",
+    "recovery_window": [
+      "06:30",
+      "06:50"
+    ],
+    "reconcile_window": [
+      "07:05",
+      "07:20"
+    ],
+    "modify_existing_heartbeat": false
+  },
+  "notification": {
+    "channel": "email",
+    "enabled": true,
+    "provider": "smtp",
+    "settings_secret_name": "TW_SOURCE_EMAIL_SETTINGS",
+    "send_success": true,
+    "send_failure": true,
+    "resend_on_unknown_delivery": false,
+    "max_delivery_attempts": 3,
+    "retry_only_on_definite_nonacceptance": true
+  },
+  "auto_disable_requires_final_artifact_and_mail_receipt": true,
+  "self_disable_workflows": [
+    "tw-source-observation.yml",
+    "tw-source-report.yml"
+  ],
+  "allow_production_mutation": false,
+  "allow_source_promotion": false
+}

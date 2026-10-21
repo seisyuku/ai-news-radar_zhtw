@@ -1,6 +1,6 @@
 # AI News Radar Pulse — 交接摘要（截至 2026-10-22）
 
-## 2026-10-22 S03：日報退役完成，Gmail與停止責任確認，待寄信憑證／實收
+## 2026-10-22 S03：日報退役完成，SMTP與兩封實收已驗，七日觀察已部署
 
 - 使用者「執行s03」：已停用兩個日報專用workflow並讀回disabled_manually，
   查無在途run；私人automation_enabled已false讀回，只改該欄、保留稿件與設定。
@@ -8,14 +8,14 @@
   永久跳過。CI及Pages成功；一次性公開刷新39634002083、Pages39634179730成功，
   發布後HTTP讀回吻合新快照，停用後兩個日報workflow零新增run，D00驗收完成。
 - 觀察程式與停用範例獨立提交`d4bfa7d693e3`已推送，CI／Pages成功；code SHA
-  固定。尚無正式實驗workflow／activation config，未採樣／寄信。
+  固定。七日workflow／activation config已推送，待10/23首日採樣驗真。
 - [S03狀態與續接](SOURCE_GOVERNANCE_S03_STATUS_20261022.md)記各批版本、證據與
   啟用前實際缺項。最新1495項完整離線回歸通過；S01／S02全部既有成果保留。
 - 使用者已指定Gmail收件、採常規設定，並明確由本人接手D7核查／D8異常停止。
-  採smtp.gmail.com:465／SSL，寄件帳號先預設同收件人，地址只留私人交接。
-  本機TLSv1.3／EHLO250通過，未認證／寄信；仍缺Gmail應用程式密碼及實收驗證。
-  已備妥隱藏輸入後直接加密存GitHub secret的本機工具，不將密碼寫檔或放命令列。
-  D1日期在具備條件後固定，不倒填，不重問已確認的接手責任。
+  Gmail認證235及GitHub實寄驗收[39644939363](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/39644939363)
+  成功；兩筆DATA250，使用者確認兩封實收。一次性驗收workflow已停用，不重寄。
+  `TW_SOURCE_EMAIL_SETTINGS`已設定，地址僅私人交接，密碼不入本機檔案或repo。
+  實驗`twso-20261023-01`：D1 10/23、D7 10/29；由使用者核查，D8 10/30 08:00前異常停用。
 - Downloads `ai-news-radar-source-governance-s03-20261022/`保存退役API／run證據、
   私人開關讀回、版本、停用部署候選、容量預演與信件預覽、檢查點／交接。
 - **S03仍進行中，續接模型GPT-6.1 Sol（`gpt-6.1-sol`）／High**。
