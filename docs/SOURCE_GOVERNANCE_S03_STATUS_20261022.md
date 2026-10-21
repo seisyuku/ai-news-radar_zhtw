@@ -55,24 +55,29 @@
 
 ## 來源觀察啟用前尚缺
 
-1. SMTP服務、host／port／TLS、寄件與單一收件地址，以及安全設定
-   `TW_SOURCE_EMAIL_SETTINGS`；目前查核secret名稱清單尚無此項。
-   不可把密碼／授權碼貼進repo、artifact或聊天。
+1. 使用者已指定Gmail與收件人；採smtp.gmail.com、465、SSL/TLS，寄件帳號先預設
+   同收件人，實際地址僅留私人交接。尚缺Gmail應用程式密碼與
+   `TW_SOURCE_EMAIL_SETTINGS`，目前secret名稱清單仍無此項。
+   本機TLSv1.3／EHLO250通過，但未認證／寄信，不代表GitHub runner連線已驗。
+   Downloads備妥只經stdin上傳secret的隱藏輸入工具，不保存本機密碼、不寄信。
+   [Google應用程式密碼說明](https://support.google.com/accounts/answer/185833?hl=en)
+   要求兩步驟驗證；工具不替使用者修改帳號安全設定。
 2. 成功與失敗通知範例各一封的真實實收驗證；SMTP接受不等於進收件匣。
    前述兩封只作明確驗收，不提前執行日常採樣。
-3. D7結束核查與最晚D8臺北08:00異常停用的接手者。自停仍需結案包及其接受
+3. **已確認：由使用者本人接手**D7結束核查與最晚D8臺北08:00異常停用。
+   不再列待決、不重問。自停仍需結案包及其接受
    receipt；通知不明／拒收時要人工異常中止，不能無限延長或新增監督排程。
 4. 前三項完成後，才固定下一個完整臺北採樣日為D1及D1～D7日曆、experiment_id。
    不使用S01／S02的文件日期當開始日，不回補前幾天，也不從半天算完整D1。
 
 S03部署工作已由當次指令授權，不因歷史文件寫「待核准」而重問相同權限。
-上述缺少的是實際設定、實收證據與停止責任；未具備時不啟動實驗。
+目前實際缺少寄信憑證與實收證據；停止責任已確認。未具備時不啟動實驗。
 
 ## 恢復S03的第一個動作
 
 先讀Downloads/HANDOFF、READINESS.json與本文件，再核對master、兩個退役workflow
 狀態及secret是否新增。不要重做D00或寄送歷史日報。
-取得SMTP與接手者後先完成一次性實收驗證；再核對候選workflow的確切byte/hash、
+接手者已確認；取得寄信憑證後先完成一次性實收驗證，再核對候選workflow的確切byte/hash、
 引用的code SHA與評估契約指紋。修改候選檔須重算plan指紋，不能沿用舊hash。
 
 完成啟用後，S03還要交付首日真run／artifact／Email實收與實際日期；尚無首日

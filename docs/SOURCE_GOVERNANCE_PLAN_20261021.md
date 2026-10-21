@@ -10,7 +10,7 @@ S04～S08仍為後續交接。實際設定、實收與停止責任具備前不�
 - **S02：done（本機）**。[審查結論與S03交接](SOURCE_GOVERNANCE_S02_REVIEW_20261021.md)、
   [評估契約v1](SOURCE_EVALUATION_CONTRACT_20261021.md)已完成；D00封存差異已驗收，外部停用待S03。
 - **S03：in_progress**。[部署／退役實況與續接](SOURCE_GOVERNANCE_S03_STATUS_20261022.md)：
-  D00已外部停用／封存推送及刷新驗真結案；觀察code已推送，尚待SMTP與異常停止接手者。
+  D00已驗真結案；觀察code已推送。Gmail設定與由使用者接手異常停止已確認，待寄信憑證／實收。
 - **續接S03：GPT-6.1 Sol（`gpt-6.1-sol`）／High**；首日驗真後才交接S04。
 - [S01來源與正式狀態基準](SOURCE_GOVERNANCE_BASELINE_20261021.md)。
 - 本機證據／檢查點／交接：

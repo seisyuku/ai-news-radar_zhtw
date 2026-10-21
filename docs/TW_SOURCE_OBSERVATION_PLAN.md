@@ -1,8 +1,8 @@
 # 台灣來源七天自動觀察方案 V3（本機建置完成，待核准部署）
 
 > 2026-10-22 S03：觀察程式與停用範例已推送，固定code SHA為
-> `d4bfa7d693e31cbe2acd9254f7305249e3a97107`；實驗workflow未註冊，待SMTP／實收與
-> D7／D8停止接手者。最新部署授權與續接見[S03狀態](SOURCE_GOVERNANCE_S03_STATUS_20261022.md)，
+> `d4bfa7d693e31cbe2acd9254f7305249e3a97107`；實驗workflow未註冊，Gmail設定與
+> 使用者接手D7／D8已確認，待寄信憑證／實收。最新續接見[S03狀態](SOURCE_GOVERNANCE_S03_STATUS_20261022.md)，
 > 不再依歷史「待核准」重問已授權部署；具備實際條件後才啟用。
 
 > 2026-10-21 S02審查更新：[審查結論與S03交接](SOURCE_GOVERNANCE_S02_REVIEW_20261021.md)、
