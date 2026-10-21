@@ -1,0 +1,119 @@
+name: TW source SMTP verification
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: tw-source-smtp-verification
+  cancel-in-progress: false
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  VERIFICATION_KEY: s03-gmail-20261022
+
+jobs:
+  verify:
+    if: github.repository == 'seisyuku/ai-news-radar_zhtw' && github.ref == 'refs/heads/master' && github.run_attempt == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: d4bfa7d693e31cbe2acd9254f7305249e3a97107
+          path: observation-code
+          sparse-checkout: scripts/tw_source_email.py
+          sparse-checkout-cone-mode: false
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - name: Check prior claims and freeze exactly two test messages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from datetime import datetime
+          from zoneinfo import ZoneInfo
+          import hashlib, json, os, subprocess
+          root = Path.home() / 'Downloads/tw-source-smtp-check'
+          (root / 'intent').mkdir(parents=True)
+          repo = os.environ['GITHUB_REPOSITORY']
+          current = int(os.environ['GITHUB_RUN_ID'])
+          key = os.environ['VERIFICATION_KEY']
+          def api(path):
+              return json.loads(subprocess.check_output(['gh', 'api', f'repos/{repo}/{path}'], text=True))
+          runs = api('actions/workflows/tw-source-mail-check.yml/runs?per_page=100')
+          assert runs['total_count'] <= 100 and len(runs['workflow_runs']) == runs['total_count'], 'incomplete_run_history'
+          assert any(r['id'] == current for r in runs['workflow_runs']), 'current_run_not_visible'
+          for run in runs['workflow_runs']:
+              if run['id'] == current:
+                  continue
+              artifacts = api(f"actions/runs/{run['id']}/artifacts?per_page=100")
+              assert len(artifacts['artifacts']) == artifacts['total_count'] <= 100, 'incomplete_artifact_history'
+              assert not any(a['name'] == key + '-intent' for a in artifacts['artifacts']), 'prior_intent_exists_do_not_resend'
+              assert run['status'] == 'completed', 'prior_run_not_terminal'
+              jobs = api(f"actions/runs/{run['id']}/jobs?per_page=100&filter=all")
+              assert len(jobs['jobs']) == jobs['total_count'] <= 100, 'incomplete_job_history'
+              for job in jobs['jobs']:
+                  for step in job.get('steps', []):
+                      if step['name'] in {'Persist one-time mail intent before using SMTP',
+                                          'Verify remote intent and send two clearly labeled examples'}:
+                          assert step.get('conclusion') == 'skipped', 'prior_claim_or_delivery_outcome_unknown'
+          now = datetime.now(ZoneInfo('Asia/Taipei')).isoformat()
+          messages = []
+          for kind, title in [('success', '成功通知範例'), ('failure', '失敗通知範例')]:
+              payload = {'subject': f'[TW來源觀察][S03實寄驗收][{title}]',
+                         'body': f'S03啟用前寄信驗收｜{title}\n\n這是測試信，尚未開始來源採樣；失敗範例不代表來源實際故障。\n本次共寄成功與失敗範例各一封。兩封都收到後，請在Codex回覆「兩封都收到」。\n\n驗收時間：{now}\n執行紀錄：https://github.com/{repo}/actions/runs/{current}\n'}
+              payload['payload_hash'] = hashlib.sha256(json.dumps(payload, ensure_ascii=False, sort_keys=True).encode()).hexdigest()
+              messages.append({'kind': kind, 'payload': payload})
+          intent = {'verification_key': key, 'run_id': current, 'messages': messages}
+          (root / 'intent/intent.json').write_text(json.dumps(intent, ensure_ascii=False, indent=2) + '\n')
+          PY
+      - name: Persist one-time mail intent before using SMTP
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.VERIFICATION_KEY }}-intent
+          path: ~/Downloads/tw-source-smtp-check/intent/intent.json
+          retention-days: 30
+          if-no-files-found: error
+      - name: Verify remote intent and send two clearly labeled examples
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TW_SOURCE_EMAIL_SETTINGS: ${{ secrets.TW_SOURCE_EMAIL_SETTINGS }}
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json, os, subprocess, sys
+          sys.path.insert(0, 'observation-code')
+          from scripts import tw_source_email as email
+          root = Path.home() / 'Downloads/tw-source-smtp-check'
+          intent = json.loads((root / 'intent/intent.json').read_text())
+          remote = root / 'remote-intent'
+          subprocess.run(['gh', 'run', 'download', os.environ['GITHUB_RUN_ID'], '--repo', os.environ['GITHUB_REPOSITORY'],
+                          '--name', os.environ['VERIFICATION_KEY'] + '-intent', '--dir', str(remote)], check=True)
+          assert sorted(p.name for p in remote.iterdir()) == ['intent.json'], 'unexpected_remote_intent_files'
+          assert json.loads((remote / 'intent.json').read_text()) == intent, 'remote_intent_mismatch'
+          receipts = {'verification_key': intent['verification_key'], 'run_id': intent['run_id'], 'messages': []}
+          target = root / 'receipt/receipt.json'
+          target.parent.mkdir()
+          for message in intent['messages']:
+              result = email.send(message['payload'], os.environ.get('TW_SOURCE_EMAIL_SETTINGS', ''))
+              receipts['messages'].append({'kind': message['kind'], 'payload_hash': message['payload']['payload_hash'], 'result': result})
+              target.write_text(json.dumps(receipts, indent=2) + '\n')
+              print(json.dumps({'kind': message['kind'], **result}))
+              if result['status'] != 'provider_accepted':
+                  raise SystemExit(2)  # Unknown delivery is never automatically retried.
+          PY
+      - name: Preserve sanitized delivery evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.VERIFICATION_KEY }}-receipt
+          path: ~/Downloads/tw-source-smtp-check/receipt/receipt.json
+          retention-days: 30
+          if-no-files-found: warn
