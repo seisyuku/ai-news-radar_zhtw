@@ -301,10 +301,14 @@ def prepare(api, plan, context, output, now, rows, evidence):
     validate_notification(plan)
     if not plan["notification"]["enabled"]:
         return {"mail_due": "false", "stop": "false", "notification_status": "disabled"}
+    # Pre-start workflow completions are valid wake-ups, but no ledger date
+    # range exists yet. Do not mistake that absence for unavailable evidence.
+    if now.astimezone(core.TAIPEI).date().isoformat() < dates(plan)[0]:
+        actions.require(not rows, "pre_experiment_rows_unexpected")
+        return {"mail_due": "false", "stop": "false", "notification_status": "before_experiment"}
+    actions.require(bool(rows), "in_experiment_rows_missing")
     ledger = read_ledger(api, plan, now, context["run_id"])
     grouped = mail_attempts(plan, ledger)
-    if not rows:
-        return {"mail_due": "false", "stop": "false", "notification_status": "before_experiment"}
     target = rows[-1]
     day = target["date"]
     terminal = (target["status"] == "complete" or target["deadline_exceeded"] or

@@ -436,6 +436,45 @@ def test_unavailable_notification_ledger_preserves_diagnostic_and_blocks_deliver
     assert not (tmp_path / 'mail-intent').exists()
 
 
+@pytest.mark.parametrize('event', ['workflow_run', 'schedule'])
+def test_before_experiment_report_does_not_read_ledger_or_prepare_mail(tmp_path, monkeypatch, event):
+    api = MailGitHub()
+    day = '2026-10-20'  # The fixture experiment starts on October 21.
+    clock = '06:36:00' if event == 'workflow_run' else '07:05:00'
+    context = signal(api, day=day, clock=clock)
+    if event == 'workflow_run':
+        context.update(event_name=event, action='completed', workflow_run={
+            'name': actions.WORKFLOWS['observe'][1], 'repository': core.REPOSITORY,
+            'branch': 'master', 'event': 'workflow_run', 'id': 99,
+            'created_at': now('06:35:00', day).isoformat(),
+            'completed_at': now('06:35:30', day).isoformat(),
+        })
+
+    def forbidden_ledger(*_):
+        raise AssertionError('Pre-start reporting must not query a future ledger range')
+
+    monkeypatch.setattr(api, 'report_runs', forbidden_ledger)
+    result = job.reconcile(api, plan(), context, tmp_path, now(clock, day))
+    assert result['mode'] == 'reconciled' and result['days_checked'] == 0
+    assert result['notification_status'] == 'before_experiment'
+    assert result['mail_due'] == result['stop'] == 'false'
+    assert json.loads((tmp_path / 'reconciliation.json').read_text())['days'] == []
+    assert not (tmp_path / 'mail-intent').exists()
+    assert not (tmp_path / 'daily-report').exists()
+    assert reporting.audit_stop(api, plan(), context, now(clock, day))['stop'] == 'false'
+
+
+def test_before_experiment_cannot_accept_fabricated_observation_rows(tmp_path):
+    with pytest.raises(ValueError, match='pre_experiment_rows_unexpected'):
+        reporting.prepare(MailGitHub(), plan(), {}, tmp_path,
+                          now('07:05:00', '2026-10-20'), [day_row()], {})
+
+
+def test_empty_rows_during_experiment_cannot_bypass_the_notification_ledger(tmp_path):
+    with pytest.raises(ValueError, match='in_experiment_rows_missing'):
+        reporting.prepare(MailGitHub(), plan(), {}, tmp_path, now('07:05:00'), [], {})
+
+
 def test_stop_api_failure_stays_failed_and_targets_only_two_experiments(tmp_path):
     import yaml
     root = Path(__file__).resolve().parents[1]
