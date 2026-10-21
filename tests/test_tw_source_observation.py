@@ -15,7 +15,7 @@ from scripts import tw_source_observation as coordinator
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def instant(clock="06:00:00", day="2026-10-21"):
+def instant(clock="08:00:00", day="2026-10-21"):
     return coordinator.timestamp(f"{day}T{clock}+08:00")
 
 
@@ -24,17 +24,17 @@ def plan():
     return config | {"enabled": True, "experiment_id": "offline-01", "start_date": "2026-10-21", "code_sha": "a" * 40}
 
 
-def context(clock="06:00:00", event="schedule", slot="primary", day="2026-10-21"):
+def context(clock="08:00:00", event="schedule", slot="primary", day="2026-10-21"):
     return {"repository": coordinator.REPOSITORY, "branch": "master", "run_id": 101,
             "created_at": instant(clock, day).isoformat(), "event_name": event,
             "schedule": next(key for key, value in coordinator.CRONS.items() if value == slot)}
 
 
 def pulse(conclusion="success"):
-    return context("06:35:00", "workflow_run") | {"action": "completed", "workflow_run": {
+    return context("08:35:00", "workflow_run") | {"action": "completed", "workflow_run": {
         "name": "Update AI News Snapshot", "repository": coordinator.REPOSITORY,
         "branch": "master", "event": "workflow_dispatch", "id": 99, "conclusion": conclusion,
-        "created_at": instant("06:31:00").isoformat(), "completed_at": instant("06:34:00").isoformat()}}
+        "created_at": instant("08:31:00").isoformat(), "completed_at": instant("08:34:00").isoformat()}}
 
 
 def history(config=None, attempts=None, day="2026-10-21"):
@@ -44,36 +44,36 @@ def history(config=None, attempts=None, day="2026-10-21"):
 
 
 def outcome(status="valid_feed", count=1):
-    return {"status": status, "item_count": count, "retrieved_at": instant("06:02:00").isoformat(),
+    return {"status": status, "item_count": count, "retrieved_at": instant("08:02:00").isoformat(),
             "evidence_sha256": "b" * 64}
 
 
-def primary(state="finished", sources=None, baseline="05:50:00"):
+def primary(state="finished", sources=None, baseline="07:50:00"):
     result = {"slot": "primary", "state": state, "started_at": instant().isoformat()}
     if state == "finished":
-        result.update(verified=True, finished_at=instant("06:05:00").isoformat(),
+        result.update(verified=True, finished_at=instant("08:05:00").isoformat(),
                       baseline_at=instant(baseline).isoformat() if baseline else None,
                       sources={sid: outcome("no_native_feed" if sid in {"informationsecurity", "meet"} else "valid_feed")
                                for sid in coordinator.SOURCES} if sources is None else sources)
     return result
 
 
-def recovery(sources=None, baseline="06:30:00"):
+def recovery(sources=None, baseline="08:30:00"):
     return {"slot": "recovery", "state": "finished", "verified": True,
-            "started_at": instant("06:30:00").isoformat(), "finished_at": instant("06:33:00").isoformat(),
+            "started_at": instant("08:30:00").isoformat(), "finished_at": instant("08:33:00").isoformat(),
             "baseline_at": instant(baseline).isoformat() if baseline else None,
-            "sources": {sid: value | {"retrieved_at": instant("06:31:00").isoformat()}
+            "sources": {sid: value | {"retrieved_at": instant("08:31:00").isoformat()}
                         for sid, value in (sources or {}).items()}}
 
 
-def decide(attempts=None, clock="06:30:00", config=None, event=None):
+def decide(attempts=None, clock="08:30:00", config=None, event=None):
     config = config or plan()
     event = event or context(clock, slot="recovery")
     return coordinator.decide(config, event, history(config, attempts), instant(clock))
 
 
 def test_primary_requires_durable_claim_and_five_diagnostics():
-    result = decide(clock="06:00:00", event=context())
+    result = decide(clock="08:00:00", event=context())
     assert result["mode"] == "prepare_attempt"
     assert result["claim_required"] is True
     assert result["fetch_source_ids"] == list(coordinator.SOURCES)
@@ -89,9 +89,9 @@ def test_disabled_checked_without_history_or_trigger_or_activation_placeholders(
 @pytest.mark.parametrize(("field", "value"), [
     ("allow_production_mutation", True), ("allow_source_promotion", True),
     ("duration_days", 8), ("duration_days", True), ("enabled", 1),
-    ("max_sampling_attempt_slots_per_day", 3), ("primary_local_time", "07:00"),
-    ("recovery_local_time", "06:35"), ("recovery_start_before", "07:00"),
-    ("daily_reconcile_local_time", "08:05"), ("heartbeat", {}),
+    ("max_sampling_attempt_slots_per_day", 3), ("primary_local_time", "09:00"),
+    ("recovery_local_time", "08:35"), ("recovery_start_before", "09:00"),
+    ("daily_reconcile_local_time", "10:05"), ("heartbeat", {}),
     ("max_baseline_age_hours", 24), ("timezone", "UTC"), ("source_ids", ["other"]),
     ("code_sha", "master"), ("experiment_id", "../escape"), ("start_date", "20261021"),
 ])
@@ -103,7 +103,7 @@ def test_invalid_plan_never_prepares_requests(field, value):
 
 @pytest.mark.parametrize(("field", "value"), [
     ("mode", "external"), ("upstream_workflow", "Other workflow"),
-    ("recovery_window", ["06:00", "07:00"]), ("reconcile_window", ["07:00", "08:00"]),
+    ("recovery_window", ["08:00", "09:00"]), ("reconcile_window", ["09:00", "10:00"]),
     ("modify_existing_heartbeat", True), ("modify_existing_heartbeat", 0),
 ])
 def test_misleading_heartbeat_configuration_blocks_before_sampling(field, value):
@@ -114,11 +114,11 @@ def test_misleading_heartbeat_configuration_blocks_before_sampling(field, value)
 
 
 @pytest.mark.parametrize(("clock", "slot", "expected"), [
-    ("05:59:59", "primary", False), ("06:00:00", "primary", True),
-    ("06:29:59", "primary", True), ("06:30:00", "primary", False),
-    ("06:29:59", "recovery", False), ("06:30:00", "recovery", True),
-    ("06:49:59", "recovery", True), ("06:50:00", "recovery", False),
-    ("07:05:00", "recovery", False),
+    ("07:59:59", "primary", False), ("08:00:00", "primary", True),
+    ("08:29:59", "primary", True), ("08:30:00", "primary", False),
+    ("08:29:59", "recovery", False), ("08:30:00", "recovery", True),
+    ("08:49:59", "recovery", True), ("08:50:00", "recovery", False),
+    ("09:05:00", "recovery", False),
 ])
 def test_exact_windows(clock, slot, expected):
     result = decide(clock=clock, event=context(clock, slot=slot))
@@ -126,13 +126,13 @@ def test_exact_windows(clock, slot, expected):
 
 
 def test_delayed_primary_cannot_change_into_recovery():
-    result = decide(event=context("06:29:00"), clock="06:35:00")
+    result = decide(event=context("08:29:00"), clock="08:35:00")
     assert result["reason"] == "outside_trigger_window"
 
 
 @pytest.mark.parametrize("conclusion", ["success", "failure", "cancelled", "timed_out"])
 def test_upstream_failure_is_still_a_valid_recovery_pulse(conclusion):
-    result = decide(clock="06:35:00", event=pulse(conclusion))
+    result = decide(clock="08:35:00", event=pulse(conclusion))
     assert result["mode"] == "prepare_attempt"
     assert result["slot"] == "recovery"
     assert result["reason"] == "missed_primary"
@@ -141,31 +141,31 @@ def test_upstream_failure_is_still_a_valid_recovery_pulse(conclusion):
 @pytest.mark.parametrize(("field", "value"), [
     ("repository", "attacker/fork"), ("branch", "feature"), ("name", "Other job"),
     ("event", "pull_request"), ("id", True), ("conclusion", None),
-    ("completed_at", "2026-10-20T22:29:59Z"),
-    ("created_at", "2026-10-19T22:31:00Z"),
-    ("completed_at", "2026-10-20T22:40:00Z"),
+    ("completed_at", "2026-10-21T00:29:59Z"),
+    ("created_at", "2026-10-20T00:31:00Z"),
+    ("completed_at", "2026-10-21T00:40:00Z"),
 ])
 def test_bad_pulse_never_collects(field, value):
     event = pulse()
     event["workflow_run"][field] = value
-    assert decide(clock="06:35:00", event=event)["mode"] == "blocked"
+    assert decide(clock="08:35:00", event=event)["mode"] == "blocked"
 
 
 @pytest.mark.parametrize(("field", "value"), [
     ("repository", "attacker/fork"), ("branch", "feature"), ("run_id", True),
     ("run_id", 0), ("schedule", "5 22 * * *"), ("event_name", "pull_request"),
-    ("created_at", "2026-10-21T06:30:00"),
-    ("created_at", "2026-10-21T06:31:00+08:00"),
+    ("created_at", "2026-10-21T08:30:00"),
+    ("created_at", "2026-10-21T08:31:00+08:00"),
 ])
 def test_bad_current_run_origin_and_metadata_blocked(field, value):
-    assert decide(event=context("06:30:00", slot="recovery") | {field: value})["mode"] == "blocked"
+    assert decide(event=context("08:30:00", slot="recovery") | {field: value})["mode"] == "blocked"
 
 
 def test_pulse_requires_completed_action():
-    assert decide(clock="06:35:00", event=pulse() | {"action": "requested"})["mode"] == "blocked"
+    assert decide(clock="08:35:00", event=pulse() | {"action": "requested"})["mode"] == "blocked"
 
 
-@pytest.mark.parametrize("clock", ["06:00:00", "06:30:00"])
+@pytest.mark.parametrize("clock", ["08:00:00", "08:30:00"])
 def test_manual_dispatch_has_no_date_or_force_bypass(clock):
     result = decide(clock=clock, event=context(clock, "workflow_dispatch") | {"inputs": {"force": True, "date": "2026-10-20"}})
     assert result["date"] == "2026-10-21"
@@ -205,7 +205,7 @@ def test_running_primary_never_cancelled_or_concurrently_recovered():
 
 def test_unknown_primary_outcome_uses_only_recovery_slot():
     assert decide([primary("intent")])["reason"] == "primary_outcome_unknown"
-    same_slot = decide([primary("intent")], clock="06:01:00", event=context())
+    same_slot = decide([primary("intent")], clock="08:01:00", event=context())
     assert same_slot["reason"] == "slot_already_claimed"
 
 
@@ -216,7 +216,7 @@ def test_partial_primary_only_retries_transient_and_missing_sources():
     result = decide([evidence])
     assert result["fetch_source_ids"] == ["cyberq", "netadmin"]
     assert result["reuse_sources"]["digitimes_tw"]["origin_slot"] == "primary"
-    assert result["reuse_sources"]["digitimes_tw"]["retrieved_at"] == instant("06:02:00").isoformat()
+    assert result["reuse_sources"]["digitimes_tw"]["retrieved_at"] == instant("08:02:00").isoformat()
     assert result["refresh_baseline"] is False
 
 
@@ -228,7 +228,7 @@ def test_terminal_restriction_never_retried(status):
     assert "meet" not in decide([evidence])["fetch_source_ids"]
 
 
-@pytest.mark.parametrize("baseline", [None, "03:59:59"])
+@pytest.mark.parametrize("baseline", [None, "05:59:59"])
 def test_baseline_only_failure_does_not_refetch_healthy_sources(baseline):
     result = decide([primary(baseline=baseline)])
     assert result["mode"] == "prepare_attempt"
@@ -237,11 +237,11 @@ def test_baseline_only_failure_does_not_refetch_healthy_sources(baseline):
 
 
 def test_primary_baseline_judged_at_original_finish_not_later_clock():
-    assert decide([primary(baseline="04:05:00")])["reason"] == "primary_complete"
+    assert decide([primary(baseline="06:05:00")])["reason"] == "primary_complete"
 
 
 def test_partial_baseline_must_still_be_fresh_at_recovery():
-    evidence = primary(baseline="04:05:00")
+    evidence = primary(baseline="06:05:00")
     evidence["sources"]["cyberq"] = outcome("timeout")
     assert decide([evidence])["refresh_baseline"] is True
 
@@ -258,24 +258,24 @@ def test_recovery_merges_source_evidence_without_rewriting_retrieval_time():
     first = primary()
     first["sources"]["cyberq"] = outcome("timeout")
     second = recovery({"cyberq": outcome("valid_empty", 0)})
-    result = decide([first, second], clock="06:35:00")
+    result = decide([first, second], clock="08:35:00")
     assert result["reason"] == "day_complete"
     assert result["observation_status"] == "complete"
     combined = coordinator.assess([second, first])
     assert combined["sources"]["cyberq"]["origin_slot"] == "recovery"
-    assert combined["sources"]["cyberq"]["retrieved_at"] == instant("06:31:00").isoformat()
-    assert combined["sources"]["netadmin"]["retrieved_at"] == instant("06:02:00").isoformat()
+    assert combined["sources"]["cyberq"]["retrieved_at"] == instant("08:31:00").isoformat()
+    assert combined["sources"]["netadmin"]["retrieved_at"] == instant("08:02:00").isoformat()
 
 
 def test_recovery_can_only_refresh_baseline_and_complete_without_source_requests():
-    result = decide([primary(baseline=None), recovery()], clock="06:35:00")
+    result = decide([primary(baseline=None), recovery()], clock="08:35:00")
     assert result["observation_status"] == "complete"
     assert result["mode"] == "skip"
 
 
-@pytest.mark.parametrize("baseline", [None, "03:00:00"])
+@pytest.mark.parametrize("baseline", [None, "05:00:00"])
 def test_recovery_with_bad_baseline_is_unmet_not_zero_result_success(baseline):
-    result = decide([primary(baseline=baseline), recovery(baseline=baseline)], clock="06:35:00")
+    result = decide([primary(baseline=baseline), recovery(baseline=baseline)], clock="08:35:00")
     assert result["observation_status"] == "unmet"
     assert result["reason"] == "slot_already_claimed"
 
@@ -285,11 +285,11 @@ def test_recovery_with_all_feasible_feeds_failed_is_unmet():
     for sid in ("cyberq", "netadmin", "digitimes_tw"):
         first["sources"][sid] = outcome("timeout")
     second = recovery({sid: outcome("http_5xx") for sid in ("cyberq", "netadmin", "digitimes_tw")})
-    assert decide([first, second], clock="06:35:00")["observation_status"] == "unmet"
+    assert decide([first, second], clock="08:35:00")["observation_status"] == "unmet"
 
 
 def test_complete_recovery_after_primary_missing_does_not_need_primary_evidence():
-    result = decide([recovery({sid: outcome() for sid in coordinator.SOURCES})], clock="06:35:00")
+    result = decide([recovery({sid: outcome() for sid in coordinator.SOURCES})], clock="08:35:00")
     assert result["reason"] == "day_complete"
 
 
@@ -299,24 +299,24 @@ def test_missing_and_unknown_intent_never_count_as_empty_success():
 
 
 def test_refetching_a_reusable_source_is_invalid_history():
-    result = decide([primary(baseline=None), recovery({"cyberq": outcome()})], clock="06:35:00")
+    result = decide([primary(baseline=None), recovery({"cyberq": outcome()})], clock="08:35:00")
     assert result["reason"] == "recovery_refetched_reusable_source"
 
 
 def test_overlapping_persisted_attempts_fail_closed():
-    first = primary() | {"finished_at": instant("06:32:00").isoformat()}
-    result = decide([first, recovery()], clock="06:35:00")
+    first = primary() | {"finished_at": instant("08:32:00").isoformat()}
+    result = decide([first, recovery()], clock="08:35:00")
     assert result["reason"] == "overlapping_attempts"
 
 
 def test_running_primary_with_recovery_already_recorded_is_invalid():
-    result = decide([primary("running"), recovery()], clock="06:35:00")
+    result = decide([primary("running"), recovery()], clock="08:35:00")
     assert result["reason"] == "overlapping_attempts"
 
 
 def test_two_slots_claimed_cannot_create_third_attempt_or_rerun_recovery():
-    recovery = {"slot": "recovery", "state": "intent", "started_at": instant("06:30:00").isoformat()}
-    result = decide([primary("intent"), recovery], clock="06:35:00")
+    recovery = {"slot": "recovery", "state": "intent", "started_at": instant("08:30:00").isoformat()}
+    result = decide([primary("intent"), recovery], clock="08:35:00")
     assert result["reason"] == "slot_already_claimed"
 
 
@@ -326,15 +326,15 @@ def test_two_slots_claimed_cannot_create_third_attempt_or_rerun_recovery():
     ("attempts", [primary("intent"), primary("intent")]),
 ])
 def test_unavailable_or_ambiguous_history_fails_closed(field, value):
-    result = coordinator.decide(plan(), context("06:30:00", slot="recovery"), history() | {field: value}, instant("06:30:00"))
+    result = coordinator.decide(plan(), context("08:30:00", slot="recovery"), history() | {field: value}, instant("08:30:00"))
     assert result["mode"] == "blocked"
     assert result["fetch_source_ids"] == []
 
 
 @pytest.mark.parametrize(("field", "value"), [
     ("verified", False), ("state", "unknown"), ("slot", "third"),
-    ("started_at", "2026-10-19T22:00:00Z"), ("finished_at", "2026-10-20T22:40:00Z"),
-    ("baseline_at", "2026-10-20T22:06:00Z"),
+    ("started_at", "2026-10-20T00:00:00Z"), ("finished_at", "2026-10-21T00:40:00Z"),
+    ("baseline_at", "2026-10-21T00:06:00Z"),
 ])
 def test_bad_persisted_attempt_fails_closed(field, value):
     assert decide([primary() | {field: value}])["mode"] == "blocked"
@@ -343,7 +343,7 @@ def test_bad_persisted_attempt_fails_closed(field, value):
 @pytest.mark.parametrize(("field", "value"), [
     ("status", "unknown"), ("item_count", -1), ("item_count", True), ("item_count", 51),
     ("item_count", 0), ("evidence_sha256", "unverified"),
-    ("retrieved_at", "2026-10-20T21:00:00Z"),
+    ("retrieved_at", "2026-10-20T23:00:00Z"),
 ])
 def test_bad_source_evidence_fails_closed(field, value):
     evidence = primary()
@@ -369,7 +369,7 @@ def test_same_slot_concurrent_claim_is_durable_and_exactly_one_wins(tmp_path):
 
 def test_both_slots_have_distinct_claims_but_config_changes_do_not_reset_claim(tmp_path):
     store = coordinator.LocalIntentStore(tmp_path)
-    main = decide(clock="06:00:00", event=context())
+    main = decide(clock="08:00:00", event=context())
     backup = decide([primary("intent")])
     assert store.claim(main) is True
     assert store.claim(backup) is True
@@ -395,9 +395,9 @@ def test_skipped_or_blocked_decision_cannot_claim(tmp_path):
 
 def test_inputs_not_mutated_and_cli_is_only_offline_simulation(tmp_path):
     scenario = {"plan": plan(), "context": pulse("failure"), "history": history(),
-                "now": instant("06:35:00").isoformat()}
+                "now": instant("08:35:00").isoformat()}
     original = copy.deepcopy(scenario)
-    result = coordinator.decide(scenario["plan"], scenario["context"], scenario["history"], instant("06:35:00"))
+    result = coordinator.decide(scenario["plan"], scenario["context"], scenario["history"], instant("08:35:00"))
     assert scenario == original
     path = tmp_path / "scenario.json"
     path.write_text(json.dumps(scenario))

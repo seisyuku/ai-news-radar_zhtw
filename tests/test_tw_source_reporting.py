@@ -41,10 +41,10 @@ class MailGitHub(FakeGitHub):
                 if record['name'] == actions.WORKFLOWS['report'][1]]
 
 
-def signal(api, identity=100, day='2026-10-21', clock='07:05:00'):
+def signal(api, identity=100, day='2026-10-21', clock='09:05:00'):
     api.records[identity] = run(identity, clock, role='report', day=day)
     return {'repository': core.REPOSITORY, 'branch': 'master', 'run_id': identity,
-            'event_name': 'schedule', 'schedule': '5 23 * * *', 'created_at': now(clock, day).isoformat()}
+            'event_name': 'schedule', 'schedule': '5 1 * * *', 'created_at': now(clock, day).isoformat()}
 
 
 def day_row(day='2026-10-21', status='missing', *, ongoing=False):
@@ -58,7 +58,7 @@ def prepare(api, tmp_path, *, identity=100, day='2026-10-21', rows=None):
     output = tmp_path / f'report-{identity}'
     output.mkdir()
     rows = rows or [day_row(day)]
-    result = reporting.prepare(api, plan(), context, output, now('07:05:00', day), rows, {})
+    result = reporting.prepare(api, plan(), context, output, now('09:05:00', day), rows, {})
     return context, output, result
 
 
@@ -209,7 +209,7 @@ def test_daily_email_requires_report_and_persisted_intent_then_deduplicates(tmp_
     assert prepared['mail_due'] == 'true'
     called = []
     with pytest.raises(ValueError, match='persisted_notification_intent_required'):
-        reporting.notify(api, plan(), context, output, now('07:05:01'), '', sender=lambda *args: called.append(args))
+        reporting.notify(api, plan(), context, output, now('09:05:01'), '', sender=lambda *args: called.append(args))
     assert not called
     upload_prepared(api, context['run_id'], output, prepared)
     assert send_and_persist(api, context, output, prepared)['notification_status'] == 'provider_accepted'
@@ -223,7 +223,7 @@ def test_same_job_notify_twice_cannot_resend_without_receipt(tmp_path):
     upload_prepared(api, 100, output, prepared)
     send_and_persist(api, context, output, prepared, persist=False)
     with pytest.raises(ValueError, match='notification_already_started'):
-        reporting.notify(api, plan(), context, output, now('07:05:02'), '', sender=accepted)
+        reporting.notify(api, plan(), context, output, now('09:05:02'), '', sender=accepted)
 
 
 @pytest.mark.parametrize('sender', [accepted, lambda *args: {'status': 'delivery_unknown', 'retryable': False,
@@ -255,7 +255,7 @@ def test_missing_configuration_still_persists_a_failed_receipt(tmp_path):
     assert result['notification_status'] == 'definite_nonacceptance'
     receipt = json.loads((output / 'mail-receipt/receipt.json').read_text())
     assert receipt['error_type'] == 'EmailSettingsInvalid'
-    assert reporting.audit_stop(api, plan(), context, now('07:05:03'))['stop'] == 'false'
+    assert reporting.audit_stop(api, plan(), context, now('09:05:03'))['stop'] == 'false'
 
 
 def test_mail_does_not_persist_secret_or_provider_response_fields(tmp_path):
@@ -288,7 +288,7 @@ def test_resealed_wrong_receipt_cannot_authorize_stop(field, value, reason, tmp_
     api.items[100].pop()
     api.upload(100, prepared['mail_receipt_artifact_name'], files)
     with pytest.raises(ValueError, match=reason):
-        reporting.audit_stop(api, plan(), context, now('07:05:03', '2026-10-27'))
+        reporting.audit_stop(api, plan(), context, now('09:05:03', '2026-10-27'))
 
 
 def test_deleted_notification_intent_blocks_resend_even_without_receipt(tmp_path):
@@ -341,10 +341,10 @@ def test_d7_missing_produces_35_rows_and_only_final_receipt_allows_stop(tmp_path
     observations = json.loads((output / 'final/observations.json').read_text())
     assert observations['novel_events_confirmed'] is None and len(observations['days']) == 7
     upload_prepared(api, 100, output, prepared)
-    audit = reporting.audit_stop(api, plan(), context, now('07:05:01', '2026-10-27'))
+    audit = reporting.audit_stop(api, plan(), context, now('09:05:01', '2026-10-27'))
     assert audit['stop'] == 'false'
     send_and_persist(api, context, output, prepared)
-    assert reporting.audit_stop(api, plan(), context, now('07:05:02', '2026-10-27'))['stop'] == 'true'
+    assert reporting.audit_stop(api, plan(), context, now('09:05:02', '2026-10-27'))['stop'] == 'true'
 
 
 def test_final_email_cannot_send_when_final_package_not_uploaded(tmp_path):
@@ -352,7 +352,7 @@ def test_final_email_cannot_send_when_final_package_not_uploaded(tmp_path):
     context, output, prepared = prepare(api, tmp_path, day='2026-10-27', rows=[day_row(d) for d in reporting.dates(plan())])
     upload_prepared(api, 100, output, prepared, include_final=False)
     with pytest.raises(ValueError, match='final_mail_binding_mismatch'):
-        reporting.notify(api, plan(), context, output, now('07:05:01', '2026-10-27'), '', sender=accepted)
+        reporting.notify(api, plan(), context, output, now('09:05:01', '2026-10-27'), '', sender=accepted)
 
 
 def test_daily_acceptance_does_not_authorize_final_stop(tmp_path):
@@ -363,7 +363,7 @@ def test_daily_acceptance_does_not_authorize_final_stop(tmp_path):
     late = signal(api, 101, day='2026-10-27')
     final = reporting.final_files(plan(), [day_row(d) for d in reporting.dates(plan())], {})
     api.upload(101, reporting.name(plan(), 'final'), actions.seal(final, reporting.metadata(plan(), 101, 'final')))
-    assert reporting.audit_stop(api, plan(), late, now('07:05:02', '2026-10-27'))['stop'] == 'false'
+    assert reporting.audit_stop(api, plan(), late, now('09:05:02', '2026-10-27'))['stop'] == 'false'
 
 
 def test_outage_catchup_combines_original_dates_without_extra_sampling(tmp_path):
@@ -382,14 +382,14 @@ def test_final_deduplicates_source_urls_and_keeps_daily_vs_retrospective_evidenc
     value = plan()
     rows = [day_row(d) for d in reporting.dates(value)]
     article = {'title': 'OpenAI 發布 AI 模型', 'canonical_url': 'https://cyberq.tw/test-launch',
-               'published_at': now('05:00:00').isoformat(), 'summary_if_provided': '公開發布模型',
+               'published_at': now('07:00:00').isoformat(), 'summary_if_provided': '公開發布模型',
                'retrieval_status': 'ok', 'filter_reason': None}
     source = {**shadow.SOURCES[1], 'status': 'verified_native_feed', 'articles': [article],
               'feed_results': [{'status': 'valid_feed'}], 'requests': []}
     evidence = {}
     for index, day in enumerate(reporting.dates(value)[:2]):
-        capture = {'generated_at': now('06:00:00', day).isoformat(), 'sources': [source]}
-        comparison = {'generated_at': now('05:50:00', day).isoformat(), 'items':
+        capture = {'generated_at': now('08:00:00', day).isoformat(), 'sources': [source]}
+        comparison = {'generated_at': now('07:50:00', day).isoformat(), 'items':
                       [{'url': article['canonical_url'], 'title': article['title']}] if index else []}
         report = shadow.evaluate(capture, comparison)
         evidence[day] = {'primary': {'capture.json': actions.encoded(capture), 'baseline.json': actions.encoded(comparison),
@@ -419,7 +419,7 @@ def test_observation_history_failure_can_be_reported_if_notification_ledger_work
     api = MailGitHub()
     api.fail = 'runs'
     context = signal(api)
-    result = job.reconcile(api, plan(), context, tmp_path, now('07:05:00'))
+    result = job.reconcile(api, plan(), context, tmp_path, now('09:05:00'))
     row = json.loads((tmp_path / 'reconciliation.json').read_text())['days'][0]
     assert row['status'] == 'unavailable' and result['mail_due'] == 'true'
     assert '證據無法驗證' in json.loads((tmp_path / 'daily-report/message.json').read_text())['subject']
@@ -429,7 +429,7 @@ def test_unavailable_notification_ledger_preserves_diagnostic_and_blocks_deliver
     api = MailGitHub()
     context = signal(api)
     api.fail = 'report_runs'
-    result = job.reconcile(api, plan(), context, tmp_path, now('07:05:00'))
+    result = job.reconcile(api, plan(), context, tmp_path, now('09:05:00'))
     assert result['mode'] == 'blocked' and result['mail_due'] == 'false'
     assert result['reconciliation_ready'] == 'true'
     assert json.loads((tmp_path / 'reconciliation.json').read_text())['notification']['status'] == 'notification_ledger_unavailable_or_unverified'
@@ -440,14 +440,14 @@ def test_unavailable_notification_ledger_preserves_diagnostic_and_blocks_deliver
 def test_before_experiment_report_does_not_read_ledger_or_prepare_mail(tmp_path, monkeypatch, event):
     api = MailGitHub()
     day = '2026-10-20'  # The fixture experiment starts on October 21.
-    clock = '06:36:00' if event == 'workflow_run' else '07:05:00'
+    clock = '08:36:00' if event == 'workflow_run' else '09:05:00'
     context = signal(api, day=day, clock=clock)
     if event == 'workflow_run':
         context.update(event_name=event, action='completed', workflow_run={
             'name': actions.WORKFLOWS['observe'][1], 'repository': core.REPOSITORY,
             'branch': 'master', 'event': 'workflow_run', 'id': 99,
-            'created_at': now('06:35:00', day).isoformat(),
-            'completed_at': now('06:35:30', day).isoformat(),
+            'created_at': now('08:35:00', day).isoformat(),
+            'completed_at': now('08:35:30', day).isoformat(),
         })
 
     def forbidden_ledger(*_):
@@ -467,12 +467,12 @@ def test_before_experiment_report_does_not_read_ledger_or_prepare_mail(tmp_path,
 def test_before_experiment_cannot_accept_fabricated_observation_rows(tmp_path):
     with pytest.raises(ValueError, match='pre_experiment_rows_unexpected'):
         reporting.prepare(MailGitHub(), plan(), {}, tmp_path,
-                          now('07:05:00', '2026-10-20'), [day_row()], {})
+                          now('09:05:00', '2026-10-20'), [day_row()], {})
 
 
 def test_empty_rows_during_experiment_cannot_bypass_the_notification_ledger(tmp_path):
     with pytest.raises(ValueError, match='in_experiment_rows_missing'):
-        reporting.prepare(MailGitHub(), plan(), {}, tmp_path, now('07:05:00'), [], {})
+        reporting.prepare(MailGitHub(), plan(), {}, tmp_path, now('09:05:00'), [], {})
 
 
 def test_stop_api_failure_stays_failed_and_targets_only_two_experiments(tmp_path):
@@ -516,25 +516,25 @@ def test_seven_logical_days_end_to_end_produce_seven_emails_and_one_final_stop(t
     sent, fetched = [], []
     for index, day in enumerate(reporting.dates(value)):
         identity = index + 10
-        api.records[identity] = run(identity, '06:00:00', day=day)
+        api.records[identity] = run(identity, '08:00:00', day=day)
         sample_context = sampler_context(identity, day=day)
         output = tmp_path / f'sample-{day}'
         output.mkdir()
-        sampling = job.prepare(api, value, sample_context, output, now('06:00:00', day))
+        sampling = job.prepare(api, value, sample_context, output, now('08:00:00', day))
         upload_dir(api, identity, sampling['intent_artifact_name'], output / 'intent')
         baseline_path = tmp_path / 'latest-public-baseline.json'
-        baseline_path.write_text(json.dumps({'generated_at': now('05:50:00', day).isoformat(), 'items': []}))
+        baseline_path.write_text(json.dumps({'generated_at': now('07:50:00', day).isoformat(), 'items': []}))
         def collector(source):
             fetched.append((day, source['source_id']))
             return public_source(source)
         job.collect(api, json.loads((output / 'state.json').read_text()), output, baseline_path,
-                    lambda: now('06:04:00', day), collector)
+                    lambda: now('08:04:00', day), collector)
         upload_dir(api, identity, sampling['daily_artifact_name'], output / 'bundle')
         api.records[identity]['status'] = 'completed'
         report_context = signal(api, index + 100, day)
         report_output = tmp_path / f'report-{day}'
         report_output.mkdir()
-        report = job.reconcile(api, value, report_context, report_output, now('07:05:00', day))
+        report = job.reconcile(api, value, report_context, report_output, now('09:05:00', day))
         assert report['mail_due'] == 'true'
         upload_prepared(api, index + 100, report_output, report)
         def sender(payload, config):
@@ -544,7 +544,7 @@ def test_seven_logical_days_end_to_end_produce_seven_emails_and_one_final_stop(t
             return result
         result = send_and_persist(api, report_context, report_output, report, sender)
         assert result['notification_status'] == 'provider_accepted'
-        audit = reporting.audit_stop(api, value, report_context, now('07:05:03', day))
+        audit = reporting.audit_stop(api, value, report_context, now('09:05:03', day))
         assert (audit['stop'] == 'true') is (index == 6)
     assert len(sent) == 7 and len(fetched) == 35
     matrix = list(csv.DictReader(io.StringIO((report_output / 'final/SOURCE_DAILY.csv').read_text(encoding='utf-8-sig'))))
@@ -560,11 +560,11 @@ def test_notify_cli_missing_settings_exits_failed_but_writes_receipt(tmp_path, m
     config = tmp_path / 'plan.json'
     event = tmp_path / 'event.json'
     config.write_text(json.dumps(plan()))
-    event.write_text(json.dumps({'repository': {'full_name': core.REPOSITORY}, 'schedule': '5 23 * * *'}))
+    event.write_text(json.dumps({'repository': {'full_name': core.REPOSITORY}, 'schedule': '5 1 * * *'}))
     class FixedDatetime(datetime):
         @classmethod
         def now(cls, tz=None):
-            return now('07:05:01')
+            return now('09:05:01')
     monkeypatch.setattr(job, 'datetime', FixedDatetime)
     monkeypatch.setattr(actions, 'GitHub', lambda token: api)
     monkeypatch.setattr(job.subprocess, 'run', lambda *args, **kwargs: type('Result', (), {'stdout': 'a' * 40})())
@@ -596,12 +596,41 @@ def test_history_queries_bound_heartbeat_volume_and_keep_manual_catchup():
         return [{'id': 100}] if 'event=workflow_dispatch' not in path else [{'id': 100}, {'id': 101}]
     api.pages = pages
     api.runs('2026-10-21')
-    assert '22:00:00' in calls[0] and '22:49:59' in calls[0]
+    assert '00:00:00' in calls[0] and '00:49:59' in calls[0]
     calls.clear()
     rows = api.report_runs('2026-10-21', '2026-10-27')
     assert len(calls) == 8 and len(rows) == 2
-    assert all('22:00:00' in call and '23:19:59' in call for call in calls[:-1])
+    assert all('00:00:00' in call and '01:19:59' in call for call in calls[:-1])
     assert 'event=workflow_dispatch' in calls[-1]
+
+
+def test_first_day_history_excludes_old_morning_d0_runs_but_keeps_current_and_late_manuals():
+    from urllib.parse import parse_qs, urlsplit
+    api = actions.GitHub('synthetic-token')
+    records = [
+        {'id': 1, 'event': 'workflow_dispatch', 'created_at': now('07:05:00').isoformat()},
+        {'id': 2, 'event': 'workflow_run', 'created_at': now('08:05:00').isoformat()},
+        {'id': 3, 'event': 'workflow_dispatch', 'created_at': now('09:05:00').isoformat()},
+        {'id': 4, 'event': 'workflow_dispatch', 'created_at': now('16:00:00').isoformat()},
+    ]
+
+    def pages(path, field):
+        query = parse_qs(urlsplit('https://api.example/' + path).query)
+        start, end = map(core.timestamp, query['created'][0].split('..'))
+        return [row for row in records if start <= core.timestamp(row['created_at']) <= end
+                and ('event' not in query or row['event'] == query['event'][0])]
+
+    api.pages = pages
+    assert {row['id'] for row in api.report_runs('2026-10-21', '2026-10-21')} == {2, 3, 4}
+
+
+def test_manual_report_created_before_new_window_cannot_wait_in_queue_to_bypass_it():
+    api = MailGitHub()
+    context = signal(api, clock='08:59:59') | {'event_name': 'workflow_dispatch'}
+    with pytest.raises(ValueError, match='outside_reconcile_window'):
+        actions.reconciliation(context, plan(), now('09:05:00'))
+    context['created_at'] = now('09:05:00').isoformat()
+    assert actions.reconciliation(context, plan(), now('09:06:00')) == ['2026-10-21']
 
 
 @pytest.mark.parametrize('end', ['2026-10-20', '2026-11-20', '2027-10-21'])
@@ -645,14 +674,14 @@ def test_overdue_in_progress_d7_then_explicit_final_correction(tmp_path):
     assert '結案更正1' in state['intent']['message']['subject']
     upload_prepared(api, 101, later_output, final)
     send_and_persist(api, later_context, later_output, final)
-    assert reporting.audit_stop(api, plan(), later_context, now('07:05:03', '2026-10-27'))['stop'] == 'true'
+    assert reporting.audit_stop(api, plan(), later_context, now('09:05:03', '2026-10-27'))['stop'] == 'true'
 
 
 @pytest.mark.parametrize('targets', [['update-news.yml'], ['tw-source-observation.yml', 'digest-generation.yml']])
 def test_stop_gate_never_accepts_production_targets(targets):
     value = plan() | {'self_disable_workflows': targets}
     with pytest.raises(ValueError, match='invalid_stop_targets'):
-        reporting.audit_stop(MailGitHub(), value, {}, now('07:05:00', '2026-10-27'))
+        reporting.audit_stop(MailGitHub(), value, {}, now('09:05:00', '2026-10-27'))
 
 
 def test_unsafe_csv_titles_do_not_become_spreadsheet_formulas():

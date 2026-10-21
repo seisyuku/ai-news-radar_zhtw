@@ -5,10 +5,10 @@
   "timezone": "Asia/Taipei",
   "start_date": null,
   "duration_days": 7,
-  "primary_local_time": "06:00",
-  "recovery_local_time": "06:30",
-  "recovery_start_before": "06:50",
-  "daily_reconcile_local_time": "07:05",
+  "primary_local_time": "08:00",
+  "recovery_local_time": "08:30",
+  "recovery_start_before": "08:50",
+  "daily_reconcile_local_time": "09:05",
   "max_sampling_attempt_slots_per_day": 2,
   "code_sha": null,
   "workflow_sha256": {
@@ -29,12 +29,12 @@
     "mode": "workflow_run",
     "upstream_workflow": "Update AI News Snapshot",
     "recovery_window": [
-      "06:30",
-      "06:50"
+      "08:30",
+      "08:50"
     ],
     "reconcile_window": [
-      "07:05",
-      "07:20"
+      "09:05",
+      "09:20"
     ],
     "modify_existing_heartbeat": false
   },

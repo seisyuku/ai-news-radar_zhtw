@@ -168,8 +168,8 @@ class GitHub:
         # Pinned collector code cannot claim outside these created/start windows.
         # Skip the many heartbeat runs whose jobs never sampled; reading every
         # hourly run for seven days would exhaust the supervisor's time budget.
-        start = datetime.combine(date.fromisoformat(day), time(6), core.TAIPEI).astimezone(timezone.utc)
-        end = datetime.combine(date.fromisoformat(day), time(6, 50), core.TAIPEI).astimezone(timezone.utc) - timedelta(seconds=1)
+        start = datetime.combine(date.fromisoformat(day), time(8), core.TAIPEI).astimezone(timezone.utc)
+        end = datetime.combine(date.fromisoformat(day), time(8, 50), core.TAIPEI).astimezone(timezone.utc) - timedelta(seconds=1)
         bounds = quote(f"{start.isoformat()}..{end.isoformat()}", safe="")
         filename = WORKFLOWS["observe"][0]
         return self.pages(f"actions/workflows/{filename}/runs?branch=master&created={bounds}", "workflow_runs")
@@ -185,13 +185,14 @@ class GitHub:
         result = {}
         for offset in range(days):
             day = date.fromisoformat(start) + timedelta(days=offset)
-            first = datetime.combine(day, time(6), core.TAIPEI).astimezone(timezone.utc)
-            last = datetime.combine(day, time(7, 20), core.TAIPEI).astimezone(timezone.utc) - timedelta(seconds=1)
+            first = datetime.combine(day, time(8), core.TAIPEI).astimezone(timezone.utc)
+            last = datetime.combine(day, time(9, 20), core.TAIPEI).astimezone(timezone.utc) - timedelta(seconds=1)
             bounds = quote(f"{first.isoformat()}..{last.isoformat()}", safe="")
             rows = self.pages(f"actions/workflows/{WORKFLOWS['report'][0]}/runs?branch=master&created={bounds}", "workflow_runs")
             result.update({row["id"]: row for row in rows})
-        # Manual delayed reconciliation is allowed after the morning window.
-        first = datetime.combine(date.fromisoformat(start), time(), core.TAIPEI).astimezone(timezone.utc)
+        # Manual catch-up remains available later in the day. History cannot begin
+        # before the first sampling window of the activated experiment.
+        first = datetime.combine(date.fromisoformat(start), time(8), core.TAIPEI).astimezone(timezone.utc)
         last = datetime.combine(date.fromisoformat(end) + timedelta(days=1), time(), core.TAIPEI).astimezone(timezone.utc) - timedelta(seconds=1)
         bounds = quote(f"{first.isoformat()}..{last.isoformat()}", safe="")
         rows = self.pages(f"actions/workflows/{WORKFLOWS['report'][0]}/runs?branch=master&event=workflow_dispatch&created={bounds}", "workflow_runs")
@@ -393,18 +394,19 @@ def reconciliation(context, plan, now):
                 "cross_day_trigger")
         if run["name"] == WORKFLOWS["observe"][1]:
             require(run["event"] in {"schedule", "workflow_dispatch", "workflow_run"}
-                    and time(6) <= completed.time() < time(7, 20) and local.time() < time(7, 20),
+                    and time(8) <= completed.time() < time(9, 20) and local.time() < time(9, 20),
                     "outside_reconcile_window")
         else:
             require(run["name"] == "Update AI News Snapshot" and run["event"] in {"schedule", "workflow_dispatch"}
-                    and time(7, 5) <= completed.time() < time(7, 20)
-                    and time(7, 5) <= local.time() < time(7, 20), "outside_reconcile_window")
+                    and time(9, 5) <= completed.time() < time(9, 20)
+                    and time(9, 5) <= local.time() < time(9, 20), "outside_reconcile_window")
     elif event == "schedule":
-        require(context["schedule"] == "5 23 * * *" and time(7, 5) <= local.time() < time(7, 20)
-                and time(7, 5) <= created.astimezone(core.TAIPEI).time() < time(7, 20),
+        require(context["schedule"] == "5 1 * * *" and time(9, 5) <= local.time() < time(9, 20)
+                and time(9, 5) <= created.astimezone(core.TAIPEI).time() < time(9, 20),
                 "outside_reconcile_window")
     else:
-        require(event == "workflow_dispatch" and local.time() >= time(7, 5), "outside_reconcile_window")
+        require(event == "workflow_dispatch" and local.time() >= time(9, 5)
+                and created.astimezone(core.TAIPEI).time() >= time(9, 5), "outside_reconcile_window")
     start = date.fromisoformat(plan["start_date"])
     end = min(local.date(), start + timedelta(days=6))
     return [(start + timedelta(days=i)).isoformat() for i in range((end - start).days + 1)]

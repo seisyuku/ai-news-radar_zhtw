@@ -6,8 +6,8 @@ name: TW source shadow observation
 
 'on':
   schedule:
-    - cron: '0 22 * * *' # Taipei 06:00 primary.
-    - cron: '30 22 * * *' # Taipei 06:30 recovery check, not unconditional refetch.
+    - cron: '0 0 * * *' # Taipei 08:00 primary.
+    - cron: '30 0 * * *' # Taipei 08:30 recovery check, not unconditional refetch.
   workflow_run:
     workflows: [Update AI News Snapshot]
     types: [completed]
@@ -33,8 +33,8 @@ jobs:
       ${{ false && (github.event_name != 'workflow_run' ||
         (github.event.workflow_run.head_repository.full_name == github.repository &&
          (github.event.workflow_run.event == 'schedule' || github.event.workflow_run.event == 'workflow_dispatch') &&
-         (contains(github.event.workflow_run.updated_at, 'T22:3') ||
-          contains(github.event.workflow_run.updated_at, 'T22:4')))) }}
+         (contains(github.event.workflow_run.updated_at, 'T00:3') ||
+          contains(github.event.workflow_run.updated_at, 'T00:4')))) }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:

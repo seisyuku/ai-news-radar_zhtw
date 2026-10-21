@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CONTENT = b'name: approved fixture workflow\n'
 
 
-def now(clock="06:00:00", day="2026-10-21"):
+def now(clock="08:00:00", day="2026-10-21"):
     return core.timestamp(f"{day}T{clock}+08:00")
 
 
@@ -30,7 +30,7 @@ def plan():
                     "code_sha": "a" * 40, "workflow_sha256": {v[0]: actions.sha(CONTENT) for v in actions.WORKFLOWS.values()}}
 
 
-def run(run_id=10, clock="06:00:00", role="observe", status="in_progress", day="2026-10-21"):
+def run(run_id=10, clock="08:00:00", role="observe", status="in_progress", day="2026-10-21"):
     filename, name = actions.WORKFLOWS[role]
     return {"id": run_id, "name": name, "path": f".github/workflows/{filename}",
             "head_sha": "d" * 40, "head_branch": "master", "run_attempt": 1,
@@ -39,7 +39,7 @@ def run(run_id=10, clock="06:00:00", role="observe", status="in_progress", day="
             "status": status, "conclusion": None if status != "completed" else "success"}
 
 
-def context(run_id=10, clock="06:00:00", slot="primary", day="2026-10-21"):
+def context(run_id=10, clock="08:00:00", slot="primary", day="2026-10-21"):
     return {"repository": core.REPOSITORY, "branch": "master", "run_id": run_id,
             "created_at": now(clock, day).isoformat(), "event_name": "schedule",
             "schedule": next(k for k, v in core.CRONS.items() if v == slot)}
@@ -109,19 +109,19 @@ def public_source(source):
             'feed_results': [{'status': 'valid_empty'}], 'requests': []}
 
 
-def baseline(path, generated='05:50:00'):
+def baseline(path, generated='07:50:00'):
     path.write_text(json.dumps({'generated_at': now(generated).isoformat(), 'items': []}))
     return path
 
 
-def primary_attempt(api, tmp_path, collector=public_source, generated='05:50:00'):
+def primary_attempt(api, tmp_path, collector=public_source, generated='07:50:00'):
     output = tmp_path / 'primary'
     output.mkdir()
     prepared = job.prepare(api, plan(), context(), output, now())
     upload_dir(api, 10, prepared['intent_artifact_name'], output / 'intent')
     state = json.loads((output / 'state.json').read_text())
     result = job.collect(api, state, output, baseline(tmp_path / 'baseline.json', generated),
-                         lambda: now('06:04:00'), collector)
+                         lambda: now('08:04:00'), collector)
     upload_dir(api, 10, prepared['daily_artifact_name'], output / 'bundle')
     api.records[10]['status'] = 'completed'
     return result, output
@@ -131,11 +131,11 @@ def test_end_to_end_prepare_persist_collect_restore_and_skip_recovery(tmp_path):
     api = FakeGitHub()
     result, _ = primary_attempt(api, tmp_path)
     assert result['observation_status'] == 'complete'
-    api.records[20] = run(20, '06:30:00')
-    history, evidence = actions.restore(api, plan(), '2026-10-21', now('06:30:00'), 20)
+    api.records[20] = run(20, '08:30:00')
+    history, evidence = actions.restore(api, plan(), '2026-10-21', now('08:30:00'), 20)
     assert history['attempts'][0]['verified'] is True
     assert set(evidence['primary']) == {'attempt.json', 'capture.json', 'baseline.json', 'report.json', 'REPORT.md'}
-    result = job.prepare(api, plan(), context(20, '06:30:00', 'recovery'), tmp_path / 'not-written', now('06:30:00'))
+    result = job.prepare(api, plan(), context(20, '08:30:00', 'recovery'), tmp_path / 'not-written', now('08:30:00'))
     assert result['reason'] == 'primary_complete'
     assert not (tmp_path / 'not-written').exists()
 
@@ -149,10 +149,10 @@ def test_partial_source_recovery_only_fetches_failed_source(tmp_path):
     first, main_output = primary_attempt(api, tmp_path, mixed)
     assert first['observation_status'] == 'partial'
     assert b'sensitive exception' not in (main_output / 'bundle/capture.json').read_bytes()
-    api.records[20] = run(20, '06:30:00')
+    api.records[20] = run(20, '08:30:00')
     output = tmp_path / 'recovery'
     output.mkdir()
-    prepared = job.prepare(api, plan(), context(20, '06:30:00', 'recovery'), output, now('06:30:00'))
+    prepared = job.prepare(api, plan(), context(20, '08:30:00', 'recovery'), output, now('08:30:00'))
     assert prepared['fetch_source_ids'] == ['cyberq']
     upload_dir(api, 20, prepared['intent_artifact_name'], output / 'intent')
     called = []
@@ -160,16 +160,16 @@ def test_partial_source_recovery_only_fetches_failed_source(tmp_path):
         called.append(source['source_id'])
         return public_source(source)
     state = json.loads((output / 'state.json').read_text())
-    result = job.collect(api, state, output, tmp_path / 'absent-baseline.json', lambda: now('06:34:00'), collect)
+    result = job.collect(api, state, output, tmp_path / 'absent-baseline.json', lambda: now('08:34:00'), collect)
     assert called == ['cyberq']
     assert result['observation_status'] == 'complete'
     upload_dir(api, 20, prepared['daily_artifact_name'], output / 'bundle')
     api.records[20]['status'] = 'completed'
-    history, _ = actions.restore(api, plan(), '2026-10-21', now('06:35:00'))
+    history, _ = actions.restore(api, plan(), '2026-10-21', now('08:35:00'))
     assessed = core.assess(history['attempts'])
     assert assessed['observation_status'] == 'complete'
-    assert assessed['sources']['netadmin']['retrieved_at'] == now('06:04:00').isoformat()
-    assert assessed['sources']['cyberq']['retrieved_at'] == now('06:34:00').isoformat()
+    assert assessed['sources']['netadmin']['retrieved_at'] == now('08:04:00').isoformat()
+    assert assessed['sources']['cyberq']['retrieved_at'] == now('08:34:00').isoformat()
 
 
 def test_no_publisher_request_without_confirmed_persisted_intent(tmp_path):
@@ -178,7 +178,7 @@ def test_no_publisher_request_without_confirmed_persisted_intent(tmp_path):
     state = json.loads((tmp_path / 'state.json').read_text())
     called = []
     with pytest.raises(ValueError, match='persisted_intent_required'):
-        job.collect(api, state, tmp_path, tmp_path / 'baseline', lambda: now('06:01:00'), called.append)
+        job.collect(api, state, tmp_path, tmp_path / 'baseline', lambda: now('08:01:00'), called.append)
     assert not called
 
 
@@ -189,7 +189,7 @@ def test_same_collect_command_cannot_refetch_in_same_job(tmp_path):
     state = json.loads((output / 'state.json').read_text())
     called = []
     with pytest.raises(ValueError, match='collection_already_started'):
-        job.collect(api, state, output, tmp_path / 'baseline.json', lambda: now('06:04:00'), called.append)
+        job.collect(api, state, output, tmp_path / 'baseline.json', lambda: now('08:04:00'), called.append)
     assert called == []
 
 
@@ -198,7 +198,7 @@ def test_api_time_cannot_push_actual_collection_past_start_window(tmp_path):
     job.prepare(api, plan(), context(), tmp_path, now())
     upload_dir(api, 10, actions.artifact_name(plan(), '2026-10-21', 'primary', 'intent'), tmp_path / 'intent')
     state = json.loads((tmp_path / 'state.json').read_text())
-    ticks = iter([now('06:29:59'), now('06:30:00')])
+    ticks = iter([now('08:29:59'), now('08:30:00')])
     called = []
     with pytest.raises(ValueError, match='outside_trigger_window'):
         job.collect(api, state, tmp_path, tmp_path / 'baseline', lambda: next(ticks), called.append)
@@ -207,12 +207,12 @@ def test_api_time_cannot_push_actual_collection_past_start_window(tmp_path):
 
 def test_future_baseline_preserves_sources_as_partial_evidence(tmp_path):
     api = FakeGitHub()
-    result, output = primary_attempt(api, tmp_path, generated='06:10:00')
+    result, output = primary_attempt(api, tmp_path, generated='08:10:00')
     assert result['observation_status'] == 'partial'
     assert result['baseline_error'] == 'baseline_unavailable_or_invalid'
     assert len(json.loads((output / 'bundle/capture.json').read_text())['sources']) == 5
-    history, _ = actions.restore(api, plan(), '2026-10-21', now('06:30:00'))
-    decision = core.decide(plan(), context(20, '06:30:00', 'recovery'), history, now('06:30:00'))
+    history, _ = actions.restore(api, plan(), '2026-10-21', now('08:30:00'))
+    decision = core.decide(plan(), context(20, '08:30:00', 'recovery'), history, now('08:30:00'))
     assert decision['fetch_source_ids'] == [] and decision['refresh_baseline'] is True
 
 
@@ -225,7 +225,7 @@ def test_comparison_failure_preserves_capture_and_requires_baseline_repair(tmp_p
     assert result['observation_status'] == 'partial'
     assert result['baseline_error'] == 'baseline_comparison_failed'
     assert (output / 'bundle/capture.json').exists()
-    history, _ = actions.restore(api, plan(), '2026-10-21', now('06:30:00'))
+    history, _ = actions.restore(api, plan(), '2026-10-21', now('08:30:00'))
     assert history['attempts'][0]['baseline_at'] is None
 
 
@@ -244,7 +244,7 @@ def test_resealed_wrong_scope_never_becomes_verified(field, value, reason, tmp_p
     api.items[10].pop()
     api.upload(10, actions.artifact_name(plan(), '2026-10-21', 'primary', 'bundle'), files)
     with pytest.raises(ValueError, match=reason):
-        actions.restore(api, plan(), '2026-10-21', now('06:30:00'))
+        actions.restore(api, plan(), '2026-10-21', now('08:30:00'))
 
 
 def test_resealed_false_success_is_rederived_from_capture_not_verified_flag(tmp_path):
@@ -261,7 +261,7 @@ def test_resealed_false_success_is_rederived_from_capture_not_verified_flag(tmp_
     api.items[10].pop()
     api.upload(10, actions.artifact_name(plan(), '2026-10-21', 'primary', 'bundle'), files)
     with pytest.raises(ValueError, match='source_evidence_mismatch'):
-        actions.restore(api, plan(), '2026-10-21', now('06:30:00'))
+        actions.restore(api, plan(), '2026-10-21', now('08:30:00'))
 
 
 def test_orphan_bundle_is_not_treated_as_a_free_slot(tmp_path):
@@ -269,7 +269,7 @@ def test_orphan_bundle_is_not_treated_as_a_free_slot(tmp_path):
     primary_attempt(api, tmp_path)
     api.items[10].pop(0)
     with pytest.raises(ValueError, match='orphan_bundle'):
-        actions.restore(api, plan(), '2026-10-21', now('06:30:00'))
+        actions.restore(api, plan(), '2026-10-21', now('08:30:00'))
 
 
 def test_signed_download_never_receives_github_authorization():
@@ -313,9 +313,9 @@ def test_untrusted_artifact_redirect_never_requested(target):
     assert session.calls == 1
 
 
-@pytest.mark.parametrize('clock', ['07:04:59', '07:20:00'])
+@pytest.mark.parametrize('clock', ['09:04:59', '09:20:00'])
 def test_deadline_schedule_does_not_bypass_window(clock):
-    signal = context(30, clock) | {'schedule': '5 23 * * *'}
+    signal = context(30, clock) | {'schedule': '5 1 * * *'}
     with pytest.raises(ValueError, match='outside_reconcile_window'):
         actions.reconciliation(signal, plan(), now(clock))
 
@@ -326,7 +326,7 @@ def test_api_failure_is_never_empty_history(failure, tmp_path):
     primary_attempt(api, tmp_path)
     api.fail = failure
     with pytest.raises(ValueError, match='synthetic_api_failure'):
-        actions.restore(api, plan(), '2026-10-21', now('06:30:00'))
+        actions.restore(api, plan(), '2026-10-21', now('08:30:00'))
 
 
 @pytest.mark.parametrize(('field', 'value', 'reason'), [
@@ -339,7 +339,7 @@ def test_artifact_metadata_tamper_blocks_restore(field, value, reason, tmp_path)
     primary_attempt(api, tmp_path)
     api.items[10][0][field] = value
     with pytest.raises(ValueError, match=reason):
-        actions.restore(api, plan(), '2026-10-21', now('06:30:00'))
+        actions.restore(api, plan(), '2026-10-21', now('08:30:00'))
 
 
 @pytest.mark.parametrize(('field', 'value'), [
@@ -384,40 +384,40 @@ def test_manifest_scope_and_claim_deletion_are_detected(tmp_path):
     api.items[10] = []
     api.job_records[10] = [{'steps': [{'name': 'Persist sampling intent', 'conclusion': 'success'}]}]
     with pytest.raises(ValueError, match='intent_missing_after_upload_attempt'):
-        actions.restore(api, plan(), '2026-10-21', now('06:30:00'))
+        actions.restore(api, plan(), '2026-10-21', now('08:30:00'))
 
 
 def test_duplicate_slot_claim_in_different_run_is_not_last_writer_wins(tmp_path):
     api = FakeGitHub()
     _, output = primary_attempt(api, tmp_path)
-    api.records[11] = run(11, '06:01:00', status='completed')
+    api.records[11] = run(11, '08:01:00', status='completed')
     files = {p.name: p.read_bytes() for p in (output / 'intent').iterdir()}
     manifest = json.loads(files['manifest.json']) | {'run_id': 11}
     files['manifest.json'] = actions.encoded(manifest)
     api.upload(11, actions.artifact_name(plan(), '2026-10-21', 'primary', 'intent'), files)
     with pytest.raises(ValueError, match='duplicate_slot_claim'):
-        actions.restore(api, plan(), '2026-10-21', now('06:30:00'))
+        actions.restore(api, plan(), '2026-10-21', now('08:30:00'))
 
 
 def test_future_queued_runs_do_not_block_current_serialized_job(tmp_path):
     api = FakeGitHub()
-    api.records[11] = run(11, '06:01:00', status='queued')
+    api.records[11] = run(11, '08:01:00', status='queued')
     result = job.prepare(api, plan(), context(), tmp_path, now())
     assert result['mode'] == 'collect'
 
 
 def test_prior_active_run_without_intent_blocks_recovery():
     api = FakeGitHub()
-    api.records[20] = run(20, '06:30:00')
+    api.records[20] = run(20, '08:30:00')
     with pytest.raises(ValueError, match='prior_run_active_without_intent'):
-        actions.restore(api, plan(), '2026-10-21', now('06:30:00'), 20)
+        actions.restore(api, plan(), '2026-10-21', now('08:30:00'), 20)
 
 
 def test_supervisor_detects_missing_day_without_source_or_email_requests(tmp_path):
     api = FakeGitHub()
     api.records = {}
-    signal = context(30, '07:05:00') | {'schedule': '5 23 * * *'}
-    result = job.reconcile(api, plan(), signal, tmp_path, now('07:05:00'))
+    signal = context(30, '09:05:00') | {'schedule': '5 1 * * *'}
+    result = job.reconcile(api, plan(), signal, tmp_path, now('09:05:00'))
     rows = json.loads((tmp_path / 'reconciliation.json').read_text())['days']
     assert rows[0]['status'] == 'missing'
     assert result['mail_due'] == 'false' and result['stop'] == 'false'
@@ -431,8 +431,8 @@ def test_overdue_running_sampler_is_unmet_and_not_cancelled(tmp_path):
     upload_dir(api, 10, prepared['intent_artifact_name'], work / 'intent')
     report = tmp_path / 'report'
     report.mkdir()
-    signal = context(30, '07:05:00') | {'schedule': '5 23 * * *'}
-    job.reconcile(api, plan(), signal, report, now('07:05:00'))
+    signal = context(30, '09:05:00') | {'schedule': '5 1 * * *'}
+    job.reconcile(api, plan(), signal, report, now('09:05:00'))
     row = json.loads((report / 'reconciliation.json').read_text())['days'][0]
     assert row['status'] == 'unmet'
     assert row['collection_state'] == 'in_progress'
@@ -441,23 +441,23 @@ def test_overdue_running_sampler_is_unmet_and_not_cancelled(tmp_path):
 
 
 def test_delayed_manual_reconciliation_stops_at_d7():
-    signal = context(30, '10:00:00', day='2026-10-30') | {'event_name': 'workflow_dispatch'}
-    dates = actions.reconciliation(signal, plan(), now('10:00:00', '2026-10-30'))
+    signal = context(30, '12:00:00', day='2026-10-30') | {'event_name': 'workflow_dispatch'}
+    dates = actions.reconciliation(signal, plan(), now('12:00:00', '2026-10-30'))
     assert dates == [f'2026-10-{day}' for day in range(21, 28)]
 
 
 def test_normalize_real_pulse_uses_checked_updated_at_not_invented_completed_at():
     api = FakeGitHub()
-    api.records[10] = run(10, '06:35:00') | {'event': 'workflow_run'}
-    upstream = run(5, '06:31:00', status='completed') | {'name': 'Update AI News Snapshot',
-                'updated_at': now('06:34:00').isoformat(), 'conclusion': 'failure', 'event': 'workflow_dispatch'}
+    api.records[10] = run(10, '08:35:00') | {'event': 'workflow_run'}
+    upstream = run(5, '08:31:00', status='completed') | {'name': 'Update AI News Snapshot',
+                'updated_at': now('08:34:00').isoformat(), 'conclusion': 'failure', 'event': 'workflow_dispatch'}
     api.records[5] = upstream
     event = {'repository': {'full_name': core.REPOSITORY}, 'action': 'completed', 'workflow_run': upstream}
     normalized = actions.normalize_context(api, plan(), event, 10, 'workflow_run')
-    assert core.trigger(normalized, now('06:35:00'))['slot'] == 'recovery'
+    assert core.trigger(normalized, now('08:35:00'))['slot'] == 'recovery'
     assert normalized['workflow_run']['completed_at'] == upstream['updated_at']
     assert normalized['workflow_run']['conclusion'] == 'failure'
-    event['workflow_run'] = upstream | {'updated_at': now('06:32:00').isoformat()}
+    event['workflow_run'] = upstream | {'updated_at': now('08:32:00').isoformat()}
     with pytest.raises(ValueError, match='stale_or_changed_pulse'):
         actions.normalize_context(api, plan(), event, 10, 'workflow_run')
 
@@ -505,7 +505,7 @@ def test_cli_prepare_normalizes_api_metadata_and_sets_action_outputs(tmp_path, m
     configuration = plan()
     configuration['notification'].update(enabled=True, provider='smtp')
     config.write_text(json.dumps(configuration))
-    event.write_text(json.dumps({'repository': {'full_name': core.REPOSITORY}, 'schedule': '0 22 * * *'}))
+    event.write_text(json.dumps({'repository': {'full_name': core.REPOSITORY}, 'schedule': '0 0 * * *'}))
     class FixedDatetime(datetime):
         @classmethod
         def now(cls, tz=None):

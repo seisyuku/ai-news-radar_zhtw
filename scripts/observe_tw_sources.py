@@ -168,7 +168,7 @@ def reconcile(api, plan, context, output, now):
             error = "history_unavailable_or_unverified"
         status = assessment["observation_status"]
         deadline = (day < now.astimezone(core.TAIPEI).date().isoformat()
-                    or now.astimezone(core.TAIPEI).time() >= time(7, 5))
+                    or now.astimezone(core.TAIPEI).time() >= time(9, 5))
         if status not in {"complete", "unavailable"} and deadline:
             status = "unmet" if assessment["sources"] or status == "in_progress" else "missing"
         rows.append({"date": day, "status": status, "attempts": history["attempts"],

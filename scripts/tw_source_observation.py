@@ -22,7 +22,7 @@ TAIPEI = ZoneInfo("Asia/Taipei")
 REPOSITORY = "seisyuku/ai-news-radar_zhtw"
 SOURCES = ("informationsecurity", "cyberq", "netadmin", "digitimes_tw", "meet")
 SLOTS = ("primary", "recovery")
-CRONS = {"0 22 * * *": "primary", "30 22 * * *": "recovery"}
+CRONS = {"0 0 * * *": "primary", "30 0 * * *": "recovery"}
 TERMINAL = {"robots_denied", "robots_unavailable", "manual_required", "http_401", "http_403", "http_429",
             "paywall", "no_native_feed", "host_redirect_blocked"}
 RETRYABLE = {"timeout", "http_5xx", "parse_error", "transport_error"}
@@ -44,9 +44,9 @@ def validate_plan(plan: dict) -> None:
     """Validate the collection boundary, including disabled draft placeholders."""
     fixed = {
         "schema_version": 2, "timezone": "Asia/Taipei", "duration_days": 7,
-        "primary_local_time": "06:00", "recovery_local_time": "06:30",
-        "recovery_start_before": "06:50", "max_sampling_attempt_slots_per_day": 2,
-        "daily_reconcile_local_time": "07:05",
+        "primary_local_time": "08:00", "recovery_local_time": "08:30",
+        "recovery_start_before": "08:50", "max_sampling_attempt_slots_per_day": 2,
+        "daily_reconcile_local_time": "09:05",
         "max_baseline_age_hours": 2,
         "allow_production_mutation": False, "allow_source_promotion": False,
     }
@@ -57,7 +57,7 @@ def validate_plan(plan: dict) -> None:
         raise ValueError("invalid_plan:enabled_or_sources")
     expected_heartbeat = {
         "mode": "workflow_run", "upstream_workflow": "Update AI News Snapshot",
-        "recovery_window": ["06:30", "06:50"], "reconcile_window": ["07:05", "07:20"],
+        "recovery_window": ["08:30", "08:50"], "reconcile_window": ["09:05", "09:20"],
         "modify_existing_heartbeat": False,
     }
     if plan.get("heartbeat") != expected_heartbeat or plan["heartbeat"].get("modify_existing_heartbeat") is not False:
@@ -73,9 +73,9 @@ def validate_plan(plan: dict) -> None:
 
 def slot_at(instant: datetime) -> str | None:
     local = instant.astimezone(TAIPEI).time()
-    if time(6) <= local < time(6, 30):
+    if time(8) <= local < time(8, 30):
         return "primary"
-    if time(6, 30) <= local < time(6, 50):
+    if time(8, 30) <= local < time(8, 50):
         return "recovery"
     return None
 
