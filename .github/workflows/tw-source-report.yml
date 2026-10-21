@@ -3,7 +3,7 @@ name: TW source shadow report
 
 'on':
   schedule:
-    - cron: '5 23 * * *' # Taipei 07:05 deadline check; no source requests.
+    - cron: '5 1 * * *' # Taipei 09:05 deadline check; no source requests.
   workflow_run:
     workflows: [TW source shadow observation, Update AI News Snapshot]
     types: [completed]
@@ -17,7 +17,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  OBSERVATION_CODE_SHA: f341a1157207254d953022881f23229146cd678c
+  OBSERVATION_CODE_SHA: 2ce3c668372e9b2e1b74a051e0bb3835b95da935
   OBSERVATION_PLAN: config/tw-source-observation.json
   PYTHONDONTWRITEBYTECODE: '1'
 
@@ -27,13 +27,13 @@ jobs:
       ${{ (github.event_name != 'workflow_run' ||
         (github.event.workflow_run.head_repository.full_name == github.repository &&
          ((github.event.workflow_run.name == 'TW source shadow observation' &&
-           (contains(github.event.workflow_run.updated_at, 'T22:') ||
-            contains(github.event.workflow_run.updated_at, 'T23:0') ||
-            contains(github.event.workflow_run.updated_at, 'T23:1'))) ||
+           (contains(github.event.workflow_run.updated_at, 'T00:') ||
+            contains(github.event.workflow_run.updated_at, 'T01:0') ||
+            contains(github.event.workflow_run.updated_at, 'T01:1'))) ||
           (github.event.workflow_run.name == 'Update AI News Snapshot' &&
            (github.event.workflow_run.event == 'schedule' || github.event.workflow_run.event == 'workflow_dispatch') &&
-           (contains(github.event.workflow_run.updated_at, 'T23:0') ||
-            contains(github.event.workflow_run.updated_at, 'T23:1')))))) }}
+           (contains(github.event.workflow_run.updated_at, 'T01:0') ||
+            contains(github.event.workflow_run.updated_at, 'T01:1')))))) }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:

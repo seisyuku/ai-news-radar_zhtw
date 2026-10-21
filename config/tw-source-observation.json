@@ -1,19 +1,19 @@
 {
   "schema_version": 2,
   "enabled": true,
-  "experiment_id": "twso-20261023-01",
+  "experiment_id": "twso-20261022-0800-v2",
   "timezone": "Asia/Taipei",
-  "start_date": "2026-10-23",
+  "start_date": "2026-10-22",
   "duration_days": 7,
-  "primary_local_time": "06:00",
-  "recovery_local_time": "06:30",
-  "recovery_start_before": "06:50",
-  "daily_reconcile_local_time": "07:05",
+  "primary_local_time": "08:00",
+  "recovery_local_time": "08:30",
+  "recovery_start_before": "08:50",
+  "daily_reconcile_local_time": "09:05",
   "max_sampling_attempt_slots_per_day": 2,
-  "code_sha": "f341a1157207254d953022881f23229146cd678c",
+  "code_sha": "2ce3c668372e9b2e1b74a051e0bb3835b95da935",
   "workflow_sha256": {
-    "tw-source-observation.yml": "9d406fe9672e94f5be6d50f5ff087aa912e448e3b35270b11058450deb41fb7b",
-    "tw-source-report.yml": "01023ed038f89f8fce53f8cbadb230acede5cc7211819f0da50ceed96e5c60e7"
+    "tw-source-observation.yml": "d516ca337546e8e25dd00eb00d375b51d7825672f5ac3bfa8ac7b63b86ff56f1",
+    "tw-source-report.yml": "17608985a0515567474e8da5dfa0e19b1703a1a77765b9e2cc8aa10d506fcd3b"
   },
   "source_ids": [
     "informationsecurity",
@@ -29,12 +29,12 @@
     "mode": "workflow_run",
     "upstream_workflow": "Update AI News Snapshot",
     "recovery_window": [
-      "06:30",
-      "06:50"
+      "08:30",
+      "08:50"
     ],
     "reconcile_window": [
-      "07:05",
-      "07:20"
+      "09:05",
+      "09:20"
     ],
     "modify_existing_heartbeat": false
   },
