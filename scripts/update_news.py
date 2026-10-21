@@ -1740,14 +1740,31 @@ def parse_anthropic_news_items(page_html: str, now: datetime, *, require_valid: 
         url = urljoin("https://www.anthropic.com", href)
         if url in seen:
             continue
-        seen.add(url)
 
         time_tag = a.select_one("time")
+        if time_tag is None:
+            # Newsroom cards and table rows put the date beside the title link.
+            # Stay within one article; never borrow a date from the page/list.
+            container = a.find_parent(lambda node: node.name == "article" or (
+                node.name == "div" and any(
+                    css.startswith("TableView-") and css.endswith("__summary")
+                    for css in node.get("class", [])
+                )
+            ))
+            if container is not None:
+                dates = container.select("time")
+                article_hrefs = {
+                    link.get("href") for link in container.select('a[href^="/news/"]')
+                    if link.select_one("h1, h2, h3, h4")
+                }
+                if len(dates) == 1 and article_hrefs == {href}:
+                    time_tag = dates[0]
         published = None
         if time_tag:
             published = parse_date_any(time_tag.get("datetime") or time_tag.get_text(" ", strip=True), now)
         if not published:
             continue
+        seen.add(url)
         valid_source_entries += 1
         if now and published < now - timedelta(days=OFFICIAL_AI_MAX_AGE_DAYS):
             continue
