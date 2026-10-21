@@ -1,0 +1,159 @@
+# STAGED ONLY. Not registered; all jobs HARD DISABLED.
+# Phase 03 notify/finalization/stop-gate exist; delivery and deployment unverified.
+# Sender/recipient/provider and real delivery tests require deployment approval.
+name: TW source shadow report
+
+'on':
+  schedule:
+    - cron: '5 23 * * *' # Taipei 07:05 deadline check; no source requests.
+  workflow_run:
+    workflows: [TW source shadow observation, Update AI News Snapshot]
+    types: [completed]
+    branches: [master]
+  workflow_dispatch: {} # Reports/recovery only, never collect or force-send.
+
+permissions: {}
+
+concurrency:
+  group: tw-source-shadow-report
+  cancel-in-progress: false
+
+env:
+  OBSERVATION_CODE_SHA: APPROVAL_REQUIRED_FULL_COMMIT_SHA
+  OBSERVATION_PLAN: config/tw-source-observation.json
+  PYTHONDONTWRITEBYTECODE: '1'
+
+jobs:
+  report:
+    if: >-
+      ${{ false && (github.event_name != 'workflow_run' ||
+        (github.event.workflow_run.head_repository.full_name == github.repository &&
+         ((github.event.workflow_run.name == 'TW source shadow observation' &&
+           (contains(github.event.workflow_run.updated_at, 'T22:') ||
+            contains(github.event.workflow_run.updated_at, 'T23:0') ||
+            contains(github.event.workflow_run.updated_at, 'T23:1'))) ||
+          (github.event.workflow_run.name == 'Update AI News Snapshot' &&
+           (github.event.workflow_run.event == 'schedule' || github.event.workflow_run.event == 'workflow_dispatch') &&
+           (contains(github.event.workflow_run.updated_at, 'T23:0') ||
+            contains(github.event.workflow_run.updated_at, 'T23:1')))))) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      actions: read
+    outputs:
+      stop: ${{ steps.audit.outputs.stop }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ env.OBSERVATION_CODE_SHA }}
+          path: observation-code
+          persist-credentials: false
+      # Separate activation config avoids a self-referencing code SHA in its own commit.
+      - uses: actions/checkout@v6
+        with:
+          ref: master
+          path: observation-plan
+          sparse-checkout: config
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - name: Install existing dependencies
+        run: python -m pip install -r observation-code/requirements.txt
+      - name: Reconcile only this experiment, never request publisher sources
+        id: reconcile
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python observation-code/scripts/observe_tw_sources.py reconcile \
+            --plan "observation-plan/$OBSERVATION_PLAN" \
+            --event-file "$GITHUB_EVENT_PATH" \
+            --output-root "$HOME/Downloads/tw-source-report"
+      - name: Preserve read-only reconciliation
+        if: always() && steps.reconcile.outputs.reconciliation_ready == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: twso-reconcile-${{ github.run_id }}
+          path: ~/Downloads/tw-source-report/reconciliation.json
+          retention-days: 30
+          if-no-files-found: error
+      - name: Preserve daily report before email
+        id: report_upload
+        if: steps.reconcile.outputs.report_bundle_ready == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.reconcile.outputs.report_artifact_name }}
+          path: ${{ steps.reconcile.outputs.report_bundle_path }}
+          retention-days: 30
+          if-no-files-found: error
+      - name: Preserve final package before sending completion mail
+        id: final_upload
+        if: steps.reconcile.outputs.final_bundle_ready == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.reconcile.outputs.final_artifact_name }}
+          path: ${{ steps.reconcile.outputs.final_bundle_path }}
+          retention-days: 30
+          if-no-files-found: error
+      - name: Persist notification intent
+        id: mail_intent_upload
+        if: >-
+          steps.reconcile.outputs.mail_due == 'true' &&
+          (steps.reconcile.outputs.report_bundle_ready != 'true' || steps.report_upload.outcome == 'success') &&
+          (steps.reconcile.outputs.final_bundle_ready != 'true' || steps.final_upload.outcome == 'success')
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.reconcile.outputs.mail_intent_artifact_name }}
+          path: ${{ steps.reconcile.outputs.mail_intent_path }}
+          retention-days: 30
+          if-no-files-found: error
+      - name: Send daily report
+        id: mail
+        if: >-
+          steps.reconcile.outputs.mail_due == 'true' && steps.mail_intent_upload.outcome == 'success' &&
+          (steps.reconcile.outputs.final_bundle_ready != 'true' || steps.final_upload.outcome == 'success')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          # Reserved name only. No real settings were created or read locally.
+          TW_SOURCE_EMAIL_SETTINGS: ${{ secrets.TW_SOURCE_EMAIL_SETTINGS }}
+        run: |
+          python observation-code/scripts/observe_tw_sources.py notify \
+            --plan "observation-plan/$OBSERVATION_PLAN" \
+            --event-file "$GITHUB_EVENT_PATH" \
+            --output-root "$HOME/Downloads/tw-source-report"
+      - name: Persist acceptance, rejection or unknown-delivery receipt
+        id: receipt_upload
+        if: always() && steps.mail.outcome != 'skipped' && steps.reconcile.outputs.mail_due == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.reconcile.outputs.mail_receipt_artifact_name }}
+          path: ${{ steps.reconcile.outputs.mail_receipt_path }}
+          retention-days: 30
+          if-no-files-found: error
+      - name: Verify remote final package and final email receipt
+        id: audit
+        if: always() && steps.reconcile.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python observation-code/scripts/observe_tw_sources.py audit-stop \
+            --plan "observation-plan/$OBSERVATION_PLAN" \
+            --event-file "$GITHUB_EVENT_PATH" \
+            --output-root "$HOME/Downloads/tw-source-report"
+
+  stop-observation:
+    if: ${{ false && always() && needs.report.outputs.stop == 'true' }}
+    needs: report
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    permissions:
+      actions: write
+    steps:
+      # No checkout, source requests, production dispatch, secrets or repo write.
+      - name: Disable only these two experimental workflows
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api --method PUT "repos/$GITHUB_REPOSITORY/actions/workflows/tw-source-observation.yml/disable"
+          gh api --method PUT "repos/$GITHUB_REPOSITORY/actions/workflows/tw-source-report.yml/disable"

@@ -1,0 +1,95 @@
+# STAGED ONLY. Not registered; job HARD DISABLED pending deployment approval.
+# Phase 02 adapter/collector exist. Real SHA/date/workflow pins remain unset.
+# V2: collection only. The separate report template handles email/finalization/stop.
+# Approval, implementation, tests and real SHA/date substitution precede deployment.
+name: TW source shadow observation
+
+'on':
+  schedule:
+    - cron: '0 22 * * *' # Taipei 06:00 primary.
+    - cron: '30 22 * * *' # Taipei 06:30 recovery check, not unconditional refetch.
+  workflow_run:
+    workflows: [Update AI News Snapshot]
+    types: [completed]
+    branches: [master]
+  workflow_dispatch: {} # No force/date/source input bypasses.
+
+permissions: {}
+
+concurrency:
+  group: tw-source-shadow-observation
+  cancel-in-progress: false
+
+env:
+  OBSERVATION_CODE_SHA: APPROVAL_REQUIRED_FULL_COMMIT_SHA
+  OBSERVATION_PLAN: config/tw-source-observation.json
+  PYTHONDONTWRITEBYTECODE: '1'
+
+jobs:
+  observe:
+    # Still HARD DISABLED. No condition on upstream success: this is a pulse,
+    # never proof of a fresh baseline. Runtime validates the exact minute/date.
+    if: >-
+      ${{ false && (github.event_name != 'workflow_run' ||
+        (github.event.workflow_run.head_repository.full_name == github.repository &&
+         (github.event.workflow_run.event == 'schedule' || github.event.workflow_run.event == 'workflow_dispatch') &&
+         (contains(github.event.workflow_run.updated_at, 'T22:3') ||
+          contains(github.event.workflow_run.updated_at, 'T22:4')))) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ env.OBSERVATION_CODE_SHA }}
+          path: observation-code
+          persist-credentials: false
+      - uses: actions/checkout@v6
+        with:
+          ref: master
+          path: radar-baseline
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - name: Install existing public-source dependencies
+        run: python -m pip install -r observation-code/requirements.txt
+      - name: Restore this experiment, check date and prepare intent
+        id: preflight
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python observation-code/scripts/observe_tw_sources.py prepare \
+            --plan "radar-baseline/$OBSERVATION_PLAN" \
+            --event-file "$GITHUB_EVENT_PATH" \
+            --output-root "$HOME/Downloads/tw-source-observation"
+      - name: Persist sampling intent
+        id: intent_upload
+        if: steps.preflight.outputs.mode == 'collect'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.preflight.outputs.intent_artifact_name }}
+          path: ${{ steps.preflight.outputs.intent_path }}
+          retention-days: 30
+          if-no-files-found: error
+      - name: Collect shadow sources
+        if: steps.preflight.outputs.mode == 'collect' && steps.intent_upload.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python observation-code/scripts/observe_tw_sources.py collect \
+            --plan "radar-baseline/$OBSERVATION_PLAN" \
+            --event-file "$GITHUB_EVENT_PATH" \
+            --baseline radar-baseline/data/archive.json \
+            --output-root "$HOME/Downloads/tw-source-observation"
+      - name: Preserve this day's complete or partial evidence
+        id: daily_upload
+        if: always() && steps.preflight.outputs.mode == 'collect' && steps.intent_upload.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.preflight.outputs.daily_artifact_name }}
+          path: ${{ steps.preflight.outputs.daily_bundle_path }}
+          retention-days: 30
+          if-no-files-found: error
