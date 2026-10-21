@@ -1,5 +1,11 @@
 # 日報與後續訊號工作：小任務與續接計畫
 
+> 2026-10-21最新決策：日報改為使用者在Web Chat專案發起的收集題目／文檔工作，
+> 自動產生、派送與排程目標撤回。本文件下方是歷史建置計畫，不再據此恢復自動化
+> 或追求三日交付驗收。2026-10-22 S03已外部停用／封存推送，私人開關false讀回；
+> 詳見[D00日報退役交接](DIGEST_RETIREMENT_HANDOFF_20261021.md)與[S03實況](SOURCE_GOVERNANCE_S03_STATUS_20261022.md)。
+> 跨步驟交接格式仍可使用TASK_HANDOFF_TEMPLATE；總入口改為[來源治理計畫](SOURCE_GOVERNANCE_PLAN_20261021.md)。
+
 更新日期：2026-10-02（Asia/Taipei）。本文件是維護者工作計畫，不是新公開產品說明。
 最新執行位置見 [HANDOVER](HANDOVER.md)；交接格式見
 [TASK_HANDOFF_TEMPLATE](TASK_HANDOFF_TEMPLATE.md)。

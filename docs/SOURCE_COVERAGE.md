@@ -101,6 +101,22 @@ private forks because they need credentials, bridges, or ongoing maintenance.
 
 ## Source Selection Rules
 
+### 2026-10-21 整體修正入口與正式基準
+
+新來源准入與既有來源刪減／優化統一依[來源治理計畫](SOURCE_GOVERNANCE_PLAN_20261021.md)
+接續；S01的[來源名冊與正式狀態](SOURCE_GOVERNANCE_BASELINE_20261021.md)涵蓋實際
+fetch路徑、OPML邊界及獨立感測器。正式22:58臺北快照確認INSIDE、RuntimeWire、
+Anthropic抓取成功，三個已移除入口不在curated_media；不代表長窗品質審查完成。
+目前不新增或調級來源。電腦王阿達依使用者明確裁決排除，不列P2候選。
+S02已完成[審查](SOURCE_GOVERNANCE_S02_REVIEW_20261021.md)及
+[評估契約v1](SOURCE_EVALUATION_CONTRACT_20261021.md)：凍結分母、最低樣本、未知案例、
+穩定性與事件增益規則；S03固定版本後才做真實觀察。
+
+日報自動生成／派送／排程目標已撤回，[D00](DIGEST_RETIREMENT_HANDOFF_20261021.md)已於S03
+外部停用並推送封存差異，私人開關false讀回；觀察code已推送但實驗尚未啟用。
+上方私人日報摘要／補讀等為既有技術行為記錄，不代表繼續啟用該工作。
+公開RSS摘要保存、Radar精選及來源治理繼續維護。
+
 ### 2026-10-21 台灣媒體候選：隔離影子測試，未正式准入
 
 新增維護者工具 `scripts/evaluate_tw_source_admission.py`，僅在明示

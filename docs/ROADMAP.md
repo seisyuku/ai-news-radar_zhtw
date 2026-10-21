@@ -29,39 +29,28 @@
 - 變更 `assets/` 時同步遞增 `index.html` 的共用 `?v=`；由 Git baseline
   測試驗證資產變更與版號更新成對出現。
 
-## P1：維護者日報與持久交接（2026-10-02 設計已確認）
+## P1：來源治理整體修正（2026-10-21）
 
-2026-10-12第二版正式接入完成：私人日報自動最多10則、精簡排版及入選科技新報首段補讀／捕捉重建；公開精選門檻保留。舊當期原稿／副本不換，新期別實際交付與原有三日觀察待完成，詳見HANDOVER最新結果。
+依[來源治理計畫](SOURCE_GOVERNANCE_PLAN_20261021.md)分S01～S08處理新來源
+觀察、既有來源刪減／優化、發布者分級及感測器獨立裁決。S01基準、S02審查與
+[評估契約](SOURCE_EVALUATION_CONTRACT_20261021.md)已完成；[S03](SOURCE_GOVERNANCE_S03_STATUS_20261022.md)
+已落實日報外部停用／封存及觀察code推送，待SMTP與異常停止接手者後續接啟用／首日驗真。
+正式來源不因研究建議自動升降級或接入。
 
-2026-10-12最新：GitHub→私人Drive手動交付、手機校稿及正式OAuth已完成，新正式憑證runner歷史交付3則成功。使用者已批准觸發A及固定期別，程式／私人設定啟用完成、1062測試及GitHub CI通過；[每日觸發方案](DIGEST_DAILY_TRIGGER_PROPOSAL.md)進入第一筆有效當期與三日觀察。下方為既有階段路徑，早期未接通／未知描述以HANDOVER最新結果取代。
+## P0：撤回日報自動化、完成既有工作退役（2026-10-21）
 
-- 收錄台北時間前一天 06:00 至當天 06:00，半開區間；無擴散等待或跨窗口例外。
-- 先做唯讀既有資料、確定性候選與繁中 Markdown，上午人工校稿，約 11:30
-  人工發布為目標。D01～D11與本機私人手動交付已完成，排程尚未啟用。
-  既有公開網站、新聞排序與來源邊界維持原設計。
-- 依 [DIGEST_PLAN](DIGEST_PLAN.md) 的 D01～D11 小任務推進；每項起點即保存
-  Downloads 檢查點，完成後更新台帳、HANDOVER 與下一階段模型／思考建議。
-- 2026-10-03後續驗證改在GitHub：兩個上午時刻觀察生成／時效，僅安全摘要；
-  私人交付仍在本機，三日schedule驗收待完成。可選LLM與自動發文不包含在驗證排程。
-- 2026-10-09 已核准 [私人雲端日報架構 A](DIGEST_CLOUD_DELIVERY_PROPOSAL.md)
-  的本機離線模擬；目的為 Mac 關機也可交付、iPhone 語音校稿。C00 準備與
-  62 項既有離線測試完成；C02 六項設計審查已完成，
-  [正式契約與36項驗收案例](DIGEST_CLOUD_CONTRACT.md)，C03～C06 本機生成、保存、
-  校稿版本與[合成私人網頁預覽](DIGEST_CLOUD_PREVIEW.md)已完成，
-  [C07 接入審查與C07a](DIGEST_CLOUD_C07_REVIEW.md)、[C07b/C07c本機接入](DIGEST_CLOUD_RUNTIME.md)及[C08本機工作協調](DIGEST_CLOUD_JOBS.md)已完成，完整966項測試通過。
-  2026-10-10使用者校正順序：先做 [C08-G GitHub日報生成](DIGEST_GITHUB_GENERATION.md)，
-  新增手動直接讀checkout的生成與核對工作；私人保存去向待決定，還沒有完成每日交付。
-  後續使用者選擇先嘗試 [Google Drive校稿與設定](DIGEST_GOOGLE_DRIVE_TRIAL.md)，實際合成保存、
-  副本校稿/原稿保留、設定讀回與權限核對通過；手機新連結及GitHub專案OAuth授權仍待確認。
-  2026-10-11手機三份新文件已由使用者確認，帳號為一般Google；[手機OAuth helper準備](DIGEST_GOOGLE_DRIVE_AUTH.md)
-  及25項合成測試完成，完整1007項通過。需選定Google Cloud專案才進真client/授權；不使用裸露控制碼交付。
-  使用者隨後已選日報專用專案，建立表單已提交；控制台載入錯誤使結果未知，需 [手機確認實際專案](DIGEST_GOOGLE_PROJECT_SETUP.md)，再進client與授權。
-  [C09部署前置](DIGEST_CLOUD_DEPLOYMENT_GATE.md)延後至正式私人服務接入，不能阻擋生成驗證。
-  真雲端保存/部署與手機遠端校稿尚未實作，
-  現行交付仍在本機；C01 已用現成 Google Drive 外掛完成 iPhone 帳號能力代理驗證，
-  C01b 專案自建工具的實機驗收移至核准後 C10a 合成環境；真日報與三日驗收仍待完成。
-- 已知 bug B01～B03 已於提交前複查修正；Social snapshot／Threads、model aliases 與
-  新來源屬條件後續，不綁入第一份可用日報。不建立 velocity 或 social history。
+使用者撤回日報自動產生、自動派送與排程目標。日報改為Web Chat專案中由
+使用者要求的收集題目／文檔工作，性質同過去「第一階段」。不再推進每日
+自動交付、三日排程驗收或日報自動選題改版；既有研究供人工要求時參考。
+
+[D00日報退役](DIGEST_RETIREMENT_HANDOFF_20261021.md)已外部停用／封存推送，私人開關false、
+無在途run讀回；一次性公開刷新／發布讀回及零新增日報接續驗收完成，D00結案，證據見S03狀態。
+保留歷史稿件、校稿與研究，保留公開Radar的
+刷新、Pages與daily-brief精選。來源觀察是獨立未部署實驗，不由日報決策自動取消。
+
+舊D01～D11及雲端交付建置歷史見[DIGEST_PLAN](DIGEST_PLAN.md)與
+[HANDOVER](HANDOVER.md)；不再列為待完成的自動化方向。交接機制仍沿用
+[TASK_HANDOFF_TEMPLATE](TASK_HANDOFF_TEMPLATE.md)，每步保留檢查點與下一步模型／強度。
 
 ## P1：Model Release Radar
 

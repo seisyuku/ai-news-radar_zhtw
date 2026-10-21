@@ -1,6 +1,24 @@
 # Operations Notes
 
-## 第二版日報與公開精選診斷（2026-10-12）
+## 2026-10-22 日報自動化退役（外部停用與封存提交已落地）
+
+使用者撤回日報自動生成、自動派送與排程目標，改為在Web Chat專案主動要求
+收集題目／產生文檔。下方日報生成、Drive交付及三日排程驗收均為歷史操作，
+不再作為應恢復或完成的目標。已產生的稿件與校稿保留。
+
+S03已推送封存提交`7b2f8e1f256f`，移除自動觸發，手動dispatch也以false job禁用；
+兩份workflow讀回disabled_manually、無在途run，私人開關false讀回。1495項回歸、
+GitHub CI與Pages通過；一次性公開刷新／發布讀回正常，停用後零新增日報run，
+D00驗收完成，證據見[S03狀態](SOURCE_GOVERNANCE_S03_STATUS_20261022.md)。D00涵蓋
+`digest-generation.yml`的workflow_run與派送、`digest-validation.yml`的兩個cron、
+私人automation_enabled及在途run；僅設定false仍會有workflow觸發負荷。
+具體順序、邊界及驗收見[日報退役交接](DIGEST_RETIREMENT_HANDOFF_20261021.md)。
+Radar的update-news、watchdog、外部heartbeat、Pages及公開daily-brief持續維護。
+來源七日觀察另案、尚未部署；不得把撤回日報目標當成取消全部Radar排程。
+S03啟用實驗前須核對[審查結論](SOURCE_GOVERNANCE_S02_REVIEW_20261021.md)與
+[評估／停止契約](SOURCE_EVALUATION_CONTRACT_20261021.md)，指定D7核查與D8異常停止接手者。
+
+## 第二版日報與公開精選診斷（2026-10-12，日報部分為歷史）
 
 公開 daily-brief 的 `selection_diagnostics`、來源健康快照 `brief_selection`
 及生成日誌保留候選／入選／排除數、最高分與空結果原因。公開精選的0.72／

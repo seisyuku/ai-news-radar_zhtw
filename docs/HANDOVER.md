@@ -1,4 +1,145 @@
-# AI News Radar Pulse — 交接摘要（截至 2026-10-21）
+# AI News Radar Pulse — 交接摘要（截至 2026-10-22）
+
+## 2026-10-22 S03：日報已外部停用／封存推送，來源觀察待SMTP與停止責任
+
+- 使用者「執行s03」：已停用兩個日報專用workflow並讀回disabled_manually，
+  查無在途run；私人automation_enabled已false讀回，只改該欄、保留稿件與設定。
+- D00獨立提交`7b2f8e1f256f`已推送master，移除自動觸發／生成／派送，手動
+  永久跳過。CI及Pages成功；一次性公開刷新39634002083、Pages39634179730成功，
+  發布後HTTP讀回吻合新快照，停用後兩個日報workflow零新增run，D00驗收完成。
+- 觀察程式與停用範例獨立提交`d4bfa7d693e3`已推送，CI／Pages成功；code SHA
+  固定。尚無正式實驗workflow／activation config，未採樣／寄信。
+- [S03狀態與續接](SOURCE_GOVERNANCE_S03_STATUS_20261022.md)記各批版本、證據與
+  啟用前實際缺項。最新1495項完整離線回歸通過；S01／S02全部既有成果保留。
+- 外部授權已由本次S03指令提供；目前缺SMTP服務／設定與成功失敗實收驗證、
+  D7核查／D8異常停止接手者，仍待使用者提供。D1日期在具備條件後固定，不倒填。
+- Downloads `ai-news-radar-source-governance-s03-20261022/`保存退役API／run證據、
+  私人開關讀回、版本、停用部署候選、容量預演與信件預覽、檢查點／交接。
+- **S03仍進行中，續接模型GPT-6.1 Sol（`gpt-6.1-sol`）／High**。
+  未驗首日不可標完成或自行轉S04。下方歷史S02「線上未停用」已由本節取代。
+
+## 2026-10-21 S02審查與評估契約完成；下一步S03
+
+- 使用者「執行s02」：完成[審查與交接](SOURCE_GOVERNANCE_S02_REVIEW_20261021.md)、
+  [評估契約v1](SOURCE_EVALUATION_CONTRACT_20261021.md)。以[總計畫](SOURCE_GOVERNANCE_PLAN_20261021.md)
+  為入口；下方舊S01「下一步S02」與原觀察01～03進度為歷史紀錄。
+- D00兩份日報workflow本機移除自動觸發，僅留手動dispatch及永久false job；
+  移除生成／派送／當期驗證與secret引用，保留一般離線回歸及歷史程式／稿件。
+  **未推送、未停用線上workflow、未讀寫私人開關；線上退役仍待S03。**
+- 觀察工具修補HTTP429同日誤重抓、未驗證的時間／heartbeat設定、超過30日
+  仍擴張通知歷史查詢；結案用語配合日報新定位。正式來源／排序／資料未改。
+- 固定85%門檻、未知案例分母、最低樣本量、7日缺測與增益裁決；不以少量成功
+  宣稱可靠，不延長實驗湊樣本。正常自停失敗時須人工異常停止，S03須指定接手者。
+- 完整1495項離線測試通過、五支py_compile與diff檢查通過；actionlint僅豁免
+  退役workflow刻意使用的常數false警告，其餘通過。證據、before副本、S02差異與
+  交接在Downloads `ai-news-radar-source-governance-s02-20261021/`。
+- 未提交／推送／部署／抓真來源／寄真信。觀察plan仍disabled，草稿jobs false。
+- **下一步S03：GPT-6.1 Sol（`gpt-6.1-sol`）／High**。先核對差異與遠端，優先
+  完成D00外部退役；觀察部署另核對日期、SMTP實收、授權與異常停止責任。本輪止於S02。
+
+## 2026-10-21 S01整體來源基準完成；日報自動化目標撤回
+
+- 使用者要求整合新來源准入與既有來源刪減／優化，並指定「開始執行s01」。
+  已完成[總計畫與需求台帳](SOURCE_GOVERNANCE_PLAN_20261021.md)、
+  [正式基準／實際來源名冊](SOURCE_GOVERNANCE_BASELINE_20261021.md)及
+  [D00日報退役交接](DIGEST_RETIREMENT_HANDOFF_20261021.md)。本步只改文件。
+- **最新日報定位優先於下方所有歷史自動化目標**：由使用者在Web Chat專案
+  發起收集題目／產生文檔，性質同過去「第一階段」。撤回自動產生、派送、
+  排程與三日自動交付驗收。歷史研究保留；D00實際停用尚未執行，不能稱已關閉。
+  D00在S02備妥最小差異，S03啟用來源觀察前須完成停用驗收；來源觀察Email
+  是獨立實驗，本次未取消亦未部署。公開daily-brief是Radar精選，必須保留。
+- 本機HEAD／本機origin/master為`3ac92d087586`；唯讀GitHub固定master為
+  `72d20f019576`，領先11個提交。完整頂層tree比對只有data／item不同，
+  程式、workflow與已提交文件相同；沒有拉取、合併或覆寫既有未提交工作。
+- 正式快照臺北10/21 22:58：INSIDE成功5篇、RuntimeWire成功1篇、Anthropic
+  成功13篇；三個已移除入口不在curated_media。AI列表有4則INSIDE、無
+  RuntimeWire模型目錄；單次資料不代表品質回測或全部讀者輸出驗收。
+  Free LLM APIs仍失敗、連續991次；不以此聲稱價格感測器失敗。
+- 新增日報退役盤點：生成workflow的workflow_run／Drive派送、驗證workflow的
+  兩個cron、私人開關與在途run。近期日報workflow仍被觸發後skipped；私人開關
+  本次未讀，不能將歷史true或該次skipped當目前已退役。修正電腦王阿達誤列P2。
+- S01證據、起始diff／15077個檔案hash、檢查點與交接在Downloads
+  `ai-news-radar-source-governance-s01-20261021/`。沒有執行抓取／生成、寄信、
+  workflow或私人設定變更；未提交／推送／部署。檢查結果以該目錄驗收紀錄為準。
+- **下一步S02：GPT-6 Astra（`gpt-6-astra`）／High**，先讀總計畫、D00交接及
+  S01 HANDOFF，再審查既有本機觀察成果與評估契約。本次停止於S01。
+
+## 2026-10-21 步驟03 Email／七日結案／自停閘門本機完成，待核准部署
+
+- 使用者「執行03」：完成 `tw_source_email.py` 單一收件人 TLS SMTP adapter，
+  `tw_source_reporting.py` 每日通知ledger、去重／有界投遞、七日結案與自停審查；
+  入口新增notify／audit-stop，workflow草稿接線完成但全部jobs仍硬性false。
+- 先保存報告／結案包與notification intent，重新驗證遠端證據才寄信；只對
+  確定未接受的暫時錯誤最多三試。送出後斷線／receipt遺失不自動重寄；
+  結果不明、通知失敗或ledger不可讀會呈Actions失敗並保留診斷。
+- D7正常合併每日與結案信；固定35列SOURCE_DAILY、按來源＋URL跨日去重的
+  EVENT_REVIEW、observations與逐slot證據／checksums。新增事件與新證據仍為
+  人工未確認，不自動准入。結案包與其專屬接受receipt持久化後才可自停兩個
+  固定實驗workflow，不能用任意一天的接受紀錄代替。
+- 290項離線測試通過（本步60＋Actions61＋協調器113＋來源准入56），五支程式
+  py_compile、兩份草稿actionlint及diff檢查通過。另跑七個邏輯日期端到端模擬：
+  七次SMTP替身接受、35次來源替身呼叫，D7才允許自停；不是實際七天／實寄驗收。
+- 7470個正式程式／config／data／既有workflows hash未變；原始來源抓取器未改。
+  歷史查詢限有效窗口並另保留手動延遲查核，避免全天空心跳run累積拖垮查核。
+- [步驟03說明](TW_SOURCE_OBSERVATION_03.md)；完整驗收、信件預覽與七日範例在
+  Downloads `ai-news-radar-tw-source-observation-03-20261021/ACCEPTANCE_REPORT.md`。
+- 未推送／部署、未設定寄信服務／secret、未實際寄信或呼叫停用API。
+  真實SMTP服務、收寄地址與實收驗收仍待完成；plan disabled，日期／SHA／指紋空白。
+  下一步部署前隔離與故障審查建議GPT-6 Astra（gpt-6-astra）／High，部署仍須使用者核准。
+
+## 2026-10-21 步驟02 Actions接線已本機驗收，尚未部署
+
+- 使用者「執行02」：完成 `tw_source_actions.py` 唯讀API／workflow指紋／
+  artifact與manifest驗證；`observe_tw_sources.py` 的prepare／collect／reconcile。
+  intent遠端確認後才採樣，跨runner還原名額，部分來源只補失敗部分；監督不抓來源。
+- 原生REST run以completed事件的updated_at核對完成時間，不假設completed_at存在。
+  程式固定SHA與master啟用設定分開checkout，避免plan自我引用SHA。
+  仍使用既有隔離抓取器，不改正式來源或日報。
+- 230項離線測試通過（Actions接線61＋協調器113＋來源准入56），兩份workflow
+  草稿actionlint、三支程式py_compile及diff檢查通過。61項含完整主採樣／補試／
+  跨runner還原、缺測／逾期仍執行、API失敗、artifact遺失／篡改與CLI接線。
+- [步驟02說明](TW_SOURCE_OBSERVATION_02.md)；完整紀錄在Downloads
+  `ai-news-radar-tw-source-observation-02-20261021/ACCEPTANCE_REPORT.md`。
+  本輪沒有實際GitHub／來源HTTP、線上artifact傳遞、寄信或七日觀察驗收。
+- 工作留在本機，未推送／部署；workflow仍在docs且硬性false，plan disabled，
+  日期／code SHA／workflow指紋留空。Email／七日結案／自停屬步驟03，仍待建置。
+- 下一步03建議：GPT-6.1 Sol（gpt-6.1-sol）／High。部署仍須使用者核准。
+
+## 2026-10-21 步驟01協調器已本機建置，尚未部署
+
+- 使用者「執行01」：完成獨立 `scripts/tw_source_observation.py`，臺北06:00主／
+  06:30補窗口、七日邊界、同slot去重、部分來源沿用、baseline補讀、成功判定，
+  與本機原子intent參考實作。無來源HTTP、正式生成器或日報依賴。
+- 離線介面與接線契約見 [步驟01](TW_SOURCE_OBSERVATION_01.md)。JSON verified
+  不是驗證機制；步驟02仍須實作Actions artifact驗證、序列化與持久化名額。
+- 實際離線驗收166項通過（新協調器110＋既有來源准入56），9組CLI重播通過，
+  py_compile與diff檢查通過；7470個既有程式／config／data／workflows hash未變。
+  完整紀錄在Downloads `ai-news-radar-tw-source-observation-01-20261021/`，
+  主報告 `ACCEPTANCE_REPORT.md`；不是SMTP或線上七日驗收。
+- 未推送／部署或寄Email；所有workflow草稿仍在docs且硬性false，計畫disabled。
+  下一步02建議：GPT-6.1 Sol（gpt-6.1-sol）／High。
+
+## 2026-10-21 七天觀察V2：06:00主／06:30補與每日Email，待核准
+
+- 最新要求：06:00主觸發、失效06:30補；可用既有心跳，完成須通知。
+  使用者已把手機推播改成**每日Email回報**。核准前仍不得部署；正式
+  Radar／私人日報的收錄、排序、發布不得受影響。
+- [V2方案](TW_SOURCE_OBSERVATION_PLAN.md)分三步，每步結束提示下一步完整
+  模型名稱及思考強度。06:30～06:50前可旁接既有刷新完成pulse補洞；
+  不改原cron-job.org／PAT／正式workflow。每日一份觀察，最多主補兩slot。
+- 建議兩個新獨立workflow：採樣、監督／Email。07:05查核缺測；主失敗
+  先等補試，成功／補成功／未達標各有明確回報。通知intent＋receipt去重，
+  接受不等於實際收件；收件地址與寄信服務／憑證尚未指定，不先寄信。
+- 七日結案保存且結案Email接受後，獨立job只停用兩個測試workflow。
+  設定disabled、日期／SHA留空，所有jobs硬性false，草稿只在docs。
+  原V2設計時協調／通知程式未建置；其後步驟01進度見上節。
+  沒有推送、啟排程、改設定或發Email。
+- 下一步建置建議GPT-6.1 Sol（gpt-6.1-sol）／High；部署前獨立隔離審查
+  可用GPT-6 Astra（gpt-6-astra）／High，不代表自動切換模型或另開agent。
+  設計檢查紀錄位於Downloads `ai-news-radar-tw-source-observation-design-20261021/`，
+  V1的31項只屬舊版設計檢查，不是V2程式／SMTP／七日線上驗收。
+- V2共55項設定／YAML結構／UTC映射／補試與通知狀態表檢查通過；詳細紀錄
+  為 `DESIGN_VALIDATION_V2.json`。沒有執行尚未建置的協調器或實際寄送Email。
 
 ## 2026-10-21 08:58 五站真實測試與逐篇核對完成
 

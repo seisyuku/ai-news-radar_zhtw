@@ -149,8 +149,9 @@ CyberQ 4 篇、網管人 1 篇、DIGITIMES 1 篇有疑似事件線索；其餘�
 - DIGITIMES 的 [ChatGPT 廣告業務稿](https://www.digitimes.com.tw/tech/dt/n/shwnws.asp?id=0000771788_C5K8DI9O7XDBR49H1Q6TR)
   是商業事件候選，已有 AIbase 相關標題；摘要不足以確認哪一項新數據獨立新增。
 
-P2 僅列候選：EE Times Taiwan、TechOrange、Cool3c、電腦王阿達、TechNice，
-本輪不探測／開發。T客邦、電腦玩物不加入事件來源；商傳媒只留人工查漏，
+P2 僅列候選：EE Times Taiwan、TechOrange、Cool3c、TechNice，
+本輪不探測／開發。電腦王阿達依使用者既有明確裁決排除，不列候選；
+T客邦、電腦玩物不加入事件來源；商傳媒只留人工查漏，
 恆遠數位只作案例佐證，均無自動抓取或正式配額。
 
 ## 驗收與清理
