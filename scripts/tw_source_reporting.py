@@ -73,6 +73,8 @@ def read_ledger(api, plan, now, current_run_id=None):
     current = api.run(current_run_id) if current_run_id else None
     for summary in summaries:
         run = api.run(summary["id"])
+        if core.before_activation(plan, run["created_at"]):
+            continue
         if current and (core.timestamp(run["created_at"]), run["id"]) > (core.timestamp(current["created_at"]), current_run_id):
             continue
         actions.verify_run(api, run, plan, "report")

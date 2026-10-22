@@ -41,6 +41,14 @@ class MailGitHub(FakeGitHub):
                 if record['name'] == actions.WORKFLOWS['report'][1]]
 
 
+def test_new_experiment_notification_ledger_cannot_inherit_pre_activation_runs():
+    api = MailGitHub()
+    value = plan() | {'history_start_at': '2026-10-21T00:12:00Z',
+                      'experiment_id': 'offline-03-20261021t001200z'}
+    api.records[100] = run(100, '08:01:00', role='report', status='completed') | {'head_sha': 'bad-old-version'}
+    assert reporting.read_ledger(api, value, now('08:13:00')) == {}
+
+
 def signal(api, identity=100, day='2026-10-21', clock='09:05:00'):
     api.records[identity] = run(identity, clock, role='report', day=day)
     return {'repository': core.REPOSITORY, 'branch': 'master', 'run_id': identity,

@@ -110,7 +110,10 @@ class GitHub:
         self.content_cache = {}
 
     def get(self, path):
-        require(not path.startswith(("/", "http")) and ".." not in path, "invalid_api_path")
+        # Date-range query values legitimately contain "..". Only the URL path
+        # is a traversal boundary; the fixed repository prefix remains intact.
+        require(not path.startswith(("/", "http")) and ".." not in urlsplit(path).path,
+                "invalid_api_path")
         response = self.session.get(self.prefix + path, headers=self.headers, timeout=(8, 20), allow_redirects=False)
         require(response.status_code == 200, "github_api_failed")
         return response.json()
@@ -302,6 +305,8 @@ def restore(api, plan, day, now, current_run_id=None):
         if summary["id"] == current_run_id:
             continue
         run = api.run(summary["id"])
+        if core.before_activation(plan, run["created_at"]):
+            continue
         if current and (core.timestamp(run["created_at"]), run["id"]) > (core.timestamp(current["created_at"]), current_run_id):
             continue  # Later queued runs cannot have executed under concurrency.
         verify_run(api, run, plan)

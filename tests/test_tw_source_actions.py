@@ -20,6 +20,55 @@ ROOT = Path(__file__).resolve().parents[1]
 CONTENT = b'name: approved fixture workflow\n'
 
 
+def test_real_get_accepts_date_ranges_in_query_without_allowing_path_traversal():
+    class Session:
+        def __init__(self):
+            self.calls = []
+
+        def get(self, url, **kwargs):
+            self.calls.append(url)
+            class Response:
+                status_code = 200
+                def json(self):
+                    return {'total_count': 0, 'workflow_runs': []}
+            return Response()
+
+    session = Session()
+    api = actions.GitHub('synthetic-token', session=session)
+    assert api.runs('2026-10-21') == []
+    assert api.report_runs('2026-10-21', '2026-10-21') == []
+    assert len(session.calls) == 3
+    assert all('created=' in url and '..' in url.split('?', 1)[1] for url in session.calls)
+    before = len(session.calls)
+    for path in ('../actions/runs', 'actions/../runs', '/actions/runs',
+                 'https://attacker.invalid/', '//attacker.invalid/'):
+        with pytest.raises(ValueError, match='invalid_api_path'):
+            api.get(path)
+    assert len(session.calls) == before
+
+
+def test_new_activation_ignores_only_earlier_runs_and_preserves_the_current_primary_claim(tmp_path):
+    api = FakeGitHub()
+    value = plan() | {'history_start_at': '2026-10-21T00:12:00Z',
+                      'experiment_id': 'offline-02-20261021t001200z'}
+    api.records[10] = run(10, '08:00:00', status='completed') | {'head_sha': 'bad-old-version'}
+    api.records[20] = run(20, '08:13:00')
+    result = job.prepare(api, value, context(20, '08:13:00'), tmp_path, now('08:13:00'))
+    assert result['mode'] == 'collect' and result['slot'] == 'primary'
+    early = core.decide(value, context(11, '08:11:59'), {}, now('08:13:00'))
+    assert early['mode'] == 'skip' and early['reason'] == 'before_activation'
+    moved = value | {'history_start_at': '2026-10-21T00:13:00Z'}
+    with pytest.raises(ValueError, match='invalid_plan:activation_identity'):
+        core.validate_plan(moved)
+
+
+@pytest.mark.parametrize('boundary', ['2026-10-20T00:12:00Z', '2026-10-21T00:50:00Z', True])
+def test_activation_boundary_cannot_change_day_or_escape_sampling_window(boundary):
+    value = plan() | {'history_start_at': boundary, 'experiment_id': 'offline-02-20261021t001200z'}
+    with pytest.raises(ValueError, match='invalid_plan:activation_identity'):
+        core.validate_plan(value)
+
+
 def now(clock="08:00:00", day="2026-10-21"):
     return core.timestamp(f"{day}T{clock}+08:00")
 

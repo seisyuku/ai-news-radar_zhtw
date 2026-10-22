@@ -39,6 +39,8 @@ def metadata(plan, context, day, slot, kind):
 
 def prepare(api, plan, context, output, now):
     firing = core.trigger(context, now)
+    if core.before_activation(plan, context["created_at"]):
+        return {"mode": "skip", "reason": "before_activation"}
     index = (datetime.fromisoformat(firing["date"]).date() - datetime.fromisoformat(plan["start_date"]).date()).days
     if not 0 <= index < 7:
         return {"mode": "skip", "reason": "outside_experiment"}
@@ -233,6 +235,9 @@ def main():
         event = json.loads(args.event_file.read_bytes())
         role = "report" if args.command in {"reconcile", "notify", "audit-stop"} else "observe"
         context = actions.normalize_context(api, plan, event, int(os.environ["GITHUB_RUN_ID"]), os.environ["GITHUB_EVENT_NAME"], role)
+        if core.before_activation(plan, context["created_at"]):
+            outputs({"mode": "skip", "reason": "before_activation"})
+            return 0
         output = external_root(args.output_root)
         now = datetime.now(timezone.utc)
         if args.command == "prepare":

@@ -69,6 +69,24 @@ def validate_plan(plan: dict) -> None:
             raise ValueError("invalid_plan:code_sha")
         if date.fromisoformat(plan["start_date"]).isoformat() != plan["start_date"]:
             raise ValueError("invalid_plan:start_date")
+        if plan.get("history_start_at") is not None:
+            if not isinstance(plan["history_start_at"], str):
+                raise ValueError("invalid_plan:activation_identity")
+            boundary = timestamp(plan["history_start_at"])
+            if (boundary.astimezone(TAIPEI).date().isoformat() != plan["start_date"]
+                    or slot_at(boundary) is None
+                    or not plan["experiment_id"].endswith(boundary.strftime("-%Y%m%dt%H%M%Sz"))):
+                raise ValueError("invalid_plan:activation_identity")
+
+
+def before_activation(plan: dict, created_at: str) -> bool:
+    """An explicit new experiment version cannot inherit pre-activation runs.
+
+    The timestamp is bound to the experiment ID by validate_plan; moving it
+    cannot silently hide an unknown attempt within the same experiment.
+    """
+    return (plan.get("history_start_at") is not None
+            and timestamp(created_at) < timestamp(plan["history_start_at"]))
 
 
 def slot_at(instant: datetime) -> str | None:
@@ -245,6 +263,8 @@ def decide(plan: dict, context: dict, history: dict, now: datetime) -> dict:
         validate_plan(plan)
         if not plan["enabled"]:
             return result
+        if before_activation(plan, context.get("created_at")):
+            return result | {"reason": "before_activation"}
         firing = trigger(context, now)
         result.update(firing)
         day = date.fromisoformat(firing["date"])
