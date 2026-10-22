@@ -1,6 +1,6 @@
 # S03隔離部署與實際鏈路驗收（2026-10-22）
 
-**目前S03進行中：已依使用者要求改為08:00／08:30，待今天D1真實鏈路驗收。**
+**S03技術鏈路驗收通過：主補取樣、artifact、真SMTP及自然喚醒去重均已驗；僅待使用者確認今天D1郵件實收，仍in_progress。**
 D00日報退役維持完成；兩封SMTP範例已實收，不重寄驗收信。
 
 ## 目前唯一啟用版本
@@ -21,6 +21,8 @@ D00日報退役維持完成；兩封SMTP範例已實收，不重寄驗收信。
 
 主run39696990768在採樣intent之前被invalid_api_path擋下；報告39697041697亦未進通知intent。
 兩份真run的intent／採樣／SMTP步驟全部skipped，已保存證據，來源請求為零。
+另外核查08:12之前兩份workflow共5個run：效果步驟均skipped或不存在，artifact只有核對診斷或無artifact；
+完整metadata／jobs／artifacts另存Downloads的live-api-fix/SUPERSEDED_ZERO_EFFECT；啟用點前的外部效果已逐run查明為零。
 原因為安全檢查將合法created時間區間中的`..`誤判路徑穿越；現改為只檢查URL路徑，
 真正的跨路徑／外部URL仍拒絕，並以未覆寫get的正式API adapter驗證查詢成功。
 
@@ -28,6 +30,70 @@ D00日報退役維持完成；兩封SMTP範例已實收，不重寄驗收信。
 此前run保留為舊零效果版本，不混入新workflow指紋；改同一實驗的啟用點會被拒絕。
 08:12後仍使用08:00～08:30主slot，保留實際起時，不回填08:00、不重跑舊run_attempt。
 日期、08:30補slot、每日最多兩個真採樣slot與七日期間不變。
+
+## D1主跑真實證據（08:14核對）
+
+[主run39698261767](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/39698261767)
+於08:12:17正常手動建立，未見合格自然主run；非舊run重跑，無force／日期覆寫。
+intent上傳後才取樣，manifest／artifact digest／plan與code釘選驗證通過。
+CyberQ10、網管人10、DIGITIMES30筆feed列；資安人兩個feed回HTML，記parse_error；
+Meet站外轉址被拒，記host_redirect_blocked，不追轉址。邏輯partial，Actions綠燈不等於五站健康。
+
+baseline於08:05:32生成，採樣完成時約7.43分鐘，7,374筆；與Git提交
+`2b5c624f9b97e8c5934b45b677a5ced90bde594e`完整JSON內容相符，13個新聞任務、
+16官方／11媒體／4臺灣子來源、10個私人OPML別名均保存。相同generated_at的
+AI192／全列表238／公開精選20／故事183筆。原artifact為排序序列化JSON，
+補接工具以完整canonical JSON相等確認，不以檔案byte格式差異誤判異版。
+
+主runner46秒，兩份artifact ZIP1,645,600 bytes／展開5,279,714 bytes；
+16次collector操作／18個HTTP hop，未請求文章頁。操作計時含巢狀robots，不當獨立牆鐘相加。
+正式workflow精確GH API次數未埋點，保留未知；本機驗證讀取次數另列，不冒充工作負荷。
+[自動報告39698357742](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/39698357742)
+成功保存pending_recovery診斷，未建立郵件intent或寄信。08:30只補資安人；三站有效feed與
+Meet終態必須沿用原hash／時點。11筆候選尚待人工核對，不能宣稱新增事件。
+
+## D1補跑、當日報告與真SMTP接受（08:33核對）
+
+[補run39700071160](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/39700071160)
+於08:30:15正常手動建立，當時未見自然補run；主、補均保留實際觸發方式，不宣稱自然cron準點。
+補slot只抓資安人；其餘四站capture、hash、retrieved_at與origin_slot均沿用主證據，
+合併報告仍有五站、11筆待核候選。兩個真採樣slot均已封存，不再追加第三slot。
+資安人仍parse_error，Meet仍host_redirect_blocked，當日觀察結果為**unmet／未達標**；
+這不等於三站可用feed失敗，也不能當五站准入通過。
+
+[自動報告39700148524](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/39700148524)
+依序保存daily-report、mail-intent，再實寄一次`[TW來源觀察][D1/7][未達標] 2026-10-22`。
+回執於08:31:31保存，status=provider_accepted、phase=data、smtp_code=250、attempt_no=1，
+涵蓋日期只有10/22，report hash／payload hash與manifest綁定驗證通過。
+**當日郵件實收已發問、仍待使用者確認**；舊兩封SMTP範例不作當日實收證據。
+
+截至08:32:50四個新版執行合計139秒runner；九個artifact ZIP共3,285,637 bytes，
+其中七份經scope／manifest驗證的採樣與通知artifact共3,283,461 bytes、展開10,519,999 bytes；
+另兩份為reconciliation診斷。主46秒、補33秒、待補報告24秒、實寄報告36秒。
+skipped停用job無runner成本；API回傳其開始比結束晚一秒，不計成負成本。
+API精確runtime請求數維持未知，本機只讀驗證API次數另存；完整技術驗收負荷及後續去重見下節。
+
+## 自然旁接與去重、正式Radar驗收（08:38）
+
+既有[刷新39700565137](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/39700565137)
+於08:35:06自行以workflow_dispatch啟動，成功後自然喚醒
+[觀察39700684076](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/39700684076)。
+觀察mode=skip／reason=slot_already_claimed，採樣intent、來源抓取與bundle步驟均skipped，artifact為零。
+這是既有刷新完成事件的真實旁接驗收；來源請求仍只有主、補兩slot，共20次collector操作／24個HTTP hop。
+
+接續[報告39700732599](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/39700732599)
+成功保存already_accepted／mail_due=false核對診斷；通知intent與寄信均skipped。
+再次完整讀驗所有scope／manifest／receipt後仍只有兩個取樣slot、一個daily-final通知鍵、一次DATA250。
+七個新版run合計190秒實際runner（skipped無runner成本），十個artifact ZIP共3,286,734 bytes；
+七份採樣／通知artifact展開10,519,999 bytes，其餘三份是核對診斷。以上不計既有公開刷新成本。
+
+08:38公開HTTP讀回最新08:35:27快照：13新聞任務均正常且未degraded、公開精選20、全列表235則；
+已知market_free_tier感測器故障獨立保留為S05待決。兩份日報及一次性SMTP驗收workflow仍disabled_manually，
+兩份實驗及公開update／watchdog仍active。沒有新增來源准入、變更排序或恢復私人日報。
+
+08:32已請使用者確認當日D1信，迄今尚無回覆，不能將SMTP接受或舊範例實收當成這一封實收。
+最後接續只需取得該事實、更新S03狀態；不要重抓來源、重寄或另開新實驗。確認後交接S04，
+依10/22～10/28七日資料與契約v2評估，模型GPT-6.1 Sol／High。D7結案與自停仍須當時另驗。
 
 ## 新時窗驗收與接續
 

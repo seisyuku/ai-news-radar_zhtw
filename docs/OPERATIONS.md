@@ -20,7 +20,8 @@ S03啟用實驗前須核對[審查結論](SOURCE_GOVERNANCE_S02_REVIEW_20261021.
 [評估／停止契約v2](SOURCE_EVALUATION_CONTRACT_20261022.md)。SMTP與兩封實收已驗；使用者本人
 接手10/28 D7核查及最晚10/29 D8臺北08:00異常停用。只停用兩份tw-source實驗workflow，
 具體名稱與命令見[S03狀態](SOURCE_GOVERNANCE_S03_STATUS_20261022.md)。一次性SMTP驗收入口已停用，
-不重寄驗收信；首日實際採樣／artifact／通知及負荷仍待驗真。
+不重寄驗收信；10/22首日主補採樣、artifact、SMTP250、自然旁接去重與負荷已真驗。
+當日來源unmet如實寄報；S03唯一剩餘是使用者確認D1實收，見[S03狀態](SOURCE_GOVERNANCE_S03_STATUS_20261022.md)。
 
 ## 第二版日報與公開精選診斷（2026-10-12，日報部分為歷史）
 
