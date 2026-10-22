@@ -1,14 +1,14 @@
 # Operations Notes
 
-## 2026-10-22 A05複核完成／待A06發布
+## 2026-10-22 A06正式發布與驗收完成
 
 [A03實作與回復規格](SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md)裁定單獨退役自動free-tier分支，保留價格與兩canary。
-本機實作與驗收見[A04交接](SOURCE_GOVERNANCE_A04_IMPLEMENTATION_20261022.md)；尚未推送或部署。
-下方感測器數量、讀者區名與資料新鮮度已同步本機候選。
-兩來源觀察workflow仍disabled_manually，A01本機false待A06發布；不恢復觀察、私人日報或Email排程。
-本輪沒有部署／推送；[A05審查及A06發布順序](SOURCE_GOVERNANCE_A05_REVIEW_20261022.md)已完成，無待修阻擋項。
+實作歷史見[A04交接](SOURCE_GOVERNANCE_A04_IMPLEMENTATION_20261022.md)；[A06正式版本與驗收](SOURCE_GOVERNANCE_A06_RELEASE_20261022.md)記推送、刷新、CI／Pages及讀者驗收。
+下方感測器數量、讀者區名與資料新鮮度已同步正式版本。
+兩來源觀察workflow仍disabled_manually，遠端enabled=false已發布；兩日報與SMTP驗收亦維持停用，沒有新增run。
+A06補正高階多方篩選漏項，已用20261022-a06共同資產版本部署，完整1,534項通過；[A05發布順序](SOURCE_GOVERNANCE_A05_REVIEW_20261022.md)已執行。
 真回復只撤B01時仍保留B02退役，必須另設新資產版本並生成相容當期JSON；不能直接回用反向patch帶回的舊版本號。
-A06須完整核對遠端bot提交，並用包含本次程式的刷新／Pages結果驗收，不能只憑生成時間或舊CI綠燈。
+A06已保留全部遠端bot提交，核過新版程式→生成commit→Pages與20個HTTP檔案雜湊；後續發布仍須沿用同樣鏈路驗收。
 
 ## 2026-10-22 來源觀察提前停止（方案A／A01）
 
@@ -18,8 +18,8 @@ A06須完整核對遠端bot提交，並用包含本次程式的刷新／Pages結
 停止前36個run的12個artifact全封存並驗GitHub SHA256，分類為依使用者決策提前停止；
 七日穩定性、正常結案包／最終Email／自停未驗收，不冒稱通過。
 
-本機plan只改`enabled=false`，五種CLI驗為無憑證直接跳過，待A06併入正式發布；
-遠端Git plan仍true，實際阻止排程的是兩workflow已停用，勿依舊plan自動恢復。
+A01本機plan只改`enabled=false`，五種CLI驗為無憑證直接跳過；A06已併入正式發布。
+A01當時遠端Git plan仍true，當時由workflow停用阻止排程；A06已同步false。勿依歷史plan自動恢復。
 原plan／code pin／manifest用於歷史驗證，停用不刪除artifact、來源、SMTP secret或研究檔。
 後續A02使用封存資料集中評估，不新增觀察／提醒／寄信排程；公開Radar刷新、watchdog、
 heartbeat、Pages與daily-brief持續按既有設定運作。

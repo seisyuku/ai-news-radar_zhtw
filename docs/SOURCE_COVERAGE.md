@@ -3,12 +3,12 @@
 This project should help readers track material AI-industry events without
 forcing them to follow noisy timelines or manage many source choices.
 
-## A04本機實作、A05複核通過（2026-10-22；待A06發布）
+## A06正式發布與來源治理結案（2026-10-22）
 
 [A04實作與交接](SOURCE_GOVERNANCE_A04_IMPLEMENTATION_20261022.md)已修正發布者計數及前端標籤，單獨退役免費額度自動分支。
 引用／篇數完整保留，`corroboration_count`為已辨識發布者／既有聚合群組數，未知不加票；同群組或同發布者多版不加熱度。
-目前是本機候選，尚未推送；下方描述對應此候選。兩實驗工作流維持停用，本機觀察false待A06同步。
-[A05複核](SOURCE_GOVERNANCE_A05_REVIEW_20261022.md)已驗候選完整性、計數消費端、真瀏覽器呈現與局部回復；未改來源裁決或提升品質／可靠性結論。
+[A06正式版本與驗收](SOURCE_GOVERNANCE_A06_RELEASE_20261022.md)已推送並驗CI／刷新／Pages與讀者路徑；下方描述已生效。兩實驗工作流維持停用，遠端觀察false已同步。
+[A05複核](SOURCE_GOVERNANCE_A05_REVIEW_20261022.md)保留作審查歷史；A06另修高階多方篩選漏項，完整1,534項通過。53列最終裁決不變，未提升品質／可靠性結論。
 
 ## A03治理裁決（2026-10-22；裁決歷史）
 
@@ -131,7 +131,7 @@ S02已完成[審查](SOURCE_GOVERNANCE_S02_REVIEW_20261021.md)及
 外部停用並推送封存差異，私人開關false讀回；來源觀察code與有限七日workflow曾推送啟用。
 原訂10/22～10/28、臺北08:00／08:30採樣，後依使用者選擇[方案A](SOURCE_GOVERNANCE_EARLY_CLOSE_20261022.md)，
 10/22 12:41兩實驗workflow已停用並封存；不再等待後續日期，七日穩定性未驗收、品質門檻不降。
-[A02集中評估](SOURCE_GOVERNANCE_A02_ASSESSMENT_20261022.md)完成，下一步A03裁決；目前仍無新候選正式准入。
+[A02集中評估](SOURCE_GOVERNANCE_A02_ASSESSMENT_20261022.md)後，A03已裁定八候選本輪不准入封存，A06正式結案；沒有新候選准入或持續採樣待辦。
 首日技術驗真見[S03狀態](SOURCE_GOVERNANCE_S03_STATUS_20261022.md)。
 上方私人日報摘要／補讀等為既有技術行為記錄，不代表繼續啟用該工作。
 公開RSS摘要保存、Radar精選及來源治理繼續維護。

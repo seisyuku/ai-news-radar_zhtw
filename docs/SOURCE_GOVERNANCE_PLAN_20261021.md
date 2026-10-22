@@ -4,11 +4,11 @@
 
 本計畫整合新來源准入、既有來源刪減／優化，以及使用者於2026-10-21撤回
 日報自動化的決策。使用者已選擇[方案A：提前停止與分階段收尾](SOURCE_GOVERNANCE_EARLY_CLOSE_20261022.md)。
-**A01～A05完成，下一步A06發布／結案（S08）**；不再等待七日，逐階段執行。
-兩實驗workflow已停用、本機config false待最後發布；A04候選已通過A05複核，未提交／推送。
+**A01～A06完成，方案A已正式發布、驗收並結案**；沒有下一個必跑階段或七日等待。
+兩實驗workflow持續停用、遠端config已false；正式程式、刷新、CI／Pages與讀者路徑見[A06結案](SOURCE_GOVERNANCE_A06_RELEASE_20261022.md)。
 [A03規格與53筆名冊](SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md)：44保留、8不准入封存、1感測器自動分支待退役。
 必修發布者計數及free-tier退役已本機實作；教學誤收／基礎設施漏收本輪不改共享規則。
-[A05審查及A06交接](SOURCE_GOVERNANCE_A05_REVIEW_20261022.md)，下一步GPT-6.1 Sol／High；A04驗收保留作候選證據。
+[A05審查](SOURCE_GOVERNANCE_A05_REVIEW_20261022.md)及A04驗收保留作歷史；A06另補正高階多方篩選漏項，正式版本完整1,534項通過。
 
 - **S01：done**。已固定本機／遠端基準、實際來源入口、既有修改及待辦。
 - **S02：done（本機）**。[審查結論與S03交接](SOURCE_GOVERNANCE_S02_REVIEW_20261021.md)、
@@ -37,6 +37,7 @@
 - A03裁決／A04交接：`/Users/lordmi/Downloads/ai-news-radar-source-governance-a03-20261022/`。
 - A04實作／A05交接：`/Users/lordmi/Downloads/ai-news-radar-source-governance-a04-20261022/`。
 - A05複核／A06交接：`/Users/lordmi/Downloads/ai-news-radar-source-governance-a05-20261022/`。
+- A06正式發布／結案：`/Users/lordmi/Downloads/ai-news-radar-source-governance-a06-20261022/`。
 
 ## 新決策：日報改為使用者發起的文檔工作
 
@@ -54,23 +55,23 @@ S03已推送D00封存差異、停用兩個專用workflow，私人開關false讀�
 
 新來源七日觀察／每日Email原訂10/22～10/28，S03已驗首日鏈路與實收。
 使用者另選方案A，A01於10/22 12:41停用兩個實驗workflow，證據保留；不再執行後續日期。
-本機enabled=false待A06發布，遠端舊plan不代表工作流仍啟用；實際停用已驗。
+enabled=false已於A06發布並核對正式HTTP；兩實驗工作流持續停用，歷史plan不可用來恢復觀察。
 
 ## 需求台帳
 
 | ID | 需求／現況 | 後續處理與完成條件 |
 | --- | --- | --- |
 | G01 | 三個失效入口移除已推送 | 本次正式健康快照確認三個source_id均不在curated_media；保留既有歷史resolver，不重做移除。 |
-| G02 | INSIDE、RuntimeWire文章分流、受限平台事件已推送 | 正式抓取成功；本次AI列表有4則INSIDE、無RuntimeWire模型目錄。單次結果不代表品質回測或所有列表驗收完成；S04檢查漏收／誤收及全部讀者輸出。 |
+| G02 | INSIDE、RuntimeWire文章分流、受限平台事件已推送 | S03正式抓取成功、當時AI列表有4則INSIDE、無RuntimeWire模型目錄；S04／A02已完成集中檢視，A06讀者輸出驗收完成。D02／D03仍是限制，沒有持續採樣待辦。 |
 | G03 | Anthropic News日期修復已推送 | 正式健康為成功、13篇來源窗口內文章；不是今日新增13篇。本次運作驗收完成，持續品質不由單次快照推論。 |
-| G04 | 臺灣五站本輪不准入並封存 | A03逐站裁決完成；保留D1與實收證據，七日／樣本／收益未通過，不恢復採樣。A06同步既有false並核停用。 |
-| G05 | Reuters／CNBC／The Information維持rank 2 | A03定案；A04先修發布者多版本計數，保持入口及分級，不整桶升級Google News。 |
+| G04 | 臺灣五站本輪不准入並封存 | A03逐站裁決完成；保留D1與實收證據，七日／樣本／收益未通過，不恢復採樣。A06已同步false並核停用。 |
+| G05 | Reuters／CNBC／The Information維持rank 2 | A03定案；A04已修發布者多版本計數、A06驗真，保持入口及分級，不整桶升級Google News。 |
 | G06 | Cloudflare／Modular／Zed本輪不准入封存 | 有限預審不足准入；低頻不等於失效，沒有後續採樣待辦。 |
-| G07 | 既有來源保留，佐證計數已本機修正 | A04 B01修重複佐證與前端；cap／rank維持，A05複核通過，待A06發布。教學誤收／基礎設施漏收作明示限制，未宣稱品質驗收通過。 |
-| G08 | Free LLM APIs自動分支已本機退役 | A04 B02實作、待發布；原baseline／歷史／防線保留，不連帶移除價格與兩canary。沒有等價免費額度替代服務。 |
+| G07 | 既有來源保留，佐證計數已正式修正 | A04 B01修重複佐證與前端；cap／rank維持，A05複核及A06漏項補正完成，已發布驗收。教學誤收／基礎設施漏收作明示限制，未宣稱品質驗收通過。 |
+| G08 | Free LLM APIs自動分支已正式退役 | A04 B02實作、A06發布驗收完成；原baseline／歷史／防線保留，不連帶移除價格與兩canary。沒有等價免費額度替代服務。 |
 | D00 | 日報自動化目標已撤回；退役已驗收結案 | 兩個專用workflow disabled_manually、無在途run、私人開關false，提交7b2f8e1f256f已推送；一次性公開刷新／發布讀回正常、零新增日報接續。保留稿件／研究，不新增替代排程。 |
 | G09 | 文件決策衝突 | 本步已將電腦王阿達從P2候選移除並註明明確排除；日報文件新增最新決策與退役入口，歷史實作不冒稱已停止。 |
-| G10 | 私人OPML與條件式來源邊界 | 本次快照OPML 10個有效入口，X API／SocialData／TikHub停用；未讀私人OPML或secret。S04開始時另凍結當期實際啟用名冊，不把本次盤點當成私人來源全文審查。 |
+| G10 | 私人OPML與條件式來源邊界 | S03快照OPML 10個有效入口，X API／SocialData／TikHub停用；實際名冊與封存分析見S04／A02。未讀私人OPML或secret，不將本輪盤點當成私人來源全文審查。 |
 
 電腦王阿達、已退場的廣域聚合來源及已否決的第七分類不重新開案。
 LM Studio／Google Antigravity維持暫不准入；YunNEWS、TheAI學院、AIReiter、
