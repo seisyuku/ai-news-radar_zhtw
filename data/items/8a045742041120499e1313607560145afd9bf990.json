@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon OpenSearch Service 现支持索引级加密",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/opensearch-index-level-encryption",
-  "last_seen_at": "2026-10-22T07:35:31.158624Z",
+  "last_seen_at": "2026-10-22T08:05:30.104927Z",
   "summary": "Amazon OpenSearch Service 现在支持索引级加密，可让您使用每个静态索引自有的 AWS Key Management Service（AWS KMS）客户自主管理型密钥对其进行加密。 这有助于您在同一域中使用多个密钥分别保护不同所有权或敏感程度的数据。例如，您可以在多租户应用程序中使用每个租户自有的密钥加密其数据。 索引级加密是在 Amazon OpenSearch Service 现有静态加密功能的基础上构建的。要启用该功能，请在使用 AWS 管理控制台或 AWS CLI 创建新域时，将加密模式设置为“原生”并指定客户自主管理型 AWS KMS 密钥。然后，您可以在域中注册其他密钥并使用这些密钥来加密单个索引。 索引级加密适用于以下 14 个 AWS 区域中运行 OpenSearch 3.3 或更高版本的域：美国东部（弗吉尼亚州北部、俄亥俄州）、美国西部（俄勒冈州）、加拿大（中部）、亚太地区（孟买、首尔、新加坡、悉尼、东京）、欧洲地区（法兰克福、爱尔兰、伦敦、巴黎）和南美洲（圣保罗）。 该功能无需支付额外费用。但我们会收取标准 AWS KMS 和 OpenSearch Service 费用。 要开始使用，请参阅 Amazon OpenSearch Service Developer Guide 中的 Index-level encryption 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/index-level-encryption.html"
