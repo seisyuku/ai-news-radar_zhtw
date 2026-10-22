@@ -28,6 +28,12 @@ then promotes six types of business events into the primary signal view:
 The broader list includes relevant product releases, research, and industry
 reporting. Every item links to its original source.
 
+Structured snapshots track model price changes. The automatic free-tier
+dataset monitor is retired; related news can still appear under the usual
+editorial rules. Usage-policy canaries remain explicitly unconfirmed leads.
+Multiple versions from one publisher count once. Multiple-publisher labels
+describe identified publishers or existing aggregator groups, not verified facts.
+
 ## What this project does not target
 
 - Programming tutorials, prompt tips, or tool walkthroughs

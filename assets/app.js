@@ -2995,7 +2995,8 @@ function renderCompactSignalGroup(wrap, list, meta, signals, emptyMeta, sortMode
 }
 
 function renderMarketSignals() {
-  const signals = Array.isArray(state.marketSignals) ? state.marketSignals : [];
+  const signals = (Array.isArray(state.marketSignals) ? state.marketSignals : [])
+    .filter((signal) => signal.category !== "free_tier");
   renderSensorGroup(
     breakingSignalsWrapEl,
     breakingSignalsListEl,
@@ -3009,7 +3010,7 @@ function renderMarketSignals() {
     marketSignalsListEl,
     marketSignalsMetaEl,
     signals.filter((signal) => signal.urgency !== "breaking"),
-    "目前沒有新的結構化差異",
+    "目前沒有新的價格變更",
     "importance",
   );
 }

@@ -495,7 +495,10 @@ def run_market_sensors(
 ) -> tuple[dict[str, Any], dict[str, Any], list[dict[str, Any]]]:
     detected_at = _iso(now)
     state = dict(previous_state) if isinstance(previous_state, dict) else {"schema_version": 1}
-    signals = _kept_signals(previous_payload, now)
+    # The automatic free-tier branch was retired by A03. Keep its historical
+    # baseline untouched, but don't carry its cards into the current service.
+    signals = [signal for signal in _kept_signals(previous_payload, now)
+               if signal.get("category") != "free_tier"]
     statuses: list[dict[str, Any]] = []
 
     started = time.perf_counter()
@@ -512,22 +515,6 @@ def run_market_sensors(
                          "duration_ms": int((time.perf_counter() - started) * 1000), "error": None})
     except Exception as exc:
         statuses.append({"site_id": "market_price", "site_name": "LLM Price Tracker", "ok": False,
-                         "item_count": 0, "signal_count": 0,
-                         "duration_ms": int((time.perf_counter() - started) * 1000), "error": str(exc)})
-
-    started = time.perf_counter()
-    try:
-        current_free = build_free_tier_snapshot(_fetch_json(session, FREE_TIER_URL))
-        old_free = state.get("free_tier") if isinstance(state.get("free_tier"), dict) else {}
-        validate_free_tier_retention(old_free, current_free)
-        free_signals = diff_free_tier_snapshots(old_free, current_free, detected_at)
-        state["free_tier"] = current_free
-        signals.extend(free_signals)
-        statuses.append({"site_id": "market_free_tier", "site_name": "Free LLM APIs", "ok": True,
-                         "item_count": len(current_free.get("providers") or {}), "signal_count": len(free_signals),
-                         "duration_ms": int((time.perf_counter() - started) * 1000), "error": None})
-    except Exception as exc:
-        statuses.append({"site_id": "market_free_tier", "site_name": "Free LLM APIs", "ok": False,
                          "item_count": 0, "signal_count": 0,
                          "duration_ms": int((time.perf_counter() - started) * 1000), "error": str(exc)})
 

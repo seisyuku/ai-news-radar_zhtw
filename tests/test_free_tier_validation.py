@@ -37,25 +37,20 @@ def test_free_model_names_allow_real_ids_spaces_and_deduplicate_without_mutation
 
 @pytest.mark.parametrize("models", [
     "model-1", ["Retired — the model catalog is gone"], ["model-0"], []])
-def test_bad_or_shrunken_models_keep_state_and_do_not_emit_false_model_changes(monkeypatch, models):
+def test_bad_or_shrunken_models_still_fail_offline_safety_guard(models):
     old_free = sensors.build_free_tier_snapshot([provider([f"model-{i}" for i in range(10)])])
     previous = {"free_tier": old_free}
     original = deepcopy(previous)
-    monkeypatch.setattr(sensors, "_fetch_json", lambda session, url: [provider(models)] if url == sensors.FREE_TIER_URL else {"models": []})
-    monkeypatch.setattr(sensors, "_fetch_canary", lambda *_: [])
-    payload, state, statuses = sensors.run_market_sensors(object(), NOW, previous, {})
-    assert state["free_tier"] == old_free and previous == original
-    assert not [s for s in payload["signals"] if s["category"] == "free_tier"]
-    status = next(s for s in statuses if s["site_id"] == "market_free_tier")
-    assert status["ok"] is False and status["signal_count"] == 0
+    with pytest.raises(ValueError, match="free_tier_"):
+        current = sensors.build_free_tier_snapshot([provider(models)])
+        sensors.validate_free_tier_retention(old_free, current)
+    assert previous == original
 
 
-def test_normal_small_model_change_still_emits_candidate_difference(monkeypatch):
+def test_offline_normal_small_model_change_still_emits_candidate_difference():
     models = [f"model-{i}" for i in range(10)]
     previous = {"free_tier": sensors.build_free_tier_snapshot([provider(models)])}
-    monkeypatch.setattr(sensors, "_fetch_json", lambda session, url: [provider(models[1:])] if url == sensors.FREE_TIER_URL else {"models": []})
-    monkeypatch.setattr(sensors, "_fetch_canary", lambda *_: [])
-    payload, state, statuses = sensors.run_market_sensors(object(), NOW, previous, {})
-    assert state["free_tier"]["providers"]["example"]["models"] == models[1:]
-    assert [s["event_type"] for s in payload["signals"]] == ["FREE_MODEL_REMOVED"]
-    assert next(s for s in statuses if s["site_id"] == "market_free_tier")["ok"] is True
+    current = sensors.build_free_tier_snapshot([provider(models[1:])])
+    sensors.validate_free_tier_retention(previous["free_tier"], current)
+    signals = sensors.diff_free_tier_snapshots(previous["free_tier"], current, NOW.isoformat())
+    assert [s["event_type"] for s in signals] == ["FREE_MODEL_REMOVED"]

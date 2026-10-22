@@ -9,7 +9,8 @@ def test_market_and_breaking_surfaces_are_separate_and_optional():
     assert 'id="breakingSignalsWrap" hidden' in html
     assert 'id="marketSignalsWrap" hidden' in html
     assert "額度與政策速報" in html
-    assert "價格與免費額度變更" in html
+    assert "價格變更" in html
+    assert "價格與免費額度變更" not in html
 
 
 def test_llm_radar_surface_is_optional_between_today_signals_and_market_changes():
