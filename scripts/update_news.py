@@ -30,11 +30,12 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
 try:
-    from scripts import archive_output, source_health, corroboration
+    from scripts import archive_output, source_health, corroboration, brief_events
 except ModuleNotFoundError:  # pragma: no cover - direct script invocation
     import archive_output
     import source_health
     import corroboration
+    import brief_events
 
 # Keep these existing imports callable by maintainers and regression tests.
 Archive = archive_output.Archive
@@ -6614,6 +6615,70 @@ def build_stories_payload(
     }
 
 
+def build_brief_event_payloads(stories, archive_records, previous_state, now, window_hours,
+                               *, archive_meta):
+    """Adapt existing importance without changing reader stories or articles."""
+    def rank(record):
+        return (source_tier_for_record(record)["source_tier_rank"],
+                not bool(record.get("summary")), not bool(parse_iso(record.get("published_at"))),
+                str(record.get("id") or ""))
+
+    def build(record, effective, count):
+        native = dict(record)
+        native["title"] = to_zh_hant(maybe_fix_mojibake(str(native.get("title") or "")))
+        if native.get("summary"):
+            native["summary"] = to_zh_hant(str(native["summary"]))
+        scored = add_source_tier_fields(add_ai_relevance_fields(native))
+        proxy = dict(scored, published_at=iso(effective))
+        importance = calculate_item_importance(proxy, now, window_hours, duplicate_count=count)
+        score = importance["score"]
+        category = story_category(score, scored, count)
+        return {"score": score, "importance": score, "importance_score": score,
+                "importance_breakdown": importance["breakdown"], "category": category,
+                "importance_label": importance_label(category), "reasons": story_reasons(scored, score, count)}
+
+    result = brief_events.build_brief_events(stories=stories, archive_records=archive_records,
+        archive_meta=archive_meta, previous_state=previous_state, now=now,
+        window_hours=window_hours, record_builder=build, ranker=rank)
+    # Checksums describe the bytes the public reader actually receives, after
+    # the existing redaction policy, not private/pre-sanitization source text.
+    if result.next_state is not None:
+        result.next_state = sanitize_public_payload(result.next_state)
+        result.next_state["revision"] = brief_events.digest({k: v for k, v in result.next_state.items() if k != "revision"})
+        if not brief_events.validate_state(result.next_state):
+            return brief_events.unavailable(now, "public_state_invalid")
+    result.projection = sanitize_public_payload(result.projection)
+    result.projection["state_revision"] = result.next_state["revision"] if result.next_state else None
+    result.projection["generation_id"] = "bg1_" + brief_events.digest({k: v for k, v in result.projection.items() if k != "generation_id"})[:24]
+    by_id = {e["brief_event_id"]: e for e in result.projection["events"]}
+    result.daily_items = [by_id[i] for i in result.projection["selected_event_ids"]]
+    result.diagnostics = result.projection["diagnostics"]
+    return result
+
+
+def apply_brief_event_result(result, daily, merged):
+    """One authoritative projection; the daily file is a compatible adapter."""
+    daily["items"] = result.daily_items
+    daily["total_items"] = len(result.daily_items)
+    daily["brief_event_meta"] = brief_events.selection_meta(result.projection)
+    eligible = [e for e in result.projection["events"] if e["eligible"]]
+    daily["selection_diagnostics"] = brief_selection_diagnostics(eligible, len(result.daily_items))
+    merged["brief_events"] = result.projection
+
+
+def write_brief_event_bundle(result, daily, merged, *, state_path, merged_path, daily_path, now):
+    """Archive is written first by the caller. State precedes its projection."""
+    if result.next_state is not None:
+        try:
+            atomic_write_text(state_path, brief_events.canonical(result.next_state).decode("utf-8"))
+        except OSError:
+            result = brief_events.unavailable(now, "state_write_failed")
+            apply_brief_event_result(result, daily, merged)
+    atomic_write_text(merged_path, json.dumps(sanitize_public_payload(merged), ensure_ascii=False, separators=(",", ":")))
+    atomic_write_text(daily_path, json.dumps(sanitize_public_payload(daily), ensure_ascii=False, indent=2))
+    return result
+
+
 def build_model_releases_24h_items(
     archive: dict[str, dict[str, Any]],
     now: datetime,
@@ -6810,6 +6875,7 @@ def main() -> int:
     status_path = output_dir / "source-status.json"
     daily_brief_path = output_dir / "daily-brief.json"
     stories_merged_path = output_dir / "stories-merged.json"
+    brief_event_state_path = output_dir / brief_events.STATE_FILE
     title_cache_path = output_dir / "title-zh-cache.json"
     translation_state_path = output_dir / "translation-state.json"
     ai_summary_cache_path = output_dir / "ai-summary-cache.json"
@@ -6821,6 +6887,11 @@ def main() -> int:
     phase_metrics: dict[str, Any] = {}
     with record_generation_phase(phase_metrics, "inputs") as phase:
         archive = load_archive(archive_path)
+        brief_event_state = brief_events.load_state(brief_event_state_path)
+        try:
+            brief_archive_meta = brief_events.ArchiveMeta("valid", json.loads(archive_path.read_text(encoding="utf-8"))["generated_at"])
+        except (OSError, ValueError, KeyError, TypeError):
+            brief_archive_meta = brief_events.ArchiveMeta("missing")
         previous_source_status = load_source_status(status_path)
         paid_source_state = load_paid_source_state(paid_source_state_path)
         try:
@@ -7034,6 +7105,14 @@ def main() -> int:
         generated_at = iso(now)
         daily_brief_payload = build_daily_brief_payload(stories, generated_at=generated_at, window_hours=args.window_hours)
         stories_merged_payload = build_stories_payload(stories, generated_at=generated_at, window_hours=args.window_hours)
+        try:
+            brief_result = build_brief_event_payloads(stories, list(archive.values()), brief_event_state,
+                now, args.window_hours, archive_meta=brief_archive_meta)
+        except Exception as exc:
+            # Logical event failures don't stop the ordinary news reader. Do
+            # not log raw source text or exception messages containing it.
+            brief_result = brief_events.unavailable(now, "event_build_" + type(exc).__name__)
+        apply_brief_event_result(brief_result, daily_brief_payload, stories_merged_payload)
 
         # source-status.json embeds `statuses` (fetch-time site_name, set by
         # collect_all()/individual fetchers) directly - normalize in place here so
@@ -7179,22 +7258,18 @@ def main() -> int:
         }
 
         latest_payload, latest_all_payload = build_latest_payloads(latest_payload)
+        status_payload["brief_events"] = brief_result.diagnostics
 
     with record_generation_phase(phase_metrics, "output") as phase:
         atomic_write_text(latest_path, json.dumps(sanitize_public_payload(latest_payload), ensure_ascii=False, indent=2))
         atomic_write_text(latest_all_path, json.dumps(sanitize_public_payload(latest_all_payload), ensure_ascii=False, separators=(",", ":")))
         atomic_write_text(
-            daily_brief_path,
-            json.dumps(sanitize_public_payload(daily_brief_payload), ensure_ascii=False, indent=2),
-        )
-        atomic_write_text(
-            stories_merged_path,
-            json.dumps(sanitize_public_payload(stories_merged_payload), ensure_ascii=False, separators=(",", ":")),
-        )
-        atomic_write_text(
             archive_path,
             json.dumps(sanitize_public_payload(archive_payload), ensure_ascii=False, separators=(",", ":")),
         )
+        brief_result = write_brief_event_bundle(brief_result, daily_brief_payload, stories_merged_payload,
+            state_path=brief_event_state_path, merged_path=stories_merged_path, daily_path=daily_brief_path, now=now)
+        status_payload["brief_events"] = brief_result.diagnostics
         resolver_count = write_item_resolvers(output_dir, archive, prune=False)
         html_adapter_count = write_item_html_adapters(output_dir, archive, prune=False)
         atomic_write_text(

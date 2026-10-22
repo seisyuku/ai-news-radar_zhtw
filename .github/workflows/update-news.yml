@@ -177,6 +177,11 @@ jobs:
             echo "No OPML file available; RSS OPML is optional"
           fi
 
+      - name: Remember input event history revision
+        run: |
+          state_blob=$(git rev-parse --verify HEAD:data/brief-event-state.json 2>/dev/null || echo MISSING)
+          echo "BRIEF_INPUT_STATE_BLOB=$state_blob" >> "$GITHUB_ENV"
+
       - name: Update data
         env:
           # Paid X/social sources (X API, SocialData, TikHub): keys live in
@@ -258,6 +263,11 @@ jobs:
             fi
             echo "::warning::git push failed (attempt $attempt/$max_attempts), rebasing onto origin/master and retrying"
             git fetch origin master
+            remote_state_blob=$(git rev-parse --verify origin/master:data/brief-event-state.json 2>/dev/null || echo MISSING)
+            if [ "$remote_state_blob" != "$BRIEF_INPUT_STATE_BLOB" ]; then
+              echo "::error::Event history changed remotely; stop retry to preserve it. The next normal refresh will continue from the new history."
+              exit 1
+            fi
             # Rebase's ours/theirs is inverted from merge: "ours" is the
             # branch being rebased onto (origin/master), "theirs" is the
             # commit being replayed (this run's own commit). -X theirs keeps

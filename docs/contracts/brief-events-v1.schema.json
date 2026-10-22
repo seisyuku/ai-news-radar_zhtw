@@ -1,0 +1,802 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ai-news-radar:brief-events:1",
+  "title": "BR02 proposed Brief Event v1 contract",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/projection"
+    },
+    {
+      "$ref": "#/$defs/state"
+    },
+    {
+      "$ref": "#/$defs/selection"
+    }
+  ],
+  "$defs": {
+    "identity": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 1024
+        },
+        "subject": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 160
+        },
+        "action": {
+          "enum": [
+            "model_release",
+            "speed_tier_release",
+            "context_change",
+            "capability_change",
+            "platform_availability",
+            "security_disclosure",
+            "pricing_change",
+            "legacy_story",
+            "article"
+          ]
+        },
+        "scope": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 160
+          },
+          "uniqueItems": true,
+          "maxItems": 16
+        },
+        "batch_key": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 256
+        },
+        "facts": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 256
+          },
+          "uniqueItems": true,
+          "maxItems": 32
+        }
+      },
+      "required": [
+        "key",
+        "subject",
+        "version",
+        "action",
+        "scope",
+        "batch_key",
+        "facts"
+      ],
+      "additionalProperties": false
+    },
+    "phase": {
+      "type": "object",
+      "properties": {
+        "phase_id": {
+          "type": "string",
+          "pattern": "^bp1_[0-9a-f]{24}$"
+        },
+        "kind": {
+          "enum": [
+            "baseline",
+            "announced",
+            "available",
+            "expanded_availability",
+            "patched",
+            "observed_exploitation",
+            "value_changed"
+          ]
+        },
+        "fingerprint": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "effective_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "time_basis": {
+          "enum": [
+            "source_report",
+            "first_observed",
+            "reported_day_upper_bound"
+          ]
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true,
+          "maxItems": 8
+        },
+        "fact_keys": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 256
+          },
+          "uniqueItems": true,
+          "maxItems": 16
+        }
+      },
+      "required": [
+        "phase_id",
+        "kind",
+        "fingerprint",
+        "effective_at",
+        "time_basis",
+        "evidence_ids",
+        "fact_keys"
+      ],
+      "additionalProperties": false
+    },
+    "state_entry": {
+      "type": "object",
+      "properties": {
+        "brief_event_id": {
+          "type": "string",
+          "pattern": "^be1_[0-9a-f]{24}$"
+        },
+        "identity": {
+          "$ref": "#/$defs/identity"
+        },
+        "initial_effective_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "initial_basis": {
+          "enum": [
+            "source_report",
+            "first_observed",
+            "reported_day_upper_bound"
+          ]
+        },
+        "first_observed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "last_material_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "last_reported_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "last_mentioned_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "alias_event_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^be1_[0-9a-f]{24}$"
+          },
+          "uniqueItems": true,
+          "maxItems": 16
+        },
+        "match_keys": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "uniqueItems": true,
+          "maxItems": 16
+        },
+        "phases": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/phase"
+          },
+          "uniqueItems": true,
+          "maxItems": 16
+        }
+      },
+      "required": [
+        "brief_event_id",
+        "identity",
+        "initial_effective_at",
+        "initial_basis",
+        "first_observed_at",
+        "last_material_at",
+        "last_reported_at",
+        "last_mentioned_at",
+        "alias_event_ids",
+        "match_keys",
+        "phases"
+      ],
+      "additionalProperties": false
+    },
+    "reference": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "site_id": {
+          "type": "string"
+        },
+        "published_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "corroboration_key": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "role": {
+          "enum": [
+            "active_phase",
+            "past_phase",
+            "context_unknown"
+          ]
+        },
+        "phase_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^bp1_[0-9a-f]{24}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "url",
+        "title",
+        "source",
+        "site_id",
+        "published_at",
+        "corroboration_key",
+        "role",
+        "phase_id"
+      ],
+      "additionalProperties": true
+    },
+    "match": {
+      "type": "object",
+      "properties": {
+        "rule_id": {
+          "enum": [
+            "R1",
+            "R2",
+            "R3",
+            "R4",
+            "R5",
+            "R6"
+          ]
+        },
+        "strength": {
+          "enum": [
+            "strong",
+            "context_attachment",
+            "unresolved"
+          ]
+        },
+        "article_id": {
+          "type": "string"
+        },
+        "basis": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "conflicts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "rule_id",
+        "strength",
+        "article_id",
+        "basis",
+        "conflicts"
+      ],
+      "additionalProperties": false
+    },
+    "event": {
+      "type": "object",
+      "properties": {
+        "brief_event_id": {
+          "type": "string",
+          "pattern": "^be1_[0-9a-f]{24}$"
+        },
+        "story_id": {
+          "type": "string",
+          "pattern": "^be1_[0-9a-f]{24}$"
+        },
+        "identity": {
+          "$ref": "#/$defs/identity"
+        },
+        "member_story_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "member_article_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/reference"
+          },
+          "uniqueItems": true
+        },
+        "primary_item": {
+          "type": "object",
+          "required": [
+            "id",
+            "title",
+            "url"
+          ],
+          "additionalProperties": true
+        },
+        "title": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "business_events": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "source_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "item_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "corroboration_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "duplicate_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "category": {
+          "type": "string"
+        },
+        "importance_breakdown": {
+          "type": "object"
+        },
+        "initial_effective_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "initial_basis": {
+          "enum": [
+            "source_report",
+            "first_observed",
+            "reported_day_upper_bound"
+          ]
+        },
+        "first_observed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "last_material_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "last_reported_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "effective_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "expires_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "active_phase_id": {
+          "type": "string",
+          "pattern": "^bp1_[0-9a-f]{24}$"
+        },
+        "eligible": {
+          "type": "boolean"
+        },
+        "eligibility_reason": {
+          "enum": [
+            "in_window",
+            "expired",
+            "history_overflow",
+            "unavailable",
+            "future_invalid"
+          ]
+        },
+        "match_evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/match"
+          },
+          "uniqueItems": true
+        },
+        "unknown_update_article_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "primary_url": {
+          "type": "string"
+        },
+        "source_name": {
+          "type": "string"
+        },
+        "source_names": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/reference"
+          },
+          "uniqueItems": true
+        },
+        "importance": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "importance_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "importance_label": {
+          "type": "string"
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "earliest_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "latest_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "brief_event_id",
+        "story_id",
+        "identity",
+        "member_story_ids",
+        "member_article_ids",
+        "sources",
+        "primary_item",
+        "title",
+        "url",
+        "source",
+        "business_events",
+        "source_count",
+        "item_count",
+        "corroboration_count",
+        "duplicate_count",
+        "score",
+        "category",
+        "importance_breakdown",
+        "initial_effective_at",
+        "initial_basis",
+        "first_observed_at",
+        "last_material_at",
+        "last_reported_at",
+        "effective_at",
+        "expires_at",
+        "active_phase_id",
+        "eligible",
+        "eligibility_reason",
+        "match_evidence",
+        "unknown_update_article_ids",
+        "primary_url",
+        "source_name",
+        "source_names",
+        "items",
+        "importance",
+        "importance_score",
+        "importance_label",
+        "reasons",
+        "earliest_at",
+        "latest_at"
+      ],
+      "additionalProperties": true
+    },
+    "projection": {
+      "type": "object",
+      "properties": {
+        "record_type": {
+          "const": "brief_event_projection"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "matcher_version": {
+          "const": "brief-event-v1"
+        },
+        "generation_id": {
+          "type": "string",
+          "pattern": "^bg1_[0-9a-f]{24}$"
+        },
+        "generated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "enum": [
+            "ready",
+            "recovered",
+            "unavailable"
+          ]
+        },
+        "history_complete": {
+          "const": false
+        },
+        "state_revision": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/event"
+          },
+          "uniqueItems": true,
+          "maxItems": 10000
+        },
+        "selected_event_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^be1_[0-9a-f]{24}$"
+          },
+          "uniqueItems": true,
+          "maxItems": 20
+        },
+        "diagnostics": {
+          "type": "object",
+          "required": [
+            "recovery_mode",
+            "errors"
+          ],
+          "properties": {
+            "recovery_mode": {
+              "type": "string"
+            },
+            "errors": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": true
+            }
+          },
+          "additionalProperties": true
+        }
+      },
+      "required": [
+        "record_type",
+        "schema_version",
+        "matcher_version",
+        "generation_id",
+        "generated_at",
+        "status",
+        "history_complete",
+        "state_revision",
+        "events",
+        "selected_event_ids",
+        "diagnostics"
+      ],
+      "additionalProperties": false
+    },
+    "state": {
+      "type": "object",
+      "properties": {
+        "record_type": {
+          "const": "brief_event_state"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "matcher_version": {
+          "const": "brief-event-v1"
+        },
+        "revision": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "generated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "archive_generated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "history_complete": {
+          "const": false
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/state_entry"
+          },
+          "uniqueItems": true,
+          "maxItems": 10000
+        }
+      },
+      "required": [
+        "record_type",
+        "schema_version",
+        "matcher_version",
+        "revision",
+        "generated_at",
+        "archive_generated_at",
+        "history_complete",
+        "events"
+      ],
+      "additionalProperties": false
+    },
+    "selection": {
+      "type": "object",
+      "properties": {
+        "record_type": {
+          "const": "brief_event_selection"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "matcher_version": {
+          "const": "brief-event-v1"
+        },
+        "generation_id": {
+          "type": "string",
+          "pattern": "^bg1_[0-9a-f]{24}$"
+        },
+        "generated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "enum": [
+            "ready",
+            "recovered",
+            "unavailable"
+          ]
+        },
+        "selected_event_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^be1_[0-9a-f]{24}$"
+          },
+          "uniqueItems": true,
+          "maxItems": 20
+        }
+      },
+      "required": [
+        "record_type",
+        "schema_version",
+        "matcher_version",
+        "generation_id",
+        "generated_at",
+        "status",
+        "selected_event_ids"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
