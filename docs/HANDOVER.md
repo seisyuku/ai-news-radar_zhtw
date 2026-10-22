@@ -1,5 +1,13 @@
 # AI News Radar Pulse — 交接摘要（截至 2026-10-23）
 
+## 2026-10-23 BR06完成：brief事件修正正式發布，本案結案
+
+- [BR06發布／驗收／結案](BRIEF_EVENT_BR06_RELEASE_20261023.md)為本案目前入口。BR01～BR06已完成，依使用者離機自動續行授權發布；無下一個必跑階段。
+- 完整保留遠端13筆bot提交後，分批推後端f5c9409與前端643b3ce；兩次既有正常刷新產生980a259／f00e958。state先recovered後ready，175既有根保留／alias延續、176個既有phase時間未續命；PHP六稿共一根且實際攻擊觀察時間保持。
+- 本機1,621項、發布CI／asset version／Pages、正式HTTP同代與五資產hash、真Chrome桌面／手機均通過。03:09臺北快照198篇AI／183原故事／178根／177有效／9內部brief；首頁熱點10／時間線20及PHP查詢一張卡均驗。
+- 價格與兩canary正常；free-tier仍退役，兩觀察／兩日報／SMTP共五workflow仍停用，觀察false。沒有額外dispatch、新排程、寄信或來源觀察工作。Downloads `ai-news-radar-brief-event-br06-20261023/`封存證據與完整交接。
+- 有界規則外仍可能漏併（已知NVHBM），一般precision為not_evaluable；複核未切換另一模型。保留21日記憶／歷史不足等限制，不擴充本輪範圍。**日常維護GPT-6.1 Sol／Medium；修程式High。** 下方均為歷史階段紀錄。
+
 ## 2026-10-23 BR05完成：修正日期特化，候選可發布
 
 - [BR05複核](BRIEF_EVENT_BR05_REVIEW_20261023.md)為發布入口；修正安全日期全年／縮寫／跨年與缺diagnostics拒收，完整1,621項及五窗口／十四日／Chrome重驗通過。
