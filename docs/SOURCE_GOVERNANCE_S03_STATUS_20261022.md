@@ -1,6 +1,6 @@
 # S03隔離部署與實際鏈路驗收（2026-10-22）
 
-**S03技術鏈路驗收通過：主補取樣、artifact、真SMTP及自然喚醒去重均已驗；僅待使用者確認今天D1郵件實收，仍in_progress。**
+**S03：done（2026-10-22）。主補取樣、artifact、真SMTP、自然喚醒去重及當日郵件實收全部驗收完成。**
 D00日報退役維持完成；兩封SMTP範例已實收，不重寄驗收信。
 
 ## 目前唯一啟用版本
@@ -65,7 +65,8 @@ Meet終態必須沿用原hash／時點。11筆候選尚待人工核對，不能�
 依序保存daily-report、mail-intent，再實寄一次`[TW來源觀察][D1/7][未達標] 2026-10-22`。
 回執於08:31:31保存，status=provider_accepted、phase=data、smtp_code=250、attempt_no=1，
 涵蓋日期只有10/22，report hash／payload hash與manifest綁定驗證通過。
-**當日郵件實收已發問、仍待使用者確認**；舊兩封SMTP範例不作當日實收證據。
+**使用者於2026-10-22明確確認「已收到今天的 D1 郵件」**，對應本封D1未達標通知；
+此為當日實收確認，與先前兩封SMTP範例分開記錄。原始回覆及記錄時間已保存Downloads。
 
 截至08:32:50四個新版執行合計139秒runner；九個artifact ZIP共3,285,637 bytes，
 其中七份經scope／manifest驗證的採樣與通知artifact共3,283,461 bytes、展開10,519,999 bytes；
@@ -91,21 +92,22 @@ API精確runtime請求數維持未知，本機只讀驗證API次數另存；完�
 已知market_free_tier感測器故障獨立保留為S05待決。兩份日報及一次性SMTP驗收workflow仍disabled_manually，
 兩份實驗及公開update／watchdog仍active。沒有新增來源准入、變更排序或恢復私人日報。
 
-08:32已請使用者確認當日D1信，迄今尚無回覆，不能將SMTP接受或舊範例實收當成這一封實收。
-最後接續只需取得該事實、更新S03狀態；不要重抓來源、重寄或另開新實驗。確認後交接S04，
-依10/22～10/28七日資料與契約v2評估，模型GPT-6.1 Sol／High。D7結案與自停仍須當時另驗。
+08:32發出當日實收問題後，使用者明確回覆「已收到今天的 D1 郵件」，最後驗收門檻已完成。
+**S03標done，下一步交接[S04同期評估](SOURCE_GOVERNANCE_S04_HANDOFF_20261022.md)**；
+依10/22～10/28七日資料與契約v2評估，模型GPT-6.1 Sol／High。本輪止於S03結案，
+D1來源unmet、七日品質、D7結案與自停均維持各自實際狀態，後三項仍待後續驗證。
 
 ## 新時窗驗收與接續
 
 完整離線1507項通過（6.66s）、相關259項通過；包含新UTC日界線、舊D0排除、
 晚間手動恢復保留及排隊不能越窗。actionlint／契約品質條款比較通過。
-今天08:00後須核對真intent／capture／<=2h baseline與同版source-status、manifest、
-來源限制與主補去重、report／郵件intent／provider receipt及使用者實收，記實際負荷。
-沒有這些證據不可宣稱已完成S03；採樣失敗照實保存，不回補或繞過限制。
+真intent／capture／<=2h baseline與同版source-status、manifest、來源限制與主補沿用、
+report／郵件intent／provider receipt、自然去重、使用者當日實收及實際負荷均已驗。
+S03完成只表示部署與首日鏈路驗收完成；來源失敗照實保存，七日品質與准入仍待S04／S05。
 
 主／補／報告實際run與最終交接在
 `/Users/lordmi/Downloads/ai-news-radar-source-governance-s03-20261022/schedule-0800-20261022/`。
-目前模型建議GPT-6.1 Sol／High；S03完成後才交接S04，同樣Sol／High。
+**下一步S04：GPT-6.1 Sol／High**；完整輸入、缺口與退出條件見[S04交接](SOURCE_GOVERNANCE_S04_HANDOFF_20261022.md)。
 
 ## 下列為08:00改版前的部署與D0歷史紀錄
 

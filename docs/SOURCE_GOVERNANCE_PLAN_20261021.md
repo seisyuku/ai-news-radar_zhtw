@@ -8,10 +8,10 @@ S04～S08仍為後續交接。實際設定、實收與停止責任具備前不�
 
 - **S01：done**。已固定本機／遠端基準、實際來源入口、既有修改及待辦。
 - **S02：done（本機）**。[審查結論與S03交接](SOURCE_GOVERNANCE_S02_REVIEW_20261021.md)、
-  [評估契約v1](SOURCE_EVALUATION_CONTRACT_20261021.md)已完成；D00封存差異已驗收，外部停用待S03。
-- **S03：in_progress**。[部署／退役實況與續接](SOURCE_GOVERNANCE_S03_STATUS_20261022.md)：
-  D00已驗真結案；08:00／08:30、10/22～10/28觀察已部署，今天主補取樣、四站沿用、真SMTP250及自然旁接去重已驗；當日來源unmet如實寄報，僅待使用者確認D1實收。使用者接手D7核查及10/29 08:00前異常停止。
-- **續接S03：GPT-6.1 Sol（`gpt-6.1-sol`）／High**；首日驗真後才交接S04。
+  [評估契約v1](SOURCE_EVALUATION_CONTRACT_20261021.md)已完成；當時外部停用待S03，現已驗收完成。
+- **S03：done**。[部署／退役實況與續接](SOURCE_GOVERNANCE_S03_STATUS_20261022.md)：
+  D00已驗真結案；08:00／08:30、10/22～10/28觀察已部署，今天主補取樣、四站沿用、真SMTP250及自然旁接去重已驗；當日來源unmet如實寄報，使用者已明確確認D1郵件實收。使用者接手D7核查及10/29 08:00前異常停止。
+- **下一步S04：GPT-6.1 Sol（`gpt-6.1-sol`）／High**；[完整交接](SOURCE_GOVERNANCE_S04_HANDOFF_20261022.md)已備妥，本輪未執行S04。
 - [S01來源與正式狀態基準](SOURCE_GOVERNANCE_BASELINE_20261021.md)。
 - 本機證據／檢查點／交接：
   `/Users/lordmi/Downloads/ai-news-radar-source-governance-s01-20261021/`。
@@ -43,7 +43,7 @@ S03已推送D00封存差異、停用兩個專用workflow，私人開關false讀�
 | G01 | 三個失效入口移除已推送 | 本次正式健康快照確認三個source_id均不在curated_media；保留既有歷史resolver，不重做移除。 |
 | G02 | INSIDE、RuntimeWire文章分流、受限平台事件已推送 | 正式抓取成功；本次AI列表有4則INSIDE、無RuntimeWire模型目錄。單次結果不代表品質回測或所有列表驗收完成；S04檢查漏收／誤收及全部讀者輸出。 |
 | G03 | Anthropic News日期修復已推送 | 正式健康為成功、13篇來源窗口內文章；不是今日新增13篇。本次運作驗收完成，持續品質不由單次快照推論。 |
-| G04 | 臺灣五站尚未正式准入 | 既有准入工具與七日協調／Actions／Email程式已提交部署；08:00／08:30新版本技術鏈路已真驗，僅待D1郵件實收確認；當日unmet與來源限制如實保留。S02審查、S03部署驗證、S04觀察、S05逐站裁決。 |
+| G04 | 臺灣五站尚未正式准入 | 既有准入工具與七日協調／Actions／Email程式已提交部署；08:00／08:30新版本技術鏈路及D1郵件實收已真驗，S03完成；當日unmet與來源限制如實保留。S02審查、S03部署驗證、S04觀察、S05逐站裁決。 |
 | G05 | Reuters／CNBC／The Information發布者分級待審 | 保留目前rank 2，依發布者／入口／文章證據評估；不把Google News全部結果一起升級。 |
 | G06 | Cloudflare／Modular／Zed重評 | 只做有限、符合產品邊界的新樣本；未通過前維持不准入，不接全站工程內容。 |
 | G07 | 既有來源限量、去重與品質 | S04以同窗資料檢查收件量、讀者最終重複、已確認新事件／證據及誤收；未有新證據前維持iThome、The Decoder、科技新報、數位時代、36Kr、AIBASE、LLM Rumors／Stats及橘鴉既有定位。 |
