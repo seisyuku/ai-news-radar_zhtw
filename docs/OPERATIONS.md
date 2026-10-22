@@ -14,10 +14,11 @@ D00驗收完成，證據見[S03狀態](SOURCE_GOVERNANCE_S03_STATUS_20261022.md)
 私人automation_enabled及在途run；僅設定false仍會有workflow觸發負荷。
 具體順序、邊界及驗收見[日報退役交接](DIGEST_RETIREMENT_HANDOFF_20261021.md)。
 Radar的update-news、watchdog、外部heartbeat、Pages及公開daily-brief持續維護。
-來源七日觀察另案、已部署，固定2026-10-23～10-29；不得把撤回日報目標當成取消全部Radar排程。
+來源七日觀察另案、已部署，依使用者10/22新要求固定2026-10-22～10-28，
+臺北08:00主採樣／08:30補採樣、08:50截止、09:05核對；不得把撤回日報目標當成取消全部Radar排程。
 S03啟用實驗前須核對[審查結論](SOURCE_GOVERNANCE_S02_REVIEW_20261021.md)與
-[評估／停止契約](SOURCE_EVALUATION_CONTRACT_20261021.md)。SMTP與兩封實收已驗；使用者本人
-接手10/29 D7核查及最晚10/30 D8臺北08:00異常停用。只停用兩份tw-source實驗workflow，
+[評估／停止契約v2](SOURCE_EVALUATION_CONTRACT_20261022.md)。SMTP與兩封實收已驗；使用者本人
+接手10/28 D7核查及最晚10/29 D8臺北08:00異常停用。只停用兩份tw-source實驗workflow，
 具體名稱與命令見[S03狀態](SOURCE_GOVERNANCE_S03_STATUS_20261022.md)。一次性SMTP驗收入口已停用，
 不重寄驗收信；首日實際採樣／artifact／通知及負荷仍待驗真。
 

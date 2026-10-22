@@ -5,21 +5,33 @@ D00日報退役維持完成；兩封SMTP範例已實收，不重寄驗收信。
 
 ## 目前唯一啟用版本
 
-- code SHA：`2ce3c668372e9b2e1b74a051e0bb3835b95da935`；workflow／config分批釘選發布，精確版本與讀回保存Downloads。
-- experiment_id：`twso-20261022-0800-v2`，D1～D7為2026-10-22、23、24、25、26、27、28。
+- code SHA：`51551fdf695249547c7db4e6a4d67ed8b47212ea`；workflow／config分批釘選發布，精確版本與讀回保存Downloads。
+- experiment_id：`twso-20261022-0800-v3-20261022t001200z`，D1～D7為2026-10-22、23、24、25、26、27、28。
 - Asia/Taipei主08:00／補08:30，補採樣開始截止08:50；報告期限09:05、備援核對至09:20。
   UTC cron為`0 0 * * *`／`30 0 * * *`／`5 1 * * *`。主已完成不重抓，通知仍先存intent後送。
 - 使用者本人接手10/28 D7結束核查及最晚10/29 D8臺北08:00異常停用。
-- 觀察workflow SHA256：`d516ca337546e8e25dd00eb00d375b51d7825672f5ac3bfa8ac7b63b86ff56f1`。
-- 報告workflow SHA256：`17608985a0515567474e8da5dfa0e19b1703a1a77765b9e2cc8aa10d506fcd3b`。
+- 觀察workflow SHA256：`e6f1c23aa58874a1250c45d7c134cca223855117d8a149dec0d71199bb233d23`。
+- 報告workflow SHA256：`04ab26e523df4fba51d5341dfc4ff0ddb9e056970913794d9b6b87b378034ed6`。
 - [評估契約v2](SOURCE_EVALUATION_CONTRACT_20261022.md) SHA256：`2bc257cb705807160f5b4a31415a25a8f9f8f6513a57df4902475a4e5bdce6a1`；
   v1原文保留，品質／抽樣／分母不變，只改時窗與日曆。
 - 手動報告可在09:05後恢復；建立時間也必須在09:05後，避免排隊跨窗。
   歷史查詢從本實驗首日08:00起，保留後續延遲手動恢復，不混入先前07點D0紀錄。
 
+## 08:00首次真實 run 發現的 API 誤擋
+
+主run39696990768在採樣intent之前被invalid_api_path擋下；報告39697041697亦未進通知intent。
+兩份真run的intent／採樣／SMTP步驟全部skipped，已保存證據，來源請求為零。
+原因為安全檢查將合法created時間區間中的`..`誤判路徑穿越；現改為只檢查URL路徑，
+真正的跨路徑／外部URL仍拒絕，並以未覆寫get的正式API adapter驗證查詢成功。
+
+新版本明定history_start_at=`2026-10-22T00:12:00Z`（臺北08:12），與實驗ID後綴綁定。
+此前run保留為舊零效果版本，不混入新workflow指紋；改同一實驗的啟用點會被拒絕。
+08:12後仍使用08:00～08:30主slot，保留實際起時，不回填08:00、不重跑舊run_attempt。
+日期、08:30補slot、每日最多兩個真採樣slot與七日期間不變。
+
 ## 新時窗驗收與接續
 
-完整離線1501項通過（6.15s）、相關253項通過；包含新UTC日界線、舊D0排除、
+完整離線1507項通過（6.66s）、相關259項通過；包含新UTC日界線、舊D0排除、
 晚間手動恢復保留及排隊不能越窗。actionlint／契約品質條款比較通過。
 今天08:00後須核對真intent／capture／<=2h baseline與同版source-status、manifest、
 來源限制與主補去重、report／郵件intent／provider receipt及使用者實收，記實際負荷。
