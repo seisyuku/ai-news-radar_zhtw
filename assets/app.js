@@ -1341,6 +1341,12 @@ function storyDurationLabel(earliest, latest) {
 }
 
 function formatStoryTime(story) {
+  if (story.brief_event_id) {
+    const basis = story.effective_basis || story.initial_basis;
+    const label = basis === "first_observed" ? "本系統初見" : story.last_material_at ? "進展報導" : "首次報導";
+    const day = basis === "reported_day_upper_bound" ? story.effective_reported_day : null;
+    return { latest: story.effective_at, rangeLabel: day ? `報導日期 ${day}（時刻不明）` : label, reportedDay: day };
+  }
   const earliest = story.earliest_at;
   const latest = story.latest_at;
   if (latest && earliest && latest !== earliest) {
@@ -1399,6 +1405,7 @@ function buildBriefTimelineRow(row, rank) {
 function buildStoryCard(story, rank) {
   const link = document.createElement("a");
   link.className = "story-row";
+  if (story.brief_event_id) link.dataset.briefEventId = story.brief_event_id;
   const primary = story.primary_item || {};
   link.href = primary.url || story.primary_url || story.url || "#";
   link.target = "_blank";
@@ -1406,19 +1413,19 @@ function buildStoryCard(story, rank) {
 
   const time = document.createElement("div");
   time.className = "story-time";
-  const { latest, rangeLabel } = formatStoryTime(story);
+  const { latest, rangeLabel, reportedDay } = formatStoryTime(story);
   const labelEl = document.createElement("span");
   labelEl.className = "story-time-label";
-  labelEl.textContent = "最新";
+  labelEl.textContent = story.brief_event_id ? "事件" : "最新";
   const latestEl = document.createElement("span");
   latestEl.className = "story-time-latest";
-  latestEl.textContent = fmtTime(latest);
+  latestEl.textContent = reportedDay || fmtTime(latest);
   time.append(labelEl, latestEl);
   if (rangeLabel) {
     const rangeEl = document.createElement("span");
     rangeEl.className = "story-time-range";
     rangeEl.textContent = rangeLabel;
-    rangeEl.title = "最早來源到最新來源的時間差，不是距離現在多久。";
+    rangeEl.title = story.brief_event_id ? "採首次報導或具體進展報導時間；重發不延長有效期。" : "最早來源到最新來源的時間差，不是距離現在多久。";
     time.appendChild(rangeEl);
   }
 
@@ -1662,16 +1669,89 @@ function uniqueStories(stories, excludeKeys = new Set(), excludeIdentityKeys = n
 }
 
 function currentStoryPools(filteredItems) {
-  const brief = briefStories().filter((story) => storyMatchesFilteredItems(story, filteredItems));
-  const merged = mergedStories().filter((story) => storyMatchesFilteredItems(story, filteredItems));
-  const briefKeys = new Set(brief.map(storyStableKey).filter(Boolean));
-  const briefIdentityKeys = new Set();
-  brief.forEach((story) => storyIdentityKeys(story).forEach((key) => briefIdentityKeys.add(key)));
-  return {
-    brief,
-    merged,
-    followup: uniqueStories(merged, briefKeys, briefIdentityKeys),
-  };
+  const resolved = resolveBriefProjection();
+  const merged = (resolved.projection?.events || []).filter((story) =>
+    story.eligible && Date.parse(story.effective_at) <= Date.now() && Date.now() < Date.parse(story.expires_at)
+    && !isUnsafeStory(story) && briefEventMatchesFilters(story));
+  const selected = new Set(resolved.projection?.selected_event_ids || []);
+  return { brief: merged.filter((story) => selected.has(story.brief_event_id)), merged,
+    followup: merged.filter((story) => !selected.has(story.brief_event_id)), ...resolved };
+}
+
+// The projection is self-contained: never join a different daily generation or
+// resurrect the legacy raw pool when an auxiliary response is old or incomplete.
+function validBriefProjection(p) {
+  if (!p || p.record_type !== "brief_event_projection" || p.schema_version !== 1
+    || p.matcher_version !== "brief-event-v1" || !["ready", "recovered"].includes(p.status)
+    || !/^bg1_[0-9a-f]{24}$/.test(p.generation_id || "")
+    || !/^[0-9a-f]{64}$/.test(p.state_revision || "") || p.history_complete !== false
+    || !Number.isFinite(Date.parse(p.generated_at)) || Date.parse(p.generated_at) > Date.now() + 300000
+    || !p.diagnostics || typeof p.diagnostics.recovery_mode !== "string" || !Array.isArray(p.diagnostics.errors)
+    || !Array.isArray(p.events) || p.events.length > 10000 || !Array.isArray(p.selected_event_ids)
+    || p.selected_event_ids.length > 20) return false;
+  const ids = new Set();
+  for (const e of p.events) {
+    const required = ["identity", "title", "url", "source", "business_events", "source_count", "item_count", "duplicate_count", "score", "category", "importance_breakdown", "initial_basis", "first_observed_at", "last_material_at", "last_reported_at", "active_phase_id", "eligibility_reason", "match_evidence", "unknown_update_article_ids", "primary_url", "source_name", "source_names", "items", "importance", "importance_score", "importance_label", "reasons", "earliest_at", "latest_at"];
+    if (!e || !/^be1_[0-9a-f]{24}$/.test(e.brief_event_id || "") || e.story_id !== e.brief_event_id
+      || required.some((key) => !Object.prototype.hasOwnProperty.call(e, key))
+      || ids.has(e.brief_event_id) || !e.primary_item || typeof e.primary_item.id !== "string"
+      || typeof e.primary_item.title !== "string" || typeof e.primary_item.url !== "string"
+      || !Array.isArray(e.sources) || !Array.isArray(e.member_article_ids) || !Array.isArray(e.member_story_ids)
+      || !Number.isSafeInteger(e.corroboration_count) || e.corroboration_count < 0
+      || !e.identity || typeof e.identity.key !== "string" || !Array.isArray(e.business_events)
+      || typeof e.score !== "number" || !Number.isFinite(e.score) || e.score < 0 || e.score > 1
+      || !/^bp1_[0-9a-f]{24}$/.test(e.active_phase_id || "")
+      || !["source_report", "first_observed", "reported_day_upper_bound"].includes(e.effective_basis || e.initial_basis)
+      || ((e.effective_basis || e.initial_basis) === "reported_day_upper_bound" && !/^\d{4}-\d{2}-\d{2}$/.test(e.effective_reported_day || ""))
+      || typeof e.eligible !== "boolean" || !Number.isFinite(Date.parse(e.effective_at))
+      || !Number.isFinite(Date.parse(e.initial_effective_at))
+      || Date.parse(e.expires_at) - Date.parse(e.effective_at) !== 86400000
+      || e.sources.some((r) => !r || typeof r.id !== "string" || typeof r.url !== "string"
+        || !["active_phase", "past_phase", "context_unknown"].includes(r.role))) return false;
+    ids.add(e.brief_event_id);
+  }
+  return new Set(p.selected_event_ids).size === p.selected_event_ids.length
+    && p.selected_event_ids.every((id) => ids.has(id));
+}
+
+function resolveBriefProjection() {
+  const incoming = state.storiesMerged?.brief_events;
+  if (validBriefProjection(incoming)) {
+    if (state.briefProjectionInput !== incoming) {
+      state.briefProjectionCache = JSON.parse(JSON.stringify(incoming));
+      state.briefProjectionInput = incoming;
+    }
+    return { projection: state.briefProjectionCache, cached: false };
+  }
+  const cached = state.briefProjectionCache;
+  if (cached && cached.events.some((e) => e.eligible && Date.parse(e.effective_at) <= Date.now()
+    && Date.now() < Date.parse(e.expires_at))) return { projection: cached, cached: true };
+  return { projection: null, cached: false };
+}
+
+function briefEventMatchesFilters(story) {
+  if (state.signalLevelFilter === "multi" && storySourceCount(story) < 2) return false;
+  if (state.signalLevelFilter === "high" && !isHighPriorityItem({ ...story.primary_item, score: story.score })) return false;
+  const q = state.query.trim().toLowerCase();
+  return [story.primary_item, ...story.sources].some((item) => {
+    if (state.activeSection !== "hot" && !itemMatchesSection(item, state.activeSection)) return false;
+    const source = generalReaderSource(item).level;
+    if (state.siteFilter && (state.siteFilter === "socialdata_x" ? item.site_id !== "socialdata_x" : source !== state.siteFilter)) return false;
+    if (state.authorFilter && (item.site_id !== "socialdata_x" || item.source !== state.authorFilter)) return false;
+    if (state.sourceTypeFilter && source !== state.sourceTypeFilter) return false;
+    if (state.signalLevelFilter === "curated" && !isCuratedItem(item)) return false;
+    return !q || `${item.title || ""} ${item.title_zh || ""} ${item.title_en || ""} ${item.site_name || ""} ${item.source || ""}`.toLowerCase().includes(q);
+  });
+}
+
+function scheduleBriefExpiry(projection) {
+  if (state.briefExpiryTimer) clearTimeout(state.briefExpiryTimer);
+  const deadlines = (projection?.events || []).filter((e) => e.eligible)
+    .map((e) => Date.parse(e.expires_at)).filter((t) => t > Date.now());
+  if (!deadlines.length) return;
+  // Local rendering only; no fetch or background job. Recheck on tab resume too.
+  state.briefExpiryTimer = setTimeout(() => renderBriefPicks({ animate: false }), Math.min(2147483647, Math.max(1, Math.min(...deadlines) - Date.now())));
+  state.briefExpiryTimer?.unref?.();
 }
 
 // feature/featured-source-diversity-cap: the initial five visible cards and
@@ -1930,22 +2010,16 @@ function renderBriefPicks({ animate = true } = {}) {
   if (usesStories && !hotAvailable && state.briefView === "hot") {
     state.briefView = "timeline";
   }
-  const defaultLimit = state.briefView === "hot" ? BRIEF_HOT_LIMIT : BRIEF_TIMELINE_LIMIT;
-  const gatedItems = featuredCandidatesGate(
-    filtered,
-    (item) => (Array.isArray(item?.business_events) ? item.business_events.length : 0),
-    (item) => readerSiteId(item),
-  );
-  const rows = usesStories
-    ? storyRowsForPool(availableStoryPool)
-    : rankedFallbackRows(gatedItems).slice(0, defaultLimit);
+  const rows = storyRowsForPool(availableStoryPool);
+  scheduleBriefExpiry(storyPools.projection);
   const top = rows.slice(0, 3);
   const remainingCount = Math.max(0, rows.length - top.length);
   if (topStoriesTitleEl) topStoriesTitleEl.textContent = state.activeSection === "hot" ? "今日重點訊號" : `${section.label}重點訊號`;
   const storyMeta = usesStories
     ? `可檢視 ${fmtNumber(candidateCounts.hotTotal)} 個聚合熱點 · ${fmtNumber(candidateCounts.timelineTotal)} 條最新故事`
     : `可檢視 ${fmtNumber(rows.length)} 條重點訊號`;
-  briefPicksMetaEl.textContent = storyMeta;
+  briefPicksMetaEl.textContent = storyPools.cached
+    ? `${storyMeta} · 暫用 ${fmtTime(storyPools.projection.generated_at)} 的有效資料` : storyMeta;
   if (briefViewToggleEl) {
     briefViewToggleEl.hidden = usesStories ? !hotAvailable : true;
     if (briefHotBtnEl) briefHotBtnEl.classList.toggle("active", state.briefView === "hot");
@@ -1959,7 +2033,7 @@ function renderBriefPicks({ animate = true } = {}) {
   if (!top.length) {
     const empty = document.createElement("div");
     empty.className = "brief-empty";
-    empty.textContent = "當前欄目和篩選條件下沒有可展示的 Top 3。";
+    empty.textContent = storyPools.projection ? "當前欄目和篩選條件下沒有可展示的事件。" : "重點整理暫不可用，可先查看新聞列表。";
     briefPicksListEl.appendChild(empty);
   } else {
     top.forEach((row, index) => {
@@ -2076,6 +2150,7 @@ function buildTopStoryCard(row, rank) {
   const isLead = rank === 1 && (Boolean(generatedSummary) || hasCompanionSources);
   const link = document.createElement("a");
   link.className = `top-story-card ${isLead ? "lead" : "secondary"}`;
+  if (row.story?.brief_event_id) link.dataset.briefEventId = row.story.brief_event_id;
   link.href = item.url || "#";
   link.target = "_blank";
   link.rel = "noopener noreferrer";
@@ -2091,7 +2166,8 @@ function buildTopStoryCard(row, rank) {
   // it on primary_item. Fall back to that aggregate time so Top 3 never shows
   // "時間未知" when the story itself has a verified latest/earliest timestamp.
   const storyTimeline = row.story?.latest_at || row.story?.earliest_at || "";
-  time.textContent = fmtTime(timelineIso(item) || storyTimeline);
+  const eventTime = row.story?.brief_event_id ? formatStoryTime(row.story) : null;
+  time.textContent = eventTime ? `${eventTime.rangeLabel} ${eventTime.reportedDay ? "" : fmtTime(eventTime.latest)}`.trim() : fmtTime(timelineIso(item) || storyTimeline);
   const primarySource = itemSourceRefs(item, row)[0];
   const sourceCount = document.createElement("span");
   sourceCount.className = "source-count";
@@ -3104,7 +3180,7 @@ async function init() {
     state.storiesMerged = stories;
     renderBriefPicks({ animate: false });
     setStats();
-  }, () => { state.storiesMerged = null; });
+  }, () => { state.storiesMerged = null; renderBriefPicks({ animate: false }); });
   void loadMarketSignalsData().then((signals) => {
     state.marketSignals = signals.signals || [];
     state.marketSignalsGeneratedAt = signals.generated_at || null;
@@ -3240,4 +3316,7 @@ function renderAppVersion() {
 }
 
 renderAppVersion();
+document.addEventListener?.("visibilitychange", () => {
+  if (!document.hidden) renderBriefPicks({ animate: false });
+});
 init();

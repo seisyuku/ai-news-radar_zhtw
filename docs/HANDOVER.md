@@ -1,4 +1,44 @@
-# AI News Radar Pulse — 交接摘要（截至 2026-10-22）
+# AI News Radar Pulse — 交接摘要（截至 2026-10-23）
+
+## 2026-10-23 BR05完成：修正日期特化，候選可發布
+
+- [BR05複核](BRIEF_EVENT_BR05_REVIEW_20261023.md)為發布入口；修正安全日期全年／縮寫／跨年與缺diagnostics拒收，完整1,621項及五窗口／十四日／Chrome重驗通過。
+- 副本回復前端與事件unavailable輸出演練，110項通過；v1 state bytes、普通stories與A06觀察false保持，再套回候選資產hash一致。BR03／04封存不覆寫，修正後精確版本另封BR05。
+- 同一助理結構化複核，沒有另一模型獨立審查；一般precision仍not_evaluable。NVHBM漏併及有界規則、21日記憶限制明列，沒有確認誤併／新進展被吞阻擋項。
+- 未提交／推送；**BR06建議GPT-6.1 Sol／High**。使用者已授權自動續行，先整合bot新資料、先後端真刷新再上前端，核CI／Pages／HTTP／真瀏覽器；不新增排程、不重啟日報。
+
+## 2026-10-23 BR04完成：前端共用事件池，接發布前複核
+
+- [BR04驗收](BRIEF_EVENT_BR04_VALIDATION_20261023.md)：完整1,607項、真Chrome桌面／手機十組及六個混版／期限情境通過；十四日2,002列次與28個前端view已離線重播。五資產共同版本20261023-br04。
+- brief全路徑只採v1事件投影；失效不回灌raw，cache有原時間且到期移除；一般新聞保持。PHP同披露一位、模型重發不續命，新進展保留。
+- 替代樣本先標後評，保留3群6篇、整群排除10群；零確認誤併，一組NVHBM仍漏併。一般precision為not_evaluable，不調參驗證群；不是另一模型的獨立品質審查。
+- 未提交／推送，tracked data未改；證據Downloads `ai-news-radar-brief-event-br04-20261023/`。**BR05建議GPT-6 Astra／High**，依使用者授權自動接續；無新增排程或日報工作。
+
+## 2026-10-23 BR03完成：事件後端／有限狀態與推送保護，自動接BR04
+
+- [BR03實作與驗證](BRIEF_EVENT_BR03_IMPLEMENTATION_20261023.md)記錄後端候選；使用者已授權自動完成BR03～BR06，驗證後才發布。
+- 純事件層、相容daily、自足投影及有限state已接入；重述不續命，具體更新才換phase。原stories／普通AI ID／來源與退役設定不變。既有workflow只加state blob競爭保護，無新增排程。
+- 完整1,586項、py_compile、actionlint與diff檢查通過。五窗口schema／重跑一致；當期179故事→172根、171有效，PHP指定披露只一根且實際觀察進展保留。state163,904bytes、投影約954KB，單次約0.4秒。
+- 候選及封存交接在Downloads `ai-news-radar-brief-event-br03-20261023/`；未推送、未覆寫tracked data驗證、未讀替代留出正文。本輪仍是後端，不冒稱前端／正式版已修復。
+- **下一步BR04：GPT-6.1 Sol／High**；照自動續行授權立即接前端與離線／瀏覽器驗證。
+
+## 2026-10-23 BR02完成：事件／時間／狀態契約凍結，下一步BR03
+
+- [BR02完整契約](BRIEF_EVENT_BR02_CONTRACT_20261023.md)及[JSON schema v1](contracts/brief-events-v1.schema.json)為本案目前權威；BR03尚未執行。保留BR01既有改動，A01～A06仍已結案。
+- 定案後端單一事件投影與有限state；同事件一位、重發不續命、具體進展才更新。完整版本／動作／第三方平台分開；PHP實際攻擊觀察與PoC流傳分開。新前端若缺有效投影，不回灌未去重故事池，一般新聞維持。
+- state只保存曾被當期故事播種的根，21天last-mentioned、10k根／8MiB硬上限；錯代／損毀／容量失敗有明確恢復／降級。BR03須在既有workflow推送重試加state blob競爭保護，不改排程或新增workflow。
+- 18組逐案預期、20個故障情境、26項契約核對通過。原448預留全部隔離，替代13群73篇正文仍封存；語意獨立性／品質未驗，BR04先盲標整群再看輸出。期間發現URL別名跨群，已補閉包並重驗。
+- 證據目錄仍按開始日期為Downloads `ai-news-radar-brief-event-br02-20261022/`；含DECISIONS／MATCHING_RULES／SCHEMA／CASE_EXPECTATIONS／STATE_RECOVERY／MANIFEST／HANDOFF。只改本機規格與治理文件，正式程式／資料／來源／工作流未改，未提交／推送。
+- **下一步BR03：GPT-6.1 Sol／High。** 先驗本階段manifest、實作後端／狀態與guard並跑完整回歸；完成後BR04前端與離線驗證同模型／High。沒有跨日等待或恢復日報自動化。
+
+## 2026-10-22 BR01完成：brief同事件重複基準，下一步BR02
+
+- [BR01基準與案例](BRIEF_EVENT_BR01_BASELINE_20261022.md)為目前 brief 修正入口；A01～A06仍已結案。本案BR01～BR06分階段執行。
+- 凍結正式c438160快照；PHP六個故事由補位池入候選，時間線同事件第1／6／7、熱點第1／6，與A06真Chrome封存一致。PHP指收錄新聞，不是本專案依賴。
+- 既有archive離線重建模型窗口：Haiku與Sol Ultrafast較早報導超過24h後，重述仍可進查詢brief；上下文擴容兩稿亦各佔一位。選定模型重述未在完整未篩選Top20入選，不冒稱歷史真首頁觀察。
+- 12組報導／30文章及6組合成邊界、容量與驗收指標已凍結；14項核對通過。原60留出不開內容。448筆驗證預留含22筆A02曝光、33筆跨品牌，BR02先核事件洩漏，尚不宣稱獨立品質驗收。
+- Downloads `ai-news-radar-brief-event-br01-20261022/`有CASEBOOK／BASELINE／REPORT／MANIFEST／HANDOFF。只追加本機治理文件，正式程式／來源／schema／資料／排程未變，未提交／推送。
+- **下一步BR02：GPT-6 Astra／High。** 先驗manifest，再裁決事件／更新、狀態容量、錯代fallback與接口；沒有等待日數、來源再觀察或日報自動化待辦。
 
 ## 2026-10-22 A06正式發布與驗收完成，方案A結案
 
