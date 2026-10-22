@@ -1,4 +1,5 @@
 from datetime import datetime, timezone
+from pathlib import Path
 
 import pytest
 
@@ -99,3 +100,29 @@ console.log(JSON.stringify({
     assert result["sameScore"] == result["oneScore"]
     assert result["legacy"] == result["zero"] == 0
     assert result["malformed"] == [1] * 6
+
+
+def test_advanced_multi_filter_uses_publishers_across_ingress_and_official_aliases():
+    code = extract_declarations("multiSourceEventKeys", "itemMatchesSignalLevel")
+    result = run_js(code + """
+const state = {signalLevelFilter: 'multi'};
+function eventKey(item) { return item.event; }
+function sourceSignal(item) { return item.source; }
+const row = (event, source, key) => ({event, source, corroboration_key:key});
+const rows = [
+  row('copies','Reuters feed','publisher:reuters'),
+  row('copies','OPML Reuters','publisher:reuters'),
+  row('official','官方更新','publisher:openai'),
+  row('official','官方更新','publisher:google'),
+  row('unknown','Unknown one',null), row('unknown','Unknown two',null),
+  row('partial','Reuters','publisher:reuters'), row('partial','Unknown',null),
+  {event:'legacy',source:'Feed one'}, {event:'legacy',source:'Feed two'},
+];
+const keys = multiSourceEventKeys(rows);
+console.log(JSON.stringify({keys:[...keys],matches:rows.map(item => itemMatchesSignalLevel(item,keys))}));
+""")
+    assert result["keys"] == ["official"]
+    assert result["matches"] == [False, False, True, True, False, False, False, False, False, False]
+    html = (Path(__file__).resolve().parents[1] / "index.html").read_text()
+    assert '<option value="multi">多方報導</option>' in html
+    assert "多源驗證" not in html

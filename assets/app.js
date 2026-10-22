@@ -673,7 +673,10 @@ function multiSourceEventKeys(items) {
   (items || []).forEach((item) => {
     const key = eventKey(item);
     if (!map.has(key)) map.set(key, new Set());
-    map.get(key).add(sourceSignal(item));
+    const publisherKey = item && item.corroboration_key;
+    if (typeof publisherKey === "string" && publisherKey.length > 0) {
+      map.get(key).add(publisherKey);
+    }
   });
   return new Set(Array.from(map.entries())
     .filter(([, sources]) => sources.size > 1)
