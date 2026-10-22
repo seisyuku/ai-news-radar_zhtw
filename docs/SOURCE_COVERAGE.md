@@ -3,6 +3,21 @@
 This project should help readers track material AI-industry events without
 forcing them to follow noisy timelines or manage many source choices.
 
+## A04本機實作、A05複核通過（2026-10-22；待A06發布）
+
+[A04實作與交接](SOURCE_GOVERNANCE_A04_IMPLEMENTATION_20261022.md)已修正發布者計數及前端標籤，單獨退役免費額度自動分支。
+引用／篇數完整保留，`corroboration_count`為已辨識發布者／既有聚合群組數，未知不加票；同群組或同發布者多版不加熱度。
+目前是本機候選，尚未推送；下方描述對應此候選。兩實驗工作流維持停用，本機觀察false待A06同步。
+[A05複核](SOURCE_GOVERNANCE_A05_REVIEW_20261022.md)已驗候選完整性、計數消費端、真瀏覽器呈現與局部回復；未改來源裁決或提升品質／可靠性結論。
+
+## A03治理裁決（2026-10-22；裁決歷史）
+
+[最終規格與53筆名冊](SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md)裁定：39既有新聞入口、OPML池、橘鴉對照及價格／兩canary保留；來源rank與cap維持。
+臺灣五站（資安人、CyberQ、網管人、DIGITIMES、Meet）及Cloudflare／Modular／Zed本輪不准入並封存，沒有持續觀察待辦。
+Free LLM APIs自動感測分支及同發布者多版本佐證已交A04本機實作，保留原始引用與正式來源。
+一般分類／0.65不改，教學誤收及基礎設施漏收仍是已知限制。
+本次裁決不是品質門檻通過或七日可靠性證明；兩觀察workflow持續停用，沒有新增採樣／寄信。
+
 ## Product Model
 
 Use a two-layer model:
@@ -113,9 +128,11 @@ S02已完成[審查](SOURCE_GOVERNANCE_S02_REVIEW_20261021.md)及
 穩定性與事件增益規則；S03固定版本後才做真實觀察。
 
 日報自動生成／派送／排程目標已撤回，[D00](DIGEST_RETIREMENT_HANDOFF_20261021.md)已於S03
-外部停用並推送封存差異，私人開關false讀回；觀察code與有限七日workflow已推送啟用。
-依使用者10/22新要求，固定10/22～10/28、臺北08:00／08:30採樣；契約v2只改時窗，
-品質門檻不變。候選仍未正式准入，首日驗真見[S03狀態](SOURCE_GOVERNANCE_S03_STATUS_20261022.md)。
+外部停用並推送封存差異，私人開關false讀回；來源觀察code與有限七日workflow曾推送啟用。
+原訂10/22～10/28、臺北08:00／08:30採樣，後依使用者選擇[方案A](SOURCE_GOVERNANCE_EARLY_CLOSE_20261022.md)，
+10/22 12:41兩實驗workflow已停用並封存；不再等待後續日期，七日穩定性未驗收、品質門檻不降。
+[A02集中評估](SOURCE_GOVERNANCE_A02_ASSESSMENT_20261022.md)完成，下一步A03裁決；目前仍無新候選正式准入。
+首日技術驗真見[S03狀態](SOURCE_GOVERNANCE_S03_STATUS_20261022.md)。
 上方私人日報摘要／補讀等為既有技術行為記錄，不代表繼續啟用該工作。
 公開RSS摘要保存、Radar精選及來源治理繼續維護。
 
@@ -280,7 +297,7 @@ The reader-facing `llm-radar.json` is a separate 24-hour release-alert lane.
 It may surface any current `model_release` event from the regular curated pool,
 but labels its evidence conservatively: `official_ai` is an official
 announcement, LLM Stats is model tracking, and all other sources remain media
-reports. Price and free-tier cards remain only in the structured Market Sensor
+reports. Price cards remain only in the structured Market Sensor
 view; neither lane changes the global news score.
 
 - **LLM Stats model discovery** reads the server-rendered `latestModels` payload
@@ -609,17 +626,14 @@ fields) found:
 generic URL-host safeguard for future/OPML feeds; the retired sources' tier
 and ecosystem entries were removed with their adapters.
 
-## Market / Free-Tier / Canary Sensors（2026-08-21）
+## Market / Canary Sensors（2026-10-22 A04候選）
 
-這三類來源不進入一般新聞 `RawItem`、AI 相關性評分或六類事件排序；它們
+價格與canary來源不進入一般新聞 `RawItem`、AI 相關性評分或六類事件排序；它們
 由 `scripts/market_sensors.py` 產生獨立的 `data/market-signals.json`：
 
 - **價格（長期影響順位 1、時效順位 3）**：讀取 LLM Price Tracker 的
   公開 `prices.json`，保存核心價格欄位快照，以 deterministic diff 產生
   old/new 事件。第三方結構化資料屬 `reported`，不是官方 GT。
-- **免費額度（長期影響順位 2、時效順位 2）**：讀取
-  `xyzs996/free-llm-api` 的公開 `providers.json`，只比較 RPM、RPD、
-  availability 與 model list；卡片保留資料集引用的官方 URL。
 - **Usage policy Canary（長期影響順位 3、時效順位 1）**：只讀
   Usage4Claude 與 Claude Usage Monitor 的公開 commit Atom。強關鍵字命中
   才產生 `USAGE_POLICY_CANDIDATE`，永遠標示 `candidate`；不執行工具、
@@ -629,14 +643,12 @@ and ecosystem entries were removed with their adapters.
 縮至前次 80% 以下會 fail closed，保留既有 state；單一 Sensor 失效不拖垮
 新聞更新，錯誤會進入 `source-status.json`。
 
-免費額度資料另驗證 provider 清單、唯一字串 ID 與模型名稱陣列；字串被
-拆成逐字模型、非字串模型或已知退休說明文字都視為格式失效。80% 數量
-保護亦套用於仍在清單內的每個 provider 模型數，沿用既有取整／至少一筆
-規則。拒絕時保留前次 baseline，不發布該輪新免費額度異動；真實大量
-退場可能需人工確認。此保護不判斷同數量的大幅替換或任意說明文字，
-詳細限制見 `OPERATIONS.md`。
+**免費額度自動分支已退役**：不再請求`xyzs996/free-llm-api`，不列活躍健康狀態，
+不把退役當作成功或新增失敗。`state.free_tier`及其原觀察時間保留作歷史；不清baseline、不產生假大量移除。
+舊free-tier卡片不再流入當期payload，前端亦過濾舊快照的該類卡片；沒有等價替代服務。
+純離線parser／provider身份／模型名稱與80%保留防線仍保留，不能為重啟而放寬。
 
-所有寫入公開 `market-signals.json` 的事件，不論價格、免費額度或 usage
+所有寫入公開 `market-signals.json` 的事件，不論價格或 usage
 policy 候選，讀者可見窗口一律為 24 小時。供 old/new 比對的 sensor state
 另行保存，並不延長首頁事件的可見期限。
 

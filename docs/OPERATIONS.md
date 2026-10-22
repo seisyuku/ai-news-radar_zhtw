@@ -1,5 +1,29 @@
 # Operations Notes
 
+## 2026-10-22 A05複核完成／待A06發布
+
+[A03實作與回復規格](SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md)裁定單獨退役自動free-tier分支，保留價格與兩canary。
+本機實作與驗收見[A04交接](SOURCE_GOVERNANCE_A04_IMPLEMENTATION_20261022.md)；尚未推送或部署。
+下方感測器數量、讀者區名與資料新鮮度已同步本機候選。
+兩來源觀察workflow仍disabled_manually，A01本機false待A06發布；不恢復觀察、私人日報或Email排程。
+本輪沒有部署／推送；[A05審查及A06發布順序](SOURCE_GOVERNANCE_A05_REVIEW_20261022.md)已完成，無待修阻擋項。
+真回復只撤B01時仍保留B02退役，必須另設新資產版本並生成相容當期JSON；不能直接回用反向patch帶回的舊版本號。
+A06須完整核對遠端bot提交，並用包含本次程式的刷新／Pages結果驗收，不能只憑生成時間或舊CI綠燈。
+
+## 2026-10-22 來源觀察提前停止（方案A／A01）
+
+使用者選擇[方案A](SOURCE_GOVERNANCE_EARLY_CLOSE_20261022.md)，兩個實驗workflow
+`tw-source-observation.yml`、`tw-source-report.yml`於臺北12:41讀回`disabled_manually`，
+查無在途run，其他workflow狀態不變。下方原10/28～10/29核查／停止待辦已取消，不需等待。
+停止前36個run的12個artifact全封存並驗GitHub SHA256，分類為依使用者決策提前停止；
+七日穩定性、正常結案包／最終Email／自停未驗收，不冒稱通過。
+
+本機plan只改`enabled=false`，五種CLI驗為無憑證直接跳過，待A06併入正式發布；
+遠端Git plan仍true，實際阻止排程的是兩workflow已停用，勿依舊plan自動恢復。
+原plan／code pin／manifest用於歷史驗證，停用不刪除artifact、來源、SMTP secret或研究檔。
+後續A02使用封存資料集中評估，不新增觀察／提醒／寄信排程；公開Radar刷新、watchdog、
+heartbeat、Pages與daily-brief持續按既有設定運作。
+
 ## 2026-10-22 日報自動化退役（外部停用與封存提交已落地）
 
 使用者撤回日報自動生成、自動派送與排程目標，改為在Web Chat專案主動要求
@@ -709,20 +733,25 @@ watchdog／external heartbeat 三層排程影響。
 
 產物：
 
-- `data/market-signals.json`：前端公開讀取；所有 price/free-tier 與速報
+- `data/market-signals.json`：前端公開讀取；所有 price 與速報
   候選事件均只保留過去 24 小時，與主新聞及 LLM 雷達一致。
 - `data/llm-radar.json`：首頁讀者層的 24 小時模型發布雷達；模型僅標示
-  偵測證據層級。價格與免費額度只保留在 `market-signals.json`，不影響新聞排序。
+  偵測證據層級。價格只保留在 `market-signals.json`，不影響新聞排序。
 - `data/market-sensor-state.json`：公開上游的最小比較快照與 Canary seen
   IDs；不含 token、cookies、帳號或個人 quota。
-- `data/source-status.json`：四個 Sensor 各自記錄成功、解析筆數、當輪事件
+- `data/source-status.json`：價格及兩canary共三個活躍 Sensor，各自記錄成功、解析筆數、當輪事件
   數與 exact error；任何單一失敗皆 fail-soft，不中止新聞主流程。
 
 首頁把 `usage_policy`／`urgency=breaking` 獨立放在「額度與政策速報」，
-預設最多四張卡；其他 price/free-tier 事件放在「價格與免費額度變更」，
+預設最多四張卡；其他 price 事件放在「價格變更」，
 以約 3–4 列高的可捲動標題框保留完整清單，沒有新事件時整區隱藏，不以舊資料填版。Canary 的
 `candidate` 不得在前端改字成官方確認，也不得因多個第三方 repo 相同就
 自動升級可信度。
+
+A04退役`market_free_tier`自動fetch/diff，舊基準保留於state但不是新觀察；頂層`updated_at`
+僅代表當輪其他工作，不表示free-tier新鮮。活躍status／failed_sites／persistent_failures不再包含退役分支。
+原payload先封存於Downloads；當期payload及舊JSON前端過濾不呈現free-tier卡片，不生成供應商全部退場通知。
+回復發布者計數批次時保留此退役；不得因回復而恢復壞來源。價格及兩canary的失敗隔離與24小時窗口維持。
 
 「LLM 發布雷達」同樣只在過去 24 小時有事件時顯示，以相同約 3–4 列高的
 可捲動標題框保留完整清單。
