@@ -53,7 +53,7 @@ function mk(site, opts) {
   opts = opts || {};
   const row = { site_id: site, source: opts.source || "", business_events: ["model_release"] };
   if (opts.hot) {
-    row.duplicate_count = 2;
+    row.corroboration_count = 2;
     row.latest_at = new Date().toISOString();
   }
   return row;

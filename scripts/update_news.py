@@ -30,10 +30,11 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
 try:
-    from scripts import archive_output, source_health
+    from scripts import archive_output, source_health, corroboration
 except ModuleNotFoundError:  # pragma: no cover - direct script invocation
     import archive_output
     import source_health
+    import corroboration
 
 # Keep these existing imports callable by maintainers and regression tests.
 Archive = archive_output.Archive
@@ -1102,14 +1103,8 @@ BUSINESS_EVENT_EXCLUDE_KEYWORDS: dict[str, tuple[str, ...]] = {
 # juya_daily's entries are a whole day's news roundup preview in one string.
 BUSINESS_EVENT_EXCLUDED_SITE_IDS: frozenset[str] = frozenset({JUYA_DAILY_SITE_ID})
 
-# feature/signal-gate (Plan B): sources in the same ecosystem group tend to
-# relay/re-aggregate the same underlying Chinese tech-news wire rather than
-# independently confirming a story, so N of them reporting the same merged
-# story is not N independent confirmations. Cross-source counting for
-# story_heat (calculate_item_importance) and frontend hotness (which reads
-# the story's "duplicate_count" field) collapses each group to at most one
-# vote via _group_aware_duplicate_count() below. Sites not listed here are
-# unaffected - each still counts on its own, same as before this change.
+# Historical ecosystem mapping remains public for maintainer compatibility.
+# A04 extends it with bounded publisher identities; unknown items abstain.
 SOURCE_ECOSYSTEM_GROUPS: dict[str, str] = {
     # Legacy archive fixtures/rows can retain the old reader ID until the next
     # scheduled archive rewrite; preserve their historical corroboration rule.
@@ -1119,28 +1114,12 @@ SOURCE_ECOSYSTEM_GROUPS: dict[str, str] = {
 }
 
 
-def _source_group_key(item: dict[str, Any], index: int) -> str:
-    site_id = str(item.get("site_id") or "")
-    source = str(item.get("source") or "").strip().casefold()
-    # AIBASE is presented in the reader layer as a named sub-source of
-    # curated media, but it still relays the same Chinese aggregator ecosystem
-    # as before.  Keep its corroboration vote collapsed with that ecosystem.
-    if site_id == "curated_media" and source == "aibase":
-        return "cn_aggregator"
-    group = SOURCE_ECOSYSTEM_GROUPS.get(site_id)
-    if group:
-        return group
-    # Not in a defined ecosystem group: every item still counts as its own
-    # independent source, same as before this change. Keyed uniquely (not by
-    # site_id) because one internal site_id such as "official_ai",
-    # "curated_media", or "tw_media" covers many genuinely distinct outlets
-    # (OpenAI News vs. Anthropic News are both site_id="official_ai"), so
-    # grouping by bare site_id would wrongly collapse those too.
-    return f"item:{item.get('id') or item.get('url') or index}"
+def _source_group_key(item: dict[str, Any], index: int) -> str | None:
+    return corroboration.identity(item)[0]
 
 
 def _group_aware_duplicate_count(items: list[dict[str, Any]]) -> int:
-    return len({_source_group_key(item, index) for index, item in enumerate(items)})
+    return corroboration.count(items)
 
 # market's "merger"/"併購"/"合併" need same-sentence co-occurrence with a
 # business-context term to count, instead of a blanket keyword match (see
@@ -6358,6 +6337,8 @@ def story_item_link(item: dict[str, Any]) -> dict[str, Any]:
         "source_name": item.get("site_name"),
         "site_id": item.get("site_id"),
         "published_at": item.get("published_at"),
+        "corroboration_key": corroboration.identity(item)[0],
+        "corroboration_status": corroboration.identity(item)[1],
     }
     if isinstance(item.get("publisher_links"), list):
         ref["publisher_links"] = item["publisher_links"][:24]
@@ -6415,7 +6396,8 @@ def build_story_record(
         "business_events": business_events,
         "items": source_refs,
         "item_count": len(sorted_items),
-        "duplicate_count": duplicate_count,
+        "corroboration_count": duplicate_count,
+        "duplicate_count": max(1, duplicate_count),
         "score": score,
         "importance": score,
         "importance_score": score,
@@ -6437,6 +6419,8 @@ def build_story_record(
             "source": primary.get("source"),
             "source_name": primary.get("site_name"),
             "site_id": primary.get("site_id"),
+            "corroboration_key": corroboration.identity(primary)[0],
+            "corroboration_status": corroboration.identity(primary)[1],
         },
     }
 
@@ -6498,25 +6482,13 @@ BRIEF_SCORE_GATE = 0.72
 
 
 def story_passes_brief_gate(story: dict[str, Any]) -> bool:
-    """宁缺毋滥: a story earns a brief slot via multi-source confirmation or a
-    strong score. Quiet days produce a short (possibly empty) brief instead of
-    a padded one.
+    """A brief slot needs multiple identified publishers or a strong score.
 
-    feature/signal-gate investigated whether this gate was blocking
-    business_events-tagged stories from the reader-facing "今日重點訊號"
-    ranking. It does block them from daily-brief.json's own membership (16/16
-    badge items failed this gate on the sampled day), but that has no visible
-    effect: the frontend's hotStories()/latestStories() render the union of
-    briefStories() and mergedStories() minus briefStories() (i.e. effectively
-    all of stories-merged.json regardless of gate outcome), and
-    briefStorySortCompare() already ranks any business_events hit above any
-    non-hit story there. Confirmed on real data: all 16 badge items occupied
-    ranks #1-16 of that live ranking, correctly ahead of every non-badge
-    story. So exempting business_events stories from this gate would only
-    reorder an internal daily-brief subset; the reader ranking remains
-    unchanged."""
+    Raw references are not votes. The reader also considers the merged pool;
+    a change to this internal brief is not an equivalent loss of homepage rows.
+    """
     try:
-        sources = int(story.get("source_count") or 1)
+        sources = corroboration.story_count(story)
     except Exception:
         sources = 1
     try:
@@ -6602,6 +6574,7 @@ def brief_selection_diagnostics(
         "diversity_or_limit_count": eligible_count - selected_count,
         "max_score": max(scores, default=None),
         "max_source_count": max(source_counts, default=None),
+        "max_corroboration_count": max((corroboration.story_count(story) for story in stories), default=None),
         "score_gate": BRIEF_SCORE_GATE,
         "empty_reason": (
             None if selected_count else
@@ -7031,7 +7004,10 @@ def main() -> int:
         phase["provider_request_count"] = int(translation_status.get("request_count") or 0)
 
     with record_generation_phase(phase_metrics, "aggregation") as phase:
-        model_releases_24h = build_model_releases_24h_items(archive, now)
+        # Copy current views; archive rows keep their historical schema.
+        latest_items = [corroboration.annotate(item) for item in latest_items]
+        latest_items_all = [corroboration.annotate(item) for item in latest_items_all]
+        model_releases_24h = [corroboration.annotate(item) for item in build_model_releases_24h_items(archive, now)]
         llm_radar_payload = build_llm_radar_payload(latest_items, now)
         latest_items_ai_dedup = apply_reader_source_limits(
             suppress_near_duplicate_items(dedupe_items_by_title_url(latest_items, random_pick=False))

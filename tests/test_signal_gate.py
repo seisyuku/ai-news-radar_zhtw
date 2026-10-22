@@ -39,7 +39,7 @@ class GroupAwareDuplicateCountTests(unittest.TestCase):
         items = [
             make_item(1, title="t", url="https://a.example/1", site_id="aibase"),
             make_item(2, title="t", url="https://a.example/2", site_id="juya_daily"),
-            make_item(3, title="t", url="https://a.example/3", site_id="official_ai"),
+            make_item(3, title="t", url="https://openai.com/3", site_id="official_ai"),
         ]
         self.assertEqual(_group_aware_duplicate_count(items), 2)
 
@@ -57,14 +57,12 @@ class GroupAwareDuplicateCountTests(unittest.TestCase):
         items = [make_item(1, title="t", url="https://a.example/1", site_id="aibase")]
         self.assertEqual(_group_aware_duplicate_count(items), 1)
 
-    def test_ungrouped_sources_unaffected_matches_raw_count(self):
+    def test_unknown_publishers_do_not_get_raw_item_votes(self):
         items = [
             make_item(1, title="t", url="https://a.example/1", site_id="curated_media"),
             make_item(2, title="t", url="https://a.example/2", site_id="curated_media"),
         ]
-        # Curated Media is not in SOURCE_ECOSYSTEM_GROUPS: two items are
-        # still two independent items, same as pre-Plan-B behavior.
-        self.assertEqual(_group_aware_duplicate_count(items), 2)
+        self.assertEqual(_group_aware_duplicate_count(items), 0)
 
 
 class BuildStoryRecordGroupAwarenessTests(unittest.TestCase):
@@ -82,8 +80,8 @@ class BuildStoryRecordGroupAwarenessTests(unittest.TestCase):
 
     def test_independent_sources_still_earn_story_heat(self):
         items = [
-            make_item(1, title="t", url="https://a.example/1", site_id="official_ai"),
-            make_item(2, title="t", url="https://a.example/2", site_id="opmlrss"),
+            make_item(1, title="t", url="https://openai.com/1", site_id="official_ai"),
+            make_item(2, title="t", url="https://reuters.com/2", site_id="opmlrss"),
         ]
         story = build_story_record("story_test", items, NOW, 24)
         self.assertEqual(story["duplicate_count"], 2)

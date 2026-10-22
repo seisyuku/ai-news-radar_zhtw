@@ -15,7 +15,7 @@ def story(story_id, *, score=0.8, source="Publisher", title=None, count=1):
     refs = [{"id": story_id + "-item", "title": title or story_id, "url": f"https://example.invalid/{story_id}", "published_at": "2026-10-01T21:00:00Z", "source": source, "summary": "Publisher states a fact."}]
     if count > 1:
         refs.append({**refs[0], "id": story_id + "-item2", "source": "Other Publisher"})
-    return {"story_id": story_id, "score": score, "importance": score, "title": title or story_id, "source": source, "source_count": count, "sources": refs, "primary_item": {"id": refs[0]["id"]}, "reasons": ["official_source"]}
+    return {"story_id": story_id, "score": score, "importance": score, "title": title or story_id, "source": source, "source_count": count, "corroboration_count": count, "sources": refs, "primary_item": {"id": refs[0]["id"]}, "reasons": ["official_source"]}
 
 
 def run(rows, **settings):

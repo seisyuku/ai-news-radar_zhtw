@@ -32,13 +32,15 @@ def test_url_params_are_ignored_for_canonical_merge():
     stories = merge_story_items(items, NOW, 24)
 
     assert len(stories) == 1
-    assert stories[0]["duplicate_count"] == 2
+    assert stories[0]["item_count"] == 2
+    assert stories[0]["corroboration_count"] == 0  # unknown example.com is not a publisher
+    assert stories[0]["duplicate_count"] == 1
 
 
 def test_similar_titles_within_window_merge():
     items = [
-        make_item(1, title="OpenAI launches Codex cloud agent for teams", url="https://example.com/a"),
-        make_item(2, title="OpenAI launches Codex cloud agents for teams", url="https://example.org/b", hours_ago=2),
+        make_item(1, title="OpenAI launches Codex cloud agent for teams", url="https://reuters.com/a"),
+        make_item(2, title="OpenAI launches Codex cloud agents for teams", url="https://cnbc.com/b", hours_ago=2),
     ]
 
     stories = merge_story_items(items, NOW, 24)

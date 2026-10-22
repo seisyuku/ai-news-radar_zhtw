@@ -1248,7 +1248,8 @@ function clusterBriefEvents(rows) {
   return Array.from(clusters.values()).map((cluster) => {
     const signals = Array.from(cluster.signals);
     const maxScore = Math.max(...cluster.rows.map((row) => row.score));
-    const sourceBonus = Math.min(12, Math.max(0, signals.length - 1) * 6);
+    const sourceCount = storySourceCount({ sources: cluster.rows.map((row) => row.item) });
+    const sourceBonus = Math.min(12, Math.max(0, sourceCount - 1) * 6);
     const candidateBonus = signals.some((s) => s === "AI HOT精選") ? 8
       : signals.some((s) => s === "官方更新") ? 5
       : 0;
@@ -1257,7 +1258,7 @@ function clusterBriefEvents(rows) {
       index: cluster.primary.index,
       rows: cluster.rows,
       sourceSignals: signals,
-      sourceCount: signals.length,
+      sourceCount,
       mergedCount: cluster.rows.length,
       score: Math.min(100, Math.round(maxScore + sourceBonus + candidateBonus)),
     };
@@ -1315,9 +1316,12 @@ function storyPrimaryEnText(story) {
 
 function storySourceCount(story) {
   const sources = Array.isArray(story && story.sources) ? story.sources : [];
-  const explicit = Number(story && story.duplicate_count);
-  if (Number.isFinite(explicit) && explicit > 0) return explicit;
-  return Math.max(1, sources.length);
+  const explicit = story && story.corroboration_count;
+  if (Number.isSafeInteger(explicit) && explicit >= 0) return explicit;
+  // Old snapshots have raw counts, not publisher identities. Abstain until
+  // new public keys arrive rather than presenting copies as corroboration.
+  return new Set(sources.map((item) => item && item.corroboration_key)
+    .filter((key) => typeof key === "string" && key.length > 0)).size;
 }
 
 function storyDurationLabel(earliest, latest) {
@@ -1436,7 +1440,7 @@ function buildStoryCard(story, rank) {
   const sourceCount = storySourceCount(story);
   const countEl = document.createElement("span");
   countEl.className = "story-count";
-  countEl.textContent = `${sourceCount} 個來源`;
+  countEl.textContent = sourceCount ? `${sourceCount} 個發布者` : "來源待辨識";
   meta.appendChild(countEl);
   const displayScore = storySortScore(story);
   if (displayScore > 0) {
@@ -1776,7 +1780,7 @@ function storyToBriefRow(story, index) {
     rows: sourceItems.map((sourceItem) => ({ item: sourceItem })),
     sourceSignals,
     sourceCount: storySourceCount(story),
-    mergedCount: Math.max(1, Number(story.duplicate_count) || sourceItems.length),
+    mergedCount: Math.max(1, Number(story.item_count) || (Array.isArray(story.sources) ? story.sources.length : 1)),
     score: storySortScore(story),
   };
 }
@@ -1987,8 +1991,7 @@ function rankedClustersForItems(items) {
 function headlineClusterScore(cluster) {
   const base = itemPriorityScore(cluster.item);
   const sourceBoost = Math.min(18, Math.max(0, cluster.sourceCount - 1) * 9);
-  const mergeBoost = Math.min(8, Math.max(0, cluster.mergedCount - 1) * 4);
-  return Math.min(100, Math.round(base + sourceBoost + mergeBoost));
+  return Math.min(100, Math.round(base + sourceBoost));
 }
 
 function pickTopHeadlineClusters(clusters, limit = 3) {
@@ -2011,7 +2014,7 @@ function itemTagLabels(item, row = null) {
   // skip the tab echo here instead of renaming "模型釋出" (still used
   // elsewhere as its own, more specific "release" label).
   if (state.activeSection !== "hot" && !onModelsTab) tags.push(sectionBadgeLabel(state.activeSection));
-  if (row && (row.sourceCount > 1 || row.mergedCount > 1)) tags.push("多源驗證");
+  if (row && rowSourceCount(row) > 1) tags.push("多方報導");
   if (item.site_id === "official_ai") tags.push("官方");
   if (sections.has("models")) tags.push("模型釋出");
   if (sections.has("devtools")) tags.push("開發者");
@@ -2049,10 +2052,8 @@ function itemSourceRefs(item, row = null) {
 }
 
 function rowSourceCount(row) {
-  const item = row.item || {};
-  const refs = itemSourceRefs(item, row);
-  const storyCount = row.story ? storySourceCount(row.story) : 0;
-  return Math.max(1, refs.length, Number(row.sourceCount || 0), Number(row.mergedCount || 0), storyCount);
+  if (row.story) return storySourceCount(row.story);
+  return storySourceCount({ sources: Array.isArray(row.rows) ? row.rows.map((entry) => entry.item) : [row.item] });
 }
 
 function storyNewsSummaryText(story) {
@@ -2068,7 +2069,7 @@ function buildTopStoryCard(row, rank) {
   // A lead needs a real generated summary or cross-source corroboration. Never
   // create empty space with legacy template copy for a single-source item.
   const generatedSummary = newsSummaryText(row);
-  const hasCompanionSources = row.sourceCount > 1 || row.mergedCount > 1;
+  const hasCompanionSources = rowSourceCount(row) > 1;
   const isLead = rank === 1 && (Boolean(generatedSummary) || hasCompanionSources);
   const link = document.createElement("a");
   link.className = `top-story-card ${isLead ? "lead" : "secondary"}`;
@@ -2091,7 +2092,8 @@ function buildTopStoryCard(row, rank) {
   const primarySource = itemSourceRefs(item, row)[0];
   const sourceCount = document.createElement("span");
   sourceCount.className = "source-count";
-  sourceCount.textContent = `${fmtNumber(rowSourceCount(row))} 個來源`;
+  const publisherCount = rowSourceCount(row);
+  sourceCount.textContent = publisherCount ? `${fmtNumber(publisherCount)} 個發布者` : "來源待辨識";
   meta.append(rankEl, sourceChip(primarySource.label, primarySource.tone, "source-chip intel-source"), sourceCount, time);
 
   const title = document.createElement("div");

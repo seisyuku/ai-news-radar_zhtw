@@ -187,6 +187,11 @@ def test_main_replace_failure_preserves_failed_target_and_both_expired_links(off
 
 def test_successful_main_prunes_both_expired_links_after_all_writes(offline_generation):
     assert u.main() == 0
+    latest = json.loads((offline_generation / "latest-24h.json").read_text())
+    assert latest["items_ai"]
+    assert all("corroboration_key" in item for item in latest["items_ai"])
+    historical = json.loads((offline_generation / "archive.json").read_text())
+    assert all("corroboration_key" not in item for item in historical["items"])
     root = offline_generation.parent
     assert not (offline_generation / "items" / f"{EXPIRED_ID}.json").exists()
     assert not (root / "item" / EXPIRED_ID).exists()

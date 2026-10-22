@@ -18,6 +18,7 @@ def make_story(idx: int, *, source: str = "AIbase", score: float = 0.8, sources:
         "source": source,
         "score": score,
         "source_count": sources,
+        "corroboration_count": sources,
     }
 
 
