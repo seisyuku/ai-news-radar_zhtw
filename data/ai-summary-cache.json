@@ -2,6 +2,18 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v2",
   "entries": {
+    "b94c1d37fccbb65effddee2f3b2c50928051173639d3126ae5c158451d62d388": {
+      "summary": "10月22日，訊飛醫療推出星火醫療大模型V3.7版本。該模型在上海人工智能實驗室MedBench 5.0評測中獲得99.6分並登頂榜首。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-23T03:35:27.361917Z"
+    },
+    "42f0d70019678fa73b8e81f69cf3acc7f32a59dedf58813aac6d0af53b76586d": {
+      "summary": "Gartner公佈2027年十大策略科技趨勢，將技術分為非文字型AI、自主AI代理平臺治理及強化企業技術自主性三大方向。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-23T03:35:27.361917Z"
+    },
     "86b4e200f9edd6ed2a599d867b30019dcef66c506befe9312949e0523e51217d": {
       "summary": "美國多家大型銀行偵測到未經授權的第三方 AI 代理存取銀行帳戶，已緊急收緊存取權限以應對資安風險。",
       "provider": "groq",
@@ -2989,18 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-10-05T02:35:33.352775Z"
-    },
-    "0dc67591d12fd1fe25f9ebee13b0674d05aa520c0bb1d3a12ae8387efed340df": {
-      "summary": "Reco完成5,500萬美元募資，擴大AI代理安全業務。Gartner預測，全球《財星》500大企業平均每家使用的AI代理，將從2025年不到15個增加至2028年超過15萬個。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-05T02:35:33.352775Z"
-    },
-    "e0cff88370876e726bfd158b70486a010f860ba1952d4b3f27555578e0250fb1": {
-      "summary": "OpenAI 前工程師羅賓森撰文指出，AI 產業應效法核電廠採多重安全防護。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-05T02:35:33.352775Z"
     }
   },
   "rejections": {
@@ -4531,6 +4531,10 @@
     "66f99774277c6ccee2a5729929ffd0f858f0a77afb04c636d438577e819f8687": {
       "reason": "validation_length",
       "created_at": "2026-10-23T02:01:55.783623Z"
+    },
+    "f6e11bdcba6361877a5e5d74fa0cb6ffe828145f701da84a6e656bd94e142a62": {
+      "reason": "insufficient_context",
+      "created_at": "2026-10-23T03:35:27.361917Z"
     }
   }
 }
