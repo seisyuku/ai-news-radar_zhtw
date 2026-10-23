@@ -1,0 +1,33 @@
+{
+  "id": "5a6cb8478df3c6a0cf718b0ffc1f97f9351f77d0",
+  "published_at": "2026-10-23T19:40:54Z",
+  "first_seen_at": "2026-10-23T20:05:28.955049Z",
+  "site_id": "opmlrss",
+  "site_name": "OPML RSS",
+  "source": "Simon Willison",
+  "title": "Introducing Kimi K3.1 Pro",
+  "url": "https://simonwillison.net/2026/Oct/23/kimi-k31-pro",
+  "last_seen_at": "2026-10-23T20:05:28.955049Z",
+  "summary": "Introducing Kimi K3.1 Pro Kimi K3.1 Pro landed on the Kimi API today - it's not yet open weights, but Moonshot promise \"Full model weights will be released by Nov 4, 2026\". They're also offering a \"Highspeed\" version that's 2-3x faster, at twice the price (except for input token cache hits, which are priced the same). The US dollar pricing is $2.00/million tokens for input and $10/million for output - the same as GPT-6.1 Sol and half the price of Claude Opus 5.5. Moonshot's own benchmarks show Kimi as approximately level with Opus 5.5 and GPT-6 Astra - beating them on a few benchmarks, coming close on others. Artificial Analysis scored Kimi at 55 - ahead of Claude Fable 5.1, GPT-6 Astra, and Gemini 4 Argon (all at 53) and behind only Claude Opus 5.5 (58). This is the first time a (soon-to-be) open weight model has scored this highly against the frontier. I tried it out via the Moonshot API using the llm openai endpoint command I added to LLM 0.32 back in August: llm openai endpoint \\ https://api.moonshot.ai/v1 \\ --key kimi \\ -m kimi-k3.1-pro \\ \"Generate an SVG of a pelican riding a bicycle\" \\ --responses \\ -o reasoning_effort low \\ > kimi-k3.1-pro-pelican-low.stdout.txt \\ 2> kimi-k3.1-pro-pelican-low.stderr.txt llm openai endpoint can run prompts against any OpenAI-compatible endpoint but doesn't log the results, hence the extra options to save stdout and stderr (the reasoning trace). Here are the pelicans I got for Kimi K3.1 Pro on the three reasoning levels it supports - low, medium, and max. This is max: For comparison, I ran fresh pelicans against Kimi K3 on those three",
+  "publisher_links": [
+    "https://www.kimi.ai/blog/kimi-k3-1-pro",
+    "https://platform.kimi.ai/docs/pricing/chat",
+    "https://artificialanalysis.ai/models/kimi-k3-1-pro",
+    "https://platform.kimi.ai/docs/get-your-api-key",
+    "https://llm.datasette.io/en/stable/other-models.html#openai-endpoint",
+    "https://llm.datasette.io/en/stable/changelog.html#v0-32",
+    "https://tools.simonwillison.net/markdown-svg-renderer?url=https%3A%2F%2Fgist.github.com%2Fsimonw%2F9b7181492209387da1d4f53002f26663",
+    "https://tools.simonwillison.net/markdown-svg-renderer?url=https%3A%2F%2Fgist.github.com%2Fsimonw%2Feba9a4283c9e94cbbb5325902a3921a8",
+    "https://news.ycombinator.com/item?id=50212065",
+    "https://simonwillison.net/tags/ai",
+    "https://simonwillison.net/tags/generative-ai",
+    "https://simonwillison.net/tags/llms",
+    "https://simonwillison.net/tags/llm",
+    "https://simonwillison.net/tags/llm-pricing",
+    "https://simonwillison.net/tags/pelican-riding-a-bicycle",
+    "https://simonwillison.net/tags/llm-release",
+    "https://simonwillison.net/tags/ai-in-china",
+    "https://simonwillison.net/tags/moonshot",
+    "https://simonwillison.net/tags/kimi"
+  ]
+}
