@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon OpenSearch Service 推出针对域配置更改的验证建议",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/opensearch-validation-advisory",
-  "last_seen_at": "2026-10-23T21:05:36.004444Z",
+  "last_seen_at": "2026-10-23T21:35:31.859320Z",
   "summary": "Amazon OpenSearch Service 现在提供针对域配置更改的验证建议，这可以帮助您针对那些存在风险但仍可应用的更改做出明智的决策。现在，每项配置验证结果分为两类：“Critical”（严重），会阻止更改；“Warning”（警告），提供建议性指导，您确认后即可继续操作。 此前，验证结果只有“通过”或“阻止”两种。对于那些能够成功应用但存在风险的更改，系统无法进行标记。验证建议可以帮助您发现潜在问题，同时不会阻止部署。例如：专用协调器节点可能因规格过小而无法满足数据节点配置要求，或者分片数量超过了集群的建议上限。您可以在首次提交更改时确认警告，在应用更改之前通过试运行结果查看严重程度，直接在 AWS CloudFormation 模板中设置确认，还可以在 API 响应和 Amazon EventBridge 通知中查看严重程度。 验证建议适用于所有运行 OpenSearch 或 Elasticsearch 版本的 Amazon OpenSearch Service 域。该功能现已在所有提供 Amazon OpenSearch Service 的 AWS 区域推出。要了解更多信息，请参阅 文档 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/managedomains-configuration-changes.html"
