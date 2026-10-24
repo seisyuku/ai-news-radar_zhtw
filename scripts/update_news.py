@@ -30,7 +30,7 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
 try:
-    from scripts import archive_output, source_health, corroboration, brief_events, publisher_identity, publisher_policy, publisher_governance
+    from scripts import archive_output, source_health, corroboration, brief_events, publisher_identity, publisher_policy, publisher_governance, signal_selection
 except ModuleNotFoundError:  # pragma: no cover - direct script invocation
     import archive_output
     import source_health
@@ -39,6 +39,7 @@ except ModuleNotFoundError:  # pragma: no cover - direct script invocation
     import publisher_identity
     import publisher_policy
     import publisher_governance
+    import signal_selection
 
 # Keep these existing imports callable by maintainers and regression tests.
 Archive = archive_output.Archive
@@ -6702,8 +6703,11 @@ def build_stories_payload(
 
 
 def build_brief_event_payloads(stories, archive_records, previous_state, now, window_hours,
-                               *, archive_meta):
+                               *, archive_meta, governance_version=2):
     """Adapt existing importance without changing reader stories or articles."""
+    if governance_version not in (1, 2):
+        raise ValueError("unsupported_governance_version")
+    governance_api = signal_selection if governance_version == 2 else publisher_governance
     def rank(record):
         return (source_tier_for_record(record)["source_tier_rank"],
                 not bool(record.get("summary")), not bool(parse_iso(record.get("published_at"))),
@@ -6738,13 +6742,13 @@ def build_brief_event_payloads(stories, archive_records, previous_state, now, wi
     result.projection["events"] = [annotate_public_story(event) for event in result.projection["events"]]
     result.projection["state_revision"] = result.next_state["revision"] if result.next_state else None
     result.projection["generation_id"] = "bg1_" + brief_events.digest({k: v for k, v in result.projection.items() if k != "generation_id"})[:24]
-    result.publisher_governance = publisher_governance.build(
+    result.publisher_governance = governance_api.build(
         result.projection, archive_records, now=now, annotate=add_reader_source_policy_fields,
         scorer=lambda row, effective, count: calculate_featured_item_importance(row, effective, count, now, window_hours)["score"],
         sanitize=sanitize_public_payload)
     by_id = {e["brief_event_id"]: e for e in result.projection["events"]}
     decisions = {d["brief_event_id"]: d for d in result.publisher_governance["events"]}
-    result.daily_items = [publisher_governance.featured_view(by_id[i], decisions[i])
+    result.daily_items = [governance_api.featured_view(by_id[i], decisions[i])
                          for i in result.projection["selected_event_ids"]]
     result.diagnostics = result.projection["diagnostics"]
     return result
@@ -6757,12 +6761,13 @@ def apply_brief_event_result(result, daily, merged):
     daily["brief_event_meta"] = brief_events.selection_meta(result.projection)
     governance = getattr(result, "publisher_governance", None)
     if governance is None:
-        governance = publisher_governance.unavailable(result.projection,
+        governance = signal_selection.unavailable(result.projection,
             publisher_policy.current_registry().revision, "invalid_projection")
         result.daily_items = []
         daily["items"], daily["total_items"] = [], 0
         daily["brief_event_meta"] = brief_events.selection_meta(result.projection)
-    daily["publisher_governance_meta"] = publisher_governance.metadata(governance)
+    governance_api = signal_selection if governance["schema_version"] == 2 else publisher_governance
+    daily["publisher_governance_meta"] = governance_api.metadata(governance)
     qualified = [d for d in governance["events"] if d["featured_eligible"]]
     daily["selection_diagnostics"] = {
         "candidate_count": len(result.projection["events"]), "eligible_count": len(qualified),
@@ -6770,7 +6775,14 @@ def apply_brief_event_result(result, daily, merged):
         "diversity_or_limit_count": len(qualified) - len(result.daily_items),
         "max_score": max((d["featured_score"] for d in qualified), default=None),
         "max_source_count": max((d["qualified_source_count"] for d in qualified), default=None),
-        "score_gate": BRIEF_SCORE_GATE, "empty_reason": None if result.daily_items else "no_qualified_events"}
+        "score_gate": None if governance["schema_version"] == 2 else BRIEF_SCORE_GATE,
+        "empty_reason": None if result.daily_items else "no_qualified_events"}
+    if governance["schema_version"] == 2:
+        daily["selection_diagnostics"].update(
+            selection_policy=signal_selection.SELECTION_POLICY,
+            core_count=sum(d["selection_class"] == "core" for d in qualified),
+            supplement_candidate_count=sum(d["selection_class"] == "supplement" for d in qualified),
+            default_visible_limit=signal_selection.DEFAULT_VISIBLE_LIMIT)
     merged["brief_events"] = result.projection
     merged["publisher_governance"] = governance
 

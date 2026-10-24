@@ -19,11 +19,13 @@ def article(id="a", *, url="https://openai.com/news/synthetic", source="OpenAI N
 
 
 def ready_bundle():
+    # Frozen v1 contract/old-browser fixture. New default-generation behavior
+    # is exercised separately in test_signal_selection.py.
     rows = [article(), article("b", url="https://cnbc.com/synthetic", source="CNBC Technology", site_id="curated_media")]
     story = u.build_story_record("synthetic-story", rows, NOW, 24)
     story["news_summary"] = "Synthetic summary bound to the original primary."
     result = u.build_brief_event_payloads([story], rows, b.StateInput("missing"), NOW, 24,
-        archive_meta=b.ArchiveMeta("valid", u.iso(NOW)))
+        archive_meta=b.ArchiveMeta("valid", u.iso(NOW)), governance_version=1)
     merged = {"generated_at": u.iso(NOW), "stories": [story]}; daily = {"generated_at": u.iso(NOW)}
     u.apply_brief_event_result(result, daily, merged)
     assert result.publisher_governance["status"] == "ready"

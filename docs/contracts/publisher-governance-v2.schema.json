@@ -1,0 +1,663 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ai-news-radar:publisher-governance:2",
+  "title": "D+ publisher governance v2 (I01 backend; requires I02 browser guard)",
+  "$comment": "Register immutable publisher-governance-v1.schema.json under its urn for shared identity/material definitions. No remote schema fetch is required.",
+  "$ref": "#/$defs/governance_projection",
+  "$defs": {
+    "supplement_evidence": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "enum": [
+            null,
+            "industry_news",
+            "capability_disclosure"
+          ]
+        },
+        "spans": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:ai-news-radar:publisher-governance:1#/$defs/span"
+          },
+          "maxItems": 12,
+          "uniqueItems": true
+        },
+        "urls": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^https?://",
+            "maxLength": 2048
+          },
+          "maxItems": 24,
+          "uniqueItems": true
+        },
+        "qualifiers": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "provider_claim",
+              "unreleased"
+            ]
+          },
+          "maxItems": 2,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "kind",
+        "spans",
+        "urls",
+        "qualifiers"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "type": "null"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "spans": {
+                "maxItems": 0
+              },
+              "urls": {
+                "maxItems": 0
+              },
+              "qualifiers": {
+                "maxItems": 0
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "spans": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "article_annotation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "ingress": {
+          "$ref": "urn:ai-news-radar:publisher-governance:1#/$defs/ingress"
+        },
+        "publisher": {
+          "$ref": "urn:ai-news-radar:publisher-governance:1#/$defs/publisher"
+        },
+        "source_policy": {
+          "$ref": "urn:ai-news-radar:publisher-governance:1#/$defs/source_policy"
+        },
+        "qualification": {
+          "$ref": "urn:ai-news-radar:publisher-governance:1#/$defs/qualification"
+        },
+        "supplement_evidence": {
+          "$ref": "#/$defs/supplement_evidence"
+        }
+      },
+      "required": [
+        "id",
+        "ingress",
+        "publisher",
+        "source_policy",
+        "qualification",
+        "supplement_evidence"
+      ],
+      "additionalProperties": false
+    },
+    "event_decision": {
+      "type": "object",
+      "properties": {
+        "brief_event_id": {
+          "type": "string",
+          "pattern": "^be1_[0-9a-f]{24}$"
+        },
+        "active_phase_id": {
+          "type": "string",
+          "pattern": "^bp1_[0-9a-f]{24}$"
+        },
+        "featured_eligible": {
+          "type": "boolean"
+        },
+        "selection_class": {
+          "enum": [
+            null,
+            "core",
+            "supplement"
+          ]
+        },
+        "reason_codes": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "approved_scope",
+              "below_qualified_gate",
+              "capability_disclosure",
+              "control_only",
+              "evidence_conflict",
+              "excluded_scope",
+              "generation_mismatch",
+              "identified_bridge",
+              "identified_host",
+              "identity_conflict",
+              "industry_news",
+              "insufficient_evidence",
+              "invalid_projection",
+              "legacy_identity",
+              "legacy_metadata_missing",
+              "limited_scope",
+              "missing_identity",
+              "multiple_qualified_publishers",
+              "no_core_event",
+              "no_counting_key",
+              "no_current_qualified_article",
+              "not_permitted_for_featured",
+              "not_permitted_for_radar",
+              "official_primary",
+              "out_of_scope",
+              "outside_reader_window",
+              "projection_capacity",
+              "qualified_score",
+              "reported_rss_source",
+              "scope_mismatch",
+              "scope_unknown",
+              "summary_primary_mismatch",
+              "supported_core",
+              "unreviewed_publisher",
+              "unsupported_policy"
+            ]
+          },
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "qualified_source_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100000
+        },
+        "qualified_corroboration_keys": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          },
+          "maxItems": 100000,
+          "uniqueItems": true
+        },
+        "support_article_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          },
+          "maxItems": 100000,
+          "uniqueItems": true
+        },
+        "support_scores": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "article_id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 256
+              },
+              "score": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              }
+            },
+            "required": [
+              "article_id",
+              "score"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 100000,
+          "uniqueItems": true
+        },
+        "eligibility_basis": {
+          "enum": [
+            null,
+            "supported_core",
+            "industry_news",
+            "capability_disclosure"
+          ]
+        },
+        "featured_primary_article_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "featured_primary_item": {
+          "anyOf": [
+            {
+              "$ref": "urn:ai-news-radar:publisher-governance:1#/$defs/featured_item"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "featured_score": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "featured_business_events": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "earnings",
+              "market",
+              "security",
+              "pricing",
+              "benchmark",
+              "model_release"
+            ]
+          },
+          "maxItems": 6,
+          "uniqueItems": true
+        },
+        "featured_news_summary": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 2000
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "summary_article_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "disclosure_flags": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "provider_claim",
+              "unreleased"
+            ]
+          },
+          "maxItems": 2,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "brief_event_id",
+        "active_phase_id",
+        "featured_eligible",
+        "selection_class",
+        "reason_codes",
+        "qualified_source_count",
+        "qualified_corroboration_keys",
+        "support_article_ids",
+        "support_scores",
+        "eligibility_basis",
+        "featured_primary_article_id",
+        "featured_primary_item",
+        "featured_score",
+        "featured_business_events",
+        "featured_news_summary",
+        "summary_article_id",
+        "disclosure_flags"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "featured_eligible": {
+                "const": false
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "selection_class": {
+                "type": "null"
+              },
+              "eligibility_basis": {
+                "type": "null"
+              },
+              "featured_primary_article_id": {
+                "type": "null"
+              },
+              "featured_primary_item": {
+                "type": "null"
+              },
+              "featured_score": {
+                "type": "null"
+              },
+              "featured_news_summary": {
+                "type": "null"
+              },
+              "summary_article_id": {
+                "type": "null"
+              },
+              "qualified_source_count": {
+                "const": 0
+              },
+              "support_article_ids": {
+                "maxItems": 0
+              },
+              "support_scores": {
+                "maxItems": 0
+              },
+              "qualified_corroboration_keys": {
+                "maxItems": 0
+              },
+              "featured_business_events": {
+                "maxItems": 0
+              },
+              "disclosure_flags": {
+                "maxItems": 0
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "selection_class": {
+                "enum": [
+                  "core",
+                  "supplement"
+                ]
+              },
+              "eligibility_basis": {
+                "type": "string"
+              },
+              "featured_primary_article_id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 256
+              },
+              "featured_primary_item": {
+                "type": "object"
+              },
+              "featured_score": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "support_article_ids": {
+                "minItems": 1
+              },
+              "qualified_source_count": {
+                "minimum": 1
+              },
+              "support_scores": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "selection_class": {
+                "const": "core"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "eligibility_basis": {
+                "const": "supported_core"
+              },
+              "featured_business_events": {
+                "minItems": 1
+              },
+              "disclosure_flags": {
+                "maxItems": 0
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "selection_class": {
+                "const": "supplement"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "eligibility_basis": {
+                "enum": [
+                  "industry_news",
+                  "capability_disclosure"
+                ]
+              },
+              "featured_business_events": {
+                "maxItems": 0
+              }
+            }
+          }
+        }
+      ]
+    },
+    "governance_projection": {
+      "type": "object",
+      "properties": {
+        "record_type": {
+          "const": "publisher_governance_projection"
+        },
+        "schema_version": {
+          "const": 2
+        },
+        "policy_id": {
+          "const": "publisher-governance-v1"
+        },
+        "selection_policy": {
+          "const": "dplus-v1"
+        },
+        "default_visible_limit": {
+          "const": 5
+        },
+        "registry_revision": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "generation_id": {
+          "type": "string",
+          "pattern": "^pg2_[0-9a-f]{24}$"
+        },
+        "generated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "brief_generation_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^bg1_[0-9a-f]{24}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "brief_state_revision": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "ready",
+            "unavailable"
+          ]
+        },
+        "articles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/article_annotation"
+          },
+          "maxItems": 100000,
+          "uniqueItems": true
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/event_decision"
+          },
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "featured_event_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^be1_[0-9a-f]{24}$"
+          },
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "daily_selected_event_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^be1_[0-9a-f]{24}$"
+          },
+          "maxItems": 20,
+          "uniqueItems": true
+        },
+        "diagnostics": {
+          "type": "object",
+          "properties": {
+            "errors": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 160
+              },
+              "maxItems": 100,
+              "uniqueItems": true
+            },
+            "reason_counts": {
+              "type": "object",
+              "propertyNames": {
+                "enum": [
+                  "approved_scope",
+                  "below_qualified_gate",
+                  "capability_disclosure",
+                  "control_only",
+                  "evidence_conflict",
+                  "excluded_scope",
+                  "generation_mismatch",
+                  "identified_bridge",
+                  "identified_host",
+                  "identity_conflict",
+                  "industry_news",
+                  "insufficient_evidence",
+                  "invalid_projection",
+                  "legacy_identity",
+                  "legacy_metadata_missing",
+                  "limited_scope",
+                  "missing_identity",
+                  "multiple_qualified_publishers",
+                  "no_core_event",
+                  "no_counting_key",
+                  "no_current_qualified_article",
+                  "not_permitted_for_featured",
+                  "not_permitted_for_radar",
+                  "official_primary",
+                  "out_of_scope",
+                  "outside_reader_window",
+                  "projection_capacity",
+                  "qualified_score",
+                  "reported_rss_source",
+                  "scope_mismatch",
+                  "scope_unknown",
+                  "summary_primary_mismatch",
+                  "supported_core",
+                  "unreviewed_publisher",
+                  "unsupported_policy"
+                ]
+              },
+              "additionalProperties": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 100000
+              }
+            }
+          },
+          "required": [
+            "errors",
+            "reason_counts"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "record_type",
+        "schema_version",
+        "policy_id",
+        "selection_policy",
+        "default_visible_limit",
+        "registry_revision",
+        "generation_id",
+        "generated_at",
+        "brief_generation_id",
+        "brief_state_revision",
+        "status",
+        "articles",
+        "events",
+        "featured_event_ids",
+        "daily_selected_event_ids",
+        "diagnostics"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
