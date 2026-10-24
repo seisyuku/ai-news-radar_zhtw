@@ -1,14 +1,17 @@
 {
-  "id": "36bf7a0125c2c39595b6acf85745fa5b5ee19c97",
-  "published_at": "2026-09-30T13:43:22Z",
-  "first_seen_at": "2026-10-03T05:35:32.654315Z",
+  "id": "2764711c2c98b5f5bebb6d73ed4d531811203808",
+  "published_at": "2026-10-24T09:00:00Z",
+  "first_seen_at": "2026-10-24T12:35:25.447999Z",
   "site_id": "curated_media",
   "site_name": "精選媒體",
   "source": "DeepSeek (Google News)",
-  "title": "DeepSeek and Huawei partner on open-source AI chip software - Yahoo Tech",
-  "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNRzI4QndyamE0OXlYYk9WbWxmYzlwMzVuX3o0MGhZcmJqa00wOEk3WmIwRzhXd19VUUFBVm5pX29DV1RlbFptclRvUDZCa2E4emgwbWJzRlVhTTFFQU0yN3hPSjVtd0tjRzdjbENPZ3pwTXh2aTNQZklLUFktV3k0a1k2c2FaOWpVdkZQbWd3?oc=5",
-  "last_seen_at": "2026-10-03T12:21:20.629132Z",
-  "summary": "DeepSeek and Huawei partner on open-source AI chip software Yahoo Tech",
+  "title": "DeepSeek AI: How to try DeepSeek R1 right now - Mashable",
+  "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE5Td2NxSnJUS0JOd1Y5MjA0ODhpNEdrUnFPeGFYVG95bkxvUUp6cXd4WDl0MWtyekx0WkhTakhyNUl5cklCZVQ1dmVzdHNlZ0tYb1hETUJmWlhhZUVnQ1NoR050NVItRl9VVkdFZ21oU2hDNG1mSjdXYQ?oc=5",
+  "last_seen_at": "2026-10-24T12:35:25.447999Z",
+  "summary": "DeepSeek AI: How to try DeepSeek R1 right now Mashable",
+  "publisher_links": [
+    "https://news.google.com/rss/articles/CBMieEFVX3lxTE5Td2NxSnJUS0JOd1Y5MjA0ODhpNEdrUnFPeGFYVG95bkxvUUp6cXd4WDl0MWtyekx0WkhTakhyNUl5cklCZVQ1dmVzdHNlZ0tYb1hETUJmWlhhZUVnQ1NoR050NVItRl9VVkdFZ21oU2hDNG1mSjdXYQ?oc=5"
+  ],
   "ingress": {
     "kind": "google_news",
     "site_id": "curated_media",
@@ -19,13 +22,15 @@
   "publisher": {
     "schema_version": 1,
     "publisher_id": null,
-    "name": null,
-    "domain": null,
-    "status": "unknown",
-    "basis": [],
+    "name": "Mashable",
+    "domain": "mashable.com",
+    "status": "reported",
+    "basis": [
+      "google_rss_source"
+    ],
     "evidence": {
-      "rss_source_name": null,
-      "rss_source_url": null,
+      "rss_source_name": "Mashable",
+      "rss_source_url": "https://mashable.com",
       "article_url": null,
       "article_host": "news.google.com",
       "expected_publisher_id": null,
@@ -46,8 +51,8 @@
     "allow_featured": false,
     "allow_radar": false,
     "reason_codes": [
-      "missing_identity",
-      "scope_unknown",
+      "reported_rss_source",
+      "scope_mismatch",
       "unreviewed_publisher",
       "not_permitted_for_featured",
       "not_permitted_for_radar"
