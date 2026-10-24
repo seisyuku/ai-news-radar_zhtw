@@ -2,6 +2,18 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v2",
   "entries": {
+    "37285183438244191f960e55d85dd09e2418c2b3387aefe1bde55b2bc1948738": {
+      "summary": "GitHub 推出 Teams 應用程式，整合通知與 Copilot，協助團隊在對話中將問題轉為修復並加速程式碼交付。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-24T06:35:30.850467Z"
+    },
+    "dcf5b32349e6f7de5824bbbeccac09dd5e359af9b4d8ac64012ef4697cd37e08": {
+      "summary": "OpenAI 透過可靠的多租戶架構、全球快取及 Azure Cosmos DB 擴展 Habitat，為 ChatGPT 提供 12 倍更快的讀取速度。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-24T06:35:30.850467Z"
+    },
     "9d285a5514ad636053bd4055f411145934460c02e3d268958453d97b7fdb610e": {
       "summary": "NVIDIA 發布 Nemotron 3.5 Bolt E4B 4GB，為基於 Gemma 4 E4B 後訓練的開放小型語言模型，目標 VRAM 約 4GB，適用於 RTX 與 Jetson 平臺。",
       "provider": "groq",
@@ -2989,18 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-10-05T15:35:40.956209Z"
-    },
-    "5a3d82535324111e307cfa3c476314905acec1613df97094ccd252af739f2f85": {
-      "summary": "加州民主黨參議員亞當·希夫就科技與AI監管、言論自由及再次彈劾川普等議題接受The Verge訪談。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-05T14:35:44.751377Z"
-    },
-    "35dae67748c23e1212743ef6562b88ff3a2d6f0ebad2e4ab2eef11cd190b67bb": {
-      "summary": "NVIDIA 部落格指出，美國女性乳癌篩檢存在缺口，包括多數 40 歲以上女性未進行年度篩檢、放射科醫師人手不足，以及診斷後檢測結果需數週才能返回。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-05T13:35:59.545829Z"
     }
   },
   "rejections": {
@@ -4547,6 +4547,14 @@
     "b3b03a56b361d9cf6d365ffece1bee0c1c37d01fee0193dffce800ef62aa9241": {
       "reason": "validation_length",
       "created_at": "2026-10-24T05:33:30.886164Z"
+    },
+    "1595b940213e3aeffae69aa0335a970003230f087cde55721f64438b5b9332dd": {
+      "reason": "insufficient_context",
+      "created_at": "2026-10-24T06:35:30.850467Z"
+    },
+    "9156479fafe91457e5de33efc1ff745a17c1e7a6b302c5f106e48e6cf787445c": {
+      "reason": "validation_length",
+      "created_at": "2026-10-24T06:35:30.850467Z"
     }
   }
 }
