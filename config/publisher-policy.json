@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "policy_id": "publisher-governance-v1",
-  "revision": "ce78b2cd31b860b6232a1b02b0c08d2a949d492c911fafbba5e028dc0f4b3e8c",
+  "revision": "524163edf93fe58d5c332ab6e1452fc2bec9e37423a2a005c5e707bb42f2d211",
   "default": {
     "publisher_kind": "unknown",
     "admission_status": "unreviewed",
@@ -78,6 +78,31 @@
       ],
       "retained_source_keys": [
         "aibase"
+      ]
+    },
+    {
+      "scope_id": "alphalab",
+      "publisher_id": null,
+      "publisher_kind": "media",
+      "hosts": [
+        {
+          "host": "www.alphalab.site",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "unreviewed",
+      "source_tier": "watchlist",
+      "source_tier_label": "未審來源",
+      "source_tier_rank": 6,
+      "allow_general": true,
+      "allow_featured": false,
+      "allow_radar": false,
+      "notes": "Public RSS AI article admission only; no publisher quality grant or independent corroboration key.",
+      "authority": [
+        "docs/SOURCE_COVERAGE.md"
+      ],
+      "retained_source_keys": [
+        "tw_media/alphalab"
       ]
     },
     {
@@ -282,6 +307,31 @@
       ],
       "retained_source_keys": [
         "dynamic/computing_uk"
+      ]
+    },
+    {
+      "scope_id": "cyberq",
+      "publisher_id": null,
+      "publisher_kind": "media",
+      "hosts": [
+        {
+          "host": "cyberq.tw",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "unreviewed",
+      "source_tier": "watchlist",
+      "source_tier_label": "未審來源",
+      "source_tier_rank": 6,
+      "allow_general": true,
+      "allow_featured": false,
+      "allow_radar": false,
+      "notes": "Public RSS AI article admission only; no publisher quality grant or independent corroboration key.",
+      "authority": [
+        "docs/SOURCE_COVERAGE.md"
+      ],
+      "retained_source_keys": [
+        "tw_media/cyberq"
       ]
     },
     {

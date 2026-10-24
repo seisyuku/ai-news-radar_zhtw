@@ -536,6 +536,22 @@ TW_MEDIA_FEEDS: tuple[dict[str, Any], ...] = (
         "max_entries": 8,
         "strict_title_filter": True,
     },
+    {
+        "source_id": "alphalab",
+        "title": "AlphaLab",
+        "xml_url": "https://www.alphalab.site/feed.xml",
+        "html_url": "https://www.alphalab.site/",
+        "max_entries": 8,
+        "candidate_prefilter": True,
+    },
+    {
+        "source_id": "cyberq",
+        "title": "CyberQ 賽博客",
+        "xml_url": "https://cyberq.tw/feed/",
+        "html_url": "https://cyberq.tw/",
+        "max_entries": 8,
+        "candidate_prefilter": True,
+    },
 )
 KR36_AI_FEED_URL = "https://36kr.com/feed"
 KR36_AI_FALLBACK_FEED_URL = (
@@ -1418,6 +1434,12 @@ def parse_feed_entries_via_xml(feed_xml: bytes) -> list[dict[str, Any]]:
                     continue
                 seen.add(key)
                 entry = {"title": title, "link": link, "published": published, "summary": summary}
+                entry["tags"] = [
+                    {"term": (category.get("term") or category.text or "").strip(),
+                     "scheme": category.get("scheme") or category.get("domain") or ""}
+                    for category in node
+                    if category.tag.split("}")[-1].lower() == "category"
+                ]
                 source_node = node.find("{*}source")
                 if source_node is not None:
                     source_link = source_node.find("{*}link")
@@ -2453,6 +2475,25 @@ def fetch_tw_media_with_status(
                 },
             )
             resp.raise_for_status()
+            if feed.get("candidate_prefilter"):
+                # Source-specific RSS admission runs before the per-feed cap.
+                # The normal 24h reader gate still runs during generation.
+                if len(resp.content) > 2_000_000:
+                    raise ValueError("feed_too_large")
+                try:
+                    from scripts import candidate_feed_admission as candidate_admission
+                except ModuleNotFoundError:  # direct script invocation
+                    import candidate_feed_admission as candidate_admission
+                candidates, _ = candidate_admission.preselect_feed(
+                    resp.content, str(feed["source_id"]), now)
+                return [RawItem(
+                    site_id=site_id, site_name=site_name, source=str(feed["title"]),
+                    title=row["title"], url=row["url"],
+                    published_at=parse_iso(row["published_at"]),
+                    meta={"feed_url": str(feed["xml_url"]),
+                          "feed_home": feed.get("html_url") or "",
+                          "summary": row["summary"]},
+                ) for row in candidates]
             entries = parse_group_feed_entries(resp.content, now)
 
             feed_title = str(feed["title"])

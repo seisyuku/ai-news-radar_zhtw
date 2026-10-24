@@ -3,6 +3,30 @@
 This project should help readers track material AI-industry events without
 forcing them to follow noisy timelines or manage many source choices.
 
+## CyberQ／AlphaLab 正式一般入口（2026-10-25）
+
+兩站各以公開原站 RSS 接入既有 `tw_media` 收件群組，使用獨立 `source_id`，新聞入口由 39 增至 41；不新增排程、前端模式、來源計票鍵或上方重點／雷達權限。AlphaLab 只接受 RSS 標為本站 AI 分類的文章；CyberQ 排除整期彙整、教學及已知 AI 附帶提及的稿件。兩站都只收原站 HTTPS 文章、明確原發布時間與短摘要，並經現行 AI／PG 判定；每站最多八篇，收件回補上限五日。讀者可見時間仍為全站滾動 24 小時。
+
+兩站政策為明確 host scope 的 `unreviewed`／watchlist rank 6：可進一般池並照單篇分數競爭下方精選，預設折疊；`allow_featured=false`、`allow_radar=false`。來源身分仍可能是 unknown，不新增獨立佐證票。先前 `shadow/cyberq` 是歷史隔離紀錄，新 `tw_media/cyberq` 為本次正式 RSS 路線，不重啟舊觀察 workflow。七日回放僅用於來源評估，不是此接入的驗收門檻。
+
+## CyberQ／AlphaLab 隔離驗證第二階段（2026-10-25，當時仍未准入）
+
+全站正式讀者視窗維持滾動 24 小時。下述七日回放僅供來源評估與查漏，不是實作或發布驗收規格；五日 RSS 收件限制也不延長讀者可見時間。
+
+補上兩站**來源限定**的漏收處理：AlphaLab 的本站 AI 分類稿改由現行 AI 判定接受 Kimi／Agent Skills 等標題，不把分類本身當分數；CyberQ 只讓標題為「實測／深度實測」且現行 AI 判定通過的稿件補過通用標題詞表。全域 AI 詞表、0.65 與下方精選 75／82 門檻均未改。
+
+固定七日 120 篇的隔離回放：CyberQ 8 篇、AlphaLab 18 篇，共 26 篇符合目前預篩、AI 與 PG 一般範圍；其中 16 篇為前階段暫判有效，新增 10 篇亦按標題與原站短摘要暫判適合一般 AI 情報（含一篇明確標為預測的算力展望）。這是同一批開發樣本的回看，不能當獨立 precision 或七日單次 RSS 收件能力。AlphaLab 85 篇中的 43 篇可對上當前 RSS 分類，其餘 42 篇用文章 `article:section` 核對；64 篇標為 AI。仍有至少 13 篇看似有價值的 AlphaLab AI 分類分析稿被現行 AI 判定排除，另有 CyberQ 個別漏收待審，因此 26 **不是來源全部有效稿件的上限**。
+
+若依既定接線設計，兩站保留各自 `source_id` 並使用 `tw_media` 的 `site_id`，26 篇中有 2 篇可在七日回放的下方精選門檻競爭勝出；當前單頁 RSS 隔離收得 10 篇，最近 24 小時有 3 篇可進一般池、0 篇達下方精選。現行預設政策仍為未審／rank 6：允許一般，禁止上方重點與雷達。實際正式入口及 scope 尚未接入；不得把七日回放、同 URL 零重複或同批正反例全通過當成來源准入結論。詳細審查在 Downloads `ai-radar-candidate-probe-20261025-stage2/STAGE2_VALIDATION.md`。
+
+## CyberQ／AlphaLab 隔離收件第一階段（2026-10-25，當時未准入）
+
+`scripts/candidate_feed_admission.py` 已加入兩站官方 RSS 的隔離解析與來源專屬預篩；正式 collector、來源 registry、政策、排程、網站與既有快照均未接入。AlphaLab 須由 RSS 分類 scheme 指向本站 `/category/ai/`，CyberQ 須排除已知整期彙整與 AI 僅作背景的標題；兩站都要求本站 HTTPS 文章連結、明確帶時區的原發布時間、五日內稿件，先篩後套每站八篇上限。分類及標題僅決定候選，不授予 AI 分數或精選資格。
+
+七日來源評估曾人工審閱 27 篇現行機械範圍稿，標題預篩保留 16 篇暫判有效稿並排除 11 篇已知誤收。這不是七日完整 RSS 回放，也未驗證未入機械範圍稿件；這批歷史樣本不列為實作驗收門檻。該階段 CyberQ 和 AlphaLab 仍是**未准入候選來源**，當時未增加 39 個新聞入口。
+
+手動隔離探測：`python -m scripts.candidate_feed_admission --output-dir /Users/lordmi/Downloads/ai-radar-candidate-probe`；只寫短候選與 `source-status.json`，不更新 `data/`。
+
 ## D+用途選稿已發布（2026-10-24）
 
 [I04正式發布](SIGNAL_SELECTION_I04_RELEASE_20261024.md)接續PG06來源治理：來源registry、39入口、准入／封存裁決、發布者身分與計票鍵均未變，沒有新增來源品質升降級。schema2用途投影將合格核心優先、具體產業動態與有材料的能力／安全披露補位，保留廠商宣稱及未發布標示；首頁／daily升版，雷達仍沿用原材料資格。這不是讓reported／unknown／unreviewed繼承聚合入口精選資格。原PG06結案及隔離限制保持，independent_precision仍not_evaluable。
