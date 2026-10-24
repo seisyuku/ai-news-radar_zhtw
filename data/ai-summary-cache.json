@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v2",
   "entries": {
+    "32652e6f56bb389e884df1aa47e510503a226cd019a41529648535cf136a2126": {
+      "summary": "一項受控研究顯示，切換 Claude Code、OpenCode 或 mini-SWE-agent 等編碼代理框架，對通過率的影響與重複執行相同設定相當，但每項任務成本可能因系統提示詞重複發送而增加三倍。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-24T09:35:28.623180Z"
+    },
     "4036474d57218653d58a46dfb41eb5ef04918dfa6cca85f0c94a1a79175d46a0": {
       "summary": "月之暗面在新款 Kimi 模型中限制了駭客攻擊能力，此舉發生在各界對人工智慧驅動網路攻擊擔憂日益增加的背景下。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-10-05T16:05:47.378656Z"
-    },
-    "b39d5220a46fc7fa08058b2c12a7185449c8fd8515d63d3ca626035634d21676": {
-      "summary": "加州民主黨參議員亞當·希夫就AI監管、言論自由及再次彈劾川普發表談話。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-05T16:05:47.378656Z"
     }
   },
   "rejections": {
@@ -4540,10 +4540,6 @@
       "reason": "insufficient_context",
       "created_at": "2026-10-23T13:35:34.731275Z"
     },
-    "8a6129cd135d79f1b5d80cabd14ac8274d121312fe81b8d8c3aaf86e7b17cb4b": {
-      "reason": "validation_length",
-      "created_at": "2026-10-24T03:35:27.609745Z"
-    },
     "b3b03a56b361d9cf6d365ffece1bee0c1c37d01fee0193dffce800ef62aa9241": {
       "reason": "validation_length",
       "created_at": "2026-10-24T05:33:30.886164Z"
@@ -4563,6 +4559,10 @@
     "de0dbd955f1076d7f011a25d0d0f2e9eaf39f2d37242cb50a6c0ee85e72eeddd": {
       "reason": "insufficient_context",
       "created_at": "2026-10-24T09:05:30.472790Z"
+    },
+    "8a6129cd135d79f1b5d80cabd14ac8274d121312fe81b8d8c3aaf86e7b17cb4b": {
+      "reason": "validation_length",
+      "created_at": "2026-10-24T09:35:28.623180Z"
     }
   }
 }
