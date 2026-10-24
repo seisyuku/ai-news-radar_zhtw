@@ -1,0 +1,55 @@
+{
+  "id": "7da1b2959bff9e1f401a3013ada5511c05f807b0",
+  "published_at": "2026-10-22T22:20:25Z",
+  "first_seen_at": "2026-10-24T17:51:50.383984Z",
+  "site_id": "tw_media",
+  "site_name": "TW Media",
+  "source": "AlphaLab",
+  "title": "LiteLLM 供應鏈攻擊解析：官方出貨與簽章，為何仍會送出惡意成品？（2026）",
+  "url": "https://www.alphalab.site/litellm-release-pipeline-compromise",
+  "last_seen_at": "2026-10-24T17:51:50.383984Z",
+  "summary": "LiteLLM v1.107.0 經官方渠道送出憑證竊取程式。從原始碼與 wheel 的落差、Python 啟動掛鉤，到簽章與發布權限的邊界，拆解部署者該如何盤點與驗收。",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "tw_media",
+    "source_id": "alphalab",
+    "name": "AlphaLab",
+    "feed_url": "https://www.alphalab.site/feed.xml"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": null,
+    "name": null,
+    "domain": "www.alphalab.site",
+    "status": "unknown",
+    "basis": [],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": null,
+      "article_host": "www.alphalab.site",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "524163edf93fe58d5c332ab6e1452fc2bec9e37423a2a005c5e707bb42f2d211",
+    "scope_id": "alphalab",
+    "publisher_kind": "media",
+    "admission_status": "unreviewed",
+    "source_tier": "watchlist",
+    "source_tier_label": "未審來源",
+    "source_tier_rank": 6,
+    "allow_general": true,
+    "allow_featured": false,
+    "allow_radar": false,
+    "reason_codes": [
+      "missing_identity",
+      "unreviewed_publisher",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
+    ]
+  }
+}
