@@ -1,5 +1,10 @@
 # BR04：事件前端與離線驗收
 
+<!-- task-ledger-history: v1 -->
+> **2026-10-24狀態：階段歷史／已結案。** BR01～BR06已正式發布；舊階段下一步不續跑。技術契約、驗收限制與回復依[BR06](BRIEF_EVENT_BR06_RELEASE_20261023.md)及最新操作文件使用，不重開本輪已接受的去重限制。
+> 現行任務見[TASK_LEDGER](TASK_LEDGER.md)，方向見[ROADMAP](ROADMAP.md)。
+<!-- /task-ledger-history -->
+
 狀態：本機候選完成；依自動續行授權接 BR05，再通過發布檢查後執行 BR06。
 
 前端所有 brief 候選均取自 `stories-merged.brief_events`。Top 3、熱點 10、時間線 20、展開、來源／查詢／欄目與多方篩選共用事件 ID，不再以舊模型名稱鍵二次合併或以 raw stories 補回。一般新聞列表保留原來選稿、來源及過濾方式。

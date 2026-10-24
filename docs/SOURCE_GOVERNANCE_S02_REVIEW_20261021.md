@@ -1,5 +1,10 @@
 # S02審查結論與S03交接（2026-10-21）
 
+<!-- task-ledger-history: v1 -->
+> **2026-10-24狀態：原S流程已收尾／階段歷史。** S03部署與D00已完成；S04七日實地觀察提前停止，由方案A集中評估及裁決收尾，A06已正式發布。文中舊日期、遠端plan、下一步與待部署僅指當時，無D7／D8等待或寄信義務。見[A06](SOURCE_GOVERNANCE_A06_RELEASE_20261022.md)。
+> 現行任務見[TASK_LEDGER](TASK_LEDGER.md)，方向見[ROADMAP](ROADMAP.md)。
+<!-- /task-ledger-history -->
+
 **S02本機工作完成；可進入S03部署準備，尚不可直接啟用觀察。**
 使用者本輪要求「執行s02」。沒有commit／push／部署、真來源抓取、真實寄信、
 GitHub停用API或私人設定寫入。S01以前的未提交成果保留，正式來源與公開資料未改。

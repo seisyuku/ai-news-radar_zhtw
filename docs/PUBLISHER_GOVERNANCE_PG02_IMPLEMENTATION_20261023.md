@@ -1,5 +1,10 @@
 # PG02：發布者身分資料鏈實作與交接（2026-10-23）
 
+<!-- task-ledger-history: v1 -->
+> **2026-10-24狀態：階段歷史／已結案。** PG01～PG06已正式發布，最後補修（四）定稿；本頁的下一步、未通過、待推送只描述當時，不再開補修（五）。技術契約與限制保留，對照[PG06](PUBLISHER_GOVERNANCE_PG06_RELEASE_20261024.md)及SOURCE_COVERAGE使用。
+> 現行任務見[TASK_LEDGER](TASK_LEDGER.md)，方向見[ROADMAP](ROADMAP.md)。
+<!-- /task-ledger-history -->
+
 **PG02完成，下一步PG03：GPT-6.1 Sol／High。** 本階段依[PG01契約](PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md)完成本機候選；未提交、推送或部署。來源分級／准入表與首頁資格gate尚未啟用。
 
 ## 實作結果

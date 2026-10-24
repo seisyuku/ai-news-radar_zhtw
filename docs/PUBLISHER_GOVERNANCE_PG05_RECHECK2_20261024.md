@@ -1,5 +1,10 @@
 # PG05 補修二複驗（2026-10-24）
 
+<!-- task-ledger-history: v1 -->
+> **2026-10-24狀態：階段歷史／已結案。** PG01～PG06已正式發布，最後補修（四）定稿；本頁的下一步、未通過、待推送只描述當時，不再開補修（五）。技術契約與限制保留，對照[PG06](PUBLISHER_GOVERNANCE_PG06_RELEASE_20261024.md)及SOURCE_COVERAGE使用。
+> 現行任務見[TASK_LEDGER](TASK_LEDGER.md)，方向見[ROADMAP](ROADMAP.md)。
+<!-- /task-ledger-history -->
+
 本次複驗完成，**發布驗收未通過，不進 PG06**。既有反例都已修好，但新的合成案例仍確認兩類材料誤判。下一階段：**PG05 補修（三），GPT-6.1 Sol／High**；補修後由 **GPT-6 Astra／High** 複驗。
 
 ## 起點與範圍

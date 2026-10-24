@@ -1,5 +1,10 @@
 # BR05：發布前複核與回復演練
 
+<!-- task-ledger-history: v1 -->
+> **2026-10-24狀態：階段歷史／已結案。** BR01～BR06已正式發布；舊階段下一步不續跑。技術契約、驗收限制與回復依[BR06](BRIEF_EVENT_BR06_RELEASE_20261023.md)及最新操作文件使用，不重開本輪已接受的去重限制。
+> 現行任務見[TASK_LEDGER](TASK_LEDGER.md)，方向見[ROADMAP](ROADMAP.md)。
+<!-- /task-ledger-history -->
+
 狀態：候選可按 BR06 順序發布；使用者已授權自動續行，不需再等待跨日觀察。
 
 這次由同一助理作結構化程式與輸出複核，沒有另一模型／人員獨立審查。階段建議 GPT-6 Astra／High 不代表聊天已切換模型；獨立品質欄保持 not_evaluable。

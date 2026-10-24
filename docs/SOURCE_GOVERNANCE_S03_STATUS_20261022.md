@@ -1,5 +1,10 @@
 # S03隔離部署與實際鏈路驗收（2026-10-22）
 
+<!-- task-ledger-history: v1 -->
+> **2026-10-24狀態：原S流程已收尾／階段歷史。** S03部署與D00已完成；S04七日實地觀察提前停止，由方案A集中評估及裁決收尾，A06已正式發布。文中舊日期、遠端plan、下一步與待部署僅指當時，無D7／D8等待或寄信義務。見[A06](SOURCE_GOVERNANCE_A06_RELEASE_20261022.md)。
+> 現行任務見[TASK_LEDGER](TASK_LEDGER.md)，方向見[ROADMAP](ROADMAP.md)。
+<!-- /task-ledger-history -->
+
 **S03：done（2026-10-22）。主補取樣、artifact、真SMTP、自然喚醒去重及當日郵件實收全部驗收完成。**
 D00日報退役維持完成；兩封SMTP範例已實收，不重寄驗收信。
 

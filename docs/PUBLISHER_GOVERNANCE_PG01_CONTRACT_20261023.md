@@ -1,5 +1,10 @@
 # PG01：發布者治理契約與驗收基線（2026-10-23）
 
+<!-- task-ledger-history: v1 -->
+> **2026-10-24狀態：階段歷史／已結案。** PG01～PG06已正式發布，最後補修（四）定稿；本頁的下一步、未通過、待推送只描述當時，不再開補修（五）。技術契約與限制保留，對照[PG06](PUBLISHER_GOVERNANCE_PG06_RELEASE_20261024.md)及SOURCE_COVERAGE使用。
+> 現行任務見[TASK_LEDGER](TASK_LEDGER.md)，方向見[ROADMAP](ROADMAP.md)。
+<!-- /task-ledger-history -->
+
 **PG01 完成；下一階段 PG02：GPT-6.1 Sol／High。** 本文件凍結 PG02～PG06 的實作邊界；目前尚未實作、提交或部署發布者治理。每階段結束均須交付完整交接並推薦下一階段模型與思考強度。
 
 使用者已接受目前事件去重效果。本案處理實際發布者、來源分級及首頁用途資格；事件 matcher、根／phase 身分與時效規則保持。日報自動化與來源觀察不恢復。

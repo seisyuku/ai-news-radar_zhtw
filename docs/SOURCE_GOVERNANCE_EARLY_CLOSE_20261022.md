@@ -1,5 +1,10 @@
 # 方案A：提前停止觀察與分階段收尾（2026-10-22）
 
+<!-- task-ledger-history: v1 -->
+> **2026-10-24狀態：方案A已結案／階段歷史。** A01～A06已完成正式發布與驗收；下方待複核、待推送與下一步只記當時狀態。裁決及未完成品質限制仍保留，不重啟來源觀察。見[A06](SOURCE_GOVERNANCE_A06_RELEASE_20261022.md)及後續[PG06](PUBLISHER_GOVERNANCE_PG06_RELEASE_20261024.md)。
+> 現行任務見[TASK_LEDGER](TASK_LEDGER.md)，方向見[ROADMAP](ROADMAP.md)。
+<!-- /task-ledger-history -->
+
 使用者明確要求「進行方案A，分階段執行，每次執行後都推薦下一個階段的模型跟思考強度」。
 本決策取代原S04等待10/28七日日曆結束，以及使用者10/29異常停用的待辦。
 原[契約v2](SOURCE_EVALUATION_CONTRACT_20261022.md)、計畫與實驗證據保留作歷史，不改寫為七日通過。

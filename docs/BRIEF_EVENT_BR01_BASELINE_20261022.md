@@ -1,5 +1,10 @@
 # BR01：Brief 事件重複基準與案例凍結
 
+<!-- task-ledger-history: v1 -->
+> **2026-10-24狀態：階段歷史／已結案。** BR01～BR06已正式發布；舊階段下一步不續跑。技術契約、驗收限制與回復依[BR06](BRIEF_EVENT_BR06_RELEASE_20261023.md)及最新操作文件使用，不重開本輪已接受的去重限制。
+> 現行任務見[TASK_LEDGER](TASK_LEDGER.md)，方向見[ROADMAP](ROADMAP.md)。
+<!-- /task-ledger-history -->
+
 狀態：2026-10-22 完成 BR01；下一階段 BR02 尚未執行。這是獨立於已結案來源治理 A01～A06 的 brief 修正案。
 
 ## 範圍與基準

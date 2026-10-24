@@ -1,5 +1,10 @@
 # 私人雲端接入：本機實作與 runtime 證據
 
+<!-- task-ledger-history: v1 -->
+> **2026-10-24狀態：自動化目標已撤回／歷史參考。** 2026-10-21撤回日報自動生成、派送及排程，D00已退役；舊D／C／O未完成項與三日驗收不續跑，不恢復私人雲端自動交付。工具及研究保留，人工Web Chat產文按當次要求。見[退役結案](DIGEST_RETIREMENT_HANDOFF_20261021.md)。
+> 現行任務見[TASK_LEDGER](TASK_LEDGER.md)，方向見[ROADMAP](ROADMAP.md)。
+<!-- /task-ledger-history -->
+
 更新：2026-10-10。依使用者授權自動續行，遇 High 不再要求重新下令。
 
 最新使用者校正：本文件的Cloudflare runtime試驗保留作候選證據；生成在GitHub，

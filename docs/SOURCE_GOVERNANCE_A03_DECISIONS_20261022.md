@@ -1,5 +1,10 @@
 # A03來源裁決與A04實作規格（2026-10-22）
 
+<!-- task-ledger-history: v1 -->
+> **2026-10-24狀態：方案A已結案／階段歷史。** A01～A06已完成正式發布與驗收；下方待複核、待推送與下一步只記當時狀態。裁決及未完成品質限制仍保留，不重啟來源觀察。見[A06](SOURCE_GOVERNANCE_A06_RELEASE_20261022.md)及後續[PG06](PUBLISHER_GOVERNANCE_PG06_RELEASE_20261024.md)。
+> 現行任務見[TASK_LEDGER](TASK_LEDGER.md)，方向見[ROADMAP](ROADMAP.md)。
+<!-- /task-ledger-history -->
+
 **A03：done。下一步A04（S06）：GPT-6.1 Sol／High。**
 使用者授權「執行a03」，本階段完成裁決及實作交接；尚未改正式程式、生成資料、提交或推送。
 本文件接續[A02評估](SOURCE_GOVERNANCE_A02_ASSESSMENT_20261022.md)，並依[方案A](SOURCE_GOVERNANCE_EARLY_CLOSE_20261022.md)縮小收尾範圍。

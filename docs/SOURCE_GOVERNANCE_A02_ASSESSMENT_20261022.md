@@ -1,5 +1,10 @@
 # A02集中評估與A03交接（2026-10-22）
 
+<!-- task-ledger-history: v1 -->
+> **2026-10-24狀態：方案A已結案／階段歷史。** A01～A06已完成正式發布與驗收；下方待複核、待推送與下一步只記當時狀態。裁決及未完成品質限制仍保留，不重啟來源觀察。見[A06](SOURCE_GOVERNANCE_A06_RELEASE_20261022.md)及後續[PG06](PUBLISHER_GOVERNANCE_PG06_RELEASE_20261024.md)。
+> 現行任務見[TASK_LEDGER](TASK_LEDGER.md)，方向見[ROADMAP](ROADMAP.md)。
+<!-- /task-ledger-history -->
+
 **A02：done。下一步A03裁決，GPT-6 Astra／High。**
 依[方案A](SOURCE_GOVERNANCE_EARLY_CLOSE_20261022.md)使用封存資料完成集中評估，不再等待日曆天數。
 本輪只改治理文件，正式程式／來源／評分、A01的本機enabled=false及工作流停用狀態保持；未提交／推送。

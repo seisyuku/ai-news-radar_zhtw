@@ -1,5 +1,10 @@
 # C06 本機私人日報預覽操作與邊界
 
+<!-- task-ledger-history: v1 -->
+> **2026-10-24狀態：自動化目標已撤回／歷史參考。** 2026-10-21撤回日報自動生成、派送及排程，D00已退役；舊D／C／O未完成項與三日驗收不續跑，不恢復私人雲端自動交付。工具及研究保留，人工Web Chat產文按當次要求。見[退役結案](DIGEST_RETIREMENT_HANDOFF_20261021.md)。
+> 現行任務見[TASK_LEDGER](TASK_LEDGER.md)，方向見[ROADMAP](ROADMAP.md)。
+<!-- /task-ledger-history -->
+
 狀態：2026-10-09 已完成本機**合成資料**預覽；未部署，也沒有 iPhone 遠端實測。
 此頁使用 [C05 校稿服務](../scripts/digest_cloud_editorial.py) 的同一套 revision、
 request 去重及原稿選版規則。它不接入真實私人日報、正式帳號或雲端保存。

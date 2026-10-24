@@ -1,5 +1,10 @@
 # C09 準備交接：正式平台、身份與部署入口
 
+<!-- task-ledger-history: v1 -->
+> **2026-10-24狀態：自動化目標已撤回／歷史參考。** 2026-10-21撤回日報自動生成、派送及排程，D00已退役；舊D／C／O未完成項與三日驗收不續跑，不恢復私人雲端自動交付。工具及研究保留，人工Web Chat產文按當次要求。見[退役結案](DIGEST_RETIREMENT_HANDOFF_20261021.md)。
+> 現行任務見[TASK_LEDGER](TASK_LEDGER.md)，方向見[ROADMAP](ROADMAP.md)。
+<!-- /task-ledger-history -->
+
 **2026-10-10最新決策：本階段延後。** 先完成 [C08-G GitHub生成驗證](DIGEST_GITHUB_GENERATION.md)
 及私人保存方式裁決。下文帳號、預算與身份條件只阻擋正式私人服務接入，不阻擋Actions產稿。
 先前將這些設定當成所有工作的下一個阻塞點，是執行順序偏差，已在最新HANDOVER撤回。

@@ -1,137 +1,46 @@
 # AI News Radar Pulse Roadmap
 
-本文件只記錄尚未完成或仍需追蹤的方向。已完成的設計事實、來源裁決與
-歷史證據以 [`HANDOVER.md`](HANDOVER.md) 為準；操作程序以
-[`OPERATIONS.md`](OPERATIONS.md) 為準。
+本文件只保留產品邊界、未完成方向與維護準入條件。任務狀態及完成條件見[任務台帳](TASK_LEDGER.md)，歷史見[HANDOVER](HANDOVER.md)，操作規則見[OPERATIONS](OPERATIONS.md)。
 
 ## 現行產品邊界
 
-- 公開預設是臺灣繁體中文的 AI 產業商業事件儀表板。
-- 重點訊號固定採六類事件：財報營收、市佔格局、資安漏洞、價格方案、
-  評測基準、模型發布。
-- 一般列表保留較廣的 AI 產業資訊，但不擴張成開發教學、prompt 技巧或
-  社群討論聚合器。
-- 來源治理採「寧缺勿濫」；不為填滿版位而導入低訊噪比來源。
+- 公開預設是臺灣繁體中文的AI產業商業事件儀表板。
+- 重點採財報營收、市佔格局、資安漏洞、價格方案、評測基準、模型發布六類事件。
+- 一般列表保留較廣AI產業資訊，不擴張成教學、prompt技巧或社群討論聚合器。
+- 來源寧缺勿濫，不為填版位增加低訊噪比來源或放寬首頁資格。
+- 日報由使用者在Web Chat專案當次要求收集題目／產文，沒有自動生成、派送與排程目標。
 
-## P0：排程與來源可觀測性
+## 保留方向
 
-- 持續用 `source-status.json` 與前端更新時間監看排程健康。
-- 對可恢復的單一來源失敗保留明確狀態與診斷；不可讓來源靜默消失。
-- 外部 heartbeat 的 fine-grained PAT 已於2026-10-01由使用者回報替換，
-  設為無到期日並驗得HTTP 204；舊約10/17期限不再是待辦。操作及續期政策仍見
-  [`OPERATIONS.md`](OPERATIONS.md)，不因本紀錄變更權限或到期設定。
+以下優先級沿用原Roadmap，未排定執行或建立觀察工作；具體狀態以台帳為準。
 
-## P1：一般列表六類事件軸
+| 編號 | 優先級 | 方向 |
+| --- | --- | --- |
+| T01 | P1 | 一般列表接入六類事件徽章及獨立篩選，沿用既有判定，保持預設畫面簡單。 |
+| T02 | P1 | 對齊模型生命週期資料，評估完整七日串聯及是否需要model_significance。 |
+| T03 | P1 | 回顧Groq摘要可用率、失敗、快取與細節保留，再裁決上限或prompt是否調整。 |
+| T04 | P1 | 完成Gemini摘要備援驗收與接線裁決；正式停用維持，翻譯路徑不受影響。 |
+| T05 | P1 | 評估兩Canary的品質、官方確認延遲與漏報，再裁決是否擴張入口。 |
+| T06 | P2 | 建立翻譯快取成長的量測、限制與事前門檻證據，再裁決是否提治理案。 |
 
-- 在一般列表渲染現有六類事件徽章。
-- 提供六類事件篩選軸，沿用現行事件判定結果，不另造第七類。
-- 保持預設畫面簡單；篩選器不可遮蔽來源、時間與原文連結。
-- 變更 `assets/` 時同步遞增 `index.html` 的共用 `?v=`；由 Git baseline
-  測試驗證資產變更與版號更新成對出現。
+T02／T05的長窗品質評估不是重啟七日來源實驗的命令。先盤點已有資料；PG05機械回放不能替代相應品質評估。T06不預設清理或prune。
 
-## P1：來源治理整體修正（2026-10-21）
+## 例行維護
 
-原S／方案A已由[A06](SOURCE_GOVERNANCE_A06_RELEASE_20261022.md)正式發布結案；
-七日觀察提前停止，沒有等待D7／D8、採樣或寄信待辦。
-
-本輪[PG01發布者治理契約](PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md)已凍結，
-[PG02身分資料鏈](PUBLISHER_GOVERNANCE_PG02_IMPLEMENTATION_20261023.md)與
-[PG03 scoped來源政策](PUBLISHER_GOVERNANCE_PG03_POLICY_20261023.md)本機候選已驗；
-PG04[共用首頁／雷達資格](PUBLISHER_GOVERNANCE_PG04_QUALIFICATION_20261023.md)本機候選已驗；
-[PG05複核](PUBLISHER_GOVERNANCE_PG05_REVIEW_20261023.md)已完成14日回放、畫面與案例審查，但發布驗收未通過。
-[PG05補修](PUBLISHER_GOVERNANCE_PG05_REPAIR_20261023.md)的七反例與回歸通過，但
-[PG05複驗](PUBLISHER_GOVERNANCE_PG05_RECHECK_20261024.md)另發現三類材料關係缺陷；
-[PG05補修二](PUBLISHER_GOVERNANCE_PG05_REPAIR2_20261024.md)已修正原反例，1,983項回歸與22個複驗案例通過。
-[補修二複驗](PUBLISHER_GOVERNANCE_PG05_RECHECK2_20261024.md)的新24例有11例失敗，交易肯定狀態與模型完整發布受詞仍須修正，財務主體新八例通過。
-[PG05補修（三）](PUBLISHER_GOVERNANCE_PG05_REPAIR3_20261024.md)已完成，2,110項回歸及原反例通過；交易肯定框架、完整模型受詞與常見中文正例已收斂。
-[補修（三）複驗](PUBLISHER_GOVERNANCE_PG05_RECHECK3_20261024.md)已完成，新20例仍有4個誤收、2個誤排；既有2,110項回歸及固定回放保持。
-[PG05最後補修／定稿](PUBLISHER_GOVERNANCE_PG05_FINAL_20261024.md)已完成：完整2,150項、原反例與最後24例、Chrome150個contexts通過；同一95例比較本輪0個已知錯誤，採本輪定稿。
-依使用者指示結束修正循環，不再開補修（五）。[PG06正式發布與結案](PUBLISHER_GOVERNANCE_PG06_RELEASE_20261024.md)已完成後端→既有刷新ready→前端及CI／Pages／HTTP／Chrome驗收；本案無下一必跑階段。
-固定14日的既有隔離重點退出只作機械核對，品質限制與precision not_evaluable保留；不為補版位放寬門檻。隔離閉包保持。
-正式版本已啟用新政策，首頁停止無徽章補位，寧缺毋濫；一般列表保留較廣合格新聞。日常維護GPT-6.1 Sol／Medium，修程式High。
-本輪維持使用者接受的事件去重，不追加matcher修改或新觀察排程。
-
-## P0：撤回日報自動化、完成既有工作退役（2026-10-21）
-
-使用者撤回日報自動產生、自動派送與排程目標。日報改為Web Chat專案中由
-使用者要求的收集題目／文檔工作，性質同過去「第一階段」。不再推進每日
-自動交付、三日排程驗收或日報自動選題改版；既有研究供人工要求時參考。
-
-[D00日報退役](DIGEST_RETIREMENT_HANDOFF_20261021.md)已外部停用／封存推送，私人開關false、
-無在途run讀回；一次性公開刷新／發布讀回及零新增日報接續驗收完成，D00結案，證據見S03狀態。
-保留歷史稿件、校稿與研究，保留公開Radar的
-刷新、Pages與daily-brief精選。來源觀察另依A01提前停止、A06封存結案，不恢復。
-
-舊D01～D11及雲端交付建置歷史見[DIGEST_PLAN](DIGEST_PLAN.md)與
-[HANDOVER](HANDOVER.md)；不再列為待完成的自動化方向。交接機制仍沿用
-[TASK_HANDOFF_TEMPLATE](TASK_HANDOFF_TEMPLATE.md)，每步保留檢查點與下一步模型／強度。
-
-## P1：Model Release Radar
-
-- v1 已加入低權重模型查漏與分析觀察源：LLM Stats `latestModels`、
-  LLM Rumors RSS、RuntimeWire 聚焦 RSS。
-- 補齊模型版本識別，避免 Qwen、GLM、Kimi 等不同版本錯誤聚合。
-- 已統一「模型」分頁的 atomic 發布資料為 24 小時窗口，保留真實 release
-  date，不把舊發布偽裝成新消息。
-- 已完成：首頁事件式「LLM 發布雷達」，在 24 小時內出現新模型時才顯示；
-  結構化價格／免費額度異動集中在市場區，兩者皆不改寫全域排序。
-- 待辦：把 benchmark、價格/API、部署、商業採用與安全分析掛到同一
-  canonical model key，形成完整七日模型生命週期。
-- 待辦：完成至少 14 日來源健康與誤報回放後，再決定是否增加
-  `model_significance`；未完成回放前不修改全域評分公式。
-
-## P1：重點新聞內容摘要
-
-- 已完成：RSS/Atom 發布者摘要清理與保留、Groq
-  `qwen/qwen3.8-27b` 選用整合、內容雜湊快取、每輪呼叫上限與安全失敗。
-- 已完成：前端以「AI 新聞摘要」取代分類徽章映射的固定「為什麼重要」
-  字串；無可靠內容時直接省略，不製造模板式洞見。
-- 待辦：累積實際排程樣本後觀察摘要可用率、失敗率、快取命中率與模型
-  新聞細節保留情況，再決定是否調整 6 則上限或 prompt；不因此修改
-  全域新聞評分公式。
-- 已裁決：Gemini `gemini-3.5-flash-lite` 為
-  `qualified backup candidate, disabled by default`；Groq 保持 primary，
-  尚未授權 production fallback 或真實 publisher feed 呼叫。
-- 待辦（Gemini acceptance）：裁決提示注入語意／精確詞 gate、完成三個
-  分離時段 live diagnostic/eval、擴充合成案例並與 Groq 同案比較。
-- 待辦（fallback implementation）：建立 Groq failure trigger matrix、
-  防雙重呼叫、獨立 secret、provider+model cache identity、單輪成本上限、
-  公開安全狀態與雙 provider 失敗行為測試。
-- 待辦（operator decision）：啟用前重新核對 Gemini active rate limits、
-  定價及 free/paid tier 資料使用條款，取得 maintainer 明確接受後才可接線。
-  完整 gate 以 `docs/OPERATIONS.md` 為準。
-
-## P1：Market Sensor 與 usage-policy 速報
-
-- 已完成：價格 JSON snapshot/diff、免費額度結構化 diff、兩個公開
-  usage-monitor commit Atom Canary，以及獨立的市場區與速報區。
-- 現行優先權拆為兩軸：長期影響 `價格 > 免費額度 > usage policy`；
-  時效 `usage policy >> 免費額度 > 價格`。速報排序不改寫全域新聞評分。
-- 待觀察：累積至少 14 天真實候選後，統計 Canary precision、官方確認
-  延遲與漏報，再決定是否加入第三個 repo、release feed 或少數官方頁面。
-- Promotion scraper、issues／PR ingestion 與 changedetection.io 仍延後；
-  沒有實際漏報證據前不擴張。
-
-## P2：成長型資料治理
-
-- `title-zh-cache.json`：以新的明確唯讀任務收集可重現的多時點量測與適用的
-  執行環境／儲存限制證據；不自動持續監測，也不啟動清理。
-- 量測證據齊備後，再開一次零寫入決策訪談，定義容量、觀察窗與成長率的數值
-  門檻，並在觀察開始前登記這些定義；目前尚無 prune 機制。
-- `archive.json` 已回到 GitHub 50MB 軟上限以下，維持觀察即可；只有在
-  積壓退場後仍持續成長時才重新升級為治理工作。
-- 任何清理都必須保留可重現性、來源時間窗與現行頁面需要的資料。
+- 沿用source-status與更新時間處理排程健康；單一來源失敗保留明確診斷。
+- 保留既有公開刷新、watchdog、heartbeat、Pages及公開daily-brief，不新增監控工作。
+- archive容量已降級為觀察，舊PAT到期提醒已取消；可選工作目錄整理見台帳。
 
 ## 維護準入條件
 
-- 新預設來源：先做 overlap、訊噪比、時間戳與 Actions 可抓取性評估。
-- 抓取器或輸出 schema：加入聚焦測試並更新 `SOURCE_COVERAGE.md`。
-- 評分公式本體：依 repo 規則先取得同意並完成足量回測。
-- 部署或 secret：只記錄名稱與程序，不把值寫入 repo。
+- 新預設來源先評估overlap、訊噪比、時間戳與Actions可抓取性。
+- 抓取器或schema變更加入聚焦測試，更新SOURCE_COVERAGE。
+- 全域評分變更依原規則取得同意並完成回測，不因台帳項目順帶修改。
+- 資產變更同步index.html共同版本並驗證；部署與secret只記程序及名稱，不記值。
+- Gemini摘要、快取治理與來源准入仍遵守各自gate；列入方向不等於啟用授權。
 
-## 已關閉或非目標
+## 結案與歷史入口
 
-- 不恢復已因低訊噪比退場的廣域聚合來源。
-- 不把舊版 Reader Skill、上游宣傳頁或舊站點當成本專案產品面。
-- 不以大量新增來源解決重點訊號供給不足。
-- 不在公開預設中依賴登入、cookies、私人信箱或不穩定社群 bridge。
+PG、BR、方案A、日報退役、撤回實驗及八個封存來源統一見[TASK_LEDGER](TASK_LEDGER.md)的結案／撤回／限制區；階段證據保留原文件與HANDOVER，不混入未完成方向。不重開補修（五）或原D7／D8。
+
+不恢復已退場廣域聚合來源，不以大量新增來源補版位；公開預設不依賴登入、cookies、私人信箱或不穩定社群bridge。

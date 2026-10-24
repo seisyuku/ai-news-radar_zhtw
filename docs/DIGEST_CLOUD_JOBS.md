@@ -1,5 +1,10 @@
 # C08 本機意圖、生成前 guard 與有界補跑
 
+<!-- task-ledger-history: v1 -->
+> **2026-10-24狀態：自動化目標已撤回／歷史參考。** 2026-10-21撤回日報自動生成、派送及排程，D00已退役；舊D／C／O未完成項與三日驗收不續跑，不恢復私人雲端自動交付。工具及研究保留，人工Web Chat產文按當次要求。見[退役結案](DIGEST_RETIREMENT_HANDOFF_20261021.md)。
+> 現行任務見[TASK_LEDGER](TASK_LEDGER.md)，方向見[ROADMAP](ROADMAP.md)。
+<!-- /task-ledger-history -->
+
 2026-10-10最新路由：先完成 [C08-G GitHub生成驗證](DIGEST_GITHUB_GENERATION.md)，不依賴Cloudflare。
 下文memory coordinator是正式私人交付的模擬證據，不要求生成job先部署它；跨job持久去重及每日觸發仍待接通。
 

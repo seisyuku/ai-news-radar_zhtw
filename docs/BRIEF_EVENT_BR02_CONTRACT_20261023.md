@@ -1,5 +1,10 @@
 # BR02：Brief事件規則與資料契約 v1
 
+<!-- task-ledger-history: v1 -->
+> **2026-10-24狀態：階段歷史／已結案。** BR01～BR06已正式發布；舊階段下一步不續跑。技術契約、驗收限制與回復依[BR06](BRIEF_EVENT_BR06_RELEASE_20261023.md)及最新操作文件使用，不重開本輪已接受的去重限制。
+> 現行任務見[TASK_LEDGER](TASK_LEDGER.md)，方向見[ROADMAP](ROADMAP.md)。
+<!-- /task-ledger-history -->
+
 完成於2026-10-23（臺北）；承接2026-10-22 BR01。狀態：契約已凍結，BR03實作尚未開始。
 
 正式基準HEAD `c43816047bc388ff9b94382ca3523ffa0d9a39e3`。本輪只增加規格及交接文件，未改正式程式、來源、輸出資料或工作流，未提交／推送。過程證據與逐案預期在 `/Users/lordmi/Downloads/ai-news-radar-brief-event-br02-20261022/`（按開始日期命名，沒有搬移）。

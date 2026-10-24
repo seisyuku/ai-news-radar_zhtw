@@ -1,5 +1,10 @@
 # C08-G：GitHub 靜態日報生成驗證
 
+<!-- task-ledger-history: v1 -->
+> **2026-10-24狀態：自動化目標已撤回／歷史參考。** 2026-10-21撤回日報自動生成、派送及排程，D00已退役；舊D／C／O未完成項與三日驗收不續跑，不恢復私人雲端自動交付。工具及研究保留，人工Web Chat產文按當次要求。見[退役結案](DIGEST_RETIREMENT_HANDOFF_20261021.md)。
+> 現行任務見[TASK_LEDGER](TASK_LEDGER.md)，方向見[ROADMAP](ROADMAP.md)。
+<!-- /task-ledger-history -->
+
 2026-10-12第二版接入：正式入口預設自動最多10則，選題前依保存材料辨識當期明確文章引用，保留不同談論點；選題後可補讀已入選科技新報首段一次，再從保存捕捉值獨立重建。不新增LLM、引用網頁抓取或公開發布；每日入口不載入歷史人工裁決。以下純checkout／舊門檻描述為第一版歷史，新行為以DIGEST_USAGE與HANDOVER為準。
 
 2026-10-12最新：使用者批准單人Drive交付標準，手動workflow新增預設false的deliver_drive輸入。可在生成與既有pair/rerun核對後選擇私人保存；詳見 [Drive交付操作](DIGEST_GOOGLE_DRIVE_DELIVERY.md)。以下delivery_verified固定false、保存未選定與不含憑證為歷史生成階段；目前未選deliver_drive時仍是純生成。後續使用者批准每日觸發A，現已部署workflow_run及私人設定true，沿用既有刷新事件；沒有新cron。真當期及三日驗收以HANDOVER最新紀錄為準。

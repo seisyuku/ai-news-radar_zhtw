@@ -1,5 +1,10 @@
 # Radar 來源修正工作入口（2026-10-18）
 
+<!-- task-ledger-history: v1 -->
+> **2026-10-24狀態：來源修正已完成／歷史規格。** 三失效入口移除、INSIDE接入及RuntimeWire分流已有正式來源效果，後續由A06／PG06完成治理。文中待自然刷新與舊續接入口屬歷史，不再據此開工。見[A06](SOURCE_GOVERNANCE_A06_RELEASE_20261022.md)及[PG06](PUBLISHER_GOVERNANCE_PG06_RELEASE_20261024.md)。
+> 現行任務見[TASK_LEDGER](TASK_LEDGER.md)，方向見[ROADMAP](ROADMAP.md)。
+<!-- /task-ledger-history -->
+
 > 2026-10-21續接入口改為[整體來源治理計畫](SOURCE_GOVERNANCE_PLAN_20261021.md)。
 > S01已統一新舊來源待辦與[正式基準](SOURCE_GOVERNANCE_BASELINE_20261021.md)；
 > 三個入口移除、INSIDE／RuntimeWire收件已有正式快照證據，長窗品質仍待評估。

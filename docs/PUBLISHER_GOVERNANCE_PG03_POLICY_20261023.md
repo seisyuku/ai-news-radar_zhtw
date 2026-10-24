@@ -1,5 +1,10 @@
 # PG03：來源分級與有範圍准入（2026-10-23）
 
+<!-- task-ledger-history: v1 -->
+> **2026-10-24狀態：階段歷史／已結案。** PG01～PG06已正式發布，最後補修（四）定稿；本頁的下一步、未通過、待推送只描述當時，不再開補修（五）。技術契約與限制保留，對照[PG06](PUBLISHER_GOVERNANCE_PG06_RELEASE_20261024.md)及SOURCE_COVERAGE使用。
+> 現行任務見[TASK_LEDGER](TASK_LEDGER.md)，方向見[ROADMAP](ROADMAP.md)。
+<!-- /task-ledger-history -->
+
 **PG03本機候選完成；下一步PG04：GPT-6.1 Sol／High。** 未提交、推送或部署；完整首頁資格投影與用途選稿仍待PG04。本階段接續[PG02身分鏈](PUBLISHER_GOVERNANCE_PG02_IMPLEMENTATION_20261023.md)，遵守[PG01契約](PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md)。
 
 ## 政策與實作

@@ -1,5 +1,10 @@
 # PG04：首頁、daily與模型雷達用途資格（2026-10-23）
 
+<!-- task-ledger-history: v1 -->
+> **2026-10-24狀態：階段歷史／已結案。** PG01～PG06已正式發布，最後補修（四）定稿；本頁的下一步、未通過、待推送只描述當時，不再開補修（五）。技術契約與限制保留，對照[PG06](PUBLISHER_GOVERNANCE_PG06_RELEASE_20261024.md)及SOURCE_COVERAGE使用。
+> 現行任務見[TASK_LEDGER](TASK_LEDGER.md)，方向見[ROADMAP](ROADMAP.md)。
+<!-- /task-ledger-history -->
+
 **PG04本機候選完成；下一步PG05：GPT-6 Astra／High。** 未提交、推送、dispatch或部署。依[PG01契約](PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md)接續[PG03來源政策](PUBLISHER_GOVERNANCE_PG03_POLICY_20261023.md)，不修改既有事件matcher、state、來源准入表或AI relevance .65地板。
 
 ## 實作結果

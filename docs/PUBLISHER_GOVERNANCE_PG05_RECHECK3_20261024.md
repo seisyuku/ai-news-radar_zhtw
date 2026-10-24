@@ -1,5 +1,10 @@
 # PG05補修（三）複驗與補修（四）交接
 
+<!-- task-ledger-history: v1 -->
+> **2026-10-24狀態：階段歷史／已結案。** PG01～PG06已正式發布，最後補修（四）定稿；本頁的下一步、未通過、待推送只描述當時，不再開補修（五）。技術契約與限制保留，對照[PG06](PUBLISHER_GOVERNANCE_PG06_RELEASE_20261024.md)及SOURCE_COVERAGE使用。
+> 現行任務見[TASK_LEDGER](TASK_LEDGER.md)，方向見[ROADMAP](ROADMAP.md)。
+<!-- /task-ledger-history -->
+
 日期：2026-10-24。結論：**發布驗收未通過，release_ready=false，不進PG06。**
 
 本階段只修改本文件與HANDOVER／SOURCE_COVERAGE／ROADMAP，未修改runtime、測試、正式資料或來源設定，未提交、推送、dispatch或部署。HEAD仍為`8deab0c1b61a7560c2f552c5366b3776bc82dd51`，累積候選從42檔增為43檔。

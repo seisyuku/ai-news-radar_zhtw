@@ -1,5 +1,10 @@
 # Radar 來源修改規格（2026-10-18）
 
+<!-- task-ledger-history: v1 -->
+> **2026-10-24狀態：來源修正已完成／歷史規格。** 三失效入口移除、INSIDE接入及RuntimeWire分流已有正式來源效果，後續由A06／PG06完成治理。文中待自然刷新與舊續接入口屬歷史，不再據此開工。見[A06](SOURCE_GOVERNANCE_A06_RELEASE_20261022.md)及[PG06](PUBLISHER_GOVERNANCE_PG06_RELEASE_20261024.md)。
+> 現行任務見[TASK_LEDGER](TASK_LEDGER.md)，方向見[ROADMAP](ROADMAP.md)。
+<!-- /task-ledger-history -->
+
 ## 狀態與目標
 
 使用者已明確授權「開始程式實作」。本文件保留已確認的規格與驗收契約；

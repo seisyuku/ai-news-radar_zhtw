@@ -1,5 +1,10 @@
 # 私人雲端日報：C02 Astra 審查交接
 
+<!-- task-ledger-history: v1 -->
+> **2026-10-24狀態：自動化目標已撤回／歷史參考。** 2026-10-21撤回日報自動生成、派送及排程，D00已退役；舊D／C／O未完成項與三日驗收不續跑，不恢復私人雲端自動交付。工具及研究保留，人工Web Chat產文按當次要求。見[退役結案](DIGEST_RETIREMENT_HANDOFF_20261021.md)。
+> 現行任務見[TASK_LEDGER](TASK_LEDGER.md)，方向見[ROADMAP](ROADMAP.md)。
+<!-- /task-ledger-history -->
+
 日期：2026-10-09。最新狀態：C02 審查、C03～C06 本機模擬完成，停於 C07 前。
 [正式決策、36項驗收案例與 C03 入口](DIGEST_CLOUD_CONTRACT.md)。
 以下保留 C00 交接時的原始材料與當時狀態，不代表 C02 仍未開始。

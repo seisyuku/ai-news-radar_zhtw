@@ -1,5 +1,10 @@
 # 私人雲端日報 C02：離線模擬契約 v1
 
+<!-- task-ledger-history: v1 -->
+> **2026-10-24狀態：自動化目標已撤回／歷史參考。** 2026-10-21撤回日報自動生成、派送及排程，D00已退役；舊D／C／O未完成項與三日驗收不續跑，不恢復私人雲端自動交付。工具及研究保留，人工Web Chat產文按當次要求。見[退役結案](DIGEST_RETIREMENT_HANDOFF_20261021.md)。
+> 現行任務見[TASK_LEDGER](TASK_LEDGER.md)，方向見[ROADMAP](ROADMAP.md)。
+<!-- /task-ledger-history -->
+
 ## 2026-10-12 已批准：每日觸發A與固定期別
 
 使用者選A並確認接受日期固定期別。本路線沿用同repo/master的新聞更新完成事件；以GitHub記錄的上游created_at固定臺北期別，updated_at選主／補試時段，runner延遲至次日拒絕。這是GitHub觀測時間，不冒充外部cron的scheduled_for；取代本路線下方歷史v1獨立持久intent issuer與固定三slot要求，不另建發行服務。

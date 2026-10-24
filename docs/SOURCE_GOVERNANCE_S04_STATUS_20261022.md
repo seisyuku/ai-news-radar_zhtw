@@ -1,5 +1,10 @@
 # S04 同期來源評估：D1狀態（2026-10-22）
 
+<!-- task-ledger-history: v1 -->
+> **2026-10-24狀態：原S流程已收尾／階段歷史。** S03部署與D00已完成；S04七日實地觀察提前停止，由方案A集中評估及裁決收尾，A06已正式發布。文中舊日期、遠端plan、下一步與待部署僅指當時，無D7／D8等待或寄信義務。見[A06](SOURCE_GOVERNANCE_A06_RELEASE_20261022.md)。
+> 現行任務見[TASK_LEDGER](TASK_LEDGER.md)，方向見[ROADMAP](ROADMAP.md)。
+<!-- /task-ledger-history -->
+
 **最新：A01停止／封存及A02集中評估完成，下一步A03裁決。**
 [A02最新結果與交接](SOURCE_GOVERNANCE_A02_ASSESSMENT_20261022.md)為當前入口；以下D1紀錄保留作歷史。
 [提前結束決策與交接](SOURCE_GOVERNANCE_EARLY_CLOSE_20261022.md)取代本頁下方等待D2～D7的續接要求。

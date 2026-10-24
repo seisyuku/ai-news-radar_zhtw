@@ -1,5 +1,10 @@
 # A04本機實作與A05交接（2026-10-22）
 
+<!-- task-ledger-history: v1 -->
+> **2026-10-24狀態：方案A已結案／階段歷史。** A01～A06已完成正式發布與驗收；下方待複核、待推送與下一步只記當時狀態。裁決及未完成品質限制仍保留，不重啟來源觀察。見[A06](SOURCE_GOVERNANCE_A06_RELEASE_20261022.md)及後續[PG06](PUBLISHER_GOVERNANCE_PG06_RELEASE_20261024.md)。
+> 現行任務見[TASK_LEDGER](TASK_LEDGER.md)，方向見[ROADMAP](ROADMAP.md)。
+<!-- /task-ledger-history -->
+
 **A04本機實作完成；下一步A05複核：GPT-6 Astra／High。**
 依[A03裁決](SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md)完成B01／B02，B03同步治理文件及既有停用包。
 這是本機發布候選，尚未提交／推送／部署；正式線上行為不以本文件宣稱已更新。

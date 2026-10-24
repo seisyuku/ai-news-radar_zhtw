@@ -1,5 +1,10 @@
 # PG05補修：四類資格判定缺陷（2026-10-24完成）
 
+<!-- task-ledger-history: v1 -->
+> **2026-10-24狀態：階段歷史／已結案。** PG01～PG06已正式發布，最後補修（四）定稿；本頁的下一步、未通過、待推送只描述當時，不再開補修（五）。技術契約與限制保留，對照[PG06](PUBLISHER_GOVERNANCE_PG06_RELEASE_20261024.md)及SOURCE_COVERAGE使用。
+> 現行任務見[TASK_LEDGER](TASK_LEDGER.md)，方向見[ROADMAP](ROADMAP.md)。
+<!-- /task-ledger-history -->
+
 **補修候選完成，下一步PG05複驗：GPT-6 Astra／High。** 本階段未提交、推送或部署；PG06仍待複驗通過。接續[PG05審查](PUBLISHER_GOVERNANCE_PG05_REVIEW_20261023.md)，七個凍結驗收反例已轉為正式回歸並通過。
 
 ## 修正

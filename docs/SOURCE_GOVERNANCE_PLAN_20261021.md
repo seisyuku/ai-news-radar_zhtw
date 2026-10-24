@@ -1,5 +1,10 @@
 # 來源治理整體修正計畫（2026-10-21）
 
+<!-- task-ledger-history: v1 -->
+> **2026-10-24狀態：方案A已結案／階段歷史。** A01～A06已完成正式發布與驗收；下方待複核、待推送與下一步只記當時狀態。裁決及未完成品質限制仍保留，不重啟來源觀察。見[A06](SOURCE_GOVERNANCE_A06_RELEASE_20261022.md)及後續[PG06](PUBLISHER_GOVERNANCE_PG06_RELEASE_20261024.md)。
+> 現行任務見[TASK_LEDGER](TASK_LEDGER.md)，方向見[ROADMAP](ROADMAP.md)。
+<!-- /task-ledger-history -->
+
 ## 目前入口與授權
 
 本計畫整合新來源准入、既有來源刪減／優化，以及使用者於2026-10-21撤回

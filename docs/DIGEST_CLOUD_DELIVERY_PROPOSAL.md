@@ -1,5 +1,10 @@
 # 私人日報雲端交付提案
 
+<!-- task-ledger-history: v1 -->
+> **2026-10-24狀態：自動化目標已撤回／歷史參考。** 2026-10-21撤回日報自動生成、派送及排程，D00已退役；舊D／C／O未完成項與三日驗收不續跑，不恢復私人雲端自動交付。工具及研究保留，人工Web Chat產文按當次要求。見[退役結案](DIGEST_RETIREMENT_HANDOFF_20261021.md)。
+> 現行任務見[TASK_LEDGER](TASK_LEDGER.md)，方向見[ROADMAP](ROADMAP.md)。
+<!-- /task-ledger-history -->
+
 2026-10-10最新決策：架構A維持GitHub Actions生成靜態日報；先完成
 [C08-G生成工作與驗證](DIGEST_GITHUB_GENERATION.md)，再決定私人保存／手機交付。
 Cloudflare仍是候選，不是正式接入前的生成前置；下文歷史「下一High」指標已由最新HANDOVER取代。

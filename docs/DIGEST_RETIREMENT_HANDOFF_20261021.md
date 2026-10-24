@@ -1,5 +1,10 @@
 # 日報自動化退役交接（D00，2026-10-21）
 
+<!-- task-ledger-history: v1 -->
+> **2026-10-24狀態：D00已完成／退役交接歷史。** S03已完成外部停用及封存發布；本頁下方的部署前順序是當時交接，不是未執行任務。現況依[PG06](PUBLISHER_GOVERNANCE_PG06_RELEASE_20261024.md)及OPERATIONS，不恢復日報自動化。
+> 現行任務見[TASK_LEDGER](TASK_LEDGER.md)，方向見[ROADMAP](ROADMAP.md)。
+<!-- /task-ledger-history -->
+
 ## 最新決策與執行狀態
 
 使用者撤回每日自動產生、自動派送與排程目標。日報改為在Web Chat專案中，

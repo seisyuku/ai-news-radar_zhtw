@@ -1,5 +1,10 @@
 # BR03：Brief事件後端實作與回歸
 
+<!-- task-ledger-history: v1 -->
+> **2026-10-24狀態：階段歷史／已結案。** BR01～BR06已正式發布；舊階段下一步不續跑。技術契約、驗收限制與回復依[BR06](BRIEF_EVENT_BR06_RELEASE_20261023.md)及最新操作文件使用，不重開本輪已接受的去重限制。
+> 現行任務見[TASK_LEDGER](TASK_LEDGER.md)，方向見[ROADMAP](ROADMAP.md)。
+<!-- /task-ledger-history -->
+
 狀態：完成本機後端候選；依使用者自動續行授權接BR04～BR06。正式推送留待前端與發布前複核通過。
 
 `scripts/brief_events.py`新增無provider的事件匹配／phase／有限狀態；`update_news.py`沿用原importance係數與發布者解析器接入，產生自足`brief_events`、相容daily適配器及`brief-event-state.json`。普通stories、文章時間、一般列表與來源選擇保持；只有事件importance使用事件時間及當期phase票數。公開校驗碼在既有資料清理後計算，避免清理後的JSON與hash不符。
