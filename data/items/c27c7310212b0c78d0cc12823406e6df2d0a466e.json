@@ -7,6 +7,49 @@
   "source": "Mistral News",
   "title": "Cloudera and Mistral Partner to Bring Specialized, Sovereign Intelligence to Enterprise Data",
   "url": "https://mistral.ai/news/mistral-x-cloudera",
-  "last_seen_at": "2026-10-24T06:35:30.850467Z",
-  "summary": "Cloudera and Mistral join forces to bring specialized, sovereign AI intelligence to enterprise data, helping regulated industries innovate on their own terms."
+  "last_seen_at": "2026-10-24T07:05:29.896161Z",
+  "summary": "Cloudera and Mistral join forces to bring specialized, sovereign AI intelligence to enterprise data, helping regulated industries innovate on their own terms.",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "mistral_news",
+    "name": "Mistral News",
+    "feed_url": "https://mistral.ai/news/rss"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "mistral",
+    "name": "Mistral",
+    "domain": "mistral.ai",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://mistral.ai/news/mistral-x-cloudera",
+      "article_host": "mistral.ai",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "ce78b2cd31b860b6232a1b02b0c08d2a949d492c911fafbba5e028dc0f4b3e8c",
+    "scope_id": "mistral",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
 }

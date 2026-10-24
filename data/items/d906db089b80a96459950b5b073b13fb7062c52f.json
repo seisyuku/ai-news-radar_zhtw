@@ -7,7 +7,7 @@
   "source": "AIBASE",
   "title": "微軟給 Excel 塞進\"交互式畫布\"：說句話，零散表格變決策看板",
   "url": "https://news.aibase.com/tw/news/31612",
-  "last_seen_at": "2026-10-24T06:35:30.850467Z",
+  "last_seen_at": "2026-10-24T07:05:29.896161Z",
   "summary": "據NeoWin博文，微軟爲Excel推出Copilot交互式畫布。用戶只需用自然語言下指令，就能把工作簿數據即時生成動態、自動刷新的交互式報告，適用於高管評審、項目週報、狀態彙總等。畫布與底稿表格綁定，源數據變動後，圖表和版式會自動更新，無需手動重做。用戶還可接入更多功能。",
   "aibase_article_id": "31612",
   "field_languages": {
@@ -15,5 +15,48 @@
     "url": "tw",
     "summary": "tw"
   },
-  "content_language": "tw"
+  "content_language": "tw",
+  "ingress": {
+    "kind": "public_adapter",
+    "site_id": "curated_media",
+    "source_id": "aibase",
+    "name": "AIBASE",
+    "feed_url": null
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "aibase",
+    "name": "AIBASE",
+    "domain": "news.aibase.com",
+    "status": "identified",
+    "basis": [
+      "explicit_group"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://news.aibase.com/tw/news/31612",
+      "article_host": "news.aibase.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "ce78b2cd31b860b6232a1b02b0c08d2a949d492c911fafbba5e028dc0f4b3e8c",
+    "scope_id": "aibase",
+    "publisher_kind": "aggregator",
+    "admission_status": "limited",
+    "source_tier": "ai_media",
+    "source_tier_label": "精選AI媒體",
+    "source_tier_rank": 2,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
 }

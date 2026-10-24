@@ -7,10 +7,53 @@
   "source": "AWS News",
   "title": "Amazon Bedrock 现已针对 OpenAI 模型支持推理摘要",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/amazon-bedrock-reasoning-summaries-openai",
-  "last_seen_at": "2026-10-24T06:35:30.850467Z",
+  "last_seen_at": "2026-10-24T07:05:29.896161Z",
   "summary": "Amazon Bedrock 现已通过响应 API 支持适用于 OpenAI 模型的 reasoning.summary 参数。借助该功能，您可以在获取模型响应的同时，请求一份通俗易懂的推理摘要，从而帮助您理解模型在处理编码、分析和多步骤问题解决等复杂任务时的思路。 推理摘要为开发人员提供了额外的上下文信息，有助于评估模型响应、调试应用程序以及向用户展示模型处理请求的过程。该摘要通过推理输出项中的 summary 数组返回，与模型的回答一同呈现。 该功能适用于 Amazon Bedrock 上的所有 OpenAI 模型，已在提供 OpenAI GPT 模型的所有 AWS 区域推出，并支持区域内推理、地理（GEO）跨区域推理和全球跨区域推理。 要了解更多信息，请参阅有关 Reasoning summaries 的 OpenAI 文档。要在 Amazon Bedrock 上开始使用 OpenAI GPT 模型，请参阅 此处 的文档。",
   "publisher_links": [
     "https://developers.openai.com/api/docs/guides/reasoning#reasoning-summaries",
     "https://docs.aws.amazon.com/bedrock/latest/userguide/getting-started.html"
-  ]
+  ],
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "aws_news",
+    "name": "AWS News",
+    "feed_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "amazon",
+    "name": "AWS",
+    "domain": "aws.amazon.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/amazon-bedrock-reasoning-summaries-openai",
+      "article_host": "aws.amazon.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "ce78b2cd31b860b6232a1b02b0c08d2a949d492c911fafbba5e028dc0f4b3e8c",
+    "scope_id": "amazon",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
 }

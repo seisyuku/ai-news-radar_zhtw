@@ -11,5 +11,51 @@
   "summary": "台灣主權AI語料庫僅1%來自民間！想讓AI懂台灣，為何這麼難？ 數位時代",
   "publisher_links": [
     "https://news.google.com/rss/articles/CBMihgFBVV95cUxQaTk4dlhsMEQtTEhfaUoyRUxxcXR6VWFDZV9uYV9GTUxSQkVfd3M2bVN4d3pwUTdPYWZ2Z0pneC1MYUlNR3ZKLUVuSVRqa1lwMFVYVnU4UHVXeDlnVFlILWJxTG5jaldtb2p6ZlRKS09mbXRoVHpabnlUU0lta2RJVDhGTU1xZw?oc=5"
-  ]
+  ],
+  "ingress": {
+    "kind": "google_news",
+    "site_id": "tw_media",
+    "source_id": "bnext_news",
+    "name": "數位時代 (Google News)",
+    "feed_url": "https://news.google.com/rss/search?q=site%3Abnext.com.tw+%28AI+OR+%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7+OR+%E5%A4%A7%E6%A8%A1%E5%9E%8B+OR+ChatGPT%29+when%3A7d&hl=zh-TW&gl=TW&ceid=TW%3Azh-Hant"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "bnext",
+    "name": "數位時代",
+    "domain": null,
+    "status": "identified",
+    "basis": [
+      "configured_bridge"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": null,
+      "article_host": "news.google.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "ce78b2cd31b860b6232a1b02b0c08d2a949d492c911fafbba5e028dc0f4b3e8c",
+    "scope_id": "unreviewed",
+    "publisher_kind": "unknown",
+    "admission_status": "unreviewed",
+    "source_tier": "watchlist",
+    "source_tier_label": "未審來源",
+    "source_tier_rank": 6,
+    "allow_general": true,
+    "allow_featured": false,
+    "allow_radar": false,
+    "reason_codes": [
+      "legacy_identity",
+      "scope_unknown",
+      "unreviewed_publisher",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
+    ]
+  }
 }

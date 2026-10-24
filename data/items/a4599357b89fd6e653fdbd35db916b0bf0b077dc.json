@@ -7,6 +7,49 @@
   "source": "iThome",
   "title": "OpenAI內部模型監控系統被發現多項漏洞",
   "url": "https://www.ithome.com.tw/news/179919",
-  "last_seen_at": "2026-10-24T06:35:30.850467Z",
-  "summary": "AI安全研究組織METR與Redwood Research最新公布的報告顯示，OpenAI內部的AI模型監控系統存在多項漏洞，包括Codex代理人可能繞過沙箱及自動審查（Auto-Review）機制，在主機使用者原本有權執行的操作範圍內採取任意行動，或利用序列化差異，讓代理人與監控系統看到不同的執行軌跡，進而規避監控。OpenAI已修正這些問題。"
+  "last_seen_at": "2026-10-24T07:05:29.896161Z",
+  "summary": "AI安全研究組織METR與Redwood Research最新公布的報告顯示，OpenAI內部的AI模型監控系統存在多項漏洞，包括Codex代理人可能繞過沙箱及自動審查（Auto-Review）機制，在主機使用者原本有權執行的操作範圍內採取任意行動，或利用序列化差異，讓代理人與監控系統看到不同的執行軌跡，進而規避監控。OpenAI已修正這些問題。",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "tw_media",
+    "source_id": "ithome",
+    "name": "iThome",
+    "feed_url": "https://www.ithome.com.tw/rss"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "ithome",
+    "name": "iThome",
+    "domain": "www.ithome.com.tw",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://www.ithome.com.tw/news/179919",
+      "article_host": "www.ithome.com.tw",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "ce78b2cd31b860b6232a1b02b0c08d2a949d492c911fafbba5e028dc0f4b3e8c",
+    "scope_id": "ithome",
+    "publisher_kind": "media",
+    "admission_status": "limited",
+    "source_tier": "professional_media",
+    "source_tier_label": "專業科技媒體",
+    "source_tier_rank": 1,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
 }

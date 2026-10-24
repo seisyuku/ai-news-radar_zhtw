@@ -7,7 +7,7 @@
   "source": "AIBASE",
   "title": "資本與生態雙向奔赴，DeepSeek開啓上市倒計時並迎聯想系入股",
   "url": "https://news.aibase.com/tw/news/31835",
-  "last_seen_at": "2026-10-24T06:35:30.850467Z",
+  "last_seen_at": "2026-10-24T07:05:29.896161Z",
   "summary": "外媒稱，DeepSeek新一輪融資加速推進，已引入君聯資本、石溪資本及吉利等投資者，聯想系資本藉此進入股東陣營。公司9月任命新CFO，並聘中信證券擔任IPO顧問，最快2027年初推進上市。此前聯想旗下產品已全面圍繞DeepSeek展開技術合作，資本與業務綁定持續加深。",
   "aibase_article_id": "31835",
   "field_languages": {
@@ -15,5 +15,48 @@
     "url": "tw",
     "summary": "tw"
   },
-  "content_language": "tw"
+  "content_language": "tw",
+  "ingress": {
+    "kind": "public_adapter",
+    "site_id": "curated_media",
+    "source_id": "aibase",
+    "name": "AIBASE",
+    "feed_url": null
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "aibase",
+    "name": "AIBASE",
+    "domain": "news.aibase.com",
+    "status": "identified",
+    "basis": [
+      "explicit_group"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://news.aibase.com/tw/news/31835",
+      "article_host": "news.aibase.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "ce78b2cd31b860b6232a1b02b0c08d2a949d492c911fafbba5e028dc0f4b3e8c",
+    "scope_id": "aibase",
+    "publisher_kind": "aggregator",
+    "admission_status": "limited",
+    "source_tier": "ai_media",
+    "source_tier_label": "精選AI媒體",
+    "source_tier_rank": 2,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
 }

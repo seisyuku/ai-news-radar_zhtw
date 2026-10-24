@@ -7,7 +7,7 @@
   "source": "AIBASE",
   "title": "全天候監聽你的 AI 助手 Ambi 拿下 2600 萬美元：前 Plaud 高管要把智能從屏幕裏放出來",
   "url": "https://news.aibase.com/tw/news/31614",
-  "last_seen_at": "2026-10-24T06:35:30.850467Z",
+  "last_seen_at": "2026-10-24T07:05:29.896161Z",
   "summary": "AI行業信奉“越懂你越能幫你”，代價是應用和設備持續監聽、觀察與記錄，隱私隱患雖衆所周知，初創公司仍押注個性化助手市場。前Plaud高管Peter Mo看好的Ambi正是此類新玩家：靠持續“豎着耳朵”監聽用戶，提供實時洞察。週一，Ambi宣佈完成2600萬美元融資。",
   "aibase_article_id": "31614",
   "field_languages": {
@@ -15,5 +15,48 @@
     "url": "tw",
     "summary": "tw"
   },
-  "content_language": "tw"
+  "content_language": "tw",
+  "ingress": {
+    "kind": "public_adapter",
+    "site_id": "curated_media",
+    "source_id": "aibase",
+    "name": "AIBASE",
+    "feed_url": null
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "aibase",
+    "name": "AIBASE",
+    "domain": "news.aibase.com",
+    "status": "identified",
+    "basis": [
+      "explicit_group"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://news.aibase.com/tw/news/31614",
+      "article_host": "news.aibase.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "ce78b2cd31b860b6232a1b02b0c08d2a949d492c911fafbba5e028dc0f4b3e8c",
+    "scope_id": "aibase",
+    "publisher_kind": "aggregator",
+    "admission_status": "limited",
+    "source_tier": "ai_media",
+    "source_tier_label": "精選AI媒體",
+    "source_tier_rank": 2,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
 }

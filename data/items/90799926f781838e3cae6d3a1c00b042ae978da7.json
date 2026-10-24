@@ -7,7 +7,7 @@
   "source": "AIBASE",
   "title": "德勤調查：過半英國大企業一年內部署 AI 替人，青年失業創十餘年新高",
   "url": "https://news.aibase.com/tw/news/31621",
-  "last_seen_at": "2026-10-24T06:35:30.850467Z",
+  "last_seen_at": "2026-10-24T07:05:29.896161Z",
   "summary": "彭博社援引德勤報告稱，英國大型企業擬未來一年用AI置換人手。調查中52%的CFO預計會借AI裁員；但67%坦言AI變革僅兌現預期的四分之一，技術尚處早期，裁員刀已舉起。調查於9月17日至10月1日訪問66名CFO，其中12人來自富時100、25人來自富時250。",
   "aibase_article_id": "31621",
   "field_languages": {
@@ -15,5 +15,48 @@
     "url": "tw",
     "summary": "tw"
   },
-  "content_language": "tw"
+  "content_language": "tw",
+  "ingress": {
+    "kind": "public_adapter",
+    "site_id": "curated_media",
+    "source_id": "aibase",
+    "name": "AIBASE",
+    "feed_url": null
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "aibase",
+    "name": "AIBASE",
+    "domain": "news.aibase.com",
+    "status": "identified",
+    "basis": [
+      "explicit_group"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://news.aibase.com/tw/news/31621",
+      "article_host": "news.aibase.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "ce78b2cd31b860b6232a1b02b0c08d2a949d492c911fafbba5e028dc0f4b3e8c",
+    "scope_id": "aibase",
+    "publisher_kind": "aggregator",
+    "admission_status": "limited",
+    "source_tier": "ai_media",
+    "source_tier_label": "精選AI媒體",
+    "source_tier_rank": 2,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
 }

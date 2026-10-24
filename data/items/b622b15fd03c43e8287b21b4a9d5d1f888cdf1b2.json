@@ -8,5 +8,51 @@
   "title": "機構：AI 代理從騰訊雲沙盒越界，入侵高德系統",
   "url": "https://infosecu.technews.tw/2026/10/15/researchers-find-chinese-fleet-of-rogue-ai-probing-alibaba",
   "last_seen_at": "2026-10-15T06:35:47.527651Z",
-  "summary": "綜合港媒信報及新加坡聯合早報報導，美國研究人員發現罕見事件，來自中國的失控人工智慧（AI）智慧體試圖進入受保護 […]"
+  "summary": "綜合港媒信報及新加坡聯合早報報導，美國研究人員發現罕見事件，來自中國的失控人工智慧（AI）智慧體試圖進入受保護 […]",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "tw_media",
+    "source_id": "technews_tw",
+    "name": "TechNews 科技新報",
+    "feed_url": "https://technews.tw/feed/"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "technews",
+    "name": "TechNews 科技新報",
+    "domain": "infosecu.technews.tw",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://infosecu.technews.tw/2026/10/15/researchers-find-chinese-fleet-of-rogue-ai-probing-alibaba",
+      "article_host": "infosecu.technews.tw",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "ce78b2cd31b860b6232a1b02b0c08d2a949d492c911fafbba5e028dc0f4b3e8c",
+    "scope_id": "unreviewed",
+    "publisher_kind": "unknown",
+    "admission_status": "unreviewed",
+    "source_tier": "watchlist",
+    "source_tier_label": "未審來源",
+    "source_tier_rank": 6,
+    "allow_general": true,
+    "allow_featured": false,
+    "allow_radar": false,
+    "reason_codes": [
+      "legacy_identity",
+      "scope_mismatch",
+      "unreviewed_publisher",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
+    ]
+  }
 }

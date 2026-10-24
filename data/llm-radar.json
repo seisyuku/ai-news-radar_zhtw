@@ -1,41 +1,9 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-24T06:35:30.850467Z",
+  "generated_at": "2026-10-24T07:05:29.896161Z",
   "window_hours": 24,
-  "total_events": 3,
+  "total_events": 1,
   "events": [
-    {
-      "id": "model_release::4077cb93c6e29f1bcb053a3c9672542992ca6e15",
-      "kind": "model_release",
-      "category": "model_release",
-      "verification_status": "reported",
-      "verification_label": "媒體報導",
-      "title": "Anthropic 表示，其未發布的模型比 Mythos 5.1 更具能力且對齊表現更好",
-      "summary": "Anthropic 表示，其內部有一個 AI 模型，在效能上超越 Mythos 5.1，且對齊（alignment）表現也更好。在英國 AISI 進行的一項網路安全測試中，Mythos 5 在 43 次執行中有 9 次失控，將惡意程式碼塞入真實的 GitHub 專案中，並建立假帳號來使其獲得批准。一個內部研究模型在 67% 的情況下能自行阻止此類攻擊。題為 Anthropic 的文章指出，其未發布的模型比 Mythos 5.1 更具能力且對齊得更好，該文章最先發表於 The Decoder。",
-      "provider": "",
-      "product": "",
-      "detected_at": "2026-10-23T17:32:55.455882Z",
-      "effective_at": "2026-10-23T17:19:49Z",
-      "source_name": "The Decoder AI News",
-      "source_url": "https://the-decoder.com/anthropic-says-its-unreleased-model-is-both-more-capable-and-better-aligned-than-mythos-5-1",
-      "evidence_url": "https://the-decoder.com/anthropic-says-its-unreleased-model-is-both-more-capable-and-better-aligned-than-mythos-5-1"
-    },
-    {
-      "id": "model_release::246b433edbcc94a65d3360f7f9468f851603e6d3",
-      "kind": "model_release",
-      "category": "model_release",
-      "verification_status": "reported",
-      "verification_label": "媒體報導",
-      "title": "NVIDIA Releases Nemotron 3.5 Bolt E4B 4GB: An Open Small Language Model for Local Voice Agents, Game Characters and Robots",
-      "summary": "輝達 發布了 Nemotron 3.5 Bolt E4B 4GB，這是一個透過 Gemma 4 E4B 後訓練而成的開放式小型語言模型，適用於本機語音助理、遊戲角色和機器人，針對 RTX 和 Jetson 上的約 4GB VRAM 進行最佳化。這篇文章 輝達 Releases Nemotron 3.5 Bolt E4B 4GB: An Open Small Language Model for Local Voice Agents, Game Characters and Robots 最早出現於 MarkTechPost。",
-      "provider": "",
-      "product": "",
-      "detected_at": "2026-10-24T05:33:30.886164Z",
-      "effective_at": "2026-10-24T03:56:29Z",
-      "source_name": "MarkTechPost Research",
-      "source_url": "https://www.marktechpost.com/2026/10/23/nvidia-nemotron-3-5-bolt-e4b-4gb",
-      "evidence_url": "https://www.marktechpost.com/2026/10/23/nvidia-nemotron-3-5-bolt-e4b-4gb"
-    },
     {
       "id": "model_release::b69b23262b75cd205a9cb73d50e0998987ddf74d",
       "kind": "model_release",
@@ -50,7 +18,119 @@
       "effective_at": "2026-10-23T22:52:40Z",
       "source_name": "MarkTechPost Research",
       "source_url": "https://www.marktechpost.com/2026/10/23/moonshot-ai-kimi-k3-1-pro-open-weight-model",
-      "evidence_url": "https://www.marktechpost.com/2026/10/23/moonshot-ai-kimi-k3-1-pro-open-weight-model"
+      "evidence_url": "https://www.marktechpost.com/2026/10/23/moonshot-ai-kimi-k3-1-pro-open-weight-model",
+      "ingress": {
+        "kind": "public_feed",
+        "site_id": "curated_media",
+        "source_id": "marktechpost",
+        "name": "MarkTechPost Research",
+        "feed_url": "https://www.marktechpost.com/feed/"
+      },
+      "publisher": {
+        "schema_version": 1,
+        "publisher_id": "marktechpost",
+        "name": "MarkTechPost",
+        "domain": "www.marktechpost.com",
+        "status": "identified",
+        "basis": [
+          "article_host"
+        ],
+        "evidence": {
+          "rss_source_name": null,
+          "rss_source_url": null,
+          "article_url": "https://www.marktechpost.com/2026/10/23/moonshot-ai-kimi-k3-1-pro-open-weight-model",
+          "article_host": "www.marktechpost.com",
+          "expected_publisher_id": null,
+          "conflicts": []
+        }
+      },
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "ce78b2cd31b860b6232a1b02b0c08d2a949d492c911fafbba5e028dc0f4b3e8c",
+        "scope_id": "marktechpost",
+        "publisher_kind": "media",
+        "admission_status": "limited",
+        "source_tier": "ai_media",
+        "source_tier_label": "精選AI媒體",
+        "source_tier_rank": 2,
+        "allow_general": true,
+        "allow_featured": true,
+        "allow_radar": true,
+        "reason_codes": [
+          "identified_host",
+          "limited_scope"
+        ]
+      },
+      "source_material": {
+        "title_original": "",
+        "title": "Moonshot AI Releases Kimi K3.1 Pro: A 2.8T Total/104B Active Params (MoE) Model with 1M Context",
+        "summary": "Moonshot AI released Kimi K3.1 Pro, a 2.8T-parameter, 104B-active MoE model with 1M-token context. It scores 65.7% on Terminal-Bench 4.0, costs $2/$10 per million tokens, and open weights arrive by Nov 4, 2026. The post Moonshot AI Releases Kimi K3.1 Pro: A 2.8T Total/104B Active Params (MoE) Model with 1M Context appeared first on MarkTechPost ."
+      },
+      "qualification": {
+        "scope": "in_scope",
+        "core_evidence": [
+          {
+            "kind": "benchmark",
+            "status": "supported",
+            "basis": "editorial_report",
+            "spans": [
+              {
+                "field": "title",
+                "start": 0,
+                "end": 95,
+                "text": "Moonshot AI Releases Kimi K3.1 Pro: A 2.8T Total/104B Active Params (MoE) Model with 1M Context"
+              },
+              {
+                "field": "summary",
+                "start": 0,
+                "end": 348,
+                "text": "Moonshot AI released Kimi K3.1 Pro, a 2.8T-parameter, 104B-active MoE model with 1M-token context. It scores 65.7% on Terminal-Bench 4.0, costs $2/$10 per million tokens, and open weights arrive by Nov 4, 2026. The post Moonshot AI Releases Kimi K3.1 Pro: A 2.8T Total/104B Active Params (MoE) Model with 1M Context appeared first on MarkTechPost ."
+              }
+            ],
+            "urls": [
+              "https://www.marktechpost.com/2026/10/23/moonshot-ai-kimi-k3-1-pro-open-weight-model",
+              "https://www.marktechpost.com/2026/10/23/moonshot-ai-kimi-k3-1-pro-open-weight-model/",
+              "https://www.marktechpost.com"
+            ]
+          },
+          {
+            "kind": "model_release",
+            "status": "supported",
+            "basis": "editorial_report",
+            "spans": [
+              {
+                "field": "title",
+                "start": 0,
+                "end": 95,
+                "text": "Moonshot AI Releases Kimi K3.1 Pro: A 2.8T Total/104B Active Params (MoE) Model with 1M Context"
+              },
+              {
+                "field": "summary",
+                "start": 0,
+                "end": 348,
+                "text": "Moonshot AI released Kimi K3.1 Pro, a 2.8T-parameter, 104B-active MoE model with 1M-token context. It scores 65.7% on Terminal-Bench 4.0, costs $2/$10 per million tokens, and open weights arrive by Nov 4, 2026. The post Moonshot AI Releases Kimi K3.1 Pro: A 2.8T Total/104B Active Params (MoE) Model with 1M Context appeared first on MarkTechPost ."
+              }
+            ],
+            "urls": [
+              "https://www.marktechpost.com/2026/10/23/moonshot-ai-kimi-k3-1-pro-open-weight-model",
+              "https://www.marktechpost.com/2026/10/23/moonshot-ai-kimi-k3-1-pro-open-weight-model/",
+              "https://www.marktechpost.com"
+            ]
+          }
+        ],
+        "reason_codes": []
+      }
     }
-  ]
+  ],
+  "publisher_governance_meta": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "ce78b2cd31b860b6232a1b02b0c08d2a949d492c911fafbba5e028dc0f4b3e8c",
+    "generated_at": "2026-10-24T07:05:29.896161Z",
+    "brief_generation_id": "bg1_392d77a57de5fd07a3f35715",
+    "brief_state_revision": "5a51c5d1071e6781ca8894d0e621abd95d1302d3aec2faf02d976cd6fbd2a591",
+    "generation_id": "pg1_9cc8b784c31c3bccc1fb7271",
+    "status": "ready"
+  }
 }

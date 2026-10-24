@@ -7,9 +7,52 @@
   "source": "AWS News",
   "title": "AWS 合作伙伴中心推出计划导航器、案例研究生成器和简化的专业认证审查",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/partner-central-program-navigator",
-  "last_seen_at": "2026-10-24T06:35:30.850467Z",
+  "last_seen_at": "2026-10-24T07:05:29.896161Z",
   "summary": "AWS 合作伙伴中心现在具有计划导航器，这是一种统一的体验，让合作伙伴能够在一个地方发现、申请和跟踪 AWS 专业认证计划申请。合作伙伴可以浏览专业认证名称、查看要求和权益，并通过引导式分步工作流程提交申请。 AWS 合作伙伴中心中的新案例研究生成器通过三种起始路径为合作伙伴提供了重新设计的创作体验：直接在 AI 的帮助下构建案例研究、从现有客户成功案例 URL 导入或从商机自动填充。为进入市场而创建的案例研究现在遵循简化的审查路径，即轻量级的策略验证，让合作伙伴无需经过专业认证审查即可直接向 AWS 域发布内容。更深入的专业认证级别审查仅适用于与计划导航器应用相关的案例研究。 此外，AWS 还通过计划导航器简化了专业认证申请审核流程。提交申请的合作伙伴可以享受更快的审核速度，并在整个过程中获得更详细、针对具体要求的反馈。申请非专业认证计划的合作伙伴将继续通过现有流程访问这些计划。 所有 AWS 合作伙伴均可在 AWS 合作伙伴中心 使用计划导航器和案例研究生成器。要开始使用，请导航到左侧导航面板中“进入市场”部分下的“计划导航器”和“案例研究”。",
   "publisher_links": [
     "https://console.aws.amazon.com/partnercentral/home?region=us-east-2"
-  ]
+  ],
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "aws_news",
+    "name": "AWS News",
+    "feed_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "amazon",
+    "name": "AWS",
+    "domain": "aws.amazon.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/partner-central-program-navigator",
+      "article_host": "aws.amazon.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "ce78b2cd31b860b6232a1b02b0c08d2a949d492c911fafbba5e028dc0f4b3e8c",
+    "scope_id": "amazon",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
 }

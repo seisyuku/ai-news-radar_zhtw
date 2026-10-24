@@ -8,5 +8,51 @@
   "title": "Networking for AI inference model serving - GKE only and for all other backends - cloud.google.com",
   "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQRzhnd2V6NTc0V0p4T3VqR0xXRFB6WmpfNV9CeW5IN1QtdmJnbjZjZ1JSVUpMQ0FmVGd3bFJhMDZ4WllTNjBzWlpyVElXaVpPV1BaRWFQa1VJRlJLQlpDOGhrVWl0S3AzeF9VdXlRelExU0NMM2t4RTNNbTJMaFNSV1M2dmdKaEpJR3J6WW50cWdtZWN5NFY5YVp3OEVqMGpSVVA0c3hCNkQtNEQtcVcyRVlrRjlNVHFFelB6X0ItZUdqbmp0WmJWbkxIY0s4eV9XV2NZd3F3?oc=5",
   "last_seen_at": "2026-10-06T15:35:40.394559Z",
-  "summary": "Networking for AI inference model serving - GKE only and for all other backends cloud.google.com"
+  "summary": "Networking for AI inference model serving - GKE only and for all other backends cloud.google.com",
+  "ingress": {
+    "kind": "google_news",
+    "site_id": "official_ai",
+    "source_id": "google_cloud_blog_news",
+    "name": "Google Cloud Blog (Google News)",
+    "feed_url": "https://news.google.com/rss/search?q=site%3Acloud.google.com%2Fblog+AI+when%3A7d&hl=en-US&gl=US&ceid=US%3Aen"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "google",
+    "name": "Google",
+    "domain": null,
+    "status": "identified",
+    "basis": [
+      "configured_bridge"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": null,
+      "article_host": "news.google.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "ce78b2cd31b860b6232a1b02b0c08d2a949d492c911fafbba5e028dc0f4b3e8c",
+    "scope_id": "unreviewed",
+    "publisher_kind": "unknown",
+    "admission_status": "unreviewed",
+    "source_tier": "watchlist",
+    "source_tier_label": "未審來源",
+    "source_tier_rank": 6,
+    "allow_general": true,
+    "allow_featured": false,
+    "allow_radar": false,
+    "reason_codes": [
+      "legacy_identity",
+      "scope_unknown",
+      "unreviewed_publisher",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
+    ]
+  }
 }

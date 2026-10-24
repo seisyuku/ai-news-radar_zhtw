@@ -7,9 +7,53 @@
   "source": "Google Cloud Blog (Google News)",
   "title": "Scale robotics with Google Cloud physical AI and NVIDIA | Google Cloud Blog - Google Cloud",
   "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNS1VPNW0wR082dFNuam1lakp2SXdDSG5QMjU2cGFUWURTdGJiekdxOVpkRjUtTDBWX0FWRDRraGZaVW1GVVB2S2tiaGVCbDFRd3FPU21rWmN3clRRbnR0SXFrVWYya0JFNXNKTkt4bW5BUjNYd3YyS3NNUFFUN1V0SW02aEh1ODg2RkNmQjNrTEFhSlhhbnZPalBRTXI3YldnMkpERTJoMWlSYUYxbXlB?oc=5",
-  "last_seen_at": "2026-10-24T06:35:30.850467Z",
+  "last_seen_at": "2026-10-24T07:05:29.896161Z",
   "summary": "Scale robotics with Google Cloud physical AI and NVIDIA | Google Cloud Blog Google Cloud",
   "publisher_links": [
     "https://news.google.com/rss/articles/CBMirwFBVV95cUxNS1VPNW0wR082dFNuam1lakp2SXdDSG5QMjU2cGFUWURTdGJiekdxOVpkRjUtTDBWX0FWRDRraGZaVW1GVVB2S2tiaGVCbDFRd3FPU21rWmN3clRRbnR0SXFrVWYya0JFNXNKTkt4bW5BUjNYd3YyS3NNUFFUN1V0SW02aEh1ODg2RkNmQjNrTEFhSlhhbnZPalBRTXI3YldnMkpERTJoMWlSYUYxbXlB?oc=5"
-  ]
+  ],
+  "ingress": {
+    "kind": "google_news",
+    "site_id": "official_ai",
+    "source_id": "google_cloud_blog_news",
+    "name": "Google Cloud Blog (Google News)",
+    "feed_url": "https://news.google.com/rss/search?q=site%3Acloud.google.com%2Fblog+AI+when%3A7d&hl=en-US&gl=US&ceid=US%3Aen"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "google",
+    "name": "Google Cloud",
+    "domain": "cloud.google.com",
+    "status": "identified",
+    "basis": [
+      "google_rss_source",
+      "configured_bridge"
+    ],
+    "evidence": {
+      "rss_source_name": "Google Cloud",
+      "rss_source_url": "https://cloud.google.com",
+      "article_url": null,
+      "article_host": "news.google.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "ce78b2cd31b860b6232a1b02b0c08d2a949d492c911fafbba5e028dc0f4b3e8c",
+    "scope_id": "google",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_bridge",
+      "limited_scope"
+    ]
+  }
 }

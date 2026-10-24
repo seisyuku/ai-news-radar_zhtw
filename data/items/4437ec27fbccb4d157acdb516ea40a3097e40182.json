@@ -7,7 +7,7 @@
   "source": "AIBASE",
   "title": "10 分鐘 AI 長視頻來了：GPT-6 Astra 接管 Higgsfield，角色場景不再\"串戲\"",
   "url": "https://news.aibase.com/tw/news/31623",
-  "last_seen_at": "2026-10-24T06:35:30.850467Z",
+  "last_seen_at": "2026-10-24T07:05:29.896161Z",
   "summary": "OpenAI與Higgsfield合作，把AI生成視頻時長上限從1分鐘提升到10分鐘。關鍵支撐是Higgsfield接入GPT-6Astra，它讓“創意智能體”能調用外部工具處理複雜工作，如同爲視頻生成配備會統籌的導演，從而保證長視頻在角色長相、場景和視覺細節上始終一致，推動AI視頻生成邊界大幅前移。",
   "aibase_article_id": "31623",
   "field_languages": {
@@ -15,5 +15,48 @@
     "url": "tw",
     "summary": "tw"
   },
-  "content_language": "tw"
+  "content_language": "tw",
+  "ingress": {
+    "kind": "public_adapter",
+    "site_id": "curated_media",
+    "source_id": "aibase",
+    "name": "AIBASE",
+    "feed_url": null
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "aibase",
+    "name": "AIBASE",
+    "domain": "news.aibase.com",
+    "status": "identified",
+    "basis": [
+      "explicit_group"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://news.aibase.com/tw/news/31623",
+      "article_host": "news.aibase.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "ce78b2cd31b860b6232a1b02b0c08d2a949d492c911fafbba5e028dc0f4b3e8c",
+    "scope_id": "aibase",
+    "publisher_kind": "aggregator",
+    "admission_status": "limited",
+    "source_tier": "ai_media",
+    "source_tier_label": "精選AI媒體",
+    "source_tier_rank": 2,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
 }

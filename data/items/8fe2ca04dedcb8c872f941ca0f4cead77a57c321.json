@@ -11,5 +11,49 @@
   "summary": "Mark Zuckerberg Defends Meta's AI CapEx, Ready to 'Write This Check' for up to '$200 Billion' to Dominate Benzinga",
   "publisher_links": [
     "https://news.google.com/rss/articles/CBMigAJBVV95cUxNQW56OHpKWDg3dnd0R1RCQnJBdllwb0NBdDNQcW9HSU9KWC0wWDFzN1lFZjdfbldBV0VHLUZ6NnlOM1IxMEN6aHlpb09TM2VhVmIwSmxVdXlwSjVXckNDU18xcHN2am5YS1BMU3VVNGRON2ctVl9XQWNtd0trSlg1YUluaVFvanVidnJWT29sUUNLSDZjV2R0ajhwN0plMm9pLXk2SnFkQnBHQUpTeUhJNWdpQ0o1cGRYWkg0SXlRd2V0Y250b3RoYnpxcHcwajg1V0liZ3ZzZUl6d3dPVEM2Vkl0YW93SHI0YzR5YThKRkFDM1V6cXZEcTNxVmkza0Zv?oc=5"
-  ]
+  ],
+  "ingress": {
+    "kind": "google_news",
+    "site_id": "curated_media",
+    "source_id": "meta_ai_news",
+    "name": "Meta AI (Google News)",
+    "feed_url": "https://news.google.com/rss/search?q=%28%22Meta+AI%22+OR+%22Meta+FAIR%22%29+when%3A7d&hl=en-US&gl=US&ceid=US%3Aen"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": null,
+    "name": null,
+    "domain": null,
+    "status": "unknown",
+    "basis": [],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": null,
+      "article_host": "news.google.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "ce78b2cd31b860b6232a1b02b0c08d2a949d492c911fafbba5e028dc0f4b3e8c",
+    "scope_id": "unreviewed",
+    "publisher_kind": "unknown",
+    "admission_status": "unreviewed",
+    "source_tier": "watchlist",
+    "source_tier_label": "未審來源",
+    "source_tier_rank": 6,
+    "allow_general": true,
+    "allow_featured": false,
+    "allow_radar": false,
+    "reason_codes": [
+      "missing_identity",
+      "scope_unknown",
+      "unreviewed_publisher",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
+    ]
+  }
 }

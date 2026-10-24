@@ -8,5 +8,50 @@
   "title": "Kolibri 1 Opens a Bilingual Deployment Option. Sparse Compute Still Needs Memory",
   "url": "https://www.llmrumors.com/news/kolibri-1-open-weights-memory-context",
   "last_seen_at": "2026-10-05T09:35:39.086953Z",
-  "summary": "Aleph Alpha's October 3 release makes German-English weights downloadable. Active parameters, context limits and serving software determine the practical value."
+  "summary": "Aleph Alpha's October 3 release makes German-English weights downloadable. Active parameters, context limits and serving software determine the practical value.",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "llm_rumors",
+    "source_id": "llm_rumors",
+    "name": "LLM Rumors",
+    "feed_url": "https://www.llmrumors.com/news/rss.xml"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "llm_rumors",
+    "name": "LLM Rumors",
+    "domain": "www.llmrumors.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://www.llmrumors.com/news/kolibri-1-open-weights-memory-context",
+      "article_host": "www.llmrumors.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "ce78b2cd31b860b6232a1b02b0c08d2a949d492c911fafbba5e028dc0f4b3e8c",
+    "scope_id": "llm_rumors",
+    "publisher_kind": "media",
+    "admission_status": "limited",
+    "source_tier": "watchlist",
+    "source_tier_label": "模型分析觀察源",
+    "source_tier_rank": 6,
+    "allow_general": true,
+    "allow_featured": false,
+    "allow_radar": false,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
+    ]
+  }
 }

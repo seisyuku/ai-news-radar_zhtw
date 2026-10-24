@@ -7,9 +7,53 @@
   "source": "Google Cloud Blog (Google News)",
   "title": "Knowledge Catalog: self-learning context enrichment for AI agents - Google Cloud",
   "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPVGs1WHJ5RVdTemJWd0xXOHM1anJJbW8tZE1GZmJSdkVfMV9oLUIydnVXZUY2NHVGOW1aMnhrZFN0M3l3NnpIUWE3LTM0d2gycVAtQmE5SUpNSmVEMERIZE5JbHdoVXRlTnpoWXhQNkhFVTZzTTRhVGdtVkxic18yWEtidk85X3JYZE1XSUFaSVRIeXc1WEw1UUlLeHJOTUJ5WUhjODAyelduOFpURTFLRVlUQXhUUWV2Qnc?oc=5",
-  "last_seen_at": "2026-10-24T06:35:30.850467Z",
+  "last_seen_at": "2026-10-24T07:05:29.896161Z",
   "summary": "Knowledge Catalog: self-learning context enrichment for AI agents Google Cloud",
   "publisher_links": [
     "https://news.google.com/rss/articles/CBMiugFBVV95cUxPVGs1WHJ5RVdTemJWd0xXOHM1anJJbW8tZE1GZmJSdkVfMV9oLUIydnVXZUY2NHVGOW1aMnhrZFN0M3l3NnpIUWE3LTM0d2gycVAtQmE5SUpNSmVEMERIZE5JbHdoVXRlTnpoWXhQNkhFVTZzTTRhVGdtVkxic18yWEtidk85X3JYZE1XSUFaSVRIeXc1WEw1UUlLeHJOTUJ5WUhjODAyelduOFpURTFLRVlUQXhUUWV2Qnc?oc=5"
-  ]
+  ],
+  "ingress": {
+    "kind": "google_news",
+    "site_id": "official_ai",
+    "source_id": "google_cloud_blog_news",
+    "name": "Google Cloud Blog (Google News)",
+    "feed_url": "https://news.google.com/rss/search?q=site%3Acloud.google.com%2Fblog+AI+when%3A7d&hl=en-US&gl=US&ceid=US%3Aen"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "google",
+    "name": "Google Cloud",
+    "domain": "cloud.google.com",
+    "status": "identified",
+    "basis": [
+      "google_rss_source",
+      "configured_bridge"
+    ],
+    "evidence": {
+      "rss_source_name": "Google Cloud",
+      "rss_source_url": "https://cloud.google.com",
+      "article_url": null,
+      "article_host": "news.google.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "ce78b2cd31b860b6232a1b02b0c08d2a949d492c911fafbba5e028dc0f4b3e8c",
+    "scope_id": "google",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_bridge",
+      "limited_scope"
+    ]
+  }
 }

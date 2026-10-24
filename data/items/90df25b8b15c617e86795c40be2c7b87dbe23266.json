@@ -8,5 +8,48 @@
   "title": "Meta’s new terms may allow it to train AI on news sites for free",
   "url": "https://www.theverge.com/tech/1012846/meta-business-terms-scrape-news-publishers",
   "last_seen_at": "2026-10-16T22:35:31.535086Z",
-  "summary": "Meta's new terms appear to give it permission to crawl and scrape websites \"associated\" with the businesses that use its platforms - including online publishers, according to a report from Nieman Lab. The new terms, which go into effect on October 30th, say Meta can use this outside content to \"develop, improve, research,\" and \"train\" […]"
+  "summary": "Meta's new terms appear to give it permission to crawl and scrape websites \"associated\" with the businesses that use its platforms - including online publishers, according to a report from Nieman Lab. The new terms, which go into effect on October 30th, say Meta can use this outside content to \"develop, improve, research,\" and \"train\" […]",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "curated_media",
+    "source_id": "the_verge",
+    "name": "The Verge",
+    "feed_url": "https://www.theverge.com/rss/index.xml"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "the_verge",
+    "name": "The Verge",
+    "domain": "www.theverge.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://www.theverge.com/tech/1012846/meta-business-terms-scrape-news-publishers",
+      "article_host": "www.theverge.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "ce78b2cd31b860b6232a1b02b0c08d2a949d492c911fafbba5e028dc0f4b3e8c",
+    "scope_id": "the_verge",
+    "publisher_kind": "media",
+    "admission_status": "limited",
+    "source_tier": "ai_media",
+    "source_tier_label": "精選AI媒體",
+    "source_tier_rank": 2,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
 }

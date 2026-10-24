@@ -11,5 +11,48 @@
   "summary": "Amazon CloudWatch Logs Insights 现在支持您估算查询将在所选日志组和时间范围内扫描的日志数据量（以字节为单位），而无需实际运行该查询。这可以帮助您在运行查询前调整日志组选择、时间范围和筛选条件。 在 CloudWatch 控制台中，当您更改日志组选择、时间范围或查询文本时，估算值会自动显示在查询编辑器中。使用 AWS CLI 或 API 时，请在查询中添加 estimate 命令，以显式请求预估值。使用 estimate 命令的查询不会产生 CloudWatch Logs Insights 查询费用。 estimate 命令已在所有 AWS 商业区域提供。要了解更多信息，请参阅 Amazon CloudWatch Logs 文档 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax-Estimate.html"
-  ]
+  ],
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "aws_news",
+    "name": "AWS News",
+    "feed_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "amazon",
+    "name": "AWS",
+    "domain": "aws.amazon.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/cloudwatch-logs-estimate-bytes-scanned",
+      "article_host": "aws.amazon.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "ce78b2cd31b860b6232a1b02b0c08d2a949d492c911fafbba5e028dc0f4b3e8c",
+    "scope_id": "amazon",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
 }

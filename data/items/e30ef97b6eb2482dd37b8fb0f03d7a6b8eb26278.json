@@ -8,5 +8,48 @@
   "title": "OpenAI's GPT-6 Astra on ARC-AGI-3",
   "url": "https://arcprize.org/blog/astra",
   "last_seen_at": "2026-10-17T23:31:00.908689Z",
-  "summary": "OpenAI's GPT-6 Astra reaches state-of-the-art results on ARC-AGI-3"
+  "summary": "OpenAI's GPT-6 Astra reaches state-of-the-art results on ARC-AGI-3",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "arc_prize",
+    "source_id": "arc_prize",
+    "name": "ARC Prize",
+    "feed_url": "https://arcprize.org/feed.xml"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "arc_prize",
+    "name": "ARC Prize",
+    "domain": "arcprize.org",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://arcprize.org/blog/astra",
+      "article_host": "arcprize.org",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "ce78b2cd31b860b6232a1b02b0c08d2a949d492c911fafbba5e028dc0f4b3e8c",
+    "scope_id": "arc_prize",
+    "publisher_kind": "benchmark",
+    "admission_status": "limited",
+    "source_tier": "benchmark",
+    "source_tier_label": "評測第三方",
+    "source_tier_rank": 2,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
 }

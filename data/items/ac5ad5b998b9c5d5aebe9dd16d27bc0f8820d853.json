@@ -7,9 +7,53 @@
   "source": "數位時代 (Google News)",
   "title": "說好的AI換機潮呢？全球PC出貨暴跌20%創史上最慘第三季，AI反而讓電腦貴了兩成 - 數位時代",
   "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPOGY1b25TUjZrbi0zZFh2MlRTalFGeTFFRUV4cjBIYWxUMWI5RXlmTk1sVGtwSUhWUmtmcXQ4VmtVeF95UWcxclVFSUR0dmtWLU9sZlNaRGhHeTVYNjJmZnJHMjhBVE5sYzBOeXFLWjdPMktKZHFZeGdVXzVGRmFuOVM3aDluVF9h?oc=5",
-  "last_seen_at": "2026-10-24T06:35:30.850467Z",
+  "last_seen_at": "2026-10-24T07:05:29.896161Z",
   "summary": "說好的AI換機潮呢？全球PC出貨暴跌20%創史上最慘第三季，AI反而讓電腦貴了兩成 數位時代",
   "publisher_links": [
     "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPOGY1b25TUjZrbi0zZFh2MlRTalFGeTFFRUV4cjBIYWxUMWI5RXlmTk1sVGtwSUhWUmtmcXQ4VmtVeF95UWcxclVFSUR0dmtWLU9sZlNaRGhHeTVYNjJmZnJHMjhBVE5sYzBOeXFLWjdPMktKZHFZeGdVXzVGRmFuOVM3aDluVF9h?oc=5"
-  ]
+  ],
+  "ingress": {
+    "kind": "google_news",
+    "site_id": "tw_media",
+    "source_id": "bnext_news",
+    "name": "數位時代 (Google News)",
+    "feed_url": "https://news.google.com/rss/search?q=site%3Abnext.com.tw+%28AI+OR+%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7+OR+%E5%A4%A7%E6%A8%A1%E5%9E%8B+OR+ChatGPT%29+when%3A7d&hl=zh-TW&gl=TW&ceid=TW%3Azh-Hant"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "bnext",
+    "name": "數位時代",
+    "domain": "www.bnext.com.tw",
+    "status": "identified",
+    "basis": [
+      "google_rss_source",
+      "configured_bridge"
+    ],
+    "evidence": {
+      "rss_source_name": "數位時代",
+      "rss_source_url": "https://www.bnext.com.tw",
+      "article_url": null,
+      "article_host": "news.google.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "ce78b2cd31b860b6232a1b02b0c08d2a949d492c911fafbba5e028dc0f4b3e8c",
+    "scope_id": "bnext",
+    "publisher_kind": "media",
+    "admission_status": "limited",
+    "source_tier": "advanced",
+    "source_tier_label": "台灣媒體觀察源",
+    "source_tier_rank": 4,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_bridge",
+      "limited_scope"
+    ]
+  }
 }

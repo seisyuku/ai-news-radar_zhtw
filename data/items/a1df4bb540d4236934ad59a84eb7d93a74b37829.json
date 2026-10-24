@@ -8,5 +8,48 @@
   "title": "Amazon Connect Customer 现支持通过 API 创建、管理和搜索自定义指标",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/connect-customer-custom-metrics-apis",
   "last_seen_at": "2026-10-07T03:35:35.238893Z",
-  "summary": "Amazon Connect Customer 提供了一个标准指标库。自定义指标则让您能够更进一步，定义符合您业务特性的独特衡量标准。但如果跨不同实例手动管理这些指标，其定义会逐渐产生偏差，直至数据不再一致。一个不可靠的指标比没有指标还要糟糕，因为人们仍然会根据它来做出决策。 现在，您只需定义一次指标，即可通过七项新的 API 操作（CreateMetric、DeleteMetric、DescribeMetric、ListMetrics、SearchMetrics、UpdateMetricContent 和 UpdateMetricMetadata）以编程方式进行管理，从而确保在跨队列、团队和环境扩展时，指标定义始终保持一致。例如，客户体验负责人注意到自助服务完成率有所下降时，可以定义一个自定义指标，跟踪客户在 90 秒内放弃自助服务并请求人工客服的交互占比。借助该 API，由 AI 驱动的运维助手可以自动创建该指标并将其发布到监控控制面板，无需手动操作控制台，也无需担心不同环境间指标定义的漂移。 每次更改都会记录在 AWS CloudTrail 中，为您提供完整的审计跟踪记录。"
+  "summary": "Amazon Connect Customer 提供了一个标准指标库。自定义指标则让您能够更进一步，定义符合您业务特性的独特衡量标准。但如果跨不同实例手动管理这些指标，其定义会逐渐产生偏差，直至数据不再一致。一个不可靠的指标比没有指标还要糟糕，因为人们仍然会根据它来做出决策。 现在，您只需定义一次指标，即可通过七项新的 API 操作（CreateMetric、DeleteMetric、DescribeMetric、ListMetrics、SearchMetrics、UpdateMetricContent 和 UpdateMetricMetadata）以编程方式进行管理，从而确保在跨队列、团队和环境扩展时，指标定义始终保持一致。例如，客户体验负责人注意到自助服务完成率有所下降时，可以定义一个自定义指标，跟踪客户在 90 秒内放弃自助服务并请求人工客服的交互占比。借助该 API，由 AI 驱动的运维助手可以自动创建该指标并将其发布到监控控制面板，无需手动操作控制台，也无需担心不同环境间指标定义的漂移。 每次更改都会记录在 AWS CloudTrail 中，为您提供完整的审计跟踪记录。",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "aws_news",
+    "name": "AWS News",
+    "feed_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "amazon",
+    "name": "AWS",
+    "domain": "aws.amazon.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/connect-customer-custom-metrics-apis",
+      "article_host": "aws.amazon.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "ce78b2cd31b860b6232a1b02b0c08d2a949d492c911fafbba5e028dc0f4b3e8c",
+    "scope_id": "amazon",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
 }

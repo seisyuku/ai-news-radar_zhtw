@@ -8,5 +8,48 @@
   "title": "Carbonato殭屍網路入侵Docker主機，部署AI代理竊取憑證",
   "url": "https://www.ithome.com.tw/news/179550",
   "last_seen_at": "2026-10-12T11:35:38.823090Z",
-  "summary": "新加坡網路安全局（CSA）近期發布安全公告，警告Carbonato殭屍網路正利用未受保護的Docker遠端管理介面入侵主機。資安研究人員發現，攻擊者還會在受害主機部署AI代理，協助執行竊取憑證及其他敏感資訊的任務。"
+  "summary": "新加坡網路安全局（CSA）近期發布安全公告，警告Carbonato殭屍網路正利用未受保護的Docker遠端管理介面入侵主機。資安研究人員發現，攻擊者還會在受害主機部署AI代理，協助執行竊取憑證及其他敏感資訊的任務。",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "tw_media",
+    "source_id": "ithome",
+    "name": "iThome",
+    "feed_url": "https://www.ithome.com.tw/rss"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "ithome",
+    "name": "iThome",
+    "domain": "www.ithome.com.tw",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://www.ithome.com.tw/news/179550",
+      "article_host": "www.ithome.com.tw",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "ce78b2cd31b860b6232a1b02b0c08d2a949d492c911fafbba5e028dc0f4b3e8c",
+    "scope_id": "ithome",
+    "publisher_kind": "media",
+    "admission_status": "limited",
+    "source_tier": "professional_media",
+    "source_tier_label": "專業科技媒體",
+    "source_tier_rank": 1,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
 }
