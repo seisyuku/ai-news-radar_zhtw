@@ -1,0 +1,59 @@
+{
+  "id": "6c01a732bd26d14f3bb982d19eb23a73cb6dc388",
+  "published_at": "2026-10-15T07:00:00Z",
+  "first_seen_at": "2026-10-24T13:35:30.371271Z",
+  "site_id": "curated_media",
+  "site_name": "精選媒體",
+  "source": "Epoch AI (Google News)",
+  "title": "SciCode - Epoch AI",
+  "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE4xaVZzM2pRWVRKYmRfVWxUeE82MVpXbXVZWUwtNVpHR3EzdGhfYnlqMlZLSEh4YVhaYU5NUDExaVJMd1hsLXp2RXdqNA?oc=5",
+  "last_seen_at": "2026-10-24T13:35:30.371271Z",
+  "summary": "SciCode Epoch AI",
+  "publisher_links": [
+    "https://news.google.com/rss/articles/CBMiS0FVX3lxTE4xaVZzM2pRWVRKYmRfVWxUeE82MVpXbXVZWUwtNVpHR3EzdGhfYnlqMlZLSEh4YVhaYU5NUDExaVJMd1hsLXp2RXdqNA?oc=5"
+  ],
+  "ingress": {
+    "kind": "google_news",
+    "site_id": "curated_media",
+    "source_id": "epoch_ai_news",
+    "name": "Epoch AI (Google News)",
+    "feed_url": "https://news.google.com/rss/search?q=site%3Aepoch.ai+when%3A14d&hl=en-US&gl=US&ceid=US%3Aen"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "epoch",
+    "name": "Epoch AI",
+    "domain": "epoch.ai",
+    "status": "identified",
+    "basis": [
+      "google_rss_source",
+      "configured_bridge"
+    ],
+    "evidence": {
+      "rss_source_name": "Epoch AI",
+      "rss_source_url": "https://epoch.ai",
+      "article_url": null,
+      "article_host": "news.google.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "ce78b2cd31b860b6232a1b02b0c08d2a949d492c911fafbba5e028dc0f4b3e8c",
+    "scope_id": "epoch",
+    "publisher_kind": "media",
+    "admission_status": "limited",
+    "source_tier": "ai_media",
+    "source_tier_label": "精選AI媒體",
+    "source_tier_rank": 2,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_bridge",
+      "limited_scope"
+    ]
+  }
+}
