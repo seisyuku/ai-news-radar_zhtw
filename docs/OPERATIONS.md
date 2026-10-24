@@ -1,5 +1,9 @@
 # Operations Notes
 
+## 2026-10-25 CyberQ／AlphaLab 一般入口發布
+
+本次來源接線、刷新與公開 Pages 驗證記在[交接摘要](HANDOVER.md)；來源範圍及未審政策見[來源覆蓋](SOURCE_COVERAGE.md)。兩站沿用現有刷新與子來源健康機制，沒有新排程。
+
 ## 2026-10-24 D+ I04正式發布與驗收完成
 
 [I04發布紀錄](SIGNAL_SELECTION_I04_RELEASE_20261024.md)為本案操作入口。後端1fbc429cfdfb由既有正常刷新40107644368產生資料adcdd06ff420，HTTP同代ready後才推前端11e79527f20c；六資產版本20261024-i02。後端／前端離線CI、Asset version 40107902751、Pages、HTTP與Chrome桌面／手機均通過。沒有助理額外dispatch、變更排程或重啟退役工作。
@@ -758,6 +762,11 @@ X API、SocialData 與 TikHub 在憑證已設定但尚未到抓取視窗時，
 `site_id/source_id` 指向實際失效來源。群組全失敗時不再另發一筆重複
 的群組警報。跳過輪不增加子來源失敗次數；舊快照若沒有 `subsources`，
 新的子來源歷史從首次可辨識的當輪結果開始，不能從群組次數推回。
+
+CyberQ 與 AlphaLab 自 2026-10-25 起列於 `tw_media` 子來源健康；核對
+`source_id=cyberq`、`source_id=alphalab` 的 `ok`、`item_count` 及最近成功時間。
+兩站只有未審一般池資格，讀者仍限 24 小時。單站誤收或故障時，可撤回該站
+正式 RSS 入口與對應政策 scope；保留既有 archive、state 與其他來源。
 
 ## Market Sensor 與速報區
 

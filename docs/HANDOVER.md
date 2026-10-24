@@ -1,4 +1,11 @@
-# AI News Radar Pulse — 交接摘要（截至 2026-10-24）
+# AI News Radar Pulse — 交接摘要（截至 2026-10-25）
+
+## 2026-10-25 CyberQ／AlphaLab 正式進入一般情報
+
+- [來源範圍與規則](SOURCE_COVERAGE.md)為現行入口。`322f228dbb41` 將兩站官方 RSS 加入既有 `tw_media` 群組，各有獨立 `source_id`；入口 39→41。兩站保留 `unreviewed`／watchlist rank 6，一般池可逐篇競爭下方精選，沒有上方重點、daily 主文或雷達授權，也沒有新增獨立佐證票。全站讀者窗口仍為 24 小時；七日回放只供來源評估。
+- 本機完整 2,314 項通過；以最新遠端快照在 Downloads `ai-radar-cyberq-alphalab-release-20261025/final/` 暫存重跑完整刷新，兩站子來源健康且全站來源失敗 0。當輪 AlphaLab 收件 8、CyberQ 2；24 小時一般池分別 2、1，均 rank 6。沒有覆寫追蹤快照作驗證。
+- GitHub 離線 CI `40118020009`、手動執行既有刷新 `40118036664`、程式 Pages `40118019963`、資料 Pages `40118172585` 均成功。刷新資料提交 `28d64f0607ee`；公開首頁 HTTP 200，`latest-24h.json` 與 `source-status.json` 位元組和該提交一致，三篇來源文章及政策欄位確認可見。未改排程、前端、價格／Canary 或私人工作流。
+- 已快轉保留遠端既有四筆 bot 資料提交及本次生成提交；下一步只有例行來源健康觀察。日常檢查建議 GPT-6.1 Sol／Medium，程式修正 High。
 
 ## 2026-10-24 I04正式發布與驗收完成，D+本案結案
 
