@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "适用于 Go 的 AWS Lambda Durable Execution SDK 现已正式推出",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/aws-lambda-durable-go-sdk-support",
-  "last_seen_at": "2026-10-24T23:00:59.438982Z",
+  "last_seen_at": "2026-10-24T23:23:52.578245Z",
   "summary": "今天，AWS 宣布适用于 Go 的 AWS Lambda Durable Execution SDK 正式推出，使 Go 开发人员能够利用 Lambda 耐用函数构建具有弹性的长期运行工作流程。借助此 SDK，开发人员可以直接在 Go 代码中创建多步骤应用程序，例如基础设施自动化、包含批准环节的部署推出以及可调用 AI 模型并暂停以供人工审查的管道（无需实施自定义进度跟踪）。 Lambda 耐用函数扩展了 Lambda 的事件驱动编程模型，引入了可自动设置进度检查点的操作，并且在等待外部事件时可将执行暂停长达一年。适用于 Go 的 AWS Lambda Durable Execution SDK 为使用 Lambda 耐用函数进行构建提供了原生 Go 开发体验。它包含进度跟踪步骤、用于人机协同和代理协同工作流程的回调集成、用于可靠函数链的持久化调用，以及用于高效暂停的等待功能。 SDK 可与开发人员已在使用的 Go 工具配合。开发人员使用 go get 将 SDK 添加到 Go 模块，并将其函数作为单个静态二进制文件部署在 provided.al2023 运行时上，就像 Lambda 上的任何其他 Go 函数一样。在部署之前，他们可以使用 durabletest 程序包在自己的计算机上本地测试完整的工作流程（无需网络访问权限或 AWS 凭证），并使用 durablelint 分析器捕获可能在工作流程恢复期间将其中断的代码。 要开始使用，请参阅 Lambda 耐用函数开发人员指南 ，以及 GitHub 上的适用于 Go 的 AWS Lambda Durable Execution SDK 。有关 Lambda 耐用函数的区域可用性和定价的详情，请参阅 按区域划分的 AWS 功能 页面和 AWS Lambda 定价 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/lambda/latest/dg/durable-functions.html",
