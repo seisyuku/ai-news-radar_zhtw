@@ -61,6 +61,7 @@
             state.itemsAll = payload.items_all || state.itemsAi;
             state.totalRaw = payload.total_items_raw || state.itemsAllRaw.length;
             state.totalAllMode = payload.total_items_all_mode || state.itemsAll.length;
+            state.allGovernanceMeta = payload.publisher_governance_meta || null;
             state.allDataLoaded = true;
           })
           .catch((err) => {

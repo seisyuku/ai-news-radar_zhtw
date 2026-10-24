@@ -315,7 +315,7 @@ function setStats() {
   statsEl.innerHTML = "";
   const items = safeItems(state.itemsAi);
   const highCount = items.filter((item) => isHighPriorityItem(item)).length;
-  const curatedCount = briefStories().length || Math.min(20, mergedStories().filter((story) => storyScore(story) >= 75).length);
+  const curatedCount = briefStories().length;
   const status = state.sourceStatus;
   const totalSites = Array.isArray(status?.sites) ? status.sites.length : 0;
   const okSites = Number(status?.successful_sites || 0);
@@ -365,7 +365,13 @@ function readerSiteName(item) {
 }
 
 function sourceDisplayName(item) {
-  const source = String(item?.source || "").trim();
+  const publisher = item?.publisher;
+  if (publisher?.schema_version === 1) {
+    if (["identified", "reported"].includes(publisher.status) && typeof publisher.name === "string" && publisher.name.trim()) return publisher.name.trim();
+    if (publisher.status === "conflict") return "來源資訊衝突";
+    if (publisher.status === "unknown") return "來源待辨識";
+  }
+  const source = String(item?.source || item?.source_name || "").trim();
   return source.toLowerCase() === "aibase" ? "AIBASE" : (source || readerSiteName(item));
 }
 
@@ -414,17 +420,33 @@ const READER_PUBLISHERS = [
 ];
 
 function generalReaderSource(item) {
+  const policy = item.source_policy;
+  if (policy?.schema_version === 1 && policy.policy_id === "publisher-governance-v1"
+    && /^[0-9a-f]{64}$/.test(policy.registry_revision || "")) {
+    const admitted = ["approved", "limited"].includes(policy.admission_status);
+    const level = !admitted ? "other"
+      : ["official", "benchmark"].includes(policy.publisher_kind) ? "original"
+      : policy.publisher_kind === "media" ? "media"
+      : policy.publisher_kind === "aggregator" ? "aggregate" : "other";
+    return { level, publisher: sourceDisplayName(item) };
+  }
   let host = "";
   try { host = new URL(item.url || "").hostname.toLowerCase(); } catch { /* no URL */ }
   const source = String(item.source || "").trim();
+  const identity = item.publisher;
+  if (identity?.schema_version === 1 && ["reported", "unknown", "conflict"].includes(identity.status)) {
+    return { level: "other", publisher: sourceDisplayName(item) };
+  }
+  const identified = identity?.schema_version === 1 && identity.status === "identified";
   const googleNews = host === "news.google.com";
   // Google News query names may name the subject (Meta, DeepSeek, xAI).
   // Its title suffix names the actual publisher; never trust feed_home here.
   const publisher = googleNews
-    ? String(item.title || "").split(" - ").slice(1).pop()?.trim() || ""
+    ? (identified ? sourceDisplayName(item) : String(item.title || "").split(" - ").slice(1).pop()?.trim() || "")
     : source;
-  const hostMatch = !googleNews && READER_PUBLISHERS.find(([, , domains]) =>
-    domains.some((domain) => host === domain || host.endsWith(`.${domain}`)));
+  const displayHost = identified ? String(identity.domain || host).toLowerCase() : host;
+  const hostMatch = (!googleNews || identified) && READER_PUBLISHERS.find(([, , domains]) =>
+    domains.some((domain) => displayHost === domain || displayHost.endsWith(`.${domain}`)));
   const match = hostMatch || READER_PUBLISHERS.find(([name, , , aliases]) =>
     (!host || googleNews || item.site_id === "official_ai")
       && [name, ...aliases].some((alias) => alias.toLowerCase() === publisher.toLowerCase()));
@@ -432,8 +454,8 @@ function generalReaderSource(item) {
   const watchlist = item.source_tier === "watchlist"
     || ["kr36_ai", "juya_daily", "llm_stats_models", "llm_rumors"].includes(item.site_id);
   if (legacyAibase) return { level: "aggregate", publisher: "AIBASE" };
-  if (watchlist) return { level: "other", publisher: match?.[0] || publisher || sourceDisplayName(item) };
-  if (match) return { level: match[1], publisher: match[0] };
+  if (watchlist) return { level: "other", publisher: identified ? sourceDisplayName(item) : match?.[0] || publisher || sourceDisplayName(item) };
+  if (match) return { level: match[1], publisher: identified ? sourceDisplayName(item) : match[0] };
   // Built-in official feeds are curated independently. Subject-query feeds
   // belong to curated_media and do not reach this fallback.
   if (item.site_id === "official_ai" && !googleNews) return { level: "original", publisher: sourceDisplayName(item) };
@@ -456,9 +478,10 @@ function sourceSignalTone(signal) {
   return "default";
 }
 
-function sourceChip(label, tone = "default", className = "source-chip") {
+function sourceChip(label, tone = "default", className = "source-chip", title = "") {
   const chip = document.createElement("span");
   chip.className = `${className} kind-${tone}`.trim();
+  if (title) chip.title = title;
   const dot = document.createElement("span");
   dot.className = "source-dot";
   dot.setAttribute("aria-hidden", "true");
@@ -927,7 +950,9 @@ function modeItems(sectionId = state.activeSection) {
   if (state.mode === "all") return effectiveAllItems();
   const aiItems = safeItems(state.itemsAi);
   const base = state.mode === "selected" ? aiItems.filter((item) => isHighPriorityItem(item)) : aiItems;
-  return mergeModelReleaseItems(base, state.modelReleases24h, sectionId);
+  const releases = typeof AiRadarGovernance === "undefined" ? []
+    : AiRadarGovernance.radarEvents(state.modelReleases24h, state.latestGovernanceMeta, state);
+  return mergeModelReleaseItems(base, releases, sectionId);
 }
 
 function sectionItems(items = modeItems(), sectionId = state.activeSection) {
@@ -947,7 +972,7 @@ function getFilteredItems() {
     if (state.authorFilter && (item.site_id !== "socialdata_x" || item.source !== state.authorFilter)) return false;
     if (state.sourceTypeFilter && generalReaderSource(item).level !== state.sourceTypeFilter) return false;
     if (!q) return true;
-    const hay = `${item.title || ""} ${item.title_zh || ""} ${item.title_en || ""} ${item.site_name || ""} ${item.source || ""}`.toLowerCase();
+    const hay = `${item.title || ""} ${item.title_zh || ""} ${item.title_en || ""} ${item.site_name || ""} ${item.source || ""} ${sourceDisplayName(item)}`.toLowerCase();
     return hay.includes(q);
   });
   const multiKeys = multiSourceEventKeys(preliminary);
@@ -1220,7 +1245,9 @@ function storyHasAnyKey(story, keys) {
 
 function sourceSignal(item) {
   const site = readerSiteName(item);
-  const source = sourceDisplayName(item);
+  // Legacy ranking signals stay tied to ingress until the PG04 policy gate.
+  const raw = String(item?.source || "").trim();
+  const source = raw.toLowerCase() === "aibase" ? "AIBASE" : (raw || site);
   if (site === "Official AI Updates") return "官方更新";
   if (source === "AIBASE") return "AIBASE";
   if (site === "OPML RSS") return "OPML";
@@ -1325,6 +1352,39 @@ function storySourceCount(story) {
   // new public keys arrive rather than presenting copies as corroboration.
   return new Set(sources.map((item) => item && item.corroboration_key)
     .filter((key) => typeof key === "string" && key.length > 0)).size;
+}
+
+function storySourceRefs(story) {
+  const refs = [];
+  const seen = new Set();
+  // sources retains article versions and past phases. Badges represent
+  // publishers, not those records; this must not change evidence or votes.
+  (Array.isArray(story?.sources) ? story.sources : []).forEach((src) => {
+    if (!src) return;
+    const kind = sourceKind(src.site_id);
+    const label = sourceDisplayName(src) || "來源";
+    const publisher = typeof src.corroboration_key === "string" ? src.corroboration_key.trim() : "";
+    const key = publisher ? `publisher:${publisher}` : `label:${kind.tone}:${label}`;
+    if (seen.has(key)) return;
+    seen.add(key);
+    const tone = src.source_policy?.admission_status === "unreviewed" ? "watchlist" : kind.tone;
+    refs.push({ label, tone,
+      ...(src.publisher?.status === "reported" ? { title: "發布者資訊由 Google News 提供" } : {}) });
+  });
+  return refs;
+}
+
+function storySourceCountLabel(story) {
+  const count = storySourceCount(story);
+  const refs = Array.isArray(story?.sources) ? story.sources : [];
+  const suffix = refs.some((s) => s?.source_policy?.policy_id === "publisher-governance-v1"
+    && s.source_policy.admission_status === "unreviewed") ? " · 含未審來源" : "";
+  if (count) return `${count} 個發布者${suffix}`;
+  const publishers = (Array.isArray(story?.sources) ? story.sources : [])
+    .map((s) => s?.publisher).filter((p) => p?.schema_version === 1);
+  if (publishers.some((p) => p.status === "identified" && p.name)) return `來源已標示${suffix}`;
+  if (publishers.some((p) => p.status === "reported" && p.name)) return `來源資訊待核${suffix}`;
+  return `來源待辨識${suffix}`;
 }
 
 function storyDurationLabel(earliest, latest) {
@@ -1447,10 +1507,9 @@ function buildStoryCard(story, rank) {
     imp.textContent = story.importance_label;
     meta.appendChild(imp);
   }
-  const sourceCount = storySourceCount(story);
   const countEl = document.createElement("span");
   countEl.className = "story-count";
-  countEl.textContent = sourceCount ? `${sourceCount} 個發布者` : "來源待辨識";
+  countEl.textContent = storySourceCountLabel(story);
   meta.appendChild(countEl);
   const displayScore = storySortScore(story);
   if (displayScore > 0) {
@@ -1464,14 +1523,12 @@ function buildStoryCard(story, rank) {
   }
   body.appendChild(meta);
 
-  const sources = Array.isArray(story.sources) ? story.sources : [];
+  const sources = storySourceRefs(story);
   if (sources.length) {
     const sourcesEl = document.createElement("div");
     sourcesEl.className = "story-sources";
-    sources.slice(0, 6).forEach((src) => {
-      const kind = sourceKind(src.site_id);
-      const label = src.source || src.source_name || "來源";
-      const tag = sourceChip(label, kind.tone, "story-source-chip source-chip");
+    sources.slice(0, 6).forEach(({ label, tone, title }) => {
+      const tag = sourceChip(label, tone, "story-source-chip source-chip", title);
       sourcesEl.appendChild(tag);
     });
     if (sources.length > 6) {
@@ -1645,7 +1702,8 @@ function storyMatchesFilteredItems(story, filteredItems) {
 }
 
 function briefStories() {
-  return (Array.isArray(state.dailyBrief?.items) ? state.dailyBrief.items : []).filter((story) => !isUnsafeStory(story));
+  const resolved = resolveBriefProjection(), selected = new Set(resolved.projection?.selected_event_ids || []);
+  return (resolved.projection?.events || []).filter((story) => selected.has(story.brief_event_id) && !isUnsafeStory(story));
 }
 
 function mergedStories() {
@@ -1715,18 +1773,8 @@ function validBriefProjection(p) {
 }
 
 function resolveBriefProjection() {
-  const incoming = state.storiesMerged?.brief_events;
-  if (validBriefProjection(incoming)) {
-    if (state.briefProjectionInput !== incoming) {
-      state.briefProjectionCache = JSON.parse(JSON.stringify(incoming));
-      state.briefProjectionInput = incoming;
-    }
-    return { projection: state.briefProjectionCache, cached: false };
-  }
-  const cached = state.briefProjectionCache;
-  if (cached && cached.events.some((e) => e.eligible && Date.parse(e.effective_at) <= Date.now()
-    && Date.now() < Date.parse(e.expires_at))) return { projection: cached, cached: true };
-  return { projection: null, cached: false };
+  if (typeof AiRadarGovernance === "undefined") return { projection: null, governance: null, cached: false };
+  return AiRadarGovernance.resolve(state);
 }
 
 function briefEventMatchesFilters(story) {
@@ -1740,7 +1788,7 @@ function briefEventMatchesFilters(story) {
     if (state.authorFilter && (item.site_id !== "socialdata_x" || item.source !== state.authorFilter)) return false;
     if (state.sourceTypeFilter && source !== state.sourceTypeFilter) return false;
     if (state.signalLevelFilter === "curated" && !isCuratedItem(item)) return false;
-    return !q || `${item.title || ""} ${item.title_zh || ""} ${item.title_en || ""} ${item.site_name || ""} ${item.source || ""}`.toLowerCase().includes(q);
+    return !q || `${item.title || ""} ${item.title_zh || ""} ${item.title_en || ""} ${item.site_name || ""} ${item.source || ""} ${sourceDisplayName(item)}`.toLowerCase().includes(q);
   });
 }
 
@@ -1748,9 +1796,17 @@ function scheduleBriefExpiry(projection) {
   if (state.briefExpiryTimer) clearTimeout(state.briefExpiryTimer);
   const deadlines = (projection?.events || []).filter((e) => e.eligible)
     .map((e) => Date.parse(e.expires_at)).filter((t) => t > Date.now());
+  [...(state.llmRadar || []), ...(state.modelReleases24h || [])].forEach((e) => {
+    const expiry = Date.parse(e.effective_at || e.published_at || e.first_seen_at) + 86400000;
+    if (expiry > Date.now()) deadlines.push(expiry);
+  });
   if (!deadlines.length) return;
   // Local rendering only; no fetch or background job. Recheck on tab resume too.
-  state.briefExpiryTimer = setTimeout(() => renderBriefPicks({ animate: false }), Math.min(2147483647, Math.max(1, Math.min(...deadlines) - Date.now())));
+  state.briefExpiryTimer = setTimeout(() => {
+    renderBriefPicks({ animate: false });
+    renderLlmRadar();
+    if (state.activeSection === "models") renderList();
+  }, Math.min(2147483647, Math.max(1, Math.min(...deadlines) - Date.now())));
   state.briefExpiryTimer?.unref?.();
 }
 
@@ -1855,7 +1911,8 @@ function storyToBriefRow(story, index) {
     item,
     ...(Array.isArray(story.sources) ? story.sources.map(enrichStoryItem) : []),
   ].filter(Boolean);
-  const sourceSignals = Array.from(new Set(sourceItems.map(sourceSignal)));
+  const sourceSignals = Array.from(new Set(sourceItems.map((entry) =>
+    entry.publisher?.schema_version === 1 ? sourceDisplayName(entry) : sourceSignal(entry))));
   return {
     item,
     index,
@@ -1977,12 +2034,16 @@ function featuredCandidatesGate(candidates, getBusinessEventCount, getSiteId) {
 }
 
 function storyCandidateSiteId(story) {
+  if (story?.publisher_qualified && story.governance_publisher_key) return story.governance_publisher_key;
   const item = story && (story.primary_item || story);
   const siteId = readerSiteId(item);
   // One internal curated-media pool contains independent publishers. The
   // featured diversity cap must distinguish AIBASE from The Decoder rather
   // than treating all curated outlets as one source (or vice versa).
-  if (siteId === "curated_media") return `${siteId}:${sourceDisplayName(item).toLowerCase() || "unknown"}`;
+  if (siteId === "curated_media") {
+    const legacySource = String(item?.source || "").trim() || readerSiteName(item);
+    return `${siteId}:${legacySource.toLowerCase() || "unknown"}`;
+  }
   return siteId;
 }
 
@@ -1999,11 +2060,7 @@ function renderBriefPicks({ animate = true } = {}) {
   const rawStoryPool = storyPools.brief.length
     ? [...storyPools.brief, ...storyPools.followup]
     : storyPools.merged;
-  const availableStoryPool = featuredCandidatesGate(
-    rawStoryPool,
-    (story) => storyBusinessEvents(story).length,
-    storyCandidateSiteId,
-  );
+  const availableStoryPool = rawStoryPool;
   const usesStories = availableStoryPool.length > 0;
   const candidateCounts = storyCandidateCounts(availableStoryPool);
   const hotAvailable = usesStories && candidateCounts.hot >= 2;
@@ -2033,7 +2090,7 @@ function renderBriefPicks({ animate = true } = {}) {
   if (!top.length) {
     const empty = document.createElement("div");
     empty.className = "brief-empty";
-    empty.textContent = storyPools.projection ? "當前欄目和篩選條件下沒有可展示的事件。" : "重點整理暫不可用，可先查看新聞列表。";
+    empty.textContent = storyPools.projection ? "目前沒有符合重點條件的事件，可先查看新聞列表。" : "重點整理暫不可用，可先查看新聞列表。";
     briefPicksListEl.appendChild(empty);
   } else {
     top.forEach((row, index) => {
@@ -2103,16 +2160,23 @@ function itemTagLabels(item, row = null) {
 function itemSourceRefs(item, row = null) {
   const refs = [];
   const seen = new Set();
-  const add = (label, tone) => {
+  const add = (label, tone, title = "") => {
     const clean = String(label || "").trim();
     if (!clean) return;
     const key = `${tone}:${clean}`;
     if (seen.has(key)) return;
     seen.add(key);
-    refs.push({ label: clean, tone });
+    refs.push({ label: clean, tone, ...(title ? { title } : {}) });
   };
 
-  if (row && Array.isArray(row.sourceSignals) && row.sourceSignals.length) {
+  const addItem = (sourceItem) => {
+    const kind = sourceKind(readerSiteId(sourceItem));
+    add(sourceDisplayName(sourceItem) || kind.label, kind.tone,
+      sourceItem.publisher?.status === "reported" ? "發布者資訊由 Google News 提供" : "");
+  };
+  if (Array.isArray(row?.rows) && row.rows.some((entry) => entry.item?.publisher?.schema_version === 1)) {
+    row.rows.forEach((entry) => addItem(entry.item || {}));
+  } else if (row && Array.isArray(row.sourceSignals) && row.sourceSignals.length) {
     row.sourceSignals.forEach((signal) => add(signal, sourceSignalTone(signal)));
   } else if (row && Array.isArray(row.rows) && row.rows.length) {
     row.rows.forEach((entry) => {
@@ -2121,8 +2185,7 @@ function itemSourceRefs(item, row = null) {
       add(sourceDisplayName(sourceItem) || kind.label, kind.tone);
     });
   } else {
-    const kind = sourceKind(readerSiteId(item));
-    add(sourceDisplayName(item) || kind.label, kind.tone);
+    addItem(item);
   }
 
   return refs.length ? refs : [{ label: "來源", tone: "default" }];
@@ -2172,8 +2235,9 @@ function buildTopStoryCard(row, rank) {
   const sourceCount = document.createElement("span");
   sourceCount.className = "source-count";
   const publisherCount = rowSourceCount(row);
-  sourceCount.textContent = publisherCount ? `${fmtNumber(publisherCount)} 個發布者` : "來源待辨識";
-  meta.append(rankEl, sourceChip(primarySource.label, primarySource.tone, "source-chip intel-source"), sourceCount, time);
+  sourceCount.textContent = publisherCount ? `${fmtNumber(publisherCount)} 個發布者`
+    : storySourceCountLabel(row.story || { sources: (row.rows || [{ item }]).map((entry) => entry.item) });
+  meta.append(rankEl, sourceChip(primarySource.label, primarySource.tone, "source-chip intel-source", primarySource.title), sourceCount, time);
 
   const title = document.createElement("div");
   title.className = "top-story-title";
@@ -2342,11 +2406,13 @@ function renderItemNode(item, context = {}) {
   if (context.source && context.source === displaySource) {
     siteEl.hidden = true;
   }
-  const kind = generalReaderSource(item).level === "other"
+  const kind = item.source_policy?.admission_status === "unreviewed" ? READER_SOURCE_LEVELS.other
+    : generalReaderSource(item).level === "other"
     ? sourceKind(readerSiteId(item))
     : READER_SOURCE_LEVELS[generalReaderSource(item).level];
   const categoryEl = node.querySelector(".category");
-  categoryEl.textContent = kind.label;
+  categoryEl.textContent = item.source_policy?.policy_id === "publisher-governance-v1"
+    && item.source_policy.admission_status === "unreviewed" ? "未審來源" : kind.label;
   categoryEl.classList.add(`kind-${kind.tone}`);
   const score = scorePercent(item);
   const tagEl = document.createElement("span");
@@ -2355,8 +2421,9 @@ function renderItemNode(item, context = {}) {
   categoryEl.insertAdjacentElement("afterend", tagEl);
 
   const sourceEl = node.querySelector(".source");
-  const sourceLabel = sourceSignal(item);
-  setSourceBadge(sourceEl, sourceLabel, sourceSignalTone(sourceLabel), displaySource ? `分割槽: ${displaySource}` : "");
+  const sourceLabel = item.publisher?.schema_version === 1 ? sourceDisplayName(item) : sourceSignal(item);
+  setSourceBadge(sourceEl, sourceLabel, sourceSignalTone(sourceLabel),
+    item.publisher?.status === "reported" ? "發布者資訊由 Google News 提供" : displaySource ? `分割槽: ${displaySource}` : "");
   if (context.source && context.source === displaySource) {
     sourceEl.hidden = true;
   }
@@ -3019,7 +3086,7 @@ function buildSensorCard(signal) {
   source.href = signal.source_url || signal.evidence_url || "#";
   source.target = "_blank";
   source.rel = "noopener noreferrer";
-  source.textContent = `${signal.source_name || "來源"} ↗`;
+  source.textContent = `${signal.publisher?.schema_version === 1 ? sourceDisplayName(signal) : signal.source_name || "來源"} ↗`;
   card.appendChild(source);
   return card;
 }
@@ -3049,7 +3116,9 @@ function buildCompactSignalLink(signal) {
   link.href = signal.evidence_url || signal.source_url || "#";
   link.target = "_blank";
   link.rel = "noopener noreferrer";
-  link.textContent = signal.title || "未命名異動";
+  const title = signal.title || "未命名異動";
+  link.textContent = signal.category === "model_release"
+    ? `${signal.verification_label || "媒體報導"} · ${sourceDisplayName(signal)} · ${title}` : title;
   return link;
 }
 
@@ -3095,7 +3164,8 @@ function renderMarketSignals() {
 }
 
 function renderLlmRadar() {
-  const events = Array.isArray(state.llmRadar) ? state.llmRadar : [];
+  const events = typeof AiRadarGovernance === "undefined" ? []
+    : AiRadarGovernance.radarEvents(state.llmRadar, state.llmRadarGovernanceMeta, state);
   renderCompactSignalGroup(
     llmRadarWrapEl,
     llmRadarListEl,
@@ -3139,6 +3209,7 @@ async function init() {
   state.storiesDataUrl = payload.stories_data_url || state.storiesDataUrl;
   state.allDataLoaded = Boolean(payload.items_all || payload.items_all_raw);
   state.generatedAt = payload.generated_at;
+  state.latestGovernanceMeta = payload.publisher_governance_meta || null;
 
   setStats();
   renderStaleBanner();
@@ -3174,11 +3245,14 @@ async function init() {
   void loadDailyBriefData().then((brief) => {
     state.dailyBrief = brief;
     renderBriefPicks({ animate: false });
+    renderLlmRadar();
     setStats();
   }, () => { state.dailyBrief = null; });
   void loadStoriesData().then((stories) => {
     state.storiesMerged = stories;
     renderBriefPicks({ animate: false });
+    renderLlmRadar();
+    if (state.activeSection === "models") renderList();
     setStats();
   }, () => { state.storiesMerged = null; renderBriefPicks({ animate: false }); });
   void loadMarketSignalsData().then((signals) => {
@@ -3189,7 +3263,9 @@ async function init() {
   void loadLlmRadarData().then((radar) => {
     state.llmRadar = radar.events || [];
     state.llmRadarGeneratedAt = radar.generated_at || null;
+    state.llmRadarGovernanceMeta = radar.publisher_governance_meta || null;
     renderLlmRadar();
+    renderBriefPicks({ animate: false });
   }, () => { state.llmRadar = []; });
 }
 
@@ -3317,6 +3393,10 @@ function renderAppVersion() {
 
 renderAppVersion();
 document.addEventListener?.("visibilitychange", () => {
-  if (!document.hidden) renderBriefPicks({ animate: false });
+  if (!document.hidden) {
+    renderBriefPicks({ animate: false });
+    renderLlmRadar();
+    if (state.activeSection === "models") renderList();
+  }
 });
 init();

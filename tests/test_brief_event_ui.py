@@ -7,7 +7,8 @@ from tests.js_bridge import extract_declarations, run_js
 def harness():
     return extract_declarations('validBriefProjection', 'resolveBriefProjection',
         'currentStoryPools', 'briefEventMatchesFilters', 'storySourceCount',
-        'formatStoryTime', 'storyDurationLabel', 'scheduleBriefExpiry') + r'''
+        'formatStoryTime', 'storyDurationLabel', 'scheduleBriefExpiry',
+        'sourceDisplayName', 'readerSiteName', 'readerSiteId') + r'''
 const epoch=Date.parse('2026-10-22T12:00:00Z'); let now=epoch;
 Date.now=()=>now;
 const state={activeSection:'hot',query:'',siteFilter:'',sourceTypeFilter:'',authorFilter:'',signalLevelFilter:''};
@@ -20,6 +21,7 @@ let rendered=0, timer=null;
 function setTimeout(fn,delay){timer={fn,delay};return 1;}
 function clearTimeout(){timer=null;}
 function renderBriefPicks(){rendered++;}
+function renderLlmRadar(){}
 const id='be1_'+'1'.repeat(24), phase='bp1_'+'2'.repeat(24);
 function event(){return {brief_event_id:id,story_id:id,identity:{key:'model-release'},
  member_article_ids:['a','b'],member_story_ids:['raw-a','raw-b'],
@@ -50,22 +52,22 @@ console.log(JSON.stringify({{valid:validBriefProjection(p),pool:currentStoryPool
     assert result == {'valid': False, 'pool': 0}
 
 
-def test_same_page_cache_ignores_daily_mixed_generations_and_expires():
+def test_legacy_projection_and_daily_cannot_restore_featured_cache_without_governance():
     result=run_js(harness()+'''
 state.storiesMerged={brief_events:projection()};state.dailyBrief={items:[event(),event()]};
 const first=currentStoryPools([]);state.storiesMerged={stories:[event()]};
 const cached=currentStoryPools([]);now=Date.parse('2026-10-23T11:00:00Z');
 const expired=currentStoryPools([]);console.log(JSON.stringify({first:first.merged.length,cached:cached.cached,count:cached.merged.length,expired:expired.merged.length,unavailable:expired.projection===null}));''')
-    assert result == {'first':1,'cached':True,'count':1,'expired':0,'unavailable':True}
+    assert result == {'first':0,'cached':False,'count':0,'expired':0,'unavailable':True}
 
 
-def test_filters_use_all_references_but_only_current_phase_votes():
+def test_legacy_past_reference_cannot_supply_a_homepage_search_match():
     result=run_js(harness()+'''
 state.storiesMerged={brief_events:projection()};state.query='localized';state.siteFilter='official_ai';state.activeSection='models';
 const full=currentStoryPools([]);state.signalLevelFilter='multi';const multi=currentStoryPools([]);
 state.signalLevelFilter='';state.query='no-match';const absent=currentStoryPools([]);
 console.log(JSON.stringify({full:full.merged.length,unique:full.brief.length+full.followup.length,multi:multi.merged.length,absent:absent.merged.length}));''')
-    assert result == {'full':1,'unique':1,'multi':0,'absent':0}
+    assert result == {'full':0,'unique':0,'multi':0,'absent':0}
 
 
 def test_expiry_schedules_only_local_render_and_replaces_old_timer():

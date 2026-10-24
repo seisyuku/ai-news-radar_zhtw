@@ -12,7 +12,8 @@ ROOT = Path(__file__).resolve().parent.parent
 INDEX_HTML = ROOT / "index.html"
 LEGACY_ASSET_FILES = ("app.js", "styles.css", "motion.js")
 LOADER_ASSET_FILES = (*LEGACY_ASSET_FILES, "loader.js")
-ASSET_FILES = (*LOADER_ASSET_FILES, "selection.js")
+SELECTION_ASSET_FILES = (*LOADER_ASSET_FILES, "selection.js")
+ASSET_FILES = (*SELECTION_ASSET_FILES, "publisher-governance.js")
 ASSET_PATHS = tuple(f"assets/{name}" for name in ASSET_FILES)
 REF_PATTERN = re.compile(r'assets/(' + '|'.join(re.escape(name) for name in ASSET_FILES) + r')\?v=([A-Za-z0-9._-]+)')
 
@@ -51,6 +52,9 @@ class AssetVersionTests(unittest.TestCase):
         selection = next(tag for tag in scripts if "assets/selection.js?" in tag)
         self.assertLess(scripts.index(selection), scripts.index(app))
         self.assertRegex(selection, r"\bdefer\b")
+        governance = next(tag for tag in scripts if "assets/publisher-governance.js?" in tag)
+        self.assertLess(scripts.index(governance), scripts.index(app))
+        self.assertRegex(governance, r"\bdefer\b")
 
     def test_previous_three_asset_baseline_can_still_supply_its_version(self):
         old_html = '\n'.join(f'<script src="assets/{name}?v=old-tag"></script>' for name in LEGACY_ASSET_FILES)
@@ -93,7 +97,8 @@ class AssetVersionTests(unittest.TestCase):
         current_version = shared_version(self.html, "目前 index.html")
         # Accept both earlier asset sets while requiring the current full set.
         baseline_refs = dict(asset_refs(baseline_html))
-        baseline_assets = (ASSET_FILES if "selection.js" in baseline_refs else
+        baseline_assets = (ASSET_FILES if "publisher-governance.js" in baseline_refs else
+                           SELECTION_ASSET_FILES if "selection.js" in baseline_refs else
                            LOADER_ASSET_FILES if "loader.js" in baseline_refs else LEGACY_ASSET_FILES)
         baseline_version = shared_version(baseline_html, f"{baseline}:index.html", required_assets=baseline_assets)
         self.assertNotEqual(
