@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon EMR 现已支持 Apache Spark 作业中的原生数据质量检查",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/amazon-emr-data-quality-spark",
-  "last_seen_at": "2026-10-24T19:05:30.487137Z",
+  "last_seen_at": "2026-10-24T19:35:26.298502Z",
   "summary": "Amazon EMR 现在可以通过原生方式验证 Apache Spark 作业中的数据质量。数据工程团队可以在不良数据到达下游系统之前在线发现质量问题，而无需构建或维护单独的验证基础设施。Amazon EMR Data Quality 由 AWS Glue 提供支持，无需额外付费，使用与 AWS Glue 相同的声明性规则语言（数据质量定义语言）和 API，可在两个引擎上提供一致的体验，还可在 EC2、EKS 和无服务器部署模式下与 Apache Iceberg、Apache Hudi 和 Delta Lake 配合使用。 借助该功能，您可以在 Spark 脚本中编写验证规则或引用存储在 AWS Glue Data Catalog 中的规则，然后将这些规则应用于管道的任何阶段，例如读取数据之后、转换数据期间或处理数据之后。Amazon EMR Data Quality 提供 30 多种规则类型，包括可与历史运行进行对比的动态规则，以及基于机器学习的异常检测（无需指定固定阈值即可跟踪一段时间内的漂移），让您能够灵活地选择最能满足自身需求的验证框架。您可以根据质量评估结果采取相应措施，例如中止管道运行、筛选无效记录或将这些记录路由到隔离区。结果是在数据集、规则和行级别生成的，因此您可以轻松识别哪些记录或规则导致了质量问题。 Amazon EMR Data Quality 已在所有 AWS 商业区域、AWS GovCloud（美国）和 AWS 中国区域适用于 Apache Spark 的 AWS 运行时（emr-spark-8.1.0）上推出。 要开始使用，请访问 Amazon EMR Data Quality 文档 ，并将用于数据质量验证的 DQDL 规则添加到 EMR 工作负载的 Spark 脚本中。",
   "publisher_links": [
     "https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-data-quality.html"
