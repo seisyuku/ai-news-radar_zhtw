@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-10-24T18:27:55.370046Z",
+  "generated_at": "2026-10-24T19:05:30.487137Z",
   "window_hours": 24,
   "total_items": 5,
   "items": [
     {
-      "score": 0.6569,
-      "importance": 0.6569,
-      "importance_score": 0.6569,
+      "score": 0.6554,
+      "importance": 0.6554,
+      "importance_score": 0.6554,
       "importance_breakdown": {
         "editorial": 0.5472,
         "source_tier": 0.78,
         "ai_relevance": 0.76,
-        "recency": 0.9398,
+        "recency": 0.9313,
         "story_heat": 0.0
       },
       "category": "watch",
@@ -378,14 +378,14 @@
       "disclosure_flags": []
     },
     {
-      "score": 0.5647,
-      "importance": 0.5647,
-      "importance_score": 0.5647,
+      "score": 0.5634,
+      "importance": 0.5634,
+      "importance_score": 0.5634,
       "importance_breakdown": {
         "editorial": 0.504,
         "source_tier": 0.58,
         "ai_relevance": 0.7,
-        "recency": 0.8108,
+        "recency": 0.8035,
         "story_heat": 0.0
       },
       "category": "watch",
@@ -752,20 +752,20 @@
       "disclosure_flags": []
     },
     {
-      "score": 0.5608,
-      "importance": 0.5608,
-      "importance_score": 0.5608,
+      "score": 0.5596,
+      "importance": 0.5596,
+      "importance_score": 0.5596,
       "importance_breakdown": {
         "editorial": 0.5256,
         "source_tier": 0.58,
         "ai_relevance": 0.73,
-        "recency": 0.7196,
-        "story_heat": 0.0
+        "recency": 0.7132,
+        "story_heat": 0.25
       },
       "category": "watch",
       "importance_label": "值得關注",
       "reasons": [
-        "recent_ai_signal"
+        "multi_source"
       ],
       "brief_event_id": "be1_374f3747f2c1b6e834715d69",
       "story_id": "be1_374f3747f2c1b6e834715d69",
@@ -781,11 +781,13 @@
       "member_story_ids": [
         "story_26c384d624a1",
         "story_6c51129e93f6",
+        "story_b49c59b66ebc",
         "story_eb72617f4840"
       ],
       "member_article_ids": [
         "5a6cb8478df3c6a0cf718b0ffc1f97f9351f77d0",
         "b69b23262b75cd205a9cb73d50e0998987ddf74d",
+        "ed4e84ad44040513944b4470ed93260a1f311c14",
         "fcd9ca7ca784424281a5863975b4d4f23baa879b"
       ],
       "sources": [
@@ -1016,10 +1018,11 @@
       "source_names": [
         "AlphaLab",
         "MarkTechPost Research",
-        "Simon Willison"
+        "Simon Willison",
+        "The Information (Google News)"
       ],
       "source_count": 1,
-      "item_count": 3,
+      "item_count": 4,
       "corroboration_count": 1,
       "duplicate_count": 1,
       "business_events": [
@@ -1057,6 +1060,16 @@
           "basis": [
             "{\"action\":\"model_release\",\"scope\":\"native\",\"subject\":\"model:kimi-k-3.1-pro\",\"v\":1}",
             "normalized.title:21:34:full_model"
+          ],
+          "conflicts": []
+        },
+        {
+          "rule_id": "R3",
+          "strength": "strong",
+          "article_id": "ed4e84ad44040513944b4470ed93260a1f311c14",
+          "basis": [
+            "{\"action\":\"model_release\",\"scope\":\"native\",\"subject\":\"model:kimi-k-3.1-pro\",\"v\":1}",
+            "normalized.title:25:38:full_model"
           ],
           "conflicts": []
         },
@@ -1234,6 +1247,77 @@
           "source_site_name": "精選媒體"
         },
         {
+          "id": "ed4e84ad44040513944b4470ed93260a1f311c14",
+          "title": "月之暗面 推出全新的 Kimi K3.1 Pro 模型 - The Information / Moonshot AI Launches New Kimi K3.1 Pro Model - The Information",
+          "title_zh": "月之暗面 推出全新的 Kimi K3.1 Pro 模型 - The Information",
+          "title_en": "Moonshot AI Launches New Kimi K3.1 Pro Model - The Information",
+          "title_original": "Moonshot AI Launches New Kimi K3.1 Pro Model - The Information",
+          "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNT3NyVDR4ZzZDRm1lZFpkS0R1dmRpWnluZGtwLXZrUTY5OWVnM2RXbENubUdsVDFiQzB2MzdmcjJDVVdfSXRSbWxMUTAxMnlxWnJCeDZaZ2NCODZGcWZGVjZFbWVzb243cDRmOHVtV0VoMl9oUTVCeTBPTVdaUWJTeGJjY2pGVzltVU5jT093?oc=5",
+          "source": "The Information (Google News)",
+          "site_id": "curated_media",
+          "published_at": "2026-10-23T22:26:00Z",
+          "ingress": {
+            "kind": "google_news",
+            "site_id": "curated_media",
+            "source_id": "the_information_news",
+            "name": "The Information (Google News)",
+            "feed_url": "https://news.google.com/rss/search?q=site%3Atheinformation.com+AI+when%3A7d&hl=en-US&gl=US&ceid=US%3Aen"
+          },
+          "publisher": {
+            "schema_version": 1,
+            "publisher_id": "the_information",
+            "name": "The Information",
+            "domain": "www.theinformation.com",
+            "status": "identified",
+            "basis": [
+              "google_rss_source",
+              "configured_bridge"
+            ],
+            "evidence": {
+              "rss_source_name": "The Information",
+              "rss_source_url": "https://www.theinformation.com",
+              "article_url": null,
+              "article_host": "news.google.com",
+              "expected_publisher_id": null,
+              "conflicts": []
+            }
+          },
+          "corroboration_key": "publisher:the_information",
+          "corroboration_status": "identified",
+          "role": "active_phase",
+          "phase_id": "bp1_89a858eb6710865db6b7d8ef",
+          "source_policy": {
+            "schema_version": 1,
+            "policy_id": "publisher-governance-v1",
+            "registry_revision": "524163edf93fe58d5c332ab6e1452fc2bec9e37423a2a005c5e707bb42f2d211",
+            "scope_id": "the_information",
+            "publisher_kind": "media",
+            "admission_status": "limited",
+            "source_tier": "ai_media",
+            "source_tier_label": "精選AI媒體",
+            "source_tier_rank": 2,
+            "allow_general": true,
+            "allow_featured": true,
+            "allow_radar": true,
+            "reason_codes": [
+              "identified_bridge",
+              "limited_scope"
+            ]
+          },
+          "source_tier": "ai_media",
+          "source_tier_label": "精選AI媒體",
+          "source_tier_rank": 2,
+          "source_material": {
+            "title_original": "",
+            "title": "Moonshot AI Launches New Kimi K3.1 Pro Model - The Information",
+            "summary": "Moonshot AI Launches New Kimi K3.1 Pro Model The Information"
+          },
+          "source_links": [
+            "https://news.google.com/rss/articles/CBMijgFBVV95cUxNT3NyVDR4ZzZDRm1lZFpkS0R1dmRpWnluZGtwLXZrUTY5OWVnM2RXbENubUdsVDFiQzB2MzdmcjJDVVdfSXRSbWxMUTAxMnlxWnJCeDZaZ2NCODZGcWZGVjZFbWVzb243cDRmOHVtV0VoMl9oUTVCeTBPTVdaUWJTeGJjY2pGVzltVU5jT093?oc=5"
+          ],
+          "source_site_name": "精選媒體"
+        },
+        {
           "id": "fcd9ca7ca784424281a5863975b4d4f23baa879b",
           "title": "Kimi K3.1 Pro 解析：評測升至 55 分，API 已上線，權重為何要分開看？（2026）",
           "title_zh": "Kimi K3.1 Pro 解析：評測升至 55 分，API 已上線，權重為何要分開看？（2026）",
@@ -1309,14 +1393,14 @@
       "disclosure_flags": []
     },
     {
-      "score": 0.5848,
-      "importance": 0.5848,
-      "importance_score": 0.5848,
+      "score": 0.5832,
+      "importance": 0.5832,
+      "importance_score": 0.5832,
       "importance_breakdown": {
         "editorial": 0.4896,
         "source_tier": 0.58,
         "ai_relevance": 0.68,
-        "recency": 0.9683,
+        "recency": 0.9596,
         "story_heat": 0.0
       },
       "category": "watch",
@@ -1666,14 +1750,14 @@
       "disclosure_flags": []
     },
     {
-      "score": 0.5465,
-      "importance": 0.5465,
-      "importance_score": 0.5465,
+      "score": 0.5453,
+      "importance": 0.5453,
+      "importance_score": 0.5453,
       "importance_breakdown": {
         "editorial": 0.4896,
         "source_tier": 0.58,
         "ai_relevance": 0.68,
-        "recency": 0.7556,
+        "recency": 0.7488,
         "story_heat": 0.0
       },
       "category": "watch",
@@ -2036,12 +2120,12 @@
     }
   ],
   "selection_diagnostics": {
-    "candidate_count": 61,
+    "candidate_count": 62,
     "eligible_count": 5,
     "selected_count": 5,
-    "below_gate_count": 56,
+    "below_gate_count": 57,
     "diversity_or_limit_count": 0,
-    "max_score": 0.6569,
+    "max_score": 0.6554,
     "max_source_count": 1,
     "score_gate": null,
     "empty_reason": null,
@@ -2053,8 +2137,8 @@
   "brief_event_meta": {
     "schema_version": 1,
     "matcher_version": "brief-event-v1",
-    "generation_id": "bg1_0b261dbc8b3955b2d9a46fff",
-    "generated_at": "2026-10-24T18:27:55.370046Z",
+    "generation_id": "bg1_be31284250c4d23d27de26a5",
+    "generated_at": "2026-10-24T19:05:30.487137Z",
     "status": "ready",
     "selected_event_ids": [
       "be1_f30c41625ac0fd5e6053f148",
@@ -2069,10 +2153,10 @@
     "schema_version": 2,
     "policy_id": "publisher-governance-v1",
     "registry_revision": "524163edf93fe58d5c332ab6e1452fc2bec9e37423a2a005c5e707bb42f2d211",
-    "generated_at": "2026-10-24T18:27:55.370046Z",
-    "brief_generation_id": "bg1_0b261dbc8b3955b2d9a46fff",
-    "brief_state_revision": "e871249744ef1f71590e141d71341ca9a247cfe809c6448c2ffef4ed0cae1f8b",
-    "generation_id": "pg2_bd442f1bdab7490a8121ab55",
+    "generated_at": "2026-10-24T19:05:30.487137Z",
+    "brief_generation_id": "bg1_be31284250c4d23d27de26a5",
+    "brief_state_revision": "b6d572c91f18383c2bf587fda4c2f71afd9bacf32f4e47fb17188415e7999bdd",
+    "generation_id": "pg2_5040b5ffcb88ff77465143c2",
     "status": "ready",
     "selection_policy": "dplus-v1",
     "default_visible_limit": 5
