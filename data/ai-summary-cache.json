@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v2",
   "entries": {
+    "9d285a5514ad636053bd4055f411145934460c02e3d268958453d97b7fdb610e": {
+      "summary": "NVIDIA 發布 Nemotron 3.5 Bolt E4B 4GB，為基於 Gemma 4 E4B 後訓練的開放小型語言模型，目標 VRAM 約 4GB，適用於 RTX 與 Jetson 平臺。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-24T05:33:30.886164Z"
+    },
     "fae6f1c312fae067589f3b9b2ed02c1a1b495bf0bc2e787df48dacfbab9629c4": {
       "summary": "新一代雲端服務商面臨壓力、信用風險升高，且 Solidigm 撤回 IPO，導致 AI 基礎設施建設遭遇動盪。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-10-05T13:35:59.545829Z"
-    },
-    "38047a850f952e5efaa66b4bc7789011dcc78598b5d9786ea2002c678eaeb998": {
-      "summary": "Safeworld 正在開發數位人類，以確保機器人不會傷害真實人類。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-05T13:35:59.545829Z"
     }
   },
   "rejections": {
@@ -4540,13 +4540,13 @@
       "reason": "insufficient_context",
       "created_at": "2026-10-23T13:35:34.731275Z"
     },
-    "b3b03a56b361d9cf6d365ffece1bee0c1c37d01fee0193dffce800ef62aa9241": {
-      "reason": "validation_length",
-      "created_at": "2026-10-23T23:05:28.393353Z"
-    },
     "8a6129cd135d79f1b5d80cabd14ac8274d121312fe81b8d8c3aaf86e7b17cb4b": {
       "reason": "validation_length",
       "created_at": "2026-10-24T03:35:27.609745Z"
+    },
+    "b3b03a56b361d9cf6d365ffece1bee0c1c37d01fee0193dffce800ef62aa9241": {
+      "reason": "validation_length",
+      "created_at": "2026-10-24T05:33:30.886164Z"
     }
   }
 }
