@@ -31,11 +31,25 @@
 
 ## P1：來源治理整體修正（2026-10-21）
 
-依[來源治理計畫](SOURCE_GOVERNANCE_PLAN_20261021.md)分S01～S08處理新來源
-觀察、既有來源刪減／優化、發布者分級及感測器獨立裁決。S01基準、S02審查與
-[評估契約](SOURCE_EVALUATION_CONTRACT_20261021.md)已完成；[S03](SOURCE_GOVERNANCE_S03_STATUS_20261022.md)
-已落實日報退役、SMTP與兩封實收驗收，10/23～10/29七日觀察已部署，待首日驗真；使用者負責D7核查及D8異常停止。
-正式來源不因研究建議自動升降級或接入。
+原S／方案A已由[A06](SOURCE_GOVERNANCE_A06_RELEASE_20261022.md)正式發布結案；
+七日觀察提前停止，沒有等待D7／D8、採樣或寄信待辦。
+
+本輪[PG01發布者治理契約](PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md)已凍結，
+[PG02身分資料鏈](PUBLISHER_GOVERNANCE_PG02_IMPLEMENTATION_20261023.md)與
+[PG03 scoped來源政策](PUBLISHER_GOVERNANCE_PG03_POLICY_20261023.md)本機候選已驗；
+PG04[共用首頁／雷達資格](PUBLISHER_GOVERNANCE_PG04_QUALIFICATION_20261023.md)本機候選已驗；
+[PG05複核](PUBLISHER_GOVERNANCE_PG05_REVIEW_20261023.md)已完成14日回放、畫面與案例審查，但發布驗收未通過。
+[PG05補修](PUBLISHER_GOVERNANCE_PG05_REPAIR_20261023.md)的七反例與回歸通過，但
+[PG05複驗](PUBLISHER_GOVERNANCE_PG05_RECHECK_20261024.md)另發現三類材料關係缺陷；
+[PG05補修二](PUBLISHER_GOVERNANCE_PG05_REPAIR2_20261024.md)已修正原反例，1,983項回歸與22個複驗案例通過。
+[補修二複驗](PUBLISHER_GOVERNANCE_PG05_RECHECK2_20261024.md)的新24例有11例失敗，交易肯定狀態與模型完整發布受詞仍須修正，財務主體新八例通過。
+[PG05補修（三）](PUBLISHER_GOVERNANCE_PG05_REPAIR3_20261024.md)已完成，2,110項回歸及原反例通過；交易肯定框架、完整模型受詞與常見中文正例已收斂。
+[補修（三）複驗](PUBLISHER_GOVERNANCE_PG05_RECHECK3_20261024.md)已完成，新20例仍有4個誤收、2個誤排；既有2,110項回歸及固定回放保持。
+[PG05最後補修／定稿](PUBLISHER_GOVERNANCE_PG05_FINAL_20261024.md)已完成：完整2,150項、原反例與最後24例、Chrome150個contexts通過；同一95例比較本輪0個已知錯誤，採本輪定稿。
+依使用者指示結束修正循環，不再開補修（五）。[PG06正式發布與結案](PUBLISHER_GOVERNANCE_PG06_RELEASE_20261024.md)已完成後端→既有刷新ready→前端及CI／Pages／HTTP／Chrome驗收；本案無下一必跑階段。
+固定14日的既有隔離重點退出只作機械核對，品質限制與precision not_evaluable保留；不為補版位放寬門檻。隔離閉包保持。
+正式版本已啟用新政策，首頁停止無徽章補位，寧缺毋濫；一般列表保留較廣合格新聞。日常維護GPT-6.1 Sol／Medium，修程式High。
+本輪維持使用者接受的事件去重，不追加matcher修改或新觀察排程。
 
 ## P0：撤回日報自動化、完成既有工作退役（2026-10-21）
 
@@ -46,7 +60,7 @@
 [D00日報退役](DIGEST_RETIREMENT_HANDOFF_20261021.md)已外部停用／封存推送，私人開關false、
 無在途run讀回；一次性公開刷新／發布讀回及零新增日報接續驗收完成，D00結案，證據見S03狀態。
 保留歷史稿件、校稿與研究，保留公開Radar的
-刷新、Pages與daily-brief精選。來源觀察是獨立未部署實驗，不由日報決策自動取消。
+刷新、Pages與daily-brief精選。來源觀察另依A01提前停止、A06封存結案，不恢復。
 
 舊D01～D11及雲端交付建置歷史見[DIGEST_PLAN](DIGEST_PLAN.md)與
 [HANDOVER](HANDOVER.md)；不再列為待完成的自動化方向。交接機制仍沿用

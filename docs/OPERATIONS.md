@@ -1,5 +1,15 @@
 # Operations Notes
 
+## 2026-10-24 PG06發布者治理正式發布與結案
+
+[PG06發布紀錄](PUBLISHER_GOVERNANCE_PG06_RELEASE_20261024.md)為目前發布者治理的操作入口。先整合71筆bot提交，後端0a59ff01fa3b由既有07:05 UTC刷新40072742914產生資料4ab86774c904；正式HTTP確認ready及同代綁定後，再推前端eac8c2970ad9。六資產共同版本20261023-pg04，CI／資產版本／Pages／HTTP／真Chrome均通過。
+
+新資料以publisher_governance綁定brief generation／state revision／registry revision；latest／all／daily／radar的meta必須同代。正式檢查先驗schema及跨欄位，再核HTTP bytes與Git生成提交、六資產hash和實際UI；零重點不能以舊gate或無徽章稿補位。15:05臺北快照105一般篇／0重點／1雷達，來源健康與價格／兩canary正常，398舊phase時鐘保持。
+
+未新增或更動排程，沒有助理額外dispatch；五份觀察／日報／SMTP workflow仍disabled_manually，觀察enabled=false，free-tier自動分支退役。PG06本案已結束，不恢復下方歷史日報與來源觀察流程。
+
+回復必須保留有效state與事件時間、保留用途gate，展示變更另升共同資產版本；後端不能供應新資格資料時，重點／雷達明示不可用，一般新聞繼續。不得回放舊資料、刪歷史或將未審來源自動升級。完整封存與下一次維護入口見PG06交接；日常維護GPT-6.1 Sol／Medium，程式變更High。
+
 ## 2026-10-22 A06正式發布與驗收完成
 
 [A03實作與回復規格](SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md)裁定單獨退役自動free-tier分支，保留價格與兩canary。

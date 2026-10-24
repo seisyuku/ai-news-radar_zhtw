@@ -1,4 +1,105 @@
-# AI News Radar Pulse — 交接摘要（截至 2026-10-23）
+# AI News Radar Pulse — 交接摘要（截至 2026-10-24）
+
+## 2026-10-24 PG06完成：發布者治理正式上線，本案結案
+
+- [PG06正式發布與結案](PUBLISHER_GOVERNANCE_PG06_RELEASE_20261024.md)為目前入口。PG01～PG06完成，採PG05最後補修（四）定稿；不再開補修（五），無下一必跑階段。
+- 保留遠端71筆bot提交及全部生成資料；先推後端0a59ff01fa3b，既有正常刷新40072742914產生4ab86774c904並驗HTTP ready，再推前端eac8c2970ad9。六資產版本20261023-pg04，CI／資產版本／Pages／HTTP／真Chrome通過，沒有助理額外dispatch或新排程。
+- 正式15:05臺北快照：105一般AI篇／102原故事／101事件根／398歷史state根，0重點／0 daily／1雷達；397既有根保留或alias延續，398既有phase時鐘未續命。82 identified／3 reported／20 unknown，46篇未審來源留一般列表、不進精選。
+- 完整2,150項及後端部署副本2,095項通過；8個HTTP資料檔與Git bytes一致，六資產hash與定稿一致。1440／390實際操作、篩選及全量135 raw／129顯示正常；價格及兩canary正常，來源無失敗。
+- 最新1,085ID隔離與污染保持，未人讀新真實新聞；既有隔離退出未人工判定、precision not_evaluable限制保持。五退役workflow仍停用，觀察false、free-tier退役，未恢復日報／SMTP。證據Downloads `ai-news-radar-pg06-20261024/`，先核SEAL／MANIFEST／HANDOFF。
+- **無下一必跑階段。日常維護GPT-6.1 Sol／Medium；修程式High。** 其他來源准入、擱置案件與通用語意擴充另案處理，不自動建立工作或提醒。
+
+## 2026-10-24 PG05最後一輪完成：本機驗收通過，以補修（四）定稿
+
+- [PG05最後補修／比較／定稿](PUBLISHER_GOVERNANCE_PG05_FINAL_20261024.md)為目前入口。使用者要求本輪補修及檢查後停止修正；若未通過，採同標準已知錯誤最少版本。已在最後檢查前凍結程式，此後無runtime修改。
+- 修正交易插入語否定／後接問句、模型發布疑問／假設動作、正式文件受詞與所有格權重。新增40項正式回歸，完整2,150項通過；原七／22／24／20例及最後固定24例通過。同一95個去重合成案例比較：PG05 41錯、補修一45、補修二31、補修三17、本輪0；選本輪定稿，不再進補修（五）。這不是自然新聞precision。
+- 真Chrome150個contexts通過，包含既有62及全部20／24例的88個桌機／手機情境。固定14日56個candidate檔及固定18檔與補修（三）相同；1,914窗口、state／raw、daily1／一般1,976列次保持，無新增實際進退出材料需人讀。
+- 1,039ID隔離與既有污染保持；先前唯一隔離重點退出仍未人工判定，independent_precision=not_evaluable。正式資料、來源registry、matcher、評分及排程保持；未提交／推送／dispatch／部署。Downloads `ai-news-radar-pg05-final-20261024/`先核SEAL／MANIFEST／HANDOFF。
+- **下一步PG06發布與上線驗收：GPT-6.1 Sol／High。** PG05本機候選已定稿；PG06須依OPERATIONS先保存既有bot提交及資料，受控發布與同代驗收。此輪不自動開始PG06；不得重啟日報、觀察、SMTP或新增排程。
+
+## 2026-10-24 PG05補修（三）複驗完成：六個新反例阻擋發布
+
+- [補修（三）複驗](PUBLISHER_GOVERNANCE_PG05_RECHECK3_20261024.md)為目前入口。2,110項回歸與既有七／22／24例通過；新20個合成案例14通過、6失敗：4個誤收、2個誤排。交易否定被插入語切斷、模型疑問／假設句及「正式文件」誤收；已確認交易後接問句與所有格模型權重誤排。
+- 正常Chrome62個contexts通過；新增16個contexts重現六個失敗與兩個正例，product_acceptance=false。14日56個candidate檔及固定18檔與補修（三）逐位元組一致，1,914窗口／daily1／一般1,976列次保持。
+- 本輪只改四份審查／交接文件；runtime、正式資料與前階段477個證據檔保持。1,039ID隔離、既有污染及precision not_evaluable保持，無新保護材料曝光；先前唯一隔離重點退出仍未人工判定。
+- 證據Downloads `ai-news-radar-pg05-recheck3-20261024/`，先驗MANIFEST／HANDOFF。未提交、推送、dispatch或部署。release_ready=false，不進PG06。
+- **下一步PG05補修（四）：GPT-6.1 Sol／High；之後GPT-6 Astra／High複驗。** 修正限於材料述語範圍、肯定狀態與完整受詞，不擴充去重、來源、門檻或排程工作。
+
+## 2026-10-24 PG05補修（三）完成：肯定交易框架與完整模型受詞，待複驗
+
+- [PG05補修（三）](PUBLISHER_GOVERNANCE_PG05_REPAIR3_20261024.md)為目前入口。未知交易前綴維持uncertain，確認肯定述語／簽約關係；模型受詞改檢查完整片語，處理修飾文件、所有格、模型類型與預覽版。保留已簽約待核准及模型本體附文件正例。
+- 最終2,110項回歸通過，新增127項；原七／22／本次24例及容量通過。Chrome共62contexts，固定34個情境的225輸入在收斂後相同，最後14日另跑28個。固定194一般篇／一則雷達保持。
+- 14日1,914窗口原state／raw保持，一般仍1,976列次；daily2→1，唯一退出重點屬隔離案例，未人工判定品質，須保留複驗限制。中途允許材料的誤排已按通用句型收斂，最終結果見證據FINAL_MATERIAL_REVIEW。
+- 來源registry、matcher、財務函式、前端與正式資料保持；1,039ID隔離、既有污染及precision not_evaluable保持。未提交、推送、dispatch或部署。證據Downloads `ai-news-radar-pg05-repair3-20261024/`，先驗MANIFEST／HANDOFF。
+- **下一步PG05複驗：GPT-6 Astra／High**；release_ready=false，通過前不進PG06。
+
+## 2026-10-24 PG05補修二複驗完成：兩類誤收仍阻擋發布
+
+- [補修二複驗](PUBLISHER_GOVERNANCE_PG05_RECHECK2_20261024.md)為目前入口。1,983項回歸、原七反例及22個複驗案例通過；新24個合成案例13通過、11失敗。疑問／假設／拒絕交易仍進首頁，帶修飾詞的模型文件仍可進首頁及雷達；財務主體八個新案例通過。
+- 正常Chrome50個contexts通過；另12個contexts確認新反例與正例的實際輸出，不能當產品驗收通過。14日56個candidate檔與補修二逐位元組一致，1,914窗口／daily2／一般1,976列次保持。
+- 本次只改審查文件，runtime與正式資料保持，無新保護材料曝光；1,039ID閉包、污染標記與precision not_evaluable保持。證據Downloads `ai-news-radar-pg05-recheck2-20261024/`，先驗MANIFEST／HANDOFF。
+- 未提交、推送、dispatch或部署。**下一步PG05補修（三）：GPT-6.1 Sol／High；之後GPT-6 Astra／High複驗。** 通過前不進PG06，不擴充去重、來源或排程工作。
+
+## 2026-10-24 PG05補修二完成：三類反例已通過，待複驗
+
+- [PG05補修二](PUBLISHER_GOVERNANCE_PG05_REPAIR2_20261024.md)為目前入口。新增交易動作語態、模型發布受詞及財務主體關係判斷，原8個失敗已修；正式新增79例，完整1,983項通過，原七反例／22個複驗案例／容量均通過。
+- 真Chrome50個contexts通過，含三類反例桌機／手機零誤判重點／雷達。14日1,914窗口原state／raw保持；daily仍2、一般仍1,976列次、首頁無進出；固定194一般篇及一則媒體雷達保持。
+- 中途4筆允許財報的誤降已恢復；最終僅1筆隔離材料分類降級、無選集影響，只作機械核對。1,039ID閉包與既有污染標記保持，無新曝光；precision仍not_evaluable。
+- 未提交、推送、dispatch或部署。證據Downloads `ai-news-radar-pg05-repair2-20261024/`，先驗MANIFEST／HANDOFF；前階段封存保留。**下一步PG05複驗：GPT-6 Astra／High**，通過前不進PG06。
+
+## 2026-10-24 PG05複驗完成：三類材料關係仍需補修
+
+- [PG05補修複驗](PUBLISHER_GOVERNANCE_PG05_RECHECK_20261024.md)為目前入口。原七反例與1,904項回歸通過；新增22個合成正反例有8個不符預期：否認／考慮中交易、模型文件誤當模型發布、跨公司借財務數據。
+- 三個代表反例經實際產生器取得首頁資格，未知模型文件案例另進雷達；Chrome桌面／手機六個contexts重現。原44個正常情境、14日1,914窗口與56個candidate檔重建一致。發布驗收未通過，不進PG06。
+- 1,039ID強隔離閉包保持；只重讀四篇允許的實際影響，既有三篇排除與一則媒體雷達合理。沒有新增保護曝光，precision仍not_evaluable。
+- 本階段只更新審查文件，runtime、資料與前階段封存保持；未提交、推送、dispatch或部署。證據Downloads `ai-news-radar-pg05-recheck-20261024/`，先驗MANIFEST／HANDOFF。
+- **下一步PG05補修（二）：GPT-6.1 Sol／High；補修後複驗：GPT-6 Astra／High。**
+
+## 2026-10-24 PG05補修完成：七反例已通過，待PG05複驗
+
+- [PG05補修與交接](PUBLISHER_GOVERNANCE_PG05_REPAIR_20261023.md)為目前入口。新增純本機材料關係工具，修正F01字界／金額／期間、F02封閉名稱入口、F03教學促銷範圍、F04商談／背景併購／否認語態；未改matcher、state、來源准入與計票鍵。
+- 1,904項回歸、七個原反例、容量、14日同輸入／state／asof回放與44個Chrome contexts通過。1,914事件窗口原state／raw保持；相較PG05，daily維持2事件次數、一般列表追加排除3篇。固定194一般篇及零featured保持，雷達0→1媒體報導。
+- 強化隔離工具先於人讀檔執行，沿用PG05全部擴增ID與污染標記；1,039ID閉包維持，無新增曝光。人讀材料只作開發回歸，precision仍not_evaluable。
+- 證據Downloads `ai-news-radar-pg05-repair-20261023/`；先核MANIFEST/HANDOFF。未提交、推送或部署。**下一步PG05複驗：GPT-6 Astra／High**；通過前不進PG06。
+
+## 2026-10-23 PG05複核完成：發布驗收未通過，先補修資格判定
+
+- [PG05審查與補修交接](PUBLISHER_GOVERNANCE_PG05_REVIEW_20261023.md)為目前入口。已修正模型發布的摘要傳聞／歷史／無關動作與跨型號資料借用；另確認F01中英字界／金額、F02封閉主體詞表、F03一般列表教學／促銷漏排、F04未定案併購supported四類必修缺陷。七個合成驗收反例均未通過，不能進PG06。
+- 1,857項回歸、14日同輸入／state／asof配對、42個Chrome contexts及副本回復通過。1,914事件窗口原state／raw內容保持；daily62→2事件次數、實際首頁unique286→2；一般2,002→1,979列次。固定11:35仍194一般篇、零推薦；不以零則或回歸通過宣稱品質通過。
+- 291個允許展示／daily事件根已逐案審查；保護縮寫版本閉包另增30ID。一般列表移除檢查有1筆在補強前曝光，已標污染、不作調參或獨立評估；291重點案例無新閉包重疊。precision仍not_evaluable，非另一模型獨立審查。
+- 未提交／推送／部署，來源registry、matcher、資料快照與workflow保持。證據Downloads `ai-news-radar-publisher-governance-pg05-20261023/`；先驗MANIFEST及HANDOFF。**下一步PG05補修：GPT-6.1 Sol／High；補修後複驗：GPT-6 Astra／High。**
+
+## 2026-10-23 PG04完成：共用首頁／daily／雷達資格本機候選，下一步PG05
+
+- [PG04實作與驗收](PUBLISHER_GOVERNANCE_PG04_QUALIFICATION_20261023.md)為目前入口。stories頂層治理投影帶原始材料span、scoped用途資格、當期合格鍵、用途主文／分數／徽章／摘要綁定；daily與模型雷達同政策，不補位。來源registry、事件matcher／state及AI .65保持。
+- 缺／錯版／混代資料保守停用重點與雷達，一般列表可用；前端包含daily實際內容、全量列表revision訊號、快取防倒退及本機到期。沒有新請求、觀察、日報或排程。六資產版本20261023-pg04，未提交／推送／部署。
+- 完整1,845項、五窗口原state及raw事件投影保持、Chrome8contexts通過。固定11:35快照：194一般AI篇保留，183 raw事件仍在，新featured／daily／雷達皆0；原daily12／雷達3。不是沒有新聞，亦非品質通過。合成正例實際producer可入選，兩版CNBC只一枚。
+- PG01九筆簡化案例把篩選前key當合格計數；按D03/D06補為0，最終入選及門檻不變，原封存未改。見PG04計票補正與可攜runtime fixture。保護／預留內容未作人工調參，precision仍not_evaluable。
+- 證據Downloads `ai-news-radar-publisher-governance-pg04-20261023/`。**下一步PG05：GPT-6 Astra／High**；先驗MANIFEST／HANDOFF，再做固定14日回放、受允許進退出案例審查及混版／回復／容量複核，不為零則降門檻。
+
+## 2026-10-23 PG03完成：有範圍來源政策本機候選，下一步PG04
+
+- [PG03實作／影響／交接](PUBLISHER_GOVERNANCE_PG03_POLICY_20261023.md)為目前入口；唯一registry在config/publisher-policy.json，41個host／path scope。39既有新聞入口保持，來源准入與身分／票數分開。
+- 八家新見媒體、Meet／未來商務維持未審rank6；既有iThome／The Decoder rank1、數位時代／RuntimeWire rank4、MCP／Mistral實際rank0保留。新tier只套公開副本，不回灌matcher／同源選版／state。archive保留舊tier並附當前source_policy，過期grant每輪重算。
+- 完整1,727項、五窗口state／原分數及選集一致、Chrome6contexts／12views通過。固定一般列表195→194，1篇橘鴉人工對照稿留archive；42篇未審annotation變更（37篇rank、5篇僅標示），不是刪除這些新聞或品質失敗。預設首頁順序及CNBC一枚保持。
+- 未提交／推送／部署，資料快照與workflow未改；原PG01／PG02封存未改。證據Downloads `ai-news-radar-publisher-governance-pg03-20261023/`。allow_featured／allow_radar已出欄位，尚未消費為新首頁資格；不把本階段當成新gate已上線。
+- **下一步PG04：GPT-6.1 Sol／High**。先驗MANIFEST與HANDOFF，再實作當期核心材料、用途主文／分數／合格計數、統一首頁與雷達gate，最後同步daily及版本綁定。
+
+## 2026-10-23 PG02完成：發布者身分鏈本機候選，下一步PG03
+
+- [PG02實作／驗證／交接](PUBLISHER_GOVERNANCE_PG02_IMPLEMENTATION_20261023.md)為目前入口；來源政策／首頁gate尚未實作或部署。每階段結束持續推薦下一模型與強度。
+- RSS兩parser→安全公開欄位→archive／resolver／latest／普通故事／事件refs／daily／雷達已帶ingress與publisher；前端名稱／分組／搜尋可讀實際發布者。未審名稱不自動有票、私人OPML新入口資料遮蔽，原source／IDs／URL／日期／tier保持。
+- 完整1,671項、語法／diff、五窗口state及非metadata投影一致、Chrome桌面／手機6contexts／12view通過。195篇固定快照177 identified／8 reported／10 unknown；八筆原未知Google來源已有名稱但不新增票。首頁順序不變，CNBC一枚。不是來源品質或准入通過。
+- PG01矩陣兩筆需更正：MCP／Mistral collector實際輸出official_ai／rank0，不是估算other／rank9。PG03依PG02封存更正保留現況；不覆寫PG01歷史證據。計票字典與事件規則不擴充，新增衝突只可撤票。
+- 未提交／推送／改tracked data／workflow或啟用觀察；證據Downloads `ai-news-radar-publisher-governance-pg02-20261023/`。**下一步PG03：GPT-6.1 Sol／High**，先核MANIFEST與HANDOFF，再做scoped來源分級／准入表，首頁gate仍留PG04。
+
+## 2026-10-23 PG01完成：發布者治理契約凍結，下一步PG02
+
+- [PG01契約／基線](PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md)與[資格投影schema v1](contracts/publisher-governance-v1.schema.json)為本案入口；PG02尚未實作。使用者要求每階段結束推薦下一模型與強度。
+- 入口、發布者身分、准入、計票與首頁用途分開；保留既有source／文章ID與事件matcher／phase／時間，新增身分欄位及stories頂層資格投影。未知／未審不繼承curated_media rank2；既有計票鍵不擴充，明確新衝突可撤票。
+- 首頁採當期合格核心材料＋官方／兩合格發布者／合格單源.72，停止無徽章補位。11:35臺北同代固定195篇AI／56Google／8未知；固定舊分數結構重排只1則，**不是新分級後結果或最終上限**，PG05須量化真正影響。一般列表仍可保留合格未審新聞。
+- 原三檔CNBC候選完整保留。PG01只增契約／schema及治理文件，未改runtime／tracked data／來源設定／workflow、未提交推送或新增排程。證據與完整交接在Downloads `ai-news-radar-publisher-governance-pg01-20261023/`。
+- **下一步PG02：GPT-6.1 Sol／High**。先核MANIFEST、START_STATE與CNBC三檔hash，再補feedparser/XML→安全公開欄位→各投影的身分資料鏈；本階段不先啟用分級或首頁gate。PG02結束接PG03，同模型／High。
 
 ## 2026-10-23 BR06完成：brief事件修正正式發布，本案結案
 
