@@ -12,11 +12,11 @@ def model_item(*, site_id, model_id, hours_ago, title, score=0.8, url=None):
         "id": f"{site_id}-{model_id}",
         "site_id": site_id,
         "site_name": "官方更新" if site_id == "official_ai" else "精選媒體",
-        "source": "Test source",
+        "source": "OpenAI News" if site_id == "official_ai" else "The Decoder AI News",
         "title": title,
         "title_zh": title,
         "summary_zh": "測試用模型釋出內容。",
-        "url": url or f"https://example.com/{site_id}/{model_id}",
+        "url": url or f"https://{'openai.com' if site_id == 'official_ai' else 'the-decoder.com'}/{model_id}",
         "model_id": model_id,
         "model_name": model_id,
         "published_at": occurred.isoformat().replace("+00:00", "Z"),
@@ -70,7 +70,7 @@ def test_llm_radar_is_empty_without_a_recent_release_or_price_event():
 
 
 def test_llm_radar_deduplicates_title_variants_by_canonical_source_url():
-    shared_url = "https://news.google.com/rss/articles/qwen-release?oc=5&utm_source=test"
+    shared_url = "https://openai.com/news/qwen-release?oc=5&utm_source=test"
     payload = build_llm_radar_payload(
         [
             model_item(
@@ -85,7 +85,7 @@ def test_llm_radar_deduplicates_title_variants_by_canonical_source_url():
                 model_id="qwen-3.9-report",
                 hours_ago=1,
                 title="Qwen 發布 Qwen 3.9 - 媒體轉載版本",
-                url="https://news.google.com/rss/articles/qwen-release?oc=5",
+                url="https://openai.com/news/qwen-release?oc=5",
             ),
         ],
         NOW,

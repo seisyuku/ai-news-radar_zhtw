@@ -1,0 +1,1194 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ai-news-radar:publisher-governance:1",
+  "title": "PG01 frozen Publisher Governance v1 contract (not deployed)",
+  "$ref": "#/$defs/governance_projection",
+  "$defs": {
+    "ingress": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "enum": [
+            "public_feed",
+            "google_news",
+            "public_adapter",
+            "private_opml",
+            "legacy_unknown"
+          ]
+        },
+        "site_id": {
+          "type": "string",
+          "maxLength": 120,
+          "minLength": 1
+        },
+        "source_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 120
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 160,
+          "minLength": 1
+        },
+        "feed_url": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^https?://[^\\s/@:]+(?::[0-9]{1,5})?(?:[/?#][^\\s]*)?$",
+              "maxLength": 2048
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "kind",
+        "site_id",
+        "source_id",
+        "name",
+        "feed_url"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "private_opml"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "source_id": {
+                "type": "null"
+              },
+              "name": {
+                "const": "RSS/OPML"
+              },
+              "feed_url": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "publisher": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "publisher_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9_]{0,79}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 160
+        },
+        "domain": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 253
+        },
+        "status": {
+          "enum": [
+            "identified",
+            "reported",
+            "unknown",
+            "conflict"
+          ]
+        },
+        "basis": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "article_host",
+              "google_rss_source",
+              "configured_bridge",
+              "legacy_suffix",
+              "explicit_group"
+            ]
+          },
+          "uniqueItems": true,
+          "minItems": 0,
+          "maxItems": 5
+        },
+        "evidence": {
+          "type": "object",
+          "properties": {
+            "rss_source_name": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "maxLength": 160
+            },
+            "rss_source_url": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^https?://[^\\s/@:]+(?::[0-9]{1,5})?(?:[/?#][^\\s]*)?$",
+                  "maxLength": 2048
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "article_url": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^https?://[^\\s/@:]+(?::[0-9]{1,5})?(?:[/?#][^\\s]*)?$",
+                  "maxLength": 2048
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "article_host": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "maxLength": 253
+            },
+            "expected_publisher_id": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "maxLength": 80
+            },
+            "conflicts": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "maxLength": 120,
+                "minLength": 1
+              },
+              "uniqueItems": true,
+              "minItems": 0,
+              "maxItems": 8
+            }
+          },
+          "required": [
+            "rss_source_name",
+            "rss_source_url",
+            "article_url",
+            "article_host",
+            "expected_publisher_id",
+            "conflicts"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "schema_version",
+        "publisher_id",
+        "name",
+        "domain",
+        "status",
+        "basis",
+        "evidence"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "identified"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "publisher_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "basis": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "reported",
+                  "unknown",
+                  "conflict"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "publisher_id": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "reported"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "domain": {
+                "type": "string",
+                "minLength": 1
+              },
+              "basis": {
+                "contains": {
+                  "const": "google_rss_source"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "source_policy": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "policy_id": {
+          "const": "publisher-governance-v1"
+        },
+        "registry_revision": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "scope_id": {
+          "type": "string",
+          "maxLength": 120,
+          "minLength": 1
+        },
+        "publisher_kind": {
+          "enum": [
+            "official",
+            "benchmark",
+            "media",
+            "aggregator",
+            "control",
+            "unknown"
+          ]
+        },
+        "admission_status": {
+          "enum": [
+            "approved",
+            "limited",
+            "unreviewed",
+            "excluded"
+          ]
+        },
+        "source_tier": {
+          "enum": [
+            "official",
+            "benchmark",
+            "ai_vertical",
+            "professional_media",
+            "ai_media",
+            "community",
+            "builders",
+            "user_opml",
+            "self_media",
+            "advanced",
+            "discussion",
+            "tw_media",
+            "watchlist",
+            "other"
+          ]
+        },
+        "source_tier_label": {
+          "type": "string",
+          "maxLength": 80,
+          "minLength": 1
+        },
+        "source_tier_rank": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9
+        },
+        "allow_general": {
+          "type": "boolean"
+        },
+        "allow_featured": {
+          "type": "boolean"
+        },
+        "allow_radar": {
+          "type": "boolean"
+        },
+        "reason_codes": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "identified_host",
+              "identified_bridge",
+              "reported_rss_source",
+              "legacy_identity",
+              "missing_identity",
+              "identity_conflict",
+              "unreviewed_publisher",
+              "excluded_scope",
+              "scope_mismatch",
+              "limited_scope",
+              "approved_scope",
+              "legacy_metadata_missing",
+              "outside_reader_window",
+              "out_of_scope",
+              "scope_unknown",
+              "no_core_event",
+              "insufficient_evidence",
+              "evidence_conflict",
+              "no_current_qualified_article",
+              "no_counting_key",
+              "below_qualified_gate",
+              "official_primary",
+              "multiple_qualified_publishers",
+              "qualified_score",
+              "unsupported_policy",
+              "generation_mismatch",
+              "invalid_projection",
+              "projection_capacity",
+              "summary_primary_mismatch",
+              "not_permitted_for_radar",
+              "not_permitted_for_featured",
+              "control_only"
+            ]
+          },
+          "uniqueItems": true,
+          "minItems": 0,
+          "maxItems": 32
+        }
+      },
+      "required": [
+        "schema_version",
+        "policy_id",
+        "registry_revision",
+        "scope_id",
+        "publisher_kind",
+        "admission_status",
+        "source_tier",
+        "source_tier_label",
+        "source_tier_rank",
+        "allow_general",
+        "allow_featured",
+        "allow_radar",
+        "reason_codes"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "admission_status": {
+                "const": "unreviewed"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "source_tier": {
+                "const": "watchlist"
+              },
+              "source_tier_rank": {
+                "const": 6
+              },
+              "allow_featured": {
+                "const": false
+              },
+              "allow_radar": {
+                "const": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "admission_status": {
+                "const": "excluded"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "allow_general": {
+                "const": false
+              },
+              "allow_featured": {
+                "const": false
+              },
+              "allow_radar": {
+                "const": false
+              }
+            }
+          }
+        }
+      ]
+    },
+    "span": {
+      "type": "object",
+      "properties": {
+        "field": {
+          "enum": [
+            "title_original",
+            "title",
+            "summary"
+          ]
+        },
+        "start": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100000
+        },
+        "end": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100000
+        },
+        "text": {
+          "type": "string",
+          "maxLength": 1600,
+          "minLength": 1
+        }
+      },
+      "required": [
+        "field",
+        "start",
+        "end",
+        "text"
+      ],
+      "additionalProperties": false
+    },
+    "core_evidence": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "enum": [
+            "earnings",
+            "market",
+            "security",
+            "pricing",
+            "benchmark",
+            "model_release"
+          ]
+        },
+        "status": {
+          "enum": [
+            "supported",
+            "insufficient",
+            "conflict"
+          ]
+        },
+        "basis": {
+          "enum": [
+            "official_primary",
+            "technical_primary",
+            "editorial_report",
+            "insufficient"
+          ]
+        },
+        "spans": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/span"
+          },
+          "uniqueItems": true,
+          "minItems": 0,
+          "maxItems": 12
+        },
+        "urls": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^https?://[^\\s/@:]+(?::[0-9]{1,5})?(?:[/?#][^\\s]*)?$",
+            "maxLength": 2048
+          },
+          "uniqueItems": true,
+          "minItems": 0,
+          "maxItems": 24
+        }
+      },
+      "required": [
+        "kind",
+        "status",
+        "basis",
+        "spans",
+        "urls"
+      ],
+      "additionalProperties": false
+    },
+    "qualification": {
+      "type": "object",
+      "properties": {
+        "scope": {
+          "enum": [
+            "in_scope",
+            "out_of_scope",
+            "unknown"
+          ]
+        },
+        "core_evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/core_evidence"
+          },
+          "uniqueItems": true,
+          "minItems": 0,
+          "maxItems": 6
+        },
+        "reason_codes": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "identified_host",
+              "identified_bridge",
+              "reported_rss_source",
+              "legacy_identity",
+              "missing_identity",
+              "identity_conflict",
+              "unreviewed_publisher",
+              "excluded_scope",
+              "scope_mismatch",
+              "limited_scope",
+              "approved_scope",
+              "legacy_metadata_missing",
+              "outside_reader_window",
+              "out_of_scope",
+              "scope_unknown",
+              "no_core_event",
+              "insufficient_evidence",
+              "evidence_conflict",
+              "no_current_qualified_article",
+              "no_counting_key",
+              "below_qualified_gate",
+              "official_primary",
+              "multiple_qualified_publishers",
+              "qualified_score",
+              "unsupported_policy",
+              "generation_mismatch",
+              "invalid_projection",
+              "projection_capacity",
+              "summary_primary_mismatch",
+              "not_permitted_for_radar",
+              "not_permitted_for_featured",
+              "control_only"
+            ]
+          },
+          "uniqueItems": true,
+          "minItems": 0,
+          "maxItems": 32
+        }
+      },
+      "required": [
+        "scope",
+        "core_evidence",
+        "reason_codes"
+      ],
+      "additionalProperties": false
+    },
+    "article_annotation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "maxLength": 256,
+          "minLength": 1
+        },
+        "ingress": {
+          "$ref": "#/$defs/ingress"
+        },
+        "publisher": {
+          "$ref": "#/$defs/publisher"
+        },
+        "source_policy": {
+          "$ref": "#/$defs/source_policy"
+        },
+        "qualification": {
+          "$ref": "#/$defs/qualification"
+        }
+      },
+      "required": [
+        "id",
+        "ingress",
+        "publisher",
+        "source_policy",
+        "qualification"
+      ],
+      "additionalProperties": false
+    },
+    "featured_item": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "maxLength": 256,
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 20000
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^https?://[^\\s/@:]+(?::[0-9]{1,5})?(?:[/?#][^\\s]*)?$",
+          "maxLength": 2048
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "url"
+      ],
+      "additionalProperties": true
+    },
+    "event_decision": {
+      "type": "object",
+      "properties": {
+        "brief_event_id": {
+          "type": "string",
+          "pattern": "^be1_[0-9a-f]{24}$"
+        },
+        "active_phase_id": {
+          "type": "string",
+          "pattern": "^bp1_[0-9a-f]{24}$"
+        },
+        "featured_eligible": {
+          "type": "boolean"
+        },
+        "reason_codes": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "identified_host",
+              "identified_bridge",
+              "reported_rss_source",
+              "legacy_identity",
+              "missing_identity",
+              "identity_conflict",
+              "unreviewed_publisher",
+              "excluded_scope",
+              "scope_mismatch",
+              "limited_scope",
+              "approved_scope",
+              "legacy_metadata_missing",
+              "outside_reader_window",
+              "out_of_scope",
+              "scope_unknown",
+              "no_core_event",
+              "insufficient_evidence",
+              "evidence_conflict",
+              "no_current_qualified_article",
+              "no_counting_key",
+              "below_qualified_gate",
+              "official_primary",
+              "multiple_qualified_publishers",
+              "qualified_score",
+              "unsupported_policy",
+              "generation_mismatch",
+              "invalid_projection",
+              "projection_capacity",
+              "summary_primary_mismatch",
+              "not_permitted_for_radar",
+              "not_permitted_for_featured",
+              "control_only"
+            ]
+          },
+          "uniqueItems": true,
+          "minItems": 0,
+          "maxItems": 32
+        },
+        "qualified_source_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100000
+        },
+        "qualified_corroboration_keys": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 160,
+            "minLength": 1
+          },
+          "uniqueItems": true,
+          "minItems": 0,
+          "maxItems": 100000
+        },
+        "support_article_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 256,
+            "minLength": 1
+          },
+          "uniqueItems": true,
+          "minItems": 0,
+          "maxItems": 100000
+        },
+        "eligibility_basis": {
+          "enum": [
+            "official_primary",
+            "multiple_qualified_publishers",
+            "qualified_score",
+            null
+          ]
+        },
+        "featured_primary_article_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 256
+        },
+        "featured_primary_item": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/featured_item"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "featured_score": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "featured_business_events": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "earnings",
+              "market",
+              "security",
+              "pricing",
+              "benchmark",
+              "model_release"
+            ]
+          },
+          "uniqueItems": true,
+          "minItems": 0,
+          "maxItems": 6
+        },
+        "featured_news_summary": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 2000
+        },
+        "summary_article_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 256
+        }
+      },
+      "required": [
+        "brief_event_id",
+        "active_phase_id",
+        "featured_eligible",
+        "reason_codes",
+        "qualified_source_count",
+        "qualified_corroboration_keys",
+        "support_article_ids",
+        "eligibility_basis",
+        "featured_primary_article_id",
+        "featured_primary_item",
+        "featured_score",
+        "featured_business_events",
+        "featured_news_summary",
+        "summary_article_id"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "featured_eligible": {
+                "const": true
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "support_article_ids": {
+                "minItems": 1
+              },
+              "eligibility_basis": {
+                "type": "string"
+              },
+              "featured_primary_article_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "featured_primary_item": {
+                "type": "object"
+              },
+              "featured_score": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "featured_business_events": {
+                "minItems": 1
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "eligibility_basis": {
+                "type": "null"
+              },
+              "featured_primary_article_id": {
+                "type": "null"
+              },
+              "featured_primary_item": {
+                "type": "null"
+              },
+              "featured_score": {
+                "type": "null"
+              },
+              "featured_business_events": {
+                "maxItems": 0
+              },
+              "featured_news_summary": {
+                "type": "null"
+              },
+              "summary_article_id": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "eligibility_basis": {
+                "const": "multiple_qualified_publishers"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "qualified_source_count": {
+                "minimum": 2
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "eligibility_basis": {
+                "const": "qualified_score"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "featured_score": {
+                "type": "number",
+                "minimum": 0.72
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "featured_news_summary": {
+                "type": "string"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "summary_article_id": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "governance_projection": {
+      "type": "object",
+      "properties": {
+        "record_type": {
+          "const": "publisher_governance_projection"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "policy_id": {
+          "const": "publisher-governance-v1"
+        },
+        "registry_revision": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "generation_id": {
+          "type": "string",
+          "pattern": "^pg1_[0-9a-f]{24}$"
+        },
+        "generated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "brief_generation_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^bg1_[0-9a-f]{24}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "brief_state_revision": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "ready",
+            "unavailable"
+          ]
+        },
+        "articles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/article_annotation"
+          },
+          "uniqueItems": true,
+          "minItems": 0,
+          "maxItems": 100000
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/event_decision"
+          },
+          "uniqueItems": true,
+          "minItems": 0,
+          "maxItems": 10000
+        },
+        "featured_event_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^be1_[0-9a-f]{24}$"
+          },
+          "uniqueItems": true,
+          "minItems": 0,
+          "maxItems": 10000
+        },
+        "daily_selected_event_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^be1_[0-9a-f]{24}$"
+          },
+          "uniqueItems": true,
+          "minItems": 0,
+          "maxItems": 20
+        },
+        "diagnostics": {
+          "type": "object",
+          "properties": {
+            "errors": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "maxLength": 160,
+                "minLength": 1
+              },
+              "uniqueItems": true,
+              "minItems": 0,
+              "maxItems": 100
+            },
+            "reason_counts": {
+              "type": "object",
+              "propertyNames": {
+                "enum": [
+                  "identified_host",
+                  "identified_bridge",
+                  "reported_rss_source",
+                  "legacy_identity",
+                  "missing_identity",
+                  "identity_conflict",
+                  "unreviewed_publisher",
+                  "excluded_scope",
+                  "scope_mismatch",
+                  "limited_scope",
+                  "approved_scope",
+                  "legacy_metadata_missing",
+                  "outside_reader_window",
+                  "out_of_scope",
+                  "scope_unknown",
+                  "no_core_event",
+                  "insufficient_evidence",
+                  "evidence_conflict",
+                  "no_current_qualified_article",
+                  "no_counting_key",
+                  "below_qualified_gate",
+                  "official_primary",
+                  "multiple_qualified_publishers",
+                  "qualified_score",
+                  "unsupported_policy",
+                  "generation_mismatch",
+                  "invalid_projection",
+                  "projection_capacity",
+                  "summary_primary_mismatch",
+                  "not_permitted_for_radar",
+                  "not_permitted_for_featured",
+                  "control_only"
+                ]
+              },
+              "additionalProperties": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 100000
+              }
+            }
+          },
+          "required": [
+            "errors",
+            "reason_counts"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "record_type",
+        "schema_version",
+        "policy_id",
+        "registry_revision",
+        "generation_id",
+        "generated_at",
+        "brief_generation_id",
+        "brief_state_revision",
+        "status",
+        "articles",
+        "events",
+        "featured_event_ids",
+        "daily_selected_event_ids",
+        "diagnostics"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "ready"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "brief_generation_id": {
+                "type": "string"
+              },
+              "brief_state_revision": {
+                "type": "string"
+              },
+              "diagnostics": {
+                "properties": {
+                  "errors": {
+                    "maxItems": 0
+                  }
+                }
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "articles": {
+                "maxItems": 0
+              },
+              "events": {
+                "maxItems": 0
+              },
+              "featured_event_ids": {
+                "maxItems": 0
+              },
+              "daily_selected_event_ids": {
+                "maxItems": 0
+              },
+              "diagnostics": {
+                "properties": {
+                  "errors": {
+                    "minItems": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

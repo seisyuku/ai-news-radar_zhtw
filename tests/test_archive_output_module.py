@@ -115,7 +115,10 @@ def test_generator_resolver_wrappers_keep_public_redaction(tmp_path):
     update_news.write_item_html_adapters(data, {ITEM_ID: row})
 
     resolver = json.loads((data / "items" / f"{ITEM_ID}.json").read_text())
-    assert resolver == update_news.sanitize_public_payload(row)
+    assert {key: resolver[key] for key in row} == update_news.sanitize_public_payload(row)
+    assert set(resolver) - set(row) == {"publisher", "ingress", "source_policy"}
+    assert resolver["publisher"]["status"] == "unknown"
+    assert resolver["ingress"]["kind"] == "legacy_unknown"
     page = (tmp_path / "item" / ITEM_ID / "index.html").read_text()
     assert "[redacted-email]" in page and "[redacted-secret]" in page
     assert "editor@example.invalid" not in page and "synthetic-sensitive-value" not in page

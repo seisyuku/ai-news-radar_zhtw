@@ -386,7 +386,9 @@ def extract_claim(row: dict[str, Any], now: datetime) -> Claim:
         if regions:
             c.phase = "expanded_availability"
             c.phase_facts = tuple("region:" + r for r in sorted(regions))
-    if c.phase != "baseline" and not corroboration.identity(row)[0]:
+    # PG02 publisher evidence may withdraw a display/counting vote, but the
+    # accepted event/phase matcher keeps its pre-PG02 identity semantics.
+    if c.phase != "baseline" and not corroboration._legacy_identity(row)[0]:
         c.unknown_update = True
     # A retrospective model announcement is bounded by its stated calendar
     # date, not the date the next publisher rephrased it. Observed attacks use
@@ -664,7 +666,7 @@ def build_brief_events(*, stories: list[dict[str, Any]], archive_records: list[d
                 kind = "baseline"
             if (kind == "baseline" and not c.unknown_update and announcement_times
                     and c.action in {"model_release", "speed_tier_release"}
-                    and c.strength == "strong" and corroboration.identity(c.row)[0]
+                    and c.strength == "strong" and corroboration._legacy_identity(c.row)[0]
                     and c.effective > min(announcement_times) + timedelta(hours=6)):
                 kind = "available"
             elif kind == "baseline" and announcement_times and c.effective <= min(announcement_times) + timedelta(hours=6):
@@ -716,6 +718,7 @@ def build_brief_events(*, stories: list[dict[str, Any]], archive_records: list[d
             r = {**c.row, **display.get(rid, {})}
             pub, status = corroboration.identity(c.row)
             refs.append({k: r.get(k) for k in ("id", "title", "title_zh", "title_en", "title_original", "url", "source", "site_id", "published_at")} | {
+                k: r[k] for k in ("ingress", "publisher") if k in r} | {
                 "corroboration_key": pub, "corroboration_status": status,
                 "role": "context_unknown" if c.unknown_update else "active_phase" if rid in eligible_current_ids else "past_phase",
                 "phase_id": phases[assignment[rid]]["phase_id"]})

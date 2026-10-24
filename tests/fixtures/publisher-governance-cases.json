@@ -1,0 +1,669 @@
+{
+  "status": "PG04 runtime gate cases; original PG01 expected preserved with explicit count errata per D03/D06.",
+  "cases": [
+    {
+      "case_id": "single_at_threshold",
+      "time_valid": true,
+      "projection_valid": true,
+      "scope": "in_scope",
+      "core_supported": true,
+      "active_qualified_articles": 1,
+      "qualified_keys": [
+        "publisher:sample"
+      ],
+      "identity_conflict": false,
+      "evidence_conflict": false,
+      "official_primary": false,
+      "score": 0.72,
+      "summary_same_article": true,
+      "PG01_expected": {
+        "featured_eligible": true,
+        "qualified_source_count": 1,
+        "eligibility_basis": "qualified_score",
+        "summary_reused": true
+      },
+      "expected": {
+        "featured_eligible": true,
+        "qualified_source_count": 1,
+        "eligibility_basis": "qualified_score",
+        "summary_reused": true
+      }
+    },
+    {
+      "case_id": "single_below_threshold",
+      "time_valid": true,
+      "projection_valid": true,
+      "scope": "in_scope",
+      "core_supported": true,
+      "active_qualified_articles": 1,
+      "qualified_keys": [
+        "publisher:sample"
+      ],
+      "identity_conflict": false,
+      "evidence_conflict": false,
+      "official_primary": false,
+      "score": 0.7199,
+      "summary_same_article": true,
+      "PG01_expected": {
+        "featured_eligible": false,
+        "qualified_source_count": 1,
+        "eligibility_basis": null,
+        "summary_reused": false
+      },
+      "expected": {
+        "featured_eligible": false,
+        "qualified_source_count": 1,
+        "eligibility_basis": null,
+        "summary_reused": false
+      }
+    },
+    {
+      "case_id": "official_primary_below_score",
+      "time_valid": true,
+      "projection_valid": true,
+      "scope": "in_scope",
+      "core_supported": true,
+      "active_qualified_articles": 1,
+      "qualified_keys": [
+        "publisher:sample"
+      ],
+      "identity_conflict": false,
+      "evidence_conflict": false,
+      "official_primary": true,
+      "score": 0.55,
+      "summary_same_article": true,
+      "PG01_expected": {
+        "featured_eligible": true,
+        "qualified_source_count": 1,
+        "eligibility_basis": "official_primary",
+        "summary_reused": true
+      },
+      "expected": {
+        "featured_eligible": true,
+        "qualified_source_count": 1,
+        "eligibility_basis": "official_primary",
+        "summary_reused": true
+      }
+    },
+    {
+      "case_id": "two_qualified_publishers",
+      "time_valid": true,
+      "projection_valid": true,
+      "scope": "in_scope",
+      "core_supported": true,
+      "active_qualified_articles": 2,
+      "qualified_keys": [
+        "publisher:a",
+        "publisher:b"
+      ],
+      "identity_conflict": false,
+      "evidence_conflict": false,
+      "official_primary": false,
+      "score": 0.55,
+      "summary_same_article": true,
+      "PG01_expected": {
+        "featured_eligible": true,
+        "qualified_source_count": 2,
+        "eligibility_basis": "multiple_qualified_publishers",
+        "summary_reused": true
+      },
+      "expected": {
+        "featured_eligible": true,
+        "qualified_source_count": 2,
+        "eligibility_basis": "multiple_qualified_publishers",
+        "summary_reused": true
+      }
+    },
+    {
+      "case_id": "two_versions_one_publisher",
+      "time_valid": true,
+      "projection_valid": true,
+      "scope": "in_scope",
+      "core_supported": true,
+      "active_qualified_articles": 2,
+      "qualified_keys": [
+        "publisher:a",
+        "publisher:a"
+      ],
+      "identity_conflict": false,
+      "evidence_conflict": false,
+      "official_primary": false,
+      "score": 0.55,
+      "summary_same_article": true,
+      "PG01_expected": {
+        "featured_eligible": false,
+        "qualified_source_count": 1,
+        "eligibility_basis": null,
+        "summary_reused": false
+      },
+      "expected": {
+        "featured_eligible": false,
+        "qualified_source_count": 1,
+        "eligibility_basis": null,
+        "summary_reused": false
+      }
+    },
+    {
+      "case_id": "cn_aggregate_stays_one_vote",
+      "time_valid": true,
+      "projection_valid": true,
+      "scope": "in_scope",
+      "core_supported": true,
+      "active_qualified_articles": 2,
+      "qualified_keys": [
+        "cn_aggregator",
+        "cn_aggregator"
+      ],
+      "identity_conflict": false,
+      "evidence_conflict": false,
+      "official_primary": false,
+      "score": 0.55,
+      "summary_same_article": true,
+      "PG01_expected": {
+        "featured_eligible": false,
+        "qualified_source_count": 1,
+        "eligibility_basis": null,
+        "summary_reused": false
+      },
+      "expected": {
+        "featured_eligible": false,
+        "qualified_source_count": 1,
+        "eligibility_basis": null,
+        "summary_reused": false
+      }
+    },
+    {
+      "case_id": "unreviewed_despite_high_score",
+      "time_valid": true,
+      "projection_valid": true,
+      "scope": "in_scope",
+      "core_supported": true,
+      "active_qualified_articles": 0,
+      "qualified_keys": [],
+      "identity_conflict": false,
+      "evidence_conflict": false,
+      "official_primary": false,
+      "score": 0.99,
+      "summary_same_article": true,
+      "PG01_expected": {
+        "featured_eligible": false,
+        "qualified_source_count": 0,
+        "eligibility_basis": null,
+        "summary_reused": false
+      },
+      "expected": {
+        "featured_eligible": false,
+        "qualified_source_count": 0,
+        "eligibility_basis": null,
+        "summary_reused": false
+      }
+    },
+    {
+      "case_id": "only_past_phase_approved",
+      "time_valid": true,
+      "projection_valid": true,
+      "scope": "in_scope",
+      "core_supported": true,
+      "active_qualified_articles": 0,
+      "qualified_keys": [],
+      "identity_conflict": false,
+      "evidence_conflict": false,
+      "official_primary": false,
+      "score": 0.72,
+      "summary_same_article": true,
+      "PG01_expected": {
+        "featured_eligible": false,
+        "qualified_source_count": 0,
+        "eligibility_basis": null,
+        "summary_reused": false
+      },
+      "expected": {
+        "featured_eligible": false,
+        "qualified_source_count": 0,
+        "eligibility_basis": null,
+        "summary_reused": false
+      }
+    },
+    {
+      "case_id": "only_context_unknown",
+      "time_valid": true,
+      "projection_valid": true,
+      "scope": "in_scope",
+      "core_supported": true,
+      "active_qualified_articles": 0,
+      "qualified_keys": [],
+      "identity_conflict": false,
+      "evidence_conflict": false,
+      "official_primary": false,
+      "score": 0.72,
+      "summary_same_article": true,
+      "PG01_expected": {
+        "featured_eligible": false,
+        "qualified_source_count": 0,
+        "eligibility_basis": null,
+        "summary_reused": false
+      },
+      "expected": {
+        "featured_eligible": false,
+        "qualified_source_count": 0,
+        "eligibility_basis": null,
+        "summary_reused": false
+      }
+    },
+    {
+      "case_id": "identity_conflict",
+      "time_valid": true,
+      "projection_valid": true,
+      "scope": "in_scope",
+      "core_supported": true,
+      "active_qualified_articles": 1,
+      "qualified_keys": [
+        "publisher:sample"
+      ],
+      "identity_conflict": true,
+      "evidence_conflict": false,
+      "official_primary": false,
+      "score": 0.72,
+      "summary_same_article": true,
+      "PG01_expected": {
+        "featured_eligible": false,
+        "qualified_source_count": 1,
+        "eligibility_basis": null,
+        "summary_reused": false
+      },
+      "expected": {
+        "featured_eligible": false,
+        "qualified_source_count": 0,
+        "eligibility_basis": null,
+        "summary_reused": false
+      }
+    },
+    {
+      "case_id": "evidence_conflict",
+      "time_valid": true,
+      "projection_valid": true,
+      "scope": "in_scope",
+      "core_supported": true,
+      "active_qualified_articles": 1,
+      "qualified_keys": [
+        "publisher:sample"
+      ],
+      "identity_conflict": false,
+      "evidence_conflict": true,
+      "official_primary": false,
+      "score": 0.72,
+      "summary_same_article": true,
+      "PG01_expected": {
+        "featured_eligible": false,
+        "qualified_source_count": 1,
+        "eligibility_basis": null,
+        "summary_reused": false
+      },
+      "expected": {
+        "featured_eligible": false,
+        "qualified_source_count": 0,
+        "eligibility_basis": null,
+        "summary_reused": false
+      }
+    },
+    {
+      "case_id": "no_core_backfill",
+      "time_valid": true,
+      "projection_valid": true,
+      "scope": "in_scope",
+      "core_supported": false,
+      "active_qualified_articles": 1,
+      "qualified_keys": [
+        "publisher:sample"
+      ],
+      "identity_conflict": false,
+      "evidence_conflict": false,
+      "official_primary": false,
+      "score": 0.72,
+      "summary_same_article": true,
+      "PG01_expected": {
+        "featured_eligible": false,
+        "qualified_source_count": 1,
+        "eligibility_basis": null,
+        "summary_reused": false
+      },
+      "expected": {
+        "featured_eligible": false,
+        "qualified_source_count": 0,
+        "eligibility_basis": null,
+        "summary_reused": false
+      }
+    },
+    {
+      "case_id": "no_core_even_official",
+      "time_valid": true,
+      "projection_valid": true,
+      "scope": "in_scope",
+      "core_supported": false,
+      "active_qualified_articles": 1,
+      "qualified_keys": [
+        "publisher:sample"
+      ],
+      "identity_conflict": false,
+      "evidence_conflict": false,
+      "official_primary": true,
+      "score": 0.72,
+      "summary_same_article": true,
+      "PG01_expected": {
+        "featured_eligible": false,
+        "qualified_source_count": 1,
+        "eligibility_basis": null,
+        "summary_reused": false
+      },
+      "expected": {
+        "featured_eligible": false,
+        "qualified_source_count": 0,
+        "eligibility_basis": null,
+        "summary_reused": false
+      }
+    },
+    {
+      "case_id": "out_of_scope",
+      "time_valid": true,
+      "projection_valid": true,
+      "scope": "out_of_scope",
+      "core_supported": true,
+      "active_qualified_articles": 1,
+      "qualified_keys": [
+        "publisher:sample"
+      ],
+      "identity_conflict": false,
+      "evidence_conflict": false,
+      "official_primary": false,
+      "score": 0.72,
+      "summary_same_article": true,
+      "PG01_expected": {
+        "featured_eligible": false,
+        "qualified_source_count": 1,
+        "eligibility_basis": null,
+        "summary_reused": false
+      },
+      "expected": {
+        "featured_eligible": false,
+        "qualified_source_count": 0,
+        "eligibility_basis": null,
+        "summary_reused": false
+      }
+    },
+    {
+      "case_id": "unknown_scope",
+      "time_valid": true,
+      "projection_valid": true,
+      "scope": "unknown",
+      "core_supported": true,
+      "active_qualified_articles": 1,
+      "qualified_keys": [
+        "publisher:sample"
+      ],
+      "identity_conflict": false,
+      "evidence_conflict": false,
+      "official_primary": false,
+      "score": 0.72,
+      "summary_same_article": true,
+      "PG01_expected": {
+        "featured_eligible": false,
+        "qualified_source_count": 1,
+        "eligibility_basis": null,
+        "summary_reused": false
+      },
+      "expected": {
+        "featured_eligible": false,
+        "qualified_source_count": 0,
+        "eligibility_basis": null,
+        "summary_reused": false
+      }
+    },
+    {
+      "case_id": "expired",
+      "time_valid": false,
+      "projection_valid": true,
+      "scope": "in_scope",
+      "core_supported": true,
+      "active_qualified_articles": 1,
+      "qualified_keys": [
+        "publisher:sample"
+      ],
+      "identity_conflict": false,
+      "evidence_conflict": false,
+      "official_primary": false,
+      "score": 0.72,
+      "summary_same_article": true,
+      "PG01_expected": {
+        "featured_eligible": false,
+        "qualified_source_count": 1,
+        "eligibility_basis": null,
+        "summary_reused": false
+      },
+      "expected": {
+        "featured_eligible": false,
+        "qualified_source_count": 0,
+        "eligibility_basis": null,
+        "summary_reused": false
+      }
+    },
+    {
+      "case_id": "invalid_projection",
+      "time_valid": true,
+      "projection_valid": false,
+      "scope": "in_scope",
+      "core_supported": true,
+      "active_qualified_articles": 1,
+      "qualified_keys": [
+        "publisher:sample"
+      ],
+      "identity_conflict": false,
+      "evidence_conflict": false,
+      "official_primary": false,
+      "score": 0.72,
+      "summary_same_article": true,
+      "PG01_expected": {
+        "featured_eligible": false,
+        "qualified_source_count": 1,
+        "eligibility_basis": null,
+        "summary_reused": false
+      },
+      "expected": {
+        "featured_eligible": false,
+        "qualified_source_count": 0,
+        "eligibility_basis": null,
+        "summary_reused": false
+      }
+    },
+    {
+      "case_id": "known_identity_no_count_key_single_score",
+      "time_valid": true,
+      "projection_valid": true,
+      "scope": "in_scope",
+      "core_supported": true,
+      "active_qualified_articles": 1,
+      "qualified_keys": [],
+      "identity_conflict": false,
+      "evidence_conflict": false,
+      "official_primary": false,
+      "score": 0.72,
+      "summary_same_article": true,
+      "PG01_expected": {
+        "featured_eligible": true,
+        "qualified_source_count": 0,
+        "eligibility_basis": "qualified_score",
+        "summary_reused": true
+      },
+      "expected": {
+        "featured_eligible": true,
+        "qualified_source_count": 0,
+        "eligibility_basis": "qualified_score",
+        "summary_reused": true
+      }
+    },
+    {
+      "case_id": "different_featured_primary_summary_omitted",
+      "time_valid": true,
+      "projection_valid": true,
+      "scope": "in_scope",
+      "core_supported": true,
+      "active_qualified_articles": 1,
+      "qualified_keys": [
+        "publisher:sample"
+      ],
+      "identity_conflict": false,
+      "evidence_conflict": false,
+      "official_primary": false,
+      "score": 0.72,
+      "summary_same_article": false,
+      "PG01_expected": {
+        "featured_eligible": true,
+        "qualified_source_count": 1,
+        "eligibility_basis": "qualified_score",
+        "summary_reused": false
+      },
+      "expected": {
+        "featured_eligible": true,
+        "qualified_source_count": 1,
+        "eligibility_basis": "qualified_score",
+        "summary_reused": false
+      }
+    },
+    {
+      "case_id": "unrelated_official_link_no_exception",
+      "time_valid": true,
+      "projection_valid": true,
+      "scope": "in_scope",
+      "core_supported": true,
+      "active_qualified_articles": 1,
+      "qualified_keys": [
+        "publisher:sample"
+      ],
+      "identity_conflict": false,
+      "evidence_conflict": false,
+      "official_primary": false,
+      "score": 0.55,
+      "summary_same_article": true,
+      "PG01_expected": {
+        "featured_eligible": false,
+        "qualified_source_count": 1,
+        "eligibility_basis": null,
+        "summary_reused": false
+      },
+      "expected": {
+        "featured_eligible": false,
+        "qualified_source_count": 1,
+        "eligibility_basis": null,
+        "summary_reused": false
+      }
+    },
+    {
+      "case_id": "missing_security_material",
+      "time_valid": true,
+      "projection_valid": true,
+      "scope": "in_scope",
+      "core_supported": false,
+      "active_qualified_articles": 1,
+      "qualified_keys": [
+        "publisher:sample"
+      ],
+      "identity_conflict": false,
+      "evidence_conflict": false,
+      "official_primary": false,
+      "score": 0.72,
+      "summary_same_article": true,
+      "PG01_expected": {
+        "featured_eligible": false,
+        "qualified_source_count": 1,
+        "eligibility_basis": null,
+        "summary_reused": false
+      },
+      "expected": {
+        "featured_eligible": false,
+        "qualified_source_count": 0,
+        "eligibility_basis": null,
+        "summary_reused": false
+      }
+    },
+    {
+      "case_id": "qualified_cnbc_duplicate_refs",
+      "time_valid": true,
+      "projection_valid": true,
+      "scope": "in_scope",
+      "core_supported": true,
+      "active_qualified_articles": 1,
+      "qualified_keys": [
+        "publisher:cnbc",
+        "publisher:cnbc"
+      ],
+      "identity_conflict": false,
+      "evidence_conflict": false,
+      "official_primary": false,
+      "score": 0.72,
+      "summary_same_article": true,
+      "PG01_expected": {
+        "featured_eligible": true,
+        "qualified_source_count": 1,
+        "eligibility_basis": "qualified_score",
+        "summary_reused": true
+      },
+      "expected": {
+        "featured_eligible": true,
+        "qualified_source_count": 1,
+        "eligibility_basis": "qualified_score",
+        "summary_reused": true
+      }
+    },
+    {
+      "case_id": "new_edition_no_inheritance",
+      "time_valid": true,
+      "projection_valid": true,
+      "scope": "in_scope",
+      "core_supported": true,
+      "active_qualified_articles": 0,
+      "qualified_keys": [],
+      "identity_conflict": false,
+      "evidence_conflict": false,
+      "official_primary": false,
+      "score": 0.72,
+      "summary_same_article": true,
+      "PG01_expected": {
+        "featured_eligible": false,
+        "qualified_source_count": 0,
+        "eligibility_basis": null,
+        "summary_reused": false
+      },
+      "expected": {
+        "featured_eligible": false,
+        "qualified_source_count": 0,
+        "eligibility_basis": null,
+        "summary_reused": false
+      }
+    },
+    {
+      "case_id": "zero_slots_allowed",
+      "time_valid": true,
+      "projection_valid": true,
+      "scope": "in_scope",
+      "core_supported": true,
+      "active_qualified_articles": 0,
+      "qualified_keys": [],
+      "identity_conflict": false,
+      "evidence_conflict": false,
+      "official_primary": false,
+      "score": 0,
+      "summary_same_article": true,
+      "PG01_expected": {
+        "featured_eligible": false,
+        "qualified_source_count": 0,
+        "eligibility_basis": null,
+        "summary_reused": false
+      },
+      "expected": {
+        "featured_eligible": false,
+        "qualified_source_count": 0,
+        "eligibility_basis": null,
+        "summary_reused": false
+      }
+    }
+  ]
+}

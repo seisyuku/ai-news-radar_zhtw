@@ -1,0 +1,1477 @@
+{
+  "schema_version": 1,
+  "policy_id": "publisher-governance-v1",
+  "revision": "ce78b2cd31b860b6232a1b02b0c08d2a949d492c911fafbba5e028dc0f4b3e8c",
+  "default": {
+    "publisher_kind": "unknown",
+    "admission_status": "unreviewed",
+    "source_tier": "watchlist",
+    "source_tier_label": "未審來源",
+    "source_tier_rank": 6,
+    "allow_general": true,
+    "allow_featured": false,
+    "allow_radar": false
+  },
+  "scopes": [
+    {
+      "scope_id": "ai_insider",
+      "publisher_id": null,
+      "publisher_kind": "media",
+      "hosts": [
+        {
+          "host": "theaiinsider.tech",
+          "path_prefix": "/"
+        },
+        {
+          "host": "www.theaiinsider.tech",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "unreviewed",
+      "source_tier": "watchlist",
+      "source_tier_label": "未審來源",
+      "source_tier_rank": 6,
+      "allow_general": true,
+      "allow_featured": false,
+      "allow_radar": false,
+      "notes": "Retain unreviewed. Previously inspected reporting is not whole-publisher quality acceptance; no new collector or counting key.",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md"
+      ],
+      "retained_source_keys": [
+        "dynamic/ai_insider"
+      ]
+    },
+    {
+      "scope_id": "aibase",
+      "publisher_id": "aibase",
+      "publisher_kind": "aggregator",
+      "hosts": [
+        {
+          "host": "aibase.com",
+          "path_prefix": "/"
+        },
+        {
+          "host": "aibase.com.tw",
+          "path_prefix": "/"
+        },
+        {
+          "host": "news.aibase.com",
+          "path_prefix": "/"
+        },
+        {
+          "host": "www.aibase.com",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "limited",
+      "source_tier": "ai_media",
+      "source_tier_label": "精選AI媒體",
+      "source_tier_rank": 2,
+      "allow_general": true,
+      "allow_featured": true,
+      "allow_radar": true,
+      "notes": "existing named public publisher and previously accepted article scope only; exact host/path/aliases required in PG03; not arbitrary subdomains",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md",
+        "docs/SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md"
+      ],
+      "retained_source_keys": [
+        "aibase"
+      ]
+    },
+    {
+      "scope_id": "amazon",
+      "publisher_id": "amazon",
+      "publisher_kind": "official",
+      "hosts": [
+        {
+          "host": "aws.amazon.com",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "limited",
+      "source_tier": "official",
+      "source_tier_label": "官方一手源",
+      "source_tier_rank": 0,
+      "allow_general": true,
+      "allow_featured": true,
+      "allow_radar": true,
+      "notes": "existing named public publisher and previously accepted article scope only; exact host/path/aliases required in PG03; not arbitrary subdomains",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md",
+        "docs/SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md"
+      ],
+      "retained_source_keys": [
+        "official_ai/aws_news"
+      ]
+    },
+    {
+      "scope_id": "android_headlines",
+      "publisher_id": null,
+      "publisher_kind": "media",
+      "hosts": [
+        {
+          "host": "androidheadlines.com",
+          "path_prefix": "/"
+        },
+        {
+          "host": "www.androidheadlines.com",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "unreviewed",
+      "source_tier": "watchlist",
+      "source_tier_label": "未審來源",
+      "source_tier_rank": 6,
+      "allow_general": true,
+      "allow_featured": false,
+      "allow_radar": false,
+      "notes": "Retain unreviewed. Previously inspected reporting is not whole-publisher quality acceptance; no new collector or counting key.",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md"
+      ],
+      "retained_source_keys": [
+        "dynamic/android_headlines"
+      ]
+    },
+    {
+      "scope_id": "anthropic",
+      "publisher_id": "anthropic",
+      "publisher_kind": "official",
+      "hosts": [
+        {
+          "host": "anthropic.com",
+          "path_prefix": "/"
+        },
+        {
+          "host": "www.anthropic.com",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "limited",
+      "source_tier": "official",
+      "source_tier_label": "官方一手源",
+      "source_tier_rank": 0,
+      "allow_general": true,
+      "allow_featured": true,
+      "allow_radar": true,
+      "notes": "existing named public publisher and previously accepted article scope only; exact host/path/aliases required in PG03; not arbitrary subdomains",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md",
+        "docs/SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md"
+      ],
+      "retained_source_keys": [
+        "official_ai/anthropic_news"
+      ]
+    },
+    {
+      "scope_id": "arc_prize",
+      "publisher_id": "arc_prize",
+      "publisher_kind": "benchmark",
+      "hosts": [
+        {
+          "host": "arcprize.org",
+          "path_prefix": "/"
+        },
+        {
+          "host": "www.arcprize.org",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "limited",
+      "source_tier": "benchmark",
+      "source_tier_label": "評測第三方",
+      "source_tier_rank": 2,
+      "allow_general": true,
+      "allow_featured": true,
+      "allow_radar": true,
+      "notes": "existing named public publisher and previously accepted article scope only; exact host/path/aliases required in PG03; not arbitrary subdomains",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md",
+        "docs/SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md"
+      ],
+      "retained_source_keys": [
+        "arc_prize"
+      ]
+    },
+    {
+      "scope_id": "bnext",
+      "publisher_id": "bnext",
+      "publisher_kind": "media",
+      "hosts": [
+        {
+          "host": "bnext.com.tw",
+          "path_prefix": "/"
+        },
+        {
+          "host": "www.bnext.com.tw",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "limited",
+      "source_tier": "advanced",
+      "source_tier_label": "台灣媒體觀察源",
+      "source_tier_rank": 4,
+      "allow_general": true,
+      "allow_featured": true,
+      "allow_radar": true,
+      "notes": "bnext.com.tw / www.bnext.com.tw main publisher only; Meet and future-commerce editions do not inherit; opaque old bridge without edition evidence defaults unreviewed",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md",
+        "docs/SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md"
+      ],
+      "retained_source_keys": [
+        "tw_media/bnext_news"
+      ]
+    },
+    {
+      "scope_id": "cnbc",
+      "publisher_id": "cnbc",
+      "publisher_kind": "media",
+      "hosts": [
+        {
+          "host": "cnbc.com",
+          "path_prefix": "/"
+        },
+        {
+          "host": "www.cnbc.com",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "limited",
+      "source_tier": "ai_media",
+      "source_tier_label": "精選AI媒體",
+      "source_tier_rank": 2,
+      "allow_general": true,
+      "allow_featured": true,
+      "allow_radar": true,
+      "notes": "existing named public publisher and previously accepted article scope only; exact host/path/aliases required in PG03; not arbitrary subdomains",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md",
+        "docs/SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md"
+      ],
+      "retained_source_keys": [
+        "curated_media/cnbc_technology"
+      ]
+    },
+    {
+      "scope_id": "computing_uk",
+      "publisher_id": null,
+      "publisher_kind": "media",
+      "hosts": [
+        {
+          "host": "computing.co.uk",
+          "path_prefix": "/"
+        },
+        {
+          "host": "www.computing.co.uk",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "unreviewed",
+      "source_tier": "watchlist",
+      "source_tier_label": "未審來源",
+      "source_tier_rank": 6,
+      "allow_general": true,
+      "allow_featured": false,
+      "allow_radar": false,
+      "notes": "Retain unreviewed. Previously inspected reporting is not whole-publisher quality acceptance; no new collector or counting key.",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md"
+      ],
+      "retained_source_keys": [
+        "dynamic/computing_uk"
+      ]
+    },
+    {
+      "scope_id": "edition/fc.bnext.com.tw",
+      "publisher_id": "bnext",
+      "publisher_kind": "media",
+      "hosts": [
+        {
+          "host": "fc.bnext.com.tw",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "unreviewed",
+      "source_tier": "watchlist",
+      "source_tier_label": "未審來源",
+      "source_tier_rank": 6,
+      "allow_general": true,
+      "allow_featured": false,
+      "allow_radar": false,
+      "notes": "No inheritance from the bnext main edition. General list still requires article scope; archived candidate collector stays inactive.",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md"
+      ],
+      "retained_source_keys": []
+    },
+    {
+      "scope_id": "edition/meet.bnext.com.tw",
+      "publisher_id": "bnext",
+      "publisher_kind": "media",
+      "hosts": [
+        {
+          "host": "meet.bnext.com.tw",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "unreviewed",
+      "source_tier": "watchlist",
+      "source_tier_label": "未審來源",
+      "source_tier_rank": 6,
+      "allow_general": true,
+      "allow_featured": false,
+      "allow_radar": false,
+      "notes": "No inheritance from the bnext main edition. General list still requires article scope; archived candidate collector stays inactive.",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md"
+      ],
+      "retained_source_keys": []
+    },
+    {
+      "scope_id": "epoch",
+      "publisher_id": "epoch",
+      "publisher_kind": "media",
+      "hosts": [
+        {
+          "host": "epoch.ai",
+          "path_prefix": "/"
+        },
+        {
+          "host": "www.epoch.ai",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "limited",
+      "source_tier": "ai_media",
+      "source_tier_label": "精選AI媒體",
+      "source_tier_rank": 2,
+      "allow_general": true,
+      "allow_featured": true,
+      "allow_radar": true,
+      "notes": "epoch.ai only; identity metadata may be added but no new corroboration vote in this round",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md",
+        "docs/SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md"
+      ],
+      "retained_source_keys": [
+        "curated_media/epoch_ai_news"
+      ]
+    },
+    {
+      "scope_id": "fedagent",
+      "publisher_id": null,
+      "publisher_kind": "media",
+      "hosts": [
+        {
+          "host": "fedagent.com",
+          "path_prefix": "/"
+        },
+        {
+          "host": "www.fedagent.com",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "unreviewed",
+      "source_tier": "watchlist",
+      "source_tier_label": "未審來源",
+      "source_tier_rank": 6,
+      "allow_general": true,
+      "allow_featured": false,
+      "allow_radar": false,
+      "notes": "Retain unreviewed. Previously inspected reporting is not whole-publisher quality acceptance; no new collector or counting key.",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md"
+      ],
+      "retained_source_keys": [
+        "dynamic/fedagent"
+      ]
+    },
+    {
+      "scope_id": "github",
+      "publisher_id": "github",
+      "publisher_kind": "official",
+      "hosts": [
+        {
+          "host": "github.blog",
+          "path_prefix": "/"
+        },
+        {
+          "host": "www.github.blog",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "limited",
+      "source_tier": "official",
+      "source_tier_label": "官方一手源",
+      "source_tier_rank": 0,
+      "allow_general": true,
+      "allow_featured": true,
+      "allow_radar": true,
+      "notes": "existing named public publisher and previously accepted article scope only; exact host/path/aliases required in PG03; not arbitrary subdomains",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md",
+        "docs/SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md"
+      ],
+      "retained_source_keys": [
+        "official_ai/github_ai_ml",
+        "official_ai/github_changelog"
+      ]
+    },
+    {
+      "scope_id": "google",
+      "publisher_id": "google",
+      "publisher_kind": "official",
+      "hosts": [
+        {
+          "host": "blog.google",
+          "path_prefix": "/"
+        },
+        {
+          "host": "cloud.google.com",
+          "path_prefix": "/"
+        },
+        {
+          "host": "deepmind.google",
+          "path_prefix": "/"
+        },
+        {
+          "host": "www.blog.google",
+          "path_prefix": "/"
+        },
+        {
+          "host": "www.deepmind.google",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "limited",
+      "source_tier": "official",
+      "source_tier_label": "官方一手源",
+      "source_tier_rank": 0,
+      "allow_general": true,
+      "allow_featured": true,
+      "allow_radar": true,
+      "notes": "existing named public publisher and previously accepted article scope only; exact host/path/aliases required in PG03; not arbitrary subdomains",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md",
+        "docs/SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md"
+      ],
+      "retained_source_keys": [
+        "official_ai/google_ai_blog",
+        "official_ai/google_cloud_blog_news",
+        "official_ai/google_deepmind",
+        "official_ai/google_gemini_blog"
+      ]
+    },
+    {
+      "scope_id": "huggingface",
+      "publisher_id": "huggingface",
+      "publisher_kind": "official",
+      "hosts": [
+        {
+          "host": "huggingface.co",
+          "path_prefix": "/"
+        },
+        {
+          "host": "www.huggingface.co",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "limited",
+      "source_tier": "official",
+      "source_tier_label": "官方一手源",
+      "source_tier_rank": 0,
+      "allow_general": true,
+      "allow_featured": true,
+      "allow_radar": true,
+      "notes": "existing named public publisher and previously accepted article scope only; exact host/path/aliases required in PG03; not arbitrary subdomains",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md",
+        "docs/SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md"
+      ],
+      "retained_source_keys": [
+        "official_ai/hugging_face_blog"
+      ]
+    },
+    {
+      "scope_id": "inside",
+      "publisher_id": "inside",
+      "publisher_kind": "media",
+      "hosts": [
+        {
+          "host": "inside.com.tw",
+          "path_prefix": "/"
+        },
+        {
+          "host": "www.inside.com.tw",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "limited",
+      "source_tier": "tw_media",
+      "source_tier_label": "台灣繁中媒體",
+      "source_tier_rank": 2,
+      "allow_general": true,
+      "allow_featured": true,
+      "allow_radar": true,
+      "notes": "existing named public publisher and previously accepted article scope only; exact host/path/aliases required in PG03; not arbitrary subdomains",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md",
+        "docs/SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md"
+      ],
+      "retained_source_keys": [
+        "tw_media/inside"
+      ]
+    },
+    {
+      "scope_id": "ithome",
+      "publisher_id": "ithome",
+      "publisher_kind": "media",
+      "hosts": [
+        {
+          "host": "ithome.com.tw",
+          "path_prefix": "/"
+        },
+        {
+          "host": "www.ithome.com.tw",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "limited",
+      "source_tier": "professional_media",
+      "source_tier_label": "專業科技媒體",
+      "source_tier_rank": 1,
+      "allow_general": true,
+      "allow_featured": true,
+      "allow_radar": true,
+      "notes": "existing named public publisher and previously accepted article scope only; exact host/path/aliases required in PG03; not arbitrary subdomains",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md",
+        "docs/SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md"
+      ],
+      "retained_source_keys": [
+        "tw_media/ithome"
+      ]
+    },
+    {
+      "scope_id": "juya",
+      "publisher_id": "juya",
+      "publisher_kind": "control",
+      "hosts": [
+        {
+          "host": "daily.juya.uk",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "limited",
+      "source_tier": "watchlist",
+      "source_tier_label": "人工對照源",
+      "source_tier_rank": 6,
+      "allow_general": false,
+      "allow_featured": false,
+      "allow_radar": false,
+      "notes": "Maintainer comparison only; no news ranking.",
+      "authority": [
+        "docs/SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md"
+      ],
+      "retained_source_keys": [
+        "juya_daily"
+      ]
+    },
+    {
+      "scope_id": "kr36",
+      "publisher_id": "kr36",
+      "publisher_kind": "aggregator",
+      "hosts": [
+        {
+          "host": "36kr.com",
+          "path_prefix": "/"
+        },
+        {
+          "host": "m-ai.36kr.com",
+          "path_prefix": "/"
+        },
+        {
+          "host": "www.36kr.com",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "limited",
+      "source_tier": "watchlist",
+      "source_tier_label": "觀察名單源",
+      "source_tier_rank": 6,
+      "allow_general": true,
+      "allow_featured": false,
+      "allow_radar": false,
+      "notes": "existing named public publisher and previously accepted article scope only; exact host/path/aliases required in PG03; not arbitrary subdomains",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md",
+        "docs/SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md"
+      ],
+      "retained_source_keys": [
+        "kr36_ai"
+      ]
+    },
+    {
+      "scope_id": "latin_times",
+      "publisher_id": null,
+      "publisher_kind": "media",
+      "hosts": [
+        {
+          "host": "latintimes.com",
+          "path_prefix": "/"
+        },
+        {
+          "host": "www.latintimes.com",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "unreviewed",
+      "source_tier": "watchlist",
+      "source_tier_label": "未審來源",
+      "source_tier_rank": 6,
+      "allow_general": true,
+      "allow_featured": false,
+      "allow_radar": false,
+      "notes": "Retain unreviewed. Previously inspected reporting is not whole-publisher quality acceptance; no new collector or counting key.",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md"
+      ],
+      "retained_source_keys": [
+        "dynamic/latin_times"
+      ]
+    },
+    {
+      "scope_id": "llm_rumors",
+      "publisher_id": "llm_rumors",
+      "publisher_kind": "media",
+      "hosts": [
+        {
+          "host": "llmrumors.com",
+          "path_prefix": "/"
+        },
+        {
+          "host": "www.llmrumors.com",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "limited",
+      "source_tier": "watchlist",
+      "source_tier_label": "模型分析觀察源",
+      "source_tier_rank": 6,
+      "allow_general": true,
+      "allow_featured": false,
+      "allow_radar": false,
+      "notes": "existing named public publisher and previously accepted article scope only; exact host/path/aliases required in PG03; not arbitrary subdomains",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md",
+        "docs/SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md"
+      ],
+      "retained_source_keys": [
+        "llm_rumors"
+      ]
+    },
+    {
+      "scope_id": "llm_stats",
+      "publisher_id": "llm_stats",
+      "publisher_kind": "aggregator",
+      "hosts": [
+        {
+          "host": "llm-stats.com",
+          "path_prefix": "/models/"
+        },
+        {
+          "host": "www.llm-stats.com",
+          "path_prefix": "/models/"
+        }
+      ],
+      "admission_status": "limited",
+      "source_tier": "watchlist",
+      "source_tier_label": "模型查漏源",
+      "source_tier_rank": 6,
+      "allow_general": true,
+      "allow_featured": false,
+      "allow_radar": true,
+      "notes": "Existing atomic allowlisted model discovery only; tracked, not official; no general featured permission.",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md",
+        "docs/SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md"
+      ],
+      "retained_source_keys": [
+        "llm_stats_models"
+      ]
+    },
+    {
+      "scope_id": "marktechpost",
+      "publisher_id": "marktechpost",
+      "publisher_kind": "media",
+      "hosts": [
+        {
+          "host": "marktechpost.com",
+          "path_prefix": "/"
+        },
+        {
+          "host": "www.marktechpost.com",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "limited",
+      "source_tier": "ai_media",
+      "source_tier_label": "精選AI媒體",
+      "source_tier_rank": 2,
+      "allow_general": true,
+      "allow_featured": true,
+      "allow_radar": true,
+      "notes": "existing named public publisher and previously accepted article scope only; exact host/path/aliases required in PG03; not arbitrary subdomains",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md",
+        "docs/SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md"
+      ],
+      "retained_source_keys": [
+        "curated_media/marktechpost"
+      ]
+    },
+    {
+      "scope_id": "mcp_blog",
+      "publisher_id": "mcp_blog",
+      "publisher_kind": "official",
+      "hosts": [
+        {
+          "host": "blog.modelcontextprotocol.io",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "limited",
+      "source_tier": "official",
+      "source_tier_label": "官方一手源",
+      "source_tier_rank": 0,
+      "allow_general": true,
+      "allow_featured": true,
+      "allow_radar": true,
+      "notes": "existing named public publisher and previously accepted article scope only; exact host/path/aliases required in PG03; not arbitrary subdomains",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md",
+        "docs/SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md",
+        "docs/PUBLISHER_GOVERNANCE_PG02_IMPLEMENTATION_20261023.md"
+      ],
+      "retained_source_keys": [
+        "mcp_blog"
+      ]
+    },
+    {
+      "scope_id": "microsoft",
+      "publisher_id": "microsoft",
+      "publisher_kind": "official",
+      "hosts": [
+        {
+          "host": "blogs.microsoft.com",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "limited",
+      "source_tier": "official",
+      "source_tier_label": "官方一手源",
+      "source_tier_rank": 0,
+      "allow_general": true,
+      "allow_featured": true,
+      "allow_radar": true,
+      "notes": "existing named public publisher and previously accepted article scope only; exact host/path/aliases required in PG03; not arbitrary subdomains",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md",
+        "docs/SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md"
+      ],
+      "retained_source_keys": [
+        "official_ai/microsoft_blog"
+      ]
+    },
+    {
+      "scope_id": "mistral",
+      "publisher_id": "mistral",
+      "publisher_kind": "official",
+      "hosts": [
+        {
+          "host": "mistral.ai",
+          "path_prefix": "/"
+        },
+        {
+          "host": "www.mistral.ai",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "limited",
+      "source_tier": "official",
+      "source_tier_label": "官方一手源",
+      "source_tier_rank": 0,
+      "allow_general": true,
+      "allow_featured": true,
+      "allow_radar": true,
+      "notes": "existing named public publisher and previously accepted article scope only; exact host/path/aliases required in PG03; not arbitrary subdomains",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md",
+        "docs/SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md",
+        "docs/PUBLISHER_GOVERNANCE_PG02_IMPLEMENTATION_20261023.md"
+      ],
+      "retained_source_keys": [
+        "mistral_news"
+      ]
+    },
+    {
+      "scope_id": "new_york_post",
+      "publisher_id": null,
+      "publisher_kind": "media",
+      "hosts": [
+        {
+          "host": "nypost.com",
+          "path_prefix": "/"
+        },
+        {
+          "host": "www.nypost.com",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "unreviewed",
+      "source_tier": "watchlist",
+      "source_tier_label": "未審來源",
+      "source_tier_rank": 6,
+      "allow_general": true,
+      "allow_featured": false,
+      "allow_radar": false,
+      "notes": "Retain unreviewed. Previously inspected reporting is not whole-publisher quality acceptance; no new collector or counting key.",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md"
+      ],
+      "retained_source_keys": [
+        "dynamic/new_york_post"
+      ]
+    },
+    {
+      "scope_id": "nvidia",
+      "publisher_id": "nvidia",
+      "publisher_kind": "official",
+      "hosts": [
+        {
+          "host": "blogs.nvidia.com",
+          "path_prefix": "/"
+        },
+        {
+          "host": "nvidianews.nvidia.com",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "limited",
+      "source_tier": "official",
+      "source_tier_label": "官方一手源",
+      "source_tier_rank": 0,
+      "allow_general": true,
+      "allow_featured": true,
+      "allow_radar": true,
+      "notes": "existing named public publisher and previously accepted article scope only; exact host/path/aliases required in PG03; not arbitrary subdomains",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md",
+        "docs/SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md"
+      ],
+      "retained_source_keys": [
+        "official_ai/nvidia_blog"
+      ]
+    },
+    {
+      "scope_id": "openai",
+      "publisher_id": "openai",
+      "publisher_kind": "official",
+      "hosts": [
+        {
+          "host": "openai.com",
+          "path_prefix": "/"
+        },
+        {
+          "host": "www.openai.com",
+          "path_prefix": "/"
+        },
+        {
+          "host": "github.com",
+          "path_prefix": "/openai/skills"
+        },
+        {
+          "host": "developers.openai.com",
+          "path_prefix": "/codex/changelog"
+        }
+      ],
+      "admission_status": "limited",
+      "source_tier": "official",
+      "source_tier_label": "官方一手源",
+      "source_tier_rank": 0,
+      "allow_general": true,
+      "allow_featured": true,
+      "allow_radar": true,
+      "notes": "existing named public publisher and previously accepted article scope only; exact host/path/aliases required in PG03; not arbitrary subdomains",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md",
+        "docs/SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md"
+      ],
+      "retained_source_keys": [
+        "official_ai/openai_codex_changelog",
+        "official_ai/openai_news",
+        "official_ai/openai_skills"
+      ]
+    },
+    {
+      "scope_id": "reuters",
+      "publisher_id": "reuters",
+      "publisher_kind": "media",
+      "hosts": [
+        {
+          "host": "reuters.com",
+          "path_prefix": "/"
+        },
+        {
+          "host": "www.reuters.com",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "limited",
+      "source_tier": "ai_media",
+      "source_tier_label": "精選AI媒體",
+      "source_tier_rank": 2,
+      "allow_general": true,
+      "allow_featured": true,
+      "allow_radar": true,
+      "notes": "existing named public publisher and previously accepted article scope only; exact host/path/aliases required in PG03; not arbitrary subdomains",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md",
+        "docs/SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md"
+      ],
+      "retained_source_keys": [
+        "curated_media/reuters_ai_news"
+      ]
+    },
+    {
+      "scope_id": "runtimewire",
+      "publisher_id": "runtimewire",
+      "publisher_kind": "media",
+      "hosts": [
+        {
+          "host": "runtimewire.com",
+          "path_prefix": "/article/"
+        },
+        {
+          "host": "www.runtimewire.com",
+          "path_prefix": "/article/"
+        }
+      ],
+      "admission_status": "limited",
+      "source_tier": "advanced",
+      "source_tier_label": "次級AI媒體",
+      "source_tier_rank": 4,
+      "allow_general": true,
+      "allow_featured": true,
+      "allow_radar": true,
+      "notes": "Existing news articles only; catalogs excluded by existing intake scope.",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md",
+        "docs/SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md"
+      ],
+      "retained_source_keys": [
+        "runtimewire"
+      ]
+    },
+    {
+      "scope_id": "south_china_morning_post",
+      "publisher_id": null,
+      "publisher_kind": "media",
+      "hosts": [
+        {
+          "host": "scmp.com",
+          "path_prefix": "/"
+        },
+        {
+          "host": "www.scmp.com",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "unreviewed",
+      "source_tier": "watchlist",
+      "source_tier_label": "未審來源",
+      "source_tier_rank": 6,
+      "allow_general": true,
+      "allow_featured": false,
+      "allow_radar": false,
+      "notes": "Retain unreviewed. Previously inspected reporting is not whole-publisher quality acceptance; no new collector or counting key.",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md"
+      ],
+      "retained_source_keys": [
+        "dynamic/south_china_morning_post"
+      ]
+    },
+    {
+      "scope_id": "techcrunch",
+      "publisher_id": "techcrunch",
+      "publisher_kind": "media",
+      "hosts": [
+        {
+          "host": "techcrunch.com",
+          "path_prefix": "/"
+        },
+        {
+          "host": "www.techcrunch.com",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "limited",
+      "source_tier": "ai_media",
+      "source_tier_label": "精選AI媒體",
+      "source_tier_rank": 2,
+      "allow_general": true,
+      "allow_featured": true,
+      "allow_radar": true,
+      "notes": "existing named public publisher and previously accepted article scope only; exact host/path/aliases required in PG03; not arbitrary subdomains",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md",
+        "docs/SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md"
+      ],
+      "retained_source_keys": [
+        "curated_media/techcrunch_ai"
+      ]
+    },
+    {
+      "scope_id": "technews",
+      "publisher_id": "technews",
+      "publisher_kind": "media",
+      "hosts": [
+        {
+          "host": "technews.tw",
+          "path_prefix": "/"
+        },
+        {
+          "host": "www.technews.tw",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "limited",
+      "source_tier": "tw_media",
+      "source_tier_label": "台灣繁中媒體",
+      "source_tier_rank": 2,
+      "allow_general": true,
+      "allow_featured": true,
+      "allow_radar": true,
+      "notes": "existing named public publisher and previously accepted article scope only; exact host/path/aliases required in PG03; not arbitrary subdomains",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md",
+        "docs/SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md"
+      ],
+      "retained_source_keys": [
+        "tw_media/technews_tw"
+      ]
+    },
+    {
+      "scope_id": "tencent",
+      "publisher_id": "tencent",
+      "publisher_kind": "official",
+      "hosts": [
+        {
+          "host": "tencent.com",
+          "path_prefix": "/"
+        },
+        {
+          "host": "www.tencent.com",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "limited",
+      "source_tier": "official",
+      "source_tier_label": "官方一手源",
+      "source_tier_rank": 0,
+      "allow_general": true,
+      "allow_featured": true,
+      "allow_radar": true,
+      "notes": "existing named public publisher and previously accepted article scope only; exact host/path/aliases required in PG03; not arbitrary subdomains",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md",
+        "docs/SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md"
+      ],
+      "retained_source_keys": [
+        "official_ai/tencent_newsroom"
+      ]
+    },
+    {
+      "scope_id": "the_decoder",
+      "publisher_id": "the_decoder",
+      "publisher_kind": "media",
+      "hosts": [
+        {
+          "host": "the-decoder.com",
+          "path_prefix": "/"
+        },
+        {
+          "host": "www.the-decoder.com",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "limited",
+      "source_tier": "ai_vertical",
+      "source_tier_label": "AI垂直專業媒體",
+      "source_tier_rank": 1,
+      "allow_general": true,
+      "allow_featured": true,
+      "allow_radar": true,
+      "notes": "existing named public publisher and previously accepted article scope only; exact host/path/aliases required in PG03; not arbitrary subdomains",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md",
+        "docs/SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md"
+      ],
+      "retained_source_keys": [
+        "curated_media/the_decoder"
+      ]
+    },
+    {
+      "scope_id": "the_information",
+      "publisher_id": "the_information",
+      "publisher_kind": "media",
+      "hosts": [
+        {
+          "host": "theinformation.com",
+          "path_prefix": "/"
+        },
+        {
+          "host": "www.theinformation.com",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "limited",
+      "source_tier": "ai_media",
+      "source_tier_label": "精選AI媒體",
+      "source_tier_rank": 2,
+      "allow_general": true,
+      "allow_featured": true,
+      "allow_radar": true,
+      "notes": "existing named public publisher and previously accepted article scope only; exact host/path/aliases required in PG03; not arbitrary subdomains",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md",
+        "docs/SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md"
+      ],
+      "retained_source_keys": [
+        "curated_media/the_information_news"
+      ]
+    },
+    {
+      "scope_id": "the_verge",
+      "publisher_id": "the_verge",
+      "publisher_kind": "media",
+      "hosts": [
+        {
+          "host": "theverge.com",
+          "path_prefix": "/"
+        },
+        {
+          "host": "www.theverge.com",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "limited",
+      "source_tier": "ai_media",
+      "source_tier_label": "精選AI媒體",
+      "source_tier_rank": 2,
+      "allow_general": true,
+      "allow_featured": true,
+      "allow_radar": true,
+      "notes": "existing named public publisher and previously accepted article scope only; exact host/path/aliases required in PG03; not arbitrary subdomains",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md",
+        "docs/SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md"
+      ],
+      "retained_source_keys": [
+        "curated_media/the_verge"
+      ]
+    },
+    {
+      "scope_id": "thinkingmachines",
+      "publisher_id": "thinkingmachines",
+      "publisher_kind": "official",
+      "hosts": [
+        {
+          "host": "thinkingmachines.ai",
+          "path_prefix": "/"
+        },
+        {
+          "host": "www.thinkingmachines.ai",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "limited",
+      "source_tier": "official",
+      "source_tier_label": "官方一手源",
+      "source_tier_rank": 0,
+      "allow_general": true,
+      "allow_featured": true,
+      "allow_radar": true,
+      "notes": "existing named public publisher and previously accepted article scope only; exact host/path/aliases required in PG03; not arbitrary subdomains",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md",
+        "docs/SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md"
+      ],
+      "retained_source_keys": [
+        "official_ai/thinking_machines_lab"
+      ]
+    },
+    {
+      "scope_id": "wccftech",
+      "publisher_id": null,
+      "publisher_kind": "media",
+      "hosts": [
+        {
+          "host": "wccftech.com",
+          "path_prefix": "/"
+        },
+        {
+          "host": "www.wccftech.com",
+          "path_prefix": "/"
+        }
+      ],
+      "admission_status": "unreviewed",
+      "source_tier": "watchlist",
+      "source_tier_label": "未審來源",
+      "source_tier_rank": 6,
+      "allow_general": true,
+      "allow_featured": false,
+      "allow_radar": false,
+      "notes": "Retain unreviewed. Previously inspected reporting is not whole-publisher quality acceptance; no new collector or counting key.",
+      "authority": [
+        "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md"
+      ],
+      "retained_source_keys": [
+        "dynamic/wccftech"
+      ]
+    }
+  ],
+  "retained_transports": [
+    {
+      "source_key": "aibase",
+      "publisher_id": "aibase",
+      "action": "retain"
+    },
+    {
+      "source_key": "arc_prize",
+      "publisher_id": "arc_prize",
+      "action": "retain"
+    },
+    {
+      "source_key": "curated_media/cnbc_technology",
+      "publisher_id": "cnbc",
+      "action": "retain"
+    },
+    {
+      "source_key": "curated_media/deepseek_news",
+      "publisher_id": null,
+      "action": "retain"
+    },
+    {
+      "source_key": "curated_media/epoch_ai_news",
+      "publisher_id": "epoch",
+      "action": "retain"
+    },
+    {
+      "source_key": "curated_media/marktechpost",
+      "publisher_id": "marktechpost",
+      "action": "retain"
+    },
+    {
+      "source_key": "curated_media/meta_ai_news",
+      "publisher_id": null,
+      "action": "retain"
+    },
+    {
+      "source_key": "curated_media/reuters_ai_news",
+      "publisher_id": "reuters",
+      "action": "retain"
+    },
+    {
+      "source_key": "curated_media/techcrunch_ai",
+      "publisher_id": "techcrunch",
+      "action": "retain"
+    },
+    {
+      "source_key": "curated_media/the_decoder",
+      "publisher_id": "the_decoder",
+      "action": "retain"
+    },
+    {
+      "source_key": "curated_media/the_information_news",
+      "publisher_id": "the_information",
+      "action": "retain"
+    },
+    {
+      "source_key": "curated_media/the_verge",
+      "publisher_id": "the_verge",
+      "action": "retain"
+    },
+    {
+      "source_key": "curated_media/xai_grok_news",
+      "publisher_id": null,
+      "action": "retain"
+    },
+    {
+      "source_key": "juya_daily",
+      "publisher_id": null,
+      "action": "retain"
+    },
+    {
+      "source_key": "kr36_ai",
+      "publisher_id": "kr36",
+      "action": "retain"
+    },
+    {
+      "source_key": "llm_rumors",
+      "publisher_id": "llm_rumors",
+      "action": "retain"
+    },
+    {
+      "source_key": "llm_stats_models",
+      "publisher_id": "llm_stats",
+      "action": "retain"
+    },
+    {
+      "source_key": "mcp_blog",
+      "publisher_id": "mcp_blog",
+      "action": "retain"
+    },
+    {
+      "source_key": "mistral_news",
+      "publisher_id": "mistral",
+      "action": "retain"
+    },
+    {
+      "source_key": "official_ai/anthropic_news",
+      "publisher_id": "anthropic",
+      "action": "retain"
+    },
+    {
+      "source_key": "official_ai/aws_news",
+      "publisher_id": "amazon",
+      "action": "retain"
+    },
+    {
+      "source_key": "official_ai/github_ai_ml",
+      "publisher_id": "github",
+      "action": "retain"
+    },
+    {
+      "source_key": "official_ai/github_changelog",
+      "publisher_id": "github",
+      "action": "retain"
+    },
+    {
+      "source_key": "official_ai/google_ai_blog",
+      "publisher_id": "google",
+      "action": "retain"
+    },
+    {
+      "source_key": "official_ai/google_cloud_blog_news",
+      "publisher_id": "google",
+      "action": "retain"
+    },
+    {
+      "source_key": "official_ai/google_deepmind",
+      "publisher_id": "google",
+      "action": "retain"
+    },
+    {
+      "source_key": "official_ai/google_gemini_blog",
+      "publisher_id": "google",
+      "action": "retain"
+    },
+    {
+      "source_key": "official_ai/hugging_face_blog",
+      "publisher_id": "huggingface",
+      "action": "retain"
+    },
+    {
+      "source_key": "official_ai/microsoft_blog",
+      "publisher_id": "microsoft",
+      "action": "retain"
+    },
+    {
+      "source_key": "official_ai/nvidia_blog",
+      "publisher_id": "nvidia",
+      "action": "retain"
+    },
+    {
+      "source_key": "official_ai/openai_codex_changelog",
+      "publisher_id": "openai",
+      "action": "retain"
+    },
+    {
+      "source_key": "official_ai/openai_news",
+      "publisher_id": "openai",
+      "action": "retain"
+    },
+    {
+      "source_key": "official_ai/openai_skills",
+      "publisher_id": "openai",
+      "action": "retain"
+    },
+    {
+      "source_key": "official_ai/tencent_newsroom",
+      "publisher_id": "tencent",
+      "action": "retain"
+    },
+    {
+      "source_key": "official_ai/thinking_machines_lab",
+      "publisher_id": "thinkingmachines",
+      "action": "retain"
+    },
+    {
+      "source_key": "opml_pool",
+      "publisher_id": null,
+      "action": "retain"
+    },
+    {
+      "source_key": "runtimewire",
+      "publisher_id": "runtimewire",
+      "action": "retain"
+    },
+    {
+      "source_key": "tw_media/bnext_news",
+      "publisher_id": "bnext",
+      "action": "retain"
+    },
+    {
+      "source_key": "tw_media/inside",
+      "publisher_id": "inside",
+      "action": "retain"
+    },
+    {
+      "source_key": "tw_media/ithome",
+      "publisher_id": "ithome",
+      "action": "retain"
+    },
+    {
+      "source_key": "tw_media/technews_tw",
+      "publisher_id": "technews",
+      "action": "retain"
+    }
+  ],
+  "archived_candidates": [
+    "shadow/informationsecurity",
+    "shadow/cyberq",
+    "shadow/netadmin",
+    "shadow/digitimes_tw",
+    "shadow/meet",
+    "limited/cloudflare",
+    "limited/modular",
+    "limited/zed"
+  ],
+  "non_news_sensors": [
+    "market_price",
+    "market_free_tier",
+    "canary_usage4claude",
+    "canary_usage_monitor_claude"
+  ],
+  "notes": [
+    "Identity is not admission. Exact host/path scopes only; no subdomain inheritance or query publisher tier.",
+    "Existing article/time filters remain; PG04 consumes use permissions and evidence.",
+    "No new positive corroboration keys; source ranking is an output overlay, never matcher input.",
+    "Eight dynamic publishers remain unreviewed; no new quality claim."
+  ]
+}

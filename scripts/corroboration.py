@@ -70,7 +70,7 @@ CONFIGURED_SITES = {"official_ai", "curated_media", "tw_media", "runtimewire",
 ECOSYSTEM_SITES = {"aibase", "kr36_ai", "juya_daily"}
 
 
-def identity(item: dict[str, Any]) -> tuple[str | None, str]:
+def _legacy_identity(item: dict[str, Any]) -> tuple[str | None, str]:
     site = str(item.get("site_id") or "")
     source = str(item.get("source") or "").strip()
     if site in ECOSYSTEM_SITES or (site == "curated_media" and source.casefold() == "aibase"):
@@ -102,6 +102,17 @@ def identity(item: dict[str, Any]) -> tuple[str | None, str]:
     if not publisher:
         return None, "unknown"
     return (publisher if publisher == "cn_aggregator" else "publisher:" + publisher), "identified"
+
+
+def identity(item: dict[str, Any]) -> tuple[str | None, str]:
+    try:
+        from scripts.publisher_identity import rss_conflict
+    except ModuleNotFoundError:  # direct CLI
+        from publisher_identity import rss_conflict
+    key, status = _legacy_identity(item)
+    if rss_conflict(item, key, HOSTS, LABELS, SUFFIXES):
+        return None, "conflict"
+    return key, status
 
 
 def annotate(item: dict[str, Any]) -> dict[str, Any]:

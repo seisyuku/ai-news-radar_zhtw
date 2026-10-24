@@ -35,6 +35,9 @@ class ArchiveRecord(TypedDict, total=False):
     last_seen_at: str | None
     summary: str
     publisher_links: list[str]
+    publisher: dict[str, Any]
+    ingress: dict[str, Any]
+    source_policy: dict[str, Any]
     content_language: str
     field_languages: dict[str, str]
     aibase_article_id: str
@@ -235,6 +238,14 @@ def write_item_html_adapters(
         record = sanitize_record(dict(archive[item_id]))
         record["id"] = item_id
         rows = [definition_row("Radar ID", item_id)]
+        publisher = record.get("publisher")
+        if isinstance(publisher, dict):
+            rows.append(definition_row("Publisher", publisher.get("name")))
+            rows.append(definition_row("Publisher identity", publisher.get("status")))
+        policy = record.get("source_policy")
+        if isinstance(policy, dict):
+            rows.append(definition_row("Publisher admission", policy.get("admission_status")))
+            rows.append(definition_row("Publisher scope", policy.get("scope_id")))
         for label, field in (
             ("Title", "title"),
             ("Source", "source"),

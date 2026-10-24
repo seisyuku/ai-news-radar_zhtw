@@ -30,12 +30,15 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
 try:
-    from scripts import archive_output, source_health, corroboration, brief_events
+    from scripts import archive_output, source_health, corroboration, brief_events, publisher_identity, publisher_policy, publisher_governance
 except ModuleNotFoundError:  # pragma: no cover - direct script invocation
     import archive_output
     import source_health
     import corroboration
     import brief_events
+    import publisher_identity
+    import publisher_policy
+    import publisher_governance
 
 # Keep these existing imports callable by maintainers and regression tests.
 Archive = archive_output.Archive
@@ -637,6 +640,8 @@ class RawItem:
 
 
 PUBLIC_RAW_META_FIELDS: tuple[str, ...] = (
+    "ingress",
+    "publisher",
     "provided_title_en",
     "provided_title_zh",
     "creator_metrics",
@@ -1411,7 +1416,16 @@ def parse_feed_entries_via_xml(feed_xml: bytes) -> list[dict[str, Any]]:
                 if key in seen:
                     continue
                 seen.add(key)
-                out.append({"title": title, "link": link, "published": published, "summary": summary})
+                entry = {"title": title, "link": link, "published": published, "summary": summary}
+                source_node = node.find("{*}source")
+                if source_node is not None:
+                    source_link = source_node.find("{*}link")
+                    entry["source"] = {
+                        "title": (source_node.findtext("{*}title") or source_node.text or "").strip(),
+                        "href": source_node.get("url") or source_node.get("href")
+                        or (source_link.get("href") if source_link is not None else None),
+                    }
+                out.append(entry)
     return out
 
 
@@ -1614,8 +1628,64 @@ def apply_public_raw_meta(record: dict[str, Any], raw: RawItem) -> None:
     """Promote safe source metadata needed by public scoring and UI ranking."""
     meta = raw.meta if isinstance(raw.meta, dict) else {}
     for key in PUBLIC_RAW_META_FIELDS:
+        if key in {"publisher", "ingress", "source_policy"}:
+            continue  # Rebuild these from bounded configuration and source evidence.
         if key in meta and meta.get(key) is not None:
             record[key] = sanitize_public_value(meta.get(key))
+    record.update(sanitize_public_value(publisher_identity.fields(
+        record, feeds=publisher_feed_configs(), rss_source=meta.get("rss_source"))))
+
+
+def publisher_feed_configs():
+    """Use the collectors' existing routes, not a second admission registry."""
+    feeds = [(site, feed) for site, group in (
+        ("official_ai", OFFICIAL_AI_FEEDS), ("curated_media", CURATED_AI_MEDIA_FEEDS),
+        ("tw_media", TW_MEDIA_FEEDS)) for feed in group]
+    feeds.extend((feed.get("site_id", "official_ai"), {"source_id": key, **feed})
+                 for key, feed in ADMITTED_SOURCE_FEEDS.items())
+    feeds.extend((site, {"source_id": site, **feed}) for site, feed in (
+        ("llm_rumors", LLM_RUMORS_FEED), ("runtimewire", RUNTIMEWIRE_MODEL_FEED)))
+    adapters = [
+        ("official_ai", "Anthropic News", "anthropic_news"),
+        ("official_ai", "Tencent Newsroom", "tencent_newsroom"),
+        ("official_ai", "OpenAI Codex Changelog", "openai_codex_changelog"),
+        ("curated_media", "AIBASE", "aibase"), ("aibase", "AIBASE", "aibase"),
+        ("kr36_ai", "36Kr", "kr36_ai"), ("juya_daily", "橘鴉AI早報", "juya_daily"),
+        ("llm_stats_models", "LLM Stats Model Releases", "llm_stats_models"),
+    ]
+    feeds.extend((site, {"title": label, "source_id": sid, "ingress_kind": "public_adapter"})
+                 for site, label, sid in adapters)
+    return feeds
+
+
+def add_publisher_identity_fields(record: dict[str, Any]) -> dict[str, Any]:
+    return {**record, **sanitize_public_value(publisher_identity.fields(record, feeds=publisher_feed_configs()))}
+
+
+def add_reader_source_policy_fields(record: dict[str, Any], *, effective_tier: bool = True) -> dict[str, Any]:
+    """Public output overlay only; never feed this copy back into matching."""
+    return sanitize_public_value(publisher_policy.annotate(
+        record, feeds=publisher_feed_configs(), effective_tier=effective_tier))
+
+
+def annotate_public_story(story: dict[str, Any]) -> dict[str, Any]:
+    """Attach current policy to references after grouping, selection and scores."""
+    out = dict(story)
+    for key in ("sources", "items"):
+        if isinstance(story.get(key), list):
+            out[key] = [add_reader_source_policy_fields(row) for row in story[key]]
+    if isinstance(story.get("primary_item"), dict) and story["primary_item"].get("id"):
+        out["primary_item"] = add_reader_source_policy_fields(story["primary_item"])
+    return out
+
+
+def add_general_reader_fields(record, archive):
+    out = add_reader_source_policy_fields(record)
+    raw = archive.get(record.get("id"))
+    material = sanitize_public_value(publisher_governance.source_material(raw)) if raw else {"title_original": "", "title": "", "summary": ""}
+    out["source_material"] = material
+    out["qualification"] = publisher_governance.qualify(out, material)
+    return out
 
 
 def create_session() -> requests.Session:
@@ -1951,6 +2021,7 @@ def fetch_feed_as_source_items(
                 meta={
                     "feed_url": feed_url,
                     "feed_home": feed.get("html_url") or "",
+                    "rss_source": publisher_identity.feed_source(entry),
                     **evidence,
                 },
             )
@@ -2054,6 +2125,7 @@ def parse_curated_ai_media_feed_items(
                     "feed_home": feed.get("html_url") or "",
                     "research_only": bool(feed.get("research_only")),
                     "strict_title_filter": bool(feed.get("strict_title_filter")),
+                    "rss_source": publisher_identity.feed_source(entry),
                     **feed_entry_evidence(entry),
                 },
             )
@@ -2251,6 +2323,7 @@ def parse_model_analysis_feed_items(
                     "feed_url": feed_url,
                     "feed_home": feed.get("html_url") or "",
                     "strict_title_filter": bool(feed.get("strict_title_filter")),
+                    "rss_source": publisher_identity.feed_source(entry),
                     **evidence,
                 },
             )
@@ -2427,6 +2500,7 @@ def fetch_tw_media_with_status(
                         meta={
                             "feed_url": str(feed["xml_url"]),
                             "feed_home": feed.get("html_url") or "",
+                            "rss_source": publisher_identity.feed_source(entry),
                             **evidence,
                         },
                     )
@@ -3171,7 +3245,7 @@ def write_item_resolvers(
 ) -> int:
     """Compatibility entrypoint with the existing public sanitization policy."""
     return archive_output.write_item_resolvers(
-        output_dir, archive, sanitize_record=sanitize_public_payload, prune=prune
+        output_dir, archive, sanitize_record=lambda row: sanitize_public_payload(add_reader_source_policy_fields(row, effective_tier=False)), prune=prune
     )
 
 
@@ -3180,7 +3254,7 @@ def write_item_html_adapters(
 ) -> int:
     """Compatibility entrypoint with the existing public sanitization policy."""
     return archive_output.write_item_html_adapters(
-        output_dir, archive, sanitize_record=sanitize_public_payload, prune=prune
+        output_dir, archive, sanitize_record=lambda row: sanitize_public_payload(add_reader_source_policy_fields(row, effective_tier=False)), prune=prune
     )
 
 
@@ -6288,6 +6362,14 @@ def calculate_item_importance(
     }
 
 
+def calculate_featured_item_importance(record, effective, count, now, window_hours):
+    """Same weights, with scoped tier, qualified heat and event effective time."""
+    proxy = add_ai_relevance_fields(dict(record))
+    proxy["published_at"] = iso(effective)
+    proxy["site_id"] = "official_ai" if record["source_policy"]["publisher_kind"] == "official" else "curated_media"
+    return calculate_item_importance(proxy, now, window_hours, duplicate_count=count)
+
+
 def story_category(score: float, primary_item: dict[str, Any], duplicate_count: int) -> str:
     tier = str(primary_item.get("source_tier") or source_tier_for_record(primary_item).get("source_tier"))
     if tier == "official":
@@ -6325,6 +6407,7 @@ def choose_primary_story_item(
 
 
 def story_item_link(item: dict[str, Any]) -> dict[str, Any]:
+    item = add_publisher_identity_fields(item)
     ref = {
         "id": item.get("id"),
         "title": item.get("title_bilingual") or item.get("title"),
@@ -6340,6 +6423,8 @@ def story_item_link(item: dict[str, Any]) -> dict[str, Any]:
         "published_at": item.get("published_at"),
         "corroboration_key": corroboration.identity(item)[0],
         "corroboration_status": corroboration.identity(item)[1],
+        "ingress": item["ingress"],
+        "publisher": item["publisher"],
     }
     if isinstance(item.get("publisher_links"), list):
         ref["publisher_links"] = item["publisher_links"][:24]
@@ -6409,6 +6494,7 @@ def build_story_record(
         "earliest_at": iso(min(times)) if times else None,
         "latest_at": iso(max(times)) if times else None,
         "primary_item": {
+            **{key: add_publisher_identity_fields(primary)[key] for key in ("ingress", "publisher")},
             "id": primary.get("id"),
             "title": title,
             "title_zh": primary.get("title_zh"),
@@ -6597,7 +6683,7 @@ def build_daily_brief_payload(
         "generated_at": generated_at,
         "window_hours": window_hours,
         "total_items": len(items),
-        "items": items,
+        "items": [annotate_public_story(story) for story in items],
         "selection_diagnostics": brief_selection_diagnostics(stories, len(items)),
     }
 
@@ -6611,7 +6697,7 @@ def build_stories_payload(
         "generated_at": generated_at,
         "window_hours": window_hours,
         "total_stories": len(stories),
-        "stories": stories,
+        "stories": [annotate_public_story(story) for story in stories],
     }
 
 
@@ -6637,6 +6723,7 @@ def build_brief_event_payloads(stories, archive_records, previous_state, now, wi
                 "importance_breakdown": importance["breakdown"], "category": category,
                 "importance_label": importance_label(category), "reasons": story_reasons(scored, score, count)}
 
+    archive_records = [add_publisher_identity_fields(record) for record in archive_records]
     result = brief_events.build_brief_events(stories=stories, archive_records=archive_records,
         archive_meta=archive_meta, previous_state=previous_state, now=now,
         window_hours=window_hours, record_builder=build, ranker=rank)
@@ -6648,10 +6735,17 @@ def build_brief_event_payloads(stories, archive_records, previous_state, now, wi
         if not brief_events.validate_state(result.next_state):
             return brief_events.unavailable(now, "public_state_invalid")
     result.projection = sanitize_public_payload(result.projection)
+    result.projection["events"] = [annotate_public_story(event) for event in result.projection["events"]]
     result.projection["state_revision"] = result.next_state["revision"] if result.next_state else None
     result.projection["generation_id"] = "bg1_" + brief_events.digest({k: v for k, v in result.projection.items() if k != "generation_id"})[:24]
+    result.publisher_governance = publisher_governance.build(
+        result.projection, archive_records, now=now, annotate=add_reader_source_policy_fields,
+        scorer=lambda row, effective, count: calculate_featured_item_importance(row, effective, count, now, window_hours)["score"],
+        sanitize=sanitize_public_payload)
     by_id = {e["brief_event_id"]: e for e in result.projection["events"]}
-    result.daily_items = [by_id[i] for i in result.projection["selected_event_ids"]]
+    decisions = {d["brief_event_id"]: d for d in result.publisher_governance["events"]}
+    result.daily_items = [publisher_governance.featured_view(by_id[i], decisions[i])
+                         for i in result.projection["selected_event_ids"]]
     result.diagnostics = result.projection["diagnostics"]
     return result
 
@@ -6661,9 +6755,24 @@ def apply_brief_event_result(result, daily, merged):
     daily["items"] = result.daily_items
     daily["total_items"] = len(result.daily_items)
     daily["brief_event_meta"] = brief_events.selection_meta(result.projection)
-    eligible = [e for e in result.projection["events"] if e["eligible"]]
-    daily["selection_diagnostics"] = brief_selection_diagnostics(eligible, len(result.daily_items))
+    governance = getattr(result, "publisher_governance", None)
+    if governance is None:
+        governance = publisher_governance.unavailable(result.projection,
+            publisher_policy.current_registry().revision, "invalid_projection")
+        result.daily_items = []
+        daily["items"], daily["total_items"] = [], 0
+        daily["brief_event_meta"] = brief_events.selection_meta(result.projection)
+    daily["publisher_governance_meta"] = publisher_governance.metadata(governance)
+    qualified = [d for d in governance["events"] if d["featured_eligible"]]
+    daily["selection_diagnostics"] = {
+        "candidate_count": len(result.projection["events"]), "eligible_count": len(qualified),
+        "selected_count": len(result.daily_items), "below_gate_count": len(result.projection["events"]) - len(qualified),
+        "diversity_or_limit_count": len(qualified) - len(result.daily_items),
+        "max_score": max((d["featured_score"] for d in qualified), default=None),
+        "max_source_count": max((d["qualified_source_count"] for d in qualified), default=None),
+        "score_gate": BRIEF_SCORE_GATE, "empty_reason": None if result.daily_items else "no_qualified_events"}
     merged["brief_events"] = result.projection
+    merged["publisher_governance"] = governance
 
 
 def write_brief_event_bundle(result, daily, merged, *, state_path, merged_path, daily_path, now):
@@ -6714,6 +6823,9 @@ def build_model_releases_24h_items(
         if not normalized.get("ai_is_related"):
             continue
         normalized = add_source_tier_fields(normalized)
+        normalized = add_reader_source_policy_fields(normalized)
+        if not publisher_governance.radar_allowed(normalized, now, LLM_STATS_MODEL_ORG_IDS):
+            continue
         seen_models.add(model_id)
         items.append(normalized)
 
@@ -6735,7 +6847,8 @@ def _llm_radar_model_verification(record: dict[str, Any]) -> tuple[str, str]:
     media report even when the title strongly indicates a release.
     """
     site_id = str(record.get("site_id") or "")
-    if site_id == "official_ai":
+    current = add_reader_source_policy_fields(record)
+    if publisher_governance.admitted(current, "radar") and current["source_policy"]["publisher_kind"] == "official":
         return "official", "官方公告"
     if site_id == "arc_prize":
         return "reported", "第三方評測"
@@ -6747,6 +6860,7 @@ def _llm_radar_model_verification(record: dict[str, Any]) -> tuple[str, str]:
 def build_llm_radar_payload(
     items: list[dict[str, Any]],
     now: datetime,
+    *, raw_records: dict[str, dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """Build the reader-facing 24-hour LLM release alert lane.
 
@@ -6758,18 +6872,24 @@ def build_llm_radar_payload(
     cutoff = now - timedelta(hours=LLM_RADAR_WINDOW_HOURS)
     model_candidates: list[dict[str, Any]] = []
     for item in items:
+        raw = raw_records.get(item.get("id")) if raw_records is not None else item
+        if not raw:
+            continue
+        public_identity = add_reader_source_policy_fields(raw)
+        if not publisher_governance.radar_allowed(public_identity, now, LLM_STATS_MODEL_ORG_IDS):
+            continue
         events = item.get("business_events") or business_event_score(item)
         if "model_release" not in events:
             continue
         occurred_at = event_time(item) or parse_iso(item.get("first_seen_at"))
         if not occurred_at or occurred_at < cutoff or occurred_at > now:
             continue
-        verification_status, verification_label = _llm_radar_model_verification(item)
+        verification_status, verification_label = _llm_radar_model_verification(public_identity)
         model_id = str(item.get("model_id") or "").strip().lower()
         title = str(item.get("title_zh") or item.get("title") or "").strip()
         if not title:
             continue
-        source_tier = source_tier_for_record(item)
+        source_tier = public_identity["source_policy"]
         model_candidates.append(
             {
                 "id": f"model_release::{model_id or item.get('id') or item.get('url')}",
@@ -6786,7 +6906,10 @@ def build_llm_radar_payload(
                 "source_name": str(item.get("source") or item.get("site_name") or "").strip(),
                 "source_url": str(item.get("url") or "").strip(),
                 "evidence_url": str(item.get("url") or "").strip(),
-                "source_tier_rank": int(source_tier.get("source_tier_rank") or 9),
+                **{key: public_identity[key] for key in ("ingress", "publisher", "source_policy")},
+                "source_material": publisher_governance.source_material(raw),
+                "qualification": publisher_governance.qualify(public_identity, publisher_governance.source_material(raw)),
+                "source_tier_rank": int(source_tier.get("source_tier_rank", 9)),
             }
         )
 
@@ -6794,7 +6917,7 @@ def build_llm_radar_payload(
     model_candidates.sort(
         key=lambda event: (
             verification_rank.get(str(event.get("verification_status")), 9),
-            int(event.get("source_tier_rank") or 9),
+            int(event.get("source_tier_rank", 9)),
             -(parse_iso(event.get("effective_at")).timestamp() if parse_iso(event.get("effective_at")) else 0),
             str(event.get("title") or ""),
         ),
@@ -6850,6 +6973,7 @@ def build_latest_payloads(latest_payload: dict[str, Any]) -> tuple[dict[str, Any
     return slim_payload, all_payload
 
 
+@publisher_policy.generation()
 def main() -> int:
     parser = argparse.ArgumentParser(description="Aggregate AI news updates from multiple sources")
     parser.add_argument("--output-dir", default="data", help="Directory for output JSON files")
@@ -7076,10 +7200,10 @@ def main() -> int:
 
     with record_generation_phase(phase_metrics, "aggregation") as phase:
         # Copy current views; archive rows keep their historical schema.
-        latest_items = [corroboration.annotate(item) for item in latest_items]
-        latest_items_all = [corroboration.annotate(item) for item in latest_items_all]
+        latest_items = [corroboration.annotate(add_publisher_identity_fields(item)) for item in latest_items]
+        latest_items_all = [corroboration.annotate(add_publisher_identity_fields(item)) for item in latest_items_all]
         model_releases_24h = [corroboration.annotate(item) for item in build_model_releases_24h_items(archive, now)]
-        llm_radar_payload = build_llm_radar_payload(latest_items, now)
+        llm_radar_payload = build_llm_radar_payload(latest_items, now, raw_records=archive)
         latest_items_ai_dedup = apply_reader_source_limits(
             suppress_near_duplicate_items(dedupe_items_by_title_url(latest_items, random_pick=False))
         )
@@ -7113,6 +7237,20 @@ def main() -> int:
             # not log raw source text or exception messages containing it.
             brief_result = brief_events.unavailable(now, "event_build_" + type(exc).__name__)
         apply_brief_event_result(brief_result, daily_brief_payload, stories_merged_payload)
+
+        # Apply effective source tiers only after all event inputs and scores
+        # are fixed. Preserve full archive/references; forbidden scopes leave
+        # the ordinary public lists without changing the event matcher.
+        public_all = [add_general_reader_fields(row, archive) for row in latest_items_all]
+        latest_items_ai_raw_count -= sum(
+            bool(row.get("ai_is_related")) and (not row["source_policy"]["allow_general"] or row["qualification"]["scope"] == "out_of_scope")
+            for row in public_all)
+        latest_items_ai_raw_count = max(0, latest_items_ai_raw_count)
+        latest_items_all = [row for row in public_all if row["source_policy"]["allow_general"] and row["qualification"]["scope"] != "out_of_scope"]
+        latest_items_ai_dedup = [row for item in latest_items_ai_dedup
+            if (row := add_general_reader_fields(item, archive))["source_policy"]["allow_general"] and row["qualification"]["scope"] != "out_of_scope"]
+        latest_items_all_dedup = [row for item in latest_items_all_dedup
+            if (row := add_general_reader_fields(item, archive))["source_policy"]["allow_general"] and row["qualification"]["scope"] != "out_of_scope"]
 
         # source-status.json embeds `statuses` (fetch-time site_name, set by
         # collect_all()/individual fetchers) directly - normalize in place here so
@@ -7182,7 +7320,7 @@ def main() -> int:
             "generated_at": generated_at,
             "total_items": len(archive),
             "items": sorted(
-                archive.values(),
+                (add_reader_source_policy_fields(record, effective_tier=False) for record in archive.values()),
                 key=lambda x: parse_iso(x.get("last_seen_at")) or datetime.min.replace(tzinfo=UTC),
                 reverse=True,
             ),
@@ -7258,6 +7396,8 @@ def main() -> int:
         }
 
         latest_payload, latest_all_payload = build_latest_payloads(latest_payload)
+        for public_payload in (latest_payload, latest_all_payload, llm_radar_payload):
+            public_payload["publisher_governance_meta"] = daily_brief_payload["publisher_governance_meta"]
         status_payload["brief_events"] = brief_result.diagnostics
 
     with record_generation_phase(phase_metrics, "output") as phase:
@@ -7306,7 +7446,7 @@ def main() -> int:
     # A later HTML/state/cache failure must not remove previous item links.
     prune_item_outputs(output_dir, archive)
 
-    print(f"Wrote: {latest_path} ({len(latest_items)} items)")
+    print(f"Wrote: {latest_path} ({latest_payload['total_items']} items)")
     print(f"Wrote: {latest_all_path} ({len(latest_items_all_dedup)} all-mode items)")
     print(f"Wrote: {daily_brief_path} ({daily_brief_payload.get('total_items', 0)} brief items)")
     brief_diagnostics = daily_brief_payload["selection_diagnostics"]
