@@ -4,15 +4,15 @@
     "phases": {
       "inputs": {
         "state": "completed",
-        "duration_ms": 430
+        "duration_ms": 265
       },
       "collect": {
         "state": "completed",
-        "duration_ms": 20499
+        "duration_ms": 17780
       },
       "sensors": {
         "state": "completed",
-        "duration_ms": 388
+        "duration_ms": 604
       },
       "x_api": {
         "state": "skipped",
@@ -28,33 +28,33 @@
       },
       "opml": {
         "state": "completed",
-        "duration_ms": 1479
+        "duration_ms": 1475
       },
       "preparation": {
         "state": "completed",
-        "duration_ms": 2170
+        "duration_ms": 1133
       },
       "translations": {
         "state": "completed",
         "provider_request_count": 1,
-        "duration_ms": 1065
+        "duration_ms": 5228
       },
       "aggregation": {
         "state": "completed",
-        "duration_ms": 568
+        "duration_ms": 277
       },
       "summaries": {
         "state": "completed",
         "provider_enabled": true,
-        "duration_ms": 636
+        "duration_ms": 819
       },
       "payloads": {
         "state": "completed",
-        "duration_ms": 7600
+        "duration_ms": 3963
       },
       "output": {
         "state": "completed",
-        "duration_ms": 13343
+        "duration_ms": 11690
       }
     },
     "output_excludes": [
@@ -62,12 +62,12 @@
       "resolver_cleanup"
     ]
   },
-  "generated_at": "2026-10-24T13:35:30.371271Z",
+  "generated_at": "2026-10-24T14:05:29.737080Z",
   "brief_selection": {
-    "candidate_count": 72,
+    "candidate_count": 71,
     "eligible_count": 0,
     "selected_count": 0,
-    "below_gate_count": 72,
+    "below_gate_count": 71,
     "diversity_or_limit_count": 0,
     "max_score": null,
     "max_source_count": null,
@@ -80,7 +80,7 @@
       "site_name": "官方更新",
       "ok": true,
       "item_count": 397,
-      "duration_ms": 6604,
+      "duration_ms": 5520,
       "error": null,
       "degraded": false,
       "degraded_reason": null,
@@ -90,14 +90,14 @@
           "ok": true,
           "item_count": 103,
           "error": null,
-          "duration_ms": 690,
+          "duration_ms": 437,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-10-24T13:35:30.371271Z",
+          "last_success_at": "2026-10-24T14:05:29.737080Z",
           "persistent_failure": false
         },
         {
@@ -105,14 +105,14 @@
           "ok": true,
           "item_count": 13,
           "error": null,
-          "duration_ms": 132,
+          "duration_ms": 306,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-10-24T13:35:30.371271Z",
+          "last_success_at": "2026-10-24T14:05:29.737080Z",
           "persistent_failure": false
         },
         {
@@ -120,65 +120,20 @@
           "ok": true,
           "item_count": 18,
           "error": null,
-          "duration_ms": 305,
+          "duration_ms": 284,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-10-24T13:35:30.371271Z",
+          "last_success_at": "2026-10-24T14:05:29.737080Z",
           "persistent_failure": false
         },
         {
           "source_id": "google_gemini_blog",
           "ok": true,
           "item_count": 20,
-          "error": null,
-          "duration_ms": 86,
-          "skipped": false,
-          "attempted": true,
-          "last_attempt_ok": true,
-          "consecutive_failures": 0,
-          "first_failure_at": null,
-          "last_failure_at": null,
-          "last_success_at": "2026-10-24T13:35:30.371271Z",
-          "persistent_failure": false
-        },
-        {
-          "source_id": "hugging_face_blog",
-          "ok": true,
-          "item_count": 32,
-          "error": null,
-          "duration_ms": 425,
-          "skipped": false,
-          "attempted": true,
-          "last_attempt_ok": true,
-          "consecutive_failures": 0,
-          "first_failure_at": null,
-          "last_failure_at": "2026-10-14T04:44:41.283260Z",
-          "last_success_at": "2026-10-24T13:35:30.371271Z",
-          "persistent_failure": false
-        },
-        {
-          "source_id": "github_ai_ml",
-          "ok": true,
-          "item_count": 10,
-          "error": null,
-          "duration_ms": 464,
-          "skipped": false,
-          "attempted": true,
-          "last_attempt_ok": true,
-          "consecutive_failures": 0,
-          "first_failure_at": null,
-          "last_failure_at": null,
-          "last_success_at": "2026-10-24T13:35:30.371271Z",
-          "persistent_failure": false
-        },
-        {
-          "source_id": "github_changelog",
-          "ok": true,
-          "item_count": 10,
           "error": null,
           "duration_ms": 61,
           "skipped": false,
@@ -187,7 +142,52 @@
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-10-24T13:35:30.371271Z",
+          "last_success_at": "2026-10-24T14:05:29.737080Z",
+          "persistent_failure": false
+        },
+        {
+          "source_id": "hugging_face_blog",
+          "ok": true,
+          "item_count": 32,
+          "error": null,
+          "duration_ms": 246,
+          "skipped": false,
+          "attempted": true,
+          "last_attempt_ok": true,
+          "consecutive_failures": 0,
+          "first_failure_at": null,
+          "last_failure_at": "2026-10-14T04:44:41.283260Z",
+          "last_success_at": "2026-10-24T14:05:29.737080Z",
+          "persistent_failure": false
+        },
+        {
+          "source_id": "github_ai_ml",
+          "ok": true,
+          "item_count": 10,
+          "error": null,
+          "duration_ms": 228,
+          "skipped": false,
+          "attempted": true,
+          "last_attempt_ok": true,
+          "consecutive_failures": 0,
+          "first_failure_at": null,
+          "last_failure_at": null,
+          "last_success_at": "2026-10-24T14:05:29.737080Z",
+          "persistent_failure": false
+        },
+        {
+          "source_id": "github_changelog",
+          "ok": true,
+          "item_count": 10,
+          "error": null,
+          "duration_ms": 27,
+          "skipped": false,
+          "attempted": true,
+          "last_attempt_ok": true,
+          "consecutive_failures": 0,
+          "first_failure_at": null,
+          "last_failure_at": null,
+          "last_success_at": "2026-10-24T14:05:29.737080Z",
           "persistent_failure": false
         },
         {
@@ -195,14 +195,14 @@
           "ok": true,
           "item_count": 0,
           "error": null,
-          "duration_ms": 169,
+          "duration_ms": 292,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-10-15T12:35:38.704679Z",
-          "last_success_at": "2026-10-24T13:35:30.371271Z",
+          "last_success_at": "2026-10-24T14:05:29.737080Z",
           "persistent_failure": false
         },
         {
@@ -210,14 +210,14 @@
           "ok": true,
           "item_count": 0,
           "error": null,
-          "duration_ms": 1250,
+          "duration_ms": 811,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-10-24T13:35:30.371271Z",
+          "last_success_at": "2026-10-24T14:05:29.737080Z",
           "persistent_failure": false
         },
         {
@@ -225,14 +225,14 @@
           "ok": true,
           "item_count": 18,
           "error": null,
-          "duration_ms": 206,
+          "duration_ms": 253,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-10-24T13:35:30.371271Z",
+          "last_success_at": "2026-10-24T14:05:29.737080Z",
           "persistent_failure": false
         },
         {
@@ -240,14 +240,14 @@
           "ok": true,
           "item_count": 8,
           "error": null,
-          "duration_ms": 131,
+          "duration_ms": 196,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-10-24T13:35:30.371271Z",
+          "last_success_at": "2026-10-24T14:05:29.737080Z",
           "persistent_failure": false
         },
         {
@@ -255,14 +255,14 @@
           "ok": true,
           "item_count": 100,
           "error": null,
-          "duration_ms": 291,
+          "duration_ms": 370,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-10-24T13:35:30.371271Z",
+          "last_success_at": "2026-10-24T14:05:29.737080Z",
           "persistent_failure": false
         },
         {
@@ -270,14 +270,14 @@
           "ok": true,
           "item_count": 3,
           "error": null,
-          "duration_ms": 252,
+          "duration_ms": 309,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-10-24T01:05:31.232044Z",
-          "last_success_at": "2026-10-24T13:35:30.371271Z",
+          "last_success_at": "2026-10-24T14:05:29.737080Z",
           "persistent_failure": false
         },
         {
@@ -285,14 +285,14 @@
           "ok": true,
           "item_count": 16,
           "error": null,
-          "duration_ms": 199,
+          "duration_ms": 163,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-10-22T12:31:45.081182Z",
-          "last_success_at": "2026-10-24T13:35:30.371271Z",
+          "last_success_at": "2026-10-24T14:05:29.737080Z",
           "persistent_failure": false
         },
         {
@@ -300,14 +300,14 @@
           "ok": true,
           "item_count": 8,
           "error": null,
-          "duration_ms": 552,
+          "duration_ms": 501,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-10-24T13:35:30.371271Z",
+          "last_success_at": "2026-10-24T14:05:29.737080Z",
           "persistent_failure": false
         },
         {
@@ -315,14 +315,14 @@
           "ok": true,
           "item_count": 38,
           "error": null,
-          "duration_ms": 1393,
+          "duration_ms": 1036,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-10-24T13:35:30.371271Z",
+          "last_success_at": "2026-10-24T14:05:29.737080Z",
           "persistent_failure": false
         }
       ],
@@ -330,7 +330,7 @@
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": null,
-      "last_success_at": "2026-10-24T13:35:30.371271Z",
+      "last_success_at": "2026-10-24T14:05:29.737080Z",
       "persistent_failure": false
     },
     {
@@ -338,13 +338,13 @@
       "site_name": "Mistral News",
       "ok": true,
       "item_count": 7,
-      "duration_ms": 163,
+      "duration_ms": 172,
       "error": null,
       "last_attempt_ok": true,
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": null,
-      "last_success_at": "2026-10-24T13:35:30.371271Z",
+      "last_success_at": "2026-10-24T14:05:29.737080Z",
       "persistent_failure": false
     },
     {
@@ -352,13 +352,13 @@
       "site_name": "MCP Blog",
       "ok": true,
       "item_count": 0,
-      "duration_ms": 243,
+      "duration_ms": 293,
       "error": null,
       "last_attempt_ok": true,
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": null,
-      "last_success_at": "2026-10-24T13:35:30.371271Z",
+      "last_success_at": "2026-10-24T14:05:29.737080Z",
       "persistent_failure": false
     },
     {
@@ -366,13 +366,13 @@
       "site_name": "ARC Prize",
       "ok": true,
       "item_count": 0,
-      "duration_ms": 254,
+      "duration_ms": 306,
       "error": null,
       "last_attempt_ok": true,
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": null,
-      "last_success_at": "2026-10-24T13:35:30.371271Z",
+      "last_success_at": "2026-10-24T14:05:29.737080Z",
       "persistent_failure": false
     },
     {
@@ -380,7 +380,7 @@
       "site_name": "精選媒體",
       "ok": true,
       "item_count": 84,
-      "duration_ms": 4278,
+      "duration_ms": 4083,
       "error": null,
       "degraded": false,
       "degraded_reason": null,
@@ -390,14 +390,14 @@
           "ok": true,
           "item_count": 10,
           "error": null,
-          "duration_ms": 1410,
+          "duration_ms": 1320,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-10-20T11:05:28.474205Z",
-          "last_success_at": "2026-10-24T13:35:30.371271Z",
+          "last_success_at": "2026-10-24T14:05:29.737080Z",
           "persistent_failure": false
         },
         {
@@ -405,14 +405,14 @@
           "ok": true,
           "item_count": 8,
           "error": null,
-          "duration_ms": 97,
+          "duration_ms": 117,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-10-24T13:35:30.371271Z",
+          "last_success_at": "2026-10-24T14:05:29.737080Z",
           "persistent_failure": false
         },
         {
@@ -420,14 +420,14 @@
           "ok": true,
           "item_count": 2,
           "error": null,
-          "duration_ms": 123,
+          "duration_ms": 90,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-10-24T13:35:30.371271Z",
+          "last_success_at": "2026-10-24T14:05:29.737080Z",
           "persistent_failure": false
         },
         {
@@ -435,14 +435,14 @@
           "ok": true,
           "item_count": 6,
           "error": null,
-          "duration_ms": 217,
+          "duration_ms": 181,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-10-15T21:35:34.851607Z",
-          "last_success_at": "2026-10-24T13:35:30.371271Z",
+          "last_success_at": "2026-10-24T14:05:29.737080Z",
           "persistent_failure": false
         },
         {
@@ -450,14 +450,14 @@
           "ok": true,
           "item_count": 6,
           "error": null,
-          "duration_ms": 196,
+          "duration_ms": 229,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-10-24T13:35:30.371271Z",
+          "last_success_at": "2026-10-24T14:05:29.737080Z",
           "persistent_failure": false
         },
         {
@@ -465,14 +465,14 @@
           "ok": true,
           "item_count": 10,
           "error": null,
-          "duration_ms": 492,
+          "duration_ms": 480,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-10-24T01:05:31.232044Z",
-          "last_success_at": "2026-10-24T13:35:30.371271Z",
+          "last_success_at": "2026-10-24T14:05:29.737080Z",
           "persistent_failure": false
         },
         {
@@ -480,14 +480,14 @@
           "ok": true,
           "item_count": 10,
           "error": null,
-          "duration_ms": 338,
+          "duration_ms": 311,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-10-24T01:05:31.232044Z",
-          "last_success_at": "2026-10-24T13:35:30.371271Z",
+          "last_success_at": "2026-10-24T14:05:29.737080Z",
           "persistent_failure": false
         },
         {
@@ -495,14 +495,14 @@
           "ok": true,
           "item_count": 8,
           "error": null,
-          "duration_ms": 512,
+          "duration_ms": 451,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-10-24T01:05:31.232044Z",
-          "last_success_at": "2026-10-24T13:35:30.371271Z",
+          "last_success_at": "2026-10-24T14:05:29.737080Z",
           "persistent_failure": false
         },
         {
@@ -510,14 +510,14 @@
           "ok": true,
           "item_count": 8,
           "error": null,
-          "duration_ms": 341,
+          "duration_ms": 333,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-10-24T01:05:31.232044Z",
-          "last_success_at": "2026-10-24T13:35:30.371271Z",
+          "last_success_at": "2026-10-24T14:05:29.737080Z",
           "persistent_failure": false
         },
         {
@@ -525,14 +525,14 @@
           "ok": true,
           "item_count": 8,
           "error": null,
-          "duration_ms": 353,
+          "duration_ms": 293,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-10-24T01:05:31.232044Z",
-          "last_success_at": "2026-10-24T13:35:30.371271Z",
+          "last_success_at": "2026-10-24T14:05:29.737080Z",
           "persistent_failure": false
         },
         {
@@ -540,14 +540,14 @@
           "ok": true,
           "item_count": 8,
           "error": null,
-          "duration_ms": 201,
+          "duration_ms": 280,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-10-24T01:05:31.232044Z",
-          "last_success_at": "2026-10-24T13:35:30.371271Z",
+          "last_success_at": "2026-10-24T14:05:29.737080Z",
           "persistent_failure": false
         }
       ],
@@ -555,7 +555,7 @@
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": null,
-      "last_success_at": "2026-10-24T13:35:30.371271Z",
+      "last_success_at": "2026-10-24T14:05:29.737080Z",
       "persistent_failure": false
     },
     {
@@ -563,13 +563,13 @@
       "site_name": "LLM Stats 模型查漏",
       "ok": true,
       "item_count": 1,
-      "duration_ms": 1896,
+      "duration_ms": 762,
       "error": null,
       "last_attempt_ok": true,
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": "2026-09-17T03:35:33.534116Z",
-      "last_success_at": "2026-10-24T13:35:30.371271Z",
+      "last_success_at": "2026-10-24T14:05:29.737080Z",
       "persistent_failure": false
     },
     {
@@ -577,13 +577,13 @@
       "site_name": "LLM Rumors 模型分析",
       "ok": true,
       "item_count": 6,
-      "duration_ms": 1336,
+      "duration_ms": 869,
       "error": null,
       "last_attempt_ok": true,
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": null,
-      "last_success_at": "2026-10-24T13:35:30.371271Z",
+      "last_success_at": "2026-10-24T14:05:29.737080Z",
       "persistent_failure": false
     },
     {
@@ -591,13 +591,13 @@
       "site_name": "RuntimeWire AI媒體",
       "ok": true,
       "item_count": 1,
-      "duration_ms": 253,
+      "duration_ms": 524,
       "error": null,
       "last_attempt_ok": true,
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": "2026-10-16T08:53:53.911996Z",
-      "last_success_at": "2026-10-24T13:35:30.371271Z",
+      "last_success_at": "2026-10-24T14:05:29.737080Z",
       "persistent_failure": false
     },
     {
@@ -605,7 +605,7 @@
       "site_name": "AIBASE",
       "ok": true,
       "item_count": 40,
-      "duration_ms": 1702,
+      "duration_ms": 2121,
       "error": null,
       "language_status": {
         "tw": {
@@ -627,7 +627,7 @@
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": "2026-09-08T17:35:30.793951Z",
-      "last_success_at": "2026-10-24T13:35:30.371271Z",
+      "last_success_at": "2026-10-24T14:05:29.737080Z",
       "persistent_failure": false
     },
     {
@@ -635,7 +635,7 @@
       "site_name": "台灣媒體",
       "ok": true,
       "item_count": 26,
-      "duration_ms": 2734,
+      "duration_ms": 2374,
       "error": null,
       "degraded": false,
       "degraded_reason": null,
@@ -645,14 +645,14 @@
           "ok": true,
           "item_count": 2,
           "error": null,
-          "duration_ms": 966,
+          "duration_ms": 563,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-10-24T13:35:30.371271Z",
+          "last_success_at": "2026-10-24T14:05:29.737080Z",
           "persistent_failure": false
         },
         {
@@ -660,14 +660,14 @@
           "ok": true,
           "item_count": 8,
           "error": null,
-          "duration_ms": 236,
+          "duration_ms": 732,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-10-24T13:35:30.371271Z",
+          "last_success_at": "2026-10-24T14:05:29.737080Z",
           "persistent_failure": false
         },
         {
@@ -675,14 +675,14 @@
           "ok": true,
           "item_count": 8,
           "error": null,
-          "duration_ms": 1124,
+          "duration_ms": 754,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-10-23T16:05:31.932034Z",
-          "last_success_at": "2026-10-24T13:35:30.371271Z",
+          "last_success_at": "2026-10-24T14:05:29.737080Z",
           "persistent_failure": false
         },
         {
@@ -690,14 +690,14 @@
           "ok": true,
           "item_count": 8,
           "error": null,
-          "duration_ms": 408,
+          "duration_ms": 326,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-10-24T01:05:31.232044Z",
-          "last_success_at": "2026-10-24T13:35:30.371271Z",
+          "last_success_at": "2026-10-24T14:05:29.737080Z",
           "persistent_failure": false
         }
       ],
@@ -705,7 +705,7 @@
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": null,
-      "last_success_at": "2026-10-24T13:35:30.371271Z",
+      "last_success_at": "2026-10-24T14:05:29.737080Z",
       "persistent_failure": false
     },
     {
@@ -713,7 +713,7 @@
       "site_name": "36Kr AI (Watchlist)",
       "ok": true,
       "item_count": 5,
-      "duration_ms": 433,
+      "duration_ms": 392,
       "error": null,
       "fetch_path": "google_news",
       "degraded": false,
@@ -721,7 +721,7 @@
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": "2026-10-24T01:05:31.232044Z",
-      "last_success_at": "2026-10-24T13:35:30.371271Z",
+      "last_success_at": "2026-10-24T14:05:29.737080Z",
       "persistent_failure": false
     },
     {
@@ -729,13 +729,13 @@
       "site_name": "橘鴉AI早報 (Watchlist)",
       "ok": true,
       "item_count": 5,
-      "duration_ms": 596,
+      "duration_ms": 355,
       "error": null,
       "last_attempt_ok": true,
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": "2026-10-14T16:05:44.503854Z",
-      "last_success_at": "2026-10-24T13:35:30.371271Z",
+      "last_success_at": "2026-10-24T14:05:29.737080Z",
       "persistent_failure": false
     },
     {
@@ -744,13 +744,13 @@
       "ok": true,
       "item_count": 64,
       "signal_count": 0,
-      "duration_ms": 36,
+      "duration_ms": 112,
       "error": null,
       "last_attempt_ok": true,
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": "2026-10-15T06:35:47.527651Z",
-      "last_success_at": "2026-10-24T13:35:30.371271Z",
+      "last_success_at": "2026-10-24T14:05:29.737080Z",
       "persistent_failure": false
     },
     {
@@ -759,13 +759,13 @@
       "ok": true,
       "item_count": 20,
       "signal_count": 0,
-      "duration_ms": 194,
+      "duration_ms": 280,
       "error": null,
       "last_attempt_ok": true,
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": "2026-10-14T01:35:39.253653Z",
-      "last_success_at": "2026-10-24T13:35:30.371271Z",
+      "last_success_at": "2026-10-24T14:05:29.737080Z",
       "persistent_failure": false
     },
     {
@@ -774,13 +774,13 @@
       "ok": true,
       "item_count": 20,
       "signal_count": 0,
-      "duration_ms": 157,
+      "duration_ms": 210,
       "error": null,
       "last_attempt_ok": true,
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": "2026-10-13T09:05:38.730416Z",
-      "last_success_at": "2026-10-24T13:35:30.371271Z",
+      "last_success_at": "2026-10-24T14:05:29.737080Z",
       "persistent_failure": false
     },
     {
@@ -789,7 +789,7 @@
       "ok": true,
       "partial_failures": 0,
       "item_count": 2548,
-      "duration_ms": 7578,
+      "duration_ms": 4842,
       "error": null,
       "feed_count": 10,
       "effective_feed_count": 10,
@@ -801,7 +801,7 @@
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": null,
-      "last_success_at": "2026-10-24T13:35:30.371271Z",
+      "last_success_at": "2026-10-24T14:05:29.737080Z",
       "persistent_failure": false
     }
   ],
@@ -816,8 +816,8 @@
   ],
   "empty_advanced_sources": [],
   "fetched_raw_items": 3120,
-  "items_before_topic_filter": 95,
-  "items_in_24h": 72,
+  "items_before_topic_filter": 94,
+  "items_in_24h": 71,
   "translations": {
     "enabled": true,
     "primary_provider": "gemini",
@@ -831,7 +831,7 @@
     "total_budget_seconds": 120,
     "max_requests": 6,
     "provider_used": "gemini",
-    "cache_hits": 98,
+    "cache_hits": 96,
     "candidate_limit": 80
   },
   "rss_opml": {
@@ -853,7 +853,7 @@
         "effective_feed_url": "https://blog.google/technology/ai/rss/",
         "ok": true,
         "item_count": 20,
-        "duration_ms": 223,
+        "duration_ms": 219,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -868,7 +868,7 @@
         "effective_feed_url": "https://deepmind.google/blog/rss.xml",
         "ok": true,
         "item_count": 100,
-        "duration_ms": 89,
+        "duration_ms": 95,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -883,7 +883,7 @@
         "effective_feed_url": "https://huggingface.co/blog/feed.xml",
         "ok": true,
         "item_count": 890,
-        "duration_ms": 1227,
+        "duration_ms": 251,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -913,7 +913,7 @@
         "effective_feed_url": "https://news.microsoft.com/source/topics/ai/feed/",
         "ok": true,
         "item_count": 10,
-        "duration_ms": 112,
+        "duration_ms": 253,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -928,7 +928,7 @@
         "effective_feed_url": "https://developer.nvidia.com/blog/category/generative-ai/feed/",
         "ok": true,
         "item_count": 100,
-        "duration_ms": 1192,
+        "duration_ms": 724,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -943,7 +943,7 @@
         "effective_feed_url": "https://openai.com/news/rss.xml",
         "ok": true,
         "item_count": 1318,
-        "duration_ms": 1343,
+        "duration_ms": 593,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -958,7 +958,7 @@
         "effective_feed_url": "https://simonwillison.net/atom/everything/",
         "ok": true,
         "item_count": 30,
-        "duration_ms": 782,
+        "duration_ms": 311,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -973,7 +973,7 @@
         "effective_feed_url": "https://www.wired.com/feed/tag/ai/latest/rss",
         "ok": true,
         "item_count": 10,
-        "duration_ms": 173,
+        "duration_ms": 192,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -988,7 +988,7 @@
         "effective_feed_url": "https://baoyu.io/feed.xml",
         "ok": true,
         "item_count": 50,
-        "duration_ms": 969,
+        "duration_ms": 736,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -1076,8 +1076,8 @@
     "enabled": true,
     "cache_hits": 13,
     "generated": 0,
-    "failed": 3,
-    "rejection_cache_hits": 5,
+    "failed": 2,
+    "rejection_cache_hits": 6,
     "ineligible": 1,
     "max_new": 6,
     "last_error_type": "ValueError",
@@ -1086,12 +1086,12 @@
   "brief_events": {
     "recovery_mode": "none",
     "errors": [],
-    "candidate_article_count": 74,
-    "root_count": 72,
+    "candidate_article_count": 73,
+    "root_count": 71,
     "expired_count": 9,
     "context_attachment_count": 4,
-    "unresolved_count": 7379,
-    "state_bytes": 392189,
+    "unresolved_count": 7380,
+    "state_bytes": 393127,
     "capacity_warning": false
   }
 }
