@@ -1,9 +1,12 @@
 # AI News Radar Pulse — 交接摘要（截至 2026-10-24）
 
-## 2026-10-24 I04正式發布進行中
+## 2026-10-24 I04正式發布與驗收完成，D+本案結案
 
-- 使用者已指定驗收後commit並推送GitHub。現行入口為[I04發布紀錄](SIGNAL_SELECTION_I04_RELEASE_20261024.md)。後端1fbc429cfdfb已正常推送，GitHub離線CI及Pages成功；完整保留發布前9筆bot資料提交。
-- 隔離發布副本的前端完整2,304項通過，實作與I03一致；待既有正常刷新產生同代schema2，再推前端及線上驗收。原主工作目錄尚保留候選，發布驗收後再同步，不覆蓋其未提交內容。
+- [I04發布與結案](SIGNAL_SELECTION_I04_RELEASE_20261024.md)為現行入口。保留9筆既有bot提交，後端1fbc429cfdfb→既有正常刷新40107644368／資料adcdd06ff420→前端11e79527f20c。無force、沒有助理額外dispatch或變更workflow／排程。
+- 後端本機2,245項、整合版本2,304項通過。GitHub後端／前端離線CI、Asset version 40107902751及各批Pages通過；六資產版本20261024-i02，index＋六資產HTTP與前端提交完全一致，八資料檔與生成commit一致。
+- 23:35臺北正式快照ready：68一般AI、5重點（3核心＋2補位）、1雷達、0價格、來源失敗0；417舊事件根與418舊phase時鐘保持。Chrome1440／390均驗精選20／全部AI68，全部可展開，披露及模式保留正常，無JS／HTTP錯誤或水平溢出。
+- 正式專案路徑保持，本機候選另存可恢復stash及I03封存後快轉同步，無資料遺失。Downloads `ai-news-radar-i04-release-20261024/`保存最終hash／CI／HTTP／BROWSER_LIVE／RELEASE及備份資訊。真新聞無截圖或標題展示，independent_precision仍not_evaluable。
+- I01～I04完成，無下一個必跑階段；來源、去重與其他T01～T06不重開。後續日常維護GPT-6.1 Sol／Medium，修程式High。
 
 ## 2026-10-24 I03完成：整體／失敗情境通過，候選定稿待發布
 

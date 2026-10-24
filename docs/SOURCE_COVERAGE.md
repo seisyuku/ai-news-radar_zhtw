@@ -3,6 +3,10 @@
 This project should help readers track material AI-industry events without
 forcing them to follow noisy timelines or manage many source choices.
 
+## D+用途選稿已發布（2026-10-24）
+
+[I04正式發布](SIGNAL_SELECTION_I04_RELEASE_20261024.md)接續PG06來源治理：來源registry、39入口、准入／封存裁決、發布者身分與計票鍵均未變，沒有新增來源品質升降級。schema2用途投影將合格核心優先、具體產業動態與有材料的能力／安全披露補位，保留廠商宣稱及未發布標示；首頁／daily升版，雷達仍沿用原材料資格。這不是讓reported／unknown／unreviewed繼承聚合入口精選資格。原PG06結案及隔離限制保持，independent_precision仍not_evaluable。
+
 ## PG06正式發布完成（2026-10-24，目前入口）
 
 [PG06發布與結案](PUBLISHER_GOVERNANCE_PG06_RELEASE_20261024.md)已正式部署發布者識別、scoped來源政策及共用首頁／daily／雷達資格。後端先由既有刷新產生ready資料，再上前端；正式HTTP、CI／Pages與Chrome桌機／手機通過。來源registry、39新聞入口、准入裁決與既有計票鍵均沿用定稿，沒有新增來源品質升降級。

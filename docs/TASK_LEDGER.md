@@ -6,7 +6,7 @@
 
 ## 目前執行狀態
 
-- D+重點選稿及情報列表簡化：I01～I03候選已驗收，使用者已指定發布。[I04](SIGNAL_SELECTION_I04_RELEASE_20261024.md)進行中，後端已推送並通過CI／Pages，待新版正常刷新、前端與線上驗收；不重開其他方向。
+- D+重點選稿及情報列表簡化：I01～I04已正式發布與驗收完成，見[I04](SIGNAL_SELECTION_I04_RELEASE_20261024.md)與C07；本案結案，無下一個必跑階段。後續日常維護GPT-6.1 Sol／Medium，修程式High。
 - PG、BR與方案A維持已結案；D+是新用途選稿案，不重開PG05補修或來源觀察。
 - 本次文件整理：已完成；使用者已指定提交並推送至master，實際版本以Git紀錄為準。
 - T01～T06均未由本次整理啟動。需要使用者指定項目及範圍後才續接，不建立排程、提醒、來源觀察或新的provider呼叫。
@@ -68,6 +68,7 @@
 | C04 | D00：日報自動化退役 | [退役交接](DIGEST_RETIREMENT_HANDOFF_20261021.md)及[S03實況](SOURCE_GOVERNANCE_S03_STATUS_20261022.md)。 |
 | C05 | 三失效入口移除、INSIDE接入、RuntimeWire分流 | [來源工作歷史](RADAR_SOURCE_REVISION_20261018.md)及後續A06／PG06；不再等舊文件的下一次自然刷新。 |
 | C06 | 舊外部heartbeat PAT替換 | 使用者2026-10-01已回報替換並驗HTTP 204；原10/17到期提醒取消，例行操作依OPERATIONS。 |
+| C07 | I01～I04：D+重點選稿、模式入口及排序簡化 | [I04正式發布與驗收](SIGNAL_SELECTION_I04_RELEASE_20261024.md)。後端／正常資料／前端與CI、Pages、HTTP及Chrome均通過。 |
 
 ## 已撤回／提前停止／封存
 
