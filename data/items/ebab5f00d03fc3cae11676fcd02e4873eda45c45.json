@@ -1,14 +1,17 @@
 {
-  "id": "42f6bde20b073fb582953c1609ac0f614d6eb303",
-  "published_at": "2026-09-30T07:43:13Z",
-  "first_seen_at": "2026-09-30T08:05:50.015562Z",
+  "id": "ebab5f00d03fc3cae11676fcd02e4873eda45c45",
+  "published_at": "2026-10-24T05:51:16Z",
+  "first_seen_at": "2026-10-24T08:05:38.568078Z",
   "site_id": "curated_media",
   "site_name": "精選媒體",
   "source": "DeepSeek (Google News)",
-  "title": "DeepSeek brings AI software to Huawei’s Ascend chips - Techzine Global",
-  "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOMW9mc0IyX1NSMnJmSW43dHUxb2VUVmZSWTRSVVJoOE9wM1BhaFpjMUNtR0JJMmdkazdPRHg5bmVReWhTdk4wRGhxS2pGLV83S042bXozOXpRVU1qSXNOUk1odXRIM1I3bTFCVUNVVUhwTE9UQ0taRGNBVmFKY2prYUJSLUZYNVFDdnBvR29ReGFsbFdmUGxfOWUtbw?oc=5",
-  "last_seen_at": "2026-10-03T07:35:30.404132Z",
-  "summary": "DeepSeek brings AI software to Huawei’s Ascend chips Techzine Global",
+  "title": "GLM vs Claude, GPT, Gemini, Grok & DeepSeek (2026) - Fello AI",
+  "url": "https://news.google.com/rss/articles/CBMiTEFVX3lxTFBiYXd1aUcxZzNvWkN5cTVRa1pUOVQ5SFUyRDdVQkNWSy01SWNFeHkwT1Z2Sl9iSnROZFRLMTE0aTBkWlg0MWxkTnFNbEk?oc=5",
+  "last_seen_at": "2026-10-24T08:05:38.568078Z",
+  "summary": "GLM vs Claude, GPT, Gemini, Grok & DeepSeek (2026) Fello AI",
+  "publisher_links": [
+    "https://news.google.com/rss/articles/CBMiTEFVX3lxTFBiYXd1aUcxZzNvWkN5cTVRa1pUOVQ5SFUyRDdVQkNWSy01SWNFeHkwT1Z2Sl9iSnROZFRLMTE0aTBkWlg0MWxkTnFNbEk?oc=5"
+  ],
   "ingress": {
     "kind": "google_news",
     "site_id": "curated_media",
@@ -19,13 +22,15 @@
   "publisher": {
     "schema_version": 1,
     "publisher_id": null,
-    "name": null,
-    "domain": null,
-    "status": "unknown",
-    "basis": [],
+    "name": "Fello AI",
+    "domain": "felloai.com",
+    "status": "reported",
+    "basis": [
+      "google_rss_source"
+    ],
     "evidence": {
-      "rss_source_name": null,
-      "rss_source_url": null,
+      "rss_source_name": "Fello AI",
+      "rss_source_url": "https://felloai.com",
       "article_url": null,
       "article_host": "news.google.com",
       "expected_publisher_id": null,
@@ -46,8 +51,8 @@
     "allow_featured": false,
     "allow_radar": false,
     "reason_codes": [
-      "missing_identity",
-      "scope_unknown",
+      "reported_rss_source",
+      "scope_mismatch",
       "unreviewed_publisher",
       "not_permitted_for_featured",
       "not_permitted_for_radar"

@@ -7,7 +7,7 @@
   "source": "Reuters AI (Google News)",
   "title": "Appeals court lifts block on Mississippi's DEI ban, ejects judge over AI errors - Reuters",
   "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxNTXU4UEVFNmN1Z1hTZW5oWUhXVXRSWDMyM2JVa1FPUEN2OGFqWEdydi1zbElVb3ZsNGo3Z0RZLUU0bG94emsxTzl3RTV3bG1zUEVmckd1aTZ2MmVjY3V3dWdtR1lWSWxlT2NwR3ROTFFnNlFianNZMS1GdHUxR3BCYTJSQlBnUk9KcEVJNXlOSF9iWjZrR0RvU1lkOWNVa3RjWUREZ1lMTkFsMUFkVmJuN3JEWFRwcE1zbHNqX3BEZU9GQkF1elE?oc=5",
-  "last_seen_at": "2026-10-24T06:35:30.850467Z",
+  "last_seen_at": "2026-10-24T08:05:38.568078Z",
   "summary": "Appeals court lifts block on Mississippi's DEI ban, ejects judge over AI errors Reuters",
   "publisher_links": [
     "https://news.google.com/rss/articles/CBMixgFBVV95cUxNTXU4UEVFNmN1Z1hTZW5oWUhXVXRSWDMyM2JVa1FPUEN2OGFqWEdydi1zbElVb3ZsNGo3Z0RZLUU0bG94emsxTzl3RTV3bG1zUEVmckd1aTZ2MmVjY3V3dWdtR1lWSWxlT2NwR3ROTFFnNlFianNZMS1GdHUxR3BCYTJSQlBnUk9KcEVJNXlOSF9iWjZrR0RvU1lkOWNVa3RjWUREZ1lMTkFsMUFkVmJuN3JEWFRwcE1zbHNqX3BEZU9GQkF1elE?oc=5"
@@ -23,14 +23,15 @@
     "schema_version": 1,
     "publisher_id": "reuters",
     "name": "Reuters",
-    "domain": null,
+    "domain": "www.reuters.com",
     "status": "identified",
     "basis": [
+      "google_rss_source",
       "configured_bridge"
     ],
     "evidence": {
-      "rss_source_name": null,
-      "rss_source_url": null,
+      "rss_source_name": "Reuters",
+      "rss_source_url": "https://www.reuters.com",
       "article_url": null,
       "article_host": "news.google.com",
       "expected_publisher_id": null,
@@ -41,21 +42,18 @@
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
     "registry_revision": "ce78b2cd31b860b6232a1b02b0c08d2a949d492c911fafbba5e028dc0f4b3e8c",
-    "scope_id": "unreviewed",
-    "publisher_kind": "unknown",
-    "admission_status": "unreviewed",
-    "source_tier": "watchlist",
-    "source_tier_label": "未審來源",
-    "source_tier_rank": 6,
+    "scope_id": "reuters",
+    "publisher_kind": "media",
+    "admission_status": "limited",
+    "source_tier": "ai_media",
+    "source_tier_label": "精選AI媒體",
+    "source_tier_rank": 2,
     "allow_general": true,
-    "allow_featured": false,
-    "allow_radar": false,
+    "allow_featured": true,
+    "allow_radar": true,
     "reason_codes": [
-      "legacy_identity",
-      "scope_unknown",
-      "unreviewed_publisher",
-      "not_permitted_for_featured",
-      "not_permitted_for_radar"
+      "identified_bridge",
+      "limited_scope"
     ]
   }
 }
