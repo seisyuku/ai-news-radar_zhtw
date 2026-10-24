@@ -12,6 +12,14 @@
   const unique = (xs) => Array.isArray(xs) && new Set(xs).size === xs.length;
   const subset = (xs, ys) => Array.isArray(xs) && xs.every((x) => ys.includes(x));
   const setSame = (a, b) => unique(a) && unique(b) && a.length === b.length && subset(a, b);
+  const compareIds = (a, b) => {
+    const left = Array.from(a), right = Array.from(b);
+    for (let i = 0; i < Math.min(left.length, right.length); i++) {
+      const delta = left[i].codePointAt(0) - right[i].codePointAt(0);
+      if (delta) return delta;
+    }
+    return left.length - right.length;
+  };
   const safeUrl = (s) => { try { const u = new URL(s); return /^https?:$/.test(u.protocol) && !u.username && !u.password && String(s).length <= 2048; } catch { return false; } };
   const permitted = (a, use, revision) => a?.publisher?.schema_version === 1 && a.publisher.status === "identified"
     && a.source_policy?.schema_version === 1 && a.source_policy.policy_id === POLICY
@@ -19,6 +27,7 @@
     && ["approved", "limited"].includes(a.source_policy.admission_status) && a.source_policy[`allow_${use}`] === true;
   const supported = (a) => (a?.qualification?.core_evidence || []).filter((e) => e.status === "supported").map((e) => e.kind);
   function allowedKinds(event, a) {
+    if (a?.qualification?.core_evidence?.some((e) => e.status === "conflict")) return [];
     const required = { security_disclosure: "security", pricing_change: "pricing", model_release: "model_release",
       speed_tier_release: "model_release", platform_availability: "model_release" }[event.identity?.action];
     return supported(a).filter((kind) => !required || required === kind);
@@ -40,25 +49,74 @@
         || !["official_primary", "technical_primary", "editorial_report", "insufficient"].includes(e.basis)
         || !Array.isArray(e.spans) || e.spans.length > 12 || !Array.isArray(e.urls) || e.urls.length > 24
         || !unique(e.urls) || e.urls.some((u) => !safeUrl(u)) || (e.status === "supported" && !e.spans.length)) return false;
+      if (!validSpans(e, ref)) return false;
       evidenceKinds.push(e.kind);
-      for (const span of e.spans) {
-        const text = ref.source_material?.[span.field];
-        if (!["title_original", "title", "summary"].includes(span.field) || typeof text !== "string"
-          || !Number.isSafeInteger(span.start) || !Number.isSafeInteger(span.end)
-          || span.start < 0 || span.end <= span.start || span.end > 100000
-          || typeof span.text !== "string" || !span.text || Array.from(span.text).length > 1600
-          || Array.from(text).slice(span.start, span.end).join("") !== span.text) return false;
+    }
+    const s = a.supplement_evidence;
+    if (!unique(evidenceKinds) || !s || ![null, "industry_news", "capability_disclosure"].includes(s.kind)
+      || !unique(s.qualifiers) || !subset(s.qualifiers, ["provider_claim", "unreleased"])
+      || !validSpans(s, ref) || !Array.isArray(ref.source_links) || ref.source_links.length > 24
+      || ref.source_links.some((u) => !safeUrl(u)) || typeof ref.source_site_name !== "string") return false;
+    if (s.kind === null) return !s.spans.length && !s.urls.length && !s.qualifiers.length;
+    if (a.qualification.scope !== "in_scope" || !s.spans.length || a.qualification.core_evidence.some((e) => e.status === "conflict")) return false;
+    const field = ref.source_material.title_original ? "title_original" : "title";
+    const bounded = (text) => Array.from(String(text || "").split(/延伸閱讀|延伸阅读|相關文章|相关文章|read more|related articles/i)[0]).slice(0, 1600).join("");
+    const title = bounded(ref.source_material[field]), summary = bounded(ref.source_material.summary);
+    const spans = [[field, title], ["summary", summary]].filter(([, text]) => text)
+      .map(([field, text]) => ({ field, start: 0, end: Array.from(text).length, text }));
+    if (!same(s.spans, spans)) return false;
+    if (s.kind === "industry_news" && (s.qualifiers.length || a.qualification.core_evidence.length)) return false;
+    if (s.kind === "capability_disclosure") {
+      const native = `${title}\n${summary}`;
+      const unreleased = /\bunreleased\b|\bunpublished\b|not (?:yet )?(?:released|available)|未(?:發[布佈表]|发布|公開|公开)|尚未(?:發[布佈表]|发布|公開|公开)/i.test(native);
+      if (!same(s.qualifiers, unreleased ? ["provider_claim", "unreleased"] : ["provider_claim"])) return false;
+    }
+    return true;
+  }
+
+  function validSpans(e, ref) {
+    if (!Array.isArray(e.spans) || e.spans.length > 12 || !unique(e.urls) || e.urls.length > 24
+      || e.urls.some((u) => !safeUrl(u) || ![ref.url, ...ref.source_links].includes(u))) return false;
+    return e.spans.every((span) => {
+      const text = ref.source_material?.[span.field];
+      return ["title_original", "title", "summary"].includes(span.field) && typeof text === "string"
+        && Number.isSafeInteger(span.start) && Number.isSafeInteger(span.end) && span.start >= 0
+        && span.end > span.start && span.end <= 100000 && typeof span.text === "string"
+        && Array.from(span.text).length <= 1600
+        && Array.from(text).slice(span.start, span.end).join("") === span.text;
+    });
+  }
+
+  function existingKey(ref) {
+    if (ref.publisher?.status !== "identified") return false;
+    const pid = ref.publisher.publisher_id;
+    return ref.corroboration_key === (["aibase", "kr36", "juya"].includes(pid) ? "cn_aggregator" : `publisher:${pid}`);
+  }
+
+  // Same bounded default selection as the producer. Filtering is deliberately
+  // left to the reader; the overlay retains all candidates.
+  function selectIds(decisions, limit = 20, target = 5) {
+    const selected = [], counts = new Map();
+    for (const layer of ["core", "supplement"]) {
+      const rest = decisions.filter((d) => d.featured_eligible && d.selection_class === layer);
+      const cap = layer === "core" ? limit : Math.min(limit, target);
+      const key = (d) => d.featured_primary_item.corroboration_key || `publisher:${d.featured_primary_item.publisher.publisher_id}`;
+      while (rest.length && selected.length < cap) {
+        rest.sort((a, b) => (-a.featured_score + .03 * (counts.get(key(a)) || 0))
+          - (-b.featured_score + .03 * (counts.get(key(b)) || 0)) || compareIds(a.brief_event_id, b.brief_event_id));
+        const d = rest.shift(); selected.push(d.brief_event_id); counts.set(key(d), (counts.get(key(d)) || 0) + 1);
       }
     }
-    return unique(evidenceKinds);
+    return selected;
   }
 
   function valid(parent, now = Date.now()) {
     try {
       const g = parent?.publisher_governance, p = parent?.brief_events;
-      if (!g || !p || g.record_type !== "publisher_governance_projection" || g.schema_version !== 1
+      if (!g || !p || g.record_type !== "publisher_governance_projection" || g.schema_version !== 2
+        || g.selection_policy !== "dplus-v1" || g.default_visible_limit !== 5
         || g.policy_id !== POLICY || g.status !== "ready" || !/^[0-9a-f]{64}$/.test(g.registry_revision || "")
-        || !/^pg1_[0-9a-f]{24}$/.test(g.generation_id || "") || !/^bg1_[0-9a-f]{24}$/.test(p.generation_id || "")
+        || !/^pg2_[0-9a-f]{24}$/.test(g.generation_id || "") || !/^bg1_[0-9a-f]{24}$/.test(p.generation_id || "")
         || !/^[0-9a-f]{64}$/.test(p.state_revision || "") || !["ready", "recovered"].includes(p.status)
         || p.record_type !== "brief_event_projection" || p.history_complete !== false
         || p.matcher_version !== "brief-event-v1" || p.schema_version !== 1
@@ -90,18 +148,35 @@
           refIds.add(rid);
           if (!validMaterial(a, ref) || sp.schema_version !== 1 || sp.policy_id !== POLICY || sp.registry_revision !== g.registry_revision
             || !["approved", "limited", "unreviewed", "excluded"].includes(sp.admission_status)
+            || !Number.isSafeInteger(sp.source_tier_rank) || sp.source_tier_rank < 0 || sp.source_tier_rank > 9
+            || ["allow_general", "allow_featured", "allow_radar"].some((k) => typeof sp[k] !== "boolean")
             || !["active_phase", "past_phase", "context_unknown"].includes(ref.role)
             || !/^bp1_[0-9a-f]{24}$/.test(ref.phase_id || "") || !safeUrl(ref.url)
             || ["ingress", "publisher", "source_policy"].some((k) => !same(ref[k], a[k]))
             || (sp.admission_status === "unreviewed" && (sp.source_tier !== "watchlist" || sp.source_tier_rank !== 6 || sp.allow_featured || sp.allow_radar))
             || (sp.admission_status === "excluded" && (sp.allow_general || sp.allow_featured || sp.allow_radar))) return false;
         }
+        const core = [], supplements = [];
+        const inWindow = event.eligible === true && Date.parse(event.effective_at) <= Date.parse(g.generated_at)
+          && Date.parse(g.generated_at) < Date.parse(event.expires_at);
+        for (const [rid, ref] of refs) {
+          const a = articles.get(rid);
+          if (!inWindow || ref.role !== "active_phase" || ref.phase_id !== event.active_phase_id || !existingKey(ref)
+            || !permitted(a, "featured", g.registry_revision)) continue;
+          if (a.qualification.scope === "in_scope" && allowedKinds(event, a).length && sameSubject(event, ref)) core.push(rid);
+          else if (event.identity?.action === "article" && a.supplement_evidence.kind) supplements.push(rid);
+        }
+        const expectedSupport = core.length ? core : supplements;
+        if (!setSame(d.support_article_ids, expectedSupport) || d.featured_eligible !== Boolean(expectedSupport.length)
+          || !Array.isArray(d.support_scores) || !unique(d.support_scores.map((s) => s.article_id))
+          || !setSame(d.support_scores.map((s) => s.article_id), expectedSupport)
+          || d.support_scores.some((s) => typeof s.score !== "number" || !Number.isFinite(s.score) || s.score < 0 || s.score > 1)) return false;
         const keys = new Set();
         for (const rid of d.support_article_ids) {
           const ref = refs.get(rid), a = articles.get(rid);
           if (!ref || !event.member_article_ids.includes(rid) || ref.role !== "active_phase" || ref.phase_id !== event.active_phase_id
             || !permitted(a, "featured", g.registry_revision) || a.qualification.scope !== "in_scope"
-            || !allowedKinds(event, a).length || !sameSubject(event, ref)) return false;
+            || (core.length && (!allowedKinds(event, a).length || !sameSubject(event, ref)))) return false;
           if (ref.corroboration_key) keys.add(ref.corroboration_key);
         }
         if (keys.size !== d.qualified_source_count || !setSame([...keys], d.qualified_corroboration_keys)) return false;
@@ -112,23 +187,30 @@
             || Date.parse(event.expires_at) - Date.parse(event.effective_at) !== 86400000
             || !d.support_article_ids.includes(rid) || primary?.id !== rid || !safeUrl(primary.url)
             || typeof primary.title !== "string" || primary.title.length > 20000
-            || ["id", "title", "url", "publisher", "source_policy", "source_material"].some((k) => !same(primary[k], refs.get(rid)[k]))
+            || !same(primary, { ...refs.get(rid), business_events: d.featured_business_events })
             || typeof d.featured_score !== "number" || !Number.isFinite(d.featured_score) || d.featured_score < 0 || d.featured_score > 1
-            || !unique(d.featured_business_events) || !d.featured_business_events.length
-            || !subset(d.featured_business_events, allowedKinds(event, articles.get(rid)))) return false;
-          if (d.eligibility_basis === "official_primary") { if (articles.get(rid).source_policy.publisher_kind !== "official") return false; }
-          else if (d.eligibility_basis === "multiple_qualified_publishers") { if (keys.size < 2) return false; }
-          else if (d.eligibility_basis !== "qualified_score" || d.featured_score < .72) return false;
+            || !unique(d.featured_business_events) || !unique(d.disclosure_flags)) return false;
+          const scores = new Map(d.support_scores.map((s) => [s.article_id, s.score]));
+          const ranked = [...expectedSupport].sort((a, b) => scores.get(b) - scores.get(a)
+            || articles.get(a).source_policy.source_tier_rank - articles.get(b).source_policy.source_tier_rank || compareIds(a, b));
+          const s = articles.get(rid).supplement_evidence;
+          if (ranked[0] !== rid || d.featured_score !== scores.get(rid)
+            || d.selection_class !== (core.length ? "core" : "supplement")
+            || d.eligibility_basis !== (core.length ? "supported_core" : s.kind)
+            || !same(d.featured_business_events, core.length ? allowedKinds(event, articles.get(rid)) : [])
+            || !same(d.disclosure_flags, core.length ? [] : s.qualifiers)
+            || !same(primary.business_events, d.featured_business_events)) return false;
           if (d.featured_news_summary !== null) {
             if (typeof d.featured_news_summary !== "string" || d.featured_news_summary.length > 2000
               || d.summary_article_id !== rid || event.primary_item.id !== rid || event.news_summary !== d.featured_news_summary) return false;
           } else if (d.summary_article_id !== null) return false;
           eligible.push(eid);
-        } else if (["eligibility_basis", "featured_primary_article_id", "featured_primary_item", "featured_score", "featured_news_summary", "summary_article_id"].some((k) => d[k] !== null) || d.featured_business_events?.length !== 0) return false;
+        } else if (["selection_class", "eligibility_basis", "featured_primary_article_id", "featured_primary_item", "featured_score", "featured_news_summary", "summary_article_id"].some((k) => d[k] !== null) || d.featured_business_events?.length !== 0 || d.disclosure_flags?.length !== 0) return false;
       }
       return setSame([...refIds], [...articles.keys()]) && setSame(eligible, g.featured_event_ids)
         && unique(g.daily_selected_event_ids) && g.daily_selected_event_ids.length <= 20
-        && subset(g.daily_selected_event_ids, eligible) && same(g.daily_selected_event_ids, p.selected_event_ids);
+        && subset(g.daily_selected_event_ids, eligible) && same(g.daily_selected_event_ids, p.selected_event_ids)
+        && same(g.daily_selected_event_ids, selectIds(g.events));
     } catch { return false; }
   }
 
@@ -139,6 +221,8 @@
       source_count: refs.length, corroboration_count: d.qualified_source_count, duplicate_count: Math.max(1, d.qualified_source_count),
       score: d.featured_score, importance: d.featured_score, importance_score: d.featured_score,
       business_events: d.featured_business_events, publisher_qualified: true,
+      selection_class: d.selection_class, signal_label: d.selection_class === "core" ? "核心事件" : "產業動態",
+      disclosure_flags: d.disclosure_flags,
       governance_publisher_key: primary.corroboration_key || `publisher:${primary.publisher.publisher_id}` };
     Object.keys(out).filter((k) => k.startsWith("news_summary")).forEach((k) => delete out[k]);
     if (d.featured_news_summary) out.news_summary = d.featured_news_summary;
@@ -146,7 +230,7 @@
   }
 
   function metaMatches(meta, g) {
-    return meta && ["schema_version", "policy_id", "registry_revision", "generated_at", "brief_generation_id", "brief_state_revision", "generation_id", "status"].every((k) => meta[k] === g[k]);
+    return meta && ["schema_version", "selection_policy", "default_visible_limit", "policy_id", "registry_revision", "generated_at", "brief_generation_id", "brief_state_revision", "generation_id", "status"].every((k) => meta[k] === g[k]);
   }
 
   function validDaily(daily, parent) {
@@ -155,12 +239,17 @@
       || daily.total_items !== daily.items.length || !same(daily.items.map((e) => e.brief_event_id), g.daily_selected_event_ids)
       || daily.brief_event_meta?.generation_id !== p.generation_id || daily.brief_event_meta?.generated_at !== p.generated_at
       || !same(daily.brief_event_meta?.selected_event_ids, p.selected_event_ids)
-      || daily.selection_diagnostics?.selected_count !== daily.items.length) return false;
+      || daily.selection_diagnostics?.selected_count !== daily.items.length
+      || daily.selection_diagnostics?.score_gate !== null
+      || daily.selection_diagnostics?.selection_policy !== g.selection_policy
+      || daily.selection_diagnostics?.default_visible_limit !== 5
+      || daily.selection_diagnostics?.core_count !== g.events.filter((d) => d.featured_eligible && d.selection_class === "core").length
+      || daily.selection_diagnostics?.supplement_candidate_count !== g.events.filter((d) => d.featured_eligible && d.selection_class === "supplement").length) return false;
     const decisions = new Map(g.events.map((d) => [d.brief_event_id, d]));
     const events = new Map(p.events.map((e) => [e.brief_event_id, e]));
     return daily.items.every((item) => {
       const wanted = view(events.get(item.brief_event_id), decisions.get(item.brief_event_id));
-      return ["primary_item", "title", "url", "business_events", "score", "corroboration_count", "news_summary"].every((k) => same(item[k], wanted[k]));
+      return ["primary_item", "title", "url", "business_events", "score", "corroboration_count", "news_summary", "selection_class", "signal_label", "disclosure_flags"].every((k) => same(item[k], wanted[k]));
     });
   }
 

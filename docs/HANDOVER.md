@@ -1,5 +1,34 @@
 # AI News Radar Pulse — 交接摘要（截至 2026-10-24）
 
+## 2026-10-24 I04正式發布進行中
+
+- 使用者已指定驗收後commit並推送GitHub。現行入口為[I04發布紀錄](SIGNAL_SELECTION_I04_RELEASE_20261024.md)。後端1fbc429cfdfb已正常推送，GitHub離線CI及Pages成功；完整保留發布前9筆bot資料提交。
+- 隔離發布副本的前端完整2,304項通過，實作與I03一致；待既有正常刷新產生同代schema2，再推前端及線上驗收。原主工作目錄尚保留候選，發布驗收後再同步，不覆蓋其未提交內容。
+
+## 2026-10-24 I03完成：整體／失敗情境通過，候選定稿待發布
+
+- 現行入口為[I03整體驗收與發布交接](SIGNAL_SELECTION_I03_ACCEPTANCE_20261024.md)。I01～I03本機候選定稿；本階段新增七項整合回歸與文件，沒有再改I01／I02產品程式。未commit、push、部署、dispatch或修改tracked data。
+- 完整2,304項通過；真實main配對重跑確認一般AI80、雷達1、archive／事件state／來源健康／cache及7,507組JSON／HTML原文解析內容一致，daily由0變5。來源與價格採原完整快照，不是新抓取；非空價格與兩Canary另由真實parser／main的合成案例覆蓋。
+- 18組Chrome桌面／手機矩陣通過，涵蓋新舊前端＋資料、混版及四種故障；錯代重點／雷達拒收，一般列表、價格與Canary保持隔離。截圖只用合成資料，歷史隔離與independent_precision=not_evaluable保持。
+- Pages唯讀確認master:/直接發布；檢查時遠端多8筆、僅data／item更新。發布時需重新整合bot歷史，採後端先行→既有正常刷新及HTTP同代驗證→前端，不能只推新前端配舊schema1，也不能用Downloads舊快照覆蓋正式資料。過渡期治理區塊可能保守不可用，回退程序見I03。
+- Downloads `ai-news-radar-i03-20261024/`保存SEAL／MANIFEST、PIPELINE、BROWSER_MATRIX、TESTS及REMOTE_READONLY／REMOTE_SCOPE。**下一步正式發布與線上驗收：GPT-6.1 Sol／High**，待使用者指定，不重開其他台帳案件。
+
+## 2026-10-24 I02完成：D+前端、模式入口與離線介面驗收
+
+- 現行續接入口為[I02前端交接](SIGNAL_SELECTION_I02_FRONTEND_20261024.md)。I01＋I02仍為本機未提交候選；未push、部署、dispatch或修改tracked data，正式站保持原版。
+- 新guard核對schema2／dplus-v1同代資料、原稿／來源／phase／支持集合、主文、分數、分層、披露及選集。上方對完整池先篩選再核心優先／不足五補位；不受下方精選門檻限制，不回填未驗證舊池。
+- 常駐精選N／全部AI M、末尾查看全部、模式保留與四排序簡化完成；來源折疊及一般門檻保持。三固定快照在桌面／手機均為精選16、全部AI80／77／77，完全展開可讀則數一致；NVIDIA及Anthropic用途與披露顯示通過。
+- 新增52項測試，完整2,297通過；8組Chrome介面驗收與17組guard／逾期機械核對通過。精確版本、輔助合成payload限制及負擔見Downloads `ai-news-radar-i02-20261024/`的MANIFEST、BROWSER、GUARD_REPLAY及AUDIT。截圖只用合成新聞，independent_precision仍not_evaluable。
+- **下一階段I03：GPT-6.1 Sol／High**。先核對封存及同代發布／回退鏈路；不能單獨發布新前端配舊schema1資料。不重開其他台帳案件。
+
+## 2026-10-24 I01完成：D+後端本機候選，待I02前端
+
+- 目前入口為[D+ I01後端與契約](SIGNAL_SELECTION_I01_BACKEND_20261024.md)。使用者已同意D+及列表簡化，並指定I01；本階段完成用途資格、補位候選與公開daily相容選集，未實作介面或發布。
+- schema2／dplus-v1／pg2有版本區隔。核心材料合格不再硬卡0.72；NVIDIA完整型號可取得發布核心，Anthropic具體評估披露以provider_claim／unreleased補位，不冒充模型發布。核心先於補位，補到預設五則；完整候選保留供查詢後重選。
+- 新增95項D+測試，最終完整2,245項通過；三固定快照各2核心＋3補位，14日1,914事件窗口的state／時鐘／一般輸出不變。精確測試、hash及負擔見Downloads `ai-news-radar-i01-20261024/`的MANIFEST／HANDOFF／TESTS／HISTORY。
+- 舊browser guard刻意拒收v2，不能單獨發布I01；I02須實作新契約及清楚標示，再接常駐精選／全部AI、清除保留模式與移除四排序按鈕。來源registry、matcher、AI公式、雷達、價格／canary、tracked data與排程保持；未commit／push／dispatch。
+- **下一階段I02：GPT-6.1 Sol／High**；I03同模型／High。具名真實案例僅開發回歸，歷史機械回放不宣稱獨立precision。PG05仍已結案，不重開補修輪或其他台帳方向。
+
 ## 2026-10-24 任務台帳與歷史標記整理完成
 
 - 現行任務狀態見[TASK_LEDGER](TASK_LEDGER.md)，方向摘要見[ROADMAP](ROADMAP.md)。T01～T06為保留方向，本次未啟動；沒有執行中的產品任務。

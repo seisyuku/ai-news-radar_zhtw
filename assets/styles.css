@@ -1163,35 +1163,17 @@ summary:focus-visible {
   flex-wrap: wrap;
 }
 
-.list-sort-tools {
-  display: inline-flex;
-  max-width: 100%;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  overflow: hidden;
-  background: var(--surface);
+.list-mode-switch { max-width: 100%; }
+.list-mode-switch .mode-btn { white-space: nowrap; padding: 0 12px; }
+.view-all-ai-btn {
+  display: block; margin: 16px auto; padding: 10px 18px;
+  border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--surface); color: var(--accent); cursor: pointer;
 }
-
-.list-sort-btn {
-  min-height: 32px;
-  border: 0;
-  border-left: 1px solid var(--line);
-  padding: 0 10px;
-  background: transparent;
-  color: var(--muted);
-  cursor: pointer;
-  font-size: 12px;
-  white-space: nowrap;
-}
-
-.list-sort-btn:first-child {
-  border-left: 0;
-}
-
-.list-sort-btn.active {
-  background: var(--accent);
-  color: #fff;
-  font-weight: 780;
+.view-all-ai-btn[hidden] { display: none; }
+.signal-qualifier {
+  display: inline-flex; padding: 2px 6px; border: 1px solid var(--line);
+  border-radius: 5px; color: var(--muted); font-size: 11px; white-space: nowrap;
 }
 
 .section-eyebrow {
@@ -2731,9 +2713,6 @@ summary:focus-visible {
     justify-content: space-between;
   }
 
-  .list-sort-tools {
-    overflow-x: auto;
-  }
 
   .brief-board {
     display: block;

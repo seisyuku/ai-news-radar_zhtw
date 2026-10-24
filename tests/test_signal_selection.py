@@ -63,7 +63,7 @@ def test_default_backend_uses_v2_and_daily_is_a_bound_adapter():
     assert b.validate_state(result.next_state)
 
 
-def test_explicit_legacy_fixture_still_validates_and_old_browser_rejects_dplus():
+def test_explicit_legacy_fixture_validates_only_in_legacy_backend_and_browser_accepts_dplus():
     old, *_ = ready_bundle()
     assert s.legacy.validate(old["publisher_governance"], old["brief_events"])
     new, *_ = bundle()
@@ -71,7 +71,10 @@ def test_explicit_legacy_fixture_still_validates_and_old_browser_rejects_dplus()
     result = run_js("const G=require('./assets/publisher-governance.js');"
         + "const parent=" + json.dumps(new) + ";"
         + "console.log(JSON.stringify({valid:G.valid(parent)}));")
-    assert result == {"valid": False}  # I02 must supply the matching guard.
+    assert result == {"valid": True}
+    result = run_js("const G=require('./assets/publisher-governance.js');const parent=" + json.dumps(old)
+        + ";console.log(JSON.stringify({valid:G.valid(parent)}));")
+    assert result == {"valid": False}
 
 
 @pytest.mark.parametrize("case", USER_CASES["cases"], ids=lambda c: c["case_id"])

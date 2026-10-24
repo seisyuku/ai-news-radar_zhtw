@@ -4,7 +4,7 @@ from tests.js_bridge import extract_declarations, run_js
 
 def harness():
     return extract_declarations(
-        'storySourceRefs', 'storySourceCount', 'storySourceCountLabel', 'buildStoryCard', 'sourceChip',
+        'appendSignalLabels', 'storySourceRefs', 'storySourceCount', 'storySourceCountLabel', 'buildStoryCard', 'sourceChip',
         'sourceDisplayName', 'readerSiteName', 'readerSiteId',
     ) + r'''
 class Element {

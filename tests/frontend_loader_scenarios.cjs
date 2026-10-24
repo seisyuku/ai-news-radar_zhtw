@@ -75,7 +75,7 @@ function environment({ pending = [], failures = [], sequence = {} } = {}) {
   context.renderSourceHealth = (error) => { observed.health.push(error || ""); };
   context.renderCoverageStrip = (error) => { observed.coverage.push(error || ""); };
   context.setStats = () => { observed.stats.push({ status: state.sourceStatus, error: state.sourceStatusError }); };
-  for (const name of ["renderMarketSignals", "renderLlmRadar", "renderSectionTabs", "renderModeSwitch", "renderListSortTools", "renderSiteFilters"]) context[name] = () => {};
+  for (const name of ["renderMarketSignals", "renderLlmRadar", "renderSectionTabs", "renderModeSwitch", "renderSiteFilters"]) context[name] = () => {};
   return { context, state, observed, events, calls, gates, updatedAtEl, newsListEl, modeAllBtnEl,
     release(key, payload = defaults[key]) { gates[key].resolve({ ok: true, json: async () => payload }); },
   };

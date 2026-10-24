@@ -18,6 +18,7 @@ const itemSourceSortKey = i => i.source;
 const multiSourceEventKeys = () => new Set();
 const itemMatchesSignalLevel = () => true;
 let pool = [];
+const modeItems = () => pool;
 const sectionItems = () => pool;
 '''
 

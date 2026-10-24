@@ -25,8 +25,19 @@ then promotes six types of business events into the primary signal view:
 | Benchmarks | Model evaluations and leaderboard changes |
 | Model releases | Major proprietary and open model releases |
 
+Qualified core events appear first. When fewer than five are available, specific
+industry news or evidenced capability and safety disclosures may fill the remaining
+places. Unqualified items never fill a quota. Supplements carry an industry-news
+label; provider claims and unreleased models retain explicit qualifiers and do
+not become independently verified findings or public model releases.
+
 The broader list includes relevant product releases, research, and industry
-reporting. Every item links to its original source.
+reporting. Its header offers Selected / All AI with counts matching all expandable
+rows under the current filters. Switching the range preserves filters; clearing
+filters preserves the range. The primary signal view is independent of the lower
+list's Selected threshold. The list uses its standard priority order, with raw
+content and its deduplication option kept in advanced controls. Every item links
+to its original source.
 
 Structured snapshots track model price changes. The automatic free-tier
 dataset monitor is retired; related news can still appear under the usual

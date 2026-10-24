@@ -5,14 +5,31 @@ import json
 import pytest
 
 from tests.js_bridge import run_js, extract_declarations
-from tests.test_publisher_governance import ready_bundle, mutate, CROSS_CASES, NOW
+from tests.test_publisher_governance import article, mutate as mutate_legacy, CROSS_CASES, NOW
+from scripts import update_news as u, brief_events as b
+
+def ready_bundle():
+    rows = [article(), article("b", url="https://cnbc.com/synthetic", source="CNBC Technology", site_id="curated_media")]
+    story = u.build_story_record("synthetic-story", rows, NOW, 24)
+    story["news_summary"] = "Synthetic summary bound to the original primary."
+    result = u.build_brief_event_payloads([story], rows, b.StateInput("missing"), NOW, 24,
+        archive_meta=b.ArchiveMeta("valid", u.iso(NOW)))
+    parent, daily = {"generated_at": u.iso(NOW)}, {"generated_at": u.iso(NOW)}
+    u.apply_brief_event_result(result, daily, parent)
+    return parent, daily, result, rows
+
+
+def mutate(parent, name):
+    mutate_legacy(parent, name)
+    # Keep pg2 so these cases exercise actual relationships, not version rejection.
+    parent["publisher_governance"]["generation_id"] = "pg2_" + "a" * 24
 
 
 def harness(parent=None, daily=None):
     if parent is None: parent, daily, *_ = ready_bundle()
     return f'''
 const G=require('./assets/publisher-governance.js');
-let now=Date.parse({json.dumps(NOW.isoformat())}); Date.now=()=>now;
+let now=Date.parse({json.dumps(parent["generated_at"])}); Date.now=()=>now;
 const parent={json.dumps(parent, ensure_ascii=False)},daily={json.dumps(daily, ensure_ascii=False)};
 const meta=parent.publisher_governance;
 const state={{storiesMerged:parent,dailyBrief:daily,generatedAt:parent.generated_at,latestGovernanceMeta:daily?.publisher_governance_meta}};

@@ -32,7 +32,6 @@ const state = {
   activeSection: "hot",
   briefView: "hot",
   briefExpanded: false,
-  listSort: "priority",
   sourceTypeFilter: "",
   signalLevelFilter: "",
   marketSignals: [],
@@ -77,7 +76,7 @@ const briefTimelineBtnEl = document.getElementById("briefTimelineBtn");
 const sectionTabsEl = document.getElementById("sectionTabs");
 const sectionSummaryEl = document.getElementById("sectionSummary");
 const topStoriesTitleEl = document.getElementById("topStoriesTitle");
-const listSortToolsEl = document.getElementById("listSortTools");
+const viewAllAiBtnEl = document.getElementById("viewAllAiBtn");
 const breakingSignalsWrapEl = document.getElementById("breakingSignalsWrap");
 const breakingSignalsListEl = document.getElementById("breakingSignalsList");
 const breakingSignalsMetaEl = document.getElementById("breakingSignalsMeta");
@@ -199,13 +198,6 @@ function rowBusinessEvents(row) {
   if (row?.story) return storyBusinessEvents(row.story);
   return businessEventBadges(row?.item?.business_events);
 }
-
-const LIST_SORT_DEFS = [
-  { id: "priority", label: "綜合" },
-  { id: "latest", label: "最新" },
-  { id: "ai", label: "高分" },
-  { id: "source", label: "來源" },
-];
 
 function fmtNumber(n) {
   return new Intl.NumberFormat("zh-CN").format(n || 0);
@@ -611,9 +603,6 @@ function activeAdjustmentCount() {
     Boolean(state.siteFilter || state.authorFilter),
     Boolean(state.sourceTypeFilter),
     Boolean(state.signalLevelFilter),
-    state.mode !== "selected",
-    !state.allDedup,
-    state.listSort !== "priority",
   ].filter(Boolean).length;
 }
 
@@ -631,9 +620,6 @@ function clearAllFilters() {
   state.authorFilter = "";
   state.sourceTypeFilter = "";
   state.signalLevelFilter = "";
-  state.mode = "selected";
-  state.allDedup = true;
-  state.listSort = "priority";
   state.briefView = "hot";
   state.briefExpanded = false;
   state.siteGroupsExpanded = false;
@@ -845,6 +831,19 @@ function renderSiteFilters() {
 }
 
 function renderModeSwitch() {
+  const selectedCount = displayItemCount(getFilteredItems("selected"));
+  const aiCount = displayItemCount(getFilteredItems("ai"));
+  modeSelectedBtnEl.textContent = `精選 ${fmtNumber(selectedCount)}`;
+  modeAiBtnEl.textContent = `全部 AI ${fmtNumber(aiCount)}`;
+  if (viewAllAiBtnEl) {
+    viewAllAiBtnEl.hidden = state.mode !== "selected";
+    viewAllAiBtnEl.textContent = `查看全部 AI（${fmtNumber(aiCount)}）`;
+  }
+  const scope = state.mode === "selected" ? "精選情報" : state.mode === "ai" ? "全部 AI 情報" : "全量情報";
+  if (searchInputEl) {
+    searchInputEl.placeholder = `搜尋${scope}／來源`;
+    searchInputEl.setAttribute("aria-label", `搜尋${scope}或來源；同時篩選上方重點訊號`);
+  }
   modeSelectedBtnEl.classList.toggle("active", state.mode === "selected");
   modeAiBtnEl.classList.toggle("active", state.mode === "ai");
   modeAllBtnEl.classList.toggle("active", state.mode === "all");
@@ -871,49 +870,8 @@ function listTitleText() {
   return state.activeSection === "hot" ? pool : `${section.label} · ${pool}`;
 }
 
-function renderListSortTools() {
-  if (!listSortToolsEl) return;
-  const validSort = LIST_SORT_DEFS.some((item) => item.id === state.listSort);
-  if (!validSort) state.listSort = "priority";
-  listSortToolsEl.querySelectorAll("[data-sort]").forEach((button) => {
-    const active = button.dataset.sort === state.listSort;
-    button.classList.toggle("active", active);
-    button.setAttribute("aria-pressed", active ? "true" : "false");
-  });
-}
-
-function itemSourceSortKey(item) {
-  return [
-    sourceSignal(item),
-    item.site_name || item.site_id || "",
-    item.source || "",
-  ].join(" ").trim() || "來源";
-}
-
 function sortItemsForList(items) {
   const sorted = [...items];
-  if (state.listSort === "latest") {
-    return sorted.sort((a, b) => timelineMs(b) - timelineMs(a) || itemPriorityScore(b) - itemPriorityScore(a));
-  }
-  if (state.listSort === "ai") {
-    return sorted.sort((a, b) => scorePercent(b) - scorePercent(a) || itemPriorityScore(b) - itemPriorityScore(a) || timelineMs(b) - timelineMs(a));
-  }
-  if (state.listSort === "source") {
-    const counts = new Map();
-    sorted.forEach((item) => {
-      const key = itemSourceSortKey(item);
-      counts.set(key, (counts.get(key) || 0) + 1);
-    });
-    return sorted.sort((a, b) => {
-      const aKey = itemSourceSortKey(a);
-      const bKey = itemSourceSortKey(b);
-      const byCount = (counts.get(bKey) || 0) - (counts.get(aKey) || 0);
-      if (byCount !== 0) return byCount;
-      const bySource = aKey.localeCompare(bKey, "zh-CN");
-      if (bySource !== 0) return bySource;
-      return itemPriorityScore(b) - itemPriorityScore(a) || timelineMs(b) - timelineMs(a);
-    });
-  }
   if (state.activeSection === "models") {
     return sorted.sort((a, b) => {
       const byRelease = Number(itemHasModelRelease(b)) - Number(itemHasModelRelease(a));
@@ -946,11 +904,11 @@ function mergeModelReleaseItems(baseItems, releaseItems, activeSection) {
   return merged;
 }
 
-function modeItems(sectionId = state.activeSection) {
-  if (state.mode === "all") return effectiveAllItems();
+function modeItems(sectionId = state.activeSection, mode = state.mode) {
+  if (mode === "all") return effectiveAllItems();
   const aiItems = safeItems(state.itemsAi);
-  const base = state.mode === "selected" ? aiItems.filter((item) => isHighPriorityItem(item)) : aiItems;
-  const releases = typeof AiRadarGovernance === "undefined" ? []
+  const base = mode === "selected" ? aiItems.filter((item) => isHighPriorityItem(item)) : aiItems;
+  const releases = sectionId !== "models" || typeof AiRadarGovernance === "undefined" ? []
     : AiRadarGovernance.radarEvents(state.modelReleases24h, state.latestGovernanceMeta, state);
   return mergeModelReleaseItems(base, releases, sectionId);
 }
@@ -963,9 +921,9 @@ function sectionItems(items = modeItems(), sectionId = state.activeSection) {
   return source.filter((item) => itemMatchesSection(item, sectionId));
 }
 
-function getFilteredItems() {
+function getFilteredItems(mode = state.mode) {
   const q = state.query.trim().toLowerCase();
-  const preliminary = sectionItems().filter((item) => {
+  const preliminary = sectionItems(modeItems(state.activeSection, mode)).filter((item) => {
     if (state.siteFilter && (state.siteFilter === "socialdata_x"
       ? item.site_id !== "socialdata_x"
       : generalReaderSource(item).level !== state.siteFilter)) return false;
@@ -1498,6 +1456,7 @@ function buildStoryCard(story, rank) {
   rankEl.className = "story-rank";
   rankEl.textContent = `#${rank}`;
   meta.appendChild(rankEl);
+  appendSignalLabels(meta, story);
   storyBusinessEvents(story).forEach((badge) => {
     meta.appendChild(businessEventChip(badge));
   });
@@ -1879,14 +1838,32 @@ function applyFeaturedSourceDiversityCap(sortedRows, capacity = FEATURED_DIVERSI
 
 function storyRowsForPool(stories) {
   const source = Array.isArray(stories) ? stories : [];
+  if (source.some((story) => story.selection_class)) {
+    return dplusStories(source, state.briefView, state.briefView === "hot" ? BRIEF_HOT_LIMIT : BRIEF_TIMELINE_LIMIT).map(storyToBriefRow);
+  }
   const pool = state.briefView === "hot"
     ? applyFeaturedSourceDiversityCap(hotStories(source), BRIEF_HOT_LIMIT).slice(0, BRIEF_HOT_LIMIT)
     : applyFeaturedSourceDiversityCap(latestStories(source)).slice(0, BRIEF_TIMELINE_LIMIT);
   return pool.map(storyToBriefRow);
 }
 
+function dplusStories(stories, view, limit) {
+  // No qualification or lower-list threshold is inferred here. Input already
+  // passed the versioned guard and reader filters, including source permissions.
+  const compare = view === "timeline"
+    ? (a, b) => storyTimeMs(b, "latest_at") - storyTimeMs(a, "latest_at") || briefStorySortCompare(a, b)
+    : briefStorySortCompare;
+  const core = applyFeaturedSourceDiversityCap(stories.filter((s) => s.selection_class === "core").sort(compare), limit);
+  const supplement = applyFeaturedSourceDiversityCap(stories.filter((s) => s.selection_class === "supplement").sort(compare), limit);
+  return [...core.slice(0, limit), ...supplement.slice(0, Math.max(0, Math.min(limit, 5) - core.length))];
+}
+
 function storyCandidateCounts(stories) {
   const source = Array.isArray(stories) ? stories : [];
+  if (source.some((story) => story.selection_class)) {
+    const total = dplusStories(source, "hot", BRIEF_TIMELINE_LIMIT).length;
+    return { hot: Math.min(BRIEF_HOT_LIMIT, total), timeline: total, hotTotal: total, timelineTotal: total };
+  }
   const hotTotal = hotStories(source).length;
   const timelineTotal = source.length;
   return {
@@ -2055,8 +2032,7 @@ function renderBriefPicks({ animate = true } = {}) {
   if (briefPicksWrapEl) briefPicksWrapEl.hidden = false;
 
   const section = SECTION_BY_ID[state.activeSection] || SECTION_BY_ID.hot;
-  const filtered = getFilteredItems();
-  const storyPools = currentStoryPools(filtered);
+  const storyPools = currentStoryPools();
   const rawStoryPool = storyPools.brief.length
     ? [...storyPools.brief, ...storyPools.followup]
     : storyPools.merged;
@@ -2070,10 +2046,9 @@ function renderBriefPicks({ animate = true } = {}) {
   const rows = storyRowsForPool(availableStoryPool);
   scheduleBriefExpiry(storyPools.projection);
   const top = rows.slice(0, 3);
-  const remainingCount = Math.max(0, rows.length - top.length);
   if (topStoriesTitleEl) topStoriesTitleEl.textContent = state.activeSection === "hot" ? "今日重點訊號" : `${section.label}重點訊號`;
   const storyMeta = usesStories
-    ? `可檢視 ${fmtNumber(candidateCounts.hotTotal)} 個聚合熱點 · ${fmtNumber(candidateCounts.timelineTotal)} 條最新故事`
+    ? `可檢視 ${fmtNumber(rows.length)} 則重點訊號`
     : `可檢視 ${fmtNumber(rows.length)} 條重點訊號`;
   briefPicksMetaEl.textContent = storyPools.cached
     ? `${storyMeta} · 暫用 ${fmtTime(storyPools.projection.generated_at)} 的有效資料` : storyMeta;
@@ -2091,6 +2066,12 @@ function renderBriefPicks({ animate = true } = {}) {
     const empty = document.createElement("div");
     empty.className = "brief-empty";
     empty.textContent = storyPools.projection ? "目前沒有符合重點條件的事件，可先查看新聞列表。" : "重點整理暫不可用，可先查看新聞列表。";
+    const allAi = document.createElement("button");
+    allAi.type = "button";
+    allAi.className = "view-all-ai-btn";
+    allAi.textContent = "查看全部 AI";
+    allAi.addEventListener("click", showAllAi);
+    empty.appendChild(allAi);
     briefPicksListEl.appendChild(empty);
   } else {
     top.forEach((row, index) => {
@@ -2238,6 +2219,7 @@ function buildTopStoryCard(row, rank) {
   sourceCount.textContent = publisherCount ? `${fmtNumber(publisherCount)} 個發布者`
     : storySourceCountLabel(row.story || { sources: (row.rows || [{ item }]).map((entry) => entry.item) });
   meta.append(rankEl, sourceChip(primarySource.label, primarySource.tone, "source-chip intel-source", primarySource.title), sourceCount, time);
+  appendSignalLabels(meta, row.story);
 
   const title = document.createElement("div");
   title.className = "top-story-title";
@@ -2268,6 +2250,19 @@ function buildTopStoryCard(row, rank) {
   }
   link.append(tags, originalAction);
   return link;
+}
+
+function appendSignalLabels(parent, story) {
+  if (!["core", "supplement"].includes(story?.selection_class)) return;
+  const labels = [story.selection_class === "core" ? "核心事件" : "產業動態"];
+  if (story.disclosure_flags?.includes("provider_claim")) labels.push("廠商宣稱");
+  if (story.disclosure_flags?.includes("unreleased")) labels.push("未發布");
+  labels.forEach((label) => {
+    const chip = document.createElement("span");
+    chip.className = "signal-qualifier";
+    chip.textContent = label;
+    parent.appendChild(chip);
+  });
 }
 
 function buildIntelCard(item, rank) {
@@ -2545,9 +2540,6 @@ function dedupeSubgroupItems(items) {
 
 function subgroupSortValue(items) {
   if (!items.length) return 0;
-  if (state.listSort === "latest") return Math.max(...items.map(timelineMs));
-  if (state.listSort === "ai") return Math.max(...items.map(scorePercent));
-  if (state.listSort === "source") return items.length;
   const leading = [...items]
     .sort((a, b) => itemPriorityScore(b) - itemPriorityScore(a))
     .slice(0, 3);
@@ -2557,10 +2549,7 @@ function subgroupSortValue(items) {
 function subgroupSummary(items, rawCount = items.length) {
   const count = `${fmtNumber(items.length)} 條`;
   const merged = rawCount - items.length;
-  let ranking = "";
-  if (state.listSort === "priority") ranking = `綜合 ${subgroupSortValue(items)}`;
-  if (state.listSort === "latest") ranking = `最新 ${fmtTime(timelineIso(items[0]))}`;
-  if (state.listSort === "ai") ranking = `最高 AI ${subgroupSortValue(items)}分`;
+  const ranking = `綜合 ${subgroupSortValue(items)}`;
   const mergedLabel = merged > 0 ? `合併 ${fmtNumber(merged)} 條重複` : "";
   return [count, ranking, mergedLabel].filter(Boolean).join(" · ");
 }
@@ -2683,6 +2672,16 @@ function groupedSites(items) {
     .sort((a, b) => READER_SOURCE_LEVELS[a[0]].rank - READER_SOURCE_LEVELS[b[0]].rank);
 }
 
+function displayItemCount(items) {
+  return groupedSites(items).reduce((sum, [, group]) => sum + group.items.length, 0);
+}
+
+function showAllAi() {
+  state.mode = "ai";
+  rerenderCurrentView();
+  listTitleEl?.scrollIntoView({ block: "start", behavior: "smooth" });
+}
+
 function addLoadMoreButton(parent, label, onClick) {
   const moreBtn = document.createElement("button");
   moreBtn.type = "button";
@@ -2720,8 +2719,8 @@ function renderSiteGroups(items) {
 
 function renderList() {
   const filtered = getFilteredItems();
-  renderListSortTools();
-  resultCountEl.textContent = `${fmtNumber(filtered.length)} 條`;
+  renderModeSwitch();
+  resultCountEl.textContent = `${fmtNumber(displayItemCount(filtered))} 條`;
   renderSectionSummary(filtered);
   renderClearFiltersButton();
 
@@ -2735,13 +2734,13 @@ function renderList() {
     const title = document.createElement("h3");
     title.textContent = "沒有找到匹配內容";
     const message = document.createElement("p");
-    message.textContent = "可以換個關鍵詞，或一鍵恢復預設檢視。";
+    message.textContent = "可以換個關鍵詞，或清除目前篩選。";
     empty.append(title, message);
     if (activeAdjustmentCount()) {
       const reset = document.createElement("button");
       reset.type = "button";
       reset.className = "empty-reset-btn";
-      reset.textContent = "清除篩選，檢視全部";
+      reset.textContent = "清除篩選";
       reset.addEventListener("click", clearAllFilters);
       empty.appendChild(reset);
     }
@@ -3215,7 +3214,6 @@ async function init() {
   renderStaleBanner();
   renderSectionTabs();
   renderModeSwitch();
-  renderListSortTools();
   renderCoverageStrip();
   renderSiteFilters();
   renderBriefPicks();
@@ -3323,6 +3321,8 @@ modeAiBtnEl.addEventListener("click", () => {
   rerenderCurrentView();
 });
 
+if (viewAllAiBtnEl) viewAllAiBtnEl.addEventListener("click", showAllAi);
+
 modeAllBtnEl.addEventListener("click", async () => {
   const requestId = (state.allModeRequestId || 0) + 1;
   state.allModeRequestId = requestId;
@@ -3351,19 +3351,6 @@ if (allDedupeToggleEl) {
   allDedupeToggleEl.addEventListener("change", (e) => {
     state.allDedup = Boolean(e.target.checked);
     rerenderCurrentView();
-  });
-}
-
-if (listSortToolsEl) {
-  listSortToolsEl.addEventListener("click", (event) => {
-    const target = event.target;
-    const button = target instanceof Element ? target.closest("[data-sort]") : null;
-    if (!button || !listSortToolsEl.contains(button)) return;
-    const nextSort = button.dataset.sort;
-    if (!LIST_SORT_DEFS.some((item) => item.id === nextSort) || nextSort === state.listSort) return;
-    state.listSort = nextSort;
-    renderListSortTools();
-    renderList();
   });
 }
 
