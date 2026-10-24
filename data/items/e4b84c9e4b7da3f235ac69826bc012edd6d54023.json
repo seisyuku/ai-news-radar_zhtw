@@ -7,7 +7,7 @@
   "source": "Google Cloud Blog (Google News)",
   "title": "Google named a Leader in the 2026 IDC MarketScape for Agentic AI Platforms - Google Cloud",
   "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxQSGEyWE1XVkRXM0hSWVNmdDk1aXRxOHdIelREbmlLdkR1SVNHUFh3RG1MMGJUVVZKemFCaE5QREdGd2V1LVlWeUlKdzAwLWlMV3loN2ZxNjZlZkxRYkZEVFZtZ0Rtcmx2bWZ6RW1va2FkMUtkeXMyeEdTanBmTWlHOGdoOWJ6cGhSMm4yV3hIUmxKbGVpZWI4OGZoSkNxNFYyU251M3RTM0JYSEdjYTcwaDZYVl94b29UT0hTY2dvTG8tWFNSSUE?oc=5",
-  "last_seen_at": "2026-10-24T01:55:51.595741Z",
+  "last_seen_at": "2026-10-24T08:35:29.994734Z",
   "summary": "Google named a Leader in the 2026 IDC MarketScape for Agentic AI Platforms Google Cloud",
   "publisher_links": [
     "https://news.google.com/rss/articles/CBMixgFBVV95cUxQSGEyWE1XVkRXM0hSWVNmdDk1aXRxOHdIelREbmlLdkR1SVNHUFh3RG1MMGJUVVZKemFCaE5QREdGd2V1LVlWeUlKdzAwLWlMV3loN2ZxNjZlZkxRYkZEVFZtZ0Rtcmx2bWZ6RW1va2FkMUtkeXMyeEdTanBmTWlHOGdoOWJ6cGhSMm4yV3hIUmxKbGVpZWI4OGZoSkNxNFYyU251M3RTM0JYSEdjYTcwaDZYVl94b29UT0hTY2dvTG8tWFNSSUE?oc=5"
@@ -22,15 +22,16 @@
   "publisher": {
     "schema_version": 1,
     "publisher_id": "google",
-    "name": "Google",
-    "domain": null,
+    "name": "Google Cloud",
+    "domain": "cloud.google.com",
     "status": "identified",
     "basis": [
+      "google_rss_source",
       "configured_bridge"
     ],
     "evidence": {
-      "rss_source_name": null,
-      "rss_source_url": null,
+      "rss_source_name": "Google Cloud",
+      "rss_source_url": "https://cloud.google.com",
       "article_url": null,
       "article_host": "news.google.com",
       "expected_publisher_id": null,
@@ -41,21 +42,18 @@
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
     "registry_revision": "ce78b2cd31b860b6232a1b02b0c08d2a949d492c911fafbba5e028dc0f4b3e8c",
-    "scope_id": "unreviewed",
-    "publisher_kind": "unknown",
-    "admission_status": "unreviewed",
-    "source_tier": "watchlist",
-    "source_tier_label": "未審來源",
-    "source_tier_rank": 6,
+    "scope_id": "google",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
     "allow_general": true,
-    "allow_featured": false,
-    "allow_radar": false,
+    "allow_featured": true,
+    "allow_radar": true,
     "reason_codes": [
-      "legacy_identity",
-      "scope_unknown",
-      "unreviewed_publisher",
-      "not_permitted_for_featured",
-      "not_permitted_for_radar"
+      "identified_bridge",
+      "limited_scope"
     ]
   }
 }

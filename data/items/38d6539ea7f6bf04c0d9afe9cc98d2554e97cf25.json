@@ -7,7 +7,7 @@
   "source": "The Information (Google News)",
   "title": "DeepSeek Open-Sources Framework Behind Its High-Margin AI Inference - The Information",
   "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxOcWxaVjdURVh2U0tyVVZTOVdPRlVrVi1sWGVCZWVSNGZweTl1NjY2YnVEdE1SXzVncGNnaU1qQWp4NUFfLWpVM1NJcmZFSzJwOWJCSlZuVTRDOUFocXREV0g1dWlHa2Njbng4SUZtN0tLMkF3V1VHbkJGUjVmNDIzZEYxNEpaR1ZXZWxObDZFMEo0cFlDLUstTTlUdHdSSjZpbWJDN0JjOA?oc=5",
-  "last_seen_at": "2026-10-23T22:05:29.645695Z",
+  "last_seen_at": "2026-10-24T08:35:29.994734Z",
   "summary": "DeepSeek Open-Sources Framework Behind Its High-Margin AI Inference The Information",
   "publisher_links": [
     "https://news.google.com/rss/articles/CBMipwFBVV95cUxOcWxaVjdURVh2U0tyVVZTOVdPRlVrVi1sWGVCZWVSNGZweTl1NjY2YnVEdE1SXzVncGNnaU1qQWp4NUFfLWpVM1NJcmZFSzJwOWJCSlZuVTRDOUFocXREV0g1dWlHa2Njbng4SUZtN0tLMkF3V1VHbkJGUjVmNDIzZEYxNEpaR1ZXZWxObDZFMEo0cFlDLUstTTlUdHdSSjZpbWJDN0JjOA?oc=5"
@@ -23,14 +23,15 @@
     "schema_version": 1,
     "publisher_id": "the_information",
     "name": "The Information",
-    "domain": null,
+    "domain": "www.theinformation.com",
     "status": "identified",
     "basis": [
+      "google_rss_source",
       "configured_bridge"
     ],
     "evidence": {
-      "rss_source_name": null,
-      "rss_source_url": null,
+      "rss_source_name": "The Information",
+      "rss_source_url": "https://www.theinformation.com",
       "article_url": null,
       "article_host": "news.google.com",
       "expected_publisher_id": null,
@@ -41,21 +42,18 @@
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
     "registry_revision": "ce78b2cd31b860b6232a1b02b0c08d2a949d492c911fafbba5e028dc0f4b3e8c",
-    "scope_id": "unreviewed",
-    "publisher_kind": "unknown",
-    "admission_status": "unreviewed",
-    "source_tier": "watchlist",
-    "source_tier_label": "未審來源",
-    "source_tier_rank": 6,
+    "scope_id": "the_information",
+    "publisher_kind": "media",
+    "admission_status": "limited",
+    "source_tier": "ai_media",
+    "source_tier_label": "精選AI媒體",
+    "source_tier_rank": 2,
     "allow_general": true,
-    "allow_featured": false,
-    "allow_radar": false,
+    "allow_featured": true,
+    "allow_radar": true,
     "reason_codes": [
-      "legacy_identity",
-      "scope_unknown",
-      "unreviewed_publisher",
-      "not_permitted_for_featured",
-      "not_permitted_for_radar"
+      "identified_bridge",
+      "limited_scope"
     ]
   }
 }
