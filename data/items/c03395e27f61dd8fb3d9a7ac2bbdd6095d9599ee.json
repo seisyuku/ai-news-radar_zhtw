@@ -7,7 +7,7 @@
   "source": "Simon Willison",
   "title": "llm-echo 0.5",
   "url": "https://simonwillison.net/2026/Oct/18/llm-echo",
-  "last_seen_at": "2026-10-25T12:35:28.741198Z",
+  "last_seen_at": "2026-10-25T13:05:28.034103Z",
   "summary": "Release: llm-echo 0.5 I'm working towards a new LLM release, and testing PRs caused me to revisit the llm-echo debug plugin. This plugin provides a \"model\" which doesn't involve an LLM at all - it just repeats back the prompts that have been fed to it. The new release now updates the simulated token usage counts to take tool calls, system prompts, and reasoning tokens into account. Example usage: uvx --with llm-echo llm -m echo 'hi there' -o thinking 1 --usage Outputs: First I consider the prompt, then I decide what to say. { \"prompt\": \"hi there\", \"system\": \"\", \"attachments\": [], \"stream\": true, \"previous\": [] } Token usage: 2 input, 24 output Tags: llm",
   "publisher_links": [
     "https://github.com/simonw/llm-echo/releases/tag/0.5",
@@ -40,7 +40,7 @@
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
-    "registry_revision": "524163edf93fe58d5c332ab6e1452fc2bec9e37423a2a005c5e707bb42f2d211",
+    "registry_revision": "73a99eac2ec17e5f48be4bdcb883e50b6c93879c3b12b2f343db32e6fbade376",
     "scope_id": "unreviewed",
     "publisher_kind": "unknown",
     "admission_status": "unreviewed",

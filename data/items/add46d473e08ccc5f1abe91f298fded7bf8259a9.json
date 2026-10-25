@@ -7,7 +7,7 @@
   "source": "Simon Willison",
   "title": "Inline rendering with document​.currentScript",
   "url": "https://simonwillison.net/2026/Oct/17/document-currentscript",
-  "last_seen_at": "2026-10-25T12:35:28.741198Z",
+  "last_seen_at": "2026-10-25T13:05:28.034103Z",
   "summary": "Inline rendering with document​.currentScript Lean Rada describes a neat trick that takes advantage of the document.currentScript property. You can use that to drop in a tiny inline <script> element that replaces itself when the page loads: The year is <script> document.currentScript.replaceWith( new Date().getFullYear())</script> If you define a shortcut function like this: $=(...n)=>document.currentScript.replaceWith(...n) You get a tiny template language: The year is <script>$(new Date().getFullYear())</script> Tags: javascript",
   "publisher_links": [
     "https://leanrada.com/notes/inline-rendering-currentscript/",
@@ -40,7 +40,7 @@
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
-    "registry_revision": "524163edf93fe58d5c332ab6e1452fc2bec9e37423a2a005c5e707bb42f2d211",
+    "registry_revision": "73a99eac2ec17e5f48be4bdcb883e50b6c93879c3b12b2f343db32e6fbade376",
     "scope_id": "unreviewed",
     "publisher_kind": "unknown",
     "admission_status": "unreviewed",
