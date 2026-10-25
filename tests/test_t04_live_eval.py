@@ -47,3 +47,28 @@ def test_missing_credentials_make_no_provider_calls(monkeypatch, capsys):
     monkeypatch.delenv("GROQ_API_KEY", raising=False)
     assert main([]) == 2
     assert "missing_credentials" in capsys.readouterr().out
+
+
+def test_groq_comparison_miss_does_not_fail_gemini_acceptance(monkeypatch, capsys):
+    import json
+    import scripts.t04_live_eval as t04
+
+    monkeypatch.setenv("GEMINI_API_KEY", "synthetic-gemini")
+    monkeypatch.setenv("GROQ_API_KEY", "synthetic-groq")
+    monkeypatch.setattr(t04, "diagnose_gemini", lambda **_: {"ok": True})
+    monkeypatch.setattr(t04, "make_gemini_generator", lambda *_args, **_kw: lambda *_: "unused")
+    monkeypatch.setattr(t04, "make_groq_generator", lambda *_args, **_kw: lambda *_: "unused")
+    monkeypatch.setattr(t04.time, "sleep", lambda *_: None)
+
+    def report(_cases, provider, _generate):
+        failed = int(provider == "groq")
+        return {"provider": provider, "counts": {"generated": 10 - failed,
+                "failed": failed, "insufficient_context": 1},
+                "results": [{"id": "synthetic", "status": "failed" if failed else "generated",
+                             "validation": {"errors": []}}]}
+
+    monkeypatch.setattr(t04, "evaluate_cases", report)
+    assert main(["--post-diagnostic-cooldown-seconds", "0"]) == 0
+    output = json.loads(capsys.readouterr().out)
+    assert output["gemini_acceptance_passed"] is True
+    assert output["reports"][1]["counts"]["failed"] == 1

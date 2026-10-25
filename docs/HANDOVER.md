@@ -2,10 +2,12 @@
 
 T04 Gemini 摘要備援已建立預設停用的離線候選，合成語料與安全判定更新，
 備援觸發、獨立快取／憑證及每輪請求上限有聚焦測試。正式排程固定停用，
-本機無雙 provider 測試憑證；三分離時段與同案實際評估、使用 tier／資料
-政策的正式啟用裁決仍待完成。維護者已接受 Gemini 免費層政策用於 11 個
-合成案例實測，將配置測試憑證並提供 active rate limits；這不含真實新聞
-備援授權。現行續接入口見[T04候選](T04_GEMINI_SUMMARY_CANDIDATE_20261025.md)。
+本機無雙 provider 測試憑證，Actions Secrets 已就緒。第一個分離時段
+Gemini 診斷與10個可生成合成案例全綠；Groq同案9過1漏，原workflow因
+過嚴比較退出失敗，已修正且保留該證據。仍待另兩個時段與正式啟用裁決。
+維護者已接受 Gemini 免費層政策用於 11 個合成案例實測，active rate limits
+為15 RPM／250K TPM／500 RPD；這不含真實新聞備援授權。
+現行續接入口見[T04候選](T04_GEMINI_SUMMARY_CANDIDATE_20261025.md)。
 
 T01 一般列表六類事件徽章與高階篩選已[正式發布與驗收結案](T01_EVENT_FILTER_IMPLEMENTATION_20261025.md)：沿用既有 `business_events`，預設畫面、來源／時間／原文與 24 小時規則保持。首次提交 `1a7d1e8020bc` 的資產版本 CI 與 Pages 成功；測試環境補丁 `71e96b67a21e` 後完整離線套件 2,319 項及 GitHub 離線 CI 成功，補丁 Pages 亦成功。正式站首頁與 `app.js` 位元組一致、版本 `20261025-t01`；Chrome 桌機／手機六類篩選驗收通過。無下一必跑階段；日常維護建議 GPT-6.1 Sol／Medium，修程式 High。
 

@@ -4,13 +4,6 @@ on:
   push:
     branches:
       - codex/t04-gemini-summary
-    paths:
-      - ".github/workflows/t04-synthetic-eval.yml"
-      - "scripts/t04_live_eval.py"
-      - "scripts/diagnose_gemini.py"
-      - "scripts/evaluate_ai_summaries.py"
-      - "scripts/news_summaries.py"
-      - "tests/fixtures/ai_summary_cases.json"
   workflow_dispatch: {}
 
 permissions:

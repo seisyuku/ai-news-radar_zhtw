@@ -117,9 +117,12 @@ def main(argv: list[str] | None = None) -> int:
     )
     print(json.dumps({"status": "evaluated", "case_count": len(cases),
                       "model": model, "diagnostic": "passed",
+                      "gemini_acceptance_passed": gemini["counts"]["failed"] == 0,
                       "reports": [safe_report(gemini), safe_report(groq)]},
                      ensure_ascii=False))
-    return 1 if any(report["counts"]["failed"] for report in (gemini, groq)) else 0
+    # T04 requires Gemini to pass; Groq is a same-corpus comparator whose
+    # misses remain visible but do not invalidate Gemini's acceptance run.
+    return 1 if gemini["counts"]["failed"] else 0
 
 
 if __name__ == "__main__":

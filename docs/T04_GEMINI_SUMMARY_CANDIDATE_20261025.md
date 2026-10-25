@@ -4,8 +4,9 @@
 
 候選程式已接入，但排程固定 `GEMINI_SUMMARY_ENABLED=0`，因此沒有 Gemini
 摘要 production call。Groq 仍是唯一正式摘要 provider；Gemini 讀者翻譯是獨立路徑。
-本次沒有送出真實新聞或合成案例到 Gemini／Groq API，也沒有建立、讀取或更改
-任何 secret。兩個摘要測試用 key 都不在本機執行環境。
+本案沒有送出真實新聞到 Gemini；合成案例已透過 GitHub Actions Secrets
+完成第一時段實測。沒有建立、讀取明文或更改任何 secret；兩個摘要測試用
+key 都不在本機執行環境。
 
 維護者已選擇以 Gemini 免費層進行 **11 個合成案例的實測**，並接受該層
 資料可能用於改善 Google 產品的政策。維護者將另行配置 Gemini／Groq 測試
@@ -35,15 +36,27 @@
   `scripts/t04_live_eval.py` 只輸出診斷碼、案例狀態與錯誤類別，不輸出模型
   原文。Gemini 診斷後冷卻 60 秒，合成案例之間至少間隔 10 秒，以降低與
   同 project 翻譯流量撞上 15 RPM 上限的風險。這不是新的週期排程。
-- 聚焦測試 31 項通過；完整套件在符合舊 digest 測試路徑規則的
-  `/Users/lordmi/Downloads/` 臨時目錄重跑，2,329 項全通過。
+- 聚焦測試 32 項通過；完整套件在符合舊 digest 測試路徑規則的
+  `/Users/lordmi/Downloads/` 臨時目錄重跑，2,330 項全通過。
 
-## 尚未通過的正式 gate
+## 第一個實測時段
 
-1. 用可用的測試憑證對 11 個合成案例重跑 Gemini，確認提示注入案例及全套
-   驗收全綠；同一組案例也須由 Groq 跑完並比較。
-2. 在至少三個分離時段完成 Gemini diagnostic/eval，記錄 429、5xx、model
-   discovery 與 structured output 的結果。不得以同時段連跑三次替代。
+2026-10-25 臺北 16:46～16:49，[Actions run 40177937616](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/40177937616)
+以 `codex/t04-gemini-summary` 的合成專用 workflow 執行：Gemini model
+discovery、plain 與 structured JSON 診斷均通過；11 例中 10 例生成並全數
+通過，title-only 依規則跳過。沒有 429、5xx 或模型／格式失效。
+Groq 同案 9 例通過、1 例（`security-incident`）漏一項 fixture 必要詞，
+title-only 跳過。原 wrapper 誤將 Groq 比較失敗視為 Gemini 備援 gate
+失敗，故該 run 顯示 failure；此判定已修正並補測，Groq 缺漏仍記錄，
+不被改寫為通過。本時段的 Gemini 證據有效，但還需要至少兩個分離時段。
+
+## 正式 gate 狀態
+
+1. Gemini 的提示注入及全套 11 例已在第一時段通過；Groq 同案已比較並
+   保留一項未過結果。不可把單時段當作長窗穩定性結論。
+2. 在至少三個分離時段完成 Gemini diagnostic/eval；目前僅有一個。後續
+   記錄 429、5xx、model discovery 與 structured output 的結果，不得以
+   同時段連跑三次替代。
 3. 正式啟用前重新核對實際專案的 active rate limits、使用 tier 與資料使用
    條款，另行明確接受真實新聞備援的用途。當前官方頁面列出標準付費層每百萬 input tokens USD
    0.30、output tokens USD 2.50；免費層內容可用於改善 Google 產品，標準
