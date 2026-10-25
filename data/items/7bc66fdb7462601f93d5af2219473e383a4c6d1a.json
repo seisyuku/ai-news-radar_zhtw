@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "EC2 Image Builder 现已与 ASG 集成，可加快映像构建速度",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/ec2-image-builder-asg-faster-builds",
-  "last_seen_at": "2026-10-25T10:05:33.189234Z",
+  "last_seen_at": "2026-10-25T10:35:26.853581Z",
   "summary": "EC2 Image Builder 现已支持使用自动扩缩组（ASG）中的现有实例构建映像，可重复使用已在运行的 EC2 实例，省去启动和引导新实例的耗时，从而实现更快速的构建流程。 借助此功能，您可以在 Image Builder 基础设施配置中指定 ASG。Image Builder 将不在构建阶段启动新实例，而是从此 ASG 中选择一个已在运行的实例，应用您的构建组件并创建映像。当实例用于构建时，ASG 会不断补充池，以确保后续管道运行始终有实例可用。 此功能完全是可选加入的，不影响现有管道。未配置 ASG 的管道将继续使用默认启动路径，行为保持不变。 此功能已在所有 AWS 区域提供，无需额外付费。要在 Image Builder 管道中配置 ASG 集成，请参阅 EC2 Image Builder 文档 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/imagebuilder/latest/userguide/infra-config-parent-instance.html"
