@@ -34,6 +34,7 @@ const state = {
   briefExpanded: false,
   sourceTypeFilter: "",
   signalLevelFilter: "",
+  businessEventFilter: "",
   marketSignals: [],
   marketSignalsGeneratedAt: null,
   llmRadar: [],
@@ -64,6 +65,7 @@ const sourceStatusTableEl = document.getElementById("sourceStatusTable");
 const sectionSelectEl = document.getElementById("sectionSelect");
 const sourceTypeSelectEl = document.getElementById("sourceTypeSelect");
 const signalLevelSelectEl = document.getElementById("signalLevelSelect");
+const businessEventSelectEl = document.getElementById("businessEventSelect");
 const clearFiltersBtnEl = document.getElementById("clearFiltersBtn");
 
 const coverageStripEl = document.getElementById("coverageStrip");
@@ -153,8 +155,7 @@ function businessEventBadges(events) {
 }
 
 // Shared tag row for cards that show both business-event badges and
-// content-classification tags (currently only the 重點訊號 Top 3 card via
-// buildTopStoryCard). Exact-text duplicates and defined near-synonyms
+// content-classification tags. Exact-text duplicates and defined near-synonyms
 // (TAG_SYNONYM_SUPPRESS) are deduped so the row never repeats the same idea
 // twice.
 function buildIntelTagRow(item, row) {
@@ -626,6 +627,7 @@ function activeAdjustmentCount() {
     Boolean(state.siteFilter || state.authorFilter),
     Boolean(state.sourceTypeFilter),
     Boolean(state.signalLevelFilter),
+    Boolean(state.businessEventFilter),
   ].filter(Boolean).length;
 }
 
@@ -643,6 +645,7 @@ function clearAllFilters() {
   state.authorFilter = "";
   state.sourceTypeFilter = "";
   state.signalLevelFilter = "";
+  state.businessEventFilter = "";
   state.briefView = "hot";
   state.briefExpanded = false;
   state.siteGroupsExpanded = false;
@@ -651,6 +654,7 @@ function clearAllFilters() {
   if (siteSelectEl) siteSelectEl.value = "";
   if (sourceTypeSelectEl) sourceTypeSelectEl.value = "";
   if (signalLevelSelectEl) signalLevelSelectEl.value = "";
+  if (businessEventSelectEl) businessEventSelectEl.value = "";
   rerenderCurrentView();
 }
 
@@ -721,6 +725,10 @@ function itemMatchesSignalLevel(item, multiSourceKeys = new Set()) {
   if (state.signalLevelFilter === "curated") return isCuratedItem(item);
   if (state.signalLevelFilter === "multi") return multiSourceKeys.has(eventKey(item));
   return true;
+}
+
+function itemMatchesBusinessEvent(item, eventCode = state.businessEventFilter) {
+  return !eventCode || (Array.isArray(item?.business_events) && item.business_events.includes(eventCode));
 }
 
 function sectionStats(sectionId) {
@@ -952,6 +960,7 @@ function getFilteredItems(mode = state.mode) {
       : generalReaderSource(item).level !== state.siteFilter)) return false;
     if (state.authorFilter && (item.site_id !== "socialdata_x" || item.source !== state.authorFilter)) return false;
     if (state.sourceTypeFilter && generalReaderSource(item).level !== state.sourceTypeFilter) return false;
+    if (!itemMatchesBusinessEvent(item)) return false;
     if (!q) return true;
     const hay = `${item.title || ""} ${item.title_zh || ""} ${item.title_en || ""} ${item.site_name || ""} ${item.source || ""} ${sourceDisplayName(item)}`.toLowerCase();
     return hay.includes(q);
@@ -1762,6 +1771,8 @@ function resolveBriefProjection() {
 function briefEventMatchesFilters(story) {
   if (state.signalLevelFilter === "multi" && storySourceCount(story) < 2) return false;
   if (state.signalLevelFilter === "high" && !isHighPriorityItem({ ...story.primary_item, score: story.score })) return false;
+  if (state.businessEventFilter && ![story.business_events, story.primary_item?.business_events]
+    .some((events) => Array.isArray(events) && events.includes(state.businessEventFilter))) return false;
   const q = state.query.trim().toLowerCase();
   return [story.primary_item, ...story.sources].some((item) => {
     if (state.activeSection !== "hot" && !itemMatchesSection(item, state.activeSection)) return false;
@@ -2447,8 +2458,18 @@ function renderItemNode(item, context = {}) {
   }
 
   const primaryLabel = labelText(item);
+  const eventBadges = businessEventBadges(item.business_events);
+  const eventLabels = new Set(eventBadges.map((badge) => badge.label));
+  const suppressedLabels = new Set();
+  Object.entries(BUSINESS_EVENT_LABELS).forEach(([code, badge]) => {
+    if (eventLabels.has(badge.label)) {
+      (TAG_SYNONYM_SUPPRESS[code] || []).forEach((label) => suppressedLabels.add(label));
+    }
+  });
+  eventBadges.forEach((badge) => metaRow.insertBefore(businessEventChip(badge), sourceEl));
   itemTagLabels(item)
-    .filter((label) => label !== primaryLabel && label !== kind.label)
+    .filter((label) => label !== primaryLabel && label !== kind.label
+      && !eventLabels.has(label) && !suppressedLabels.has(label))
     .slice(0, 3)
     .forEach((label) => {
       metaRow.insertBefore(itemTagChip(label), sourceEl);
@@ -3328,6 +3349,13 @@ if (sourceTypeSelectEl) {
 if (signalLevelSelectEl) {
   signalLevelSelectEl.addEventListener("change", (e) => {
     state.signalLevelFilter = e.target.value;
+    rerenderCurrentView();
+  });
+}
+
+if (businessEventSelectEl) {
+  businessEventSelectEl.addEventListener("change", (e) => {
+    state.businessEventFilter = e.target.value;
     rerenderCurrentView();
   });
 }

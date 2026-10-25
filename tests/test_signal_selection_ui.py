@@ -133,12 +133,12 @@ console.log(JSON.stringify({selected,ai}));
 @pytest.mark.parametrize("mode", ["selected", "ai", "all"])
 def test_clear_resets_filters_without_changing_mode_or_raw_dedupe(mode):
     result = run_js(extract_declarations("clearAllFilters", "activeAdjustmentCount") + f"""
-const state={{mode:{json.dumps(mode)},allDedup:false,query:'x',activeSection:'models',siteFilter:'media',authorFilter:'x',sourceTypeFilter:'media',signalLevelFilter:'multi'}};
-const searchInputEl={{}},siteSelectEl={{}},sourceTypeSelectEl={{}},signalLevelSelectEl={{}};
+const state={{mode:{json.dumps(mode)},allDedup:false,query:'x',activeSection:'models',siteFilter:'media',authorFilter:'x',sourceTypeFilter:'media',signalLevelFilter:'multi',businessEventFilter:'security'}};
+const searchInputEl={{}},siteSelectEl={{}},sourceTypeSelectEl={{}},signalLevelSelectEl={{}},businessEventSelectEl={{}};
 function rerenderCurrentView(){{}}
-clearAllFilters();console.log(JSON.stringify({{mode:state.mode,dedup:state.allDedup,filters:activeAdjustmentCount()}}));
+clearAllFilters();console.log(JSON.stringify({{mode:state.mode,dedup:state.allDedup,filters:activeAdjustmentCount(),event:state.businessEventFilter,select:businessEventSelectEl.value}}));
 """)
-    assert result == {"mode": mode,"dedup":False,"filters":0}
+    assert result == {"mode": mode,"dedup":False,"filters":0,"event":"","select":""}
 
 
 def test_signal_labels_are_explicit_and_do_not_invent_a_release_badge():
