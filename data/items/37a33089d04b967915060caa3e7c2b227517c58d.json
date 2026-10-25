@@ -7,7 +7,7 @@
   "source": "數位時代 (Google News)",
   "title": "ChatGPT臨時對話怎麼用？3個適用情境與個人化、紀錄保留注意事項 - 數位時代",
   "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE9CeFhYU2lYMUFqZHBFc1Z6MzNRX0xjOUduVXY0ODBqanEwdzFGcHJ4Y0JTeGVRLWk4NzJodzVza1NvZWtaYTA3cEtmUFllSDVvdW1aVGhLRFQxWXNHZHJKVEluVmlyM1dPdEV6emVYdVRORElnY1E?oc=5",
-  "last_seen_at": "2026-10-23T06:35:31.414443Z",
+  "last_seen_at": "2026-10-25T14:05:26.990305Z",
   "summary": "ChatGPT臨時對話怎麼用？3個適用情境與個人化、紀錄保留注意事項 數位時代",
   "publisher_links": [
     "https://news.google.com/rss/articles/CBMidkFVX3lxTE9CeFhYU2lYMUFqZHBFc1Z6MzNRX0xjOUduVXY0ODBqanEwdzFGcHJ4Y0JTeGVRLWk4NzJodzVza1NvZWtaYTA3cEtmUFllSDVvdW1aVGhLRFQxWXNHZHJKVEluVmlyM1dPdEV6emVYdVRORElnY1E?oc=5"
@@ -23,14 +23,15 @@
     "schema_version": 1,
     "publisher_id": "bnext",
     "name": "數位時代",
-    "domain": null,
+    "domain": "www.bnext.com.tw",
     "status": "identified",
     "basis": [
+      "google_rss_source",
       "configured_bridge"
     ],
     "evidence": {
-      "rss_source_name": null,
-      "rss_source_url": null,
+      "rss_source_name": "數位時代",
+      "rss_source_url": "https://www.bnext.com.tw",
       "article_url": null,
       "article_host": "news.google.com",
       "expected_publisher_id": null,
@@ -41,21 +42,18 @@
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
     "registry_revision": "73a99eac2ec17e5f48be4bdcb883e50b6c93879c3b12b2f343db32e6fbade376",
-    "scope_id": "unreviewed",
-    "publisher_kind": "unknown",
-    "admission_status": "unreviewed",
-    "source_tier": "watchlist",
-    "source_tier_label": "未審來源",
-    "source_tier_rank": 6,
+    "scope_id": "bnext",
+    "publisher_kind": "media",
+    "admission_status": "limited",
+    "source_tier": "advanced",
+    "source_tier_label": "台灣媒體觀察源",
+    "source_tier_rank": 4,
     "allow_general": true,
-    "allow_featured": false,
-    "allow_radar": false,
+    "allow_featured": true,
+    "allow_radar": true,
     "reason_codes": [
-      "legacy_identity",
-      "scope_unknown",
-      "unreviewed_publisher",
-      "not_permitted_for_featured",
-      "not_permitted_for_radar"
+      "identified_bridge",
+      "limited_scope"
     ]
   }
 }
