@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "AWS Lambda 支持对自主管理的 Apache Kafka 事件源进行 OAuth 身份验证",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/aws-Lambda-supports-oauth-kafka-esm",
-  "last_seen_at": "2026-10-25T14:05:26.990305Z",
+  "last_seen_at": "2026-10-25T14:11:15.674980Z",
   "summary": "AWS Lambda 现在支持对 自主管理的 Apache Kafka 事件源映射 （ESM）进行 OAuth 身份验证，包括客户自行运行的 Kafka 集群以及 Confluent Cloud、Aiven 和 Redpanda 等托管产品。通过此次发布，客户可以通过其企业身份提供商对 Lambda Kafka 使用者进行身份验证，从而帮助他们满足 Kafka 应用程序的安全性和合规性要求。 针对付款处理、欺诈检测和实时数据管道等使用案例构建事件驱动型 Kafka 工作负载的客户可以使用 Kafka ESM 来构建无服务器 Kafka 使用者。Kafka ESM 提供自动扩缩、错误处理、批处理和事件筛选功能。此前，Kafka ESM 仅支持 SASL/PLAIN、SASL/SCRAM 和双向 TLS（mTLS）作为 身份验证方法 ，因此处于受监管行业且需要使用 OAuth 的客户无法在其集群中使用 Kafka ESM。有了 OAuth 支持，客户可以使用 Amazon Cognito 或 Okta 等企业身份提供商对 Kafka ESM 进行身份验证，并在 Kafka 集群和 Lambda 使用者之间统一应用身份治理和访问策略。 该功能现已在提供自主管理的 Kafka ESM 的所有 AWS 商业区域 推出。要使用 OAuth 身份验证，请通过 AWS 管理控制台、Lambda API、AWS CLI、AWS CloudFormation 或 AWS SAM 使用您的身份验证配置创建新的 Kafka ESM。要了解更多信息，请参阅 AWS Lambda 开发人员指南 和 AWS Lambda 定价 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/lambda/latest/dg/with-kafka.html",
