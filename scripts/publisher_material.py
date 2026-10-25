@@ -317,11 +317,40 @@ def transaction_denied(text):
                for clause in CLAUSES.split(text) for action in TRANSACTION.finditer(clause))
 
 
-def market_action_supported(text):
+SHUTDOWN = re.compile(r"shuts? down|permanent shutdown|ceases? (?:permanently )?operations|"
+    r"permanently cease operations|宣布.{0,12}(?:停運|停止營運|終止服務)", re.I)
+SHUTDOWN_UNCERTAIN = re.compile(r"\b(?:may|might|could|would|possibly|reportedly|rumou?r(?:ed)?|"
+    r"consider(?:s|ed|ing)?|discuss(?:es|ed|ing)?|review(?:s|ed|ing)?|weigh(?:s|ed|ing)?|"
+    r"proposal|possible|if|whether|not|never|\w+n['’]t)\b|"
+    r"可能|或許|或许|據傳|据传|傳聞|传闻|討論|讨论|考慮|考虑|尚未|並未|并未|不會|不会", re.I)
+
+
+def shutdown_supported(title, summary):
+    """Require a named headline subject and an asserted closure of that subject."""
+    headline_names = names(title)
+    if not headline_names:
+        return False
+    for source in (title, summary):
+        for clause in CLAUSES.split(source):
+            for action in SHUTDOWN.finditer(clause):
+                prefix = clause[:action.start()]
+                actors = names(prefix[-120:])
+                if not actors or SHUTDOWN_UNCERTAIN.search(clause) or "?" in clause or "？" in clause:
+                    continue
+                if source == title or any(same_name(actor.text, headline.text)
+                                          for actor in actors for headline in headline_names):
+                    return True
+    return False
+
+
+def market_action_supported(title, summary):
+    text = title + "\n" + summary
     if uncertain_market(text):
         return False
+    if shutdown_supported(title, summary):
+        return True
     for clause in CLAUSES.split(text):
-        if re.search(r"antitrust (?:probe|investigation|fine)|(?:regulator|FTC|commission).{0,40}(?:orders?|fines?|investigat)|反壟斷調查|反垄断调查|勒令|shuts? down|permanent shutdown|ceases? (?:permanently )?operations|permanently cease operations|宣布.{0,12}(?:停運|停止營運|終止服務)", clause, re.I):
+        if re.search(r"antitrust (?:probe|investigation|fine)|(?:regulator|FTC|commission).{0,40}(?:orders?|fines?|investigat)|反壟斷調查|反垄断调查|勒令", clause, re.I):
             return True
         for action in re.finditer(r"\bacquir(?:e|es|ed|ing)\b|\bmerg(?:es|ed)\b|收購|收购|併購|并购|合併|合并",clause,re.I):
             if transaction_state(clause, action) != "affirmed":
