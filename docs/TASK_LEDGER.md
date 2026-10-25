@@ -10,14 +10,13 @@
 - PG、BR與方案A維持已結案；D+是新用途選稿案，不重開PG05補修或來源觀察。
 - 私人日報自動化與七日來源觀察已取消；CyberQ／AlphaLab 的七日回放只是先前來源評估，沒有排程或實作驗收義務。退役入口與相依功能的盤點見[取消與移除評估](RETIREMENT_AUDIT_20261025.md)。公開刷新、daily-brief 與全站 24 小時規則照常運作。
 - 2026-10-24文件整理已提交並推送；2026-10-25補正退役日報操作文件及舊影子來源／新 RSS 接入的時序。
-- T03 Groq 摘要跨期回顧已完成，決定維持現有六則上限與 prompt，見[評估](GROQ_SUMMARY_T03_REVIEW_20261025.md)。T02 已依 14 日既有資料完成模型對齊及品質評估，暫不新增 `model_significance`，見[T02評估](MODEL_LIFECYCLE_T02_REVIEW_20261025.md)。T01 六類事件徽章與篩選已[正式發布並驗收](T01_EVENT_FILTER_IMPLEMENTATION_20261025.md)；T04、T05、T06仍未啟動。不建立排程、提醒、來源觀察或新的provider呼叫。
+- T03 Groq 摘要跨期回顧已完成，決定維持現有六則上限與 prompt，見[評估](GROQ_SUMMARY_T03_REVIEW_20261025.md)。T02 已依 14 日既有資料完成模型對齊及品質評估，暫不新增 `model_significance`，見[T02評估](MODEL_LIFECYCLE_T02_REVIEW_20261025.md)。T01 六類事件徽章與篩選已[正式發布並驗收](T01_EVENT_FILTER_IMPLEMENTATION_20261025.md)；T05 已依現行產品定位移除兩個 Canary 並結案；T04、T06 狀態各見下節。不建立 T05 排程、提醒或來源觀察。
 
-## 保留的三組方向
+## 保留的兩組方向
 
 | 編號 | 優先級 | 項目 | 狀態 | 下一個可交接動作 |
 | --- | --- | --- | --- | --- |
 | T04 | P1 | Gemini摘要備援 | 試驗未完成／正式停用 | 先處理既有驗收gate，另行裁決是否接線。 |
-| T05 | P1 | Canary品質與漏報評估 | 擱置／待評估 | 優先檢查既有候選資料是否足夠，再列證據缺口。 |
 | T06 | P2 | 翻譯快取成長治理 | 待量測／待決策 | 以明確唯讀任務建立量測及適用限制證據。 |
 
 ### T04：Gemini摘要備援
@@ -25,12 +24,6 @@
 狀態為qualified backup candidate, disabled by default，正式摘要仍以Groq為primary。已運作的Gemini翻譯是另一條路徑。
 
 完成條件沿用OPERATIONS的Gemini摘要acceptance gates：提示注入驗收裁決、至少三個分離時段diagnostic/eval、同案比較、失敗觸發矩陣、防雙重呼叫、獨立secret／provider+model快取身份／成本上限與雙provider失敗行為。啟用前重新核對當時條款、限制與成本，取得既有要求的明確接受。本台帳未授權把真實publisher feed送往新摘要provider。
-
-### T05：Canary品質評估
-
-價格與兩Canary已運作；待完成至少14天真實候選的precision、官方確認延遲與漏報評估。這不是來源實驗D7／D8，也不是自動恢復一個14天實驗。
-
-完成條件：先評估既有資料，不足則列缺口，再裁決第三repo、release feed或少數官方頁面是否值得擴張。issues／PR ingestion、大型scraper與changedetection.io維持延後。免費額度自動分支不納入恢復目標。
 
 ### T06：title-zh-cache成長治理
 
@@ -52,6 +45,7 @@
 | C08 | T03：Groq 摘要品質與運作回顧 | [10/18～10/24既有快照評估](GROQ_SUMMARY_T03_REVIEW_20261025.md)。回顧可用率、失敗、快取及新聞細節；六則上限與 prompt 維持原樣。 |
 | C09 | T02：模型生命週期與 `model_significance` 評估 | [10/11～10/24既有快照評估](MODEL_LIFECYCLE_T02_REVIEW_20261025.md)。定義模型對齊及長窗品質契約，檢查 14 日來源健康及明確誤報；暫不新增重要性分數，保留 24 小時讀者窗口。 |
 | C10 | T01：一般列表六類事件徽章與篩選 | [正式發布與驗收](T01_EVENT_FILTER_IMPLEMENTATION_20261025.md)。沿用既有六類判定，資產共同版本、離線 CI、Pages、HTTP 與正式站 Chrome 均通過。 |
+| C11 | T05：Usage policy Canary 退役 | 依現行產品定位移除兩個第三方 commit feed、候選卡片及相關程式；價格偵測保留。14 天品質研究與新增入口取消，舊文件僅作歷史紀錄。 |
 
 ## 已撤回／提前停止／封存
 
@@ -60,7 +54,7 @@
 | R01 | 日報自動生成、派送、排程、三日交付及私人雲端自動交付 | 2026-10-21撤回，D00已退役。舊D／C／O未完成項不續跑；工具及研究保留。由使用者在Web Chat專案當次要求產文。 |
 | R02 | 七日來源觀察、D7核查、D8停用及收尾Email | A01已提前結束，不等待原10/28～10/29、不重寄、不補成七日通過。CyberQ／AlphaLab 七日回放僅是先前離線來源評估，無持續執行或驗收義務；公開刷新、Pages及daily-brief維持。 |
 | R03 | A03當時八個候選來源的裁決 | 當時資安人、CyberQ、網管人、DIGITIMES、Meet、Cloudflare、Modular、Zed為not_admitted_closed。CyberQ 後續於2026-10-25以新 `tw_media/cyberq` RSS 路線單獨准入一般池，舊 `shadow/cyberq` 裁決不變；其餘候選無再觀察或提醒義務。 |
-| R04 | Free LLM APIs／market_free_tier | 自動分支已退役，無已驗等價替代為已接受損失；價格與兩Canary保持。 |
+| R04 | Free LLM APIs／market_free_tier | 自動分支已退役，無已驗等價替代為已接受損失；價格偵測保持。 |
 
 ## 已接受限制
 

@@ -25,7 +25,7 @@ def generation(tmp_path, monkeypatch):
                    last_seen_at=stamp)
     (output / "archive.json").write_text(json.dumps({"generated_at":stamp, "items":rows}))
     previous = {"schema_version":1, "price":sensors.build_price_snapshot(price_payload()),
-        "canary":{feed["id"]:["old"] for feed in sensors.CANARY_FEEDS},
+        "canary":{"usage4claude":["old"]},
         "free_tier":{"retired_baseline":"preserve"}}
     (output / "market-sensor-state.json").write_text(json.dumps(previous))
     calls = []
@@ -40,13 +40,6 @@ def generation(tmp_path, monkeypatch):
         def json(self):
             assert self.url == sensors.PRICE_URL
             return price_payload(input_per_1m_usd=1.0)
-        @property
-        def content(self):
-            assert self.url in [f["url"] for f in sensors.CANARY_FEEDS]
-            return f'''<feed xmlns="http://www.w3.org/2005/Atom"><entry>
-<id>{hashlib.sha1(self.url.encode()).hexdigest()}</id><title>support weekly quota field</title><updated>{stamp}</updated>
-<link href="https://github.com/example/integration/commit/{hashlib.sha1(self.url.encode()).hexdigest()}"/>
-<content>model-specific weekly limit</content></entry></feed>'''.encode()
 
     class Session:
         def get(self, url, **kwargs):
@@ -85,7 +78,7 @@ def browser_result(output):
         + "count:r.projection?.events.length||0,radar:G.radarEvents(radar.events,radar.publisher_governance_meta,state,now).length}));")
 
 
-def test_main_writes_one_v2_bundle_and_preserves_other_sensor_surfaces(generation):
+def test_main_writes_one_v2_bundle_and_preserves_price_sensor(generation):
     output, calls, _, previous = generation
     assert u.main() == 0
     parent, daily = read(output,"stories-merged.json"), read(output,"daily-brief.json")
@@ -98,20 +91,21 @@ def test_main_writes_one_v2_bundle_and_preserves_other_sensor_surfaces(generatio
     assert browser_result(output) == {"ready":True,"count":2,"radar":1}
     signals = read(output,"market-signals.json")["signals"]
     assert [x["event_type"] for x in signals].count("API_PRICE_CHANGE") == 1
-    assert [x["event_type"] for x in signals].count("USAGE_POLICY_CANDIDATE") == 2
+    assert all(x["category"] == "price" for x in signals)
     assert all(x["verification_status"] != "official" for x in signals)
     assert read(output,"market-sensor-state.json")["free_tier"] == previous["free_tier"]
-    assert calls == [sensors.PRICE_URL, *[f["url"] for f in sensors.CANARY_FEEDS]]
+    assert "canary" not in read(output,"market-sensor-state.json")
+    assert calls == [sensors.PRICE_URL]
     status = read(output,"source-status.json")
     assert status["brief_selection"] == daily["selection_diagnostics"]
-    assert status["failed_sites"] == [] and status["successful_sites"] == 5
+    assert status["failed_sites"] == [] and status["successful_sites"] == 3
     assert status["translations"].get("request_count",0) == 0
     assert status["ai_summaries"]["enabled"] is False
     assert len(list((output/"items").glob("*.json"))) == 2
 
 
 @pytest.mark.parametrize("failure", ["build", "state_write"])
-def test_main_event_failure_keeps_general_price_and_canary_but_disables_governed_views(generation, monkeypatch, failure):
+def test_main_event_failure_keeps_general_price_but_disables_governed_views(generation, monkeypatch, failure):
     output, _, _, _ = generation
     if failure == "build":
         def fail_build(*args, **kwargs):
@@ -128,7 +122,7 @@ def test_main_event_failure_keeps_general_price_and_canary_but_disables_governed
     assert read(output,"stories-merged.json")["publisher_governance"]["status"] == "unavailable"
     assert read(output,"daily-brief.json")["items"] == []
     assert read(output,"latest-24h.json")["items_ai"]
-    assert len(read(output,"market-signals.json")["signals"]) == 3
+    assert len(read(output,"market-signals.json")["signals"]) == 1
     assert browser_result(output) == {"ready":False,"count":0,"radar":0}
 
 
@@ -153,14 +147,12 @@ def test_partial_write_cannot_serve_new_generation_with_old_qualified_views(gene
     assert browser_result(output) == {"ready":False,"count":0,"radar":0}
 
 
-@pytest.mark.parametrize("source", ["price", "canary"])
-def test_sensor_failure_isolated_from_dplus_and_peer_sensors(generation, source):
+def test_price_sensor_failure_isolated_from_dplus(generation):
     output, _, failures, _ = generation
-    failures.add(sensors.PRICE_URL if source == "price" else sensors.CANARY_FEEDS[0]["url"])
+    failures.add(sensors.PRICE_URL)
     assert u.main() == 0
     assert browser_result(output) == {"ready":True,"count":2,"radar":1}
     status = read(output,"source-status.json")
     assert len(status["failed_sites"]) == 1
     types = [x["event_type"] for x in read(output,"market-signals.json")["signals"]]
-    assert len(types) == 2
-    assert types.count("API_PRICE_CHANGE") == (0 if source == "price" else 1)
+    assert types == []

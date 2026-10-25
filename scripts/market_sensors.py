@@ -1,19 +1,16 @@
-"""Deterministic market and usage-policy sensors for AI News Radar.
+"""Deterministic market price sensors for AI News Radar.
 
-The module intentionally keeps observations separate from reader-facing news
-items.  Structured sources produce exact old/new values; public GitHub commit
-feeds only produce candidates and never claim an official policy change.
+The module keeps structured price observations separate from reader-facing
+news items and produces exact old/new values.
 """
 
 from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
 import hashlib
-import html
 import json
 import re
 import time
-import xml.etree.ElementTree as ET
 from typing import Any
 
 import requests
@@ -35,35 +32,6 @@ PRICE_FIELDS: dict[str, tuple[str, str]] = {
     "cache_read_per_1m_usd": ("Cache read 價格", "USD / 1M tokens"),
     "cache_write_per_1m_usd": ("Cache write 價格", "USD / 1M tokens"),
 }
-
-CANARY_FEEDS: tuple[dict[str, str], ...] = (
-    {
-        "id": "usage4claude",
-        "name": "Usage4Claude",
-        "url": "https://github.com/f-is-h/Usage4Claude/commits/main.atom",
-        "home": "https://github.com/f-is-h/Usage4Claude",
-    },
-    {
-        "id": "usage_monitor_claude",
-        "name": "Claude Usage Monitor",
-        "url": "https://github.com/jens-duttke/usage-monitor-for-claude/commits/main.atom",
-        "home": "https://github.com/jens-duttke/usage-monitor-for-claude",
-    },
-)
-
-CANARY_PATTERNS: tuple[re.Pattern[str], ...] = tuple(
-    re.compile(pattern, re.IGNORECASE)
-    for pattern in (
-        r"\bquota(?:s)?\b",
-        r"\brate[ -]?limits?\b",
-        r"\b(?:weekly|daily|monthly|5-hour|five-hour)\s+(?:limit|quota|window)s?\b",
-        r"\b(?:extra usage|overage|usage credits?)\b",
-        r"\bmodel-specific\s+(?:limit|quota)s?\b",
-        r"\bdouble(?:d)?\s+(?:the\s+)?limits?\b",
-        r"\busage\s+window\b",
-        r"\breset\s+(?:time|window|schedule)\b",
-    )
-)
 
 
 def _iso(value: datetime) -> str:
@@ -107,9 +75,9 @@ def _signal(
     unit: str = "",
     verification_status: str = "reported",
 ) -> dict[str, Any]:
-    urgency = "breaking" if category == "usage_policy" else "standard"
-    importance_rank = {"price": 1, "free_tier": 2, "usage_policy": 3}[category]
-    timeliness_rank = {"usage_policy": 1, "free_tier": 2, "price": 3}[category]
+    urgency = "standard"
+    importance_rank = {"price": 1, "free_tier": 2}[category]
+    timeliness_rank = {"free_tier": 2, "price": 3}[category]
     signal = {
         "event_type": event_type,
         "category": category,
@@ -418,57 +386,10 @@ def diff_free_tier_snapshots(
     return out
 
 
-def parse_canary_atom(content: bytes) -> list[dict[str, str]]:
-    root = ET.fromstring(content)
-    entries: list[dict[str, str]] = []
-    for node in root.findall(".//{*}entry"):
-        link_node = node.find("{*}link")
-        raw_content = node.findtext("{*}content") or node.findtext("{*}summary") or ""
-        plain = re.sub(r"<[^>]+>", " ", html.unescape(raw_content))
-        entries.append(
-            {
-                "id": str(node.findtext("{*}id") or "").strip(),
-                "title": " ".join(str(node.findtext("{*}title") or "").split()),
-                "url": str(link_node.get("href") if link_node is not None else "").strip(),
-                "updated": str(node.findtext("{*}updated") or "").strip(),
-                "content": " ".join(plain.split()),
-            }
-        )
-    return [entry for entry in entries if entry["id"] and entry["title"] and entry["url"]]
-
-
-def is_usage_policy_candidate(entry: dict[str, str]) -> bool:
-    text = f"{entry.get('title', '')} {entry.get('content', '')}"
-    return any(pattern.search(text) for pattern in CANARY_PATTERNS)
-
-
-def canary_signal(entry: dict[str, str], feed: dict[str, str], detected_at: str) -> dict[str, Any]:
-    return _signal(
-        event_type="USAGE_POLICY_CANDIDATE",
-        category="usage_policy",
-        title=f"速報候選：{feed['name']} 偵測到額度相關變更",
-        summary=entry["title"],
-        detected_at=detected_at,
-        effective_at=entry.get("updated") or detected_at,
-        source_name=feed["name"],
-        source_url=feed["home"],
-        evidence_url=entry["url"],
-        verification_status="candidate",
-    )
-
-
 def _fetch_json(session: requests.Session, url: str) -> Any:
     response = session.get(url, timeout=20, headers={"Accept": "application/json"})
     response.raise_for_status()
     return response.json()
-
-
-def _fetch_canary(session: requests.Session, feed: dict[str, str]) -> list[dict[str, str]]:
-    response = session.get(
-        feed["url"], timeout=20, headers={"Accept": "application/atom+xml, application/xml, text/xml"}
-    )
-    response.raise_for_status()
-    return parse_canary_atom(response.content)
 
 
 def _kept_signals(previous: Any, now: datetime) -> list[dict[str, Any]]:
@@ -495,10 +416,12 @@ def run_market_sensors(
 ) -> tuple[dict[str, Any], dict[str, Any], list[dict[str, Any]]]:
     detected_at = _iso(now)
     state = dict(previous_state) if isinstance(previous_state, dict) else {"schema_version": 1}
-    # The automatic free-tier branch was retired by A03. Keep its historical
-    # baseline untouched, but don't carry its cards into the current service.
+    # Keep retired baselines untouched, but never carry their cards forward.
+    # Existing tracked snapshots may still contain Canary candidates until
+    # the first refresh after this release.
     signals = [signal for signal in _kept_signals(previous_payload, now)
-               if signal.get("category") != "free_tier"]
+               if signal.get("category") == "price"]
+    state.pop("canary", None)
     statuses: list[dict[str, Any]] = []
 
     started = time.perf_counter()
@@ -518,27 +441,6 @@ def run_market_sensors(
                          "item_count": 0, "signal_count": 0,
                          "duration_ms": int((time.perf_counter() - started) * 1000), "error": str(exc)})
 
-    canary_state = dict(state.get("canary") or {})
-    for feed in CANARY_FEEDS:
-        started = time.perf_counter()
-        try:
-            entries = _fetch_canary(session, feed)
-            old_seen = set(canary_state.get(feed["id"]) or [])
-            new_signals = [
-                canary_signal(entry, feed, detected_at)
-                for entry in entries
-                if old_seen and entry["id"] not in old_seen and is_usage_policy_candidate(entry)
-            ]
-            canary_state[feed["id"]] = [entry["id"] for entry in entries][:100]
-            signals.extend(new_signals)
-            statuses.append({"site_id": f"canary_{feed['id']}", "site_name": feed["name"], "ok": True,
-                             "item_count": len(entries), "signal_count": len(new_signals),
-                             "duration_ms": int((time.perf_counter() - started) * 1000), "error": None})
-        except Exception as exc:
-            statuses.append({"site_id": f"canary_{feed['id']}", "site_name": feed["name"], "ok": False,
-                             "item_count": 0, "signal_count": 0,
-                             "duration_ms": int((time.perf_counter() - started) * 1000), "error": str(exc)})
-    state["canary"] = canary_state
     state["schema_version"] = 1
     state["updated_at"] = detected_at
 
