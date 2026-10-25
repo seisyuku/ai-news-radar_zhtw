@@ -50,6 +50,11 @@ title-only 跳過。原 wrapper 誤將 Groq 比較失敗視為 Gemini 備援 gat
 失敗，故該 run 顯示 failure；此判定已修正並補測，Groq 缺漏仍記錄，
 不被改寫為通過。本時段的 Gemini 證據有效，但還需要至少兩個分離時段。
 
+同一時段 16:54～16:57 的[流程複驗](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/40178497098)
+以修正後程式成功結束：Gemini 診斷通過、10/10 合格案例全綠；Groq 本次也
+10/10，全程沒有 429、5xx。這是同時段的 runner 修正驗證，不冒充第二個
+分離時段；首次 Groq 9/10 仍保留為模型輸出變動的比較證據。
+
 ## 正式 gate 狀態
 
 1. Gemini 的提示注入及全套 11 例已在第一時段通過；Groq 同案已比較並
