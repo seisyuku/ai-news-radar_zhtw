@@ -7,7 +7,7 @@
   "source": "數位時代 (Google News)",
   "title": "Claude Duet是什麼？5大功能、使用方式、價格與開放資格一次看 - 數位時代",
   "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQVkZabC1Pb3NNRklMVjBqem5jenk4WkJPaXdsWUxJdXRJTU5mV0lmVG5IWjVjZ3RsbTZaN1A0cmJUOTI1cENkVTJkeDNfenFqZ2Zla3Q5NmVXMEtZRHVpU2wtZE1Kay11ekhrQktOMHlPQVNOTHoxSS13ek1fY3V0WmdHdElIUQ?oc=5",
-  "last_seen_at": "2026-10-24T04:05:29.008900Z",
+  "last_seen_at": "2026-10-25T03:05:32.009547Z",
   "summary": "Claude Duet是什麼？5大功能、使用方式、價格與開放資格一次看 數位時代",
   "publisher_links": [
     "https://news.google.com/rss/articles/CBMihgFBVV95cUxQVkZabC1Pb3NNRklMVjBqem5jenk4WkJPaXdsWUxJdXRJTU5mV0lmVG5IWjVjZ3RsbTZaN1A0cmJUOTI1cENkVTJkeDNfenFqZ2Zla3Q5NmVXMEtZRHVpU2wtZE1Kay11ekhrQktOMHlPQVNOTHoxSS13ek1fY3V0WmdHdElIUQ?oc=5"
@@ -23,14 +23,15 @@
     "schema_version": 1,
     "publisher_id": "bnext",
     "name": "數位時代",
-    "domain": null,
+    "domain": "www.bnext.com.tw",
     "status": "identified",
     "basis": [
+      "google_rss_source",
       "configured_bridge"
     ],
     "evidence": {
-      "rss_source_name": null,
-      "rss_source_url": null,
+      "rss_source_name": "數位時代",
+      "rss_source_url": "https://www.bnext.com.tw",
       "article_url": null,
       "article_host": "news.google.com",
       "expected_publisher_id": null,
@@ -41,21 +42,18 @@
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
     "registry_revision": "524163edf93fe58d5c332ab6e1452fc2bec9e37423a2a005c5e707bb42f2d211",
-    "scope_id": "unreviewed",
-    "publisher_kind": "unknown",
-    "admission_status": "unreviewed",
-    "source_tier": "watchlist",
-    "source_tier_label": "未審來源",
-    "source_tier_rank": 6,
+    "scope_id": "bnext",
+    "publisher_kind": "media",
+    "admission_status": "limited",
+    "source_tier": "advanced",
+    "source_tier_label": "台灣媒體觀察源",
+    "source_tier_rank": 4,
     "allow_general": true,
-    "allow_featured": false,
-    "allow_radar": false,
+    "allow_featured": true,
+    "allow_radar": true,
     "reason_codes": [
-      "legacy_identity",
-      "scope_unknown",
-      "unreviewed_publisher",
-      "not_permitted_for_featured",
-      "not_permitted_for_radar"
+      "identified_bridge",
+      "limited_scope"
     ]
   }
 }
