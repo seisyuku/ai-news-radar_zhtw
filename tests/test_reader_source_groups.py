@@ -6,7 +6,7 @@ DECLARATIONS = extract_declarations(
     "READER_SOURCE_LEVELS", "READER_PUBLISHERS", "generalReaderSource",
     "readerSiteId", "readerSiteName", "sourceDisplayName", "computeSiteStats",
     "sourceGroupEntries", "groupedSites", "subgroupSortValue", "sortItemsForList",
-    "dedupeSubgroupItems", "getFilteredItems",
+    "dedupeSubgroupItems", "itemMatchesBusinessEvent", "getFilteredItems",
 )
 HELPERS = '''
 const state = {listSort: "priority", activeSection: "hot", query: "", siteFilter: "", authorFilter: "", sourceTypeFilter: ""};
