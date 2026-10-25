@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon Bedrock 高级提示优化现在支持提示缩短",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/bedrock-prompt-optimization-shortening",
-  "last_seen_at": "2026-10-25T04:35:26.929863Z",
+  "last_seen_at": "2026-10-25T05:05:34.006768Z",
   "summary": "Amazon Bedrock 高级提示优化现在支持提示缩短，这是一项可选设置，可在保持或提高评估分数的同时缩短提示长度。高级提示优化可根据您自己的评估标准，针对 Amazon Bedrock 上的任意模型优化提示。到目前为止，优化只关注质量。优化过的提示通常比原始提示更长。较长的提示会增加输入令牌成本，并可能延长生成第一个令牌的时间，这一点在规模部署和对延迟敏感的应用中很重要。 当您为输入数据集中的提示模板启用提示缩短功能时，优化器会缩短提示的长度。仅当优化过的提示比原始提示更短并且在您的评估中得分至少与原始提示一样高时，才会返回优化过的提示。否则，系统将返回您的原始提示，因此您不会得到更长或得分更低的提示。结果包含压缩比以及原始和优化后的令牌数，这些信息会显示在输出文件和控制台结果页面上。例如，压缩比为 0.7 意味着优化过的提示使用的令牌减少了 30%。提示缩短适用于任何评估方法，包括引导标准、LLM-as-a-judge 评估准则和自定义 Lambda 评估器。 提示缩短功能已在提供高级提示优化的所有 AWS 区域推出。要开始使用，请为输入数据集中的提示模板启用提示缩短功能，并照常创建优化作业。要了解更多信息，请参阅 Amazon Bedrock 用户指南中的 缩短提示 、 Amazon Bedrock 定价页面 和 Amazon Bedrock 产品页面 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/bedrock/latest/userguide/advanced-prompt-optimization-shorten.html",
