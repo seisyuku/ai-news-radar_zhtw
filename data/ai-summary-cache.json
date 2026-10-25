@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v2",
   "entries": {
+    "647d8ef9fe627ee1c4f87c91e879873d42f1000c2407b7c3b655b92cb151f045": {
+      "summary": "DeepSeek 與 MiniMax 已通過中國 AI 輸出管制，可於海外使用。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-25T11:35:30.684377Z"
+    },
     "9536adb9ae17de0ce9ac2ae8fb1619e8ce2abe04feeeda0eb2ee54a299b6c4e6": {
       "summary": "P-Zero Research 發布新基準測試 AI 模型自主設計與評估實驗的能力。Anthropic 共同創辦人 Jack Clark 認為，由於結果改善迅速，自我提升 AI 可能於 2027 年出現。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-10-07T02:35:52.934152Z"
-    },
-    "c5bb9d722d90b1b2d02a10f5b34d5df5ea47cbdccc07603f5f3adb6e9e3d4897": {
-      "summary": "三星電子Q3營業利益預估激增772%，主要受AI記憶體需求持續火熱驅動。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-07T02:35:52.934152Z"
     }
   },
   "rejections": {
@@ -4572,10 +4572,6 @@
       "reason": "insufficient_context",
       "created_at": "2026-10-25T03:57:57.922256Z"
     },
-    "04f0b66c1a05599ab99ee015d76106f7236724f8b174a9458e45aaea6539e7c2": {
-      "reason": "insufficient_context",
-      "created_at": "2026-10-25T05:35:30.158954Z"
-    },
     "8e9efd6461be7bf1e6355fec77c67b3fdec19c6834049d132ea610081e8e5e7c": {
       "reason": "insufficient_context",
       "created_at": "2026-10-25T06:05:27.019098Z"
@@ -4591,6 +4587,10 @@
     "3143b06ee310e2ed20d6dc1d592b28d231e6281e90a952462996b0a8367fb264": {
       "reason": "validation_length",
       "created_at": "2026-10-25T09:35:30.569798Z"
+    },
+    "04f0b66c1a05599ab99ee015d76106f7236724f8b174a9458e45aaea6539e7c2": {
+      "reason": "insufficient_context",
+      "created_at": "2026-10-25T11:35:30.684377Z"
     }
   }
 }
