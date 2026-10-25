@@ -2,6 +2,24 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v2",
   "entries": {
+    "18f4292c143f4c170e727a959364cc318e412b662bea1fd930050474a9d9e181": {
+      "summary": "OpenAI 揭露前沿模型訓練環境的離線設計與紅隊發現，內容涵蓋實際 DNS 事件、預設失守測試及合成祕密通訊。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-25T22:35:30.218824Z"
+    },
+    "479403b651524add11b169e21b23b611734026314919046d63682fe48e494b16": {
+      "summary": "Nanbeige LLM Lab 發布 Nanbeige4.3-33B，為 33B 參數、Apache 2.0 授權且具 512K 上下文的模型，其 Terminal-Bench 2.1 分數為 80.9。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-25T22:35:30.218824Z"
+    },
+    "a58f3a5ef8bc63624761db911e0c833cdff116b7d68d2549c3414de286a571cb": {
+      "summary": "Anthropic 與 AISI 公佈七月事故後續實驗，探討壓縮摘要、任務動量及問答與行動落差，並說明長任務交接驗收方式。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-25T22:35:30.218824Z"
+    },
     "d476829ff0714596ffae7f33ba90d207545c0970d3651f897a1f29994e206c15": {
       "summary": "xAI 的 Grok 發布其 AI 生成的《奧德賽》前七分鐘片段。TechCrunch 評述該畫面尚可，但缺乏藝術性、靈感或人情味。",
       "provider": "groq",
@@ -2983,24 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-10-07T19:35:38.046132Z"
-    },
-    "e0e8bf5a2300e311378a20b9d3a2115ffd02f190062ebbff0775e602e2ff4587": {
-      "summary": "大映科技揭露AI網路封包分析系統ANMAS，採用虛擬Wi-Fi環境擷取IoT設備通訊流量，由AI模型分析PCAP檔案，將500MB資料處理時間從4小時縮至10幾分鐘。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-07T11:36:15.252735Z"
-    },
-    "5366fb26133c89ea59aefffd2684254c314bdd4c545a22f6e4919c9d3717e4de": {
-      "summary": "資安院院長龔化中於10月5日公開「國家資安防護2.0」藍圖，主張以AI對抗AI，並預計明年四月進行AI紅隊演練。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-07T11:05:41.821162Z"
-    },
-    "8a31ffcc88dfb372acf8f0bf3b5e7d35db759b41665d60086da24e4ad7e9bf8d": {
-      "summary": "DeepSeek 與中國 AI 企業在一個月內推出 16 款 AI 模型，儘管 Anthropic 發出警告，發表競賽仍持續加劇。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-07T10:05:54.331547Z"
     }
   },
   "rejections": {
@@ -4584,17 +4584,9 @@
       "reason": "insufficient_context",
       "created_at": "2026-10-25T15:35:28.262486Z"
     },
-    "3143b06ee310e2ed20d6dc1d592b28d231e6281e90a952462996b0a8367fb264": {
-      "reason": "validation_length",
-      "created_at": "2026-10-25T16:05:28.999946Z"
-    },
     "12e97d6c7a7e6aab674744c3c0406c52552e13ed3676d4a81f4ca1e4217f7c5c": {
       "reason": "insufficient_context",
       "created_at": "2026-10-25T16:05:28.999946Z"
-    },
-    "d83e4bda8d1caef321fa019110f822ede5f5b34d380fa82c305a6192f282470c": {
-      "reason": "validation_length",
-      "created_at": "2026-10-25T16:35:30.202475Z"
     },
     "1315cec11891bab8fc11a9ccab63f4c447669f9fffc89ae4ff7737406a2feb17": {
       "reason": "validation_length",
@@ -4615,6 +4607,10 @@
     "8ef7d696bc22da67f74f362ce9cfb7392a911606f6827a42fae1e4f25b9aa5f7": {
       "reason": "insufficient_context",
       "created_at": "2026-10-25T20:35:32.550178Z"
+    },
+    "3143b06ee310e2ed20d6dc1d592b28d231e6281e90a952462996b0a8367fb264": {
+      "reason": "validation_length",
+      "created_at": "2026-10-25T22:35:30.218824Z"
     }
   }
 }
