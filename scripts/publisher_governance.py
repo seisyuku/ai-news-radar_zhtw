@@ -125,7 +125,7 @@ def qualify(row, material):
         "earnings": bool(company and any(FINANCE.search(clause) and MONEY.search(clause)
             and (PERIOD.search(clause) or PERIOD.search(title) or rx(r"\bIPO\b|上市募資").search(clause))
             for clause in material_cues.financial_clauses(title, summary, COMPANY, FINANCE))),
-        "market": bool(company and (material_cues.market_action_supported(text) or (not material_cues.uncertain_market(text) and SHARE.search(text) and PERIOD.search(text) and POPULATION.search(text) and MONEY.search(text)))),
+        "market": bool(company and (material_cues.market_action_supported(title, summary) or (not material_cues.uncertain_market(text) and SHARE.search(text) and PERIOD.search(text) and POPULATION.search(text) and MONEY.search(text)))),
         "security": bool(product and ISSUE.search(text) and IMPACT.search(text) and MECHANISM.search(text)
                          and (official or METHOD.search(text)) and (not SECONDHAND.search(text) or METHOD.search(text))),
         "pricing": bool(product and PRICE_CHANGE.search(text) and MONEY.search(text) and APPLICABILITY.search(text)),

@@ -21,16 +21,17 @@ INDUSTRY_LABELS = frozenset({"model_release", "ai_product_update", "industry_bus
     "ai_tech", "agent_workflow"})
 GENRE = legacy.rx(r"^(?:how\b|using\b|building\b|scaling\b|see\b|meet\b|turning\b)|"
     r"\b(?:tutorial|walkthrough|tips|showcase|builders? (?:are|using)|"
+    r"(?:our|my|we(?:'re| are)).{0,35}portfolio|"
     r"what .{0,30} (?:building|making)|part (?:one|two|three|\d+))\b|"
     r"教學|教程|技巧|攻略|看看|如何|操作指南|心得|使用分享|案例分享|第[一二三123]部分")
 OPINION = legacy.rx(r"\b(?:says?|believes?|thinks?|predicts?|warns?|opinion|commentary|interview)\b|"
     r"表示|認為|认为|預言|预言|預測|预测|專訪|专访|觀點|观点")
 NEWS_ACTION = legacy.rx(r"\b(?:announc(?:e|es|ed)|launch(?:es|ed)?|introduc(?:e|es|ed)|"
     r"releas(?:e|es|ed)|unveil(?:s|ed)?|roll(?:s|ed)? out|open.sources?|"
-    r"acquir(?:e|es|ed)|acquisition|funding|raises?|raised|invest(?:s|ed|ment)?|"
+    r"acquir(?:e|es|ed)|acquisition|"
     r"partner(?:s|ed|ship)?|deploy(?:s|ed|ment)?|audit|investigation|breach|vulnerability|shutdown)\b|"
-    r"發布|发布|發表|发表|推出|開放|开放|上線|上线|更新|新增|收購|收购|融資|融资|"
-    r"募資|募资|投資|投资|合作|簽約|签约|部署|停運|停运|漏洞|稽核|調查|调查|揭露")
+    r"發布|发布|發表|发表|推出|開放|开放|上線|上线|更新|新增|收購|收购|"
+    r"合作|簽約|签约|部署|停運|停运|漏洞|稽核|調查|调查|揭露")
 ATTRIBUTION = legacy.rx(r"\b(?:says?|said|reports?|reveals?|publishes?|discloses?)\b|"
     r"表示|指出|公布|披露|揭露|發表|发表")
 MODEL_CONTEXT = legacy.rx(r"\b(?:model|models)\b|模型")
@@ -43,6 +44,20 @@ QUANTIFIED = legacy.rx(r"\d+(?:\.\d+)?\s*(?:%|percent|out of|of\s+\d+|分)|"
 EVALUATOR = re.compile(r"\b[A-Z][A-Z0-9-]{2,15}\b")
 UNRELEASED = legacy.rx(r"\bunreleased\b|\bunpublished\b|not (?:yet )?(?:released|available)|"
     r"未(?:發[布佈表]|发布|公開|公开)|尚未(?:發[布佈表]|发布|公開|公开)")
+FUNDING_COMPLETION = legacy.rx(r"\b(?:raises?|raised|secures?|secured|closes?|closed|"
+    r"completes?|completed)\s+(?:(?:a|an|the|its|new)\s+)?(?:\$\s*\d[\d,.]*"
+    r"(?:\s*(?:million|billion|m|bn))?(?:\s+(?:funding|financing|investment|round))?|"
+    r"(?:seed|series\s+[A-Z])\s+(?:funding\s+)?round|funding|financing|investment|round)\b|"
+    r"\binvest(?:s|ed)?\s+\$\s*\d[\d,.]*|"
+    r"(?:完成|獲得|获得|募得).{0,25}(?:融資|融资|募資|募资|投資|投资)")
+FUNDING_TOPIC = legacy.rx(r"\b(?:funding|financing|investment|portfolio)\b|融資|融资|募資|募资|投資|投资")
+PRODUCT_ACTION = legacy.rx(r"\b(?:launch(?:es|ed)?|releas(?:e|es|ed)|introduc(?:e|es|ed)|"
+    r"unveil(?:s|ed)?|open.sources?|roll(?:s|ed)? out)\b|發布|发布|推出|上線|上线")
+TOOL_RELEASE = legacy.rx(r"\b(?:open.sources?|releases?|launches?|introduces?|unveils?)\b")
+TOOL_ARTIFACT = legacy.rx(r"\b(?:AI |robot )?(?:data engine|developer tool|software|SDK|framework|"
+    r"library|platform|labeling tool)\b|資料引擎|数据引擎|開發工具|开发工具|軟體|软件")
+TOOL_OBJECT = re.compile(r"^\s+(?:(?:its|the|a|new|open-source|AI)\s+)*"
+    r"(?P<name>[A-Z][A-Za-z0-9._/-]*(?:\s+(?:[A-Z][A-Za-z0-9._/-]*|\d+(?:\.\d+)*)){0,3})")
 
 # The extension requires a versioned proper name as the release object and a
 # model noun in its apposition. It is not a growing vendor/model allowlist.
@@ -134,6 +149,28 @@ def qualify_core(row, material):
     return result
 
 
+def concrete_tool_release(title, summary):
+    """Admit a named shipped tool even when broad relevance calls it research."""
+    for action in TOOL_RELEASE.finditer(title):
+        if not cues.names(title[:action.start()]):
+            continue
+        match = TOOL_OBJECT.match(title[action.end():])
+        if not match:
+            continue
+        name = match.group("name")
+        for mention in re.finditer(r"(?<![A-Za-z0-9])" + re.escape(name) + r"(?![A-Za-z0-9])",
+                                   summary, re.I):
+            context = summary[max(0, mention.start() - 55):mention.end() + 55]
+            if TOOL_ARTIFACT.search(context):
+                return True
+    return False
+
+
+def concrete_funding(title):
+    """A funding noun or 'raises concerns' is not a completed transaction."""
+    return any(cues.names(title[:action.start()]) for action in FUNDING_COMPLETION.finditer(title))
+
+
 def supplement(row, material, qualification):
     """Specific news or attributed measured disclosure, not a seventh core kind."""
     result = {"kind": None, "spans": [], "urls": [], "qualifiers": []}
@@ -159,10 +196,15 @@ def supplement(row, material, qualification):
         result.update(kind="capability_disclosure", qualifiers=["provider_claim"])
         if UNRELEASED.search(text):
             result["qualifiers"].append("unreleased")
-    elif (relevance["label"] in INDUSTRY_LABELS and NEWS_ACTION.search(title)
-            and not OPINION.search(title) and not legacy.DENIAL.search(text)
-            # Failed core evidence cannot be relabelled as generic news.
-            and not qualification["core_evidence"]):
+    elif ((relevance["label"] in INDUSTRY_LABELS and NEWS_ACTION.search(title))
+          or concrete_funding(title)
+          or (relevance["label"] == "research_paper" and concrete_tool_release(title, summary))):
+        if (OPINION.search(title) or legacy.DENIAL.search(text)
+                or (FUNDING_TOPIC.search(title) and not concrete_funding(title)
+                    and not PRODUCT_ACTION.search(title))
+                # Failed core evidence cannot be relabelled as generic news.
+                or qualification["core_evidence"]):
+            return result
         result["kind"] = "industry_news"
     else:
         return result
