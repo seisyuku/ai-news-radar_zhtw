@@ -1,0 +1,59 @@
+{
+  "id": "f50053ff12989f0b67b2b608e40138f0abe6d8c2",
+  "published_at": "2026-10-23T16:19:44Z",
+  "first_seen_at": "2026-10-25T05:35:30.158954Z",
+  "site_id": "curated_media",
+  "site_name": "精選媒體",
+  "source": "Reuters AI (Google News)",
+  "title": "AT&T, T-Mobile tighten AI guardrails as autonomous networks remain years away - Reuters",
+  "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxPTnJxMlJVRDdVNzdiREI2czZJbktFVDI2LXY0RkYzeUh5bmFGLUN0aDhpNU02S3E2dmJtUm5LMU5SdGpQdE51MzhjZEdXM19QaFJNVDBMX2ZqODN5OTVITUc5SGRmM04tSUotUlh0ZHl0UXpkeFhfQU5rWWRWdXNsM296Nmx4RFV2Mkl5UDU0NW12N1VSeU9IVEYzeGY0Q2EyV1VublBFRXNIVTZPVGR3Z2M5R1gyNlYwMVZ3aEdGSzZUdkk?oc=5",
+  "last_seen_at": "2026-10-25T05:35:30.158954Z",
+  "summary": "AT&T, T-Mobile tighten AI guardrails as autonomous networks remain years away Reuters",
+  "publisher_links": [
+    "https://news.google.com/rss/articles/CBMiwwFBVV95cUxPTnJxMlJVRDdVNzdiREI2czZJbktFVDI2LXY0RkYzeUh5bmFGLUN0aDhpNU02S3E2dmJtUm5LMU5SdGpQdE51MzhjZEdXM19QaFJNVDBMX2ZqODN5OTVITUc5SGRmM04tSUotUlh0ZHl0UXpkeFhfQU5rWWRWdXNsM296Nmx4RFV2Mkl5UDU0NW12N1VSeU9IVEYzeGY0Q2EyV1VublBFRXNIVTZPVGR3Z2M5R1gyNlYwMVZ3aEdGSzZUdkk?oc=5"
+  ],
+  "ingress": {
+    "kind": "google_news",
+    "site_id": "curated_media",
+    "source_id": "reuters_ai_news",
+    "name": "Reuters AI (Google News)",
+    "feed_url": "https://news.google.com/rss/search?q=site:reuters.com%20AI%20when:2d&hl=en-US&gl=US&ceid=US:en"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "reuters",
+    "name": "Reuters",
+    "domain": "www.reuters.com",
+    "status": "identified",
+    "basis": [
+      "google_rss_source",
+      "configured_bridge"
+    ],
+    "evidence": {
+      "rss_source_name": "Reuters",
+      "rss_source_url": "https://www.reuters.com",
+      "article_url": null,
+      "article_host": "news.google.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "524163edf93fe58d5c332ab6e1452fc2bec9e37423a2a005c5e707bb42f2d211",
+    "scope_id": "reuters",
+    "publisher_kind": "media",
+    "admission_status": "limited",
+    "source_tier": "ai_media",
+    "source_tier_label": "精選AI媒體",
+    "source_tier_rank": 2,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_bridge",
+      "limited_scope"
+    ]
+  }
+}
