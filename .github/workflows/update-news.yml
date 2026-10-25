@@ -220,6 +220,11 @@ jobs:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           GROQ_SUMMARY_MODEL: ${{ vars.GROQ_SUMMARY_MODEL || 'qwen/qwen3.8-27b' }}
           GROQ_SUMMARY_MAX_NEW: ${{ vars.GROQ_SUMMARY_MAX_NEW || 6 }}
+          # T04 candidate: no scheduled Gemini summary calls until live gates
+          # and maintainer tier/data-use acceptance are complete.
+          GEMINI_SUMMARY_ENABLED: '0'
+          GEMINI_SUMMARY_API_KEY: ${{ secrets.GEMINI_SUMMARY_API_KEY }}
+          GEMINI_SUMMARY_MODEL: 'gemini-3.5-flash-lite'
           # Optional, bounded reader translation. Missing credentials retain
           # the original English display text and never block the snapshot.
           # GEMINI_API_KEY is the canonical Secret name. The previous name is

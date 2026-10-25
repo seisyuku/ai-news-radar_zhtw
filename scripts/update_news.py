@@ -87,6 +87,8 @@ except ModuleNotFoundError:  # pragma: no cover - direct `python scripts/update_
 try:
     from scripts.news_summaries import (
         DEFAULT_GROQ_MODEL,
+        DEFAULT_GEMINI_SUMMARY_MODEL,
+        DEFAULT_GEMINI_MAX_REQUESTS,
         DEFAULT_MAX_NEW_SUMMARIES,
         load_summary_cache,
         summarize_stories,
@@ -94,6 +96,8 @@ try:
 except ModuleNotFoundError:  # pragma: no cover - direct `python scripts/update_news.py`
     from news_summaries import (
         DEFAULT_GROQ_MODEL,
+        DEFAULT_GEMINI_SUMMARY_MODEL,
+        DEFAULT_GEMINI_MAX_REQUESTS,
         DEFAULT_MAX_NEW_SUMMARIES,
         load_summary_cache,
         summarize_stories,
@@ -7275,6 +7279,10 @@ def main() -> int:
             max_new=max(0, env_int("GROQ_SUMMARY_MAX_NEW", DEFAULT_MAX_NEW_SUMMARIES)),
             cache=ai_summary_cache,
             now=now,
+            gemini_api_key=os.environ.get("GEMINI_SUMMARY_API_KEY", ""),
+            gemini_model=os.environ.get("GEMINI_SUMMARY_MODEL") or DEFAULT_GEMINI_SUMMARY_MODEL,
+            gemini_enabled=os.environ.get("GEMINI_SUMMARY_ENABLED") == "1",
+            gemini_max_requests=min(DEFAULT_GEMINI_MAX_REQUESTS, max(0, env_int("GEMINI_SUMMARY_MAX_REQUESTS", DEFAULT_GEMINI_MAX_REQUESTS))),
         )
         phase["provider_enabled"] = bool(ai_summary_status.get("enabled"))
 

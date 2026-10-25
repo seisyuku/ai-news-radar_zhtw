@@ -10,19 +10,21 @@
 - PG、BR與方案A維持已結案；D+是新用途選稿案，不重開PG05補修或來源觀察。
 - 私人日報自動化與七日來源觀察已取消；CyberQ／AlphaLab 的七日回放只是先前來源評估，沒有排程或實作驗收義務。退役入口與相依功能的盤點見[取消與移除評估](RETIREMENT_AUDIT_20261025.md)。公開刷新、daily-brief 與全站 24 小時規則照常運作。
 - 2026-10-24文件整理已提交並推送；2026-10-25補正退役日報操作文件及舊影子來源／新 RSS 接入的時序。
-- T03 Groq 摘要跨期回顧已完成，決定維持現有六則上限與 prompt，見[評估](GROQ_SUMMARY_T03_REVIEW_20261025.md)。T02 已依 14 日既有資料完成模型對齊及品質評估，暫不新增 `model_significance`，見[T02評估](MODEL_LIFECYCLE_T02_REVIEW_20261025.md)。T01 六類事件徽章與篩選已[正式發布並驗收](T01_EVENT_FILTER_IMPLEMENTATION_20261025.md)；T04、T05、T06仍未啟動。不建立排程、提醒、來源觀察或新的provider呼叫。
+- T03 Groq 摘要跨期回顧已完成，決定維持現有六則上限與 prompt，見[評估](GROQ_SUMMARY_T03_REVIEW_20261025.md)。T02 已依 14 日既有資料完成模型對齊及品質評估，暫不新增 `model_significance`，見[T02評估](MODEL_LIFECYCLE_T02_REVIEW_20261025.md)。T01 六類事件徽章與篩選已[正式發布並驗收](T01_EVENT_FILTER_IMPLEMENTATION_20261025.md)。T04 離線候選已建立但正式停用，見[T04候選](T04_GEMINI_SUMMARY_CANDIDATE_20261025.md)；T05、T06仍未啟動。不建立排程、提醒、來源觀察或新的provider呼叫。
 
 ## 保留的三組方向
 
 | 編號 | 優先級 | 項目 | 狀態 | 下一個可交接動作 |
 | --- | --- | --- | --- | --- |
-| T04 | P1 | Gemini摘要備援 | 試驗未完成／正式停用 | 先處理既有驗收gate，另行裁決是否接線。 |
+| T04 | P1 | Gemini摘要備援 | 離線候選完成／實際provider驗收未完成／正式停用 | 取得合成案例雙provider及三分離時段證據，再裁決啟用。 |
 | T05 | P1 | Canary品質與漏報評估 | 擱置／待評估 | 優先檢查既有候選資料是否足夠，再列證據缺口。 |
 | T06 | P2 | 翻譯快取成長治理 | 待量測／待決策 | 以明確唯讀任務建立量測及適用限制證據。 |
 
 ### T04：Gemini摘要備援
 
 狀態為qualified backup candidate, disabled by default，正式摘要仍以Groq為primary。已運作的Gemini翻譯是另一條路徑。
+
+2026-10-25 已建立預設停用的候選程式與離線驗收，詳見[T04候選](T04_GEMINI_SUMMARY_CANDIDATE_20261025.md)；沒有呼叫新的摘要provider，也沒有更改正式排程的停用值。
 
 完成條件沿用OPERATIONS的Gemini摘要acceptance gates：提示注入驗收裁決、至少三個分離時段diagnostic/eval、同案比較、失敗觸發矩陣、防雙重呼叫、獨立secret／provider+model快取身份／成本上限與雙provider失敗行為。啟用前重新核對當時條款、限制與成本，取得既有要求的明確接受。本台帳未授權把真實publisher feed送往新摘要provider。
 

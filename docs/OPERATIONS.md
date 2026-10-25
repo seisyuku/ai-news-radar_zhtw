@@ -234,11 +234,14 @@ GROQ_API_KEY='...' python scripts/evaluate_ai_summaries.py \
 `title_zh`／`summary_zh` 翻譯。後者依「翻譯管線」章節固定使用 Gemini，
 不會回退到 Groq。
 
-截至 2026-08-17，Gemini 的正式狀態是
+截至 2026-10-25，Gemini 的正式狀態仍是
 `qualified backup candidate, disabled by default`。Groq
-`qwen/qwen3.8-27b` 是唯一 production primary；`scripts/news_summaries.py`
-尚未接入 Gemini fallback。`update-news.yml` 會將 `GEMINI_API_KEY` 僅傳給
-讀者翻譯路徑，不會傳給摘要路徑。Gemini 測試是獨立事件，不回溯改寫 Groq 的採用裁決。
+`qwen/qwen3.8-27b` 是唯一 production primary。2026-10-25 已建立
+[預設停用的備援候選](T04_GEMINI_SUMMARY_CANDIDATE_20261025.md)；
+`update-news.yml` 固定 `GEMINI_SUMMARY_ENABLED=0`，即使有獨立
+`GEMINI_SUMMARY_API_KEY` 也不會送出 Gemini 摘要請求。既有
+`GEMINI_API_KEY` 僅供讀者翻譯路徑使用。Gemini 測試是獨立事件，不回溯
+改寫 Groq 的採用裁決。
 
 目前證據只支持「技術上可呼叫的備選候選」：
 

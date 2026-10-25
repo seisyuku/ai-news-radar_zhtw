@@ -42,7 +42,7 @@ export GEMINI_SUMMARY_MODEL='gemini-3.5-flash-lite'
 
 ```bash
 python scripts/diagnose_gemini.py \
-  --output /tmp/ai-news-radar-gemini-diagnostic.json
+  --output ~/Downloads/ai-news-radar-gemini-diagnostic.json
 ```
 
 此命令依序執行並在首個失敗點停止：
@@ -81,17 +81,20 @@ billing 或區域設定，不要用密集 retry 掩蓋根因。
 ```bash
 python scripts/evaluate_ai_summaries.py \
   --providers gemini \
-  --require-live \
-  --output /tmp/ai-news-radar-gemini-eval.json
+  --require-all-pass \
+  --output ~/Downloads/ai-news-radar-gemini-eval.json
 ```
 
 這一階段只送出 `tests/fixtures/ai_summary_cases.json` 的合成案例，用來判斷摘要
 格式、繁中長度、必要數字保留與提示注入防護。它不是 production 切換測試，
 也不讀取新聞 snapshot。
+`--require-all-pass` 在任一案例失敗時回傳 `1`，缺所要求的 provider 憑證時
+回傳 `2`；不能只看工具是否印出 JSON 就宣稱全綠。同案比較時將
+`--providers` 改為 `gemini,groq` 並配置兩把測試憑證。
 
 ## 證據與停止條件
 
-每次複測保留兩個 `/tmp` JSON 檔及執行時間，但不要提交 repo：
+每次複測保留兩個 `~/Downloads` JSON 檔及執行時間，但不要提交 repo：
 
 - `ai-news-radar-gemini-diagnostic.json`
 - `ai-news-radar-gemini-eval.json`（僅第一階段通過時產生）

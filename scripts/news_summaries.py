@@ -19,6 +19,8 @@ import requests
 
 UTC = timezone.utc
 DEFAULT_GROQ_MODEL = "qwen/qwen3.8-27b"
+DEFAULT_GEMINI_SUMMARY_MODEL = "gemini-3.5-flash-lite"
+DEFAULT_GEMINI_MAX_REQUESTS = 3
 DEFAULT_MAX_NEW_SUMMARIES = 6
 DEFAULT_CANDIDATE_LIMIT = 20
 DEFAULT_TIMEOUT_SECONDS = 30
@@ -188,6 +190,39 @@ def make_groq_generator(
     return generate
 
 
+def make_gemini_generator(
+    api_key: str,
+    model: str = DEFAULT_GEMINI_SUMMARY_MODEL,
+    session: requests.Session | None = None,
+) -> Callable[[str, Mapping[str, Any]], str]:
+    """Create a bounded JSON-only Gemini request; the caller controls eligibility."""
+
+    client = session or requests.Session()
+
+    def generate(prompt: str, _context: Mapping[str, Any]) -> str:
+        response = client.post(
+            f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
+            timeout=DEFAULT_TIMEOUT_SECONDS,
+            headers={"x-goog-api-key": api_key, "Content-Type": "application/json"},
+            json={
+                "contents": [{"parts": [{"text": prompt}]}],
+                "generationConfig": {
+                    "maxOutputTokens": 180,
+                    "responseMimeType": "application/json",
+                    "responseSchema": {
+                        "type": "OBJECT",
+                        "properties": {"summary": {"type": "STRING"}},
+                        "required": ["summary"],
+                    },
+                },
+            },
+        )
+        response.raise_for_status()
+        return _summary_from_model_text(response.json()["candidates"][0]["content"]["parts"][0]["text"])
+
+    return generate
+
+
 def _normalized_fact(value: str) -> str:
     return re.sub(r"[\s,]", "", value).casefold()
 
@@ -287,14 +322,18 @@ def _negative_cache_is_fresh(entry: Mapping[str, Any], now: datetime) -> bool:
     return (now - created_at.astimezone(UTC)).total_seconds() < SUMMARY_REJECTION_TTL_SECONDS
 
 
-def summary_cache_key(story: Mapping[str, Any], source_context: str, model: str) -> str:
+def summary_cache_key(story: Mapping[str, Any], source_context: str, model: str, provider: str = "groq") -> str:
+    identity = {
+        "prompt_version": SUMMARY_PROMPT_VERSION,
+        "model": model,
+        "title": _clean_text(story.get("title"), 500),
+        "source_context": source_context,
+    }
+    # Preserve existing Groq cache keys while separating Gemini by provider.
+    if provider != "groq":
+        identity["provider"] = provider
     material = json.dumps(
-        {
-            "prompt_version": SUMMARY_PROMPT_VERSION,
-            "model": model,
-            "title": _clean_text(story.get("title"), 500),
-            "source_context": source_context,
-        },
+        identity,
         ensure_ascii=False,
         sort_keys=True,
         separators=(",", ":"),
@@ -332,6 +371,11 @@ def summarize_stories(
     generate_fn: Callable[[str, Mapping[str, Any]], str] | None = None,
     now: datetime | None = None,
     candidate_limit: int = DEFAULT_CANDIDATE_LIMIT,
+    gemini_api_key: str = "",
+    gemini_model: str = DEFAULT_GEMINI_SUMMARY_MODEL,
+    gemini_enabled: bool = False,
+    gemini_max_requests: int = DEFAULT_GEMINI_MAX_REQUESTS,
+    gemini_generate_fn: Callable[[str, Mapping[str, Any]], str] | None = None,
 ) -> tuple[list[dict[str, Any]], dict[str, Any], dict[str, Any]]:
     """Attach cached/generated summaries and return public-safe run status."""
 
@@ -359,6 +403,13 @@ def summarize_stories(
         "ineligible": 0,
         "max_new": max(0, int(max_new)),
     }
+    fallback_ready = bool(gemini_enabled and (str(gemini_api_key or "").strip() or gemini_generate_fn))
+    fallback_cap = min(DEFAULT_GEMINI_MAX_REQUESTS, max(0, int(gemini_max_requests)))
+    if gemini_enabled:
+        status.update({"fallback_provider": "gemini", "fallback_enabled": fallback_ready,
+                       "fallback_attempted": 0, "fallback_generated": 0, "fallback_failed": 0,
+                       "fallback_cache_hits": 0,
+                       "fallback_max_requests": fallback_cap})
 
     contexts: dict[int, tuple[str, str]] = {}
     for index, story in enumerate(output):
@@ -369,7 +420,9 @@ def summarize_stories(
         key = summary_cache_key(story, context, model)
         contexts[index] = (context, key)
         entry = entries.get(key)
-        if isinstance(entry, Mapping) and str(entry.get("summary") or "").strip():
+        if (isinstance(entry, Mapping) and str(entry.get("summary") or "").strip()
+                and str(entry.get("provider") or "groq") == "groq"
+                and str(entry.get("model") or model) == model):
             try:
                 normalized_cached_summary = to_zh_hant_summary(entry.get("summary"))
                 validate_generated_summary(normalized_cached_summary)
@@ -388,6 +441,11 @@ def summarize_stories(
         return output, status, current
 
     generator = generate_fn or make_groq_generator(str(api_key).strip(), model=model)
+    fallback_generator = None
+    if fallback_ready and fallback_cap:
+        fallback_generator = gemini_generate_fn or make_gemini_generator(
+            str(gemini_api_key).strip(), model=gemini_model
+        )
     considered = 0
     for index in _candidate_order(output):
         if considered >= max(0, int(candidate_limit)):
@@ -417,13 +475,62 @@ def summarize_stories(
                 source_text=f"{_clean_text(output[index].get('title'), 500)}\n{context}",
             )
         except Exception as exc:
-            status["failed"] += 1
-            status["last_error_type"] = type(exc).__name__
-            detail = public_summary_failure_detail(exc)
-            if detail:
-                status["last_error_detail"] = detail
-                if detail in _NEGATIVE_CACHE_REASONS:
-                    rejections[key] = {"reason": detail, "created_at": created_at}
+            # Only a provider/transport failure may trigger fallback. Local
+            # validation failures and absent source context never do.
+            if not isinstance(exc, requests.RequestException) or not fallback_ready:
+                status["failed"] += 1
+                status["last_error_type"] = type(exc).__name__
+                detail = public_summary_failure_detail(exc)
+                if detail:
+                    status["last_error_detail"] = detail
+                    if detail in _NEGATIVE_CACHE_REASONS:
+                        rejections[key] = {"reason": detail, "created_at": created_at}
+                continue
+            fallback_key = summary_cache_key(output[index], context, gemini_model, provider="gemini")
+            fallback_entry = entries.get(fallback_key)
+            if (isinstance(fallback_entry, Mapping) and str(fallback_entry.get("summary") or "").strip()
+                    and fallback_entry.get("provider") == "gemini"
+                    and fallback_entry.get("model") == gemini_model):
+                try:
+                    cached_summary = to_zh_hant_summary(fallback_entry["summary"])
+                    validate_generated_summary(
+                        cached_summary,
+                        source_text=f"{_clean_text(output[index].get('title'), 500)}\n{context}",
+                    )
+                except ValueError:
+                    entries.pop(fallback_key, None)
+                else:
+                    if cached_summary != fallback_entry["summary"]:
+                        fallback_entry = {**fallback_entry, "summary": cached_summary}
+                        entries[fallback_key] = fallback_entry
+                    output[index] = _attach_summary(output[index], fallback_entry)
+                    status["fallback_cache_hits"] += 1
+                    continue
+            if fallback_generator is None or status["fallback_attempted"] >= fallback_cap:
+                status["failed"] += 1
+                status["last_error_type"] = type(exc).__name__
+                continue
+            status["fallback_attempted"] += 1
+            try:
+                fallback_raw = fallback_generator(build_story_summary_prompt(output[index], context), output[index])
+                summary = validate_generated_summary(
+                    to_zh_hant_summary(fallback_raw),
+                    source_text=f"{_clean_text(output[index].get('title'), 500)}\n{context}",
+                )
+            except Exception as fallback_exc:
+                status["failed"] += 1
+                status["fallback_failed"] += 1
+                status["last_error_type"] = type(fallback_exc).__name__
+                detail = public_summary_failure_detail(fallback_exc)
+                if detail:
+                    status["last_error_detail"] = detail
+                continue
+            entry = {"summary": summary, "provider": "gemini", "model": gemini_model,
+                     "created_at": created_at}
+            entries[fallback_key] = entry
+            output[index] = _attach_summary(output[index], entry)
+            status["generated"] += 1
+            status["fallback_generated"] += 1
             continue
         entry = {
             "summary": summary,
