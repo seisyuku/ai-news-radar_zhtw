@@ -16,7 +16,7 @@
 
 | 編號 | 優先級 | 項目 | 狀態 | 下一個可交接動作 |
 | --- | --- | --- | --- | --- |
-| T04 | P1 | Gemini摘要備援 | 離線候選完成／實際provider驗收未完成／正式停用 | 取得合成案例雙provider及三分離時段證據，再裁決啟用。 |
+| T04 | P1 | Gemini摘要備援 | 離線候選完成／首個實測時段完成／正式停用 | 補足至少兩個分離時段，再裁決啟用。 |
 | T05 | P1 | Canary品質與漏報評估 | 擱置／待評估 | 優先檢查既有候選資料是否足夠，再列證據缺口。 |
 | T06 | P2 | 翻譯快取成長治理 | 待量測／待決策 | 以明確唯讀任務建立量測及適用限制證據。 |
 
@@ -24,7 +24,10 @@
 
 狀態為qualified backup candidate, disabled by default，正式摘要仍以Groq為primary。已運作的Gemini翻譯是另一條路徑。
 
-2026-10-25 已建立預設停用的候選程式與離線驗收，詳見[T04候選](T04_GEMINI_SUMMARY_CANDIDATE_20261025.md)；沒有呼叫新的摘要provider，也沒有更改正式排程的停用值。
+2026-10-25 已建立預設停用的候選程式、離線驗收與合成專用 Actions；
+首個時段 Gemini 診斷及 10 個可生成案例全綠，Groq 同案 9 過 1 漏。
+詳見[T04候選與實測](T04_GEMINI_SUMMARY_CANDIDATE_20261025.md)；沒有向
+Gemini 傳送真實新聞，也沒有更改正式排程的停用值。
 
 完成條件沿用OPERATIONS的Gemini摘要acceptance gates：提示注入驗收裁決、至少三個分離時段diagnostic/eval、同案比較、失敗觸發矩陣、防雙重呼叫、獨立secret／provider+model快取身份／成本上限與雙provider失敗行為。啟用前重新核對當時條款、限制與成本，取得既有要求的明確接受。本台帳未授權把真實publisher feed送往新摘要provider。
 
