@@ -3,6 +3,8 @@
 This project should help readers track material AI-industry events without
 forcing them to follow noisy timelines or manage many source choices.
 
+2026-10-25 的[全站來源盤點](SOURCE_AUDIT_20261025.md)核對近期健康、24 小時來源分布及未判明媒體名稱；目前不調整任何來源等級。讀者名稱顯示的本機修正尚未發布。
+
 ## CyberQ／AlphaLab 正式一般入口（2026-10-25）
 
 兩站各以公開原站 RSS 接入既有 `tw_media` 收件群組，使用獨立 `source_id`，新聞入口由 39 增至 41；不新增排程、前端模式、來源計票鍵或上方重點／雷達權限。AlphaLab 只接受 RSS 標為本站 AI 分類的文章；CyberQ 排除整期彙整、教學及已知 AI 附帶提及的稿件。兩站都只收原站 HTTPS 文章、明確原發布時間與短摘要，並經現行 AI／PG 判定；每站最多八篇，收件回補上限五日。讀者可見時間仍為全站滾動 24 小時。
@@ -17,7 +19,7 @@ forcing them to follow noisy timelines or manage many source choices.
 
 固定七日 120 篇的隔離回放：CyberQ 8 篇、AlphaLab 18 篇，共 26 篇符合目前預篩、AI 與 PG 一般範圍；其中 16 篇為前階段暫判有效，新增 10 篇亦按標題與原站短摘要暫判適合一般 AI 情報（含一篇明確標為預測的算力展望）。這是同一批開發樣本的回看，不能當獨立 precision 或七日單次 RSS 收件能力。AlphaLab 85 篇中的 43 篇可對上當前 RSS 分類，其餘 42 篇用文章 `article:section` 核對；64 篇標為 AI。仍有至少 13 篇看似有價值的 AlphaLab AI 分類分析稿被現行 AI 判定排除，另有 CyberQ 個別漏收待審，因此 26 **不是來源全部有效稿件的上限**。
 
-若依既定接線設計，兩站保留各自 `source_id` 並使用 `tw_media` 的 `site_id`，26 篇中有 2 篇可在七日回放的下方精選門檻競爭勝出；當前單頁 RSS 隔離收得 10 篇，最近 24 小時有 3 篇可進一般池、0 篇達下方精選。現行預設政策仍為未審／rank 6：允許一般，禁止上方重點與雷達。實際正式入口及 scope 尚未接入；不得把七日回放、同 URL 零重複或同批正反例全通過當成來源准入結論。詳細審查在 Downloads `ai-radar-candidate-probe-20261025-stage2/STAGE2_VALIDATION.md`。
+當時若依既定接線設計，兩站保留各自 `source_id` 並使用 `tw_media` 的 `site_id`，26 篇中有 2 篇可在七日回放的下方精選門檻競爭勝出；當時單頁 RSS 隔離收得 10 篇，最近 24 小時有 3 篇可進一般池、0 篇達下方精選。當時預設政策為未審／rank 6：允許一般，禁止上方重點與雷達；正式入口及 scope 尚未接入。後續 2026-10-25 正式 RSS 接入見本頁首節；不得把七日回放、同 URL 零重複或同批正反例全通過當成來源准入結論。詳細審查在 Downloads `ai-radar-candidate-probe-20261025-stage2/STAGE2_VALIDATION.md`。
 
 ## CyberQ／AlphaLab 隔離收件第一階段（2026-10-25，當時未准入）
 
@@ -31,7 +33,7 @@ forcing them to follow noisy timelines or manage many source choices.
 
 [I04正式發布](SIGNAL_SELECTION_I04_RELEASE_20261024.md)接續PG06來源治理：來源registry、39入口、准入／封存裁決、發布者身分與計票鍵均未變，沒有新增來源品質升降級。schema2用途投影將合格核心優先、具體產業動態與有材料的能力／安全披露補位，保留廠商宣稱及未發布標示；首頁／daily升版，雷達仍沿用原材料資格。這不是讓reported／unknown／unreviewed繼承聚合入口精選資格。原PG06結案及隔離限制保持，independent_precision仍not_evaluable。
 
-## PG06正式發布完成（2026-10-24，目前入口）
+## PG06正式發布完成（2026-10-24，歷史基礎）
 
 [PG06發布與結案](PUBLISHER_GOVERNANCE_PG06_RELEASE_20261024.md)已正式部署發布者識別、scoped來源政策及共用首頁／daily／雷達資格。後端先由既有刷新產生ready資料，再上前端；正式HTTP、CI／Pages與Chrome桌機／手機通過。來源registry、39新聞入口、准入裁決與既有計票鍵均沿用定稿，沒有新增來源品質升降級。
 
@@ -230,13 +232,13 @@ private forks because they need credentials, bridges, or ongoing maintenance.
 
 ## Source Selection Rules
 
-### 2026-10-21 整體修正入口與正式基準
+### 2026-10-21 整體修正入口與正式基準（歷史）
 
 新來源准入與既有來源刪減／優化統一依[來源治理計畫](SOURCE_GOVERNANCE_PLAN_20261021.md)
 接續；S01的[來源名冊與正式狀態](SOURCE_GOVERNANCE_BASELINE_20261021.md)涵蓋實際
 fetch路徑、OPML邊界及獨立感測器。正式22:58臺北快照確認INSIDE、RuntimeWire、
 Anthropic抓取成功，三個已移除入口不在curated_media；不代表長窗品質審查完成。
-目前不新增或調級來源。電腦王阿達依使用者明確裁決排除，不列P2候選。
+當時未新增或調級來源。電腦王阿達依使用者明確裁決排除，不列P2候選。
 S02已完成[審查](SOURCE_GOVERNANCE_S02_REVIEW_20261021.md)及
 [評估契約v1](SOURCE_EVALUATION_CONTRACT_20261021.md)：凍結分母、最低樣本、未知案例、
 穩定性與事件增益規則；S03固定版本後才做真實觀察。
@@ -245,7 +247,7 @@ S02已完成[審查](SOURCE_GOVERNANCE_S02_REVIEW_20261021.md)及
 外部停用並推送封存差異，私人開關false讀回；來源觀察code與有限七日workflow曾推送啟用。
 原訂10/22～10/28、臺北08:00／08:30採樣，後依使用者選擇[方案A](SOURCE_GOVERNANCE_EARLY_CLOSE_20261022.md)，
 10/22 12:41兩實驗workflow已停用並封存；不再等待後續日期，七日穩定性未驗收、品質門檻不降。
-[A02集中評估](SOURCE_GOVERNANCE_A02_ASSESSMENT_20261022.md)後，A03已裁定八候選本輪不准入封存，A06正式結案；沒有新候選准入或持續採樣待辦。
+[A02集中評估](SOURCE_GOVERNANCE_A02_ASSESSMENT_20261022.md)後，A03當時裁定八候選本輪不准入封存，A06正式結案；後續 CyberQ 以新官方 RSS 路線接入一般池，舊 `shadow/cyberq` 封存裁決不變，亦未恢復持續採樣。
 首日技術驗真見[S03狀態](SOURCE_GOVERNANCE_S03_STATUS_20261022.md)。
 上方私人日報摘要／補讀等為既有技術行為記錄，不代表繼續啟用該工作。
 公開RSS摘要保存、Radar精選及來源治理繼續維護。

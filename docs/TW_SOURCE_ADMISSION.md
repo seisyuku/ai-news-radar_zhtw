@@ -1,11 +1,11 @@
 # 台灣媒體來源准入影子測試
 
 <!-- task-ledger-history: v1 -->
-> **2026-10-24狀態：該批候選已封存／工具參考。** 此批五站與其餘三候選共八站已not_admitted_closed，沒有准入或持續觀察待辦。工具可供另案明確指定使用，本頁命令不構成本次live重測授權。見[A03裁決](SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md)及[A06結案](SOURCE_GOVERNANCE_A06_RELEASE_20261022.md)。
+> **現行狀態（2026-10-25）：本頁記錄舊影子評估。** A03當時八個候選來源列為not_admitted_closed，沒有持續觀察待辦；其中舊 `shadow/cyberq` 仍是封存紀錄。CyberQ 後來以新 `tw_media/cyberq` 官方 RSS 路線接入一般池，AlphaLab 也以獨立 RSS 入口接入；見[現行來源政策](SOURCE_COVERAGE.md)。本頁工具與命令不構成重新執行七日觀察或回放的待辦。歷史裁決見[A03](SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md)及[A06](SOURCE_GOVERNANCE_A06_RELEASE_20261022.md)。
 > 現行任務見[TASK_LEDGER](TASK_LEDGER.md)，方向見[ROADMAP](ROADMAP.md)。
 <!-- /task-ledger-history -->
 
-本輪僅建立可移除的維護者工具，五站仍未正式准入。工具不被
+當時僅建立可移除的維護者工具，五站當時未正式准入。此舊工具不被
 `update_news.py` 匯入，不寫公開新聞池、來源健康、排名或私人日報，
 沒有排程、LLM、憑證、付費 API 或新依賴。
 

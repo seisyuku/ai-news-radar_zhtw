@@ -361,7 +361,30 @@ function sourceDisplayName(item) {
   if (publisher?.schema_version === 1) {
     if (["identified", "reported"].includes(publisher.status) && typeof publisher.name === "string" && publisher.name.trim()) return publisher.name.trim();
     if (publisher.status === "conflict") return "來源資訊衝突";
-    if (publisher.status === "unknown") return "來源待辨識";
+    if (publisher.status === "unknown") {
+      try {
+        const article = new URL(item?.url || "");
+        const host = article.hostname.toLowerCase();
+        if (["http:", "https:"].includes(article.protocol) && !article.username && !article.password
+          && host && host !== "news.google.com" && host === publisher.domain?.toLowerCase()) {
+          const ingress = item?.ingress;
+          const policy = item?.source_policy;
+          if (ingress?.kind === "public_feed" && ingress.site_id === item?.site_id
+            && typeof ingress.source_id === "string" && ingress.source_id
+            && ingress.source_id === policy?.scope_id && policy?.policy_id === "publisher-governance-v1"
+            && policy.admission_status === "unreviewed" && typeof ingress.name === "string"
+            && ingress.name.trim() && ingress.name === item?.source) {
+            try {
+              const feed = new URL(ingress.feed_url || "");
+              if (["http:", "https:"].includes(feed.protocol) && !feed.username && !feed.password
+                && feed.hostname.toLowerCase() === host) return ingress.name.trim();
+            } catch { /* keep the verified article host below */ }
+          }
+          return host;
+        }
+      } catch { /* malformed URL: keep the unknown label */ }
+      return "來源待辨識";
+    }
   }
   const source = String(item?.source || item?.source_name || "").trim();
   return source.toLowerCase() === "aibase" ? "AIBASE" : (source || readerSiteName(item));

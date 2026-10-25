@@ -1,5 +1,7 @@
 # C08-D：Google Drive 校稿與設定試用
 
+> **歷史試用（2026-10-25）：** 私人日報自動生成、派送與排程已退役；下列授權及設定待辦只記當時試驗，不是現行工作。見[取消盤點](RETIREMENT_AUDIT_20261025.md)。
+
 ## 2026-10-12 新app授權交付試驗
 
 使用者完成專案自己的desktop OAuth/drive.file授權後，已經由本機程式實際刷新token並建立三份合成native Google Docs。不是使用ChatGPT connector代替GitHub授權：這次建立/複製/修改/讀回由新app憑證執行，connector另做三份讀取驗證。

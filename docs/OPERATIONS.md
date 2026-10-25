@@ -1,5 +1,7 @@
 # Operations Notes
 
+私人日報、七日來源觀察與七日回放的取消狀態及相依功能移除評估見[2026-10-25盤點](RETIREMENT_AUDIT_20261025.md)。現行公開刷新、Pages、daily-brief 與全站 24 小時讀者窗口維持。
+
 ## 2026-10-25 CyberQ／AlphaLab 一般入口發布
 
 本次來源接線、刷新與公開 Pages 驗證記在[交接摘要](HANDOVER.md)；來源範圍及未審政策見[來源覆蓋](SOURCE_COVERAGE.md)。兩站沿用現有刷新與子來源健康機制，沒有新排程。
@@ -51,8 +53,7 @@ heartbeat、Pages與daily-brief持續按既有設定運作。
 ## 2026-10-22 日報自動化退役（外部停用與封存提交已落地）
 
 使用者撤回日報自動生成、自動派送與排程目標，改為在Web Chat專案主動要求
-收集題目／產生文檔。下方日報生成、Drive交付及三日排程驗收均為歷史操作，
-不再作為應恢復或完成的目標。已產生的稿件與校稿保留。
+收集題目／產生文檔。舊日報生成、Drive交付及三日排程驗收不再作為應恢復或完成的目標。已產生的稿件與校稿保留。
 
 S03已推送封存提交`7b2f8e1f256f`，移除自動觸發，手動dispatch也以false job禁用；
 兩份workflow讀回disabled_manually、無在途run，私人開關false讀回。1495項回歸、
@@ -63,114 +64,16 @@ D00驗收完成，證據見[S03狀態](SOURCE_GOVERNANCE_S03_STATUS_20261022.md)
 具體順序、邊界及驗收見[日報退役交接](DIGEST_RETIREMENT_HANDOFF_20261021.md)。
 Radar的update-news、watchdog、外部heartbeat、Pages及公開daily-brief持續維護。
 
-> **歷史補註（2026-10-24）**：下段記S03啟用時的實驗，不是目前排程。已由A01提前停止、A06同步enabled=false，原D7／D8義務取消；不依下段恢復採樣或寄信。任務見[TASK_LEDGER](TASK_LEDGER.md)，結案見[A06](SOURCE_GOVERNANCE_A06_RELEASE_20261022.md)。
+原S03來源七日觀察規格與每日通知流程已由A01提前停止、A06發布 `enabled=false`；原D7／D8及收尾 Email 義務取消。歷史契約與實際停用證據分別見[評估契約v2](SOURCE_EVALUATION_CONTRACT_20261022.md)、[S03狀態](SOURCE_GOVERNANCE_S03_STATUS_20261022.md)及[A06結案](SOURCE_GOVERNANCE_A06_RELEASE_20261022.md)。
 
-來源七日觀察另案、已部署，依使用者10/22新要求固定2026-10-22～10-28，
-臺北08:00主採樣／08:30補採樣、08:50截止、09:05核對；不得把撤回日報目標當成取消全部Radar排程。
-S03啟用實驗前須核對[審查結論](SOURCE_GOVERNANCE_S02_REVIEW_20261021.md)與
-[評估／停止契約v2](SOURCE_EVALUATION_CONTRACT_20261022.md)。SMTP與兩封實收已驗；使用者本人
-接手10/28 D7核查及最晚10/29 D8臺北08:00異常停用。只停用兩份tw-source實驗workflow，
-具體名稱與命令見[S03狀態](SOURCE_GOVERNANCE_S03_STATUS_20261022.md)。一次性SMTP驗收入口已停用，
-不重寄驗收信；10/22首日主補採樣、artifact、SMTP250、自然旁接去重與負荷已真驗。
-當日來源unmet如實寄報；使用者已確認今天D1郵件實收，S03驗收完成，見[S03狀態](SOURCE_GOVERNANCE_S03_STATUS_20261022.md)。
+## 公開精選診斷與私人日報歷史
 
-## 第二版日報與公開精選診斷（2026-10-12，日報部分為歷史）
-
-公開 daily-brief 的 `selection_diagnostics`、來源健康快照 `brief_selection`
-及生成日誌保留候選／入選／排除數、最高分與空結果原因。公開精選的0.72／
-兩來源門檻不變，不能與私人日報政策混為一談。
-
-私人日報預設 `daily-news-v2`：自動選最多10則，不設最低篇數，也不另附
-人工候選池；只用既有標題與出版者摘要，不新增LLM。無摘要則只列標題／連結。
-入選科技新報的截斷摘要可補讀原文第一段一次，捕捉值寫入私人metadata；
-配對核對／重建讀取該值，不能重新抓取。頁面讀取失敗只留標題／連結。
-
-`current-event-v2`在選題前依既有RSS保存的文章引用或同出版者產品摘要高度重疊去除同新聞重複名額，
-保留既有選題排名較高的一則（優先級、分數、固定ID同分排序），並依原排序補入下一則。
-不同談論點／明示新進展維持獨立。RSS同次解析新增最多24個`publisher_links`，
-沒有新增請求、來源、LLM或每日人工操作。原引用數與分數不因引用稿提高；
-引用與重複稿材料另存私人metadata；內容比對條件見DIGEST_USAGE，缺乏材料時維持候選，不補抓全文。
-離線可選的當期使用者確認不會自動成為日後的永久規則或被每日工作載入。
-
-原有06～06期別、主／補試時段、設定啟停、來源時效與原稿／校稿保存規則
-保持。已交付當期仍核對後跳過，不為新政策重送或覆寫。安全生成摘要只輸出
-題數與 `selection_empty_reason` 等受控欄位，不公開稿件或來源網址。
-正式接入狀態與CI結果以HANDOVER最新記錄為準。
-
-2026-10-14起新Drive期別按`ChatGPT / AI日報草稿 / 日期 / 當期稿件`保存，
-同日期下另放`執行紀錄`或明確手動驗證的`歷史試稿`；設定Doc直接在AI日報草稿內。
-固定目的地／設定ID不變，未重設Secrets或授權；舊平列期別仍可續接。
-10月15日自然排程驗收新階層，既有06～06、主／補試及選題不改。
-
-## Daily private digest — enabled with existing heartbeat (2026-10-12)
-
-> **歷史操作：日報自動化已退役。** 下列啟用、派送及待驗文字只記當時流程，不恢復自動化；現行狀態見[TASK_LEDGER](TASK_LEDGER.md)與[D00結案](DIGEST_RETIREMENT_HANDOFF_20261021.md)。
-
-[每日觸發A](DIGEST_DAILY_TRIGGER_PROPOSAL.md)已獲准並部署；私人設定已true，GitHub workflow active／[CI success](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/38163403768)。本機完整1062測試通過。第一筆真正當期與連續三日觀察仍待上午實際事件，不以歷史稿或夜間skipped補驗。
-
-每日操作：Mac可以關機。上午在iPhone一般Chat使用Google Drive找「AI 新聞日報｜當天日期｜校稿副本」，要求列出標題，再口述保留題目／校稿；原稿與副本分開。原文連結在文件內，發布仍由維護者人工決定，約11:30為目標。沒有要求09:00操作Mac或逐字語音轉寫驗收。
-
-主嘗試窗口07:15～08:15、補試08:15～08:45，依既有外部心跳通常約07:35／08:35。已成功保存的當期，補試核對後跳過；沒有新資料或部分保存失敗就不冒稱成功。[Actions執行紀錄](https://github.com/seisyuku/ai-news-radar_zhtw/actions/workflows/digest-generation.yml)可手機查閱，當期應有event=workflow_run與delivery_verified=true；skipped／automation_disabled不是新交付。歷史mode不計當日。
-
-| 當期狀態 | 操作 |
-| --- | --- |
-| generated、delivery_verified=true、storage_quality=ready-for-review | 開當期校稿副本並人工核對新聞；storage_timeliness=on_time才算09:00前保存 |
-| skipped、already_delivered、delivery_verified=true | 已核對原先保存的當期；保留首次完成時間，繼續使用同一副本 |
-| review-only／archive_stale等 | 沒有新的自動私人稿；補試尚未用掉可等待，之後用明確期別手動補跑 |
-| existing_issue_incomplete／existing_delivery_invalid | 已有部分檔案或核對失敗；停止，保留現況交給維護者，不自動換base或刪檔 |
-| attempt_already_recorded／outside_attempt_window | 沒有開始新生成，不代表當期已完成；查同日期其他執行紀錄 |
-
-暫停方法：在原「日報設定」Google Doc把JSON的automation_enabled改為false，保存即可；復原true只恢復已部署每日入口。它不建立新排程或改新聞窗口。手動workflow仍需明確date、選historical／deliver_drive。設定Doc保持本人存取，真連結只在私人交接與使用者交付。
-
-連續三日驗收：每天查真正workflow_run、當期期別、首次delivery紀錄及storage_saved_at／timeliness，至少一筆ready且09:00前保存；漏觸發／過舊／部分保存記實際原因。每日紀錄由Actions與私人Drive保存，人工校稿不是自動發布驗收。不能拿後來重送時間改寫第一筆交付，或用手動歷史成功填補缺日。
-
-## Daily digest — optional private Drive delivery (2026-10-12)
-
-> **歷史操作：日報自動化已退役。** 下列啟用、派送及待驗文字只記當時流程，不恢復自動化；現行狀態見[TASK_LEDGER](TASK_LEDGER.md)與[D00結案](DIGEST_RETIREMENT_HANDOFF_20261021.md)。
-
-使用者批准單人Drive交付，不增加交易控制服務。手動Daily digest generation check新增deliver_drive預設false；勾選後保存原始pair及native原稿/校稿，既有人工稿不覆寫，公開log不含私人內容/URLs。Secrets、設定格式、重送與失敗規則見 [Drive交付操作](DIGEST_GOOGLE_DRIVE_DELIVERY.md)。iPhone新app副本開啟已驗；OAuth已切In production並完成新授權，新token runner歷史交付已驗。每日觸發A已部署，私人設定automation_enabled=true讀回成功；生成位置與06～06不改，沒有新cron/來源刷新/通知/公開稿發布。
-
-## Daily digest — personal Google phone authorization preparation (2026-10-11)
-
-> **歷史操作：日報自動化已退役。** 下列啟用、派送及待驗文字只記當時流程，不恢復自動化；現行狀態見[TASK_LEDGER](TASK_LEDGER.md)與[D00結案](DIGEST_RETIREMENT_HANDOFF_20261021.md)。
-
-iPhone已實測三份試用文件可開，帳號為個人Google；Google設定保存手機確認與普通文字連結偏好。
-新增Drive-file-only OAuth device helper及合成測試；沒有啟真OAuth或更動workflow。
-需要先選Google Cloud專案，再設專案client與手機登入；見 [Google授權準備](DIGEST_GOOGLE_DRIVE_AUTH.md)。
-refresh憑證只入Downloads私人檔案與未來指定GitHub secret，不放對話／公開稿；正式每日保存仍待驗。
-
-## Daily digest — Google Drive editorial/settings trial (2026-10-10)
-
-> **歷史操作：日報自動化已退役。** 下列啟用、派送及待驗文字只記當時流程，不恢復自動化；現行狀態見[TASK_LEDGER](TASK_LEDGER.md)與[D00結案](DIGEST_RETIREMENT_HANDOFF_20261021.md)。
-
-現有connector已完成合成設定、原稿、副本校稿及讀回；metadata只列owner，沒有改分享。
-設定尚未供runner使用，GitHub尚未具有專案Google授權；沒有啟動每日保存或修改生成工作。
-手機新連結與帳號類型確認後才準備具體授權接線，見 [Drive試用與限制](DIGEST_GOOGLE_DRIVE_TRIAL.md)。
-私人文件URL/ID只保存在Downloads交接，不進公開repo／Actions摘要。
-
-## Daily digest — GitHub generation before private cloud delivery (2026-10-10)
-
-> **歷史操作：日報自動化已退役。** 下列啟用、派送及待驗文字只記當時流程，不恢復自動化；現行狀態見[TASK_LEDGER](TASK_LEDGER.md)與[D00結案](DIGEST_RETIREMENT_HANDOFF_20261021.md)。
-
-最新決策：生成在 GitHub Actions，Cloudflare／私人登入接入延後，不能阻擋生成準備。
-新增手動 `digest-generation.yml` 與 `generate_digest_job.py`，直接讀 checkout 的三檔資料，
-以明確期別生成 MD/meta、核對及獨立重跑；工作結束清除稿件，只留安全摘要。
-這批變更尚未發布；`generated` 不代表持久保存或手機可讀，私人保存位置待選。
-不新增遠端或正本 SHA 查驗；原稿 pair 完整性核對保留。
-詳見 [生成操作與範圍](DIGEST_GITHUB_GENERATION.md)。既有刷新、Pages與日報驗證排程保持原設定。
-
-## Daily digest — private local manual delivery (2026-10-03)
-
-> **歷史操作：日報自動化已退役。** 下列啟用、派送及待驗文字只記當時流程，不恢復自動化；現行狀態見[TASK_LEDGER](TASK_LEDGER.md)與[D00結案](DIGEST_RETIREMENT_HANDOFF_20261021.md)。
-
-使用者已選本機私人交付，手動入口 `scripts/deliver_digest.py --date YYYY-MM-DD`
-固定遠端commit三檔，下載至Downloads、核對後交付私人版本目錄；見
-[DIGEST_USAGE](DIGEST_USAGE.md)。來源刷新／Pages／CI artifact不變，無需發布本機程式。
-資料不足僅review-only；下載／核對失敗不覆蓋舊成功稿，同期有程序鎖。
-2026-10-03使用者將後續驗證移至GitHub；新增Daily digest validation，07:15／08:15
-跑唯讀固定快照、pair核對與相同bytes重跑，只留安全Step Summary，不上傳草稿／輸入。
-見 [三日驗收](DIGEST_GITHUB_VALIDATION.md)。私人稿仍由本機手動交付；沒有本機automation。
-O01三日schedule驗收待實際紀錄，09:00人工檢查／11:30人工發布維持；不保證準時。
+公開 `daily-brief.json` 的 `selection_diagnostics`、來源健康快照的
+`brief_selection` 及生成日誌仍用於目前的網站維運；全站讀者視窗維持 24 小時。
+私人日報的生成、驗證、Drive 派送與每日觸發已退役，不能依舊操作說明重新啟用。
+歷史設計與退役證據見[日報退役交接](DIGEST_RETIREMENT_HANDOFF_20261021.md)、
+[私人日報使用研究](DIGEST_USAGE.md)及 Git 紀錄；不再把過時的排程、登入與派送步驟
+列在現行維運手冊。
 
 ## Pre-push source boundary fixes (2026-10-03)
 
@@ -283,6 +186,8 @@ the same line. Bump the tag by hand, as part of the PR that changes the
 asset, same as any other source change.
 
 ## Optional Groq news summaries
+
+T03 既有資料跨期回顧已完成，維持每輪成功新增六則上限與現有 prompt；樣本、可用率、失敗與快取限制見[評估紀錄](GROQ_SUMMARY_T03_REVIEW_20261025.md)。
 
 重點卡片的「AI 新聞摘要」由 `scripts/news_summaries.py` 產生，預設模型
 是 Groq `qwen/qwen3.8-27b`。這是選用的增強層，不是資料更新的必要條件：

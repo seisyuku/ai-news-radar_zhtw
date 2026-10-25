@@ -1,10 +1,12 @@
 # GitHub → 私人 Google Drive：單人交付
 
+> **歷史操作（2026-10-25）：私人日報生成、派送與每日觸發已退役。** 下列 Actions、設定及交付步驟只記錄舊實作，不是可執行的現行維運流程；`digest-generation.yml` 已停用且工作永久跳過。現況見[取消盤點](RETIREMENT_AUDIT_20261025.md)與[D00退役交接](DIGEST_RETIREMENT_HANDOFF_20261021.md)。
+
 更新：2026-10-14。使用者已批准 [簡化交付標準](DIGEST_CLOUD_CONTRACT.md)，不新增交易控制服務。
 
-實測結果：GitHub [38157491285](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/38157491285)手動historical+deliver_drive成功，runner私人保存/readback、pair/rerun核對完成，沒有公開artifact。這是06:00截止前的歷史驗證，0題review-only，不是有效當期日報。現有Offline tests亦成功，無新排程。Google正式狀態與重新授權現已完成，既有憑證Secret已更新；新token本機刷新／私人設定讀取成功，後續[38162146429](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/38162146429)已由runner完成10/11歷史交付3則，不算10/12當期。[每日觸發方案A](DIGEST_DAILY_TRIGGER_PROPOSAL.md)已部署／私人設定啟用；下一階段為有效當期與三日驗收，不再重問Drive選型或重測iPhone。
+當時實測結果：GitHub [38157491285](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/38157491285)手動historical+deliver_drive成功，runner私人保存/readback、pair/rerun核對完成，沒有公開artifact。這是06:00截止前的歷史驗證，0題review-only，不是有效當期日報。當時Offline tests亦成功，無新排程。Google正式狀態與重新授權當時已完成，既有憑證Secret已更新；新token本機刷新／私人設定讀取成功，後續[38162146429](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/38162146429)已由runner完成10/11歷史交付3則，不算10/12當期。[每日觸發方案A](DIGEST_DAILY_TRIGGER_PROPOSAL.md)其後曾部署／啟用；原有效當期與三日驗收待辦已於 D00 撤回。
 
-## 操作入口
+## 歷史操作入口（已停用）
 
 Actions → **Daily digest generation check** → Run workflow：填明確臺北期別；舊資料補驗勾historical；需要私人保存時勾deliver_drive（預設false）。固定前日06:00～當日06:00，不推測日期、不新增來源刷新或LLM呼叫。
 
@@ -29,7 +31,7 @@ credentials Secret使用compact單行JSON，避免GitHub把多行Secret中單獨
 
 私人`日期/執行紀錄`資料夾各slot留一次attempt紀錄。未達標資料不保存，補試可取較新快照；已有`日期/當期稿件`但缺delivery紀錄，停止為existing_issue_incomplete，不換base或覆寫。首次交付後在當期資料夾保存並讀回delivery.json，記原始pair／Docs IDs及首次核對時間。後續核對已保存pair、可讀原稿與校稿存在，跳過生成；人工校稿可不同，首次時效不因重送改寫。成功紀錄無法核對則停止。它是單人去重與交付證據，不是跨檔原子交易。
 
-首次有效當期自動交付及三日準時觀察仍需真正的workflow_run與保存紀錄，不以歷史run或夜間跳過冒充。詳見[觸發方案](DIGEST_DAILY_TRIGGER_PROPOSAL.md)及HANDOVER。
+當時若要驗收首次有效當期自動交付與三日準時觀察，須有真正的workflow_run及保存紀錄，不能用歷史run或夜間跳過冒充；該驗收現已撤回。歷史方案見[觸發提案](DIGEST_DAILY_TRIGGER_PROPOSAL.md)。
 
 ## 保存及重送
 
