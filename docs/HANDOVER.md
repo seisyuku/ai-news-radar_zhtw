@@ -1,5 +1,11 @@
 # AI News Radar Pulse — 交接摘要（截至 2026-10-25）
 
+T05 依現行產品定位結案：原 Usage4Claude／Claude Usage Monitor commit-feed Canary
+與「額度與政策速報」入口已移除；價格偵測、一般新聞、模型雷達與 24 小時窗口保留。
+舊 `market-signals.json` 的 Canary 卡片會被前端拒絕，首次正常刷新會移除舊卡片及
+`market-sensor-state.json` 的 Canary seen IDs；免費額度歷史 baseline 保留。
+不再做 14 天 Canary 品質研究或擴張來源。詳見[任務台帳](TASK_LEDGER.md)。
+
 T01 一般列表六類事件徽章與高階篩選已[正式發布與驗收結案](T01_EVENT_FILTER_IMPLEMENTATION_20261025.md)：沿用既有 `business_events`，預設畫面、來源／時間／原文與 24 小時規則保持。首次提交 `1a7d1e8020bc` 的資產版本 CI 與 Pages 成功；測試環境補丁 `71e96b67a21e` 後完整離線套件 2,319 項及 GitHub 離線 CI 成功，補丁 Pages 亦成功。正式站首頁與 `app.js` 位元組一致、版本 `20261025-t01`；Chrome 桌機／手機六類篩選驗收通過。無下一必跑階段；日常維護建議 GPT-6.1 Sol／Medium，修程式 High。
 
 T02 已用 10/11～10/24 的既有 Git 快照完成 14 日模型雷達來源健康及明確誤報評估，定義將來的模型對齊／長窗品質契約，決定暫不新增 `model_significance`。44 個不同警報中，43 個缺結構化供應商與產品，至少 10 個標題明確不是已發布模型；完整結果及限制見[T02評估](MODEL_LIFECYCLE_T02_REVIEW_20261025.md)。全站仍採 24 小時讀者窗口，沒有恢復七日來源觀察。

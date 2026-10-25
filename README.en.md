@@ -41,7 +41,7 @@ to its original source.
 
 Structured snapshots track model price changes. The automatic free-tier
 dataset monitor is retired; related news can still appear under the usual
-editorial rules. Usage-policy canaries remain explicitly unconfirmed leads.
+editorial rules. The two usage-policy commit-feed canaries have been retired.
 Multiple versions from one publisher count once. Multiple-publisher labels
 describe identified publishers or existing aggregator groups, not verified facts.
 
