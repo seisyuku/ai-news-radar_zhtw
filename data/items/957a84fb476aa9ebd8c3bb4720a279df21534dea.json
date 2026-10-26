@@ -1,0 +1,59 @@
+{
+  "id": "957a84fb476aa9ebd8c3bb4720a279df21534dea",
+  "published_at": "2026-10-26T21:52:23Z",
+  "first_seen_at": "2026-10-26T23:35:32.364232Z",
+  "site_id": "curated_media",
+  "site_name": "精選媒體",
+  "source": "Reuters AI (Google News)",
+  "title": "Trading Day: AI light, Brazil flight - Reuters",
+  "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQeGtjajJzcHA3THZRdGdBS1B0Tm9tZFhzU2ZhdE1ETng2dU1BdDFrckpuYng5YnhHT0g3UkwtWnR5U2RpMWt6OXlMTW53c2MteHZPMHhiNEZ5TnFwbGg4TFU4M3VIME5haDI1dTZSMkdNNzdRUFZSSXJ3Qmt3U3JsRTVmYjVkNGJYNU5Qcmo4VExKSzJac1J3MUl2aXIzSzhDalJaTWtB?oc=5",
+  "last_seen_at": "2026-10-26T23:35:32.364232Z",
+  "summary": "Trading Day: AI light, Brazil flight Reuters",
+  "publisher_links": [
+    "https://news.google.com/rss/articles/CBMipgFBVV95cUxQeGtjajJzcHA3THZRdGdBS1B0Tm9tZFhzU2ZhdE1ETng2dU1BdDFrckpuYng5YnhHT0g3UkwtWnR5U2RpMWt6OXlMTW53c2MteHZPMHhiNEZ5TnFwbGg4TFU4M3VIME5haDI1dTZSMkdNNzdRUFZSSXJ3Qmt3U3JsRTVmYjVkNGJYNU5Qcmo4VExKSzJac1J3MUl2aXIzSzhDalJaTWtB?oc=5"
+  ],
+  "ingress": {
+    "kind": "google_news",
+    "site_id": "curated_media",
+    "source_id": "reuters_ai_news",
+    "name": "Reuters AI (Google News)",
+    "feed_url": "https://news.google.com/rss/search?q=site:reuters.com%20AI%20when:2d&hl=en-US&gl=US&ceid=US:en"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "reuters",
+    "name": "Reuters",
+    "domain": "www.reuters.com",
+    "status": "identified",
+    "basis": [
+      "google_rss_source",
+      "configured_bridge"
+    ],
+    "evidence": {
+      "rss_source_name": "Reuters",
+      "rss_source_url": "https://www.reuters.com",
+      "article_url": null,
+      "article_host": "news.google.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "73a99eac2ec17e5f48be4bdcb883e50b6c93879c3b12b2f343db32e6fbade376",
+    "scope_id": "reuters",
+    "publisher_kind": "media",
+    "admission_status": "limited",
+    "source_tier": "ai_media",
+    "source_tier_label": "精選AI媒體",
+    "source_tier_rank": 2,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_bridge",
+      "limited_scope"
+    ]
+  }
+}
