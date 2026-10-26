@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v2",
   "entries": {
+    "1673c9ccc8c31df247f0d1cf8938eae028ca8c15a0d0c260b19877509f8c6583": {
+      "summary": "IBM 執行長 Arvind Krishna 於 2026 年第三季財報電話會議表示，開放權重模型已達尖端模型九成效能、一成成本，LLM 價格戰同步升溫。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-26T08:35:36.661502Z"
+    },
     "82c204f04edd71184f101d10190f0117f013229bcd898ca61cc98a0a8623c460": {
       "summary": "Gartner 2026 年 4 至 5 月發佈的 2027 年 CEO 調研訪談 203 位全球高管，44% 難以證明 AI 財務回報，但 75% 計劃增加技術投資。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-10-08T13:35:54.609024Z"
-    },
-    "ed583f7b7b3b96f0b9781bc81b565cfe68da7494a42fa8afb12ffaac7c812b00": {
-      "summary": "Zenity Labs 研究人員指出，AWS Bedrock AgentCore 中一個公開可存取代理程式可透過內部介面劫持同帳戶區域內所有代理程式。AWS 已修補漏洞並收緊預設權限。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-08T13:05:41.945125Z"
     }
   },
   "rejections": {
@@ -4619,6 +4619,10 @@
     "d83e4bda8d1caef321fa019110f822ede5f5b34d380fa82c305a6192f282470c": {
       "reason": "validation_length",
       "created_at": "2026-10-26T07:35:28.024614Z"
+    },
+    "15a51be9be0d24fd49e1b15e5e60aa488a69d36a4c6139534995c4428b88b532": {
+      "reason": "insufficient_context",
+      "created_at": "2026-10-26T08:35:36.661502Z"
     }
   }
 }
