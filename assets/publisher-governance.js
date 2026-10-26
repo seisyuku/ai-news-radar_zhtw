@@ -110,7 +110,7 @@
     const savings = /\b(?:annual cost savings|realized savings|saved in operating costs)\b|年度節省成本|已節省成本/i.test(text)
       && /\b(?:deploy\w*|contract|refinery|factory|enterprise rollout)\b|部署|合約|煉油廠/i.test(text) ? dollars(text) : 0;
     const supplyHarm = /supply.chain|發布鏈|供應鏈|official release|官方發布/i.test(text)
-      && /\b(?:PyPI|container|registry|published package|malicious version)\b|惡意版本|發布渠道/i.test(text)
+      && /(?<![A-Za-z0-9])(?:PyPI|container|registry|published package|malicious version)(?![A-Za-z0-9])|惡意版本|發布渠道/i.test(text)
       && /\b(?:attack|compromis\w*|malicious|stolen|breach|hacked|exfiltrat\w*)\b|入侵|惡意|竊取|外洩/i.test(text);
     const monitoredGap = /\b(?:unmonitored|monitoring gap|unobserved traffic)\b|監控缺口|未受監控/i.test(text)
       && /\d+(?:\.\d+)?\s*%/.test(summary);

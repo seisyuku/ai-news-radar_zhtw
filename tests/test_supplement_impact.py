@@ -59,3 +59,17 @@ def test_backend_and_browser_reject_forged_impact_score():
     resign(forged)
     assert not signal_selection.validate(forged["publisher_governance"], forged["brief_events"])
     assert run_js(harness(forged, daily) + "console.log(JSON.stringify({valid:G.valid(parent)}));") == {"valid": False}
+
+
+def test_chinese_supply_chain_release_keeps_pypi_boundary_and_browser_score():
+    title = "LiteLLM公布供應鏈攻擊後續調查，5月外洩金鑰讓駭客操控官方發布流程"
+    summary = "開源AI模型串接工具LiteLLM公布1.107.0版供應鏈攻擊的調查結果，發現攻擊者利用5月外洩後未撤銷的AI代理平臺主金鑰，取得GitHub組織擁有者的存取權杖。攻擊者隨後竊取另外兩名維護者的憑證，最終操控官方發布流程，讓含有竊密程式的版本上架PyPI及容器映像檔儲存庫。"
+    native = {"title": title, "summary": summary}
+    assert supplement_impact.score(native, "industry_news") == {
+        "i": 40, "p": 20, "e": 20, "c": 20, "total": 100, "passes": True}
+    row = article("chain", title=title, title_original="", summary=summary,
+        site_id="tw_media", source="iThome", url="https://www.ithome.com.tw/news/179955", business_events=[])
+    parent, daily, _ = bundle([row])
+    d = parent["publisher_governance"]["events"][0]
+    assert d["selection_class"] == "supplement" and d["supplement_impact"]["total"] == 100
+    assert run_js(harness(parent, daily) + "console.log(JSON.stringify({valid:G.valid(parent)}));") == {"valid": True}
