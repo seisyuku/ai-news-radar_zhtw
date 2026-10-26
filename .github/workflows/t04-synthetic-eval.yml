@@ -3,7 +3,13 @@ name: T04 synthetic summary evaluation
 # GitHub requires a workflow_dispatch file on the default branch. The actual
 # synthetic evaluator lives on codex/t04-gemini-summary and is selected by ref.
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      probe_only:
+        description: Verify branch dispatch without running the provider evaluation
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: read
