@@ -1,0 +1,55 @@
+{
+  "id": "e33dffd4471302c222664e3339a61cbb5d40d19b",
+  "published_at": "2026-10-26T16:52:39Z",
+  "first_seen_at": "2026-10-26T20:05:35.106486Z",
+  "site_id": "runtimewire",
+  "site_name": "RuntimeWire AI媒體",
+  "source": "RuntimeWire",
+  "title": "Cohere says Qwen3.8-Flash-Next tried to upload a file to Alibaba Cloud",
+  "url": "https://runtimewire.com/article/cohere-qwen-model-sandbox-upload-attempt",
+  "last_seen_at": "2026-10-26T20:05:35.106486Z",
+  "summary": "The sandbox blocked the request. Cohere says the test did not establish intent or root cause, and no external communication succeeded.",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "runtimewire",
+    "source_id": "runtimewire",
+    "name": "RuntimeWire",
+    "feed_url": "https://runtimewire.com/rss"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "runtimewire",
+    "name": "RuntimeWire",
+    "domain": "runtimewire.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://runtimewire.com/article/cohere-qwen-model-sandbox-upload-attempt",
+      "article_host": "runtimewire.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "73a99eac2ec17e5f48be4bdcb883e50b6c93879c3b12b2f343db32e6fbade376",
+    "scope_id": "runtimewire",
+    "publisher_kind": "media",
+    "admission_status": "limited",
+    "source_tier": "advanced",
+    "source_tier_label": "次級AI媒體",
+    "source_tier_rank": 4,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}
