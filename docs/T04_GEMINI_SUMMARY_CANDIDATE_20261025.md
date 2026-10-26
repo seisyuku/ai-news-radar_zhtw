@@ -108,7 +108,8 @@ T04 測試分支上的檔案本身不會註冊 GitHub schedule。
 故障；系統可記錄 SMTP 伺服器接受與否，無法保證郵件一定出現在收件匣。
 GitHub schedule 也可能漏掉所有四個 watchdog tick。既有 cron-job.org
 每 30 分鐘從 GitHub 外部觸發 `update-news.yml` 的 `source=heartbeat`；
-在測試日 10:17～16:00 臺北時間，新增的獨立 job 會補 dispatch T04 watchdog，
+在測試日 10:17～16:00 臺北時間，既有 `freshness-check` job 的追加步驟會
+補 dispatch T04 watchdog，
 不執行額外 provider 測試。這仍無法消除 GitHub 執行服務或 SMTP 同時故障，
 因此不能宣稱收件匣投遞絕對保證。
 
