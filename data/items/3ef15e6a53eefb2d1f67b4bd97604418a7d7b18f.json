@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon CloudWatch 宣布推出日志路由和链式日志解析器",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/cloudwatch-pipelines-log-routing",
-  "last_seen_at": "2026-10-26T22:35:44.046145Z",
+  "last_seen_at": "2026-10-26T23:05:31.493425Z",
   "summary": "Amazon CloudWatch 现在支持通过管道进行条件日志路由和链式解析器，使您可以更好地控制日志数据的转换方式以及将日志数据发送到哪个 CloudWatch 日志组。CloudWatch 管道是一项完全托管的服务，可以摄取、转换遥测数据并将其路由到 CloudWatch，无需管理基础设施。 日志管道通常携带属于不同位置的混合事件类型，单个事件可以将一种日志格式嵌套在另一种日志格式中。使用条件日志路由，您可以定义路由，根据针对处理后的字段评估的条件将每个事件发送到不同的 CloudWatch 日志组，从而可以按严重性、来源或类型划分事件，并对每个事件应用正确的保留和访问控制。借助链式解析器，您可以按顺序应用多个解析器处理器，后面的解析器将使用前面的解析器生成的字段。例如，您可以先解析 JSON 信封，再对其提取的字段应用 Grok 解析器。这些功能结合在一起，使您可以在单个管道中构建不同的日志格式并将它们路由到正确的日志组。 条件路由和链式解析器在所有已正式推出 CloudWatch 管道的商用 AWS 区域都可用。您可以使用 AWS 管理控制台、AWS CLI 或 AWS 开发工具包配置这些功能。要开始使用，请参阅 Amazon CloudWatch 管道文档 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch-pipelines.html"
