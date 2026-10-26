@@ -58,3 +58,15 @@
 | 10 | CNBC 投資俱樂部評論與持倉調整 | 0 | 0 | 0 | 0 | **0** | 未通過 |
 
 此輪共 **4 則通過、6 則未通過**。Flora 的兩個單位成本數字相除約為 122 倍，標題的「125 倍」視為概數；計分依原始摘要所列的相同工作單位數值，不推算實際節省總額。
+
+
+## 正式發布與驗收
+
+2026-10-26 已發布到 `master`。原工作分支提交 `eca8881ebfe7` 以 `4b9b7305d3fe` 套用到當時最新 master；`544d1b79de3d` 補正中文相鄰 PyPI 的詞界，避免 LiteLLM 實際材料被低估，並增加後端／瀏覽器一致性回歸。前端共同資產版本為 `20261026-impact2`。未納入原工作分支的 T04 草稿或未提交的 T06 文件。
+
+- 整合後完整測試 **2,345 項通過**；[Offline tests 40332980582](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/40332980582)、[Asset version 40332980566](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/40332980566) 均成功。
+- [公開刷新 40333001584](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/40333001584) 使用 `544d1b79de3d`，產生快照 `3dc9bfe49bdb`（`2026-10-26T13:43:12.882216Z`，臺北 21:43）；[Pages 40333205895](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/40333205895) 成功。只執行標準公開刷新，`force_tikhub=false`，排程與 24 小時窗口未變。
+- 正式 HTTP 的 app／governance 資產與發布檔案 bytes 相同。stories 治理投影通過後端重算驗證，latest／all／daily／radar metadata 同代。公開驗證檔及 SHA256 保存於 Downloads `ai-radar-impact-release-20261026/verification.json`。
+- 正式瀏覽器熱點／時間線皆顯示 Block（核心）、LiteLLM（100）、Meta（90），共 3 則。Grok《奧德賽》（10）及 Claude 桌面改版（55）未進入重點區；一般新聞仍沿用既有收錄。
+
+`AGENTS.md` 已記錄本專案的使用者用語：`commit push` 包含整合最新 master、推送正式分支，以及 Pages 與同代公開資料驗收；僅推工作分支不視為完成。

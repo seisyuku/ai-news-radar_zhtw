@@ -2,6 +2,10 @@
 
 私人日報、七日來源觀察與七日回放的取消狀態及相依功能移除評估見[2026-10-25盤點](RETIREMENT_AUDIT_20261025.md)。現行公開刷新、Pages、daily-brief 與全站 24 小時讀者窗口維持。
 
+## 2026-10-26 補位影響評分正式發布
+
+[補位評分與發布驗收](SUPPLEMENT_IMPACT_SIMULATION_20261026.md)記錄 `544d1b79de3d`、`20261026-impact2` 與 21:43 公開快照。I／P／E／C 為 40／20／20／20，僅評估既有合格補位；全站維持 24 小時。CI、Pages、同代 HTTP 及正式瀏覽器驗收通過，當期為 Block、LiteLLM、Meta 三則重點。使用者已明確指定本專案的 `commit push` 包含 master 正式發布與驗收，規則見 `AGENTS.md`。
+
 ## 2026-10-25 T01 六類事件篩選正式發布
 
 [T01發布與驗收](T01_EVENT_FILTER_IMPLEMENTATION_20261025.md)記錄六資產共同版本 `20261025-t01`、離線 CI 修正、Pages 及正式站 Chrome 驗收。這次只改前端顯示與高階篩選，沒有資料 schema、評分、來源、排程或 provider 變更；例行刷新及 24 小時窗口維持。
