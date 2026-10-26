@@ -117,3 +117,20 @@ def test_groq_comparison_miss_does_not_fail_gemini_acceptance(monkeypatch, capsy
     output = json.loads(capsys.readouterr().out)
     assert output["gemini_acceptance_passed"] is True
     assert output["reports"][1]["counts"]["failed"] == 1
+
+
+def test_diagnostic_failure_keeps_error_class_but_never_provider_message(monkeypatch, capsys):
+    import json
+    import scripts.t04_live_eval as t04
+
+    monkeypatch.setenv("GEMINI_API_KEY", "synthetic-gemini")
+    monkeypatch.setenv("GROQ_API_KEY", "synthetic-groq")
+    monkeypatch.setattr(t04, "diagnose_gemini", lambda **_: {
+        "ok": False, "steps": [{"name": "plain_generation", "status": "failed",
+            "error": {"type": "ReadTimeout", "message": "unlogged request details"}}],
+        "diagnosis": {"code": "transient_or_transport_failure"}})
+    assert main([]) == 1
+    output = capsys.readouterr().out
+    assert json.loads(output)["diagnostic_steps"] == [{"name": "plain_generation",
+        "status": "failed", "error_type": "ReadTimeout", "http_status": None}]
+    assert "unlogged" not in output

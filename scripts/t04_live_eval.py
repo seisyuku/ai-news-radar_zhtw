@@ -147,14 +147,23 @@ def main(argv: list[str] | None = None) -> int:
     stage("credentials", "passed")
 
     model = os.environ.get("GEMINI_SUMMARY_MODEL") or DEFAULT_GEMINI_MODEL
+    stage("gemini_diagnostic", "started")
     diagnostic = diagnose_gemini(api_key=gemini_key, model=model)
+    diagnostic_steps = []
+    for step in diagnostic.get("steps", []):
+        details = step.get("error") or {}
+        clean = {"name": step["name"], "status": step["status"],
+                 "error_type": safe_error_type(details), "http_status": details.get("http_status")}
+        diagnostic_steps.append(clean)
+        stage("diagnostic_" + step["name"], step["status"],
+              error_type=clean["error_type"], http_status=clean["http_status"])
     if not diagnostic["ok"]:
         failed_steps = [step["name"] for step in diagnostic["steps"] if step["status"] == "failed"]
         stage("gemini_diagnostic", "failed", diagnosis_code=diagnostic["diagnosis"]["code"],
               failed_steps=failed_steps)
         print(json.dumps({"status": "diagnostic_failed", "model": model,
                           "diagnosis_code": diagnostic["diagnosis"]["code"],
-                          "failed_steps": failed_steps}))
+                          "failed_steps": failed_steps, "diagnostic_steps": diagnostic_steps}))
         return 1
     stage("gemini_diagnostic", "passed")
 
