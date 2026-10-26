@@ -94,6 +94,16 @@ GitHub 只對預設分支存在的 workflow 接受 `workflow_dispatch`，實際�
 **此排程只有在 watchdog workflow 與程式進入 GitHub 預設分支後才生效**；
 T04 測試分支上的檔案本身不會註冊 GitHub schedule。
 
+2026-10-26 已將 watchdog、預設分支 dispatch 註冊檔與站外心跳補位 job
+推送至 `master`（`d9e4de3`、`36229b5`）。
+[通知通道測試 run 40273783160](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/40273783160)
+執行成功，SMTP `DATA` 回應 250、狀態 `provider_accepted`；這只驗證
+發信端接受，不是收件匣送達證明。
+[無 provider 派送測試 run 40273918526](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/40273918526)
+確認指定 T04 分支時執行該分支的 `probe` job，而摘要評估及通知 job 均被
+略過；沒有消耗 Gemini／Groq 呼叫。第三時段的完整評估、階段 artifact 與
+結果郵件，仍須等 2026-10-27 實際排程驗證。
+
 通知保證的邊界：Actions 排程、runner、GitHub API、SMTP 與收件端都可能
 故障；系統可記錄 SMTP 伺服器接受與否，無法保證郵件一定出現在收件匣。
 GitHub schedule 也可能漏掉所有四個 watchdog tick。既有 cron-job.org
