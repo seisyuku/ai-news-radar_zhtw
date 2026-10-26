@@ -16,6 +16,15 @@ GitHub Actions refresh jobs, and GitHub Pages publishing.
 - Prefer stable public RSS/Atom/OPML sources before adding custom scrapers.
 - Keep the reader-facing product simple: default to a curated AI-focused view, hide noisy or advanced source details behind existing filters/docs.
 
+## Release shorthand
+
+- In this repository, the user's `commit push` request means commit the relevant
+  changes, integrate them into the latest `master`, push `master`, and verify the
+  public Pages site and its matching generated data. A feature-branch push alone
+  does not complete this request.
+- Preserve concurrent snapshot commits and unrelated local work. Integrate only
+  the requested changes; do not force-push or publish unrelated draft branches.
+
 ## Authority and Routing
 
 - `README.md` defines the current public product boundary.
