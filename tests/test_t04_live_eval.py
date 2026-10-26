@@ -49,6 +49,20 @@ def test_missing_credentials_make_no_provider_calls(monkeypatch, capsys):
     assert "missing_credentials" in capsys.readouterr().out
 
 
+def test_missing_credentials_persist_a_safe_stage_record(monkeypatch, tmp_path):
+    import json
+
+    target = tmp_path / "stages.jsonl"
+    monkeypatch.setenv("T04_EVENT_LOG", str(target))
+    monkeypatch.delenv("GEMINI_API_KEY", raising=False)
+    monkeypatch.delenv("GROQ_API_KEY", raising=False)
+    assert main([]) == 2
+    records = [json.loads(line) for line in target.read_text().splitlines()]
+    assert [(row["stage"], row["status"]) for row in records] == [
+        ("evaluation", "started"), ("credentials", "failed")]
+    assert records[1]["missing_names"] == ["GEMINI_API_KEY", "GROQ_API_KEY"]
+
+
 def test_groq_comparison_miss_does_not_fail_gemini_acceptance(monkeypatch, capsys):
     import json
     import scripts.t04_live_eval as t04

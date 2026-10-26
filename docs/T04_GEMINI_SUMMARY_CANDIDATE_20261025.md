@@ -70,6 +70,38 @@ Groq 同案也是 10/10，title-only 同樣跳過。安全日誌的案例錯誤�
 沒有 429、5xx、模型查找或結構化輸出錯誤。本次與第一時段相隔約 20 小時，
 計為第二個分離時段；**不得記為 09:00 準時執行**。
 
+## 第三時段的執行與通知稽核
+
+2026-10-26 早上 09:00 的 Codex 本地排程未產生執行回合；使用者確認當時
+電腦開機且 ChatGPT App 在前景。沒有足夠證據定位本地排程漏觸發原因，
+不能把它歸因於電腦休眠或 App 未啟動。第三時段仍由 Codex 本地排程於
+2026-10-27 臺北 09:00 啟動，09:30 為補位；同日只完成一次合成評估。
+
+合成評估 workflow 現在把憑證檢查、Gemini 診斷、冷卻、語料載入、Gemini
+案例、Groq 比較和終局狀態寫成不含模型原文／密鑰的 `t04-stage-events` artifact。
+Actions 自身的 checkout、Python 設定、依賴安裝與評估步驟也有逐步結論。
+獨立 `notify` job 在評估成功或失敗後執行，寄出結論、步驟狀態、階段摘要與
+Actions 連結，並把 SMTP 接受結果保存在 `t04-email-receipt` artifact。
+沿用先前已驗證的 `TW_SOURCE_EMAIL_SETTINGS`，不在倉庫放入收件地址或密碼。
+
+預設分支另須保留同名 `t04-synthetic-eval.yml` 的手動 dispatch 註冊檔；
+GitHub 只對預設分支存在的 workflow 接受 `workflow_dispatch`，實際評估仍
+指定 T04 測試分支並使用該分支版本。另設預設分支上的
+`t04-delivery-watchdog.yml`，於 10:17、10:47、11:17、
+11:47（臺北時間）獨立檢查 T04 workflow_dispatch run 與 SMTP 接受收據。
+若沒有 run、沒有可驗證的通知收據，或查核 API 失敗，就寄送逾期告警。
+後續 tick 先檢查同日較早的成功 watchdog run，以免重複寄送。
+**此排程只有在 watchdog workflow 與程式進入 GitHub 預設分支後才生效**；
+T04 測試分支上的檔案本身不會註冊 GitHub schedule。
+
+通知保證的邊界：Actions 排程、runner、GitHub API、SMTP 與收件端都可能
+故障；系統可記錄 SMTP 伺服器接受與否，無法保證郵件一定出現在收件匣。
+GitHub schedule 也可能漏掉所有四個 watchdog tick。既有 cron-job.org
+每 30 分鐘從 GitHub 外部觸發 `update-news.yml` 的 `source=heartbeat`；
+在測試日 10:17～16:00 臺北時間，新增的獨立 job 會補 dispatch T04 watchdog，
+不執行額外 provider 測試。這仍無法消除 GitHub 執行服務或 SMTP 同時故障，
+因此不能宣稱收件匣投遞絕對保證。
+
 ## 正式 gate 狀態
 
 1. Gemini 的提示注入及全套 11 例已在第一時段通過；Groq 同案已比較並

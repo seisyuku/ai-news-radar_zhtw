@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
 
 jobs:
   synthetic-only:
@@ -30,4 +31,51 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           GEMINI_SUMMARY_MODEL: gemini-3.5-flash-lite
+          T04_EVENT_LOG: ${{ runner.temp }}/t04-events.jsonl
         run: python scripts/t04_live_eval.py
+
+      - name: Preserve sanitized stage record
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: t04-stage-events
+          path: ${{ runner.temp }}/t04-events.jsonl
+          retention-days: 30
+          if-no-files-found: warn
+
+  notify:
+    needs: synthetic-only
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout notification code
+        uses: actions/checkout@v6
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Download stage record when present
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh run download "$GITHUB_RUN_ID" -R "$GITHUB_REPOSITORY" --name t04-stage-events --dir "$RUNNER_TEMP/t04-record"
+
+      - name: Email terminal result
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          TW_SOURCE_EMAIL_SETTINGS: ${{ secrets.TW_SOURCE_EMAIL_SETTINGS }}
+          T04_EVENT_LOG: ${{ runner.temp }}/t04-record/t04-events.jsonl
+          T04_RECEIPT_PATH: ${{ runner.temp }}/t04-receipt.json
+        run: python scripts/t04_notify.py
+
+      - name: Preserve sanitized email receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: t04-email-receipt
+          path: ${{ runner.temp }}/t04-receipt.json
+          retention-days: 30
+          if-no-files-found: warn

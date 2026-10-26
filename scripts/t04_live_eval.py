@@ -11,6 +11,8 @@ import argparse
 import json
 import os
 import time
+from datetime import datetime, timezone
+from pathlib import Path
 from typing import Any, Callable, Mapping
 
 try:
@@ -79,6 +81,19 @@ def safe_report(report: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
+def stage(name: str, status: str, **details: Any) -> None:
+    """Persist a sanitized checkpoint for Actions, without provider text."""
+    path = os.environ.get("T04_EVENT_LOG")
+    if not path:
+        return
+    record = {"at": datetime.now(timezone.utc).isoformat(), "stage": name,
+              "status": status, **details}
+    target = Path(path)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    with target.open("a", encoding="utf-8") as stream:
+        stream.write(json.dumps(record, ensure_ascii=False) + "\n")
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="T04 synthetic-only Groq/Gemini acceptance")
     parser.add_argument("--gemini-interval-seconds", type=float, default=10.0)
@@ -89,32 +104,45 @@ def main(argv: list[str] | None = None) -> int:
            args.post_diagnostic_cooldown_seconds) < 0:
         parser.error("intervals must be non-negative")
 
+    stage("evaluation", "started")
+
     gemini_key = os.environ.get("GEMINI_API_KEY", "").strip()
     groq_key = os.environ.get("GROQ_API_KEY", "").strip()
     missing = [name for name, value in (("GEMINI_API_KEY", gemini_key),
                                        ("GROQ_API_KEY", groq_key)) if not value]
     if missing:
+        stage("credentials", "failed", missing_names=missing)
         print(json.dumps({"status": "missing_credentials", "names": missing}))
         return 2
+    stage("credentials", "passed")
 
     model = os.environ.get("GEMINI_SUMMARY_MODEL") or DEFAULT_GEMINI_MODEL
     diagnostic = diagnose_gemini(api_key=gemini_key, model=model)
     if not diagnostic["ok"]:
         failed_steps = [step["name"] for step in diagnostic["steps"] if step["status"] == "failed"]
+        stage("gemini_diagnostic", "failed", diagnosis_code=diagnostic["diagnosis"]["code"],
+              failed_steps=failed_steps)
         print(json.dumps({"status": "diagnostic_failed", "model": model,
                           "diagnosis_code": diagnostic["diagnosis"]["code"],
                           "failed_steps": failed_steps}))
         return 1
+    stage("gemini_diagnostic", "passed")
 
     time.sleep(args.post_diagnostic_cooldown_seconds)
+    stage("cooldown", "passed")
     cases = load_cases(DEFAULT_CASES_PATH)
+    stage("corpus", "passed", case_count=len(cases))
     gemini = evaluate_cases(
         cases, "gemini", paced(make_gemini_generator(gemini_key, model=model),
                                 args.gemini_interval_seconds),
     )
+    stage("gemini_cases", "passed" if gemini["counts"]["failed"] == 0 else "failed",
+          counts=gemini["counts"], cases=safe_report(gemini)["cases"])
     groq = evaluate_cases(
         cases, "groq", paced(make_groq_generator(groq_key), args.groq_interval_seconds),
     )
+    stage("groq_cases", "passed" if groq["counts"]["failed"] == 0 else "comparison_miss",
+          counts=groq["counts"], cases=safe_report(groq)["cases"])
     print(json.dumps({"status": "evaluated", "case_count": len(cases),
                       "model": model, "diagnostic": "passed",
                       "gemini_acceptance_passed": gemini["counts"]["failed"] == 0,
@@ -122,8 +150,16 @@ def main(argv: list[str] | None = None) -> int:
                      ensure_ascii=False))
     # T04 requires Gemini to pass; Groq is a same-corpus comparator whose
     # misses remain visible but do not invalidate Gemini's acceptance run.
-    return 1 if gemini["counts"]["failed"] else 0
+    result = 1 if gemini["counts"]["failed"] else 0
+    stage("evaluation", "passed" if result == 0 else "failed")
+    return result
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    try:
+        raise SystemExit(main())
+    except Exception as error:
+        # Avoid printing provider responses or credential-bearing exceptions.
+        stage("evaluation", "failed", error_type=type(error).__name__)
+        print(json.dumps({"status": "unexpected_error", "error_type": type(error).__name__}))
+        raise SystemExit(1) from None
