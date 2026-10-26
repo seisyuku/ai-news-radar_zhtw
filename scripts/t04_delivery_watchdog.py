@@ -102,6 +102,18 @@ def compose(runs: list[dict], error_type: str | None = None) -> dict:
 
 def main() -> int:
     now = datetime.now(timezone.utc)
+    if os.environ.get("T04_SMOKE_EMAIL") == "true":
+        if now >= DEADLINE:
+            print(json.dumps({"status": "smoke_window_closed"}))
+            return 2
+        payload = {"subject": "[AI News Radar][T04] 通知通道測試",
+                   "body": ("這是 T04 通知通道測試信，不代表合成摘要測試已執行。\n"
+                            f"Actions run: https://github.com/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{os.environ['GITHUB_RUN_ID']}\n")}
+        payload["payload_hash"] = hashlib.sha256(
+            json.dumps(payload, ensure_ascii=False, sort_keys=True).encode()).hexdigest()
+        result = tw_source_email.send(payload, os.environ.get("TW_SOURCE_EMAIL_SETTINGS", ""))
+        print(json.dumps({"status": "smoke_email", "delivery": result}))
+        return 0 if result["status"] == "provider_accepted" else 1
     if now < DEADLINE:
         print(json.dumps({"status": "before_deadline"}))
         return 0
