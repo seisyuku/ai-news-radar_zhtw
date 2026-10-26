@@ -1,14 +1,18 @@
-# AI News Radar Pulse — 交接摘要（截至 2026-10-25）
+# AI News Radar Pulse — 交接摘要（截至 2026-10-26）
 
-T04 Gemini 摘要備援已建立預設停用的離線候選，合成語料與安全判定更新，
-備援觸發、獨立快取／憑證及每輪請求上限有聚焦測試。正式排程固定停用，
-本機無雙 provider 測試憑證，Actions Secrets 已就緒。第一個分離時段
-Gemini 診斷與10個可生成合成案例全綠；Groq同案9過1漏，原workflow因
-過嚴比較退出失敗；同時段流程複驗已通過且Groq本次10過0漏，保留前次
-差異證據，不計第二時段。仍待另兩個時段與正式啟用裁決。
-維護者已接受 Gemini 免費層政策用於 11 個合成案例實測，active rate limits
-為15 RPM／250K TPM／500 RPD；這不含真實新聞備援授權。
-現行續接入口見[T04候選](T04_GEMINI_SUMMARY_CANDIDATE_20261025.md)。
+T04 Gemini 摘要備援仍固定停用；已完成兩個分離時段的 11 個合成案例實測，
+第三時段安排於 2026-10-27 09:00（臺北），09:30 作漏觸發補位。
+10/26 的 09:00 Codex 排程未啟動，午後手動補跑計為第二時段。
+現已部署 Actions 階段紀錄、結果郵件及獨立逾期查核；測試信已獲 SMTP
+接受且維護者確認收到，無 provider 的分支派送測試也通過。
+Gemini 免費層接受只涵蓋合成案例，不授權真實新聞備援；
+詳見[T04候選與實測](T04_GEMINI_SUMMARY_CANDIDATE_20261025.md)。
+
+T05 依現行產品定位結案：原 Usage4Claude／Claude Usage Monitor commit-feed Canary
+與「額度與政策速報」入口已移除；價格偵測、一般新聞、模型雷達與 24 小時窗口保留。
+舊 `market-signals.json` 的 Canary 卡片會被前端拒絕，首次正常刷新會移除舊卡片及
+`market-sensor-state.json` 的 Canary seen IDs；免費額度歷史 baseline 保留。
+不再做 14 天 Canary 品質研究或擴張來源。詳見[任務台帳](TASK_LEDGER.md)。
 
 T01 一般列表六類事件徽章與高階篩選已[正式發布與驗收結案](T01_EVENT_FILTER_IMPLEMENTATION_20261025.md)：沿用既有 `business_events`，預設畫面、來源／時間／原文與 24 小時規則保持。首次提交 `1a7d1e8020bc` 的資產版本 CI 與 Pages 成功；測試環境補丁 `71e96b67a21e` 後完整離線套件 2,319 項及 GitHub 離線 CI 成功，補丁 Pages 亦成功。正式站首頁與 `app.js` 位元組一致、版本 `20261025-t01`；Chrome 桌機／手機六類篩選驗收通過。無下一必跑階段；日常維護建議 GPT-6.1 Sol／Medium，修程式 High。
 

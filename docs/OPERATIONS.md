@@ -291,6 +291,19 @@ production call：
 
 ## Schedule (cron) health
 
+### One-time T04 notification check (2026-10-27)
+
+`t04-synthetic-eval.yml` on `master` registers manual dispatch; the live
+synthetic evaluator and email job run only when the T04 branch is selected.
+`t04-delivery-watchdog.yml` checks at 10:17, 10:47, 11:17 and 11:47
+Asia/Taipei for a T04 run with an SMTP-accepted notification. Missing runs or
+notifications trigger an email through the existing `TW_SOURCE_EMAIL_SETTINGS`.
+The external cron-job.org heartbeat for `update-news.yml` also dispatches the
+watchdog from 10:17 to 16:00 on that date through the existing
+`freshness-check` job. The added step does not
+change the news refresh or send publisher content to Gemini. SMTP acceptance
+is recorded, but inbox delivery cannot be guaranteed by the repository.
+
 ### Rule: verify every cron edit actually starts firing
 
 **After any change to `on.schedule.cron` in `update-news.yml`, confirm a
@@ -689,25 +702,23 @@ watchdog／external heartbeat 三層排程影響。
 
 產物：
 
-- `data/market-signals.json`：前端公開讀取；所有 price 與速報
-  候選事件均只保留過去 24 小時，與主新聞及 LLM 雷達一致。
+- `data/market-signals.json`：前端公開讀取；價格事件只保留過去 24 小時，
+  與主新聞及 LLM 雷達一致。舊 Canary 卡片不再沿用。
 - `data/llm-radar.json`：首頁讀者層的 24 小時模型發布雷達；模型僅標示
   偵測證據層級。價格只保留在 `market-signals.json`，不影響新聞排序。
-- `data/market-sensor-state.json`：公開上游的最小比較快照與 Canary seen
-  IDs；不含 token、cookies、帳號或個人 quota。
-- `data/source-status.json`：價格及兩canary共三個活躍 Sensor，各自記錄成功、解析筆數、當輪事件
-  數與 exact error；任何單一失敗皆 fail-soft，不中止新聞主流程。
+- `data/market-sensor-state.json`：價格比較快照；退役 Canary seen IDs 於首次刷新移除。
+  既有免費額度歷史 baseline 仍保留，不含 token、cookies、帳號或個人 quota。
+- `data/source-status.json`：只保留價格這一個活躍 Market Sensor 的成功、解析筆數、
+  當輪事件數與 exact error；失敗時 fail-soft，不中止新聞主流程。
 
-首頁把 `usage_policy`／`urgency=breaking` 獨立放在「額度與政策速報」，
-預設最多四張卡；其他 price 事件放在「價格變更」，
-以約 3–4 列高的可捲動標題框保留完整清單，沒有新事件時整區隱藏，不以舊資料填版。Canary 的
-`candidate` 不得在前端改字成官方確認，也不得因多個第三方 repo 相同就
-自動升級可信度。
+首頁只呈現 `price` 事件於「價格變更」，以約 3–4 列高的可捲動標題框
+保留完整清單，沒有新事件時整區隱藏。前端對舊資料也只接受 `price`，
+避免退役的 Usage policy Canary 候選重新顯示。
 
 A04退役`market_free_tier`自動fetch/diff，舊基準保留於state但不是新觀察；頂層`updated_at`
 僅代表當輪其他工作，不表示free-tier新鮮。活躍status／failed_sites／persistent_failures不再包含退役分支。
 原payload先封存於Downloads；當期payload及舊JSON前端過濾不呈現free-tier卡片，不生成供應商全部退場通知。
-回復發布者計數批次時保留此退役；不得因回復而恢復壞來源。價格及兩canary的失敗隔離與24小時窗口維持。
+回復發布者計數批次時保留免費額度與 Canary 的退役；不得因回復而恢復舊來源。價格的失敗隔離與24小時窗口維持。
 
 「LLM 發布雷達」同樣只在過去 24 小時有事件時顯示，以相同約 3–4 列高的
 可捲動標題框保留完整清單。

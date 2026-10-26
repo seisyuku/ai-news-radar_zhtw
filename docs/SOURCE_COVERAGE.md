@@ -742,20 +742,19 @@ fields) found:
 generic URL-host safeguard for future/OPML feeds; the retired sources' tier
 and ecosystem entries were removed with their adapters.
 
-## Market / Canary Sensors（2026-10-22 A04候選）
+## Market Sensor（現行）；Canary 已退役
 
-價格與canary來源不進入一般新聞 `RawItem`、AI 相關性評分或六類事件排序；它們
+價格來源不進入一般新聞 `RawItem`、AI 相關性評分或六類事件排序；
 由 `scripts/market_sensors.py` 產生獨立的 `data/market-signals.json`：
 
 - **價格（長期影響順位 1、時效順位 3）**：讀取 LLM Price Tracker 的
   公開 `prices.json`，保存核心價格欄位快照，以 deterministic diff 產生
   old/new 事件。第三方結構化資料屬 `reported`，不是官方 GT。
-- **Usage policy Canary（長期影響順位 3、時效順位 1）**：只讀
-  Usage4Claude 與 Claude Usage Monitor 的公開 commit Atom。強關鍵字命中
-  才產生 `USAGE_POLICY_CANDIDATE`，永遠標示 `candidate`；不執行工具、
-  不讀使用者帳號、token 或個人 quota。
 
-初次執行只建立 baseline，不把上游既有內容當成新事件。結構化資料若突然
+原 Usage4Claude 與 Claude Usage Monitor commit Atom Canary 依 T05 結案裁決退役；
+不再抓取、產生候選、維護 seen IDs 或顯示舊卡片。14 天品質研究與新增入口取消。
+
+價格初次執行只建立 baseline，不把上游既有內容當成新事件。結構化資料若突然
 縮至前次 80% 以下會 fail closed，保留既有 state；單一 Sensor 失效不拖垮
 新聞更新，錯誤會進入 `source-status.json`。
 
@@ -764,8 +763,7 @@ and ecosystem entries were removed with their adapters.
 舊free-tier卡片不再流入當期payload，前端亦過濾舊快照的該類卡片；沒有等價替代服務。
 純離線parser／provider身份／模型名稱與80%保留防線仍保留，不能為重啟而放寬。
 
-所有寫入公開 `market-signals.json` 的事件，不論價格或 usage
-policy 候選，讀者可見窗口一律為 24 小時。供 old/new 比對的 sensor state
+所有寫入公開 `market-signals.json` 的價格事件，讀者可見窗口一律為 24 小時。供 old/new 比對的 sensor state
 另行保存，並不延長首頁事件的可見期限。
 
 ## Personal Source Workflow

@@ -7,8 +7,6 @@ from scripts.market_sensors import (
     build_price_snapshot,
     diff_free_tier_snapshots,
     diff_price_snapshots,
-    is_usage_policy_candidate,
-    parse_canary_atom,
 )
 
 
@@ -120,32 +118,7 @@ def test_free_tier_provider_add_and_remove_are_candidates_with_provenance():
     assert removed[0]["verification_status"] == "candidate"
 
 
-def test_canary_requires_strong_policy_language():
-    assert is_usage_policy_candidate({"title": "support new weekly quota field", "content": ""})
-    assert is_usage_policy_candidate({"title": "double limits for one week", "content": ""})
-    assert not is_usage_policy_candidate({"title": "refresh usage data after account switch", "content": ""})
-    assert not is_usage_policy_candidate({"title": "change tray icon and dependency", "content": ""})
-
-
-def test_canary_atom_parser_preserves_commit_identity_and_evidence_link():
-    xml = b"""<?xml version='1.0'?>
-    <feed xmlns='http://www.w3.org/2005/Atom'>
-      <entry><id>commit-1</id><title>support weekly quota</title>
-      <updated>2026-08-21T07:00:00Z</updated>
-      <link href='https://github.com/example/commit/1'/>
-      <content type='html'>&lt;p&gt;model-specific weekly limit&lt;/p&gt;</content></entry>
-    </feed>"""
-    entries = parse_canary_atom(xml)
-    assert entries == [{
-        "id": "commit-1",
-        "title": "support weekly quota",
-        "url": "https://github.com/example/commit/1",
-        "updated": "2026-08-21T07:00:00Z",
-        "content": "model-specific weekly limit",
-    }]
-
-
-def test_public_market_signals_use_the_same_24_hour_window_for_every_urgency():
+def test_public_market_signals_use_the_24_hour_window():
     now = datetime(2026, 8, 26, 12, tzinfo=timezone.utc)
     payload = {
         "signals": [
@@ -160,12 +133,12 @@ def test_public_market_signals_use_the_same_24_hour_window_for_every_urgency():
     assert [signal["id"] for signal in kept] == ["at-boundary"]
 
 
-def test_retired_free_tier_never_fetches_preserves_state_and_does_not_block_peers(monkeypatch):
+def test_retired_feeds_never_fetch_and_old_cards_are_removed(monkeypatch):
     from scripts import market_sensors as sensors
     now = datetime(2026, 8, 21, 8, tzinfo=timezone.utc)
     old_free = build_free_tier_snapshot([free_provider()])
     old_price = build_price_snapshot(price_payload())
-    previous = {"free_tier": old_free, "price": old_price, "canary": {f["id"]: ["old"] for f in sensors.CANARY_FEEDS}}
+    previous = {"free_tier": old_free, "price": old_price, "canary": {"usage4claude": ["old"]}}
     original = deepcopy(previous)
     calls = []
 
@@ -174,27 +147,26 @@ def test_retired_free_tier_never_fetches_preserves_state_and_does_not_block_peer
         assert url == sensors.PRICE_URL, "Retired branch must not fetch"
         return price_payload(input_per_1m_usd=1.0)
 
-    def fetch_canary(session, feed):
-        calls.append(feed["url"])
-        return [{"id": "new", "title": "weekly quota update", "content": "", "url": feed["home"] + "/commit/new", "updated": NOW}]
-
     monkeypatch.setattr(sensors, "_fetch_json", fetch_json)
-    monkeypatch.setattr(sensors, "_fetch_canary", fetch_canary)
-    old_payload = {"signals": [{"id": "old-free", "category": "free_tier", "detected_at": NOW}]}
+    old_payload = {"signals": [
+        {"id": "old-free", "category": "free_tier", "detected_at": NOW},
+        {"id": "old-canary", "category": "usage_policy", "detected_at": NOW},
+    ]}
     payload, state, statuses = sensors.run_market_sensors(object(), now, previous, old_payload)
     assert previous == original and state["free_tier"] == old_free
-    assert len(calls) == 3 and sensors.FREE_TIER_URL not in calls
-    assert {s["site_id"] for s in statuses} == {"market_price", "canary_usage4claude", "canary_usage_monitor_claude"}
+    assert "canary" not in state
+    assert calls == [sensors.PRICE_URL]
+    assert {s["site_id"] for s in statuses} == {"market_price"}
     assert all(s["ok"] for s in statuses)
     assert [s["event_type"] for s in payload["signals"]].count("API_PRICE_CHANGE") == 1
-    assert [s["event_type"] for s in payload["signals"]].count("USAGE_POLICY_CANDIDATE") == 2
-    assert all(s["category"] != "free_tier" for s in payload["signals"])
+    assert all(s["category"] == "price" for s in payload["signals"])
     again, _, _ = sensors.run_market_sensors(object(), now, state, payload)
-    assert len(again["signals"]) == 3  # no duplicate or mass-removal notifications
+    assert len(again["signals"]) == 1  # no duplicate or mass-removal notifications
 
     def bad_price(*_):
         raise ValueError("price_invalid")
     monkeypatch.setattr(sensors, "_fetch_json", bad_price)
     _, failed_state, failed = sensors.run_market_sensors(object(), now, previous, {})
     assert failed_state["free_tier"] == old_free
-    assert not failed[0]["ok"] and all(s["ok"] for s in failed[1:])
+    assert "canary" not in failed_state
+    assert not failed[0]["ok"] and len(failed) == 1

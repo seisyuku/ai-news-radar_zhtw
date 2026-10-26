@@ -79,9 +79,6 @@ const sectionTabsEl = document.getElementById("sectionTabs");
 const sectionSummaryEl = document.getElementById("sectionSummary");
 const topStoriesTitleEl = document.getElementById("topStoriesTitle");
 const viewAllAiBtnEl = document.getElementById("viewAllAiBtn");
-const breakingSignalsWrapEl = document.getElementById("breakingSignalsWrap");
-const breakingSignalsListEl = document.getElementById("breakingSignalsList");
-const breakingSignalsMetaEl = document.getElementById("breakingSignalsMeta");
 const marketSignalsWrapEl = document.getElementById("marketSignalsWrap");
 const marketSignalsListEl = document.getElementById("marketSignalsList");
 const marketSignalsMetaEl = document.getElementById("marketSignalsMeta");
@@ -3054,105 +3051,6 @@ function renderSourceHealth(errorMessage = "") {
   setStats();
 }
 
-function sensorVerificationLabel(status) {
-  if (status === "official") return "官方公告";
-  if (status === "tracked") return "模型追蹤";
-  if (status === "confirmed") return "官方確認";
-  if (status === "reported") return "追蹤器報告";
-  return "待確認";
-}
-
-function sensorCategoryLabel(category) {
-  if (category === "model_release") return "模型釋出";
-  if (category === "price") return "價格";
-  if (category === "free_tier") return "免費額度";
-  return "政策速報";
-}
-
-function sensorValueText(value) {
-  if (value === null || value === undefined || value === "") return "未提供";
-  if (value === true) return "是";
-  if (value === false) return "否";
-  return String(value);
-}
-
-function buildSensorCard(signal) {
-  const card = document.createElement("article");
-  card.className = `sensor-card ${signal.urgency === "breaking" ? "is-breaking" : ""}`;
-
-  const meta = document.createElement("div");
-  meta.className = "sensor-card-meta";
-  const category = document.createElement("span");
-  category.className = "sensor-chip sensor-chip-category";
-  category.textContent = sensorCategoryLabel(signal.category);
-  const verification = document.createElement("span");
-  verification.className = `sensor-chip sensor-chip-${signal.verification_status || "candidate"}`;
-  verification.textContent = signal.verification_label || sensorVerificationLabel(signal.verification_status);
-  const time = document.createElement("time");
-  time.textContent = fmtTime(signal.detected_at || signal.effective_at);
-  meta.append(category, verification, time);
-
-  const title = document.createElement("a");
-  title.className = "sensor-card-title";
-  title.href = signal.evidence_url || signal.source_url || "#";
-  title.target = "_blank";
-  title.rel = "noopener noreferrer";
-  title.textContent = signal.title || "未命名變更";
-
-  const summary = document.createElement("p");
-  summary.className = "sensor-card-summary";
-  summary.textContent = signal.summary || "";
-
-  card.append(meta, title);
-  if (signal.old_value !== undefined && signal.new_value !== undefined &&
-      (signal.old_value !== null || signal.new_value !== null)) {
-    const values = document.createElement("div");
-    values.className = "sensor-value-change";
-    const oldValue = document.createElement("span");
-    oldValue.textContent = sensorValueText(signal.old_value);
-    const arrow = document.createElement("strong");
-    arrow.textContent = "→";
-    const newValue = document.createElement("span");
-    newValue.textContent = sensorValueText(signal.new_value);
-    values.append(oldValue, arrow, newValue);
-    if (signal.unit) {
-      const unit = document.createElement("small");
-      unit.textContent = signal.unit;
-      values.appendChild(unit);
-    }
-    card.appendChild(values);
-  }
-  if (summary.textContent) card.appendChild(summary);
-
-  const source = document.createElement("a");
-  source.className = "sensor-source-link";
-  source.href = signal.source_url || signal.evidence_url || "#";
-  source.target = "_blank";
-  source.rel = "noopener noreferrer";
-  source.textContent = `${signal.publisher?.schema_version === 1 ? sourceDisplayName(signal) : signal.source_name || "來源"} ↗`;
-  card.appendChild(source);
-  return card;
-}
-
-function renderSensorGroup(wrap, list, meta, signals, limit, emptyMeta, sortMode = "latest") {
-  if (!wrap || !list || !meta) return;
-  list.innerHTML = "";
-  const ordered = [...signals].sort((a, b) => {
-    if (sortMode === "importance") {
-      const importance = Number(a.importance_rank || 9) - Number(b.importance_rank || 9);
-      if (importance) return importance;
-    }
-    return Date.parse(b.detected_at || b.effective_at || 0) - Date.parse(a.detected_at || a.effective_at || 0);
-  });
-  wrap.hidden = ordered.length === 0;
-  if (!ordered.length) {
-    meta.textContent = emptyMeta;
-    return;
-  }
-  ordered.slice(0, limit).forEach((signal) => list.appendChild(buildSensorCard(signal)));
-  meta.textContent = `${fmtNumber(ordered.length)} 則 · 每 30 分鐘更新`;
-}
-
 function buildCompactSignalLink(signal) {
   const link = document.createElement("a");
   link.className = "compact-signal-link";
@@ -3187,20 +3085,12 @@ function renderCompactSignalGroup(wrap, list, meta, signals, emptyMeta, sortMode
 
 function renderMarketSignals() {
   const signals = (Array.isArray(state.marketSignals) ? state.marketSignals : [])
-    .filter((signal) => signal.category !== "free_tier");
-  renderSensorGroup(
-    breakingSignalsWrapEl,
-    breakingSignalsListEl,
-    breakingSignalsMetaEl,
-    signals.filter((signal) => signal.urgency === "breaking"),
-    4,
-    "目前沒有待確認速報",
-  );
+    .filter((signal) => signal.category === "price");
   renderCompactSignalGroup(
     marketSignalsWrapEl,
     marketSignalsListEl,
     marketSignalsMetaEl,
-    signals.filter((signal) => signal.urgency !== "breaking"),
+    signals,
     "目前沒有新的價格變更",
     "importance",
   );

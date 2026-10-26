@@ -590,6 +590,36 @@ def build_brief_events(*, stories: list[dict[str, Any]], archive_records: list[d
             else:
                 remaining.append(c)
         pending = remaining
+    # Story merging has already established that these article-only copies
+    # describe one report. A publisher URL and its Google News bridge have
+    # different article keys, so without this link they become two cards.
+    # Keep typed events separate; a story can contain distinct real updates.
+    article_claims = {str(c.row["id"]): c for c in claims
+                      if str(c.row["id"]) not in attached and c.action == "article"}
+    article_anchor = {}
+    for story in stories:
+        sid = str(story["story_id"])
+        publisher_names = {normalized(name).strip() for ref in story.get("sources", [])
+                           for name in (ref.get("source"), (ref.get("publisher") or {}).get("name"))
+                           if name}
+        buckets: dict[str, list[str]] = defaultdict(list)
+        for rid, claim in article_claims.items():
+            if seed_stories.get(rid) != {sid}:
+                continue
+            title = normalized(claim.row.get("title_original") or claim.row.get("title")).strip()
+            if not title:
+                continue
+            suffix = re.search(r"\s+-\s+([^\-]{2,60})$", title)
+            if suffix and any(name == suffix[1] or name.startswith(suffix[1] + " ")
+                              for name in publisher_names):
+                title = title[:suffix.start()]
+            buckets[re.sub(r"\s+", " ", title).strip()].append(rid)
+        preferred = str((story.get("primary_item") or {}).get("id") or "")
+        for members in buckets.values():
+            if len(members) < 2:
+                continue
+            anchor = article_claims[preferred] if preferred in members else article_claims[min(members)]
+            article_anchor.update({rid: anchor for rid in members})
     for c in claims:
         if str(c.row["id"]) not in attached:
             # A software keyword alone is not a security-event identity.
@@ -597,7 +627,7 @@ def build_brief_events(*, stories: list[dict[str, Any]], archive_records: list[d
                 subject = "article:" + hashlib.sha256((url_key(c.row.get("url")) or str(c.row["id"])).encode()).hexdigest()
                 c.key = key_for(subject, "article")
                 c.subject, c.action = subject, "article"
-            g = new_group(c)
+            g = new_group(article_anchor.get(str(c.row["id"]), c))
             g.attach(c)
 
     events, persisted, errors = [], retained.copy(), []

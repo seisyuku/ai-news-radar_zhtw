@@ -200,6 +200,41 @@ def test_non_event_article_url_continuity_survives_long_bridge_urls():
     assert not result.diagnostics["errors"]
 
 
+def test_same_story_direct_and_google_news_copies_share_one_article_event():
+    title = "Grok releases the first seven minutes of its AI-generated Odyssey"
+    direct = article("direct", title, source="TechCrunch AI",
+                     url="https://techcrunch.com/2026/10/25/grok-odyssey")
+    bridge = article("bridge", title + " - TechCrunch", source="xAI / Grok (Google News)",
+                     url="https://news.google.com/rss/articles/bridge?oc=5")
+    for row in (direct, bridge):
+        row["site_id"] = "curated_media"
+    now = b.parse(direct["published_at"]) + timedelta(hours=1)
+    stories = u.merge_story_items([direct, bridge], now, 24)
+    assert len(stories) == 1
+    stories[0]["news_summary"] = "Grok 發布《奧德賽》片段。"
+
+    def build(story_rows, previous=b.StateInput("missing")):
+        return b.build_brief_events(stories=story_rows, archive_records=[direct, bridge],
+            archive_meta=b.ArchiveMeta("valid", b.stamp(now)), previous_state=previous,
+            now=now, ranker=lambda row: (row["id"] != "direct", row["id"]))
+
+    # Existing history may contain the two URL-based article events already.
+    old = build([u.build_story_record(u.story_id_for_item(row), [row], now, 24)
+                 for row in (direct, bridge)])
+    assert len(old.projection["events"]) == 2
+    result = build(stories, b.StateInput("valid", old.next_state))
+    assert result.projection["status"] == "ready", result.diagnostics
+    assert len(result.projection["events"]) == 1
+    event = result.projection["events"][0]
+    assert set(event["member_article_ids"]) == {"direct", "bridge"}
+    assert event["member_story_ids"] == [stories[0]["story_id"]]
+    assert event["primary_item"]["id"] == "direct"
+    assert event["news_summary"] == stories[0]["news_summary"]
+    assert {e["brief_event_id"] for e in old.projection["events"]} == (
+        {event["brief_event_id"]} | set(result.next_state["events"][0]["alias_event_ids"]))
+    assert b.validate_state(result.next_state)
+
+
 def test_spacing_variants_and_price_conditions_are_concrete():
     a = article("a", "Introducing GPT-6.1Sol")
     c = article("c", "推出 GPT6.1 Sol")

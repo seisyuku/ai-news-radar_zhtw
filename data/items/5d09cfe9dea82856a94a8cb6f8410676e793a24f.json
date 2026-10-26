@@ -1,0 +1,59 @@
+{
+  "id": "5d09cfe9dea82856a94a8cb6f8410676e793a24f",
+  "published_at": "2026-10-25T21:31:16Z",
+  "first_seen_at": "2026-10-25T21:54:13.668082Z",
+  "site_id": "curated_media",
+  "site_name": "精選媒體",
+  "source": "xAI / Grok (Google News)",
+  "title": "Grok releases the first seven minutes of its AI-generated ‘Odyssey’ - TechCrunch",
+  "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPRTJaSVEwZnRJVGsxeTg2ZmFoNVdobHp6eVdoTFpBYjRjVDFkaGtzT29DdXZKXzJYNk9tWDJvQUROdDVTdUZBV0FBRG5LYlFWVjBvQzlSSlAxRXI1R1FGZ0JUYm16a3BjcTBfaDV5SUFzUnI5MkhXQUtuY3JKY19ack10bWtFQy1XT0Fia2RqYktTclR2a0hWbFNDWWRieEh1LXc?oc=5",
+  "last_seen_at": "2026-10-26T01:05:33.607742Z",
+  "summary": "Grok releases the first seven minutes of its AI-generated ‘Odyssey’ TechCrunch",
+  "publisher_links": [
+    "https://news.google.com/rss/articles/CBMiogFBVV95cUxPRTJaSVEwZnRJVGsxeTg2ZmFoNVdobHp6eVdoTFpBYjRjVDFkaGtzT29DdXZKXzJYNk9tWDJvQUROdDVTdUZBV0FBRG5LYlFWVjBvQzlSSlAxRXI1R1FGZ0JUYm16a3BjcTBfaDV5SUFzUnI5MkhXQUtuY3JKY19ack10bWtFQy1XT0Fia2RqYktTclR2a0hWbFNDWWRieEh1LXc?oc=5"
+  ],
+  "ingress": {
+    "kind": "google_news",
+    "site_id": "curated_media",
+    "source_id": "xai_grok_news",
+    "name": "xAI / Grok (Google News)",
+    "feed_url": "https://news.google.com/rss/search?q=%28xAI+OR+%22Elon+Musk%22+Grok+OR+%22Grok+4%22+OR+%22Grok+5%22%29+when%3A7d&hl=en-US&gl=US&ceid=US%3Aen"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "techcrunch",
+    "name": "TechCrunch",
+    "domain": "techcrunch.com",
+    "status": "identified",
+    "basis": [
+      "google_rss_source",
+      "legacy_suffix"
+    ],
+    "evidence": {
+      "rss_source_name": "TechCrunch",
+      "rss_source_url": "https://techcrunch.com",
+      "article_url": null,
+      "article_host": "news.google.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "73a99eac2ec17e5f48be4bdcb883e50b6c93879c3b12b2f343db32e6fbade376",
+    "scope_id": "techcrunch",
+    "publisher_kind": "media",
+    "admission_status": "limited",
+    "source_tier": "ai_media",
+    "source_tier_label": "精選AI媒體",
+    "source_tier_rank": 2,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_bridge",
+      "limited_scope"
+    ]
+  }
+}

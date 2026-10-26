@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "policy_id": "publisher-governance-v1",
-  "revision": "524163edf93fe58d5c332ab6e1452fc2bec9e37423a2a005c5e707bb42f2d211",
+  "revision": "73a99eac2ec17e5f48be4bdcb883e50b6c93879c3b12b2f343db32e6fbade376",
   "default": {
     "publisher_kind": "unknown",
     "admission_status": "unreviewed",
@@ -1514,9 +1514,7 @@
   ],
   "non_news_sensors": [
     "market_price",
-    "market_free_tier",
-    "canary_usage4claude",
-    "canary_usage_monitor_claude"
+    "market_free_tier"
   ],
   "notes": [
     "Identity is not admission. Exact host/path scopes only; no subdomain inheritance or query publisher tier.",
