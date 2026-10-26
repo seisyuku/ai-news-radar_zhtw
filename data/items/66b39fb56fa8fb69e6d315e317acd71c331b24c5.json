@@ -1,14 +1,17 @@
 {
-  "id": "69c32a5c4beba9559ea77b66f95c1b86b8b674f3",
-  "published_at": "2026-10-04T07:00:00Z",
-  "first_seen_at": "2026-10-04T14:31:18.659244Z",
+  "id": "66b39fb56fa8fb69e6d315e317acd71c331b24c5",
+  "published_at": "2026-10-26T03:00:00Z",
+  "first_seen_at": "2026-10-26T03:05:32.453823Z",
   "site_id": "tw_media",
   "site_name": "TW Media",
   "source": "數位時代 (Google News)",
-  "title": "「自由意志要交出去了」！AI 讓個人變強、群體卻變弱？成大教授：應刻意批判自己 - fc.bnext.com.tw",
-  "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE9ZSm1lNmdzXzh0SmZWeXNJQlJpcnRCR3Q2ZTNFbnZGSWM0LXprQjFsNGFoOFRyRml0RlR1V2VvV2tSM2ZtQURRRXhoRTB4elUxNXkycQ?oc=5",
-  "last_seen_at": "2026-10-05T02:35:33.352775Z",
-  "summary": "「自由意志要交出去了」！AI 讓個人變強、群體卻變弱？成大教授：應刻意批判自己 fc.bnext.com.tw",
+  "title": "「營收成長 20%」不是策略！4 道 AI 指令帶你檢查明年規劃，找出真正該解決的挑戰 - 未來商務",
+  "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE90Q0JkaUNJUTlkOWw1ZHRWejZVNGo1QWdEdVpsb1BEMU9OVnplWjRna0ZEU1g1QllKeW9WaG5BUHI4a0xzSGlZQWxtNF94bnVkRGI0WA?oc=5",
+  "last_seen_at": "2026-10-26T03:05:32.453823Z",
+  "summary": "「營收成長 20%」不是策略！4 道 AI 指令帶你檢查明年規劃，找出真正該解決的挑戰 未來商務",
+  "publisher_links": [
+    "https://news.google.com/rss/articles/CBMiVEFVX3lxTE90Q0JkaUNJUTlkOWw1ZHRWejZVNGo1QWdEdVpsb1BEMU9OVnplWjRna0ZEU1g1QllKeW9WaG5BUHI4a0xzSGlZQWxtNF94bnVkRGI0WA?oc=5"
+  ],
   "ingress": {
     "kind": "google_news",
     "site_id": "tw_media",
@@ -19,15 +22,16 @@
   "publisher": {
     "schema_version": 1,
     "publisher_id": "bnext",
-    "name": "數位時代",
-    "domain": null,
+    "name": "未來商務",
+    "domain": "fc.bnext.com.tw",
     "status": "identified",
     "basis": [
+      "google_rss_source",
       "configured_bridge"
     ],
     "evidence": {
-      "rss_source_name": null,
-      "rss_source_url": null,
+      "rss_source_name": "未來商務",
+      "rss_source_url": "https://fc.bnext.com.tw",
       "article_url": null,
       "article_host": "news.google.com",
       "expected_publisher_id": null,
@@ -38,8 +42,8 @@
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
     "registry_revision": "73a99eac2ec17e5f48be4bdcb883e50b6c93879c3b12b2f343db32e6fbade376",
-    "scope_id": "unreviewed",
-    "publisher_kind": "unknown",
+    "scope_id": "edition/fc.bnext.com.tw",
+    "publisher_kind": "media",
     "admission_status": "unreviewed",
     "source_tier": "watchlist",
     "source_tier_label": "未審來源",
@@ -48,8 +52,7 @@
     "allow_featured": false,
     "allow_radar": false,
     "reason_codes": [
-      "legacy_identity",
-      "scope_unknown",
+      "identified_bridge",
       "unreviewed_publisher",
       "not_permitted_for_featured",
       "not_permitted_for_radar"
