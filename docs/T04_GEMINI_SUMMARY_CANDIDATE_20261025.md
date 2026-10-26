@@ -31,8 +31,9 @@ key 都不在本機執行環境。
   provider 與 model，既有 Groq 快取鍵保持相容。候選每輪最多三次 Gemini
   請求，單次輸入沿用既有有界來源摘要、輸出上限 180 tokens。公開狀態只記
   次數與安全分類，不記請求內容或密鑰。
-- 獨立 `.github/workflows/t04-synthetic-eval.yml` 僅由 T04 分支推送或人工
-  dispatch 啟動；使用 Secrets 執行合成案例，不讀公開快照或真實 feed。
+- 獨立 `.github/workflows/t04-synthetic-eval.yml` 現在僅接受明確
+  `workflow_dispatch`；已於 10/26 晚間移除分支 push 觸發，避免其他功能
+  提交意外消耗測試額度。使用 Secrets 執行合成案例，不讀公開快照或真實 feed。
   `scripts/t04_live_eval.py` 只輸出診斷碼、案例狀態與錯誤類別，不輸出模型
   原文。Gemini 診斷後冷卻 60 秒，合成案例之間至少間隔 10 秒，以降低與
   同 project 翻譯流量撞上 15 RPM 上限的風險。這不是新的週期排程。
@@ -117,12 +118,59 @@ GitHub schedule 也可能漏掉所有四個 watchdog tick。既有 cron-job.org
 不執行額外 provider 測試。這仍無法消除 GitHub 執行服務或 SMTP 同時故障，
 因此不能宣稱收件匣投遞絕對保證。
 
+## 2026-10-26 晚間意外觸發與失敗調查
+
+臺北 21:05 的 `eca8881` 是 D+ 補充情報排序提交，原 `push` 觸發規則
+卻同時啟動 [T04 run 40327620273](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/40327620273)。
+該次不是 10/27 早上排程：Gemini diagnostic 通過，但 `qwen-release`、
+`security-incident`、`reported-acquisition` 三個案例為 `provider_error`，
+其他七例生成通過，title-only 跳過；Groq 10/10。安全日誌當時只保留
+HTTP status（這三例都是 null），捨棄了例外類型，無法回溯唯一定位根因。
+失敗結論、階段 artifact 與結果郵件均正常完成，不得把此 run 記為驗收成功。
+
+已移除 push 觸發，並在評估中增加逐案例開始／完成／失敗時間、實際呼叫
+耗時、HTTP status 與列舉的安全例外類型。Gemini diagnostic 的子步驟也
+保留同樣分類；郵件可直接顯示出錯案例與耗時，不記原始 exception message、
+模型原文或憑證。相關測試 26 項及 actionlint 通過。
+
+受控 [run 40337526478](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/40337526478)
+於臺北 22:12 啟動，在 `plain_generation` 即以
+`transient_or_transport_failure` 中止，未進入摘要案例；通知成功。
+這支持當晚生成服務／傳輸不穩的判斷，不是額度耗盡的證據。
+
+保留子步驟分類後的 [run 40338077731](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/40338077731)
+於 22:16～22:23 再現具體故障：Gemini diagnostic 通過，`qwen-release`、
+`commercial-adoption`、`conditional-service-end` 皆為 `ReadTimeout`，
+實際耗時分別 30.040／30.032／30.031 秒；其他七例生成通過，耗時
+13.351～23.776 秒，Groq 10/10。沒有收到 429 或 5xx。與原失敗案例
+不完全相同，顯示現行 30 秒讀取上限會截斷部分慢請求；這項重現證據不能
+回補原三例已被捨棄的 exception type。
+
+已將 Gemini 候選的單次 timeout 獨立設為 60 秒，T04 diagnostic 同步採用；
+Groq 保持 30 秒。摘要內容驗證、呼叫節奏及案例數維持，沒有加入自動重試。
+60 秒設定會進入安全報告與郵件，避免新舊測試條件混淆。此變更仍屬停用中
+的 Gemini 候選，不啟用正式摘要備援。變更後完整套件 2,363 項通過。
+
+60 秒設定的 [run 40339463429](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/40339463429)
+於臺北 22:25:07～22:33:07 完成，仍判 failure：Gemini diagnostic 通過；
+七例生成通過、`grok-release` 與 `conditional-service-end` 分別於
+60.005／60.011 秒 `ReadTimeout`，`commercial-adoption` 收到 HTTP 503。
+`untrusted-injection`、`unreleased-provider-claim` 分別花 36.205／32.123 秒
+才成功，顯示 60 秒設定能容納部分慢請求，但沒有解決當晚的全部服務／傳輸
+異常。Groq 10/10，title-only 跳過；沒有觀察到 429。結果郵件收到 SMTP
+250 接受回應，階段與收據 artifacts 均保存。
+
+Google 官方將 [503 分類為服務暫時不可用／容量不足](https://ai.google.dev/gemini-api/docs/generate-content/api-errors)。
+本次回應可確認 Gemini endpoint 的服務不可用，不能據此宣稱全球事故。
+原始及受控失敗都保留，不計入成功時段；維持正式摘要備援停用，依既定
+10/27 時段再測，不在當晚繼續重跑或擴大等待上限。
+
 ## 正式 gate 狀態
 
 1. Gemini 的提示注入及全套 11 例已在第一時段通過；Groq 同案已比較並
    保留一項未過結果。不可把單時段當作長窗穩定性結論。
 2. 在至少三個分離時段完成 Gemini diagnostic/eval；目前已有兩個，仍需
-   2026-10-27 的第三個時段。後續
+   2026-10-27 的第三個時段；10/26 晚間的逾時／503 失敗不計入成功時段。後續
    記錄 429、5xx、model discovery 與 structured output 的結果，不得以
    同時段連跑三次替代。
 3. 正式啟用前重新核對實際專案的 active rate limits、使用 tier 與資料使用
@@ -138,4 +186,5 @@ GitHub schedule 也可能漏掉所有四個 watchdog tick。既有 cron-job.org
 [速率限制](https://ai.google.dev/gemini-api/docs/rate-limits)。
 
 合成複測指令及不保存密鑰規則見
-[Gemini 診斷流程](guides/gemini-diagnostic-flow.md)；本案不建立新排程或提醒。
+[Gemini 診斷流程](guides/gemini-diagnostic-flow.md)；本案僅沿用上列 T04
+合成實測與通知查核安排。
