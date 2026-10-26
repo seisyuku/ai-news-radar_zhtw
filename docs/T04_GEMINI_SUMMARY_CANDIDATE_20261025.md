@@ -5,7 +5,7 @@
 候選程式已接入，但排程固定 `GEMINI_SUMMARY_ENABLED=0`，因此沒有 Gemini
 摘要 production call。Groq 仍是唯一正式摘要 provider；Gemini 讀者翻譯是獨立路徑。
 本案沒有送出真實新聞到 Gemini；合成案例已透過 GitHub Actions Secrets
-完成第一時段實測。沒有建立、讀取明文或更改任何 secret；兩個摘要測試用
+完成兩個分離時段實測。沒有建立、讀取明文或更改任何 secret；兩個摘要測試用
 key 都不在本機執行環境。
 
 維護者已選擇以 Gemini 免費層進行 **11 個合成案例的實測**，並接受該層
@@ -55,11 +55,27 @@ title-only 跳過。原 wrapper 誤將 Groq 比較失敗視為 Gemini 備援 gat
 10/10，全程沒有 429、5xx。這是同時段的 runner 修正驗證，不冒充第二個
 分離時段；首次 Groq 9/10 仍保留為模型輸出變動的比較證據。
 
+## 第二個實測時段：2026-10-26 午後補跑
+
+原訂臺北 09:00 的本地聊天自動化沒有產生執行回合；截至午後檢查，合成專用
+workflow 也仍只有 10 月 25 日的兩個 run，各只執行一次。未觀察到今天早上
+09:00 的模型測試、輸出或通知；目前無法從可讀紀錄確定本地排程漏觸發的原因。
+
+依既有合成案例授權，於臺北 **13:01:14～13:04:26** 補跑
+[Actions run 40178497098 的 attempt 2](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/40178497098/attempts/2)
+（[job 121406690403](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/40178497098/job/121406690403)）。
+Gemini diagnostic 通過，涵蓋 model discovery、plain 及 structured JSON；
+11 例中 10 例生成並全數通過，title-only 依規則標記 `insufficient_context`。
+Groq 同案也是 10/10，title-only 同樣跳過。安全日誌的案例錯誤碼均為空，
+沒有 429、5xx、模型查找或結構化輸出錯誤。本次與第一時段相隔約 20 小時，
+計為第二個分離時段；**不得記為 09:00 準時執行**。
+
 ## 正式 gate 狀態
 
 1. Gemini 的提示注入及全套 11 例已在第一時段通過；Groq 同案已比較並
    保留一項未過結果。不可把單時段當作長窗穩定性結論。
-2. 在至少三個分離時段完成 Gemini diagnostic/eval；目前僅有一個。後續
+2. 在至少三個分離時段完成 Gemini diagnostic/eval；目前已有兩個，仍需
+   2026-10-27 的第三個時段。後續
    記錄 429、5xx、model discovery 與 structured output 的結果，不得以
    同時段連跑三次替代。
 3. 正式啟用前重新核對實際專案的 active rate limits、使用 tier 與資料使用
