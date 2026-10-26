@@ -22,6 +22,7 @@ try:
         DEFAULT_GEMINI_MODEL,
         evaluate_cases,
         load_cases,
+        provider_error_details,
     )
     from scripts.news_summaries import make_gemini_generator, make_groq_generator
 except ModuleNotFoundError:  # pragma: no cover - direct script execution
@@ -31,6 +32,7 @@ except ModuleNotFoundError:  # pragma: no cover - direct script execution
         DEFAULT_GEMINI_MODEL,
         evaluate_cases,
         load_cases,
+        provider_error_details,
     )
     from news_summaries import make_gemini_generator, make_groq_generator
 
@@ -75,10 +77,19 @@ def safe_report(report: Mapping[str, Any]) -> dict[str, Any]:
                     for error in (row.get("validation") or {}).get("errors", [])
                 ],
                 "http_status": (row.get("provider_error") or {}).get("http_status"),
+                "error_type": safe_error_type(row.get("provider_error") or {}),
             }
             for row in report["results"]
         ],
     }
+
+
+def safe_error_type(details: Mapping[str, Any]) -> str | None:
+    known = {"ReadTimeout", "ConnectTimeout", "Timeout", "ConnectionError", "HTTPError",
+             "JSONDecodeError", "ValueError", "KeyError", "IndexError", "TypeError",
+             "ChunkedEncodingError", "SSLError", "RequestException"}
+    value = details.get("type")
+    return value if value in known else "OtherError" if value else None
 
 
 def stage(name: str, status: str, **details: Any) -> None:
@@ -92,6 +103,25 @@ def stage(name: str, status: str, **details: Any) -> None:
     target.parent.mkdir(parents=True, exist_ok=True)
     with target.open("a", encoding="utf-8") as stream:
         stream.write(json.dumps(record, ensure_ascii=False) + "\n")
+
+
+def observed(generate: Callable, provider: str, *, monotonic=time.monotonic) -> Callable:
+    """Keep case latency and error class even if a later call or job fails."""
+    def call(prompt: str, case: Mapping[str, Any]) -> str:
+        started = monotonic()
+        stage(provider + "_request", "started", case_id=case["id"])
+        try:
+            output = generate(prompt, case)
+        except Exception as error:
+            details = provider_error_details(error)
+            stage(provider + "_request", "failed", case_id=case["id"],
+                  elapsed_seconds=round(monotonic() - started, 3),
+                  error_type=safe_error_type(details), http_status=details.get("http_status"))
+            raise
+        stage(provider + "_request", "passed", case_id=case["id"],
+              elapsed_seconds=round(monotonic() - started, 3))
+        return output
+    return call
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -133,13 +163,13 @@ def main(argv: list[str] | None = None) -> int:
     cases = load_cases(DEFAULT_CASES_PATH)
     stage("corpus", "passed", case_count=len(cases))
     gemini = evaluate_cases(
-        cases, "gemini", paced(make_gemini_generator(gemini_key, model=model),
+        cases, "gemini", paced(observed(make_gemini_generator(gemini_key, model=model), "gemini"),
                                 args.gemini_interval_seconds),
     )
     stage("gemini_cases", "passed" if gemini["counts"]["failed"] == 0 else "failed",
           counts=gemini["counts"], cases=safe_report(gemini)["cases"])
     groq = evaluate_cases(
-        cases, "groq", paced(make_groq_generator(groq_key), args.groq_interval_seconds),
+        cases, "groq", paced(observed(make_groq_generator(groq_key), "groq"), args.groq_interval_seconds),
     )
     stage("groq_cases", "passed" if groq["counts"]["failed"] == 0 else "comparison_miss",
           counts=groq["counts"], cases=safe_report(groq)["cases"])

@@ -1,9 +1,6 @@
 name: T04 synthetic summary evaluation
 
 on:
-  push:
-    branches:
-      - codex/t04-gemini-summary
   workflow_dispatch:
     inputs:
       probe_only:

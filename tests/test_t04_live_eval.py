@@ -33,13 +33,44 @@ def test_safe_report_discards_provider_text_and_error_message():
         "results": [{
             "id": "synthetic-case", "status": "failed", "summary": "sensitive output",
             "validation": {"errors": ["missing_required:synthetic term"], "text": "sensitive output"},
-            "provider_error": {"http_status": 429, "message": "sensitive provider text"},
+            "provider_error": {"type": "HTTPError", "http_status": 429, "message": "sensitive provider text"},
         }],
     }
     result = safe_report(report)
     assert result["cases"] == [{"id": "synthetic-case", "status": "failed",
-                                "error_codes": ["missing_required"], "http_status": 429}]
+                                "error_codes": ["missing_required"], "http_status": 429,
+                                "error_type": "HTTPError"}]
     assert "sensitive" not in str(result)
+
+
+def test_request_record_keeps_timeout_class_and_latency_without_exception_text(monkeypatch, tmp_path):
+    import json
+    import pytest
+    import requests
+    from scripts.t04_live_eval import observed
+
+    target = tmp_path / "stages.jsonl"
+    monkeypatch.setenv("T04_EVENT_LOG", str(target))
+    ticks = iter([5.0, 35.5])
+
+    def failed(*_):
+        raise requests.ReadTimeout("do not log credential-bearing request text")
+
+    call = observed(failed, "gemini", monotonic=lambda: next(ticks))
+    with pytest.raises(requests.ReadTimeout):
+        call("unlogged prompt", {"id": "synthetic"})
+    records = [json.loads(line) for line in target.read_text().splitlines()]
+    assert records[-1]["error_type"] == "ReadTimeout"
+    assert records[-1]["elapsed_seconds"] == 30.5
+    assert records[-1]["case_id"] == "synthetic"
+    assert "credential-bearing" not in target.read_text()
+
+
+def test_safe_report_preserves_response_parsing_error_class():
+    report = {"provider": "gemini", "counts": {"failed": 1}, "results": [{
+        "id": "synthetic", "status": "failed", "provider_error": {"type": "KeyError"},
+        "validation": {"errors": ["provider_error:KeyError"]}}]}
+    assert safe_report(report)["cases"][0]["error_type"] == "KeyError"
 
 
 def test_missing_credentials_make_no_provider_calls(monkeypatch, capsys):

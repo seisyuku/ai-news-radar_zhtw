@@ -44,6 +44,12 @@ def stage_lines(path: str) -> list[str]:
             detail = " missing=" + ",".join(entry["missing_names"])
         elif "error_type" in entry:
             detail = " error_type=" + str(entry["error_type"])
+        if "case_id" in entry:
+            detail += " case=" + str(entry["case_id"])
+        if "elapsed_seconds" in entry:
+            detail += " seconds=" + str(entry["elapsed_seconds"])
+        if entry.get("http_status") is not None:
+            detail += " http=" + str(entry["http_status"])
         lines.append(f"- {name}: {status}{detail}")
     return lines
 

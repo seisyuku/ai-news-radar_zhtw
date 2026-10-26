@@ -23,6 +23,15 @@ def test_terminal_email_reports_steps_and_safe_stage_only(monkeypatch, tmp_path)
     assert "https://github.com/example/radar/actions/runs/123" in body
 
 
+def test_email_request_failure_identifies_case_and_error_type(tmp_path):
+    record = tmp_path / "stages.jsonl"
+    record.write_text(json.dumps({"stage": "gemini_request", "status": "failed",
+                                  "case_id": "synthetic", "error_type": "ReadTimeout",
+                                  "elapsed_seconds": 30.5, "http_status": None}) + "\n")
+    line = t04_notify.stage_lines(str(record))[0]
+    assert "ReadTimeout" in line and "case=synthetic" in line and "seconds=30.5" in line
+
+
 def test_watchdog_reads_accepted_receipt(monkeypatch):
     receipt = {"run_id": "123", "delivery": {"status": "provider_accepted"}}
     buffer = io.BytesIO()
