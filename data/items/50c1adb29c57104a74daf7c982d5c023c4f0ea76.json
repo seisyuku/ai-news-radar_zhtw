@@ -1,14 +1,17 @@
 {
-  "id": "a1925737d6e9cc6341ca2642352910dc95ea0c6e",
-  "published_at": "2026-10-05T08:29:27Z",
-  "first_seen_at": "2026-10-05T08:35:46.910809Z",
+  "id": "50c1adb29c57104a74daf7c982d5c023c4f0ea76",
+  "published_at": "2026-10-26T09:53:00Z",
+  "first_seen_at": "2026-10-26T10:35:32.039198Z",
   "site_id": "curated_media",
   "site_name": "精選媒體",
   "source": "DeepSeek (Google News)",
-  "title": "America's Answer to DeepSeek Arrives - marketscreener.com",
-  "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOSUhtbzlxMG5RQmtZYS11RE51TFNhQWFRS0tFTndybnV6ZmVkNUx4Q25aRUdqUFdhYkp2a2p2WHdWd0pDdGVHdmM3REQ0SWZSR29WSFVZbE42TzhSa3VFUXpvUlg0S0h1V2NBUkc5N250Yjd6eFZJWjFDbFVKXy00YS1nd2JPQUFVSmYzcGVCc2VPOU0?oc=5",
-  "last_seen_at": "2026-10-05T10:05:51.775172Z",
-  "summary": "America's Answer to DeepSeek Arrives marketscreener.com",
+  "title": "DeepSeek’s V4.1-Flash-1017 model tops global weekly usage rankings as token volume surges 801% - Global Times",
+  "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE9WSXdaS1FHaVlkMUZqV1UtQ2dBVzZLaWhOc3hUOFVmRUtlVWxJOWVpbEtQXy1EajJITk5yNVZGRHNlNlRhRGprSU5LUVdRb3d5elZqOG9VXzJadHZ4VnFYbXFR?oc=5",
+  "last_seen_at": "2026-10-26T10:35:32.039198Z",
+  "summary": "DeepSeek’s V4.1-Flash-1017 model tops global weekly usage rankings as token volume surges 801% Global Times",
+  "publisher_links": [
+    "https://news.google.com/rss/articles/CBMiYkFVX3lxTE9WSXdaS1FHaVlkMUZqV1UtQ2dBVzZLaWhOc3hUOFVmRUtlVWxJOWVpbEtQXy1EajJITk5yNVZGRHNlNlRhRGprSU5LUVdRb3d5elZqOG9VXzJadHZ4VnFYbXFR?oc=5"
+  ],
   "ingress": {
     "kind": "google_news",
     "site_id": "curated_media",
@@ -19,13 +22,15 @@
   "publisher": {
     "schema_version": 1,
     "publisher_id": null,
-    "name": null,
-    "domain": null,
-    "status": "unknown",
-    "basis": [],
+    "name": "Global Times",
+    "domain": "www.globaltimes.cn",
+    "status": "reported",
+    "basis": [
+      "google_rss_source"
+    ],
     "evidence": {
-      "rss_source_name": null,
-      "rss_source_url": null,
+      "rss_source_name": "Global Times",
+      "rss_source_url": "https://www.globaltimes.cn",
       "article_url": null,
       "article_host": "news.google.com",
       "expected_publisher_id": null,
@@ -46,8 +51,8 @@
     "allow_featured": false,
     "allow_radar": false,
     "reason_codes": [
-      "missing_identity",
-      "scope_unknown",
+      "reported_rss_source",
+      "scope_mismatch",
       "unreviewed_publisher",
       "not_permitted_for_featured",
       "not_permitted_for_radar"
