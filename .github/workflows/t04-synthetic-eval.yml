@@ -4,14 +4,27 @@ on:
   push:
     branches:
       - codex/t04-gemini-summary
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      probe_only:
+        description: Verify branch dispatch without running the provider evaluation
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: read
   actions: read
 
 jobs:
+  probe:
+    if: inputs.probe_only
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'T04 branch dispatch reached the branch workflow; no providers called.'
+
   synthetic-only:
+    if: ${{ !inputs.probe_only }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -45,7 +58,7 @@ jobs:
 
   notify:
     needs: synthetic-only
-    if: always()
+    if: ${{ always() && !inputs.probe_only }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
