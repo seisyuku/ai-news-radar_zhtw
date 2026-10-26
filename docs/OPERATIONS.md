@@ -296,7 +296,8 @@ synthetic evaluator and email job run only when the T04 branch is selected.
 Asia/Taipei for a T04 run with an SMTP-accepted notification. Missing runs or
 notifications trigger an email through the existing `TW_SOURCE_EMAIL_SETTINGS`.
 The external cron-job.org heartbeat for `update-news.yml` also dispatches the
-watchdog from 10:17 to 16:00 on that date. The added backstop job does not
+watchdog from 10:17 to 16:00 on that date through the existing
+`freshness-check` job. The added step does not
 change the news refresh or send publisher content to Gemini. SMTP acceptance
 is recorded, but inbox delivery cannot be guaranteed by the repository.
 
