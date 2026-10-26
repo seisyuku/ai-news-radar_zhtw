@@ -71,6 +71,32 @@ permissions:
   contents: write
 
 jobs:
+  # The existing cron-job.org heartbeat is outside both Codex and GitHub's
+  # schedule service. On the one T04 test day it also wakes the notification
+  # watchdog, so dropped GitHub schedule ticks cannot silently hide a missed
+  # Codex run. This job never invokes provider evaluation or changes news data.
+  t04-deadline-backstop:
+    if: github.ref == 'refs/heads/master' && inputs.source == 'heartbeat'
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    permissions:
+      actions: write
+      contents: read
+    steps:
+      - name: Dispatch one-time T04 delivery check after deadline
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          now=$(date -u +%s)
+          start=$(date -u -d '2026-10-27 02:17:00' +%s)
+          end=$(date -u -d '2026-10-27 08:00:00' +%s)
+          if [ "$now" -lt "$start" ] || [ "$now" -gt "$end" ]; then
+            echo 'Outside the one-time T04 notification window.'
+            exit 0
+          fi
+          gh workflow run t04-delivery-watchdog.yml -R "$GITHUB_REPOSITORY"
+
   # External heartbeat backstop (2026-07-19): watchdog.yml's own hourly
   # `schedule` registration has been observed decaying independently of
   # update-news.yml's (a 147.7 min gap on 2026-07-19, over 2x its normal

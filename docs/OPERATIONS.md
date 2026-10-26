@@ -288,6 +288,18 @@ production call：
 
 ## Schedule (cron) health
 
+### One-time T04 notification check (2026-10-27)
+
+`t04-synthetic-eval.yml` on `master` registers manual dispatch; the live
+synthetic evaluator and email job run only when the T04 branch is selected.
+`t04-delivery-watchdog.yml` checks at 10:17, 10:47, 11:17 and 11:47
+Asia/Taipei for a T04 run with an SMTP-accepted notification. Missing runs or
+notifications trigger an email through the existing `TW_SOURCE_EMAIL_SETTINGS`.
+The external cron-job.org heartbeat for `update-news.yml` also dispatches the
+watchdog from 10:17 to 16:00 on that date. The added backstop job does not
+change the news refresh or send publisher content to Gemini. SMTP acceptance
+is recorded, but inbox delivery cannot be guaranteed by the repository.
+
 ### Rule: verify every cron edit actually starts firing
 
 **After any change to `on.schedule.cron` in `update-news.yml`, confirm a
