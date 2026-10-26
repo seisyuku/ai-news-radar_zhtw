@@ -1885,8 +1885,22 @@ function dplusStories(stories, view, limit) {
     ? (a, b) => storyTimeMs(b, "latest_at") - storyTimeMs(a, "latest_at") || briefStorySortCompare(a, b)
     : briefStorySortCompare;
   const core = applyFeaturedSourceDiversityCap(stories.filter((s) => s.selection_class === "core").sort(compare), limit);
-  const supplement = applyFeaturedSourceDiversityCap(stories.filter((s) => s.selection_class === "supplement").sort(compare), limit);
-  return [...core.slice(0, limit), ...supplement.slice(0, Math.max(0, Math.min(limit, 5) - core.length))];
+  const counts = new Map();
+  const publisherKey = (story) => story.governance_publisher_key || story.brief_event_id;
+  core.forEach((story) => counts.set(publisherKey(story), (counts.get(publisherKey(story)) || 0) + 1));
+  const remaining = stories.filter((s) => s.selection_class === "supplement" && s.supplement_impact?.passes);
+  const supplement = [];
+  while (remaining.length && core.length + supplement.length < Math.min(limit, 5)) {
+    remaining.sort((a, b) => {
+      const effective = (s) => s.supplement_impact.total - 3 * (counts.get(publisherKey(s)) || 0);
+      return effective(b) - effective(a) || b.score - a.score
+        || (a.brief_event_id < b.brief_event_id ? -1 : a.brief_event_id > b.brief_event_id ? 1 : 0);
+    });
+    const chosen = remaining.shift();
+    supplement.push(chosen);
+    counts.set(publisherKey(chosen), (counts.get(publisherKey(chosen)) || 0) + 1);
+  }
+  return [...core.slice(0, limit), ...supplement];
 }
 
 function storyCandidateCounts(stories) {

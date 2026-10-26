@@ -87,14 +87,15 @@ def test_user_nominated_public_development_cases(case):
     assert s.validate(overlay, parent["brief_events"])
     schema_validator().validate(overlay)
     decision = next(d for d in overlay["events"] if row["id"] in d["support_article_ids"])
-    assert decision["featured_eligible"] and len(daily["items"]) == 1
+    assert decision["featured_eligible"]
     if case["case_id"] == "unreleased_disclosure":
         assert decision["selection_class"] == "supplement"
         assert decision["eligibility_basis"] == "capability_disclosure"
         assert decision["featured_business_events"] == []
         assert decision["disclosure_flags"] == ["provider_claim", "unreleased"]
-        assert daily["items"][0]["signal_label"] == "產業動態"
+        assert not decision["supplement_impact"]["passes"] and daily["items"] == []
     else:
+        assert len(daily["items"]) == 1
         assert decision["selection_class"] == "core"
         assert decision["featured_business_events"] == ["model_release"]
         assert decision["featured_score"] < .72
@@ -200,7 +201,7 @@ def test_concrete_product_news_can_supply_unbadged_supplement():
     parent, daily, _ = bundle([row])
     d = parent["publisher_governance"]["events"][0]
     assert d["selection_class"] == "supplement" and d["eligibility_basis"] == "industry_news"
-    assert daily["items"][0]["business_events"] == []
+    assert d["supplement_impact"]["passes"] is False and daily["items"] == []
 
 
 @pytest.mark.parametrize("host", ["unknown.example", "news.google.com"])
@@ -214,6 +215,7 @@ def test_unknown_or_unreviewed_publisher_cannot_use_core_or_supplement(host, tit
 def selection_row(index, *, core=False, score=.5, publisher="one"):
     return {"brief_event_id": f"be1_{index:024x}", "featured_eligible": True,
         "selection_class": "core" if core else "supplement", "featured_score": score,
+        "supplement_impact": None if core else {"total": 80, "passes": True},
         "featured_primary_item": {"corroboration_key": "publisher:" + publisher,
             "publisher": {"publisher_id": publisher}}}
 
@@ -317,4 +319,4 @@ def test_backend_qualification_requires_no_network_or_provider_calls(monkeypatch
     monkeypatch.setattr(requests.sessions.Session, "request", forbidden)
     rows = [c["record"] for c in USER_CASES["cases"]]
     parent, daily, _ = bundle(rows, now=b.parse(USER_CASES["asof"]))
-    assert parent["publisher_governance"]["status"] == "ready" and len(daily["items"]) == 3
+    assert parent["publisher_governance"]["status"] == "ready" and len(daily["items"]) == 2

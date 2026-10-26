@@ -323,6 +323,24 @@
           },
           "maxItems": 2,
           "uniqueItems": true
+        },
+        "supplement_impact": {
+          "anyOf": [
+            {"type": "null"},
+            {
+              "type": "object",
+              "properties": {
+                "i": {"enum": [0, 5, 15, 30, 40]},
+                "p": {"enum": [0, 10, 20]},
+                "e": {"enum": [0, 10, 20]},
+                "c": {"enum": [0, 10, 20]},
+                "total": {"type": "integer", "minimum": 0, "maximum": 100},
+                "passes": {"type": "boolean"}
+              },
+              "required": ["i", "p", "e", "c", "total", "passes"],
+              "additionalProperties": false
+            }
+          ]
         }
       },
       "required": [
@@ -342,7 +360,8 @@
         "featured_business_events",
         "featured_news_summary",
         "summary_article_id",
-        "disclosure_flags"
+        "disclosure_flags",
+        "supplement_impact"
       ],
       "additionalProperties": false,
       "allOf": [
@@ -394,6 +413,9 @@
               },
               "disclosure_flags": {
                 "maxItems": 0
+              },
+              "supplement_impact": {
+                "type": "null"
               }
             }
           },
@@ -451,6 +473,9 @@
               },
               "disclosure_flags": {
                 "maxItems": 0
+              },
+              "supplement_impact": {
+                "type": "null"
               }
             }
           }
@@ -473,6 +498,9 @@
               },
               "featured_business_events": {
                 "maxItems": 0
+              },
+              "supplement_impact": {
+                "type": "object"
               }
             }
           }

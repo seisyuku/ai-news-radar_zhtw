@@ -12,10 +12,11 @@ import math
 import re
 
 try:
-    from scripts import publisher_governance as legacy, signal_material as material
+    from scripts import publisher_governance as legacy, signal_material as material, supplement_impact
 except ModuleNotFoundError:
     import publisher_governance as legacy
     import signal_material as material
+    import supplement_impact
 
 b, policy, corroboration = legacy.b, legacy.policy, legacy.corroboration
 SCHEMA_VERSION, SELECTION_POLICY, DEFAULT_VISIBLE_LIMIT = 2, "dplus-v1", 5
@@ -36,7 +37,8 @@ def decide(event, annotations, rows, now, scorer):
         "qualified_source_count": 0, "qualified_corroboration_keys": [], "support_article_ids": [],
         "support_scores": [], "eligibility_basis": None, "featured_primary_article_id": None,
         "featured_primary_item": None, "featured_score": None, "featured_business_events": [],
-        "featured_news_summary": None, "summary_article_id": None, "disclosure_flags": []}
+        "featured_news_summary": None, "summary_article_id": None, "disclosure_flags": [],
+        "supplement_impact": None}
     if not event["eligible"] or not b.parse(event["effective_at"]) <= now < b.parse(event["expires_at"]):
         result["reason_codes"] = ["outside_reader_window"]
         return result
@@ -80,6 +82,8 @@ def decide(event, annotations, rows, now, scorer):
         featured_primary_item=copy.deepcopy(primary), featured_score=score,
         featured_business_events=kinds, disclosure_flags=[] if core else supplement_evidence["qualifiers"])
     result["featured_primary_item"]["business_events"] = kinds
+    if not core:
+        result["supplement_impact"] = supplement_impact.score(primary["source_material"], basis)
     summary = event.get("news_summary")
     if isinstance(summary, str) and summary:
         if primary["id"] == event["primary_item"]["id"] and len(summary) <= 2000:
@@ -98,13 +102,15 @@ def select(decisions, *, limit=20, target=DEFAULT_VISIBLE_LIMIT):
         raise ValueError("duplicate_event")
     selected, counts = [], defaultdict(int)
     for selection_class in ("core", "supplement"):
-        remaining = [d for d in eligible if d["selection_class"] == selection_class]
+        remaining = [d for d in eligible if d["selection_class"] == selection_class
+                     and (selection_class == "core" or d["supplement_impact"]["passes"])]
         capacity = limit if selection_class == "core" else min(limit, target)
         while remaining and len(selected) < capacity:
             def order(d):
                 primary = d["featured_primary_item"]
                 key = primary.get("corroboration_key") or "publisher:" + primary["publisher"]["publisher_id"]
-                return -d["featured_score"] + .03 * counts[key], d["brief_event_id"]
+                rank = d["featured_score"] if selection_class == "core" else d["supplement_impact"]["total"] / 100
+                return -rank + .03 * counts[key], -d["featured_score"], d["brief_event_id"]
             remaining.sort(key=order)
             chosen = remaining.pop(0)
             selected.append(chosen["brief_event_id"])
@@ -118,7 +124,8 @@ def featured_view(event, decision):
     out = legacy.featured_view(event, decision)
     out.update(selection_class=decision["selection_class"],
         signal_label="核心事件" if decision["selection_class"] == "core" else "產業動態",
-        disclosure_flags=copy.deepcopy(decision["disclosure_flags"]))
+        disclosure_flags=copy.deepcopy(decision["disclosure_flags"]),
+        supplement_impact=copy.deepcopy(decision["supplement_impact"]))
     return out
 
 
