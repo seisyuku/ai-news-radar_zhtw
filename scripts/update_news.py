@@ -6813,7 +6813,10 @@ def apply_brief_event_result(result, daily, merged):
         daily["brief_event_meta"] = brief_events.selection_meta(result.projection)
     governance_api = signal_selection if governance["schema_version"] == 2 else publisher_governance
     daily["publisher_governance_meta"] = governance_api.metadata(governance)
-    qualified = [d for d in governance["events"] if d["featured_eligible"]]
+    candidates = [d for d in governance["events"] if d["featured_eligible"]]
+    qualified = ([d for d in candidates if d["selection_class"] == "core"
+                  or d["supplement_impact"]["passes"]]
+                 if governance["schema_version"] == 2 else candidates)
     daily["selection_diagnostics"] = {
         "candidate_count": len(result.projection["events"]), "eligible_count": len(qualified),
         "selected_count": len(result.daily_items), "below_gate_count": len(result.projection["events"]) - len(qualified),
@@ -6826,7 +6829,7 @@ def apply_brief_event_result(result, daily, merged):
         daily["selection_diagnostics"].update(
             selection_policy=signal_selection.SELECTION_POLICY,
             core_count=sum(d["selection_class"] == "core" for d in qualified),
-            supplement_candidate_count=sum(d["selection_class"] == "supplement" for d in qualified),
+            supplement_candidate_count=sum(d["selection_class"] == "supplement" for d in candidates),
             default_visible_limit=signal_selection.DEFAULT_VISIBLE_LIMIT)
     merged["brief_events"] = result.projection
     merged["publisher_governance"] = governance

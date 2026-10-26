@@ -127,7 +127,9 @@ def test_editorial_selection_expectations(case_id, title, summary, url, source,
     decision = overlay["events"][0]
     assert decision["selection_class"] == expected_class
     assert decision["featured_eligible"] is (expected_class is not None)
-    assert len(daily["items"]) == int(expected_class is not None)
+    expected_visible = expected_class == "core" or (expected_class == "supplement"
+        and decision["supplement_impact"]["passes"])
+    assert len(daily["items"]) == int(expected_visible)
     if expected_class == "core":
         assert expected_kind in decision["featured_business_events"]
     elif expected_class == "supplement":

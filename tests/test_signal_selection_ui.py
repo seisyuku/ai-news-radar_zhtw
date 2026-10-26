@@ -19,14 +19,17 @@ def test_primary_score_tie_uses_python_id_order_instead_of_browser_locale():
 def test_user_cases_survive_browser_guard_with_exact_class_and_flags(case):
     from scripts.brief_events import parse
     parent, daily, _ = bundle([case["record"]], now=parse(USER_CASES["asof"]))
-    expected = daily["items"][0]
+    expected = parent["publisher_governance"]["events"][0]
     result = run_js(harness(parent, daily) + """
 const r=G.resolve(state), e=r.projection?.events[0];
 console.log(JSON.stringify({valid:G.valid(parent),cls:e?.selection_class,
  flags:e?.disclosure_flags,badges:e?.business_events}));
 """)
-    assert result == {"valid": True, "cls": expected["selection_class"],
-        "flags": expected["disclosure_flags"], "badges": expected["business_events"]}
+    if expected["supplement_impact"] and not expected["supplement_impact"]["passes"]:
+        assert result == {"valid": True}
+    else:
+        assert result == {"valid": True, "cls": expected["selection_class"],
+            "flags": expected["disclosure_flags"], "badges": expected["featured_business_events"]}
 
 
 @pytest.mark.parametrize("change", [
@@ -96,7 +99,8 @@ const storyToBriefRow=story=>({story});
 function rows(nCore,nSupplement){return [...Array.from({length:nCore},(_,i)=>
  ({brief_event_id:'c'+i,selection_class:'core',score:i/100,time:i})),
  ...Array.from({length:nSupplement},(_,i)=>({brief_event_id:'s'+i,
- selection_class:'supplement',score:1-i/100,time:100-i}))];}
+ selection_class:'supplement',score:1-i/100,time:100-i,
+ supplement_impact:{total:100-i,passes:true}}))];}
 """
 
 
