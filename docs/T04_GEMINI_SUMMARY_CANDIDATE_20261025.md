@@ -98,11 +98,15 @@ T04 測試分支上的檔案本身不會註冊 GitHub schedule。
 推送至 `master`（`d9e4de3`、`36229b5`）。
 [通知通道測試 run 40273783160](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/40273783160)
 執行成功，SMTP `DATA` 回應 250、狀態 `provider_accepted`；這只驗證
-發信端接受，不是收件匣送達證明。
+發信端接受。維護者隨後確認已在收件匣收到這封測試信。
 [無 provider 派送測試 run 40273918526](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/40273918526)
 確認指定 T04 分支時執行該分支的 `probe` job，而摘要評估及通知 job 均被
 略過；沒有消耗 Gemini／Groq 呼叫。第三時段的完整評估、階段 artifact 與
 結果郵件，仍須等 2026-10-27 實際排程驗證。
+部署後第一個自然站外心跳
+[run 40275006768](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/40275006768)
+於 2026-10-26 05:35 UTC 執行成功：`freshness-check` 中的 T04 步驟
+正確判定尚未到截止時間並略過寄信；原有新聞更新 job 也成功。
 
 通知保證的邊界：Actions 排程、runner、GitHub API、SMTP 與收件端都可能
 故障；系統可記錄 SMTP 伺服器接受與否，無法保證郵件一定出現在收件匣。
