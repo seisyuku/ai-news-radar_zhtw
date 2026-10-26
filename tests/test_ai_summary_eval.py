@@ -172,6 +172,7 @@ def test_gemini_generator_uses_json_schema_and_never_returns_api_key():
     url, request = session.calls[0]
     assert url.endswith("/models/gemini-test:generateContent")
     assert request["headers"]["x-goog-api-key"] == secret
+    assert request["timeout"] == 60
     assert "temperature" not in request["json"]["generationConfig"]
     assert request["json"]["generationConfig"]["responseMimeType"] == "application/json"
     assert request["json"]["generationConfig"]["responseSchema"]["required"] == ["summary"]
@@ -189,6 +190,7 @@ def test_groq_generator_uses_json_object_and_never_returns_api_key():
     url, request = session.calls[0]
     assert url == "https://api.groq.com/openai/v1/chat/completions"
     assert request["headers"]["Authorization"] == f"Bearer {secret}"
+    assert request["timeout"] == 30
     assert request["json"]["model"] == "qwen/qwen3.8-27b"
     assert request["json"]["response_format"] == {"type": "json_object"}
     assert request["json"]["reasoning_effort"] == "none"

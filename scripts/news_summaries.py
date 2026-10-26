@@ -24,6 +24,7 @@ DEFAULT_GEMINI_MAX_REQUESTS = 3
 DEFAULT_MAX_NEW_SUMMARIES = 6
 DEFAULT_CANDIDATE_LIMIT = 20
 DEFAULT_TIMEOUT_SECONDS = 30
+DEFAULT_GEMINI_TIMEOUT_SECONDS = 60
 SUMMARY_MIN_CHARS = 30
 SUMMARY_MAX_CHARS = 120
 SUMMARY_CACHE_VERSION = 1
@@ -202,7 +203,7 @@ def make_gemini_generator(
     def generate(prompt: str, _context: Mapping[str, Any]) -> str:
         response = client.post(
             f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
-            timeout=DEFAULT_TIMEOUT_SECONDS,
+            timeout=DEFAULT_GEMINI_TIMEOUT_SECONDS,
             headers={"x-goog-api-key": api_key, "Content-Type": "application/json"},
             json={
                 "contents": [{"parts": [{"text": prompt}]}],

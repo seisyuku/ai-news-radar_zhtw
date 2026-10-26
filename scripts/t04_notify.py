@@ -50,6 +50,8 @@ def stage_lines(path: str) -> list[str]:
             detail += " seconds=" + str(entry["elapsed_seconds"])
         if entry.get("http_status") is not None:
             detail += " http=" + str(entry["http_status"])
+        if "gemini_timeout_seconds" in entry:
+            detail += " gemini_timeout_seconds=" + str(entry["gemini_timeout_seconds"])
         lines.append(f"- {name}: {status}{detail}")
     return lines
 

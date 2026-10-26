@@ -24,7 +24,7 @@ try:
         load_cases,
         provider_error_details,
     )
-    from scripts.news_summaries import make_gemini_generator, make_groq_generator
+    from scripts.news_summaries import DEFAULT_GEMINI_TIMEOUT_SECONDS, make_gemini_generator, make_groq_generator
 except ModuleNotFoundError:  # pragma: no cover - direct script execution
     from diagnose_gemini import diagnose_gemini
     from evaluate_ai_summaries import (
@@ -34,7 +34,7 @@ except ModuleNotFoundError:  # pragma: no cover - direct script execution
         load_cases,
         provider_error_details,
     )
-    from news_summaries import make_gemini_generator, make_groq_generator
+    from news_summaries import DEFAULT_GEMINI_TIMEOUT_SECONDS, make_gemini_generator, make_groq_generator
 
 
 def paced(
@@ -134,7 +134,7 @@ def main(argv: list[str] | None = None) -> int:
            args.post_diagnostic_cooldown_seconds) < 0:
         parser.error("intervals must be non-negative")
 
-    stage("evaluation", "started")
+    stage("evaluation", "started", gemini_timeout_seconds=DEFAULT_GEMINI_TIMEOUT_SECONDS)
 
     gemini_key = os.environ.get("GEMINI_API_KEY", "").strip()
     groq_key = os.environ.get("GROQ_API_KEY", "").strip()
@@ -148,7 +148,7 @@ def main(argv: list[str] | None = None) -> int:
 
     model = os.environ.get("GEMINI_SUMMARY_MODEL") or DEFAULT_GEMINI_MODEL
     stage("gemini_diagnostic", "started")
-    diagnostic = diagnose_gemini(api_key=gemini_key, model=model)
+    diagnostic = diagnose_gemini(api_key=gemini_key, model=model, timeout=DEFAULT_GEMINI_TIMEOUT_SECONDS)
     diagnostic_steps = []
     for step in diagnostic.get("steps", []):
         details = step.get("error") or {}
@@ -184,6 +184,7 @@ def main(argv: list[str] | None = None) -> int:
           counts=groq["counts"], cases=safe_report(groq)["cases"])
     print(json.dumps({"status": "evaluated", "case_count": len(cases),
                       "model": model, "diagnostic": "passed",
+                      "gemini_timeout_seconds": DEFAULT_GEMINI_TIMEOUT_SECONDS,
                       "gemini_acceptance_passed": gemini["counts"]["failed"] == 0,
                       "reports": [safe_report(gemini), safe_report(groq)]},
                      ensure_ascii=False))
