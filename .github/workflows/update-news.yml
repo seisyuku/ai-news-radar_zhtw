@@ -98,7 +98,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 2
     permissions:
-      actions: write
+      actions: read
     outputs:
       should_run: ${{ steps.guard.outputs.should_run }}
     steps:
@@ -140,23 +140,6 @@ jobs:
             echo "should_run=true" >> "$GITHUB_OUTPUT"
             echo "::warning::heartbeat 接管: 最近一次成功 run 已 ${age_minutes} 分鐘(門檻 ${FRESHNESS_THRESHOLD_MINUTES} 分鐘),內部排程可能已衰變,heartbeat 執行完整更新。"
           fi
-
-      # Reuse the existing external-heartbeat runner for this one-day check.
-      # This step does not invoke model evaluation or change news data.
-      - name: Dispatch one-time T04 delivery check after deadline
-        if: github.ref == 'refs/heads/master' && inputs.source == 'heartbeat'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          now=$(date -u +%s)
-          start=$(date -u -d '2026-10-27 02:17:00' +%s)
-          end=$(date -u -d '2026-10-27 08:00:00' +%s)
-          if [ "$now" -lt "$start" ] || [ "$now" -gt "$end" ]; then
-            echo 'Outside the one-time T04 notification window.'
-            exit 0
-          fi
-          gh workflow run t04-delivery-watchdog.yml -R "$GITHUB_REPOSITORY"
 
   update:
     needs: freshness-check
