@@ -1,0 +1,68 @@
+{
+  "id": "788077e60695252fe48388371d10c89166218e22",
+  "published_at": "2026-10-26T16:15:00Z",
+  "first_seen_at": "2026-10-27T00:35:28.980620Z",
+  "site_id": "opmlrss",
+  "site_name": "OPML RSS",
+  "source": "Simon Willison",
+  "title": "webframe: evaluated as a scraper and a sandbox",
+  "url": "https://simonwillison.net/2026/Oct/26/webframe-evaluation",
+  "last_seen_at": "2026-10-27T00:35:28.980620Z",
+  "summary": "Research: webframe: evaluated as a scraper and a sandbox webframe is a neat little project from Jeff Lindsay which lets you \"run a web page like a program\" - you point it at a URL or file and it executes it in a hidden headless web view and outputs console.log() to standard output and any exceptions to standard error. It's written in Go on top of the glaze library, which provides access to a system browser (\"WKWebView on macOS, WebKitGTK on Linux, WebView2 on Windows\") so it doesn't need to bundle its own browser engine. It reminds me of my own shot-scraper javascript tool, albeit in a much smaller package that doesn't depend on Playwright. I had Claude Opus 5.5 put it through its paces and prepare a research report for me. Here's the prompt I used: Explore https://github.com/tractordev/webframe try running it and put it though its paces, build a few exploratory prototypes, then evaluate it as a potential sandboxing tool and as a tool for scraping web pages using the same patterns encouraged by the \"shot-scraper JavaScript\" command (see simonw/shot-scraper on GitHub, docs directory) Tags: browsers , go , javascript , jeff-lindsay , shot-scraper",
+  "publisher_links": [
+    "https://github.com/simonw/research/tree/main/webframe-evaluation#readme",
+    "https://github.com/tractordev/webframe",
+    "https://github.com/crgimenes/glaze",
+    "https://shot-scraper.datasette.io/en/stable/javascript.html",
+    "https://claude.ai/code/cshk_01MX3aJH8vDGmGSj1xH9BYhj2HviVvLDaJbiELHyDoReYT",
+    "https://simonwillison.net/tags/browsers",
+    "https://simonwillison.net/tags/go",
+    "https://simonwillison.net/tags/javascript",
+    "https://simonwillison.net/tags/jeff-lindsay",
+    "https://simonwillison.net/tags/shot-scraper"
+  ],
+  "ingress": {
+    "kind": "private_opml",
+    "site_id": "opmlrss",
+    "source_id": null,
+    "name": "RSS/OPML",
+    "feed_url": null
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": null,
+    "name": null,
+    "domain": "simonwillison.net",
+    "status": "unknown",
+    "basis": [],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": null,
+      "article_host": "simonwillison.net",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "73a99eac2ec17e5f48be4bdcb883e50b6c93879c3b12b2f343db32e6fbade376",
+    "scope_id": "unreviewed",
+    "publisher_kind": "unknown",
+    "admission_status": "unreviewed",
+    "source_tier": "watchlist",
+    "source_tier_label": "未審來源",
+    "source_tier_rank": 6,
+    "allow_general": true,
+    "allow_featured": false,
+    "allow_radar": false,
+    "reason_codes": [
+      "missing_identity",
+      "scope_mismatch",
+      "unreviewed_publisher",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
+    ]
+  }
+}
