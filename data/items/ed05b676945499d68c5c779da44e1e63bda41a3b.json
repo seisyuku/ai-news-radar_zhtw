@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "AWS Neuron 2.33 增加了原生 PyTorch 支持、Neuron Observer 和其他新功能",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/aws-announce-neuron-2-33-0",
-  "last_seen_at": "2026-10-27T19:05:44.099542Z",
+  "last_seen_at": "2026-10-27T19:35:32.717588Z",
   "summary": "AWS Neuron 2.33 现已推出，新增了 TorchNeuron（AWS Trainium 的原生 PyTorch 后端），该功能目前处于公开测试阶段。您可以在 Amazon EC2 Trn2 和 Trn3 实例上运行使用标准 PyTorch API 编写的模型，既可以采用 Eager 模式，也可以使用 torch.compile。此版本还引入了公开测试版的 Neuron Observer，可以在不到一秒钟的时间内检测到 Trainium 的运行状况问题，并识别受影响的节点或设备。 vLLM Neuron 插件升级到 vLLM 0.29.0，而用于生成 Wan2.2 视频的 vLLM Omni Neuron 插件现已纳入 Neuron 发行版本。两者都支持通过 TorchNeuron 进行原生 PyTorch 编译。用于 PyTorch 训练的新 Neuron 深度学习 AMI 和深度学习容器包含 TorchNeuron、PyTorch 2.14 和 TorchTitan。Neuron Explorer 可打开使用 torch.profiler 捕获的性能剖析文件。借助 PyTorch 内存快照，该工具现已可将内存分配行为关联到发起分配的 Python 源码行，用于调试 Eager 模式下的内存溢出（OOM）错误。 使用 Neuron Kernel 接口（NKI）编写的算子现已可使用完整的 Python 语言进行元编程，包含生成器和类继承。NKI Library 新增 25 个实验性算子，包含 DeepSeek-V3.2、Qwen3.5 和 Kimi Delta Attention 的算子。 要开始使用，请参阅以下资源： AWS Neuron 2.33.0 发行说明 AWS TorchNeuron 文档 AWS Neuron Observer 文档 AWS Neuron Kernel 接口文档 AWS Neuron",
   "publisher_links": [
     "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/release-notes/index.html",
