@@ -1,14 +1,17 @@
 {
-  "id": "c756ece8d01a498932affee080a46a8d3edb49b7",
-  "published_at": "2026-10-05T02:00:00Z",
-  "first_seen_at": "2026-10-05T08:35:46.910809Z",
+  "id": "100b4687b9ec6900175971b275530a6818584301",
+  "published_at": "2026-10-27T03:00:00Z",
+  "first_seen_at": "2026-10-27T03:05:35.209003Z",
   "site_id": "tw_media",
   "site_name": "TW Media",
   "source": "數位時代 (Google News)",
-  "title": "AI總說「你沒錯」？《Science》研究：它越挺你，你越不想跟人和好 - 數位時代",
-  "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPbjRzUmctT1NOajROT202WDl1SGVfQU9pVmpNVGVSVy1KNHpuWks2WFZkU3JuYXozaEczVEZSTkMwR3VkME9lb00yWlBXZXBlMllab2JWVnFZalpJb3NkbmZJUlYyZEJ1azhtdnpLM0lubG41U1lHczN5OEo2ZmlidjZVM013Zw?oc=5",
-  "last_seen_at": "2026-10-06T02:35:58.997528Z",
-  "summary": "AI總說「你沒錯」？《Science》研究：它越挺你，你越不想跟人和好 數位時代",
+  "title": "AI 太懂你，企劃反而挑不出毛病？教你 ChatGPT 臨時對話的 3 種用法 - 未來商務",
+  "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTFBpRUxJdC02b18yYjVWOS1YTEJ1VHVsVVNHT2FNV0JaNF9YaFlFYnJqbm41cHlCUER2UnYwSjFLTlJ6NkI2OFc3YmFJbmItOHdSdkdIMQ?oc=5",
+  "last_seen_at": "2026-10-27T03:05:35.209003Z",
+  "summary": "AI 太懂你，企劃反而挑不出毛病？教你 ChatGPT 臨時對話的 3 種用法 未來商務",
+  "publisher_links": [
+    "https://news.google.com/rss/articles/CBMiVEFVX3lxTFBpRUxJdC02b18yYjVWOS1YTEJ1VHVsVVNHT2FNV0JaNF9YaFlFYnJqbm41cHlCUER2UnYwSjFLTlJ6NkI2OFc3YmFJbmItOHdSdkdIMQ?oc=5"
+  ],
   "ingress": {
     "kind": "google_news",
     "site_id": "tw_media",
@@ -19,15 +22,16 @@
   "publisher": {
     "schema_version": 1,
     "publisher_id": "bnext",
-    "name": "數位時代",
-    "domain": null,
+    "name": "未來商務",
+    "domain": "fc.bnext.com.tw",
     "status": "identified",
     "basis": [
+      "google_rss_source",
       "configured_bridge"
     ],
     "evidence": {
-      "rss_source_name": null,
-      "rss_source_url": null,
+      "rss_source_name": "未來商務",
+      "rss_source_url": "https://fc.bnext.com.tw",
       "article_url": null,
       "article_host": "news.google.com",
       "expected_publisher_id": null,
@@ -38,8 +42,8 @@
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
     "registry_revision": "73a99eac2ec17e5f48be4bdcb883e50b6c93879c3b12b2f343db32e6fbade376",
-    "scope_id": "unreviewed",
-    "publisher_kind": "unknown",
+    "scope_id": "edition/fc.bnext.com.tw",
+    "publisher_kind": "media",
     "admission_status": "unreviewed",
     "source_tier": "watchlist",
     "source_tier_label": "未審來源",
@@ -48,8 +52,7 @@
     "allow_featured": false,
     "allow_radar": false,
     "reason_codes": [
-      "legacy_identity",
-      "scope_unknown",
+      "identified_bridge",
       "unreviewed_publisher",
       "not_permitted_for_featured",
       "not_permitted_for_radar"
