@@ -1,0 +1,62 @@
+{
+  "id": "61baf0e439a7534ef151f9249475a0f79499db40",
+  "published_at": "2026-10-27T08:29:13Z",
+  "first_seen_at": "2026-10-27T08:35:30.378359Z",
+  "site_id": "curated_media",
+  "site_name": "精選媒體",
+  "source": "AIBASE",
+  "title": "蘋果 iOS 27.2 給 AI 圖片打上隱身水印",
+  "url": "https://news.aibase.com/tw/news/31904",
+  "last_seen_at": "2026-10-27T08:35:30.378359Z",
+  "summary": "MacRumors稱，蘋果已在iOS 27.2中悄悄接入谷歌SynthID技術。今後“圖樂園”生成的圖片、經Apple智能編輯的部分照片，都會加入肉眼不可見的隱藏水印。SynthID在像素層面嵌入標記，用於識別AI生成內容，號稱不損畫質，並能抵抗裁剪、濾鏡、壓縮等後期處理。報道還提及在“照片”App中測試相關編輯功能。",
+  "ingress": {
+    "kind": "public_adapter",
+    "site_id": "curated_media",
+    "source_id": "aibase",
+    "name": "AIBASE",
+    "feed_url": null
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "aibase",
+    "name": "AIBASE",
+    "domain": "news.aibase.com",
+    "status": "identified",
+    "basis": [
+      "explicit_group"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://news.aibase.com/tw/news/31904",
+      "article_host": "news.aibase.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "aibase_article_id": "31904",
+  "field_languages": {
+    "title": "tw",
+    "url": "tw",
+    "summary": "tw"
+  },
+  "content_language": "tw",
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "73a99eac2ec17e5f48be4bdcb883e50b6c93879c3b12b2f343db32e6fbade376",
+    "scope_id": "aibase",
+    "publisher_kind": "aggregator",
+    "admission_status": "limited",
+    "source_tier": "ai_media",
+    "source_tier_label": "精選AI媒體",
+    "source_tier_rank": 2,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}
