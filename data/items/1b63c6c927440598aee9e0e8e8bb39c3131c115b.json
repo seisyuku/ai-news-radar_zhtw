@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "AWS Transfer Family 现在支持 AWS Secrets Manager 存储 SFTP 服务器主机密钥",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/transfer-family-secrets-host-keys",
-  "last_seen_at": "2026-10-27T03:35:27.729786Z",
+  "last_seen_at": "2026-10-27T04:05:31.189669Z",
   "summary": "AWS Transfer Family 现在允许您在自己的 AWS 账户的 AWS Secrets Manager 中存储 SFTP 服务器主机密钥。这使您可以更好地控制服务器身份，并有助于简化服务器迁移和失效转移。 以前，Transfer Family 将主机密钥存储在服务中，因此您无法检索相关的私有秘钥资料。通过此次发布，您可以在创建服务器或导入主机密钥时选择 Secrets Manager 作为存储类型。然后，您可以检索私有密钥资料，并在不同服务器和 AWS 区域之间重复使用同一主机密钥。例如，您可以在备用服务器上将其用于失效转移，或在迁移过程中将其用于替换服务器，而无需客户端信任新的主机密钥。AWS Identity and Access Management（IAM）策略允许您控制谁可以检索存储的密钥。您还可以将现有的主机密钥迁移到 Secrets Manager，这可能需要执行一些额外步骤；有关详细信息，请参阅《AWS Transfer Family User Guide》。 此功能现已在所有提供 AWS Transfer Family 的 AWS 区域推出。要了解更多信息，请参阅《AWS Transfer Family User Guide》中的 Store SFTP server host keys in AWS Secrets Manager 部分。要开始使用，请访问 AWS Transfer Family 控制台 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/transfer/latest/userguide/configuring-servers-change-host-key.html",
