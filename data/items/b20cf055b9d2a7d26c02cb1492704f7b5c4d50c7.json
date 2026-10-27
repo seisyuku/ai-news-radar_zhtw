@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "AWS Lambda 递归循环检测现在支持 Amazon EventBridge 自定义事件总线",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/lambda-recursive-loops-eventbridge-custom",
-  "last_seen_at": "2026-10-27T05:05:32.331930Z",
+  "last_seen_at": "2026-10-27T05:35:26.996836Z",
   "summary": "AWS Lambda 递归循环检测现在可自动检测和停止 Lambda 事件函数和 Amazon EventBridge 自定义事件总线 之间的递归循环，从而帮助您防止意外使用以及工作负载失控产生的意外费用。 Lambda 递归循环检测 在您的 AWS 账户上默认启用，它会自动识别支持的 AWS 服务何时以递归方式调用 Lambda 事件函数并停止循环。 您可以使用 EventBridge 自定义事件总线来调用 Lambda 事件函数、构建自动化工作流程和安排定期任务，而无需管理任何基础设施。但是，配置错误或代码缺陷可能导致 EventBridge 规则以递归方式触发您的事件函数，从而导致使用失控。现在，递归循环检测支持 EventBridge 自定义总线，可自动停止此类循环，并向您发送包含故障排除说明的 AWS Health Dashboard 通知。 EventBridge 自定义事件总线现在支持在每个已推出它们的商用 AWS 区域进行递归循环检测。这项功能在您的账户中默认启用，您无需进行任何配置。如果您的事件函数有意使用递归循环，您可以使用 PutFunctionRecursionConfig API 关闭对该函数的递归循环检测功能。 要详细了解递归循环检测功能，请访问 Lambda 文档 。",
   "publisher_links": [
     "https://aws.amazon.com/lambda/",
