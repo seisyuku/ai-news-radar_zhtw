@@ -1,0 +1,59 @@
+{
+  "id": "9068cc5feb2423630dc91d57893afbc323c5ace3",
+  "published_at": "2026-10-27T21:50:35Z",
+  "first_seen_at": "2026-10-27T23:35:28.708232Z",
+  "site_id": "curated_media",
+  "site_name": "精選媒體",
+  "source": "Epoch AI (Google News)",
+  "title": "AI chip imports documentation – Changelog - Epoch AI",
+  "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE1qdy0xYTVHY2tBTUpTUTNQRzBpa21MTlN4elpiVy12bEx4c1I5S3Nua0VKV2d1YzkxaXRtb0tSazFlQzdBRVJyX1JSV3dOeVotYXpQNkJvVDR6VlJPc09IN24zR1IyUm83NUFOOWNR?oc=5",
+  "last_seen_at": "2026-10-27T23:35:28.708232Z",
+  "summary": "AI chip imports documentation – Changelog Epoch AI",
+  "publisher_links": [
+    "https://news.google.com/rss/articles/CBMibkFVX3lxTE1qdy0xYTVHY2tBTUpTUTNQRzBpa21MTlN4elpiVy12bEx4c1I5S3Nua0VKV2d1YzkxaXRtb0tSazFlQzdBRVJyX1JSV3dOeVotYXpQNkJvVDR6VlJPc09IN24zR1IyUm83NUFOOWNR?oc=5"
+  ],
+  "ingress": {
+    "kind": "google_news",
+    "site_id": "curated_media",
+    "source_id": "epoch_ai_news",
+    "name": "Epoch AI (Google News)",
+    "feed_url": "https://news.google.com/rss/search?q=site%3Aepoch.ai+when%3A14d&hl=en-US&gl=US&ceid=US%3Aen"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "epoch",
+    "name": "Epoch AI",
+    "domain": "epoch.ai",
+    "status": "identified",
+    "basis": [
+      "google_rss_source",
+      "configured_bridge"
+    ],
+    "evidence": {
+      "rss_source_name": "Epoch AI",
+      "rss_source_url": "https://epoch.ai",
+      "article_url": null,
+      "article_host": "news.google.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "73a99eac2ec17e5f48be4bdcb883e50b6c93879c3b12b2f343db32e6fbade376",
+    "scope_id": "epoch",
+    "publisher_kind": "media",
+    "admission_status": "limited",
+    "source_tier": "ai_media",
+    "source_tier_label": "精選AI媒體",
+    "source_tier_rank": 2,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_bridge",
+      "limited_scope"
+    ]
+  }
+}
