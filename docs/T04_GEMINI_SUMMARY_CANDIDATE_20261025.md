@@ -5,7 +5,8 @@
 候選程式已接入，但排程固定 `GEMINI_SUMMARY_ENABLED=0`，因此沒有 Gemini
 摘要 production call。Groq 仍是唯一正式摘要 provider；Gemini 讀者翻譯是獨立路徑。
 本案沒有送出真實新聞到 Gemini；合成案例已透過 GitHub Actions Secrets
-完成兩個分離時段實測。沒有建立、讀取明文或更改任何 secret；兩個摘要測試用
+完成三個成功分離時段實測；10/26 晚間逾時／503 失敗也保留為限制證據。
+沒有建立、讀取明文或更改任何 secret；兩個摘要測試用
 key 都不在本機執行環境。
 
 維護者已選擇以 Gemini 免費層進行 **11 個合成案例的實測**，並接受該層
@@ -103,7 +104,7 @@ T04 測試分支上的檔案本身不會註冊 GitHub schedule。
 [無 provider 派送測試 run 40273918526](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/40273918526)
 確認指定 T04 分支時執行該分支的 `probe` job，而摘要評估及通知 job 均被
 略過；沒有消耗 Gemini／Groq 呼叫。第三時段的完整評估、階段 artifact 與
-結果郵件，仍須等 2026-10-27 實際排程驗證。
+結果郵件已於 2026-10-27 驗證，實際紀錄見下節。
 部署後第一個自然站外心跳
 [run 40275006768](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/40275006768)
 於 2026-10-26 05:35 UTC 執行成功：`freshness-check` 中的 T04 步驟
@@ -165,14 +166,40 @@ Google 官方將 [503 分類為服務暫時不可用／容量不足](https://ai.
 原始及受控失敗都保留，不計入成功時段；維持正式摘要備援停用，依既定
 10/27 時段再測，不在當晚繼續重跑或擴大等待上限。
 
+## 第三個成功分離時段：2026-10-27 09:00 排程實測
+
+本地 heartbeat 於臺北 08:58:50 喚醒，先核對當日 08:45 後沒有既存
+workflow_dispatch run，等待 09:00 後才派送。實際
+[run 40429943469](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/40429943469)
+於 **01:00:24 UTC／09:00:24 臺北** 建立，使用 T04 分支 `7736ceab745c`；
+屬原訂 09:00 時段執行，沒有重跑舊 run 或同日重複呼叫。
+
+- [synthetic-only job 121944895587](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/40429943469/job/121944895587)：
+  01:00:28～01:03:41 UTC（09:00:28～09:03:41 臺北），成功。
+  腳本實際評估 01:00:47.137～01:03:37.627 UTC。
+- Gemini configuration、model discovery、plain generation、structured JSON
+  診斷均通過。11 例中 10 個可生成案例全數通過，title-only 標記
+  `insufficient_context`；Groq 同案也是 10/10，title-only 同樣跳過。
+- Gemini timeout 設定為 60 秒，實際 10 次生成耗時 **0.501～2.429 秒**；
+  沒有逾時、429、5xx、模型查找或結構化輸出錯誤。
+- [notify job 121946020246](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/40429943469/job/121946020246)：
+  01:03:43～01:03:57 UTC（09:03:43～09:03:57 臺北），成功。
+  01:03:54.429 UTC 的 SMTP `DATA` 回應為 250、`provider_accepted`。
+  已逐一核對 `t04-stage-events` 與 `t04-email-receipt`，未宣稱收件匣送達。
+
+這是第三個成功的分離時段；當晚失敗仍屬有效證據，不能由本次成功推論
+Gemini 已具長期穩定性。測試全程僅使用既有合成案例，正式摘要備援仍停用。
+本次一次性排程任務已完成，`t04-gemini` 本地自動化已移除，不再執行
+09:30 補位。預設分支的獨立逾期查核仍可按原定時間核對本次通知收據。
+
 ## 正式 gate 狀態
 
 1. Gemini 的提示注入及全套 11 例已在第一時段通過；Groq 同案已比較並
    保留一項未過結果。不可把單時段當作長窗穩定性結論。
-2. 在至少三個分離時段完成 Gemini diagnostic/eval；目前已有兩個，仍需
-   2026-10-27 的第三個時段；10/26 晚間的逾時／503 失敗不計入成功時段。後續
-   記錄 429、5xx、model discovery 與 structured output 的結果，不得以
-   同時段連跑三次替代。
+2. 10/25、10/26 午後、10/27 09:00 三個成功分離時段均已完成 Gemini
+   diagnostic/eval；各次均記錄 429、5xx、model discovery 與 structured
+   output。10/26 晚間的逾時／503 失敗不計入成功時段，也不被刪除；
+   後續正式接線裁決仍須考慮這項穩定性限制，不能把三次成功當成連續穩定證明。
 3. 正式啟用前重新核對實際專案的 active rate limits、使用 tier 與資料使用
    條款，另行明確接受真實新聞備援的用途。當前官方頁面列出標準付費層每百萬 input tokens USD
    0.30、output tokens USD 2.50；免費層內容可用於改善 Google 產品，標準
