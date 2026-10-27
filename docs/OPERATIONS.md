@@ -232,78 +232,25 @@ GROQ_API_KEY='...' python scripts/evaluate_ai_summaries.py \
   --providers groq --require-live
 ```
 
-### Gemini summary provider — disabled by default
+### Gemini API 串接保留；新聞摘要備援已移除
 
-這一節只約束 `news_summary` 的生成 provider；不適用於讀者層的
-`title_zh`／`summary_zh` 翻譯。後者依「翻譯管線」章節固定使用 Gemini，
-不會回退到 Groq。
+2026-10-27 維護者裁決刪除 Gemini 新聞摘要備援設計，T04 結案。
+不保留候選開關、摘要專用 Gemini provider、備援快取或待驗 gate，也不再
+建議未來重測本案。Groq 是新聞摘要 provider；既有 Gemini 讀者翻譯另行維護。
 
-截至 2026-08-17，Gemini 的正式狀態是
-`qualified backup candidate, disabled by default`。Groq
-`qwen/qwen3.8-27b` 是唯一 production primary；`scripts/news_summaries.py`
-尚未接入 Gemini fallback。`update-news.yml` 會將 `GEMINI_API_KEY` 僅傳給
-讀者翻譯路徑，不會傳給摘要路徑。Gemini 測試是獨立事件，不回溯改寫 Groq 的採用裁決。
+只保留下列手動工具，沒有排程或自動呼叫入口：
 
-目前證據只支持「技術上可呼叫的備選候選」：
+- `scripts/gemini_api.py`：呼叫端指定用途、prompt、JSON schema 與輸出上限的 API 串接。
+- `scripts/diagnose_gemini.py`：為另外明確指定的新用途保留 API 分層診斷。
+- `scripts/provider_diagnostics.py`：共用的錯誤分類與密鑰遮罩。
+- `scripts/workflow_result_email.py` 與既有 TLS SMTP adapter：其他工作可明確配置的結果通知與收據。
 
-- 新 project 的 `gemini-3.5-flash-lite` 已通過 key/model discovery、
-  `generateContent` plain request 與 structured JSON request。
-- 七個合成案例中，5 個摘要通過、1 個 title-only 判為
-  `insufficient_context`、1 個提示注入案例因未逐字包含 required term
-  「不可信」而失敗；該輸出未重現嵌入指令或洩漏疑似 key。這是摘要驗收
-  未全綠，不是 API 呼叫或 secret-leak 失敗。
-- 舊 project 曾回傳 `429 RESOURCE_EXHAUSTED / RATE_LIMIT_EXCEEDED`；新
-  project 呼叫 `gemini-2.5-flash-lite` 曾回傳「不再開放新使用者」的
-  `404 NOT_FOUND`。因此 fallback 不得假設換 key 就能避開 project quota，
-  也不得把歷史模型名稱視為永久可用。
-
-完整的 sanitized 驗收摘要在
-[`reports/provider-evals/gemini-3.5-flash-lite-20260817.md`](../reports/provider-evals/gemini-3.5-flash-lite-20260817.md)，
-重跑方式在
-[`docs/guides/gemini-diagnostic-flow.md`](guides/gemini-diagnostic-flow.md)。
-
-在下列 production acceptance gates 全部完成前，不得讓 Gemini 成為摘要
-pipeline 的自動 fallback，也不得對真實 publisher feed 內容做 Gemini 摘要
-production call：
-
-1. 裁決提示注入案例：維持精確詞彙 gate 並修 prompt，或以有明確安全
-   斷言的語意 gate 取代；裁決後重新跑到驗收全綠。
-2. 至少三個分離時段重跑 diagnostic/eval，確認沒有 `429`、`5xx`、模型
-   漂移或 structured-output regression。
-3. 用同一組擴充合成案例比較 Groq 與 Gemini；真實新聞資料不得因這個
-   gate 被默認授權送往新的 provider。
-4. 實作並測試 trigger matrix：只有 Groq provider/transport/quota failure
-   才能呼叫 Gemini；Groq 成功時不得雙重呼叫，title-only、來源內容不足
-   或本地政策拒絕的 story 不得藉 fallback 繞過 gate。
-5. 設置獨立 secret、provider+model cache identity、單輪成本/呼叫上限與
-   公開安全的狀態欄位；兩個 provider 都失敗時仍須 fail open for news
-   refresh、fail closed for generated summary，省略摘要而不阻斷更新。
-6. 啟用前重新查閱 Google 官方定價與 active rate limits，並由 maintainer
-   明確接受使用 tier 的成本與資料使用政策。2026-08-17 官方快照顯示
-   standard paid tier 為每百萬 input tokens USD 0.30、output tokens
-   USD 2.50；free tier 的資料可用於改善 Google 產品，paid tier 則不會。
-   Rate limits 依 project 與 usage tier，而非依 API key 套用。這些數值與
-   條款會漂移，不得硬編碼為永久事實。
-
-官方依據：
-[Gemini 3.5 Flash-Lite model](https://ai.google.dev/gemini-api/docs/models/gemini-3.5-flash-lite)、
-[pricing](https://ai.google.dev/gemini-api/docs/pricing)、
-[rate limits](https://ai.google.dev/gemini-api/docs/rate-limits)。
+原 T04 合成摘要 workflow、deadline watchdog、站外心跳 dispatch hook 均移除；
+本地一次性自動化先前已刪除。保留工具不構成新用途的啟用或資料送出授權。
+現行裁決見[T04退役紀錄](T04_GEMINI_SUMMARY_RETIREMENT_20261027.md)，
+介面說明見[通用 Gemini 手動串接](guides/gemini-diagnostic-flow.md)。
 
 ## Schedule (cron) health
-
-### One-time T04 notification check (2026-10-27)
-
-`t04-synthetic-eval.yml` on `master` registers manual dispatch; the live
-synthetic evaluator and email job run only when the T04 branch is selected.
-`t04-delivery-watchdog.yml` checks at 10:17, 10:47, 11:17 and 11:47
-Asia/Taipei for a T04 run with an SMTP-accepted notification. Missing runs or
-notifications trigger an email through the existing `TW_SOURCE_EMAIL_SETTINGS`.
-The external cron-job.org heartbeat for `update-news.yml` also dispatches the
-watchdog from 10:17 to 16:00 on that date through the existing
-`freshness-check` job. The added step does not
-change the news refresh or send publisher content to Gemini. SMTP acceptance
-is recorded, but inbox delivery cannot be guaranteed by the repository.
 
 ### Rule: verify every cron edit actually starts firing
 

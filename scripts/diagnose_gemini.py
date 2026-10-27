@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 """Run a staged, secret-safe Gemini API diagnostic.
 
-This probe is deliberately separate from the Groq-backed production summary
-path.  It uses only synthetic prompts and stops at the first failed layer so a
-credential, model, transport, quota, or structured-output failure is not
-misreported as a summary-quality problem.
+This dormant manual tool is retained for explicitly requested API uses.
+It uses synthetic connectivity prompts and stops at the first failed layer.
+It does not evaluate news summaries or create recurring work.
 """
 
 from __future__ import annotations
@@ -19,21 +18,14 @@ from typing import Any, Mapping
 import requests
 
 try:
-    from scripts.evaluate_ai_summaries import (
-        DEFAULT_GEMINI_MODEL,
-        DEFAULT_TIMEOUT_SECONDS,
-        provider_error_details,
-    )
-except ModuleNotFoundError:  # pragma: no cover - direct `python scripts/diagnose_gemini.py`
-    from evaluate_ai_summaries import (
-        DEFAULT_GEMINI_MODEL,
-        DEFAULT_TIMEOUT_SECONDS,
-        provider_error_details,
-    )
+    from scripts.gemini_api import DEFAULT_MODEL as DEFAULT_GEMINI_MODEL, DEFAULT_TIMEOUT_SECONDS, GEMINI_API_BASE
+    from scripts.provider_diagnostics import provider_error_details
+except ModuleNotFoundError:  # direct script execution
+    from gemini_api import DEFAULT_MODEL as DEFAULT_GEMINI_MODEL, DEFAULT_TIMEOUT_SECONDS, GEMINI_API_BASE
+    from provider_diagnostics import provider_error_details
 
 
 UTC = timezone.utc
-GEMINI_API_BASE = "https://generativelanguage.googleapis.com/v1beta"
 
 
 def _utc_now() -> str:
@@ -85,7 +77,7 @@ def classify_failure(details: Mapping[str, Any], *, stage: str) -> dict[str, str
         return {
             "code": "model_not_found",
             "cause": "指定模型不存在、已退役，或不對此 API key 開放。",
-            "action": "以 model_discovery 回傳的 generateContent 模型更新 GEMINI_SUMMARY_MODEL。",
+            "action": "以 model_discovery 回傳的 generateContent 模型更新 GEMINI_MODEL。",
         }
     if stage == "structured_generation" and status == 400:
         return {
@@ -103,7 +95,7 @@ def classify_failure(details: Mapping[str, Any], *, stage: str) -> dict[str, str
         return {
             "code": "transient_or_transport_failure",
             "cause": "網路、逾時或 Gemini 服務端暫時失敗。",
-            "action": "保留本次報告，稍後重測；若持續發生再查 Gemini status。",
+            "action": "保留錯誤分類並停止本次作業；依呼叫用途檢查網路與服務狀態。",
         }
     return {
         "code": "unclassified_provider_failure",
@@ -275,7 +267,7 @@ def diagnose_gemini(
     report["diagnosis"] = {
         "code": "gemini_api_usable",
         "cause": "目前 key、模型、generateContent 與 structured JSON 均可用。",
-        "action": "可接著執行 Gemini-only 合成摘要評估；此診斷不改變 production provider 設定。",
+        "action": "本次 API 連線與 JSON 格式可用；其他用途須由維護者另外指定。",
     }
     report["ok"] = True
     return report
@@ -283,7 +275,7 @@ def diagnose_gemini(
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Run a staged Gemini-only API diagnostic")
-    parser.add_argument("--model", default=os.environ.get("GEMINI_SUMMARY_MODEL") or DEFAULT_GEMINI_MODEL)
+    parser.add_argument("--model", default=os.environ.get("GEMINI_MODEL") or DEFAULT_GEMINI_MODEL)
     parser.add_argument("--output", type=Path, help="Optional secret-safe JSON report path")
     parser.add_argument("--timeout", type=int, default=DEFAULT_TIMEOUT_SECONDS)
     args = parser.parse_args(argv)

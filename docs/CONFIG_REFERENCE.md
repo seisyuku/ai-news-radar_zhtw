@@ -46,16 +46,14 @@ Secret 值不得寫入 repo、Issue、log、截圖或驗收報告。
 AI 摘要沒有 `ENABLED` 開關；是否啟用由 `GROQ_API_KEY` 是否存在決定。
 沒有 key 或 provider 失效時，資料管線仍會正常完成。
 
-### Gemini diagnostic-only variables
+### Gemini 手動串接（不含新聞摘要備援）
 
-- `GEMINI_API_KEY`：目前只供本機 `scripts/diagnose_gemini.py` 與明示的
-  `--providers gemini` 合成評估使用；不是已啟用的 GitHub Actions secret。
-- `GEMINI_SUMMARY_MODEL`：本機 diagnostic/eval 預設
-  `gemini-3.5-flash-lite`。
+- `GEMINI_API_KEY`：既有讀者翻譯使用；通用手動工具只有在另外明確指定新用途時才讀取。
+- `GEMINI_MODEL`：手動 `diagnose_gemini.py` 的可選模型名稱，預設 `gemini-3.5-flash-lite`。
+- 通用 `generate_json` 由呼叫端明確傳入 schema、輸出上限及憑證。
 
-Gemini 目前是 `qualified backup candidate, disabled by default`。不得只因
-設定上述變數就把它視為 production fallback；workflow 尚未傳入這些變數，
-production 接線前必須完成 `OPERATIONS.md` 的 Gemini acceptance gates。
+T04 新聞摘要備援已刪除並結案，沒有摘要專用 Gemini 變數、provider 或自動重測。
+其他用途的串接與通知參數見[保留工具說明](guides/gemini-diagnostic-flow.md)。
 
 ## 程式內常數
 

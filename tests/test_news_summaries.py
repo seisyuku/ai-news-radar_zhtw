@@ -233,3 +233,19 @@ def test_validator_rejects_invented_numbers_or_missing_model_version():
         assert "versioned name" in str(exc)
     else:
         raise AssertionError("missing model version should be rejected")
+
+
+def test_retired_gemini_settings_cannot_route_primary_failure_to_backup(monkeypatch):
+    from scripts import gemini_api
+    monkeypatch.setenv("GEMINI_SUMMARY_ENABLED", "1")
+    monkeypatch.setenv("GEMINI_SUMMARY_API_KEY", "synthetic-unused-key")
+    monkeypatch.setattr(gemini_api, "generate_json", lambda *_args, **_kwargs: (_ for _ in ()).throw(
+        AssertionError("retired summary backup must not be called")))
+
+    def failed(*_):
+        raise requests.ReadTimeout("synthetic primary failure")
+
+    output, status, _ = summarize_stories([story()], generate_fn=failed, now=NOW)
+    assert output == [story()]
+    assert status["provider"] == "groq" and status["failed"] == 1
+    assert "fallback_provider" not in status

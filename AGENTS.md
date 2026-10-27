@@ -9,6 +9,7 @@ GitHub Actions refresh jobs, and GitHub Pages publishing.
 
 ## Working Rules
 
+- T04 Gemini news-summary fallback is retired. Do not propose, recreate, or retest that design. Retained Gemini API/diagnostic/notification helpers are dormant and may be used only for a separately requested new purpose; existing reader translation remains maintained.
 - Keep changes small and reviewable.
 - Search the repo before changing source fetchers or output schemas.
 - Do not commit private feeds, secrets, tokens, cookies, or `.env` values.

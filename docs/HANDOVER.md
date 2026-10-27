@@ -1,4 +1,8 @@
-# AI News Radar Pulse — 交接摘要（截至 2026-10-25）
+# AI News Radar Pulse — 交接摘要（截至 2026-10-27）
+
+T04 已依維護者裁決刪除 Gemini 新聞摘要備援並結案；不再提出重測、接線或啟用建議。
+僅保留通用 Gemini JSON API、手動連線診斷與結果通知機制，供另外明確指定的新用途使用。
+既有讀者翻譯維持；詳見[退役裁決](T04_GEMINI_SUMMARY_RETIREMENT_20261027.md)。
 
 T05 依現行產品定位結案：原 Usage4Claude／Claude Usage Monitor commit-feed Canary
 與「額度與政策速報」入口已移除；價格偵測、一般新聞、模型雷達與 24 小時窗口保留。
@@ -1787,20 +1791,7 @@ T03 Groq 摘要回顧已依 10/18～10/24 既有 Git 快照完成，維持六則
     快取避免重複呼叫。標題-only 不送出；provider 或輸出驗證失敗不阻斷
     更新。前端「為什麼重要」固定模板已移除，改顯示「AI 新聞摘要」；
     沒有合格摘要時整塊隱藏。未修改全域評分公式。
-18. **8/17 Gemini 摘要備選候選裁決（未啟用）**：`gemini-3.5-flash-lite`
-    在新 project 已通過 model discovery、plain `generateContent` 與
-    structured JSON；七個合成案例為 5 generated pass、1
-    `insufficient_context`、1 因缺少精確詞「不可信」未過 deterministic
-    gate，但未重現提示注入指令或疑似 key。歷程另確認舊 project 的
-    `429 RATE_LIMIT_EXCEEDED` 與 `gemini-2.5-flash-lite` 對新使用者的
-    `404 NOT_FOUND` 是不同失敗原因。裁決為
-    `qualified backup candidate, disabled by default`：Groq 仍是 primary，
-    摘要 workflow/production 未做 Gemini fallback、未授權真實 feed 內容送往
-    Gemini 產生摘要。這不影響 2026-09-07 已採用的讀者翻譯路徑。摘要 fallback
-    啟用前必須完成三時段穩定性、同案比較、
-    trigger matrix、防雙重計費、provider+model cache、成本/狀態護欄與
-    tier 資料政策裁決；完整準入條件見 `docs/OPERATIONS.md`，sanitized
-    證據見 `reports/provider-evals/gemini-3.5-flash-lite-20260817.md`。
+18. **8/17 Gemini API 研究（已退役）**：原摘要備選設計已於 2026-10-27 刪除並結案；僅留通用 API 串接供其他明確指定的新用途。這段歷史不構成重測或實作待辦。
 19. **8/17 LLM 翻譯與 Simon Willison 徽章修正**：`LLM`／`LLMs` 納入
     `CANONICAL_NAMES` 遮罩，翻譯 provider 不再把 AI 縮寫譯為「法學
     碩士」；既有快取也會依原始英文標題定點修復並回寫。Simon Willison
