@@ -1,5 +1,101 @@
 # T04 Gemini 摘要備援候選（2026-10-25）
 
+## 最終研究結論（2026-10-27）
+
+**研究與驗收已完成，建議暫緩正式摘要備援實作；現行狀態為「待維護者裁決」。**
+Gemini 已證明可以處理這組合成案例，但增量效益尚未量化，晚間服務不穩，
+候選的整體耗時保護也尚未完成。已存在的停用候選不等於可直接啟用的版本。
+
+### 全部實測結果，不只成功時段
+
+本次重新核對全部 Actions run／attempt；`probe` 不列入模型評估。
+
+| 執行紀錄 | Gemini 可生成案例 | Groq 同案 | 判讀 |
+| --- | --- | --- | --- |
+| [40177937616](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/40177937616) | 10/10 | 9/10 | 10/25 第一時段；Groq 一例缺 fixture 必要詞，原 wrapper 誤判整輪失敗。 |
+| [40178497098 attempt 1](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/40178497098/attempts/1) | 10/10 | 10/10 | 同時段 wrapper 複驗。 |
+| [40178497098 attempt 2](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/40178497098/attempts/2) | 10/10 | 10/10 | 10/26 午後第二時段。 |
+| [40272471488](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/40272471488) | 10/10 | 10/10 | 文件 push 意外觸發，與第二時段相鄰。 |
+| [40272524053](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/40272524053) | 10/10 | 10/10 | 文件 push 意外觸發，與第二時段相鄰。 |
+| [40327620273](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/40327620273) | 7/10 | 10/10 | 10/26 晚間；三例 provider_error 的細類型未留存。 |
+| [40337526478](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/40337526478) | 未進入案例 | 未執行 | Gemini plain 診斷出現 transient_or_transport_failure。 |
+| [40338077731](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/40338077731) | 7/10 | 10/10 | 三次 30 秒 ReadTimeout。 |
+| [40339463429](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/40339463429) | 7/10 | 10/10 | 兩次 60 秒 ReadTimeout、一次 HTTP 503。 |
+| [40429943469](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/40429943469) | 10/10 | 10/10 | 10/27 09:00 第三個成功時段；生成 0.501～2.429 秒。 |
+
+九輪完整案例評估合計：Gemini **81/90 通過、9 次 provider_error**；Groq
+**89/90 通過、1 次 fixture 內容條件未過**。每輪另有一個 title-only 依規則
+跳過。九個 Gemini 錯誤包含五次 ReadTimeout、一次 503、三次細類型未留存；
+另一次診斷中止不放入 90 次分母。這是固定合成案例的重複觀測，且混合
+30／60 秒設定，不能當成正式新聞準確率、獨立成功機率或 SLA。
+三個成功分離時段的要求已完成；晚間失敗使「已證明跨時段穩定」仍不成立。
+
+### 剩餘驗收與工程檢查
+
+本輪沒有新增模型呼叫；使用既有安全日誌與純合成離線 provider 重播。
+補足 HTTP 401／403／404／429／500／503、ReadTimeout、ConnectTimeout、
+ConnectionError 的觸發矩陣，並驗證缺備援憑證、缺主 provider、數字落地拒絕
+及上限超大設定。摘要／診斷／通知相關 **61 項通過**，完整套件
+**2,376 項通過**，actionlint、diff 檢查通過。
+
+| 檢查 | 結果 | 裁決 |
+| --- | --- | --- |
+| 合成摘要、注入風險、歸因與條件 | 成功回覆均通過 fixture 檢查；title-only 跳過。 | 受測範圍通過，不外推真實新聞品質。 |
+| 觸發邊界 | Groq 成功不呼叫 Gemini；本地驗證拒絕及無來源材料不繞過 gate。 | 通過。 |
+| 快取與呼叫數 | provider/model 快取分離；每輪最多三次備援；雙方失敗仍保留全部 story。 | 功能測試通過。 |
+| 通知收據 | 用實際 40429943469 artifact 做唯讀 deadline 重播，識別到 SMTP 接受收據、would_notify=false；未寄信。 | 邏輯對照通過；原定 10:17 的實際 tick 尚未發生。 |
+| 刷新耗時安全 | 沒有摘要階段整體 deadline 或備援失敗後停試的 circuit breaker。 | 正式實作前必補。 |
+| 實際增量效益 | T03 的每輪最後錯誤均為本地驗證；全部失敗原因沒有逐次保存。 | 不能量化 Gemini 能多補多少則。 |
+| 正式憑證 | 10/27 repository secret 名稱列表只有 GEMINI_API_KEY／GROQ_API_KEY，未見 GEMINI_SUMMARY_API_KEY。 | 正式備援尚未配置。未讀取 secret 值。 |
+| 真實新聞資料用途 | 既有免費層接受僅限合成案例。 | 待維護者另行決定。 |
+
+耗時風險的離線重播使用 20 個不同合成 story，讓每次 Groq 請求模擬耗盡
+30 秒、每次 Gemini 耗盡 60 秒；實際呼叫生產候選函式但不等待、不連網。
+結果是 **20 次 Groq＋3 次 Gemini＝780 秒（13 分鐘）** 的模擬等待，
+全部 story 保留、沒有生成摘要。整個 update job 只有 900 秒；既有翻譯另有
+120 秒 budget，再加抓取、安裝及發布就可能超時。780 秒是這個指定情境的
+計算，不是所有連線／重試情境的嚴格上界。只有呼叫次數上限不能保證
+「摘要故障不阻斷新聞刷新」。
+
+效益判讀採用已結案的 [T03 既有資料回顧](GROQ_SUMMARY_T03_REVIEW_20261025.md)，
+不重開來源觀察。該案 291 個有失敗快照的最後錯誤都是 ValueError／本地
+驗證；由於只存最後錯誤，不能斷言全部 470 次失敗都同因，也不能把它們
+全數當作可由 Gemini 補救的缺口。目前沒有已量化的正式傳輸故障補救需求。
+
+### 額度、資料使用與費用（10/27 核對）
+
+- 使用者 10/25 提供的 AI Studio 專案額度為 15 RPM、250K TPM、500 RPD；
+  本輪未重新登入 AI Studio，因此不是今日實際剩餘額度的保證。
+- 官方仍說明 [rate limits 以 project 套用，非 API key](https://ai.google.dev/gemini-api/docs/rate-limits)。
+  若備援與既有翻譯屬同一 project，獨立 key 不會隔離配額；目前只查 secret
+  名稱，沒有查得兩個用途的 project 隔離證據。
+- 名義每 15 分鐘刷新、每輪三次備援的情境會使用 288 RPD；既有翻譯也有
+  每輪最多六次請求。這只是上限情境，非實際耗用；啟用前須保留翻譯優先
+  額度與每日預算，不能只看單輪上限。
+- [Standard 定價](https://ai.google.dev/gemini-api/docs/pricing)仍為每百萬
+  input tokens US$0.30、output tokens US$2.50。若假設每次 1,000 輸入、
+  180 輸出 tokens，100 次約 US$0.075；這是情境估算，沒有實際 token
+  使用量資料，不能當成帳單或成本上界。
+- [免費服務條款](https://ai.google.dev/gemini-api/terms)允許 Google 使用輸入／
+  輸出改善產品，且可能由人工審閱；標準付費服務不拿 prompts／responses
+  改善產品。付費層未在本案實測，不能推論付費會消除 503／逾時。
+
+### 若維護者仍決定進入正式實作
+
+最小範圍應包含：
+
+1. 先加入整體摘要時間保護；Gemini 全輪額外等待 budget 建議先限 60 秒，
+   在首次逾時／503 後停止當輪備援，餘下新聞照常產出。保留最多三次的
+   次數上限，成功的快速請求才能使用後續名額。
+2. 配置正式獨立 secret，確認 project 與翻譯配額的隔離或共用預算，並由
+   維護者選定真實新聞的資料使用 tier；此選擇不是本次研究的默認結果。
+3. 細分 Groq 傳輸／配額與本地驗證錯誤，讓備援增量可核對；新增 timeout、
+   circuit breaker、配額耗盡與雙方失敗的整合驗收，再另案決定正式啟用。
+
+本輪已完成研究與決策材料，不新增觀察排程、不繼續重跑同一組模型案例。
+現有 PR #3 保持草稿，GEMINI_SUMMARY_ENABLED 固定 0；下一步是維護者的
+實作決定，沒有尚欠的第三時段測試。
+
 ## 現行裁決
 
 候選程式已接入，但排程固定 `GEMINI_SUMMARY_ENABLED=0`，因此沒有 Gemini

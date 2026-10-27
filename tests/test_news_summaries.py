@@ -1,4 +1,5 @@
 from datetime import datetime, timezone
+import pytest
 import requests
 
 from scripts.news_summaries import (
@@ -319,3 +320,85 @@ def test_dual_provider_failure_omits_summary_and_request_cap_is_hard():
     assert all("news_summary" not in item for item in output)
     assert status["failed"] == 2 and status["fallback_attempted"] == 1
     assert status["fallback_failed"] == 1 and status["generated"] == 0
+
+
+@pytest.mark.parametrize("http_status", [401, 403, 404, 429, 500, 503])
+def test_groq_http_failure_matrix_can_use_one_gemini_request(http_status):
+    calls = []
+    response = requests.Response()
+    response.status_code = http_status
+
+    def fail_groq(*_):
+        raise requests.HTTPError("synthetic provider failure", response=response)
+
+    output, status, _ = summarize_stories(
+        [story()], generate_fn=fail_groq,
+        gemini_generate_fn=lambda *_: calls.append("gemini") or VALID,
+        gemini_enabled=True, now=NOW,
+    )
+    assert calls == ["gemini"]
+    assert output[0]["news_summary_provider"] == "gemini"
+    assert status["fallback_attempted"] == status["fallback_generated"] == 1
+
+
+@pytest.mark.parametrize("error_type", [requests.ReadTimeout, requests.ConnectTimeout, requests.ConnectionError])
+def test_groq_transport_failure_matrix_preserves_story_and_can_use_backup(error_type):
+    def fail_groq(*_):
+        raise error_type("synthetic transport failure")
+
+    output, status, _ = summarize_stories(
+        [story()], generate_fn=fail_groq, gemini_generate_fn=lambda *_: VALID,
+        gemini_enabled=True, now=NOW,
+    )
+    assert output[0]["story_id"] == "story-1"
+    assert output[0]["news_summary_provider"] == "gemini"
+    assert status["fallback_attempted"] == 1
+
+
+def test_missing_backup_credentials_do_not_turn_primary_failure_into_network_call():
+    def fail_groq(*_):
+        raise requests.ReadTimeout("synthetic")
+
+    output, status, _ = summarize_stories([story()], generate_fn=fail_groq,
+                                         gemini_enabled=True, now=NOW)
+    assert output == [story()]
+    assert status["fallback_enabled"] is False
+    assert status["fallback_attempted"] == 0
+
+
+def test_gemini_alone_does_not_enable_the_disabled_primary_pipeline():
+    calls = []
+    output, status, _ = summarize_stories(
+        [story()], gemini_enabled=True,
+        gemini_generate_fn=lambda *_: calls.append(True) or VALID, now=NOW,
+    )
+    assert output == [story()] and calls == []
+    assert status["skip_reason"] == "missing_GROQ_API_KEY"
+
+
+def test_numeric_rejection_does_not_bypass_gate_via_backup():
+    calls = []
+    output, status, _ = summarize_stories(
+        [story()], generate_fn=lambda *_: VALID.replace("128K", "256K"),
+        gemini_enabled=True, gemini_generate_fn=lambda *_: calls.append(True) or VALID,
+        now=NOW,
+    )
+    assert calls == [] and "news_summary" not in output[0]
+    assert status["last_error_detail"] == "validation_numeric_grounding"
+
+
+def test_oversized_backup_limit_is_clamped_to_three_requests():
+    items = [{**story(), "story_id": f"synthetic-{index}",
+              "title": f"Qwen3.8-27B 發布 {index}"} for index in range(8)]
+    calls = []
+
+    def fail_groq(*_):
+        raise requests.ReadTimeout("synthetic")
+
+    output, status, _ = summarize_stories(
+        items, generate_fn=fail_groq, gemini_enabled=True, gemini_max_requests=100,
+        gemini_generate_fn=lambda *_: calls.append(True) or VALID, now=NOW,
+    )
+    assert len(calls) == status["fallback_attempted"] == 3
+    assert status["fallback_max_requests"] == 3
+    assert len(output) == len(items)

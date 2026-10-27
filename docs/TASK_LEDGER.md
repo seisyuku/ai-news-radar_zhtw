@@ -1,6 +1,6 @@
 # 任務台帳
 
-更新：2026-10-26。任務狀態、完成條件與續接入口集中於本頁；方向見[ROADMAP](ROADMAP.md)，歷史見[HANDOVER](HANDOVER.md)。產品、來源與操作規則仍分別以README、[SOURCE_COVERAGE](SOURCE_COVERAGE.md)及[OPERATIONS](OPERATIONS.md)為準。
+更新：2026-10-27。任務狀態、完成條件與續接入口集中於本頁；方向見[ROADMAP](ROADMAP.md)，歷史見[HANDOVER](HANDOVER.md)。產品、來源與操作規則仍分別以README、[SOURCE_COVERAGE](SOURCE_COVERAGE.md)及[OPERATIONS](OPERATIONS.md)為準。
 
 舊文件的「下一步」「待驗」「尚未推送」描述其日期當時的狀態，不能直接當成現行任務。T編號沿用本次盤點，P1／P2沿用原Roadmap，不代表已排定順序或期限。
 
@@ -10,25 +10,25 @@
 - PG、BR與方案A維持已結案；D+是新用途選稿案，不重開PG05補修或來源觀察。
 - 私人日報自動化與七日來源觀察已取消；CyberQ／AlphaLab 的七日回放只是先前來源評估，沒有排程或實作驗收義務。退役入口與相依功能的盤點見[取消與移除評估](RETIREMENT_AUDIT_20261025.md)。公開刷新、daily-brief 與全站 24 小時規則照常運作。
 - 2026-10-24文件整理已提交並推送；2026-10-25補正退役日報操作文件及舊影子來源／新 RSS 接入的時序。
-- T03 Groq 摘要跨期回顧已完成，決定維持現有六則上限與 prompt，見[評估](GROQ_SUMMARY_T03_REVIEW_20261025.md)。T02 已依 14 日既有資料完成模型對齊及品質評估，暫不新增 `model_significance`，見[T02評估](MODEL_LIFECYCLE_T02_REVIEW_20261025.md)。T01 六類事件徽章與篩選已[正式發布並驗收](T01_EVENT_FILTER_IMPLEMENTATION_20261025.md)；T05 已移除兩個 Canary 並結案。T04 第三個合成實測時段待 10/27，正式備援停用；T06 狀態見下節。
+- T03 Groq 摘要跨期回顧已完成，決定維持現有六則上限與 prompt，見[評估](GROQ_SUMMARY_T03_REVIEW_20261025.md)。T02 已依 14 日既有資料完成模型對齊及品質評估，暫不新增 `model_significance`，見[T02評估](MODEL_LIFECYCLE_T02_REVIEW_20261025.md)。T01 六類事件徽章與篩選已[正式發布並驗收](T01_EVENT_FILTER_IMPLEMENTATION_20261025.md)；T05 已移除兩個 Canary 並結案。T04 研究已完成，建議暫緩正式備援實作、待維護者裁決；T06 狀態見下節。
 
 ## 保留的兩組方向
 
 | 編號 | 優先級 | 項目 | 狀態 | 下一個可交接動作 |
 | --- | --- | --- | --- | --- |
-| T04 | P1 | Gemini摘要備援 | 兩個分離實測時段完成／正式停用 | 10/27 完成第三時段合成實測與通知查核，再裁決後續 gate。 |
+| T04 | P1 | Gemini摘要備援 | 研究／驗收完成，正式停用 | 維護者決定是否進入有時間與配額保護的正式實作。 |
 | T06 | P2 | 翻譯快取成長治理 | 待量測／待決策 | 以明確唯讀任務建立量測及適用限制證據。 |
 
 ### T04：Gemini摘要備援
 
 狀態為qualified backup candidate, disabled by default，正式摘要仍以Groq為primary。已運作的Gemini翻譯是另一條路徑。
 
-2026-10-25 已建立預設停用的候選程式、離線驗收與合成專用 Actions；
-兩個分離時段的 Gemini 診斷及各 10 個可生成案例均通過，第一次 Groq
-同案 9 過 1 漏、第二次 10 過 0 漏。10/27 的第三時段已加階段紀錄、結果
-郵件與站外心跳補位的逾期查核；正式結果仍待當日執行。
-詳見[T04候選與實測](T04_GEMINI_SUMMARY_CANDIDATE_20261025.md)；沒有向
-Gemini 傳送真實新聞，也沒有更改正式排程的停用值。
+2026-10-27 已完成三個成功分離時段、全部實測稽核與離線觸發矩陣。
+九輪完整評估 Gemini 81/90、Groq 89/90；另一次 Gemini 診斷中止。
+新補測後完整套件 2,376 項通過。最終建議暫緩正式實作：增量效益未量化，
+候選沒有整體耗時保護，正式摘要 secret 與資料使用接受仍欠缺。
+詳見[T04最終研究結論](T04_GEMINI_SUMMARY_CANDIDATE_20261025.md)；
+候選保持停用，本地一次性自動化已移除，下一步由維護者決定是否實作。
 
 完成條件沿用OPERATIONS的Gemini摘要acceptance gates：提示注入驗收裁決、至少三個分離時段diagnostic/eval、同案比較、失敗觸發矩陣、防雙重呼叫、獨立secret／provider+model快取身份／成本上限與雙provider失敗行為。啟用前重新核對當時條款、限制與成本，取得既有要求的明確接受。本台帳未授權把真實publisher feed送往新摘要provider。
 
@@ -77,3 +77,5 @@ Gemini 傳送真實新聞，也沒有更改正式排程的停用值。
 使用者指定T項目後，確認起始版本、最小範圍及既有證據，再更新執行狀態。結束時記錄實際完成條件、結果／限制及證據；完成者移至結案表。狀態整理不自動改優先級、排程或准入。
 
 本次 T01 已正式發布並驗收；下一個功能任務需另行指定。模型建議不構成自動續行。
+
+T04 研究與合成實測已完成；目前等待維護者的正式實作決定，不再自動安排模型測試。

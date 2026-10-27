@@ -230,64 +230,41 @@ GROQ_API_KEY='...' python scripts/evaluate_ai_summaries.py \
 
 ### Gemini summary provider — disabled by default
 
-這一節只約束 `news_summary` 的生成 provider；不適用於讀者層的
-`title_zh`／`summary_zh` 翻譯。後者依「翻譯管線」章節固定使用 Gemini，
-不會回退到 Groq。
+截至 2026-10-27，T04 的[研究與驗收已完成](T04_GEMINI_SUMMARY_CANDIDATE_20261025.md)，
+建議暫緩正式摘要備援實作，等待維護者裁決。Groq 是正式摘要 primary；
+Gemini 的讀者翻譯是另一條路徑。候選 workflow 固定
+`GEMINI_SUMMARY_ENABLED=0`，未授權將真實 publisher feed 送往 Gemini
+生成新聞摘要；現有 `GEMINI_API_KEY` 不得被借作正式摘要憑證。
 
-截至 2026-10-25，Gemini 的正式狀態仍是
-`qualified backup candidate, disabled by default`。Groq
-`qwen/qwen3.8-27b` 是唯一 production primary。2026-10-25 已建立
-[預設停用的備援候選](T04_GEMINI_SUMMARY_CANDIDATE_20261025.md)；
-`update-news.yml` 固定 `GEMINI_SUMMARY_ENABLED=0`，即使有獨立
-`GEMINI_SUMMARY_API_KEY` 也不會送出 Gemini 摘要請求。既有
-`GEMINI_API_KEY` 僅供讀者翻譯路徑使用。Gemini 測試是獨立事件，不回溯
-改寫 Groq 的採用裁決。
+三個成功分離時段已完成，但全部九輪完整重複合成評估為 Gemini 81/90、
+Groq 89/90，另一次 Gemini plain 診斷中止。晚間有逾時與 HTTP 503，
+不能只用三次成功宣稱穩定。這些資料不是正式新聞準確率或 SLA。
 
-目前證據只支持「技術上可呼叫的備選候選」：
+正式啟用前仍須滿足下列 gates；研究完成不構成啟用授權：
 
-- 新 project 的 `gemini-3.5-flash-lite` 已通過 key/model discovery、
-  `generateContent` plain request 與 structured JSON request。
-- 七個合成案例中，5 個摘要通過、1 個 title-only 判為
-  `insufficient_context`、1 個提示注入案例因未逐字包含 required term
-  「不可信」而失敗；該輸出未重現嵌入指令或洩漏疑似 key。這是摘要驗收
-  未全綠，不是 API 呼叫或 secret-leak 失敗。
-- 舊 project 曾回傳 `429 RESOURCE_EXHAUSTED / RATE_LIMIT_EXCEEDED`；新
-  project 呼叫 `gemini-2.5-flash-lite` 曾回傳「不再開放新使用者」的
-  `404 NOT_FOUND`。因此 fallback 不得假設換 key 就能避開 project quota，
-  也不得把歷史模型名稱視為永久可用。
-
-完整的 sanitized 驗收摘要在
-[`reports/provider-evals/gemini-3.5-flash-lite-20260817.md`](../reports/provider-evals/gemini-3.5-flash-lite-20260817.md)，
-重跑方式在
-[`docs/guides/gemini-diagnostic-flow.md`](guides/gemini-diagnostic-flow.md)。
-
-在下列 production acceptance gates 全部完成前，不得讓 Gemini 成為摘要
-pipeline 的自動 fallback，也不得對真實 publisher feed 內容做 Gemini 摘要
-production call：
-
-1. 裁決提示注入案例：維持精確詞彙 gate 並修 prompt，或以有明確安全
-   斷言的語意 gate 取代；裁決後重新跑到驗收全綠。
-2. 至少三個分離時段重跑 diagnostic/eval，確認沒有 `429`、`5xx`、模型
-   漂移或 structured-output regression。
-3. 用同一組擴充合成案例比較 Groq 與 Gemini；真實新聞資料不得因這個
-   gate 被默認授權送往新的 provider。
-4. 實作並測試 trigger matrix：只有 Groq provider/transport/quota failure
-   才能呼叫 Gemini；Groq 成功時不得雙重呼叫，title-only、來源內容不足
-   或本地政策拒絕的 story 不得藉 fallback 繞過 gate。
-5. 設置獨立 secret、provider+model cache identity、單輪成本/呼叫上限與
-   公開安全的狀態欄位；兩個 provider 都失敗時仍須 fail open for news
-   refresh、fail closed for generated summary，省略摘要而不阻斷更新。
-6. 啟用前重新查閱 Google 官方定價與 active rate limits，並由 maintainer
-   明確接受使用 tier 的成本與資料使用政策。2026-08-17 官方快照顯示
-   standard paid tier 為每百萬 input tokens USD 0.30、output tokens
-   USD 2.50；free tier 的資料可用於改善 Google 產品，paid tier 則不會。
-   Rate limits 依 project 與 usage tier，而非依 API key 套用。這些數值與
-   條款會漂移，不得硬編碼為永久事實。
+1. 合成內容、提示注入及 title-only gate 已在受測範圍通過；不得外推所有
+   真實新聞的品質或改變來源材料邊界。
+2. 三個成功分離時段已完成；晚間逾時／503 必須保留於接線裁決，不能刪除
+   失敗或以反覆重跑當成長期穩定證明。
+3. Groq／Gemini 同案比較已完成；既有免費層資料接受只限合成案例。
+4. 觸發矩陣、防雙重呼叫、來源不足與本地拒絕不繞 gate 的離線檢查通過；
+   後續實作仍須保留這些契約。
+5. provider/model 快取身份、三次呼叫硬上限與雙 provider 失敗保留 story
+   已驗證；但摘要階段整體時間保護與失敗停止機制尚未實作。20 次 Groq
+   30 秒加三次 Gemini 60 秒的離線情境會累積 780 秒，整個刷新 job 只有
+   900 秒，另有翻譯、抓取及發布；正式版本須補整體 deadline，保護新聞刷新。
+   `GEMINI_SUMMARY_API_KEY` 尚未出現在 repository secret 名稱列表中。
+6. 啟用前核對實際 project 的 tier／active rate limits，並由維護者明確
+   接受真實新聞資料用途。獨立 key 不隔離同 project 配額；翻譯須保有預算。
+   10/27 核對 Standard 為每百萬 input/output tokens US$0.30／US$2.50，
+   免費層可能用資料改善產品、標準付費層不使用 prompts/responses 改善產品。
+   實際選擇與成本接受仍待維護者決定。
 
 官方依據：
-[Gemini 3.5 Flash-Lite model](https://ai.google.dev/gemini-api/docs/models/gemini-3.5-flash-lite)、
+[模型](https://ai.google.dev/gemini-api/docs/models/gemini-3.5-flash-lite)、
 [pricing](https://ai.google.dev/gemini-api/docs/pricing)、
-[rate limits](https://ai.google.dev/gemini-api/docs/rate-limits)。
+[rate limits](https://ai.google.dev/gemini-api/docs/rate-limits)、
+[資料使用條款](https://ai.google.dev/gemini-api/terms)。
 
 ## Schedule (cron) health
 
