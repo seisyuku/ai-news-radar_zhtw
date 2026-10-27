@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon CloudWatch 警报现已支持在警报操作有效载荷中包含标签",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/amazon-cloudwatch-tags-on-alarm-actions-payload",
-  "last_seen_at": "2026-10-27T06:12:20.066850Z",
+  "last_seen_at": "2026-10-27T07:05:32.077479Z",
   "summary": "今天，Amazon CloudWatch 宣布支持在操作有效载荷和 Amazon EventBridge 事件中包含警报标签，客户无需额外查找，即可按标签路由和筛选警报通知。在警报上启用此选项后，每当警报状态发生变化，CloudWatch 都会将警报标签添加到它发送至 Amazon SNS、AWS Lambda 和 Amazon EventBridge 的消息中。此选项专为通过共享通知管道路由大量警报并需要直接从消息中识别所属团队、环境或服务的客户而设计。 借助操作有效载荷内的标签，客户无需事后再将标签元数据与警报事件进行关联，省去了额外的工作量。例如，某团队通过单个 SNS 主题将数百条告警路由至 Lambda 函数，此前必须为每个事件调用 ListTagsForResource，才能在发送寻呼通知之前找到所属团队。启用此功能后，标签会出现在通知中，因此函数可以直接从消息进行路由。该设置默认处于关闭状态，支持按警报进行配置；客户可以选择包含所有标签、仅选定标签键或排除选定标签键外的所有标签。指标警报、复合警报和日志警报均支持此功能。 CloudWatch 警报操作和事件中的标签已在提供 Amazon CloudWatch 的所有 AWS 区域推出，但中东（阿联酋）和中东（巴林）除外。 要开始使用，请参阅 Amazon CloudWatch 用户指南中的 操作有效载荷中的警报标签 。要了解有关 Amazon CloudWatch 警报的更多信息，请访问 Amazon CloudWatch 产品页面。",
   "publisher_links": [
     "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/alarm-tags-in-notifications.html",

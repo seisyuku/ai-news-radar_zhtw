@@ -1,17 +1,110 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-27T06:12:20.066850Z",
+  "generated_at": "2026-10-27T07:05:32.077479Z",
   "window_hours": 24,
-  "total_events": 0,
-  "events": [],
+  "total_events": 1,
+  "events": [
+    {
+      "id": "model_release::dc6cc7d7a1cab61195c62bd2a87d9a2935e5d0cc",
+      "kind": "model_release",
+      "category": "model_release",
+      "verification_status": "reported",
+      "verification_label": "媒體報導",
+      "title": "OpenAI 推出 GPT-6.1 Terra 模型，主打電腦操作與視覺推理、API 費用砍半",
+      "summary": "OpenAI 26 日推出 GPT-6.1 Terra 模型，將重點放在電腦操作、視覺推理、程式開發以及日常工 […]",
+      "provider": "",
+      "product": "",
+      "detected_at": "2026-10-27T07:05:32.077479Z",
+      "effective_at": "2026-10-27T06:14:00Z",
+      "source_name": "TechNews 科技新報",
+      "source_url": "https://technews.tw/2026/10/27/openai-introduces-gpt-6-1-terra",
+      "evidence_url": "https://technews.tw/2026/10/27/openai-introduces-gpt-6-1-terra",
+      "ingress": {
+        "kind": "public_feed",
+        "site_id": "tw_media",
+        "source_id": "technews_tw",
+        "name": "TechNews 科技新報",
+        "feed_url": "https://technews.tw/feed/"
+      },
+      "publisher": {
+        "schema_version": 1,
+        "publisher_id": "technews",
+        "name": "TechNews 科技新報",
+        "domain": "technews.tw",
+        "status": "identified",
+        "basis": [
+          "article_host"
+        ],
+        "evidence": {
+          "rss_source_name": null,
+          "rss_source_url": null,
+          "article_url": "https://technews.tw/2026/10/27/openai-introduces-gpt-6-1-terra",
+          "article_host": "technews.tw",
+          "expected_publisher_id": null,
+          "conflicts": []
+        }
+      },
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "73a99eac2ec17e5f48be4bdcb883e50b6c93879c3b12b2f343db32e6fbade376",
+        "scope_id": "technews",
+        "publisher_kind": "media",
+        "admission_status": "limited",
+        "source_tier": "tw_media",
+        "source_tier_label": "台灣繁中媒體",
+        "source_tier_rank": 2,
+        "allow_general": true,
+        "allow_featured": true,
+        "allow_radar": true,
+        "reason_codes": [
+          "identified_host",
+          "limited_scope"
+        ]
+      },
+      "source_material": {
+        "title_original": "",
+        "title": "OpenAI 推出 GPT-6.1 Terra 模型，主打電腦操作與視覺推理、API 費用砍半",
+        "summary": "OpenAI 26 日推出 GPT-6.1 Terra 模型，將重點放在電腦操作、視覺推理、程式開發以及日常工 […]"
+      },
+      "qualification": {
+        "scope": "in_scope",
+        "core_evidence": [
+          {
+            "kind": "model_release",
+            "status": "supported",
+            "basis": "editorial_report",
+            "spans": [
+              {
+                "field": "title",
+                "start": 0,
+                "end": 47,
+                "text": "OpenAI 推出 GPT-6.1 Terra 模型，主打電腦操作與視覺推理、API 費用砍半"
+              },
+              {
+                "field": "summary",
+                "start": 0,
+                "end": 59,
+                "text": "OpenAI 26 日推出 GPT-6.1 Terra 模型，將重點放在電腦操作、視覺推理、程式開發以及日常工 […]"
+              }
+            ],
+            "urls": [
+              "https://technews.tw/2026/10/27/openai-introduces-gpt-6-1-terra"
+            ]
+          }
+        ],
+        "reason_codes": []
+      }
+    }
+  ],
   "publisher_governance_meta": {
     "schema_version": 2,
     "policy_id": "publisher-governance-v1",
     "registry_revision": "73a99eac2ec17e5f48be4bdcb883e50b6c93879c3b12b2f343db32e6fbade376",
-    "generated_at": "2026-10-27T06:12:20.066850Z",
-    "brief_generation_id": "bg1_a527b33a224a350baafba5ed",
-    "brief_state_revision": "22f0a0ad37077833d367b28223a45b3f92f7a62f91fd97fad3a2994a1cf39a3c",
-    "generation_id": "pg2_9f520342dd31306be61bd3ff",
+    "generated_at": "2026-10-27T07:05:32.077479Z",
+    "brief_generation_id": "bg1_9cbfcc90c6ae539f3c6f9cd0",
+    "brief_state_revision": "7273c83cdea96222d03b6c13e983d6fd6656037400db32ab2c91b4700f3681d0",
+    "generation_id": "pg2_bff4daed3f13e4632792d6cf",
     "status": "ready",
     "selection_policy": "dplus-v1",
     "default_visible_limit": 5
