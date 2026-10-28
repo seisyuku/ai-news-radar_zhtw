@@ -1,0 +1,55 @@
+{
+  "id": "0fd968b40feb377d645c078f6daf22388be116cf",
+  "published_at": "2026-10-28T13:15:00Z",
+  "first_seen_at": "2026-10-28T20:35:30.263454Z",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "OpenAI News",
+  "title": "OpenAI and ServiceNow expand partnership across enterprise workflows",
+  "url": "https://openai.com/index/openai-servicenow-partnership-expansion",
+  "last_seen_at": "2026-10-28T20:35:30.263454Z",
+  "summary": "OpenAI and ServiceNow expand their partnership to bring OpenAI models and agents into ServiceNow and ServiceNow workflows into ChatGPT and Codex.",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "openai_news",
+    "name": "OpenAI News",
+    "feed_url": "https://openai.com/news/rss.xml"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "openai",
+    "name": "OpenAI",
+    "domain": "openai.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://openai.com/index/openai-servicenow-partnership-expansion",
+      "article_host": "openai.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "538509a2381cc839f25920bdaa5ce0fede5e259a08c1cfd546fc1391e743dcb9",
+    "scope_id": "openai",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}
