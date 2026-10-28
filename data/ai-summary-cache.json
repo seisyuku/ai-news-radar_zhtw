@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v2",
   "entries": {
+    "9afb614789fd6ded738fc0356ad2e34e2b5a7ba5c35ec2e9475dee6d0c2903cb": {
+      "summary": "Wiz CTO 談及 PHP2Shell 與即將到來的「vulnpocalypse」。上週，支撐約 70% 網站的 PHP 出現兩個嚴重漏洞，導致部分組織將網站離線以進行修補。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-28T19:35:32.084049Z"
+    },
     "4e94f40863f3e7340be47dd14851ebef5fa8de4ee941f2086d0629cd462274bc": {
       "summary": "Wiz CTO 指出，PHP 語言近期出現兩個嚴重漏洞，影響約 70% 的網站，導致部分組織在修補前將網站離線。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-10-12T01:51:43.974882Z"
-    },
-    "5863ffca6ebd12f0f172a9f5e5618cfc460e8557e7406c755fa34733fbfcfdfe": {
-      "summary": "Anthropic 2026 年上半年封禁 1140 萬個 Claude 帳號，用戶提交 39.8 萬次申訴，僅 4.2 萬件翻案。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-12T01:51:43.974882Z"
     }
   },
   "rejections": {
@@ -4659,6 +4659,14 @@
     "cb077d41a3c66226f990fcf45e54d2a28db83a98f36732992e48f29f2372ca1a": {
       "reason": "insufficient_context",
       "created_at": "2026-10-28T19:05:28.459323Z"
+    },
+    "18b782743896394512f99de28ff7a7b2cfcf3b7ba256ed2d6078b4dca463e2b1": {
+      "reason": "insufficient_context",
+      "created_at": "2026-10-28T19:35:32.084049Z"
+    },
+    "62ca6e8e2a0e6441467d91a6abca9ccdc67069c3039eb168ee237af6d8e70c03": {
+      "reason": "validation_length",
+      "created_at": "2026-10-28T19:35:32.084049Z"
     }
   }
 }
