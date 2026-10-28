@@ -1007,7 +1007,7 @@ function itemOriginalTitleText(item) {
 }
 
 function itemSummaryText(item, maxLength = 180) {
-  const text = String(item?.summary_zh || item?.summary || "").replace(/\s+/g, " ").trim();
+  const text = String(item?.summary_zh || item?.summary || item?.reader_summary || "").replace(/\s+/g, " ").trim();
   if (!text) return "";
   return text.length > maxLength ? `${text.slice(0, maxLength - 1).trim()}…` : text;
 }
@@ -2230,11 +2230,18 @@ function newsSummaryText(row) {
   return storyNewsSummaryText(row?.story);
 }
 
+function topStorySummary(row) {
+  const generated = newsSummaryText(row);
+  return generated ? { label: "AI 新聞摘要", text: generated }
+    : { label: "來源摘要", text: itemSummaryText(row?.item, 400) };
+}
+
 function buildTopStoryCard(row, rank) {
   const item = row.item;
   // A lead needs a real generated summary or cross-source corroboration. Never
   // create empty space with legacy template copy for a single-source item.
   const generatedSummary = newsSummaryText(row);
+  const displaySummary = topStorySummary(row);
   const hasCompanionSources = rowSourceCount(row) > 1;
   const isLead = rank === 1 && (Boolean(generatedSummary) || hasCompanionSources);
   const link = document.createElement("a");
@@ -2283,13 +2290,13 @@ function buildTopStoryCard(row, rank) {
   originalAction.textContent = "檢視原文 ↗";
 
   link.append(meta, title, original);
-  if (generatedSummary) {
+  if (displaySummary.text) {
     const why = document.createElement("div");
     why.className = "top-story-why";
     const whyLabel = document.createElement("span");
-    whyLabel.textContent = "AI 新聞摘要";
+    whyLabel.textContent = displaySummary.label;
     const whyText = document.createElement("p");
-    whyText.textContent = generatedSummary;
+    whyText.textContent = displaySummary.text;
     why.append(whyLabel, whyText);
     link.appendChild(why);
   }
@@ -2360,7 +2367,8 @@ function buildIntelCard(item, rank) {
 
 function feedSummaryText(item) {
   const editorialSummary = itemSummaryText(item);
-  if (editorialSummary) return editorialSummary;
+  if (editorialSummary) return item.reader_summary_kind === "publisher_lead"
+    ? `來源首段${item.summary_zh ? "譯文" : ""}：${editorialSummary}` : editorialSummary;
   const signals = Array.isArray(item.ai_signals) ? item.ai_signals.filter(Boolean).slice(0, 2) : [];
   if (signals.length) return `相關線索：${signals.join(" / ")}。`;
   const reason = reasonText(item);

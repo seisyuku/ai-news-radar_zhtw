@@ -772,7 +772,7 @@ def build_brief_events(*, stories: list[dict[str, Any]], archive_records: list[d
             rid = str(c.row["id"])
             r = {**c.row, **display.get(rid, {})}
             pub, status = corroboration.identity(c.row)
-            refs.append({k: r.get(k) for k in ("id", "title", "title_zh", "title_en", "title_original", "url", "source", "site_id", "published_at")} | {
+            refs.append({k: r.get(k) for k in ("id", "title", "title_zh", "title_en", "title_original", "summary", "summary_zh", "url", "source", "site_id", "published_at")} | {
                 k: r[k] for k in ("ingress", "publisher") if k in r} | {
                 "corroboration_key": pub, "corroboration_status": status,
                 "role": "context_unknown" if c.unknown_update else "active_phase" if rid in eligible_current_ids else "past_phase",

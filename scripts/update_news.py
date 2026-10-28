@@ -30,7 +30,7 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
 try:
-    from scripts import archive_output, source_health, corroboration, brief_events, publisher_identity, publisher_policy, publisher_governance, signal_selection
+    from scripts import archive_output, source_health, corroboration, brief_events, publisher_identity, publisher_policy, publisher_governance, signal_selection, reader_excerpts
 except ModuleNotFoundError:  # pragma: no cover - direct script invocation
     import archive_output
     import source_health
@@ -40,6 +40,7 @@ except ModuleNotFoundError:  # pragma: no cover - direct script invocation
     import publisher_policy
     import publisher_governance
     import signal_selection
+    import reader_excerpts
 
 # Keep these existing imports callable by maintainers and regression tests.
 Archive = archive_output.Archive
@@ -5981,7 +5982,7 @@ def add_bilingual_fields(
     summary_zh_by_url: dict[str, str] = {}
     for it in items_all:
         title = str(it.get("title") or "").strip()
-        summary = str(it.get("summary") or "").strip()
+        summary = str(it.get("summary") or it.get("reader_summary") or "").strip()
         url = normalize_url(str(it.get("url") or ""))
         if title and url and has_cjk(title):
             zh_by_url[url] = title
@@ -6022,7 +6023,7 @@ def add_bilingual_fields(
 
     for item in items_ai:
         title = str(item.get("title") or "").strip()
-        summary = str(item.get("summary") or "").strip()
+        summary = str(item.get("summary") or item.get("reader_summary") or "").strip()
         url = normalize_url(str(item.get("url") or ""))
         provided_en_raw = str(item.get("provided_title_en") or "").strip()
         provided_en = provided_en_raw if is_mostly_english(provided_en_raw) else ""
@@ -6065,7 +6066,7 @@ def add_bilingual_fields(
         out = dict(item)
         title = str(out.get("title") or "").strip()
         url = normalize_url(str(out.get("url") or ""))
-        summary = str(out.get("summary") or "").strip()
+        summary = str(out.get("summary") or out.get("reader_summary") or "").strip()
         provided_zh = str(out.pop("provided_title_zh", "") or "").strip()
         provided_en_raw = str(out.pop("provided_title_en", "") or "").strip()
         provided_en = provided_en_raw if is_mostly_english(provided_en_raw) else ""
@@ -7088,6 +7089,7 @@ def main() -> int:
     stories_merged_path = output_dir / "stories-merged.json"
     brief_event_state_path = output_dir / brief_events.STATE_FILE
     title_cache_path = output_dir / "title-zh-cache.json"
+    reader_excerpt_cache_path = output_dir / "reader-excerpt-cache.json"
     translation_state_path = output_dir / "translation-state.json"
     ai_summary_cache_path = output_dir / "ai-summary-cache.json"
     paid_source_state_path = output_dir / PAID_SOURCE_STATE_FILE
@@ -7273,6 +7275,12 @@ def main() -> int:
         ai_summary_cache = load_summary_cache(ai_summary_cache_path)
 
     with record_generation_phase(phase_metrics, "translations") as phase:
+        try:
+            reader_excerpt_cache = json.loads(reader_excerpt_cache_path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            reader_excerpt_cache = {}
+        latest_items, latest_items_all, reader_excerpt_cache, reader_excerpt_status = reader_excerpts.enrich(
+            latest_items, latest_items_all, session, reader_excerpt_cache)
         latest_items, latest_items_all, title_cache = add_bilingual_fields(
             latest_items,
             latest_items_all,
@@ -7302,6 +7310,14 @@ def main() -> int:
         groq_summary_model = str(os.environ.get("GROQ_SUMMARY_MODEL") or DEFAULT_GROQ_MODEL).strip()
 
     with record_generation_phase(phase_metrics, "summaries") as phase:
+        # Event selection and ordinary story ranking differ. Prioritize the
+        # actual visible primaries without changing selection or API limits.
+        try:
+            summary_selection = build_brief_event_payloads(stories, list(archive.values()), brief_event_state,
+                now, args.window_hours, archive_meta=brief_archive_meta)
+            priority_article_ids = [(s.get("primary_item") or {}).get("id") for s in summary_selection.daily_items]
+        except Exception:
+            priority_article_ids = []
         stories, ai_summary_status, ai_summary_cache = summarize_stories(
             stories,
             api_key=groq_api_key,
@@ -7309,6 +7325,7 @@ def main() -> int:
             max_new=max(0, env_int("GROQ_SUMMARY_MAX_NEW", DEFAULT_MAX_NEW_SUMMARIES)),
             cache=ai_summary_cache,
             now=now,
+            priority_article_ids=priority_article_ids,
         )
         phase["provider_enabled"] = bool(ai_summary_status.get("enabled"))
 
@@ -7480,6 +7497,7 @@ def main() -> int:
             "socialdata": socialdata_status,
             "tikhub": tikhub_status,
             "ai_summaries": ai_summary_status,
+            "reader_excerpts": reader_excerpt_status,
         }
 
         latest_payload, latest_all_payload = build_latest_payloads(latest_payload)
@@ -7517,6 +7535,7 @@ def main() -> int:
             json.dumps(sanitize_public_payload(paid_source_state), ensure_ascii=False, indent=2),
         )
         atomic_write_text(title_cache_path, json.dumps(sanitize_public_payload(title_cache), ensure_ascii=False, indent=2))
+        atomic_write_text(reader_excerpt_cache_path, json.dumps(sanitize_public_payload(reader_excerpt_cache), ensure_ascii=False, indent=2))
         if translation_state_path.exists() or translation_state.get("rejections"):
             atomic_write_text(
                 translation_state_path,

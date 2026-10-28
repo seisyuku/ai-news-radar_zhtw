@@ -197,7 +197,13 @@ Group-level history remains a separate summary of whole-group failure.
 RSS/Atom adapters preserve a sanitized plain-text `summary`/`description` when
 the publisher supplies one. This text supports the optional short-summary layer;
 the project does not scrape full article bodies for that purpose, and title-only
-items remain ineligible for AI summarization.
+items remain ineligible for AI summarization. The maintainer-approved
+2026-10-28 Hugging Face display exception reads one bounded first paragraph
+only for current AI-reader articles lacking RSS copy. It is retained separately
+as `reader_summary` and translated for display; it never becomes native feed
+evidence, changes admission/selection, or supplies AI news summaries. Official
+HTTPS blog URLs only, no redirects, six pages per run, 1 MiB per page, cached
+for the current reader window; failures keep the existing title. See OPERATIONS.
 
 RSS/Atom evidence also retains up to 24 HTTP(S) anchor URLs as optional
 `publisher_links`, using the same HTML parse and existing feed request. This

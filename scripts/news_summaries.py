@@ -311,10 +311,12 @@ def _attach_summary(story: Mapping[str, Any], entry: Mapping[str, Any]) -> dict[
     return out
 
 
-def _candidate_order(stories: list[dict[str, Any]]) -> list[int]:
+def _candidate_order(stories: list[dict[str, Any]], priority_article_ids=()) -> list[int]:
+    priority = set(priority_article_ids)
     return sorted(
         range(len(stories)),
         key=lambda index: (
+            0 if (stories[index].get("primary_item") or {}).get("id") in priority else 1,
             0 if stories[index].get("business_events") else 1,
             -float(stories[index].get("score") or 0),
             index,
@@ -332,6 +334,7 @@ def summarize_stories(
     generate_fn: Callable[[str, Mapping[str, Any]], str] | None = None,
     now: datetime | None = None,
     candidate_limit: int = DEFAULT_CANDIDATE_LIMIT,
+    priority_article_ids=(),
 ) -> tuple[list[dict[str, Any]], dict[str, Any], dict[str, Any]]:
     """Attach cached/generated summaries and return public-safe run status."""
 
@@ -389,7 +392,7 @@ def summarize_stories(
 
     generator = generate_fn or make_groq_generator(str(api_key).strip(), model=model)
     considered = 0
-    for index in _candidate_order(output):
+    for index in _candidate_order(output, priority_article_ids):
         if considered >= max(0, int(candidate_limit)):
             break
         if index not in contexts:

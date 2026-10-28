@@ -212,6 +212,9 @@ T03 既有資料跨期回顧已完成，維持每輪成功新增六則上限與�
 與單輪新增上限；預設分別為 `qwen/qwen3.8-27b`、`6`。
 - 只把 RSS/Atom 發布者提供的 `summary`／`description` 送去摘要；只有
   標題的新聞不呼叫 API，也不顯示固定模板假裝成內容摘要。
+- 摘要候選優先處理實際入選重點區的主文章，再沿用一般故事順序；候選
+  20 則與成功新增 6 則的限制不變。事件投影保留同篇來源摘要／譯文，
+  AI 摘要不可用時重點卡顯示「來源摘要」，不借用其他篇內容。
 - `data/ai-summary-cache.json` 以模型、prompt 版本、標題與來源摘要的
   內容雜湊為鍵。內容不變就沿用成功快取，最多保留 500 筆。對
   `insufficient_context`、`validation_length` 另保留同鍵 6 小時的安全
@@ -513,6 +516,15 @@ update-news.yml: freshness-check job
 前端優先顯示 `summary_zh`。沒有 RSS 摘要的條目會跳過此步驟，不新增抓取或猜測內容。完整規格與程式碼註解在
 `scripts/update_news.py` 內 `CANONICAL_NAMES` 定義上方，這裡只記操作面
 摘要（新增詞條、除錯時該看哪裡）。
+
+2026-10-28 依維護者要求補修 Hugging Face 閱讀內容：該站 RSS 只有標題，
+標題翻譯本來正常；僅針對已在當期 AI 閱讀池、缺 RSS 簡介的該站文章，
+補讀固定 HTTPS 官方 `/blog/` 網址 `.blog-content` 中第一個完整實質段落。
+每輪最多 6 篇、啟動新請求前檢查 20 秒預算、單頁上限 1 MiB、不跟隨轉址，
+失敗安全略過。當期首段快取於 `reader-excerpt-cache.json`，用 `reader_summary`
+提供既有 Gemini 翻譯與「來源首段譯文」顯示；原始 RSS `summary`／archive
+保持，首段不參與相關度、事件資格、選題或 Groq 摘要。健康另記
+`source-status.json.reader_excerpts`。其他來源仍不補讀文章。
 
 ### Provider 與失效界線
 

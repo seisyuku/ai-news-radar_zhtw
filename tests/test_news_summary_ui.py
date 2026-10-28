@@ -45,13 +45,25 @@ def test_followup_story_rows_render_generated_summary_when_present():
     assert "AI 摘要 · ${generatedSummary}" in source
 
 
-def test_top_card_only_renders_a_summary_block_for_generated_copy():
+def test_top_card_renders_generated_or_attributed_publisher_copy():
     source = (ROOT / "assets" / "app.js").read_text(encoding="utf-8")
 
     assert "function signalSummaryText" not in source
     assert "已進入 24 小時 AI 強相關池" not in source
-    assert "if (generatedSummary)" in source
-    assert 'whyLabel.textContent = "AI 新聞摘要"' in source
+    assert "if (displaySummary.text)" in source
+    assert 'whyLabel.textContent = displaySummary.label' in source
+
+
+def test_top_card_fallback_is_primary_article_only_and_never_labeled_ai():
+    declarations = DECLARATIONS + extract_declarations("itemSummaryText") + extract_declarations("topStorySummary")
+    result = run_js(f'''{declarations}
+      console.log(JSON.stringify([
+        topStorySummary({{story: {{news_summary: 'AI摘要'}}, item: {{summary_zh: '來源譯文'}}}}),
+        topStorySummary({{story: {{}}, item: {{summary: 'original', summary_zh: '來源譯文'}}}}),
+        topStorySummary({{story: {{sources: [{{summary: '別篇摘要'}}]}}, item: {{}}}})
+      ]));''')
+    assert result == [dict(label="AI 新聞摘要", text="AI摘要"),
+                      dict(label="來源摘要", text="來源譯文"), dict(label="來源摘要", text="")]
 
 
 def test_fixed_why_important_copy_is_removed_from_shipped_ui():
