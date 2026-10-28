@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon GuardDuty 新增用于运行时监控的可选威胁检测规则",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/guardduty-runtime-optional-detection-rules",
-  "last_seen_at": "2026-10-28T04:35:32.239677Z",
+  "last_seen_at": "2026-10-28T04:53:40.934823Z",
   "summary": "Amazon GuardDuty 现在支持用于运行时监控的可选检测规则。您可以启用 50 多条运行时监控规则，以帮助检测流程、文件和网络活动。这些活动可能在一个环境中是例行活动，但在另一种环境下却可能是系统遭到入侵的迹象，例如修改 sudoers 文件或禁用审计日志记录。 新规则为 EC2 和 AWS Fargate 上的 Amazon EC2 实例、Amazon EKS 和 Amazon ECS 提供了检测，涵盖了与 MITRE ATT&CK® 策略对应的 13 种调查发现类型，包括持久化、权限升级、执行、规避防御、发现、数据泄露、渗透以及指挥和控制。此版本引入了四种新的调查发现类型：CommandAndControl:Runtime/SuspiciousCommand、CredentialAccess:Runtime/SensitiveFileRead、Discovery:Runtime/SensitiveFileRead 和 Exfiltration:Runtime/SuspiciousCommand。 要开始使用，请访问 GuardDuty 控制台。在启用实时检测之前，可以在空运行模式下启用规则以评估检测效果。 用于运行时监控的自定义检测规则已在所有 AWS 商业区域和 AWS GovCloud（美国）区域推出。要了解更多信息，请参阅 Amazon GuardDuty 自定义检测规则 。要接收有关 Amazon GuardDuty 新增功能和威胁检测的程序化更新，请订阅 Amazon GuardDuty SNS 主题 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/guardduty/latest/ug/custom-detection-rules.html",
