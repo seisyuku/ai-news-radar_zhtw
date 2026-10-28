@@ -6,6 +6,12 @@
 
 [補位評分與發布驗收](SUPPLEMENT_IMPACT_SIMULATION_20261026.md)記錄 `544d1b79de3d`、`20261026-impact2` 與 21:43 公開快照。I／P／E／C 為 40／20／20／20，僅評估既有合格補位；全站維持 24 小時。CI、Pages、同代 HTTP 及正式瀏覽器驗收通過，當期為 Block、LiteLLM、Meta 三則重點。使用者已明確指定本專案的 `commit push` 包含 master 正式發布與驗收，規則見 `AGENTS.md`。
 
+## 2026-10-28 來源品質修正發布
+
+來源裁決與限制見 [SOURCE_COVERAGE](SOURCE_COVERAGE.md#2026-10-28-三日品質複審與修正已發布)。只將來源品質 commit 整合為 `aaba6389dbb0`，保留 master 較新的前端 impact2 與 bot 資料；無前端資產改動，因此保留既有資產版本。master CI `40626275722`、程式 Pages `40626275654` 成功後，沿用既有 `update-news.yml` 手動公開刷新 `40626297765`，產生資料 `ff3912e294be`，資料 Pages `40626443195` 成功。沒有新增或修改排程。
+
+正式資料臺北 11:22:43，來源失敗／降級皆空、事件／治理 ready；16 個正式 HTTP 檔與發布提交完全一致，瀏覽器實際顯示四則重點。AIBase scope 為 rank 4，其他來源權限與既有計票保持；861 舊根皆保留／alias 延續，initial／phase 時鐘未後移。本輪原工作目錄既有未提交維護文件未混入發布，正式資料由 Actions 生成，沒有拿本機驗證輸出覆寫。
+
 ## 2026-10-25 T01 六類事件篩選正式發布
 
 [T01發布與驗收](T01_EVENT_FILTER_IMPLEMENTATION_20261025.md)記錄六資產共同版本 `20261025-t01`、離線 CI 修正、Pages 及正式站 Chrome 驗收。這次只改前端顯示與高階篩選，沒有資料 schema、評分、來源、排程或 provider 變更；例行刷新及 24 小時窗口維持。
