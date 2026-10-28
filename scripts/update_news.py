@@ -1362,6 +1362,13 @@ def business_event_score(item: dict[str, Any]) -> list[str]:
         exclude_terms = BUSINESS_EVENT_EXCLUDE_KEYWORDS.get(category)
         if exclude_terms and any(_business_keyword_matches(term, haystack) for term in exclude_terms):
             continue
+        if category == "earnings" and publisher_governance.material_cues.IPO.search(title):
+            # IPO document side stories cannot earn a financial badge from
+            # percentages or unrelated numbers (also enforced for featured).
+            if not publisher_governance.material_cues.financial_support(
+                    title, summary, publisher_governance.COMPANY,
+                    publisher_governance.FINANCE, publisher_governance.PERIOD):
+                continue
         hits.append(category)
     platform = platform_event_decision(item)
     if platform.applies:
@@ -6127,17 +6134,41 @@ def add_bilingual_fields(
 
 
 def dedupe_items_by_title_url(items: list[dict[str, Any]], random_pick: bool = True) -> list[dict[str, Any]]:
+    # Preserve the existing exact-title/URL behavior across publication dates,
+    # then additionally collapse title corrections with the same timestamp.
+    exact: dict[str, list[dict[str, Any]]] = {}
+    for item in items:
+        title = str(item.get("title_original") or item.get("title") or "").strip().lower()
+        url = normalize_url(str(item.get("url") or ""))
+        exact.setdefault(f"{title}||{url}", []).append(item)
+    items = [random.choice(values) if random_pick else min(values, key=source_tier_sort_key)
+             for values in exact.values()]
     groups: dict[str, list[dict[str, Any]]] = {}
     for item in items:
         site_id = str(item.get("site_id") or "").strip().lower()
         title = str(item.get("title_original") or item.get("title") or "").strip().lower()
         url = normalize_url(str(item.get("url") or ""))
-        key = f"{title}||{url}"
+        # Same article + unchanged publication evidence is a title revision.
+        # Rolling changelogs deliberately reuse URLs for different entries.
+        path = urlparse(url).path.rstrip("/")
+        rolling = path.rsplit("/", 1)[-1].lower() in {"", "changelog", "news", "blog", "index.html"}
+        when = parse_iso(item.get("published_at"))
+        key = (f"article::{brief_events.url_key(url)}::{iso(when)}"
+               if url and when and not rolling else f"{title}||{url}")
         groups.setdefault(key, []).append(item)
 
     out: list[dict[str, Any]] = []
     for values in groups.values():
-        if random_pick:
+        titles = {str(v.get("title_original") or v.get("title") or "").strip() for v in values}
+        if len(titles) > 1:
+            # A live title correction supersedes an older copy. Choose within
+            # the best existing transport tier; never randomize old/new text.
+            chosen = min(values, key=lambda v: (source_tier_sort_key(v)[0],
+                -(parse_iso(v.get("last_seen_at")) or datetime.min.replace(tzinfo=UTC)).timestamp(),
+                -(parse_iso(v.get("first_seen_at")) or datetime.min.replace(tzinfo=UTC)).timestamp(),
+                str(v.get("id") or "")))
+            out.append(chosen)
+        elif random_pick:
             out.append(random.choice(values))
         else:
             chosen = min(values, key=source_tier_sort_key)
@@ -6155,7 +6186,7 @@ def _same_publisher_title_key(item: dict[str, Any]) -> str:
     if site_id == "kr36_ai":
         title = re.split(r"\s*[|｜]\s*", title, maxsplit=1)[0]
         title = re.sub(
-            r"\s*[-–—]\s*(?:36\s*kr|36kr(?:\.com)?|m-ai\.36kr\.com)\s*$",
+            r"\s*[-–—]\s*(?:36\s*kr|36kr(?:\.com)?|36\s*氪|m-ai\.36kr\.com)\s*$",
             "",
             title,
             flags=re.IGNORECASE,

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "policy_id": "publisher-governance-v1",
-  "revision": "73a99eac2ec17e5f48be4bdcb883e50b6c93879c3b12b2f343db32e6fbade376",
+  "revision": "538509a2381cc839f25920bdaa5ce0fede5e259a08c1cfd546fc1391e743dcb9",
   "default": {
     "publisher_kind": "unknown",
     "admission_status": "unreviewed",
@@ -65,14 +65,15 @@
         }
       ],
       "admission_status": "limited",
-      "source_tier": "ai_media",
-      "source_tier_label": "精選AI媒體",
-      "source_tier_rank": 2,
+      "source_tier": "advanced",
+      "source_tier_label": "次級AI媒體",
+      "source_tier_rank": 4,
       "allow_general": true,
       "allow_featured": true,
       "allow_radar": true,
-      "notes": "existing named public publisher and previously accepted article scope only; exact host/path/aliases required in PG03; not arbitrary subdomains",
+      "notes": "2026-10-28 maintainer review: retain the scoped news adapter at rank 4; repeated same-topic articles and headline/evidence-state inflation do not support the former curated rank 2. Permissions and corroboration identity remain unchanged.",
       "authority": [
+        "docs/SOURCE_COVERAGE.md",
         "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md",
         "docs/SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md"
       ],

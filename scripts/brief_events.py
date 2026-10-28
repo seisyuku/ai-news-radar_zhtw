@@ -19,9 +19,10 @@ from typing import Any, Callable
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 try:
-    from scripts import corroboration
+    from scripts import corroboration, publisher_material
 except ModuleNotFoundError:  # direct generator invocation
     import corroboration
+    import publisher_material
 
 UTC = timezone.utc
 VERSION = "brief-event-v1"
@@ -597,6 +598,29 @@ def build_brief_events(*, stories: list[dict[str, Any]], archive_records: list[d
     article_claims = {str(c.row["id"]): c for c in claims
                       if str(c.row["id"]) not in attached and c.action == "article"}
     article_anchor = {}
+    # Initial IPO filing reports can have entirely different titles. Only an
+    # asserted filing by the same named company joins this bounded group;
+    # detector/wealth side stories, amendments, pricing and listing do not.
+    # Investment reports additionally need exact actors, currency and amount.
+    bounded_reports: dict[tuple, list[Claim]] = defaultdict(list)
+    for claim in article_claims.values():
+        title = str(claim.row.get("title_original") or claim.row.get("title") or "")
+        entity = publisher_material.ipo_filing_entity(
+            title, str(claim.row.get("summary") or ""))
+        if entity:
+            bounded_reports[("ipo_initial_filing", entity)].append(claim)
+        else:
+            investment = publisher_material.investment_signature(title)
+            if investment:
+                bounded_reports[("investment", *investment)].append(claim)
+    for members in bounded_reports.values():
+        anchors = []
+        for claim in sorted(members, key=lambda c: (c.effective, str(c.row["id"]))):
+            anchor = next((a for a in anchors if claim.effective - a.effective <= timedelta(hours=36)), None)
+            if anchor is None:
+                anchors.append(claim)
+                anchor = claim
+            article_anchor[str(claim.row["id"])] = anchor
     for story in stories:
         sid = str(story["story_id"])
         publisher_names = {normalized(name).strip() for ref in story.get("sources", [])
@@ -619,7 +643,8 @@ def build_brief_events(*, stories: list[dict[str, Any]], archive_records: list[d
             if len(members) < 2:
                 continue
             anchor = article_claims[preferred] if preferred in members else article_claims[min(members)]
-            article_anchor.update({rid: anchor for rid in members})
+            for rid in members:
+                article_anchor.setdefault(rid, anchor)
     for c in claims:
         if str(c.row["id"]) not in attached:
             # A software keyword alone is not a security-event identity.

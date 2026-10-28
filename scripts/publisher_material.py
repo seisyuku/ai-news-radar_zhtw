@@ -7,6 +7,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 import re
+from decimal import Decimal
 
 
 @dataclass(frozen=True)
@@ -30,8 +31,8 @@ CJK_NAME = re.compile(r"[\u3400-\u9fff]{2,14}(?:公司|集團|集团|科技|平�
 STOP_NAMES = {"AI", "API", "The", "This", "A", "An", "New", "Original", "General", "Generic", "Critical", "Security", "Researchers", "Research", "Report", "Revenue", "Earnings", "Quarter", "Q1", "Q2", "Q3", "Q4", "FY", "SUMMARY", "TITLE", "Market", "Global", "Worldwide", "Study", "Survey", "Company", "Companies", "Benchmark", "Findings", "Results", "Quarterly", "Fiscal", "Warning", "Vulnerability", "Vulnerabilities", "Unconfirmed", "Rumor", "Industry"}
 TITLE_VERB = re.compile(r"\b(?:Releases?|Released|Launch(?:es|ed)?|Introduces?|Introduced|Announces?|Announced|Reports?|Acquires?|Acquired|Scores?)\b")
 MODEL_WORD = r"(?:(?:AI|language|speech|video|foundation|generative|frontier|multimodal|vision|reasoning|open|voice|audio)[ -]+)*models?"
-MODEL_BEFORE = re.compile(r"(?:\b" + MODEL_WORD + r"|模型)\s*[:：\"「『“]?\s*$", re.I)
-MODEL_AFTER = re.compile(r"^\s*(?:" + MODEL_WORD + r"(?![A-Za-z0-9])|模型)", re.I)
+MODEL_BEFORE = re.compile(r"(?:\b" + MODEL_WORD + r"|模型)[ \t]*[:：\"「『“]?[ \t]*\Z", re.I)
+MODEL_AFTER = re.compile(r"^[ \t]*[\"”」』]?[ \t]*(?:" + MODEL_WORD + r"(?![A-Za-z0-9])|模型)", re.I)
 CLAUSES = re.compile(r"[。;；\n]|(?<=[a-z])\.\s+")
 
 
@@ -186,6 +187,79 @@ def financial_clauses(title, summary, companies, finance):
     return clauses
 
 
+IPO = re.compile(r"(?<![a-z])IPO(?![a-z])|(?<![a-z0-9])S[-‐‑–]?1(?:/A)?(?![a-z0-9])|首次公開募股|首次公开募股|上市申請|上市申请|招股", re.I)
+IPO_ACTION = re.compile(r"\b(?:files?|filed|submits?|submitted)\b|(?:公開|公开)?(?:遞交|递交|提交|申報|申报)|正式(?:啟動|启动)", re.I)
+IPO_NON_FILING = re.compile(r"\b(?:amend\w*|withdraw\w*|cancel\w*|priced?|pricing|debut|listing|listed|S-1/A)\b|撤回|撤銷|撤销|修訂|修订|定價|定价|掛牌|挂牌", re.I)
+FINANCIAL_METRIC = re.compile(r"\b(?:revenue|earnings|net (?:income|profit|loss)|IPO proceeds)\b|營收|营收|財報|财报|淨利|净利|淨損|净损|上市募資|上市募资", re.I)
+FINANCIAL_VALUE = re.compile(r"(?:\$|USD|NT\$|美元|新臺幣|新台幣|人民幣|人民币)\s*\d|\d[\d.,]*\s*(?:%|percent|(?:萬|万|億|亿|兆)?\s*(?:美元|元)|million|billion)", re.I)
+
+
+def ipo_filing_entity(title, summary):
+    """An asserted initial filing by its headline actor, not an IPO side story.
+
+    A document name in a detector/review headline is not a filing predicate.
+    Amendments, pricing and listing remain separate material developments.
+    """
+    filing_context = IPO.search(title) or (IPO.search(summary) and re.search(r"SEC|證券交易|证券交易", title, re.I))
+    if not filing_context or IPO_NON_FILING.search(title):
+        return None
+    for action in IPO_ACTION.finditer(title):
+        if predicate_unasserted(title, action):
+            continue
+        tail = title[action.end():]
+        if not IPO.search(tail) and not (re.match(r"申請|申请", tail) and filing_context):
+            continue
+        # Attribution or another named subject must not borrow the first name.
+        prefix = title[:action.start()].strip()
+        if re.search(r"\b(?:says?|denies?|if|may|might|could|will|plans? to|reportedly)\b|否認|否认|是否|預計|预计|可能|擬|拟|傳聞|传闻", prefix, re.I):
+            continue
+        prefix = re.sub(r"向\s*(?:美國|美国)?\s*SEC\s*$", "", prefix, flags=re.I).strip()
+        candidates = names(prefix)
+        if len(candidates) != 1:
+            continue
+        entity = candidates[0]
+        # Only the company subject and neutral modifiers may govern the action.
+        if prefix[:entity.start()].strip() or not re.fullmatch(r"\s*(?:正式|公開|公开|已|首次|向\s*(?:美國|美国)?\s*SEC\s*)*", prefix[entity.end():], re.I):
+            continue
+        if re.search(r"\b(?:has not|hasn't|did not)\s+(?:filed?|submit\w*)\b|(?:尚未|並未|并未|沒有|没有)(?:遞交|递交|提交|申報|申报)", summary, re.I):
+            continue
+        return re.sub(r"\W", "", entity.text.casefold())
+    return None
+
+
+def financial_support(title, summary, companies, finance, period):
+    """Require corporate metrics or IPO proceeds, never a bare IPO + percent."""
+    if ipo_filing_entity(title, summary):
+        return True
+    for clause in financial_clauses(title, summary, companies, finance):
+        if FINANCIAL_METRIC.search(clause) and FINANCIAL_VALUE.search(clause) and (period.search(clause) or period.search(title)):
+            return True
+        # A completed IPO fundraising report need not repeat a financial period.
+        if IPO.search(clause) and re.search(r"\b(?:raises?|raised|proceeds)\b|募得|籌得|筹得|(?:募資|募资)(?:金額|金额)(?:達|达|為|为)", clause, re.I) and FINANCIAL_VALUE.search(clause):
+            return True
+    return False
+
+
+def investment_signature(title):
+    """Exact headline actor, USD amount and recipient, not broad topic merging."""
+    action = re.search(r"\binvest(?:s|ed)?\b", title, re.I)
+    if not action or predicate_unasserted(title, action):
+        return None
+    prefix = re.sub(r"\s+to\s*$", "", title[:action.start()], flags=re.I).strip()
+    actors = names(prefix)
+    if len(actors) != 1 or actors[0].text != prefix:
+        return None
+    match = re.match(r"\s+(?:US\$|\$)\s*(\d+(?:\.\d+)?)\s*(billion|million|bn|m)\s+in\s+(.+)", title[action.end():], re.I)
+    if not match:
+        return None
+    recipient = re.split(r"\s+(?:in|as|to|with|for|on|through)\s+|[,，:：]", match[3], maxsplit=1, flags=re.I)[0].strip()
+    recipients = names(recipient)
+    if len(recipients) != 1 or recipients[0].text != recipient:
+        return None
+    amount = Decimal(match[1]) * (1_000_000_000 if match[2].lower() in {"billion", "bn"} else 1_000_000)
+    return (actors[0].text.casefold(), recipients[0].text.casefold(), format(amount.normalize(), "f"))
+
+
 def focused_text(title, summary, known_models, products, companies):
     """Keep native clauses about one headline subject; never borrow a rival's data."""
     combined = title + "\n" + summary
@@ -223,7 +297,19 @@ def out_of_scope(title, summary, legacy):
     imperative_sale = re.search(r"^(?:save\s+\d|buy\b|register\b|book your\b)|立即(?:報名|报名|購票|购票)|票券.{0,12}(?:優惠|优惠|折扣)", title, re.I)
     summary_sale = re.search(r"^(?:register now|buy (?:your |a )?ticket|save \d+\s*%).{0,150}(?:ticket|conference|event|pass)", summary, re.I)
     advice = re.search(r"(?:企業|企业|團隊|团队|政府).{0,10}如何.{0,30}(?:防止|避免|治理|管理|成長|成长|提升|提高).{0,25}(?:建議|建议|方向|方法|秘訣|秘诀)", title)
-    return bool(imperative_sale or summary_sale or (not reporting and (tutorial or legacy or advice)))
+    local_instruction = re.search(
+        r"排錯|排错|故障排除|(?:提示詞|提示词|指令).{0,18}(?:實戰|实战|筆記|笔记|步驟|步骤|寫對|写对)|"
+        r"(?:教你|教您|親授|亲授).{0,30}(?:用法|使用|技巧|指令)|"
+        r"(?:\d+|[一二三四五六七八九十兩两]+)\s*(?:種|种|大)?\s*(?:高效)?用法|"
+        r"(?:\d+|[一二三四五六七八九十兩两]+)\s*(?:道|個|个)\s*AI\s*指令|"
+        r"(?:用|使用)\s*AI\s*工作.{0,30}(?:如何|怎麼|怎么|測試|测试)|"
+        r"(?:導入|导入)\s*AI.{0,20}先從.{0,12}(?:件事|下手)|"
+        r"\b(?:troubleshoot(?:ing)?|prompt(?:ing)? (?:tips|guide|recipes))\b", title, re.I)
+    event_promotion = re.search(r"(?:全日|線上|线上)?論壇.{0,25}(?:如何|鏈動|链动)|(?:報名|报名|購票|购票).{0,30}(?:論壇|论坛|大會|大会)", title)
+    # Search bridges also index documentation landing pages as fresh articles.
+    landing_page = re.search(r"(?:documentation|文件|文檔|文档)\s*[–—:：-]\s*(?:changelog|downloads?|下載|下载|更新紀錄|更新记录)(?:\s*-\s*[^-]+)?\s*$", title, re.I)
+    return bool(imperative_sale or summary_sale or event_promotion or landing_page
+                or (not reporting and (tutorial or legacy or advice or local_instruction)))
 
 
 def uncertain_market(text):

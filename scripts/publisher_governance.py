@@ -118,13 +118,11 @@ def qualify(row, material):
              for key, value in ((title_field, title), ("summary", summary)) if value]
     urls = list(dict.fromkeys(url for value in [row.get("url"), *(row.get("publisher_links") or [])]
                              if (url := identity.public_url(value)[0])))[:24]
-    hints = {"earnings": FINANCE.search(text), "market": MARKET_ACTION.search(text) or SHARE.search(text),
+    hints = {"earnings": FINANCE.search(text) or material_cues.ipo_filing_entity(title, summary), "market": MARKET_ACTION.search(text) or SHARE.search(text),
              "security": ISSUE.search(text), "pricing": PRICE_CHANGE.search(text),
              "benchmark": benchmark, "model_release": RELEASE.search(text) and model}
     supported = {
-        "earnings": bool(company and any(FINANCE.search(clause) and MONEY.search(clause)
-            and (PERIOD.search(clause) or PERIOD.search(title) or rx(r"\bIPO\b|上市募資").search(clause))
-            for clause in material_cues.financial_clauses(title, summary, COMPANY, FINANCE))),
+        "earnings": bool(company and material_cues.financial_support(title, summary, COMPANY, FINANCE, PERIOD)),
         "market": bool(company and (material_cues.market_action_supported(title, summary) or (not material_cues.uncertain_market(text) and SHARE.search(text) and PERIOD.search(text) and POPULATION.search(text) and MONEY.search(text)))),
         "security": bool(product and ISSUE.search(text) and IMPACT.search(text) and MECHANISM.search(text)
                          and (official or METHOD.search(text)) and (not SECONDHAND.search(text) or METHOD.search(text))),
