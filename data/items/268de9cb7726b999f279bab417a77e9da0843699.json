@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon RDS for SQL Server 现已支持在只读副本创建快照",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/rds-sqlserver-supports-snapshots-on-read-replicas",
-  "last_seen_at": "2026-10-28T11:35:35.028085Z",
+  "last_seen_at": "2026-10-28T12:05:35.718345Z",
   "summary": "Amazon Relational Database Service（Amazon RDS） 现已支持直接在只读副本实例上创建数据库快照。以前，您只能在独立和主数据库实例上创建快照。现在，您无需先提升只读副本即可为其创建快照，从而使备份和灾难恢复（DR）工作流程更加灵活。 以前，在提升后的只读副本上启用多可用区时，必须等到初始完整快照完成后才能开始转换。在较大的存储配置（如容量高达 64 TiB 的 io2 卷）上，第一张快照可能需要很长时间，这使得灾难恢复时间表难以预测。现在，Amazon RDS for SQL Server 会在只读副本的整个生命周期中维护其快照数据，因此提升后的第一个快照可以更快地完成。这缩短了启用多可用区的时间，并帮助您以更具可预测性的恢复时间表来规划灾难恢复练习。您可以为只读副本手动创建快照，将备份保留期设置为大于零即可开启自动备份，删除副本时可保留自动备份；但不支持从只读副本执行时间点故障恢复（PITR）。 此功能适用于区域内和跨区域只读副本。它适用于支持只读副本的所有 SQL Server 版本的 SQL Server Enterprise Edition，并已在所有提供 Amazon RDS for SQL Server 只读副本的 AWS 区域推出，包括 AWS GovCloud（美国）区域。 要了解更多信息，请参阅 使用 Microsoft SQL Server 的只读副本 。有关定价详情，请参阅 Amazon RDS for SQL Server 定价 。",
   "publisher_links": [
     "https://aws.amazon.com/rds/sqlserver/",
