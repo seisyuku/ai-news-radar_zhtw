@@ -17,6 +17,7 @@ import re
 import time
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass
+from decimal import Decimal
 from datetime import date, datetime, timedelta, timezone
 from difflib import SequenceMatcher
 from pathlib import Path
@@ -5915,6 +5916,20 @@ def repair_zh_title_translation(original: str, translated: str) -> str:
     result = str(translated or "").strip()
     if not result:
         return result
+    # Repair an unambiguous USD scale error in existing/new title translations.
+    # Multiple amounts/currencies abstain rather than guessing their alignment.
+    usd = re.findall(r"(?<![A-Za-z])\$\s*(\d+(?:,\d{3})*(?:\.\d+)?)\s*(million|billion|trillion)\b", source, re.I)
+    zh_usd = list(re.finditer(r"\d[\d,.]*(?:\s*[萬万億亿兆千百十]){0,3}\s*美元", result))
+    other_currency = re.search(r"€|£|\b(?:CAD|AUD|HKD|yen|yuan|euros?)\b|人民幣|人民币|日圓|日元|港幣", source + "\n" + result, re.I)
+    if len(usd) == len(zh_usd) == 1 and source.count("$") == 1 and not other_currency:
+        value, scale = usd[0]
+        amount = Decimal(value.replace(",", "")) * {"million": 10**6, "billion": 10**9, "trillion": 10**12}[scale.lower()]
+        unit, divisor = ("兆", 10**12) if amount >= 10**12 else ("億", 10**8) if amount >= 10**8 else ("萬", 10**4)
+        display = format(amount / divisor, "f")
+        if "." in display:
+            display = display.rstrip("0").rstrip(".")
+        match = zh_usd[0]
+        result = result[:match.start()] + f"{display} {unit}美元" + result[match.end():]
     # Older cache entries may already contain the non-idempotent expansion
     # caused by repeatedly replacing the embedded "Morning Squawk" text in
     # its own canonical rendering.  Collapse only two-or-more nested forms;

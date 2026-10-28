@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 import pytest
 
 from scripts import reader_excerpts as r, update_news as u, brief_events as b
-from scripts.news_summaries import summarize_stories, story_source_context
+from scripts.news_summaries import summarize_stories, story_source_context, build_story_summary_prompt, summary_cache_key, DEFAULT_GROQ_MODEL
 
 
 LEAD = "Today we release a benchmark to evaluate whether language models can assess the novelty of scientific research ideas."
@@ -70,3 +70,30 @@ def test_event_projection_keeps_native_and_translated_primary_summary():
     assert result.publisher_governance["status"] == "ready"
     primary = result.daily_items[0]["primary_item"]
     assert primary["summary"] == row["summary"] and primary["summary_zh"] == row["summary_zh"]
+
+
+@pytest.mark.parametrize("source,translation,expected", [
+    ("Company raises $100 million", "公司獲得 1,000 萬美元", "公司獲得 1 億美元"),
+    ("Company raises $1.5 billion", "公司獲得 1.5 億美元", "公司獲得 15 億美元"),
+    ("Company raises $12 million", "公司獲得 120 萬美元", "公司獲得 1200 萬美元"),
+    ("Company raises $100 million and $10 million", "公司獲得 1,000 萬美元", "公司獲得 1,000 萬美元"),
+    ("Company raises A$100 million", "公司獲得 1,000 萬美元", "公司獲得 1,000 萬美元"),
+    ("Company raises $100 million CAD", "公司獲得 1,000 萬美元", "公司獲得 1,000 萬美元"),
+])
+def test_cached_title_usd_scale_repair_is_unambiguous_and_idempotent(source, translation, expected):
+    assert u.repair_zh_title_translation(source, translation) == expected
+    assert u.repair_zh_title_translation(source, expected) == expected
+
+
+def test_summary_uses_original_title_and_does_not_reuse_display_based_cache():
+    wrong = "公司融資 1,000 萬美元 / Company raises $100 million"
+    original = "Company raises $100 million"
+    story = {"title": wrong, "primary_item": {"title_original": original},
+             "sources": [{"summary": "The company uses inference chips outside Nvidia's ecosystem."}]}
+    context = story_source_context(story)
+    assert wrong not in build_story_summary_prompt(story, context)
+    assert original in build_story_summary_prompt(story, context)
+    assert summary_cache_key(story, context, DEFAULT_GROQ_MODEL) != summary_cache_key({"title":wrong}, context, DEFAULT_GROQ_MODEL)
+    _, status, _ = summarize_stories([story], max_new=1, generate_fn=lambda p,s:
+        "該公司融資1,000萬美元，並採用不同於輝達生態系統的推論晶片，公告未揭露其他資訊。")
+    assert status["failed"] == 1 and status["last_error_detail"] == "validation_numeric_grounding"

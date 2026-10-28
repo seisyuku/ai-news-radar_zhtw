@@ -104,8 +104,15 @@ def story_source_context(story: Mapping[str, Any], max_chars: int = 4000) -> str
     return _clean_text("\n".join(summaries), max_chars)
 
 
+def source_story_title(story: Mapping[str, Any]) -> str:
+    """Display translations are not source evidence for generated facts."""
+    primary = story.get("primary_item") or {}
+    return _clean_text(primary.get("title_original") or primary.get("title_en")
+                       or primary.get("title") or story.get("title"), 500)
+
+
 def build_story_summary_prompt(story: Mapping[str, Any], source_context: str) -> str:
-    title = _clean_text(story.get("title"), 500)
+    title = source_story_title(story)
     return f"""你是臺灣繁體中文 AI 產業新聞編輯。請根據提供的來源資料寫一則 30 至 120 個中文字的短摘要。
 
 規則：
@@ -292,7 +299,7 @@ def summary_cache_key(story: Mapping[str, Any], source_context: str, model: str)
         {
             "prompt_version": SUMMARY_PROMPT_VERSION,
             "model": model,
-            "title": _clean_text(story.get("title"), 500),
+            "title": source_story_title(story),
             "source_context": source_context,
         },
         ensure_ascii=False,
@@ -417,7 +424,7 @@ def summarize_stories(
             raw = generator(build_story_summary_prompt(output[index], context), output[index])
             summary = validate_generated_summary(
                 to_zh_hant_summary(raw),
-                source_text=f"{_clean_text(output[index].get('title'), 500)}\n{context}",
+                source_text=f"{source_story_title(output[index])}\n{context}",
             )
         except Exception as exc:
             status["failed"] += 1
