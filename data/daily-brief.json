@@ -1,23 +1,24 @@
 {
-  "generated_at": "2026-10-28T20:35:30.263454Z",
+  "generated_at": "2026-10-28T21:05:30.291887Z",
   "window_hours": 24,
   "total_items": 3,
   "items": [
     {
-      "score": 0.6459,
-      "importance": 0.6459,
-      "importance_score": 0.6459,
+      "score": 0.6943,
+      "importance": 0.6943,
+      "importance_score": 0.6943,
       "importance_breakdown": {
         "editorial": 0.5688,
         "source_tier": 0.78,
         "ai_relevance": 0.79,
-        "recency": 0.9606,
-        "story_heat": 0.75
+        "recency": 0.9517,
+        "story_heat": 1.0
       },
       "category": "multi_source",
       "importance_label": "多源熱議",
       "reasons": [
-        "multi_source"
+        "multi_source",
+        "high_importance"
       ],
       "brief_event_id": "be1_ffff1d7f802fde5b8e8f13ad",
       "story_id": "be1_ffff1d7f802fde5b8e8f13ad",
@@ -31,18 +32,95 @@
         "facts": []
       },
       "member_story_ids": [
+        "story_16790a508864",
+        "story_34570cde8a76",
         "story_93562ba5b4b2",
         "story_d954430c5c9c",
         "story_f6569f98353a",
         "story_fc7d1d71bde9"
       ],
       "member_article_ids": [
+        "30146d01436d81bf901cdbcf63c8b23a4f64cbbc",
         "8085ed5478f9e113cfad96550397e155269e108c",
         "88669a445477e7fda8c6318efe2c57559902d925",
         "9c6e498f7c3f9b197e4e67f7dc5566daea2f9e38",
+        "f59b5dc733650d0220d856acfee82ab9e03bc105",
         "fceb9c7f9fcec0249578f653b07aa4e22b2ec93f"
       ],
       "sources": [
+        {
+          "id": "30146d01436d81bf901cdbcf63c8b23a4f64cbbc",
+          "title": "Google 推出一個月內的第二個主要 AI 模型 Gemini 4 Carbon - The Information / Google Launches Gemini 4 Carbon, Its Second Major AI Model in a Month - The Information",
+          "title_zh": "Google 推出一個月內的第二個主要 AI 模型 Gemini 4 Carbon - The Information",
+          "title_en": "Google Launches Gemini 4 Carbon, Its Second Major AI Model in a Month - The Information",
+          "title_original": "Google Launches Gemini 4 Carbon, Its Second Major AI Model in a Month - The Information",
+          "summary": "Google Launches Gemini 4 Carbon, Its Second Major AI Model in a Month The Information",
+          "summary_zh": "Google 推出一個月內的第二個主要 AI 模型 Gemini 4 Carbon The Information",
+          "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQV0lCeWE1OHJ5VGFaRzhhQS1lWW84VEl5MVc4bXVpbk1iMXhuT2Fnb3lMQzlLYWhobGdCb3B1SnZVWVRHdTRLYVJSWnVlUDNOUDlxbGRhZ0JmNHJtazRIZDNuWXJJLVZmTm9ZU2FnbktZTXMtQTdnMHhaZ0JaZndMZVhPaVlNdDA4LXRmdzMxLWplUzVXQXdZam9GcF9RZXpDTlE?oc=5",
+          "source": "The Information (Google News)",
+          "site_id": "curated_media",
+          "published_at": "2026-10-28T17:43:00Z",
+          "ingress": {
+            "kind": "google_news",
+            "site_id": "curated_media",
+            "source_id": "the_information_news",
+            "name": "The Information (Google News)",
+            "feed_url": "https://news.google.com/rss/search?q=site%3Atheinformation.com+AI+when%3A7d&hl=en-US&gl=US&ceid=US%3Aen"
+          },
+          "publisher": {
+            "schema_version": 1,
+            "publisher_id": "the_information",
+            "name": "The Information",
+            "domain": "www.theinformation.com",
+            "status": "identified",
+            "basis": [
+              "google_rss_source",
+              "configured_bridge"
+            ],
+            "evidence": {
+              "rss_source_name": "The Information",
+              "rss_source_url": "https://www.theinformation.com",
+              "article_url": null,
+              "article_host": "news.google.com",
+              "expected_publisher_id": null,
+              "conflicts": []
+            }
+          },
+          "corroboration_key": "publisher:the_information",
+          "corroboration_status": "identified",
+          "role": "active_phase",
+          "phase_id": "bp1_12c3e7607af5e050827f6e5e",
+          "source_policy": {
+            "schema_version": 1,
+            "policy_id": "publisher-governance-v1",
+            "registry_revision": "538509a2381cc839f25920bdaa5ce0fede5e259a08c1cfd546fc1391e743dcb9",
+            "scope_id": "the_information",
+            "publisher_kind": "media",
+            "admission_status": "limited",
+            "source_tier": "ai_media",
+            "source_tier_label": "精選AI媒體",
+            "source_tier_rank": 2,
+            "allow_general": true,
+            "allow_featured": true,
+            "allow_radar": true,
+            "reason_codes": [
+              "identified_bridge",
+              "limited_scope"
+            ]
+          },
+          "source_tier": "ai_media",
+          "source_tier_label": "精選AI媒體",
+          "source_tier_rank": 2,
+          "source_material": {
+            "title_original": "",
+            "title": "Google Launches Gemini 4 Carbon, Its Second Major AI Model in a Month - The Information",
+            "summary": "Google Launches Gemini 4 Carbon, Its Second Major AI Model in a Month The Information"
+          },
+          "source_links": [
+            "https://news.google.com/rss/articles/CBMiogFBVV95cUxQV0lCeWE1OHJ5VGFaRzhhQS1lWW84VEl5MVc4bXVpbk1iMXhuT2Fnb3lMQzlLYWhobGdCb3B1SnZVWVRHdTRLYVJSWnVlUDNOUDlxbGRhZ0JmNHJtazRIZDNuWXJJLVZmTm9ZU2FnbktZTXMtQTdnMHhaZ0JaZndMZVhPaVlNdDA4LXRmdzMxLWplUzVXQXdZam9GcF9RZXpDTlE?oc=5"
+          ],
+          "source_site_name": "精選媒體"
+        },
         {
           "id": "8085ed5478f9e113cfad96550397e155269e108c",
           "title": "Google 發布以網路安全為重點的 Gemini 4 Carbon AI 模型 - 路透社 / Google launches Gemini 4 Carbon AI model with cybersecurity focus - Reuters",
@@ -188,6 +266,76 @@
             "https://www.marktechpost.com"
           ],
           "source_site_name": "精選媒體"
+        },
+        {
+          "id": "f59b5dc733650d0220d856acfee82ab9e03bc105",
+          "title": "Google 推出具有網路基準測試且限制存取權限的 Gemini 4 Carbon / Google launches Gemini 4 Carbon with cyber benchmarks and restricted access",
+          "title_zh": "Google 推出具有網路基準測試且限制存取權限的 Gemini 4 Carbon",
+          "title_en": "Google launches Gemini 4 Carbon with cyber benchmarks and restricted access",
+          "title_original": "Google launches Gemini 4 Carbon with cyber benchmarks and restricted access",
+          "summary": "Google is initially limiting access to selected Fairwind cyber defenders and lists an introductory API price of $2 per million input tokens and $10 per million output tokens.",
+          "summary_zh": "Google 最初將存取權限限制在特定的 Fairwind 網路防禦者，並列出每百萬輸入 Token 2 美元以及每百萬輸出 Token 10 美元的推廣期 API 價格。",
+          "url": "https://runtimewire.com/article/google-gemini-4-carbon-cybersecurity-launch",
+          "source": "RuntimeWire",
+          "site_id": "runtimewire",
+          "published_at": "2026-10-28T17:39:40Z",
+          "ingress": {
+            "kind": "public_feed",
+            "site_id": "runtimewire",
+            "source_id": "runtimewire",
+            "name": "RuntimeWire",
+            "feed_url": "https://runtimewire.com/rss"
+          },
+          "publisher": {
+            "schema_version": 1,
+            "publisher_id": "runtimewire",
+            "name": "RuntimeWire",
+            "domain": "runtimewire.com",
+            "status": "identified",
+            "basis": [
+              "article_host"
+            ],
+            "evidence": {
+              "rss_source_name": null,
+              "rss_source_url": null,
+              "article_url": "https://runtimewire.com/article/google-gemini-4-carbon-cybersecurity-launch",
+              "article_host": "runtimewire.com",
+              "expected_publisher_id": null,
+              "conflicts": []
+            }
+          },
+          "corroboration_key": "publisher:runtimewire",
+          "corroboration_status": "identified",
+          "role": "active_phase",
+          "phase_id": "bp1_12c3e7607af5e050827f6e5e",
+          "source_policy": {
+            "schema_version": 1,
+            "policy_id": "publisher-governance-v1",
+            "registry_revision": "538509a2381cc839f25920bdaa5ce0fede5e259a08c1cfd546fc1391e743dcb9",
+            "scope_id": "runtimewire",
+            "publisher_kind": "media",
+            "admission_status": "limited",
+            "source_tier": "advanced",
+            "source_tier_label": "次級AI媒體",
+            "source_tier_rank": 4,
+            "allow_general": true,
+            "allow_featured": true,
+            "allow_radar": true,
+            "reason_codes": [
+              "identified_host",
+              "limited_scope"
+            ]
+          },
+          "source_tier": "advanced",
+          "source_tier_label": "次級AI媒體",
+          "source_tier_rank": 4,
+          "source_material": {
+            "title_original": "",
+            "title": "Google launches Gemini 4 Carbon with cyber benchmarks and restricted access",
+            "summary": "Google is initially limiting access to selected Fairwind cyber defenders and lists an introductory API price of $2 per million input tokens and $10 per million output tokens."
+          },
+          "source_links": [],
+          "source_site_name": "RuntimeWire AI媒體"
         },
         {
           "id": "fceb9c7f9fcec0249578f653b07aa4e22b2ec93f",
@@ -262,6 +410,79 @@
       ],
       "items": [
         {
+          "id": "30146d01436d81bf901cdbcf63c8b23a4f64cbbc",
+          "title": "Google 推出一個月內的第二個主要 AI 模型 Gemini 4 Carbon - The Information / Google Launches Gemini 4 Carbon, Its Second Major AI Model in a Month - The Information",
+          "title_zh": "Google 推出一個月內的第二個主要 AI 模型 Gemini 4 Carbon - The Information",
+          "title_en": "Google Launches Gemini 4 Carbon, Its Second Major AI Model in a Month - The Information",
+          "title_original": "Google Launches Gemini 4 Carbon, Its Second Major AI Model in a Month - The Information",
+          "summary": "Google Launches Gemini 4 Carbon, Its Second Major AI Model in a Month The Information",
+          "summary_zh": "Google 推出一個月內的第二個主要 AI 模型 Gemini 4 Carbon The Information",
+          "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQV0lCeWE1OHJ5VGFaRzhhQS1lWW84VEl5MVc4bXVpbk1iMXhuT2Fnb3lMQzlLYWhobGdCb3B1SnZVWVRHdTRLYVJSWnVlUDNOUDlxbGRhZ0JmNHJtazRIZDNuWXJJLVZmTm9ZU2FnbktZTXMtQTdnMHhaZ0JaZndMZVhPaVlNdDA4LXRmdzMxLWplUzVXQXdZam9GcF9RZXpDTlE?oc=5",
+          "source": "The Information (Google News)",
+          "site_id": "curated_media",
+          "published_at": "2026-10-28T17:43:00Z",
+          "ingress": {
+            "kind": "google_news",
+            "site_id": "curated_media",
+            "source_id": "the_information_news",
+            "name": "The Information (Google News)",
+            "feed_url": "https://news.google.com/rss/search?q=site%3Atheinformation.com+AI+when%3A7d&hl=en-US&gl=US&ceid=US%3Aen"
+          },
+          "publisher": {
+            "schema_version": 1,
+            "publisher_id": "the_information",
+            "name": "The Information",
+            "domain": "www.theinformation.com",
+            "status": "identified",
+            "basis": [
+              "google_rss_source",
+              "configured_bridge"
+            ],
+            "evidence": {
+              "rss_source_name": "The Information",
+              "rss_source_url": "https://www.theinformation.com",
+              "article_url": null,
+              "article_host": "news.google.com",
+              "expected_publisher_id": null,
+              "conflicts": []
+            }
+          },
+          "corroboration_key": "publisher:the_information",
+          "corroboration_status": "identified",
+          "role": "active_phase",
+          "phase_id": "bp1_12c3e7607af5e050827f6e5e",
+          "source_policy": {
+            "schema_version": 1,
+            "policy_id": "publisher-governance-v1",
+            "registry_revision": "538509a2381cc839f25920bdaa5ce0fede5e259a08c1cfd546fc1391e743dcb9",
+            "scope_id": "the_information",
+            "publisher_kind": "media",
+            "admission_status": "limited",
+            "source_tier": "ai_media",
+            "source_tier_label": "精選AI媒體",
+            "source_tier_rank": 2,
+            "allow_general": true,
+            "allow_featured": true,
+            "allow_radar": true,
+            "reason_codes": [
+              "identified_bridge",
+              "limited_scope"
+            ]
+          },
+          "source_tier": "ai_media",
+          "source_tier_label": "精選AI媒體",
+          "source_tier_rank": 2,
+          "source_material": {
+            "title_original": "",
+            "title": "Google Launches Gemini 4 Carbon, Its Second Major AI Model in a Month - The Information",
+            "summary": "Google Launches Gemini 4 Carbon, Its Second Major AI Model in a Month The Information"
+          },
+          "source_links": [
+            "https://news.google.com/rss/articles/CBMiogFBVV95cUxQV0lCeWE1OHJ5VGFaRzhhQS1lWW84VEl5MVc4bXVpbk1iMXhuT2Fnb3lMQzlLYWhobGdCb3B1SnZVWVRHdTRLYVJSWnVlUDNOUDlxbGRhZ0JmNHJtazRIZDNuWXJJLVZmTm9ZU2FnbktZTXMtQTdnMHhaZ0JaZndMZVhPaVlNdDA4LXRmdzMxLWplUzVXQXdZam9GcF9RZXpDTlE?oc=5"
+          ],
+          "source_site_name": "精選媒體"
+        },
+        {
           "id": "8085ed5478f9e113cfad96550397e155269e108c",
           "title": "Google 發布以網路安全為重點的 Gemini 4 Carbon AI 模型 - 路透社 / Google launches Gemini 4 Carbon AI model with cybersecurity focus - Reuters",
           "title_zh": "Google 發布以網路安全為重點的 Gemini 4 Carbon AI 模型 - 路透社",
@@ -408,6 +629,76 @@
           "source_site_name": "精選媒體"
         },
         {
+          "id": "f59b5dc733650d0220d856acfee82ab9e03bc105",
+          "title": "Google 推出具有網路基準測試且限制存取權限的 Gemini 4 Carbon / Google launches Gemini 4 Carbon with cyber benchmarks and restricted access",
+          "title_zh": "Google 推出具有網路基準測試且限制存取權限的 Gemini 4 Carbon",
+          "title_en": "Google launches Gemini 4 Carbon with cyber benchmarks and restricted access",
+          "title_original": "Google launches Gemini 4 Carbon with cyber benchmarks and restricted access",
+          "summary": "Google is initially limiting access to selected Fairwind cyber defenders and lists an introductory API price of $2 per million input tokens and $10 per million output tokens.",
+          "summary_zh": "Google 最初將存取權限限制在特定的 Fairwind 網路防禦者，並列出每百萬輸入 Token 2 美元以及每百萬輸出 Token 10 美元的推廣期 API 價格。",
+          "url": "https://runtimewire.com/article/google-gemini-4-carbon-cybersecurity-launch",
+          "source": "RuntimeWire",
+          "site_id": "runtimewire",
+          "published_at": "2026-10-28T17:39:40Z",
+          "ingress": {
+            "kind": "public_feed",
+            "site_id": "runtimewire",
+            "source_id": "runtimewire",
+            "name": "RuntimeWire",
+            "feed_url": "https://runtimewire.com/rss"
+          },
+          "publisher": {
+            "schema_version": 1,
+            "publisher_id": "runtimewire",
+            "name": "RuntimeWire",
+            "domain": "runtimewire.com",
+            "status": "identified",
+            "basis": [
+              "article_host"
+            ],
+            "evidence": {
+              "rss_source_name": null,
+              "rss_source_url": null,
+              "article_url": "https://runtimewire.com/article/google-gemini-4-carbon-cybersecurity-launch",
+              "article_host": "runtimewire.com",
+              "expected_publisher_id": null,
+              "conflicts": []
+            }
+          },
+          "corroboration_key": "publisher:runtimewire",
+          "corroboration_status": "identified",
+          "role": "active_phase",
+          "phase_id": "bp1_12c3e7607af5e050827f6e5e",
+          "source_policy": {
+            "schema_version": 1,
+            "policy_id": "publisher-governance-v1",
+            "registry_revision": "538509a2381cc839f25920bdaa5ce0fede5e259a08c1cfd546fc1391e743dcb9",
+            "scope_id": "runtimewire",
+            "publisher_kind": "media",
+            "admission_status": "limited",
+            "source_tier": "advanced",
+            "source_tier_label": "次級AI媒體",
+            "source_tier_rank": 4,
+            "allow_general": true,
+            "allow_featured": true,
+            "allow_radar": true,
+            "reason_codes": [
+              "identified_host",
+              "limited_scope"
+            ]
+          },
+          "source_tier": "advanced",
+          "source_tier_label": "次級AI媒體",
+          "source_tier_rank": 4,
+          "source_material": {
+            "title_original": "",
+            "title": "Google launches Gemini 4 Carbon with cyber benchmarks and restricted access",
+            "summary": "Google is initially limiting access to selected Fairwind cyber defenders and lists an introductory API price of $2 per million input tokens and $10 per million output tokens."
+          },
+          "source_links": [],
+          "source_site_name": "RuntimeWire AI媒體"
+        },
+        {
           "id": "fceb9c7f9fcec0249578f653b07aa4e22b2ec93f",
           "title": "Google 推出 Gemini 4 Carbon，在網路安全方面實現「重大躍升」 / Google launches Gemini 4 Carbon with a ‘significant leap’ in cybersecurity",
           "title_zh": "Google 推出 Gemini 4 Carbon，在網路安全方面實現「重大躍升」",
@@ -479,44 +770,44 @@
         }
       ],
       "primary_item": {
-        "id": "8085ed5478f9e113cfad96550397e155269e108c",
-        "title": "Google 發布以網路安全為重點的 Gemini 4 Carbon AI 模型 - 路透社 / Google launches Gemini 4 Carbon AI model with cybersecurity focus - Reuters",
-        "title_zh": "Google 發布以網路安全為重點的 Gemini 4 Carbon AI 模型 - 路透社",
-        "title_en": "Google launches Gemini 4 Carbon AI model with cybersecurity focus - Reuters",
-        "title_original": "Google launches Gemini 4 Carbon AI model with cybersecurity focus - Reuters",
-        "summary": "Google launches Gemini 4 Carbon AI model with cybersecurity focus Reuters",
-        "summary_zh": "Google 發布以網路安全為重點的 Gemini 4 Carbon AI 模型 - 路透社",
-        "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNLXQyWUp5N0QwdVRZWXFkd1M5b2RrcExtNVBJS0JKaDdhaG1DQThXeEVlUWVWQUNPTjNOak9ZSnZlQjhDUkNIT2oxSlJrSjlJSkVSMVZFMW5acXV1N0l5bWxKTU1CNmtzZVM3U2dZVE5RbHlrZ2k5LTljM2FnNDVLM3NFbGI4N1hSMVIyQ2FNZXZYY0ZuNV9KR0lQYzdxT2RGdzkxamkzLXloVUVmLUhmdUZ3?oc=5",
-        "source": "Reuters AI (Google News)",
+        "id": "30146d01436d81bf901cdbcf63c8b23a4f64cbbc",
+        "title": "Google 推出一個月內的第二個主要 AI 模型 Gemini 4 Carbon - The Information / Google Launches Gemini 4 Carbon, Its Second Major AI Model in a Month - The Information",
+        "title_zh": "Google 推出一個月內的第二個主要 AI 模型 Gemini 4 Carbon - The Information",
+        "title_en": "Google Launches Gemini 4 Carbon, Its Second Major AI Model in a Month - The Information",
+        "title_original": "Google Launches Gemini 4 Carbon, Its Second Major AI Model in a Month - The Information",
+        "summary": "Google Launches Gemini 4 Carbon, Its Second Major AI Model in a Month The Information",
+        "summary_zh": "Google 推出一個月內的第二個主要 AI 模型 Gemini 4 Carbon The Information",
+        "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQV0lCeWE1OHJ5VGFaRzhhQS1lWW84VEl5MVc4bXVpbk1iMXhuT2Fnb3lMQzlLYWhobGdCb3B1SnZVWVRHdTRLYVJSWnVlUDNOUDlxbGRhZ0JmNHJtazRIZDNuWXJJLVZmTm9ZU2FnbktZTXMtQTdnMHhaZ0JaZndMZVhPaVlNdDA4LXRmdzMxLWplUzVXQXdZam9GcF9RZXpDTlE?oc=5",
+        "source": "The Information (Google News)",
         "site_id": "curated_media",
-        "published_at": "2026-10-28T18:12:49Z",
+        "published_at": "2026-10-28T17:43:00Z",
         "ingress": {
           "kind": "google_news",
           "site_id": "curated_media",
-          "source_id": "reuters_ai_news",
-          "name": "Reuters AI (Google News)",
-          "feed_url": "https://news.google.com/rss/search?q=site:reuters.com%20AI%20when:2d&hl=en-US&gl=US&ceid=US:en"
+          "source_id": "the_information_news",
+          "name": "The Information (Google News)",
+          "feed_url": "https://news.google.com/rss/search?q=site%3Atheinformation.com+AI+when%3A7d&hl=en-US&gl=US&ceid=US%3Aen"
         },
         "publisher": {
           "schema_version": 1,
-          "publisher_id": "reuters",
-          "name": "Reuters",
-          "domain": "www.reuters.com",
+          "publisher_id": "the_information",
+          "name": "The Information",
+          "domain": "www.theinformation.com",
           "status": "identified",
           "basis": [
             "google_rss_source",
             "configured_bridge"
           ],
           "evidence": {
-            "rss_source_name": "Reuters",
-            "rss_source_url": "https://www.reuters.com",
+            "rss_source_name": "The Information",
+            "rss_source_url": "https://www.theinformation.com",
             "article_url": null,
             "article_host": "news.google.com",
             "expected_publisher_id": null,
             "conflicts": []
           }
         },
-        "corroboration_key": "publisher:reuters",
+        "corroboration_key": "publisher:the_information",
         "corroboration_status": "identified",
         "role": "active_phase",
         "phase_id": "bp1_12c3e7607af5e050827f6e5e",
@@ -524,7 +815,7 @@
           "schema_version": 1,
           "policy_id": "publisher-governance-v1",
           "registry_revision": "538509a2381cc839f25920bdaa5ce0fede5e259a08c1cfd546fc1391e743dcb9",
-          "scope_id": "reuters",
+          "scope_id": "the_information",
           "publisher_kind": "media",
           "admission_status": "limited",
           "source_tier": "ai_media",
@@ -543,50 +834,62 @@
         "source_tier_rank": 2,
         "source_material": {
           "title_original": "",
-          "title": "Google launches Gemini 4 Carbon AI model with cybersecurity focus - Reuters",
-          "summary": "Google launches Gemini 4 Carbon AI model with cybersecurity focus Reuters"
+          "title": "Google Launches Gemini 4 Carbon, Its Second Major AI Model in a Month - The Information",
+          "summary": "Google Launches Gemini 4 Carbon, Its Second Major AI Model in a Month The Information"
         },
         "source_links": [
-          "https://news.google.com/rss/articles/CBMisgFBVV95cUxNLXQyWUp5N0QwdVRZWXFkd1M5b2RrcExtNVBJS0JKaDdhaG1DQThXeEVlUWVWQUNPTjNOak9ZSnZlQjhDUkNIT2oxSlJrSjlJSkVSMVZFMW5acXV1N0l5bWxKTU1CNmtzZVM3U2dZVE5RbHlrZ2k5LTljM2FnNDVLM3NFbGI4N1hSMVIyQ2FNZXZYY0ZuNV9KR0lQYzdxT2RGdzkxamkzLXloVUVmLUhmdUZ3?oc=5"
+          "https://news.google.com/rss/articles/CBMiogFBVV95cUxQV0lCeWE1OHJ5VGFaRzhhQS1lWW84VEl5MVc4bXVpbk1iMXhuT2Fnb3lMQzlLYWhobGdCb3B1SnZVWVRHdTRLYVJSWnVlUDNOUDlxbGRhZ0JmNHJtazRIZDNuWXJJLVZmTm9ZU2FnbktZTXMtQTdnMHhaZ0JaZndMZVhPaVlNdDA4LXRmdzMxLWplUzVXQXdZam9GcF9RZXpDTlE?oc=5"
         ],
         "source_site_name": "精選媒體",
         "business_events": [
           "model_release"
         ]
       },
-      "title": "Google 發布以網路安全為重點的 Gemini 4 Carbon AI 模型 - 路透社 / Google launches Gemini 4 Carbon AI model with cybersecurity focus - Reuters",
-      "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNLXQyWUp5N0QwdVRZWXFkd1M5b2RrcExtNVBJS0JKaDdhaG1DQThXeEVlUWVWQUNPTjNOak9ZSnZlQjhDUkNIT2oxSlJrSjlJSkVSMVZFMW5acXV1N0l5bWxKTU1CNmtzZVM3U2dZVE5RbHlrZ2k5LTljM2FnNDVLM3NFbGI4N1hSMVIyQ2FNZXZYY0ZuNV9KR0lQYzdxT2RGdzkxamkzLXloVUVmLUhmdUZ3?oc=5",
-      "primary_url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNLXQyWUp5N0QwdVRZWXFkd1M5b2RrcExtNVBJS0JKaDdhaG1DQThXeEVlUWVWQUNPTjNOak9ZSnZlQjhDUkNIT2oxSlJrSjlJSkVSMVZFMW5acXV1N0l5bWxKTU1CNmtzZVM3U2dZVE5RbHlrZ2k5LTljM2FnNDVLM3NFbGI4N1hSMVIyQ2FNZXZYY0ZuNV9KR0lQYzdxT2RGdzkxamkzLXloVUVmLUhmdUZ3?oc=5",
-      "source": "Reuters AI (Google News)",
+      "title": "Google 推出一個月內的第二個主要 AI 模型 Gemini 4 Carbon - The Information / Google Launches Gemini 4 Carbon, Its Second Major AI Model in a Month - The Information",
+      "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQV0lCeWE1OHJ5VGFaRzhhQS1lWW84VEl5MVc4bXVpbk1iMXhuT2Fnb3lMQzlLYWhobGdCb3B1SnZVWVRHdTRLYVJSWnVlUDNOUDlxbGRhZ0JmNHJtazRIZDNuWXJJLVZmTm9ZU2FnbktZTXMtQTdnMHhaZ0JaZndMZVhPaVlNdDA4LXRmdzMxLWplUzVXQXdZam9GcF9RZXpDTlE?oc=5",
+      "primary_url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQV0lCeWE1OHJ5VGFaRzhhQS1lWW84VEl5MVc4bXVpbk1iMXhuT2Fnb3lMQzlLYWhobGdCb3B1SnZVWVRHdTRLYVJSWnVlUDNOUDlxbGRhZ0JmNHJtazRIZDNuWXJJLVZmTm9ZU2FnbktZTXMtQTdnMHhaZ0JaZndMZVhPaVlNdDA4LXRmdzMxLWplUzVXQXdZam9GcF9RZXpDTlE?oc=5",
+      "source": "The Information (Google News)",
       "source_name": "",
       "source_names": [
         "MarkTechPost Research",
         "Reuters AI (Google News)",
+        "RuntimeWire",
         "The Decoder AI News",
+        "The Information (Google News)",
         "The Verge"
       ],
-      "source_count": 3,
-      "item_count": 4,
-      "corroboration_count": 3,
-      "duplicate_count": 3,
+      "source_count": 5,
+      "item_count": 6,
+      "corroboration_count": 5,
+      "duplicate_count": 5,
       "business_events": [
         "model_release"
       ],
-      "initial_effective_at": "2026-10-28T17:48:38Z",
+      "initial_effective_at": "2026-10-28T17:39:40Z",
       "initial_basis": "source_report",
       "first_observed_at": "2026-10-28T19:35:32.084049Z",
       "last_material_at": null,
       "last_reported_at": "2026-10-28T20:03:00Z",
       "effective_basis": "source_report",
       "effective_reported_day": null,
-      "effective_at": "2026-10-28T17:48:38Z",
-      "expires_at": "2026-10-29T17:48:38Z",
-      "earliest_at": "2026-10-28T17:48:38Z",
-      "latest_at": "2026-10-28T17:48:38Z",
+      "effective_at": "2026-10-28T17:39:40Z",
+      "expires_at": "2026-10-29T17:39:40Z",
+      "earliest_at": "2026-10-28T17:39:40Z",
+      "latest_at": "2026-10-28T17:39:40Z",
       "active_phase_id": "bp1_12c3e7607af5e050827f6e5e",
       "eligible": true,
       "eligibility_reason": "in_window",
       "match_evidence": [
+        {
+          "rule_id": "R3",
+          "strength": "strong",
+          "article_id": "30146d01436d81bf901cdbcf63c8b23a4f64cbbc",
+          "basis": [
+            "{\"action\":\"model_release\",\"scope\":\"native\",\"subject\":\"model:gemini-4-carbon\",\"v\":1}",
+            "normalized.title:16:31:full_model"
+          ],
+          "conflicts": []
+        },
         {
           "rule_id": "R3",
           "strength": "strong",
@@ -620,6 +923,16 @@
         {
           "rule_id": "R3",
           "strength": "strong",
+          "article_id": "f59b5dc733650d0220d856acfee82ab9e03bc105",
+          "basis": [
+            "{\"action\":\"model_release\",\"scope\":\"native\",\"subject\":\"model:gemini-4-carbon\",\"v\":1}",
+            "normalized.title:16:31:full_model"
+          ],
+          "conflicts": []
+        },
+        {
+          "rule_id": "R3",
+          "strength": "strong",
           "article_id": "fceb9c7f9fcec0249578f653b07aa4e22b2ec93f",
           "basis": [
             "{\"action\":\"model_release\",\"scope\":\"native\",\"subject\":\"model:gemini-4-carbon\",\"v\":1}",
@@ -630,6 +943,79 @@
       ],
       "unknown_update_article_ids": [],
       "all_sources": [
+        {
+          "id": "30146d01436d81bf901cdbcf63c8b23a4f64cbbc",
+          "title": "Google 推出一個月內的第二個主要 AI 模型 Gemini 4 Carbon - The Information / Google Launches Gemini 4 Carbon, Its Second Major AI Model in a Month - The Information",
+          "title_zh": "Google 推出一個月內的第二個主要 AI 模型 Gemini 4 Carbon - The Information",
+          "title_en": "Google Launches Gemini 4 Carbon, Its Second Major AI Model in a Month - The Information",
+          "title_original": "Google Launches Gemini 4 Carbon, Its Second Major AI Model in a Month - The Information",
+          "summary": "Google Launches Gemini 4 Carbon, Its Second Major AI Model in a Month The Information",
+          "summary_zh": "Google 推出一個月內的第二個主要 AI 模型 Gemini 4 Carbon The Information",
+          "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQV0lCeWE1OHJ5VGFaRzhhQS1lWW84VEl5MVc4bXVpbk1iMXhuT2Fnb3lMQzlLYWhobGdCb3B1SnZVWVRHdTRLYVJSWnVlUDNOUDlxbGRhZ0JmNHJtazRIZDNuWXJJLVZmTm9ZU2FnbktZTXMtQTdnMHhaZ0JaZndMZVhPaVlNdDA4LXRmdzMxLWplUzVXQXdZam9GcF9RZXpDTlE?oc=5",
+          "source": "The Information (Google News)",
+          "site_id": "curated_media",
+          "published_at": "2026-10-28T17:43:00Z",
+          "ingress": {
+            "kind": "google_news",
+            "site_id": "curated_media",
+            "source_id": "the_information_news",
+            "name": "The Information (Google News)",
+            "feed_url": "https://news.google.com/rss/search?q=site%3Atheinformation.com+AI+when%3A7d&hl=en-US&gl=US&ceid=US%3Aen"
+          },
+          "publisher": {
+            "schema_version": 1,
+            "publisher_id": "the_information",
+            "name": "The Information",
+            "domain": "www.theinformation.com",
+            "status": "identified",
+            "basis": [
+              "google_rss_source",
+              "configured_bridge"
+            ],
+            "evidence": {
+              "rss_source_name": "The Information",
+              "rss_source_url": "https://www.theinformation.com",
+              "article_url": null,
+              "article_host": "news.google.com",
+              "expected_publisher_id": null,
+              "conflicts": []
+            }
+          },
+          "corroboration_key": "publisher:the_information",
+          "corroboration_status": "identified",
+          "role": "active_phase",
+          "phase_id": "bp1_12c3e7607af5e050827f6e5e",
+          "source_policy": {
+            "schema_version": 1,
+            "policy_id": "publisher-governance-v1",
+            "registry_revision": "538509a2381cc839f25920bdaa5ce0fede5e259a08c1cfd546fc1391e743dcb9",
+            "scope_id": "the_information",
+            "publisher_kind": "media",
+            "admission_status": "limited",
+            "source_tier": "ai_media",
+            "source_tier_label": "精選AI媒體",
+            "source_tier_rank": 2,
+            "allow_general": true,
+            "allow_featured": true,
+            "allow_radar": true,
+            "reason_codes": [
+              "identified_bridge",
+              "limited_scope"
+            ]
+          },
+          "source_tier": "ai_media",
+          "source_tier_label": "精選AI媒體",
+          "source_tier_rank": 2,
+          "source_material": {
+            "title_original": "",
+            "title": "Google Launches Gemini 4 Carbon, Its Second Major AI Model in a Month - The Information",
+            "summary": "Google Launches Gemini 4 Carbon, Its Second Major AI Model in a Month The Information"
+          },
+          "source_links": [
+            "https://news.google.com/rss/articles/CBMiogFBVV95cUxQV0lCeWE1OHJ5VGFaRzhhQS1lWW84VEl5MVc4bXVpbk1iMXhuT2Fnb3lMQzlLYWhobGdCb3B1SnZVWVRHdTRLYVJSWnVlUDNOUDlxbGRhZ0JmNHJtazRIZDNuWXJJLVZmTm9ZU2FnbktZTXMtQTdnMHhaZ0JaZndMZVhPaVlNdDA4LXRmdzMxLWplUzVXQXdZam9GcF9RZXpDTlE?oc=5"
+          ],
+          "source_site_name": "精選媒體"
+        },
         {
           "id": "8085ed5478f9e113cfad96550397e155269e108c",
           "title": "Google 發布以網路安全為重點的 Gemini 4 Carbon AI 模型 - 路透社 / Google launches Gemini 4 Carbon AI model with cybersecurity focus - Reuters",
@@ -850,6 +1236,76 @@
           "source_site_name": "精選媒體"
         },
         {
+          "id": "f59b5dc733650d0220d856acfee82ab9e03bc105",
+          "title": "Google 推出具有網路基準測試且限制存取權限的 Gemini 4 Carbon / Google launches Gemini 4 Carbon with cyber benchmarks and restricted access",
+          "title_zh": "Google 推出具有網路基準測試且限制存取權限的 Gemini 4 Carbon",
+          "title_en": "Google launches Gemini 4 Carbon with cyber benchmarks and restricted access",
+          "title_original": "Google launches Gemini 4 Carbon with cyber benchmarks and restricted access",
+          "summary": "Google is initially limiting access to selected Fairwind cyber defenders and lists an introductory API price of $2 per million input tokens and $10 per million output tokens.",
+          "summary_zh": "Google 最初將存取權限限制在特定的 Fairwind 網路防禦者，並列出每百萬輸入 Token 2 美元以及每百萬輸出 Token 10 美元的推廣期 API 價格。",
+          "url": "https://runtimewire.com/article/google-gemini-4-carbon-cybersecurity-launch",
+          "source": "RuntimeWire",
+          "site_id": "runtimewire",
+          "published_at": "2026-10-28T17:39:40Z",
+          "ingress": {
+            "kind": "public_feed",
+            "site_id": "runtimewire",
+            "source_id": "runtimewire",
+            "name": "RuntimeWire",
+            "feed_url": "https://runtimewire.com/rss"
+          },
+          "publisher": {
+            "schema_version": 1,
+            "publisher_id": "runtimewire",
+            "name": "RuntimeWire",
+            "domain": "runtimewire.com",
+            "status": "identified",
+            "basis": [
+              "article_host"
+            ],
+            "evidence": {
+              "rss_source_name": null,
+              "rss_source_url": null,
+              "article_url": "https://runtimewire.com/article/google-gemini-4-carbon-cybersecurity-launch",
+              "article_host": "runtimewire.com",
+              "expected_publisher_id": null,
+              "conflicts": []
+            }
+          },
+          "corroboration_key": "publisher:runtimewire",
+          "corroboration_status": "identified",
+          "role": "active_phase",
+          "phase_id": "bp1_12c3e7607af5e050827f6e5e",
+          "source_policy": {
+            "schema_version": 1,
+            "policy_id": "publisher-governance-v1",
+            "registry_revision": "538509a2381cc839f25920bdaa5ce0fede5e259a08c1cfd546fc1391e743dcb9",
+            "scope_id": "runtimewire",
+            "publisher_kind": "media",
+            "admission_status": "limited",
+            "source_tier": "advanced",
+            "source_tier_label": "次級AI媒體",
+            "source_tier_rank": 4,
+            "allow_general": true,
+            "allow_featured": true,
+            "allow_radar": true,
+            "reason_codes": [
+              "identified_host",
+              "limited_scope"
+            ]
+          },
+          "source_tier": "advanced",
+          "source_tier_label": "次級AI媒體",
+          "source_tier_rank": 4,
+          "source_material": {
+            "title_original": "",
+            "title": "Google launches Gemini 4 Carbon with cyber benchmarks and restricted access",
+            "summary": "Google is initially limiting access to selected Fairwind cyber defenders and lists an introductory API price of $2 per million input tokens and $10 per million output tokens."
+          },
+          "source_links": [],
+          "source_site_name": "RuntimeWire AI媒體"
+        },
+        {
           "id": "fceb9c7f9fcec0249578f653b07aa4e22b2ec93f",
           "title": "Google 推出 Gemini 4 Carbon，在網路安全方面實現「重大躍升」 / Google launches Gemini 4 Carbon with a ‘significant leap’ in cybersecurity",
           "title_zh": "Google 推出 Gemini 4 Carbon，在網路安全方面實現「重大躍升」",
@@ -921,21 +1377,21 @@
         }
       ],
       "publisher_qualified": true,
-      "governance_publisher_key": "publisher:reuters",
+      "governance_publisher_key": "publisher:the_information",
       "selection_class": "core",
       "signal_label": "核心事件",
       "disclosure_flags": [],
       "supplement_impact": null
     },
     {
-      "score": 0.5563,
-      "importance": 0.5563,
-      "importance_score": 0.5563,
+      "score": 0.5553,
+      "importance": 0.5553,
+      "importance_score": 0.5553,
       "importance_breakdown": {
         "editorial": 0.5472,
         "source_tier": 0.58,
         "ai_relevance": 0.76,
-        "recency": 0.7843,
+        "recency": 0.7787,
         "story_heat": 0.0
       },
       "category": "watch",
@@ -1299,14 +1755,14 @@
       "supplement_impact": null
     },
     {
-      "score": 0.551,
-      "importance": 0.551,
-      "importance_score": 0.551,
+      "score": 0.55,
+      "importance": 0.55,
+      "importance_score": 0.55,
       "importance_breakdown": {
         "editorial": 0.4824,
         "source_tier": 0.56,
         "ai_relevance": 0.67,
-        "recency": 0.8284,
+        "recency": 0.8224,
         "story_heat": 0.0
       },
       "category": "watch",
@@ -1671,13 +2127,13 @@
     }
   ],
   "selection_diagnostics": {
-    "candidate_count": 203,
+    "candidate_count": 199,
     "eligible_count": 3,
     "selected_count": 3,
-    "below_gate_count": 200,
+    "below_gate_count": 196,
     "diversity_or_limit_count": 0,
-    "max_score": 0.6459,
-    "max_source_count": 3,
+    "max_score": 0.6943,
+    "max_source_count": 5,
     "score_gate": null,
     "empty_reason": null,
     "selection_policy": "dplus-v1",
@@ -1688,8 +2144,8 @@
   "brief_event_meta": {
     "schema_version": 1,
     "matcher_version": "brief-event-v1",
-    "generation_id": "bg1_7926ae4a9eb2f7ba460c989f",
-    "generated_at": "2026-10-28T20:35:30.263454Z",
+    "generation_id": "bg1_161beae2936f35cbe66625b4",
+    "generated_at": "2026-10-28T21:05:30.291887Z",
     "status": "ready",
     "selected_event_ids": [
       "be1_ffff1d7f802fde5b8e8f13ad",
@@ -1702,10 +2158,10 @@
     "schema_version": 2,
     "policy_id": "publisher-governance-v1",
     "registry_revision": "538509a2381cc839f25920bdaa5ce0fede5e259a08c1cfd546fc1391e743dcb9",
-    "generated_at": "2026-10-28T20:35:30.263454Z",
-    "brief_generation_id": "bg1_7926ae4a9eb2f7ba460c989f",
-    "brief_state_revision": "a4207d0180b92428b71ba9f2c8973cfbe4c71d0cff4dfa7125df9cd4f25f8d9e",
-    "generation_id": "pg2_a2036e85b166edf4d6274d5e",
+    "generated_at": "2026-10-28T21:05:30.291887Z",
+    "brief_generation_id": "bg1_161beae2936f35cbe66625b4",
+    "brief_state_revision": "fd7ef71bfedcd81366c87e536015188525b93c46fe2e0a6281fa6757beaadda7",
+    "generation_id": "pg2_0005874117af591f83fa0fec",
     "status": "ready",
     "selection_policy": "dplus-v1",
     "default_visible_limit": 5

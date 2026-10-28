@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-28T20:35:30.263454Z",
+  "generated_at": "2026-10-28T21:05:30.291887Z",
   "window_hours": 24,
-  "total_events": 2,
+  "total_events": 3,
   "events": [
     {
       "id": "model_release::8085ed5478f9e113cfad96550397e155269e108c",
@@ -214,16 +214,109 @@
         ],
         "reason_codes": []
       }
+    },
+    {
+      "id": "model_release::30146d01436d81bf901cdbcf63c8b23a4f64cbbc",
+      "kind": "model_release",
+      "category": "model_release",
+      "verification_status": "reported",
+      "verification_label": "媒體報導",
+      "title": "Google 推出一個月內的第二個主要 AI 模型 Gemini 4 Carbon - The Information",
+      "summary": "Google 推出一個月內的第二個主要 AI 模型 Gemini 4 Carbon The Information",
+      "provider": "",
+      "product": "",
+      "detected_at": "2026-10-28T21:05:30.291887Z",
+      "effective_at": "2026-10-28T17:43:00Z",
+      "source_name": "The Information (Google News)",
+      "source_url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQV0lCeWE1OHJ5VGFaRzhhQS1lWW84VEl5MVc4bXVpbk1iMXhuT2Fnb3lMQzlLYWhobGdCb3B1SnZVWVRHdTRLYVJSWnVlUDNOUDlxbGRhZ0JmNHJtazRIZDNuWXJJLVZmTm9ZU2FnbktZTXMtQTdnMHhaZ0JaZndMZVhPaVlNdDA4LXRmdzMxLWplUzVXQXdZam9GcF9RZXpDTlE?oc=5",
+      "evidence_url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQV0lCeWE1OHJ5VGFaRzhhQS1lWW84VEl5MVc4bXVpbk1iMXhuT2Fnb3lMQzlLYWhobGdCb3B1SnZVWVRHdTRLYVJSWnVlUDNOUDlxbGRhZ0JmNHJtazRIZDNuWXJJLVZmTm9ZU2FnbktZTXMtQTdnMHhaZ0JaZndMZVhPaVlNdDA4LXRmdzMxLWplUzVXQXdZam9GcF9RZXpDTlE?oc=5",
+      "ingress": {
+        "kind": "google_news",
+        "site_id": "curated_media",
+        "source_id": "the_information_news",
+        "name": "The Information (Google News)",
+        "feed_url": "https://news.google.com/rss/search?q=site%3Atheinformation.com+AI+when%3A7d&hl=en-US&gl=US&ceid=US%3Aen"
+      },
+      "publisher": {
+        "schema_version": 1,
+        "publisher_id": "the_information",
+        "name": "The Information",
+        "domain": "www.theinformation.com",
+        "status": "identified",
+        "basis": [
+          "google_rss_source",
+          "configured_bridge"
+        ],
+        "evidence": {
+          "rss_source_name": "The Information",
+          "rss_source_url": "https://www.theinformation.com",
+          "article_url": null,
+          "article_host": "news.google.com",
+          "expected_publisher_id": null,
+          "conflicts": []
+        }
+      },
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "538509a2381cc839f25920bdaa5ce0fede5e259a08c1cfd546fc1391e743dcb9",
+        "scope_id": "the_information",
+        "publisher_kind": "media",
+        "admission_status": "limited",
+        "source_tier": "ai_media",
+        "source_tier_label": "精選AI媒體",
+        "source_tier_rank": 2,
+        "allow_general": true,
+        "allow_featured": true,
+        "allow_radar": true,
+        "reason_codes": [
+          "identified_bridge",
+          "limited_scope"
+        ]
+      },
+      "source_material": {
+        "title_original": "",
+        "title": "Google Launches Gemini 4 Carbon, Its Second Major AI Model in a Month - The Information",
+        "summary": "Google Launches Gemini 4 Carbon, Its Second Major AI Model in a Month The Information"
+      },
+      "qualification": {
+        "scope": "in_scope",
+        "core_evidence": [
+          {
+            "kind": "model_release",
+            "status": "supported",
+            "basis": "editorial_report",
+            "spans": [
+              {
+                "field": "title",
+                "start": 0,
+                "end": 87,
+                "text": "Google Launches Gemini 4 Carbon, Its Second Major AI Model in a Month - The Information"
+              },
+              {
+                "field": "summary",
+                "start": 0,
+                "end": 85,
+                "text": "Google Launches Gemini 4 Carbon, Its Second Major AI Model in a Month The Information"
+              }
+            ],
+            "urls": [
+              "https://news.google.com/rss/articles/CBMiogFBVV95cUxQV0lCeWE1OHJ5VGFaRzhhQS1lWW84VEl5MVc4bXVpbk1iMXhuT2Fnb3lMQzlLYWhobGdCb3B1SnZVWVRHdTRLYVJSWnVlUDNOUDlxbGRhZ0JmNHJtazRIZDNuWXJJLVZmTm9ZU2FnbktZTXMtQTdnMHhaZ0JaZndMZVhPaVlNdDA4LXRmdzMxLWplUzVXQXdZam9GcF9RZXpDTlE?oc=5"
+            ]
+          }
+        ],
+        "reason_codes": []
+      }
     }
   ],
   "publisher_governance_meta": {
     "schema_version": 2,
     "policy_id": "publisher-governance-v1",
     "registry_revision": "538509a2381cc839f25920bdaa5ce0fede5e259a08c1cfd546fc1391e743dcb9",
-    "generated_at": "2026-10-28T20:35:30.263454Z",
-    "brief_generation_id": "bg1_7926ae4a9eb2f7ba460c989f",
-    "brief_state_revision": "a4207d0180b92428b71ba9f2c8973cfbe4c71d0cff4dfa7125df9cd4f25f8d9e",
-    "generation_id": "pg2_a2036e85b166edf4d6274d5e",
+    "generated_at": "2026-10-28T21:05:30.291887Z",
+    "brief_generation_id": "bg1_161beae2936f35cbe66625b4",
+    "brief_state_revision": "fd7ef71bfedcd81366c87e536015188525b93c46fe2e0a6281fa6757beaadda7",
+    "generation_id": "pg2_0005874117af591f83fa0fec",
     "status": "ready",
     "selection_policy": "dplus-v1",
     "default_visible_limit": 5
