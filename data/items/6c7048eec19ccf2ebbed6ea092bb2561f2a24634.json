@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "宣布针对 Amazon Bedrock AgentCore 中的短期记忆采用基于使用量的定价模式",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/agentcore-memory-consumption-based-pricing",
-  "last_seen_at": "2026-10-28T01:38:36.533107Z",
+  "last_seen_at": "2026-10-28T02:05:30.872945Z",
   "summary": "宣布针对 Amazon Bedrock AgentCore 中的短期记忆采用基于使用量的定价模式 Amazon Bedrock AgentCore 记忆现在根据智能体摄取、检索和存储的数据对短期记忆（STM）收取费用，取代了之前按事件统一收费的固定费率模式。AgentCore 记忆通过短期记忆为智能体提供会话中的上下文，通过长期记忆为智能体提供跨会话持久知识。采用基于使用量的定价模式，开发人员在构建频繁编写小型事件的智能体时，只需按实际使用量付费。 STM 的定价分为三个维度：摄取为每 GB 1.00 USD，检索为每 GB 0.20 USD，存储为每月每 GB 0.10 USD。摄取和检索按事件计费，最小计费大小为 12 KB，最大计费大小为 64 KB，而存储按每个事件的实际大小计费。大多数工作负载的成本都会降低，小型有效载荷使用案例的降幅最大。您可以通过针对记忆资源设置较短的生存时间（TTL）来管理存储成本。长期记忆定价保持不变。 适用于 AgentCore 记忆短期记忆的基于使用量的定价模式已在提供 AgentCore 记忆的所有 AWS 区域推出。要开始使用，请访问 Amazon Bedrock AgentCore 定价页面 。",
   "publisher_links": [
     "https://aws.amazon.com/bedrock/agentcore/pricing/"
