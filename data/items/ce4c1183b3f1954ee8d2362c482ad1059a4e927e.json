@@ -1,0 +1,59 @@
+{
+  "id": "ce4c1183b3f1954ee8d2362c482ad1059a4e927e",
+  "published_at": "2026-10-29T21:46:18Z",
+  "first_seen_at": "2026-10-29T23:09:04.074383Z",
+  "site_id": "curated_media",
+  "site_name": "精選媒體",
+  "source": "Epoch AI (Google News)",
+  "title": "Open-weight AI models can exploit the patch gap - Epoch AI",
+  "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1FcFcxSXoxYjZGOTc3OHUyUkdzZGN6RlZlZWFTQ3lxS214SGlic1NXeFVGUTh1NTZ5c25jY19fNjd4TUNPS0dVWEJCaVpteHpqQ01XOW9NLVdaM2FDYzBoREo2UzJEdUQ2c1E?oc=5",
+  "last_seen_at": "2026-10-29T23:09:04.074383Z",
+  "summary": "Open-weight AI models can exploit the patch gap Epoch AI",
+  "publisher_links": [
+    "https://news.google.com/rss/articles/CBMiakFVX3lxTE1FcFcxSXoxYjZGOTc3OHUyUkdzZGN6RlZlZWFTQ3lxS214SGlic1NXeFVGUTh1NTZ5c25jY19fNjd4TUNPS0dVWEJCaVpteHpqQ01XOW9NLVdaM2FDYzBoREo2UzJEdUQ2c1E?oc=5"
+  ],
+  "ingress": {
+    "kind": "google_news",
+    "site_id": "curated_media",
+    "source_id": "epoch_ai_news",
+    "name": "Epoch AI (Google News)",
+    "feed_url": "https://news.google.com/rss/search?q=site%3Aepoch.ai+when%3A14d&hl=en-US&gl=US&ceid=US%3Aen"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "epoch",
+    "name": "Epoch AI",
+    "domain": "epoch.ai",
+    "status": "identified",
+    "basis": [
+      "google_rss_source",
+      "configured_bridge"
+    ],
+    "evidence": {
+      "rss_source_name": "Epoch AI",
+      "rss_source_url": "https://epoch.ai",
+      "article_url": null,
+      "article_host": "news.google.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "538509a2381cc839f25920bdaa5ce0fede5e259a08c1cfd546fc1391e743dcb9",
+    "scope_id": "epoch",
+    "publisher_kind": "media",
+    "admission_status": "limited",
+    "source_tier": "ai_media",
+    "source_tier_label": "精選AI媒體",
+    "source_tier_rank": 2,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_bridge",
+      "limited_scope"
+    ]
+  }
+}
