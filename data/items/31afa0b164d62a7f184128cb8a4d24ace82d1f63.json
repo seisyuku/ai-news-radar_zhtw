@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon DynamoDB Streams 现在支持基于时间戳的流处理",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/amazon-dynamodb-streams-timestamp-processing",
-  "last_seen_at": "2026-10-29T04:05:30.565672Z",
+  "last_seen_at": "2026-10-29T04:35:33.950320Z",
   "summary": "Amazon DynamoDB Streams 现在支持基于时间戳的流处理，使您能够从特定时间点开始读取流记录。以前，您只能从最早的保留记录（最长 24 小时）开始，或者从开始使用流后写入的新记录开始。现在，您可以使用 AT_TIMESTAMP 分片迭代器类型提供一个时间戳，并在该时间或之后写入的第一条记录开始处理。 基于时间戳的流处理可通过 DynamoDB Streams Kinesis 适配器与 Amazon Kinesis Client Library（KCL）一起使用。它可以帮助您避免在恢复数据流使用时重新处理全部保留的流或丢失的记录，并支持常见使用案例，例如中断后恢复、通过读取过去的特定时间点进行用于调试和审计的数据重放、从靠近最新记录的近期时间点恢复以跳过积压，以及在恢复后通过在时间点故障恢复（PITR）导出后的导出时间戳开始以进行同步。 基于时间戳的流处理已在所有商业 AWS 区域、AWS GovCloud（美国）区域和中国区域推出。除了标准的 GetRecords API 请求费用外，此功能不收取任何额外费用。要开始使用，请参阅 DynamoDB 开发人员指南中的 Amazon DynamoDB Streams 时间戳文档 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Streams.Timestamp.html"
