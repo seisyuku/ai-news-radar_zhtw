@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "AWS Transfer Family 支持适用于公共 SFTP 服务器的自定义端口",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/transfer-family-custom-ports-sftp",
-  "last_seen_at": "2026-10-29T01:05:27.700098Z",
+  "last_seen_at": "2026-10-29T01:35:27.885204Z",
   "summary": "AWS Transfer Family 现在可让您在公共 SFTP 服务器上配置自定义端口，并为每个端口选择通信模式。您可以为需要不同端口的客户端提供支持，也可以在单个服务器上以不同的方式启动 SFTP 连接。 以前，公共 SFTP 服务器仅接受端口 22 上的连接，并使用服务器优先通信。通过此次发布，您最多可以配置三个端口（22 或从 2000 到 65535 的任意端口），从而使用企业或网络所需的端口号并在一台服务器上提供多个端口。有些 SFTP 客户端会自行启动通信，它们的连接偶尔会在服务器优先端口上停滞。现在，您可以针对每个端口选择客户端优先通信或服务器优先通信，并将客户端定向到与其连接行为相匹配的端口。使用 22 以外的端口还可以减少以端口 22 为目标的自动扫描器进行的不必要连接尝试。 该功能已在提供 Transfer Family 公共 SFTP 服务器的所有 AWS 区域推出。要开始使用，请访问 AWS Transfer Family 控制台或者使用 AWS CLI 或 AWS SDK。要了解更多信息，请访问 AWS Transfer Family User Guide 中的“Create an SFTP-enabled server”。",
   "publisher_links": [
     "https://docs.aws.amazon.com/transfer/latest/userguide/create-server-sftp.html"
