@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v2",
   "entries": {
+    "57a8b9961ff162ba257b3654e4638b9c6df088485e02500a68f41cc091003bb6": {
+      "summary": "三星電子週四公佈第三季財報，獲利符合預期，背景為AI記憶體晶片需求上升。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-29T01:05:27.700098Z"
+    },
     "5c2ea1d3a4b03b682a4dc08befb883034887e6e030fe435263af90f217694bc0": {
       "summary": "Google 於 10 月 28 日發表 Gemini 4 Carbon，資安防禦能力成為尖端模型新戰場。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-10-12T03:35:38.311487Z"
-    },
-    "1f559dd867c7626f796129f87c949c500ccc1bb6afd52341eea9456145991ed0": {
-      "summary": "路透報導，受惠於AI熱潮，臺積電預期將連續第六季繳出創紀錄的獲利表現。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-12T03:05:33.123401Z"
     }
   },
   "rejections": {
@@ -4671,6 +4671,10 @@
     "853d92c6bde8c2758bed5957130b9f0a9a5098742fd5cce96e58718bd018c3e6": {
       "reason": "insufficient_context",
       "created_at": "2026-10-28T23:35:34.835003Z"
+    },
+    "9589771c7a22747339991c7685c75f70d918df54dedeba0afa82e531c6bbc8ea": {
+      "reason": "validation_length",
+      "created_at": "2026-10-29T01:05:27.700098Z"
     }
   }
 }

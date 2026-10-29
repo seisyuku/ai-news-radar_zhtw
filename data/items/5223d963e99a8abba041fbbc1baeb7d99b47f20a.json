@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "AWS Lambda 耐用函数提高了持久化操作和检查点有效载荷上限",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/aws-lambda-durable-gen-limit-increase",
-  "last_seen_at": "2026-10-29T00:35:27.303813Z",
+  "last_seen_at": "2026-10-29T01:05:27.700098Z",
   "summary": "即日起，AWS Lambda 耐用函数将每次执行的持久化操作数上限从 3000 次增加到 30000 次，并将检查点的有效载荷上限从 256 KB 增加到 1 MB。更高的操作数上限允许您在一次执行中安全地完成更多工作，包括扩展迭代循环、延长轮询时间段以及构建更复杂的回滚路径，以便在步骤失败时运行。上限为 1 MB 时，检查点有效载荷与异步 Lambda 调用以及 Amazon SQS 和 Amazon EventBridge 等集成服务的最大有效载荷相匹配，因此工作流可以在单个操作中保留来自任何来源的完整事件。 AWS Lambda 耐用函数 可帮助您构建具有弹性的多步应用程序和 AI 工作流，这些应用程序和工作流的执行时长最长可达一年，并具备内置的检查点功能、自动重试以及可在不产生计算费用的情况下暂停执行的等待机制。每个持久化操作都计入每次执行限制，包括每次步骤尝试、每次等待条件轮询以及并行或映射操作的每个分支。基于 30000 次的操作数上限，单次执行可以有更多空间来协调复杂的多步工作流、迭代数千个项目，或对外部系统进行数周的轮询，而不会超过检查点限制。 代理式应用程序可以推理成千上万次的模型和工具调用，而 1 MB 的检查点可以将更多的对话历史记录、模型响应和工具输出直接保存在检查点中，而不必写入外部存储。对于大于 1 MB 的状态，JavaScript 和 Python SDK 包含一个 FileSystem 序列化程序 ，该序列化程序会将有效载荷写入 Amazon EFS 或 Amazon S3 Files 装载，并仅对指针进行检查点记录。 新上限适用于提供 AWS Lambda 耐用函数的所有 AWS 区域。要了解有关这些服务限制的更多信息，请参阅 AWS Lambda developer guide 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/lambda/latest/dg/durable-functions.html",
