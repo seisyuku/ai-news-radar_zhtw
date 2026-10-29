@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon ECS 新增 LiveTaskCount 指标，并取消 RunningTaskCount 指标的收费",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/ecs-service-metrics",
-  "last_seen_at": "2026-10-29T07:35:30.737173Z",
+  "last_seen_at": "2026-10-29T08:05:31.915328Z",
   "summary": "今天，Amazon Elastic Container Service（Amazon ECS）宣布推出 LiveTaskCount，这是一项新的 ECS 服务指标，用于报告服务中正在运行的任务数量，所有客户均可免费使用。此外，Amazon CloudWatch Container Insights 中现有的 RunningTaskCount 指标将不再产生费用。 LiveTaskCount 可报告所有目标状态（ACTIVATING、RUNNING 和 DEACTIVATING）下正在运行的 ECS 任务数量，包括在过渡到停止状态时仍在运行的任务，例如在缩容事件期间正在进行连接耗尽的任务。这种全面的状态覆盖范围使 LiveTaskCount 非常适合用于自动扩缩策略和容量规划，因为这些场景需要全面了解正在运行且生成指标的任务。该功能作为 ECS 服务使用指标的一部分免费提供，且无需用户注册加入 CloudWatch Container Insights。现有的 CloudWatch Container Insights RunningTaskCount 指标会追踪当前状态和目标状态均为 RUNNING 的任务，并继续为依赖该指标的客户提供运行状况和稳定性信号。此次更新后，所有 CloudWatch Container Insights 用户现在均可免费使用 RunningTaskCount。 这些更新已在所有提供 Amazon ECS 服务的 AWS 区域推出。用户无需采取任何操作，RunningTaskCount 的定价变更将于 2026 年 10 月 1 日起生效，并自动应用。要了解更多信息，请参阅 ECS CloudWatch 指标 和 ECS Container Insights 指标 。有关定价示例，请参阅 Amazon CloudWatch 定价 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service_utilization.html#cw_live_task_count",
