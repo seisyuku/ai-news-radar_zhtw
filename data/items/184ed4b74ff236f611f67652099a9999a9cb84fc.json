@@ -1,0 +1,61 @@
+{
+  "id": "184ed4b74ff236f611f67652099a9999a9cb84fc",
+  "published_at": "2026-10-26T00:00:00Z",
+  "first_seen_at": "2026-10-29T18:35:28.569779Z",
+  "site_id": "llm_stats_models",
+  "site_name": "LLM Stats 模型查漏",
+  "source": "LLM Stats Model Releases",
+  "title": "OpenAI 發布 GPT-6.1 Terra 模型",
+  "url": "https://llm-stats.com/models/gpt-6.1-terra",
+  "last_seen_at": "2026-10-29T18:35:28.569779Z",
+  "model_id": "gpt-6.1-terra",
+  "model_name": "GPT-6.1 Terra",
+  "model_vendor": "OpenAI",
+  "model_vendor_id": "openai",
+  "release_date": "2026-10-26T00:00:00Z",
+  "discovery_source": "llm_stats_latest_models",
+  "ingress": {
+    "kind": "public_adapter",
+    "site_id": "llm_stats_models",
+    "source_id": "llm_stats_models",
+    "name": "LLM Stats Model Releases",
+    "feed_url": null
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "llm_stats",
+    "name": "LLM Stats",
+    "domain": "llm-stats.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://llm-stats.com/models/gpt-6.1-terra",
+      "article_host": "llm-stats.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "538509a2381cc839f25920bdaa5ce0fede5e259a08c1cfd546fc1391e743dcb9",
+    "scope_id": "llm_stats",
+    "publisher_kind": "aggregator",
+    "admission_status": "limited",
+    "source_tier": "watchlist",
+    "source_tier_label": "模型查漏源",
+    "source_tier_rank": 6,
+    "allow_general": true,
+    "allow_featured": false,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope",
+      "not_permitted_for_featured"
+    ]
+  }
+}

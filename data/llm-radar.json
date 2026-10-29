@@ -1,111 +1,17 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-29T18:05:31.086732Z",
+  "generated_at": "2026-10-29T18:35:28.569779Z",
   "window_hours": 24,
-  "total_events": 1,
-  "events": [
-    {
-      "id": "model_release::8085ed5478f9e113cfad96550397e155269e108c",
-      "kind": "model_release",
-      "category": "model_release",
-      "verification_status": "reported",
-      "verification_label": "媒體報導",
-      "title": "Google 發布以網路安全為重點的 Gemini 4 Carbon AI 模型 - 路透社",
-      "summary": "Google 發布以網路安全為重點的 Gemini 4 Carbon AI 模型 - 路透社",
-      "provider": "",
-      "product": "",
-      "detected_at": "2026-10-28T19:35:32.084049Z",
-      "effective_at": "2026-10-28T18:12:49Z",
-      "source_name": "Reuters AI (Google News)",
-      "source_url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNLXQyWUp5N0QwdVRZWXFkd1M5b2RrcExtNVBJS0JKaDdhaG1DQThXeEVlUWVWQUNPTjNOak9ZSnZlQjhDUkNIT2oxSlJrSjlJSkVSMVZFMW5acXV1N0l5bWxKTU1CNmtzZVM3U2dZVE5RbHlrZ2k5LTljM2FnNDVLM3NFbGI4N1hSMVIyQ2FNZXZYY0ZuNV9KR0lQYzdxT2RGdzkxamkzLXloVUVmLUhmdUZ3?oc=5",
-      "evidence_url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNLXQyWUp5N0QwdVRZWXFkd1M5b2RrcExtNVBJS0JKaDdhaG1DQThXeEVlUWVWQUNPTjNOak9ZSnZlQjhDUkNIT2oxSlJrSjlJSkVSMVZFMW5acXV1N0l5bWxKTU1CNmtzZVM3U2dZVE5RbHlrZ2k5LTljM2FnNDVLM3NFbGI4N1hSMVIyQ2FNZXZYY0ZuNV9KR0lQYzdxT2RGdzkxamkzLXloVUVmLUhmdUZ3?oc=5",
-      "ingress": {
-        "kind": "google_news",
-        "site_id": "curated_media",
-        "source_id": "reuters_ai_news",
-        "name": "Reuters AI (Google News)",
-        "feed_url": "https://news.google.com/rss/search?q=site:reuters.com%20AI%20when:2d&hl=en-US&gl=US&ceid=US:en"
-      },
-      "publisher": {
-        "schema_version": 1,
-        "publisher_id": "reuters",
-        "name": "Reuters",
-        "domain": "www.reuters.com",
-        "status": "identified",
-        "basis": [
-          "google_rss_source",
-          "configured_bridge"
-        ],
-        "evidence": {
-          "rss_source_name": "Reuters",
-          "rss_source_url": "https://www.reuters.com",
-          "article_url": null,
-          "article_host": "news.google.com",
-          "expected_publisher_id": null,
-          "conflicts": []
-        }
-      },
-      "source_policy": {
-        "schema_version": 1,
-        "policy_id": "publisher-governance-v1",
-        "registry_revision": "538509a2381cc839f25920bdaa5ce0fede5e259a08c1cfd546fc1391e743dcb9",
-        "scope_id": "reuters",
-        "publisher_kind": "media",
-        "admission_status": "limited",
-        "source_tier": "ai_media",
-        "source_tier_label": "精選AI媒體",
-        "source_tier_rank": 2,
-        "allow_general": true,
-        "allow_featured": true,
-        "allow_radar": true,
-        "reason_codes": [
-          "identified_bridge",
-          "limited_scope"
-        ]
-      },
-      "source_material": {
-        "title_original": "",
-        "title": "Google launches Gemini 4 Carbon AI model with cybersecurity focus - Reuters",
-        "summary": "Google launches Gemini 4 Carbon AI model with cybersecurity focus Reuters"
-      },
-      "qualification": {
-        "scope": "in_scope",
-        "core_evidence": [
-          {
-            "kind": "model_release",
-            "status": "supported",
-            "basis": "editorial_report",
-            "spans": [
-              {
-                "field": "title",
-                "start": 0,
-                "end": 75,
-                "text": "Google launches Gemini 4 Carbon AI model with cybersecurity focus - Reuters"
-              },
-              {
-                "field": "summary",
-                "start": 0,
-                "end": 73,
-                "text": "Google launches Gemini 4 Carbon AI model with cybersecurity focus Reuters"
-              }
-            ],
-            "urls": [
-              "https://news.google.com/rss/articles/CBMisgFBVV95cUxNLXQyWUp5N0QwdVRZWXFkd1M5b2RrcExtNVBJS0JKaDdhaG1DQThXeEVlUWVWQUNPTjNOak9ZSnZlQjhDUkNIT2oxSlJrSjlJSkVSMVZFMW5acXV1N0l5bWxKTU1CNmtzZVM3U2dZVE5RbHlrZ2k5LTljM2FnNDVLM3NFbGI4N1hSMVIyQ2FNZXZYY0ZuNV9KR0lQYzdxT2RGdzkxamkzLXloVUVmLUhmdUZ3?oc=5"
-            ]
-          }
-        ],
-        "reason_codes": []
-      }
-    }
-  ],
+  "total_events": 0,
+  "events": [],
   "publisher_governance_meta": {
     "schema_version": 2,
     "policy_id": "publisher-governance-v1",
     "registry_revision": "538509a2381cc839f25920bdaa5ce0fede5e259a08c1cfd546fc1391e743dcb9",
-    "generated_at": "2026-10-29T18:05:31.086732Z",
-    "brief_generation_id": "bg1_a42a2031e818162f4b7f4960",
-    "brief_state_revision": "681884514760ecc08ed1491c0406f8764b4f9023847b7ee58254e59ff746d6c2",
-    "generation_id": "pg2_e768ce6aadda4f60c2881a33",
+    "generated_at": "2026-10-29T18:35:28.569779Z",
+    "brief_generation_id": "bg1_3d1c06464fce85fccaadb983",
+    "brief_state_revision": "0673a1a0d37f9c4c5599d44d5e2b44974461e55938e19eb7aff760058da92e9b",
+    "generation_id": "pg2_66b64a0447018c47586cafa9",
     "status": "ready",
     "selection_policy": "dplus-v1",
     "default_visible_limit": 5
