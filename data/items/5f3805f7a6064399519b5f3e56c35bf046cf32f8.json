@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon CloudFront 宣布为 VPC 源提供双栈支持",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/cloudfront-vpc-origin-dualstack",
-  "last_seen_at": "2026-10-29T13:05:32.250554Z",
+  "last_seen_at": "2026-10-29T13:35:34.610322Z",
   "summary": "Amazon CloudFront 现在支持使用新的双栈 VPC 源向 Amazon Virtual Private Cloud（VPC）内的源进行端到端 IPv6 传输。利用 VPC 源，客户可以将其应用程序负载均衡器（ALB）、网络负载均衡器（NLB）和 EC2 实例保存在只有其 CloudFront 分配才能访问的私有子网中。借助双栈支持，客户现在可以让 IPv6 流量直达这些私有源，以满足其 IPv6 架构和监管需求，而无需将源暴露给互联网。 以前，CloudFront 对公有源支持双栈，但仅通过 IPv4 连接到 VPC 源。客户需要做出权衡取舍：将源迁移到 IPv6 的公有子网而放弃 VPC 源安全，或者保持源站私有并继续使用 IPv4。现在，通过此次发布，客户可以将其 VPC 源配置为双栈，并在不牺牲安全性的情况下获得端到端 IPv6。 双栈 VPC 源已在支持 VPC 源的所有 AWS 商业区域提供。您可在 此处 查看支持区域的完整列表。使用双栈 VPC 源没有额外费用。要了解更多信息，请访问 CloudFront VPC 源 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-vpc-origins.html#vpc-origins-supported-regions",
