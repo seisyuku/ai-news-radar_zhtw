@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "AWS IAM Identity Center 现已支持对其身份存储中的用户和组使用乐观锁",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/iam-identity-store-optimistic-locking",
-  "last_seen_at": "2026-10-29T01:35:27.885204Z",
+  "last_seen_at": "2026-10-29T02:05:27.205674Z",
   "summary": "IAM Identity Center 可帮助您为员工配置访问 AWS 账户和应用程序的单点登录体验。现在，您可以对身份存储中的用户和组使用乐观锁，因此，仅当该用户或组自您上次读取后未发生更改时，更新和删除请求才会执行成功。当多个管理员或自动化工作流几乎同时修改同一个用户或组时，此功能可发挥作用。此前，一次写入操作可能会静默覆盖另一次写入操作。 现在每个用户和组都具备一个 Revision 值，每当用户或组的属性被修改，该值就会发生变化，修改途径包含 SCIM 预置、Active Directory 同步以及 IAM Identity Center 控制台。创建、查询、更新和列出操作会返回当前 Revision 值，您可以将其传递给后续的 UpdateUser、UpdateGroup、DeleteUser 或 DeleteGroup 请求。仅当提供的 Revision 值与当前 Revision 值匹配时，请求才会执行成功。否则，它会返回 ConflictException，让您的工作流可以重新读取用户或组，然后使用最新值重试。 提供 Revision 值是可选的。省略了该参数的请求的行为与之前相同，因此现有集成无需任何更改即可继续正常运行。条件请求通过身份存储 API 获得支持，而非通过 SCIM 端点。组成员关系操作不接受 Revision 值，添加或移除成员不会更改用户或组的 Revision 值。此功能已在提供 IAM Identity Center 的所有 AWS 区域推出。IAM Identity Center 无需额外付费即可使用。 要了解有关 IAM Identity Center 的更多信息，请访问产品详细信息页面。要开始使用，请参阅 身份存储 API 参考 中的 UpdateUser。",
   "publisher_links": [
     "https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_UpdateUser.html"
