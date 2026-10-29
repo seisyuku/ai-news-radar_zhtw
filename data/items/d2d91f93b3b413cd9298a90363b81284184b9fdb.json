@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "ARC 区域切换增加了四项新功能",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/region-switch-target-health-ssm-lambda",
-  "last_seen_at": "2026-10-29T09:35:36.177956Z",
+  "last_seen_at": "2026-10-29T09:49:33.888941Z",
   "summary": "Amazon 应用程序恢复控制器（ARC）区域切换功能可帮助您编排多区域应用程序的失效转移流程，以在出现区域故障时实现可控的恢复时间。今天，区域切换增加了四项新功能：AWS Systems Manager Run Command 执行区块、自定义操作 Lambda 执行区块的有效载荷、服务配额一致性验证以及用于计算扩展操作的“等待目标组运行正常”功能。 AWS Systems Manager Run Command 执行区块。 在失效转移期间，您经常需要在托管实例和虚拟机上运行命令。此执行区块允许您在失效转移期间对托管实例调用 Run Command 操作，同时通过计划评估来验证命令文档是否针对有效的实例，以及 IAM 权限是否配置正确。 自定义操作 Lambda 执行区块的有效载荷。 ARC 区域切换功能现在允许您将有效载荷传递给您的自定义操作 Lambda 执行区块，从而允许您的 Lambda 函数在恢复计划中重复使用。 服务配额检查。 服务配额限制是恢复期间常见的故障模式。区域切换功能现可验证主区域与备用区域之间的配额一致性，并自动提交配额上限提升申请，从而降低恢复过程中服务配额不足的风险。 等待目标组运行正常。 Amazon ECS 服务扩展和 Amazon EC2 Auto Scaling 组执行区块可帮助您在恢复期间预置计算容量，但预置容量可能尚未准备好提供流量。可选的“等待目标组运行正常”功能可验证您的预置容量是否已准备好提供流量。 要开始使用，请参阅 AWS Systems Manager Run Command execution block 、 custom action Lambda execution block 、 服务配额检查 ，以及适用于 Amazon ECS service scaling execution block 和 Amazon EC2 Auto Scaling group execution block 的“等待目标组运行正常”功能的文档。",
   "publisher_links": [
     "https://docs.aws.amazon.com/r53recovery/latest/dg/ssm-send-command-block.html",
