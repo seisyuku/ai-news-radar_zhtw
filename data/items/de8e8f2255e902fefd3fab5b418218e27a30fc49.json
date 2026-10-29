@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon SageMaker AI 宣布推出用于无服务器模型自定义的训练会话 API",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/training-session-apis-on-sagemaker-ai",
-  "last_seen_at": "2026-10-29T08:05:31.915328Z",
+  "last_seen_at": "2026-10-29T08:35:37.131128Z",
   "summary": "Amazon SageMaker AI 无服务器模型自定义现在支持训练会话 API，让客户无需预置或管理 GPU 基础设施即可完全控制训练后的算法。利用托管式技术（包括 SFT、DPO 和其他强化学习方法），客户可以选择技术和模型并让 SageMaker AI 进行训练。借助训练会话 API，团队可以编写训练循环，无论是按照自己的方式复现 SFT 或 DPO，还是实施自定义损失、新的 RL 奖励信号、数据课程或直接来自最新研究的算法。forward_backward()、optim_step() 和 sample() 等操作变成了针对实时有状态会话的 API 调用，因此客户可以编写其技术所需的任何训练过程，而 SageMaker AI 负责 GPU 分配、模型和 LoRA 加载、分布式执行、故障恢复、检查点存储和安全性。 客户可以直接从自己的 Python 代码中调用这些操作，针对实时会话（内置有检查点和恢复功能）驱动强化学习、有监督微调或自定义训练目标。按处理的令牌数计费，因此奖励评分等本地计算不会按 GPU 时间计费。SageMaker AI 还发布了 SageMaker 训练会话说明书 ，这是一套即用型 SFT 和 RL 说明书，客户可以将其用作自己的训练循环的蓝图。 训练会话 API 现已在美国东部（弗吉尼亚州北部）、美国西部（俄勒冈州）和亚太地区（孟买）正式推出。要开始使用，请安装 SageMaker Python SDK 并克隆该说明书，或者在 SageMaker Studio 中启动笔记本并连接编程智能体。要了解更多信息，请参阅 文档 和 Amazon SageMaker AI 网页。",
   "publisher_links": [
     "https://github.com/aws/sagemaker-training-sessions-cookbook",
