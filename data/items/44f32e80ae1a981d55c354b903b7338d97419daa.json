@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Oracle Database@AWS 支持 ODB 对等连接使用聚合路由与默认路由",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/oracle-database-aws-aggregate-routes-odb",
-  "last_seen_at": "2026-10-29T09:05:33.247219Z",
+  "last_seen_at": "2026-10-29T09:35:36.177956Z",
   "summary": "Oracle Database@AWS（ODB）现已支持在 Amazon VPC 中的应用程序和 ODB 网络中的数据库之间配置 ODB 对等连接时，宣告聚合路由和默认路由（0.0.0.0/0）。这简化了网络运营，因为客户可以扩展新的 VPC 或本地网络以访问其数据库，而无需为需要连接到 ODB 网络的每个网络更新宣告的 CIDR。 以前，客户必须将每个访问 ODB 网络的网络作为单独 CIDR 进行宣告，并且无法宣告大聚合范围或默认路由。通过此次发布，客户可以宣告任何 CIDR 范围，因此单个聚合路由或默认路由可以覆盖通过对等 VPC 可到达的所有网络（如通过 AWS Transit Gateway 连接的网络），而无需为每个网络单独输入条目。 此功能适用于支持多个 ODB 对等连接的 ODB 网络，且在所有提供 Oracle Database@AWS 的 AWS 区域均可用。要了解更多信息，请访问 Oracle Database@AWS 和 Oracle Database@AWS 用户指南 。要开始使用，请通过 AWS Marketplace 进行订阅。",
   "publisher_links": [
     "https://aws.amazon.com/marketplace/featured-seller/oracle/",
