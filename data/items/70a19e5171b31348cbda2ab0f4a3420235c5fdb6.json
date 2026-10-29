@@ -1,0 +1,59 @@
+{
+  "id": "70a19e5171b31348cbda2ab0f4a3420235c5fdb6",
+  "published_at": "2026-10-29T02:28:00Z",
+  "first_seen_at": "2026-10-29T14:35:32.167627Z",
+  "site_id": "curated_media",
+  "site_name": "精選媒體",
+  "source": "Reuters AI (Google News)",
+  "title": "ECB keeps Europe steady as 13% Google plunge fans AI jitters - Reuters",
+  "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNbTZuQXNrYUZEUEdVMGdDOEljdHJ1bW0zeHR6Yl9nYXp5dWd0cXU2WGk2QXVITW5xOVhlOUNVYm83QzFaRDZXcFdaZDZXa2xUd2otaXRjcmhmaWZ2aF8zVC03WFc5RkliNkhLZjk1MzhqUHBGZ3NmdmRKbF9CSklOUzhBQQ?oc=5",
+  "last_seen_at": "2026-10-29T14:35:32.167627Z",
+  "summary": "ECB keeps Europe steady as 13% Google plunge fans AI jitters Reuters",
+  "publisher_links": [
+    "https://news.google.com/rss/articles/CBMigwFBVV95cUxNbTZuQXNrYUZEUEdVMGdDOEljdHJ1bW0zeHR6Yl9nYXp5dWd0cXU2WGk2QXVITW5xOVhlOUNVYm83QzFaRDZXcFdaZDZXa2xUd2otaXRjcmhmaWZ2aF8zVC03WFc5RkliNkhLZjk1MzhqUHBGZ3NmdmRKbF9CSklOUzhBQQ?oc=5"
+  ],
+  "ingress": {
+    "kind": "google_news",
+    "site_id": "curated_media",
+    "source_id": "reuters_ai_news",
+    "name": "Reuters AI (Google News)",
+    "feed_url": "https://news.google.com/rss/search?q=site:reuters.com%20AI%20when:2d&hl=en-US&gl=US&ceid=US:en"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "reuters",
+    "name": "Reuters",
+    "domain": "www.reuters.com",
+    "status": "identified",
+    "basis": [
+      "google_rss_source",
+      "configured_bridge"
+    ],
+    "evidence": {
+      "rss_source_name": "Reuters",
+      "rss_source_url": "https://www.reuters.com",
+      "article_url": null,
+      "article_host": "news.google.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "538509a2381cc839f25920bdaa5ce0fede5e259a08c1cfd546fc1391e743dcb9",
+    "scope_id": "reuters",
+    "publisher_kind": "media",
+    "admission_status": "limited",
+    "source_tier": "ai_media",
+    "source_tier_label": "精選AI媒體",
+    "source_tier_rank": 2,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_bridge",
+      "limited_scope"
+    ]
+  }
+}
