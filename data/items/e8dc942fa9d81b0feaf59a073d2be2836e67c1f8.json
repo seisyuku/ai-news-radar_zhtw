@@ -1,0 +1,62 @@
+{
+  "id": "e8dc942fa9d81b0feaf59a073d2be2836e67c1f8",
+  "published_at": "2026-10-29T03:01:55Z",
+  "first_seen_at": "2026-10-29T03:35:32.845765Z",
+  "site_id": "curated_media",
+  "site_name": "精選媒體",
+  "source": "AIBASE",
+  "title": "開源圖像生成迎來新突破：OpenMOSS發佈MOSS-Image，主打長文本渲染與可編輯佈局",
+  "url": "https://news.aibase.com/tw/news/31949",
+  "last_seen_at": "2026-10-29T03:35:32.845765Z",
+  "summary": "OpenMOSS等團隊發佈開源圖像生成模型MOSS-Image，針對海報、信息圖、漫畫及UI設計中文字拼寫錯誤、段落截斷、元素錯位等痛點，採用5B參數單流DiT基座從零預訓練，支持最長約4K token提示詞、中英文長文本渲染及可編輯結構化JSON Layout，旨在提升複雜圖文排版生成質量。",
+  "ingress": {
+    "kind": "public_adapter",
+    "site_id": "curated_media",
+    "source_id": "aibase",
+    "name": "AIBASE",
+    "feed_url": null
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "aibase",
+    "name": "AIBASE",
+    "domain": "news.aibase.com",
+    "status": "identified",
+    "basis": [
+      "explicit_group"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://news.aibase.com/tw/news/31949",
+      "article_host": "news.aibase.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "aibase_article_id": "31949",
+  "field_languages": {
+    "title": "tw",
+    "url": "tw",
+    "summary": "tw"
+  },
+  "content_language": "tw",
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "538509a2381cc839f25920bdaa5ce0fede5e259a08c1cfd546fc1391e743dcb9",
+    "scope_id": "aibase",
+    "publisher_kind": "aggregator",
+    "admission_status": "limited",
+    "source_tier": "advanced",
+    "source_tier_label": "次級AI媒體",
+    "source_tier_rank": 4,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}
