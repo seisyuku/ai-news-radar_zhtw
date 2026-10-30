@@ -1,0 +1,55 @@
+{
+  "id": "09842da72d431696dae016da0e0b845311484dc5",
+  "published_at": "2026-10-30T08:10:00Z",
+  "first_seen_at": "2026-10-30T00:35:30.511650Z",
+  "site_id": "tw_media",
+  "site_name": "TW Media",
+  "source": "iThome",
+  "title": "惡意Markdown指引檔企圖誘使Codex安裝惡意套件，AI程式開發代理面臨攻擊風險",
+  "url": "https://www.ithome.com.tw/news/180033",
+  "last_seen_at": "2026-10-30T00:35:30.511650Z",
+  "summary": "資安業者Forever Security近日揭露一起利用惡意Markdown檔案攻擊AI程式開發代理的事件。研究人員在客戶電腦的下載資料夾發現惡意AGENTS.md檔案，攻擊者企圖誘使OpenAI Codex修改設定並安裝名為function-color的惡意NPM套件，但資安防護系統阻止了套件安裝。AGENTS.md是供AI程式開發代理讀取的Markdown指引檔，攻擊者將惡意指令藏入其中。",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "tw_media",
+    "source_id": "ithome",
+    "name": "iThome",
+    "feed_url": "https://www.ithome.com.tw/rss"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "ithome",
+    "name": "iThome",
+    "domain": "www.ithome.com.tw",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://www.ithome.com.tw/news/180033",
+      "article_host": "www.ithome.com.tw",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "538509a2381cc839f25920bdaa5ce0fede5e259a08c1cfd546fc1391e743dcb9",
+    "scope_id": "ithome",
+    "publisher_kind": "media",
+    "admission_status": "limited",
+    "source_tier": "professional_media",
+    "source_tier_label": "專業科技媒體",
+    "source_tier_rank": 1,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}

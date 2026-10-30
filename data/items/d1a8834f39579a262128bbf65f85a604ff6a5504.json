@@ -1,0 +1,59 @@
+{
+  "id": "d1a8834f39579a262128bbf65f85a604ff6a5504",
+  "published_at": "2026-10-29T23:41:53Z",
+  "first_seen_at": "2026-10-30T00:35:30.511650Z",
+  "site_id": "curated_media",
+  "site_name": "精選媒體",
+  "source": "Reuters AI (Google News)",
+  "title": "Reddit puts logged in experience first as Google AI hits traffic - Reuters",
+  "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNU0Iwc2FJaWJ3bFdiRm1XamdXdmlIeTY5cHNmalZUQUxDQ2JPQ3hnV1JNMG9JSFU4SVdXakxSaWRrVV83anVKNDJET194MW1IMVdFZERZUHc0M1Awek5VcTJ4RDVHTkU1OEVtbDlQc3gwSXI5dEFkQ1A3cFBVZkx0NE9YblRBN2JaM0NkR2gxRkR6UEFYdlNpTmJiLTZtek5YUG5id2VfN3JqdGdiN3FUX1c0eXB2clpJYXdLVw?oc=5",
+  "last_seen_at": "2026-10-30T00:35:30.511650Z",
+  "summary": "Reddit puts logged in experience first as Google AI hits traffic Reuters",
+  "publisher_links": [
+    "https://news.google.com/rss/articles/CBMivAFBVV95cUxNU0Iwc2FJaWJ3bFdiRm1XamdXdmlIeTY5cHNmalZUQUxDQ2JPQ3hnV1JNMG9JSFU4SVdXakxSaWRrVV83anVKNDJET194MW1IMVdFZERZUHc0M1Awek5VcTJ4RDVHTkU1OEVtbDlQc3gwSXI5dEFkQ1A3cFBVZkx0NE9YblRBN2JaM0NkR2gxRkR6UEFYdlNpTmJiLTZtek5YUG5id2VfN3JqdGdiN3FUX1c0eXB2clpJYXdLVw?oc=5"
+  ],
+  "ingress": {
+    "kind": "google_news",
+    "site_id": "curated_media",
+    "source_id": "reuters_ai_news",
+    "name": "Reuters AI (Google News)",
+    "feed_url": "https://news.google.com/rss/search?q=site:reuters.com%20AI%20when:2d&hl=en-US&gl=US&ceid=US:en"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "reuters",
+    "name": "Reuters",
+    "domain": "www.reuters.com",
+    "status": "identified",
+    "basis": [
+      "google_rss_source",
+      "configured_bridge"
+    ],
+    "evidence": {
+      "rss_source_name": "Reuters",
+      "rss_source_url": "https://www.reuters.com",
+      "article_url": null,
+      "article_host": "news.google.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "538509a2381cc839f25920bdaa5ce0fede5e259a08c1cfd546fc1391e743dcb9",
+    "scope_id": "reuters",
+    "publisher_kind": "media",
+    "admission_status": "limited",
+    "source_tier": "ai_media",
+    "source_tier_label": "精選AI媒體",
+    "source_tier_rank": 2,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_bridge",
+      "limited_scope"
+    ]
+  }
+}
