@@ -9,7 +9,7 @@ from tests.test_publisher_governance import article, mutate as mutate_legacy, CR
 from scripts import update_news as u, brief_events as b
 
 def ready_bundle():
-    rows = [article(), article("b", url="https://cnbc.com/synthetic", source="CNBC Technology", site_id="curated_media")]
+    rows = [article(summary="The AI model adds tool calling and supports enterprise customers using longer context windows."), article("b", url="https://cnbc.com/synthetic", source="CNBC Technology", site_id="curated_media")]
     story = u.build_story_record("synthetic-story", rows, NOW, 24)
     story["news_summary"] = "Synthetic summary bound to the original primary."
     result = u.build_brief_event_payloads([story], rows, b.StateInput("missing"), NOW, 24,

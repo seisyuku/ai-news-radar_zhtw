@@ -91,20 +91,22 @@ def test_new_daily_and_metadata_fields_are_bound_to_same_projection(change):
 
 def selector_harness():
     return extract_declarations("dplusStories", "storyRowsForPool", "storyCandidateCounts") + """
+const AiRadarGovernance=require('./assets/publisher-governance.js');
+Date.now=()=>Date.parse('2026-10-23T12:00:00Z');
 const state={briefView:'hot'}, BRIEF_HOT_LIMIT=10, BRIEF_TIMELINE_LIMIT=20;
 const applyFeaturedSourceDiversityCap=x=>x;
 const briefStorySortCompare=(a,b)=>b.score-a.score;
 const storyTimeMs=s=>s.time;
 const storyToBriefRow=story=>({story});
 function rows(nCore,nSupplement){return [...Array.from({length:nCore},(_,i)=>
- ({brief_event_id:'c'+i,selection_class:'core',score:i/100,time:i})),
+ ({brief_event_id:'c'+i,selection_class:'core',score:i/100,time:i,effective_at:'2026-10-23T12:00:00Z',supplement_impact:{total:70,passes:true}})),
  ...Array.from({length:nSupplement},(_,i)=>({brief_event_id:'s'+i,
- selection_class:'supplement',score:1-i/100,time:100-i,
+ selection_class:'supplement',score:1-i/100,time:100-i,effective_at:'2026-10-23T12:00:00Z',
  supplement_impact:{total:100-i,passes:true}}))];}
 """
 
 
-@pytest.mark.parametrize("core,sup,expected", [(0,0,0),(0,8,5),(1,8,5),(4,8,5),(5,8,5),(12,8,12),(22,8,20)])
+@pytest.mark.parametrize("core,sup,expected", [(0,0,0),(0,8,5),(1,8,5),(4,8,5),(5,8,5),(12,8,5),(22,8,5)])
 def test_view_eligibility_core_precedence_and_bounded_supplement(core, sup, expected):
     result = run_js(selector_harness() + f"""
 const input=rows({core},{sup});
@@ -115,7 +117,7 @@ console.log(JSON.stringify({{hot:hot.length,timeline:timeline.length,
  coreFirst:[hot,timeline].every(xs=>!xs.some((s,i)=>s.selection_class==='core'&&xs.slice(0,i).some(x=>x.selection_class==='supplement')))}}));
 """)
     assert result == {"hot": min(10, expected), "timeline": expected,
-        "hotCore": min(core,10), "timelineCore": min(core,20), "coreFirst": True}
+        "hotCore": 0, "timelineCore": 0, "coreFirst": True}
 
 
 def test_filtering_reselects_from_full_pool_not_default_five_and_modes_do_not_gate_upper():

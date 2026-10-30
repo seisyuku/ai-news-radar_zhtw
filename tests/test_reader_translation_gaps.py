@@ -63,7 +63,7 @@ def test_visible_primary_precedes_higher_scoring_ordinary_stories_without_reorde
 def test_event_projection_keeps_native_and_translated_primary_summary():
     now = datetime(2026, 10, 28, 9, tzinfo=timezone.utc)
     row = {"id":"a", "title":"OpenAI releases GPT-6.1 Sol", "url":"https://openai.com/index/synthetic",
-           "source":"OpenAI News", "site_id":"official_ai", "summary":"GPT-6.1 Sol is now available to developers.",
+           "source":"OpenAI News", "site_id":"official_ai", "summary":"GPT-6.1 Sol adds tool calling and supports enterprise customers using longer context windows.",
            "summary_zh":"GPT-6.1 Sol 現已開放開發者使用。", "published_at":"2026-10-28T08:00:00Z", "first_seen_at":"2026-10-28T08:00:00Z"}
     stories = u.merge_story_items([u.add_source_tier_fields(u.add_ai_relevance_fields(row))], now, 24)
     result = u.build_brief_event_payloads(stories, [row], b.StateInput("missing"), now, 24, archive_meta=b.ArchiveMeta("valid", u.iso(now)))

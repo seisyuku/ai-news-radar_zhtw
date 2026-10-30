@@ -27,11 +27,13 @@ then promotes six types of business events into the primary signal view:
 | Benchmarks | Model evaluations and leaderboard changes |
 | Model releases | Major proprietary and open model releases |
 
-Qualified core events appear first. When fewer than five are available, specific
-industry news or evidenced capability and safety disclosures may fill the remaining
-places. Unqualified items never fill a quota. Supplements carry an industry-news
-label; provider claims and unreleased models retain explicit qualifiers and do
-not become independently verified findings or public model releases.
+All qualified featured candidates share an impact gate: economic/operating impact
+(I, 40), concrete action (P, 20), evidence detail (E, 20), and AI centrality (C, 20).
+A total of at least 70 and either I >= 30 or P = 20 is required. Core events get
+only a three-point bonus and compete with industry news for up to five places.
+The whole ranking score decays faster early while retaining a 48-hour half-value
+point; the reader window remains 24 hours. Provider claims and unreleased models
+retain their qualifiers. See the [current rule and release status](docs/FEATURED_IMPACT_20261031.md).
 
 The broader list includes relevant product releases, research, and industry
 reporting. Its header offers Selected / All AI with counts matching all expandable

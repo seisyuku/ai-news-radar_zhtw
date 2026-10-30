@@ -1881,26 +1881,25 @@ function storyRowsForPool(stories) {
 function dplusStories(stories, view, limit) {
   // No qualification or lower-list threshold is inferred here. Input already
   // passed the versioned guard and reader filters, including source permissions.
-  const compare = view === "timeline"
-    ? (a, b) => storyTimeMs(b, "latest_at") - storyTimeMs(a, "latest_at") || briefStorySortCompare(a, b)
-    : briefStorySortCompare;
-  const core = applyFeaturedSourceDiversityCap(stories.filter((s) => s.selection_class === "core").sort(compare), limit);
-  const counts = new Map();
-  const publisherKey = (story) => story.governance_publisher_key || story.brief_event_id;
-  core.forEach((story) => counts.set(publisherKey(story), (counts.get(publisherKey(story)) || 0) + 1));
-  const remaining = stories.filter((s) => s.selection_class === "supplement" && s.supplement_impact?.passes);
-  const supplement = [];
-  while (remaining.length && core.length + supplement.length < Math.min(limit, 5)) {
-    remaining.sort((a, b) => {
-      const effective = (s) => s.supplement_impact.total - 3 * (counts.get(publisherKey(s)) || 0);
-      return effective(b) - effective(a) || b.score - a.score
+  const counts = new Map(), selected = [];
+  const remaining = stories.filter(s => s.supplement_impact?.passes).map(s => {
+    const score = AiRadarGovernance.rank(s.supplement_impact, s.selection_class, s.effective_at);
+    return {...s, score, importance: score, importance_score: score};
+  });
+  const key = s => s.governance_publisher_key || s.brief_event_id;
+  while (remaining.length && selected.length < Math.min(limit, 5)) {
+    remaining.sort((a,b) => {
+      if (view === "timeline") {
+        const time = storyTimeMs(b, "latest_at") - storyTimeMs(a, "latest_at");
+        if (time) return time;
+      }
+      return (-a.score + .03 * (counts.get(key(a)) || 0))
+        - (-b.score + .03 * (counts.get(key(b)) || 0))
         || (a.brief_event_id < b.brief_event_id ? -1 : a.brief_event_id > b.brief_event_id ? 1 : 0);
     });
-    const chosen = remaining.shift();
-    supplement.push(chosen);
-    counts.set(publisherKey(chosen), (counts.get(publisherKey(chosen)) || 0) + 1);
+    const s=remaining.shift(); selected.push(s); counts.set(key(s),(counts.get(key(s)) || 0)+1);
   }
-  return [...core.slice(0, limit), ...supplement];
+  return selected;
 }
 
 function storyCandidateCounts(stories) {

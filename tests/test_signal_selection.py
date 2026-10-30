@@ -16,7 +16,7 @@ USER_CASES = json.loads((ROOT / "tests/fixtures/dplus-user-cases.json").read_tex
 
 
 def bundle(rows=None, *, now=NOW, previous=None):
-    rows = rows if rows is not None else [article()]
+    rows = rows if rows is not None else [article(summary="The new AI model adds tool calling and supports enterprise customers using longer context windows.")]
     native = copy.deepcopy(rows)
     items = [u.add_source_tier_fields(u.add_ai_relevance_fields(copy.deepcopy(row))) for row in rows]
     stories = u.merge_story_items(items, now, 24)
@@ -51,7 +51,7 @@ def supported(q, kind="model_release"):
 def test_default_backend_uses_v2_and_daily_is_a_bound_adapter():
     parent, daily, result = bundle()
     overlay = parent["publisher_governance"]
-    assert overlay["schema_version"] == 2 and overlay["selection_policy"] == "dplus-v1"
+    assert overlay["schema_version"] == 2 and overlay["selection_policy"] == "impact-v2"
     assert s.validate(overlay, parent["brief_events"])
     schema_validator().validate(overlay)
     assert daily["publisher_governance_meta"] == s.metadata(overlay)
@@ -95,20 +95,22 @@ def test_user_nominated_public_development_cases(case):
         assert decision["disclosure_flags"] == ["provider_claim", "unreleased"]
         assert not decision["supplement_impact"]["passes"] and daily["items"] == []
     else:
-        assert len(daily["items"]) == 1
+        assert len(daily["items"]) == int(decision["supplement_impact"]["passes"])
         assert decision["selection_class"] == "core"
         assert decision["featured_business_events"] == ["model_release"]
         assert decision["featured_score"] < .72
 
 
 @pytest.mark.parametrize("score", [0.0, .1, .5754, .7199])
-def test_single_supported_core_has_no_importance_floor(score):
+def test_legacy_importance_cannot_override_material_impact_rank(score):
     parent, *_ = bundle()
     event = parent["brief_events"]["events"][0]
     annotations = {a["id"]: a for a in parent["publisher_governance"]["articles"]}
     rows = {r["id"]: s._native_row(r) for r in event["sources"]}
     decision = s.decide(event, annotations, rows, NOW, lambda *_: score)
-    assert decision["featured_eligible"] and decision["featured_score"] == score
+    assert decision["featured_eligible"]
+    expected = s.supplement_impact.rank(decision["supplement_impact"], "core", b.parse(event["effective_at"]), NOW)
+    assert decision["featured_score"] == expected
     assert decision["eligibility_basis"] == "supported_core"
 
 
@@ -215,21 +217,19 @@ def test_unknown_or_unreviewed_publisher_cannot_use_core_or_supplement(host, tit
 def selection_row(index, *, core=False, score=.5, publisher="one"):
     return {"brief_event_id": f"be1_{index:024x}", "featured_eligible": True,
         "selection_class": "core" if core else "supplement", "featured_score": score,
-        "supplement_impact": None if core else {"total": 80, "passes": True},
+        "supplement_impact": {"total": 80, "passes": True},
         "featured_primary_item": {"corroboration_key": "publisher:" + publisher,
             "publisher": {"publisher_id": publisher}}}
 
 
 @pytest.mark.parametrize("core_count", [0, 1, 4, 5, 6, 21])
 @pytest.mark.parametrize("supplement_count", [0, 1, 12])
-def test_selection_fills_only_missing_default_slots_without_displacing_core(core_count, supplement_count):
+def test_selection_uses_one_bounded_pool_for_both_classes(core_count, supplement_count):
     rows = [selection_row(i, core=True, score=.1) for i in range(core_count)]
     rows += [selection_row(100+i, score=.99) for i in range(supplement_count)]
     selected = s.select(rows)
-    expected_core = min(core_count, 20)
-    expected_supplement = min(supplement_count, max(0, 5-expected_core))
-    assert len(selected) == expected_core + expected_supplement
-    assert selected[:expected_core] == [r["brief_event_id"] for r in rows[:expected_core]]
+    assert len(selected) == min(5, core_count + supplement_count)
+    assert selected[:min(5,supplement_count)] == [r["brief_event_id"] for r in rows[core_count:core_count+5]]
     assert selected == s.select(list(reversed(rows)))
 
 
@@ -237,7 +237,7 @@ def test_filtering_precedes_supplementation_and_publisher_decay_is_retained():
     rows = [selection_row(i, core=True) for i in range(6)]
     rows += [selection_row(100, score=.9), selection_row(101, score=.89),
              selection_row(102, score=.88, publisher="other")]
-    assert len(s.select(rows)) == 6
+    assert len(s.select(rows)) == 5
     selected = s.select([r for r in rows if r["selection_class"] == "supplement"])
     assert selected == [rows[6]["brief_event_id"], rows[8]["brief_event_id"], rows[7]["brief_event_id"]]
 
@@ -300,12 +300,12 @@ def test_corrupt_state_follows_existing_engine_recovery_without_new_clocks():
     assert b.validate_state(result.next_state) and daily["items"]
 
 
-def test_importance_nonfinite_and_capacity_fail_closed(monkeypatch):
+def test_legacy_importance_is_unused_and_capacity_fails_closed(monkeypatch):
     parent, *_ = bundle()
-    projection = copy.deepcopy(parent["brief_events"])
-    result = s.build(projection, [article()], now=NOW, annotate=u.add_reader_source_policy_fields,
-        scorer=lambda *_: float("nan"), sanitize=u.sanitize_public_payload)
-    assert result["status"] == "unavailable"
+    # Legacy scorer no longer controls the impact rank.
+    result = s.build(copy.deepcopy(parent["brief_events"]), [article()], now=NOW,
+        annotate=u.add_reader_source_policy_fields, scorer=lambda *_: float("nan"), sanitize=u.sanitize_public_payload)
+    assert result["status"] == "ready"
     monkeypatch.setattr(s, "MAX_EVENTS", 0)
     result = s.build(copy.deepcopy(parent["brief_events"]), [article()], now=NOW,
         annotate=u.add_reader_source_policy_fields, scorer=lambda *_: .5, sanitize=u.sanitize_public_payload)
@@ -319,4 +319,4 @@ def test_backend_qualification_requires_no_network_or_provider_calls(monkeypatch
     monkeypatch.setattr(requests.sessions.Session, "request", forbidden)
     rows = [c["record"] for c in USER_CASES["cases"]]
     parent, daily, _ = bundle(rows, now=b.parse(USER_CASES["asof"]))
-    assert parent["publisher_governance"]["status"] == "ready" and len(daily["items"]) == 2
+    assert parent["publisher_governance"]["status"] == "ready" and len(daily["items"]) == 1

@@ -1,5 +1,9 @@
 # Operations Notes
 
+## 10/31 影響排序發布中
+
+全區影響排序1927項完整測試通過，後端80085cca0c03與配對資料6a827d395150已在master；GitHub Actions／Pages／Webhooks事故造成部署延遲，配對前端與正式站驗收進行中。selection_policy由dplus-v1改為impact-v2，發布必須依[全區影響排序規則](FEATURED_IMPACT_20261031.md)採後端→正常刷新配對資料→前端的順序；不得關閉guard或回推舊state。
+
 ## 2026-10-31 正式發布與驗收完成
 
 本次依維護者commit／push指示，以遠端master `78435f6b493b`為基礎，保留113筆既有刷新提交；私人早報移除 `7d5a2c4cf1ea`、新聞版本／品質與有界官方文字整合 `cbd1e1a5923b`、維護文件 `8edc35b31ffd`已推送master。既有HF／摘要修正及10/28來源品質／AIBase降級均保留；未合併舊T04實驗歷史，也未刪其他分支。

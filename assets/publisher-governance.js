@@ -105,8 +105,9 @@
         values.push(Number(m[1]) * (m[2] === "億" ? 1e8 : 1e4));
       return Math.max(0, ...values);
     };
-    const finance = /\b(?:funding|financing|investment|invests?|offering|stock sale|raises?|raised|secures?|secured)\b|融資|募資|投資|股票發行/i.test(title);
-    const amount = finance ? dollars(title) : 0;
+    const capital = /acquir|acquisition|merger|收購|收购|併購|并购/i.test(title);
+    const finance = /\b(?:funding|financing|investment|invests?|offering|stock sale|raises?|raised|secures?|secured)\b|融資|募資|投資|股票發行/i.test(title) || capital;
+    const amount = finance ? dollars(text) : 0;
     const savings = /\b(?:annual cost savings|realized savings|saved in operating costs)\b|年度節省成本|已節省成本/i.test(text)
       && /\b(?:deploy\w*|contract|refinery|factory|enterprise rollout)\b|部署|合約|煉油廠/i.test(text) ? dollars(text) : 0;
     const supplyHarm = /supply.chain|發布鏈|供應鏈|official release|官方發布/i.test(text)
@@ -122,36 +123,39 @@
     const deployment = /\b(?:deploy\w*|contract|refinery|factory|enterprise rollout)\b|部署|合約|煉油廠/i.test(title);
     const content = /\b(?:clip|trailer|video generated|film|Odyssey)\b|影片片段|電影預告/i.test(title);
     const product = /\b(?:launch\w*|releas\w*|introduc\w*|unveil\w*|open.sourc\w*|redesign|update|integration|platform|tool)\b|推出|發布|開源|改版|更新|平台|工具/i.test(title) && !content;
-    const i = supplyHarm || amount >= 1e9 ? 40 : amount >= 1e8 || savings >= 1e8 || monitoredGap ? 30
+    let i = supplyHarm || amount >= 1e9 ? 40 : amount >= 1e8 || savings >= 1e8 || monitoredGap ? 30
       : deployment || unitCost || (finance && amount > 0) ? 15 : product ? 5 : 0;
-    const p = supplyHarm || (finance && amount > 0) ? 20 : product || deployment ? 10 : 0;
+    if (/revenue|earnings|operating costs?|market share|營收|营收|營運成本|市佔|市占/i.test(text) && (/\d+(?:\.\d+)?\s*%/.test(text) || dollars(text) > 0)) i = Math.max(30, i);
+    if (basis === "supported_core") i = Math.max(15, i);
+    const p = basis === "supported_core" || supplyHarm || (finance && amount > 0) || product || deployment ? 20 : unitCost ? 10 : 0;
     const titleWords = new Set((title.toLowerCase().match(/[a-z0-9]+/g) || []));
     const newWords = new Set((summary.toLowerCase().match(/[a-z0-9]+/g) || []).filter((w) => w.length > 3 && !titleWords.has(w)));
     const cjkDetail = /[\u3400-\u9fff]/.test(summary) && Array.from(summary).length >= Array.from(title).length + 20 && !summary.includes(title);
     const detail = /\b(?:because|after|using|uses?|found|affect\w*|caus\w*|result\w*|includ\w*|add\w*|built?|deplo\w*|test\w*|quality|sav\w*|customer\w*|closed|expand\w*|leaked|entered|scor\w*)\b|引入|功能|發現|发现|影響|影响|造成|結果|结果|採用|采用|測試|测试|節省|节省|外洩|外泄|憑證|凭证|渠道/i.test(summary);
     const e = (newWords.size >= 5 || cjkDetail) && detail && !content ? 20 : 10;
-    const c = content ? 0 : /\b(?:refinery|oil|bank|hospital|factory|manufacturer)\b|煉油廠|銀行|醫院|製造/i.test(title) && deployment ? 10
+    const c = content ? 0 : /\b(?:refinery|oil|bank|hospital|factory|manufacturer)\b|煉油廠|銀行|醫院|製造/i.test(title) && deployment || capital && /(?:AI|OpenAI|Anthropic)[ -]backed|(?:AI|人工智慧).{0,6}(?:支持|支援|投資)/i.test(title) && !/\b(?:model|LLM|inference)\b|模型|推理/i.test(title) ? 10
       : basis === "capability_disclosure" || /(?<![A-Za-z])(?:AI|LLM|GPT|Claude|Copilot|LiteLLM|OpenAI|Anthropic|Nvidia|Meta|Qwen)(?![A-Za-z])|\bmodel\b|人工智慧|模型|機器學習/i.test(text) ? 20 : 0;
+    if (c < 20) i = Math.min(15, i);
     const total = i + p + e + c;
     return { i, p, e, c, total, passes: total >= 70 && (i >= 30 || p === 20) };
   }
 
   // Same bounded default selection as the producer. Filtering is deliberately
   // left to the reader; the overlay retains all candidates.
+  function rank(impact, selectionClass, effective, now = Date.now()) {
+    const age = Math.max(0, (now - Date.parse(effective)) / 3600000);
+    const value = (impact.total + (selectionClass === "core" ? 3 : 0)) * 2 ** -Math.sqrt(age / 48) / 103;
+    return Math.round(value * 10000) / 10000;
+  }
+
   function selectIds(decisions, limit = 20, target = 5) {
     const selected = [], counts = new Map();
-    for (const layer of ["core", "supplement"]) {
-      const rest = decisions.filter((d) => d.featured_eligible && d.selection_class === layer
-        && (layer === "core" || d.supplement_impact.passes));
-      const cap = layer === "core" ? limit : Math.min(limit, target);
-      const key = (d) => d.featured_primary_item.corroboration_key || `publisher:${d.featured_primary_item.publisher.publisher_id}`;
-      while (rest.length && selected.length < cap) {
-        const rank = (d) => layer === "core" ? d.featured_score : d.supplement_impact.total / 100;
-        rest.sort((a, b) => (-rank(a) + .03 * (counts.get(key(a)) || 0))
-          - (-rank(b) + .03 * (counts.get(key(b)) || 0))
-          || b.featured_score - a.featured_score || compareIds(a.brief_event_id, b.brief_event_id));
-        const d = rest.shift(); selected.push(d.brief_event_id); counts.set(key(d), (counts.get(key(d)) || 0) + 1);
-      }
+    const rest = decisions.filter(d => d.featured_eligible && d.supplement_impact.passes);
+    const key = d => d.featured_primary_item.corroboration_key || `publisher:${d.featured_primary_item.publisher.publisher_id}`;
+    while (rest.length && selected.length < Math.min(limit, target)) {
+      rest.sort((a,b) => (-a.featured_score + .03 * (counts.get(key(a)) || 0))
+        - (-b.featured_score + .03 * (counts.get(key(b)) || 0)) || compareIds(a.brief_event_id,b.brief_event_id));
+      const d=rest.shift(); selected.push(d.brief_event_id); counts.set(key(d),(counts.get(key(d)) || 0)+1);
     }
     return selected;
   }
@@ -160,7 +164,7 @@
     try {
       const g = parent?.publisher_governance, p = parent?.brief_events;
       if (!g || !p || g.record_type !== "publisher_governance_projection" || g.schema_version !== 2
-        || g.selection_policy !== "dplus-v1" || g.default_visible_limit !== 5
+        || g.selection_policy !== "impact-v2" || g.default_visible_limit !== 5
         || g.policy_id !== POLICY || g.status !== "ready" || !/^[0-9a-f]{64}$/.test(g.registry_revision || "")
         || !/^pg2_[0-9a-f]{24}$/.test(g.generation_id || "") || !/^bg1_[0-9a-f]{24}$/.test(p.generation_id || "")
         || !/^[0-9a-f]{64}$/.test(p.state_revision || "") || !["ready", "recovered"].includes(p.status)
@@ -241,7 +245,12 @@
             || articles.get(a).source_policy.source_tier_rank - articles.get(b).source_policy.source_tier_rank || compareIds(a, b));
           const s = articles.get(rid).supplement_evidence;
           const impact = d.supplement_impact;
-          if (core.length ? impact !== null : !same(impact, impactScore(primary.source_material, d.eligibility_basis))) return false;
+          if (!same(impact, impactScore(primary.source_material, d.eligibility_basis))) return false;
+          for (const id of expectedSupport) {
+            const basis = core.length ? "supported_core" : articles.get(id).supplement_evidence.kind;
+            const expectedScore = rank(impactScore(refs.get(id).source_material, basis), d.selection_class, event.effective_at, Date.parse(g.generated_at));
+            if (scores.get(id) !== expectedScore) return false;
+          }
           if (ranked[0] !== rid || d.featured_score !== scores.get(rid)
             || d.selection_class !== (core.length ? "core" : "supplement")
             || d.eligibility_basis !== (core.length ? "supported_core" : s.kind)
@@ -273,6 +282,9 @@
       disclosure_flags: d.disclosure_flags, supplement_impact: d.supplement_impact,
       governance_publisher_key: primary.corroboration_key || `publisher:${primary.publisher.publisher_id}` };
     Object.keys(out).filter((k) => k.startsWith("news_summary")).forEach((k) => delete out[k]);
+    const bonus = d.selection_class === "core" ? 3 : 0;
+    out.importance_breakdown = {impact:d.supplement_impact.total, core_bonus:bonus,
+      freshness:d.supplement_impact.total + bonus ? Math.round(d.featured_score * 103 / (d.supplement_impact.total + bonus) * 10000) / 10000 : 0};
     if (d.featured_news_summary) out.news_summary = d.featured_news_summary;
     return out;
   }
@@ -291,7 +303,7 @@
       || daily.selection_diagnostics?.score_gate !== null
       || daily.selection_diagnostics?.selection_policy !== g.selection_policy
       || daily.selection_diagnostics?.default_visible_limit !== 5
-      || daily.selection_diagnostics?.core_count !== g.events.filter((d) => d.featured_eligible && d.selection_class === "core").length
+      || daily.selection_diagnostics?.core_count !== g.events.filter((d) => d.featured_eligible && d.supplement_impact.passes && d.selection_class === "core").length
       || daily.selection_diagnostics?.supplement_candidate_count !== g.events.filter((d) => d.featured_eligible && d.selection_class === "supplement").length) return false;
     const decisions = new Map(g.events.map((d) => [d.brief_event_id, d]));
     const events = new Map(p.events.map((e) => [e.brief_event_id, e]));
@@ -331,7 +343,7 @@
     const g = candidate.publisher_governance, p = candidate.brief_events;
     const decisions = new Map(g.events.map((d) => [d.brief_event_id, d]));
     const events = p.events.filter((e) => decisions.get(e.brief_event_id).featured_eligible
-      && (decisions.get(e.brief_event_id).selection_class === "core" || decisions.get(e.brief_event_id).supplement_impact.passes)
+      && decisions.get(e.brief_event_id).supplement_impact.passes
       && Date.parse(e.effective_at) <= now && now < Date.parse(e.expires_at)).map((e) => view(e, decisions.get(e.brief_event_id)));
     return { projection: { ...p, events }, governance: g, cached: !incoming };
   }
@@ -346,5 +358,5 @@
         && (tracking || (e.qualification?.scope === "in_scope" && supported(e).includes("model_release")));
     });
   }
-  return { valid, resolve, view, metaMatches, radarEvents };
+  return { valid, resolve, view, metaMatches, radarEvents, rank, impactScore };
 });

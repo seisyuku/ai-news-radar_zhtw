@@ -1,4 +1,4 @@
-"""The adopted impact threshold applies only to 24-hour D+ supplements."""
+"""The adopted impact threshold applies to all qualified 24-hour featured events."""
 
 import copy
 
@@ -19,8 +19,8 @@ from tests.test_publisher_governance_ui import harness
     ("OpenAI audit reveals monitoring gap",
      "The audit found that 25% of agent traffic went unmonitored across its deployed AI services.", (30, 0, 20, 20, 70, True)),
     ("Nvidia open-sources Flora to make robot video labeling 125x cheaper than GPT-6 Astra",
-     "Flora labels one hour of robot video for 72 cents instead of $88 with GPT-6 Astra, while scoring higher on quality and catching errors in robot actions.", (15, 10, 20, 20, 65, False)),
-    ("Honeywell deploys AI platform at refinery", "Honeywell deploys AI platform at refinery.", (15, 10, 10, 10, 45, False)),
+     "Flora labels one hour of robot video for 72 cents instead of $88 with GPT-6 Astra, while scoring higher on quality and catching errors in robot actions.", (15, 20, 20, 20, 75, True)),
+    ("Honeywell deploys AI platform at refinery", "Honeywell deploys AI platform at refinery.", (15, 20, 10, 10, 55, False)),
     ("Grok releases an AI-generated Odyssey clip", "The footage looks okay, without an announced product or commercial effect.", (0, 0, 10, 0, 10, False)),
 ])
 def test_native_material_scores(title, summary, expected):
@@ -37,12 +37,12 @@ def test_unit_cost_needs_comparable_quality_and_never_implies_realized_savings()
     assert supplement_impact.score(material, "industry_news")["i"] == 15
 
 
-def test_selection_uses_impact_before_old_importance_and_keeps_core():
+def test_global_selection_does_not_protect_lower_ranked_core():
     rows = [selection_row(1, core=True, score=.1), selection_row(2, score=.99),
             selection_row(3, score=.2, publisher="other")]
     rows[1]["supplement_impact"] = {"total": 65, "passes": False}
     rows[2]["supplement_impact"] = {"total": 80, "passes": True}
-    assert signal_selection.select(rows) == [rows[0]["brief_event_id"], rows[2]["brief_event_id"]]
+    assert signal_selection.select(rows) == [rows[2]["brief_event_id"], rows[0]["brief_event_id"]]
 
 
 def test_backend_and_browser_reject_forged_impact_score():
