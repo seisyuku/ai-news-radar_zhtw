@@ -1,0 +1,59 @@
+{
+  "id": "2b111975f0f95d5542b462735c3571d74173c61d",
+  "published_at": "2026-10-23T08:00:00Z",
+  "first_seen_at": "2026-10-30T02:05:29.668893Z",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "Amazon MWAA 现已在墨西哥（中部）区域推出",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/amazon-mwaa-mexico-central",
+  "last_seen_at": "2026-10-30T02:05:29.668893Z",
+  "summary": "Amazon Managed Workflows for Apache Airflow（Amazon MWAA）预置环境现已在墨西哥（中部）区域（mx-central-1）推出。Amazon MWAA 无服务器此前已在该区域推出，客户现在还可以在其 Apache Airflow 工作流中使用 Amazon MWAA 预置环境。Amazon MWAA 是适用于 Apache Airflow 的一项托管式编排服务，使客户能够更轻松地在云中大规模设置和运营端到端数据管道。 客户可以使用 AWS 管理控制台、AWS CLI、AWS SDK 或 AWS CloudFormation 创建 Amazon MWAA 预置环境。墨西哥（中部）的客户现在可以在更靠近数据来源和最终用户的位置运行其 Amazon MWAA 预置工作流，从而减少延迟并帮助满足数据驻留要求。要了解更多信息，请访问 Amazon MWAA 产品页面 和 Amazon MWAA 支持的区域文档 。",
+  "publisher_links": [
+    "https://aws.amazon.com/managed-workflows-for-apache-airflow/",
+    "https://docs.aws.amazon.com/mwaa/latest/userguide/what-is-mwaa.html#regions-mwaa"
+  ],
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "aws_news",
+    "name": "AWS News",
+    "feed_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "amazon",
+    "name": "AWS",
+    "domain": "aws.amazon.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/amazon-mwaa-mexico-central",
+      "article_host": "aws.amazon.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "538509a2381cc839f25920bdaa5ce0fede5e259a08c1cfd546fc1391e743dcb9",
+    "scope_id": "amazon",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}
