@@ -1,7 +1,8 @@
-"""Bounded, native-material impact score for already qualified D+ supplements."""
+"""Bounded, native-material impact score for all already qualified featured events."""
 from __future__ import annotations
 
 import re
+import math
 
 try:
     from scripts import signal_material
@@ -46,8 +47,9 @@ def score(native, basis):
     if not title:
         return {"i": 0, "p": 0, "e": 0, "c": 0, "total": 0, "passes": False}
 
-    finance = bool(FINANCE.search(title))
-    amount = _dollars(title) if finance else 0
+    capital = bool(re.search(r"acquir|acquisition|merger|收購|收购|併購|并购", title, re.I))
+    finance = bool(FINANCE.search(title)) or capital
+    amount = _dollars(text) if finance else 0
     realized_savings = _dollars(text) if REALIZED_SAVINGS.search(text) and DEPLOYMENT.search(text) else 0
     supply_harm = bool(SUPPLY_ATTACK.search(text) and RELEASE_CHANNEL.search(text) and HARM.search(text))
     monitored_gap = bool(MONITORING.search(text) and re.search(r"\d+(?:\.\d+)?\s*%", summary))
@@ -68,9 +70,16 @@ def score(native, basis):
     else:
         impact = 0
 
-    if supply_harm or (finance and amount > 0):
+    quantified_business = bool(re.search(r"revenue|earnings|operating costs?|market share|營收|营收|營運成本|市佔|市占", text, re.I)
+                               and (re.search(r"\d+(?:\.\d+)?\s*%", text) or _dollars(text) > 0))
+    if quantified_business:
+        impact = max(30, impact)
+    if basis == "supported_core":
+        impact = max(15, impact)
+
+    if basis == "supported_core" or supply_harm or (finance and amount > 0) or product or deployment:
         proximity = 20
-    elif product or deployment:
+    elif unit_cost:
         proximity = 10
     else:
         proximity = 0
@@ -86,12 +95,24 @@ def score(native, basis):
 
     if CONTENT_ONLY.search(title):
         centrality = 0
-    elif OTHER_INDUSTRY.search(title) and deployment:
+    elif (OTHER_INDUSTRY.search(title) and deployment) or (capital and re.search(r"(?:AI|OpenAI|Anthropic)[ -]backed|(?:AI|人工智慧).{0,6}(?:支持|支援|投資)", title, re.I) and not re.search(r"\b(?:model|LLM|inference)\b|模型|推理", title, re.I)):
         centrality = 10
     elif basis == "capability_disclosure" or AI_DIRECT.search(text):
         centrality = 20
     else:
         centrality = 0
+    if centrality < 20:
+        impact = min(15, impact)
     total = impact + proximity + evidence + centrality
     return {"i": impact, "p": proximity, "e": evidence, "c": centrality,
             "total": total, "passes": total >= 70 and (impact >= 30 or proximity == 20)}
+
+
+def freshness(age_hours):
+    """Faster early decay, with the same 48-hour half-value point."""
+    return 2 ** -math.sqrt(max(0.0, age_hours) / 48.0)
+
+
+def rank(impact, selection_class, effective, now):
+    value = (impact["total"] + (3 if selection_class == "core" else 0)) * freshness((now - effective).total_seconds() / 3600) / 103
+    return round(value, 4)

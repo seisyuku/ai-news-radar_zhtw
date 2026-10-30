@@ -6883,8 +6883,7 @@ def apply_brief_event_result(result, daily, merged):
     governance_api = signal_selection if governance["schema_version"] == 2 else publisher_governance
     daily["publisher_governance_meta"] = governance_api.metadata(governance)
     candidates = [d for d in governance["events"] if d["featured_eligible"]]
-    qualified = ([d for d in candidates if d["selection_class"] == "core"
-                  or d["supplement_impact"]["passes"]]
+    qualified = ([d for d in candidates if d["supplement_impact"]["passes"]]
                  if governance["schema_version"] == 2 else candidates)
     daily["selection_diagnostics"] = {
         "candidate_count": len(result.projection["events"]), "eligible_count": len(qualified),
