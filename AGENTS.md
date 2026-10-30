@@ -26,6 +26,34 @@ GitHub Actions refresh jobs, and GitHub Pages publishing.
 - Preserve concurrent snapshot commits and unrelated local work. Integrate only
   the requested changes; do not force-push or publish unrelated draft branches.
 
+## Conversation Output and Candidate Lists
+
+- Default to complete, readable output directly in the conversation, using
+  prose, tables, and inline images when useful. The user often reads on a phone;
+  avoid requiring a new file, window, or tab to consume the result.
+- Do not routinely create separate report files or open additional windows.
+  Exceptions are handoff files, files explicitly requested or needed for local
+  preservation, and outputs with a concrete, strong reason to be separate.
+  Explain that reason and still show the essential result in the conversation.
+- Updating an existing instruction file to preserve an explicitly requested
+  workflow preference does not require creating a separate report.
+- For news candidate lists, state the snapshot cutoff and time window in Taipei
+  time, then use this fixed table format in the conversation:
+
+  | 題目 | 內容 | 證據 | 判定理由／缺口 |
+  |---|---|---|---|
+  | Linked topic title | Full / Brief / Drop | Ready / Hold | Value rationale, defensible claim, and specific evidence gap or limitation |
+
+- Content value (Full / Brief / Drop) and evidence readiness (Ready / Hold)
+  are independent judgments. Full may be Hold; Brief does not imply weak
+  evidence. Do not replace these axes with priority or backup labels.
+- Ready applies only to the stated defensible claim. For Hold, name the
+  specific missing evidence. Mark old events or items outside the window
+  explicitly; do not treat timing as an evidence or content grade.
+- Before delivering a candidate list, check that every row has both judgments
+  and a reason or evidence boundary. Put supporting source links in the table
+  or directly below it so a separate file is not needed.
+
 ## Authority and Routing
 
 - `README.md` defines the current public product boundary.
