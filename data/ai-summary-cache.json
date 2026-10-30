@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v2",
   "entries": {
+    "aee8cc4fdb03529d2b1e42f5a9ef8d118be7b87203ea0d955ac55f9b3b3ec1f8": {
+      "summary": "Theranos 前員工 Tyler Shultz 警告，AI 熱潮為欺騙大眾提供了絕佳機會，此言論在 AI 時代具有警示意義。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-30T16:05:30.292838Z"
+    },
     "9e6c21946bc04ee37d59edcc39b1270a9129a4f4c909fcf312b7ce18c6f6d609": {
       "summary": "Meta 的 Zuckerberg 與 Tesla、SpaceX 的 Musk 在第三季財報電話會議中，採用川普總統偏好的「超級智慧」一詞。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-10-14T01:05:33.367658Z"
-    },
-    "51218de649d4a02f9db6e710f8eb53cf78bdcf361e590216cdcde55bbcaa67fc": {
-      "summary": "據路透社取得國際資料資訊報告，輝達上半年在中國資料中心 AI 晶片市場市佔率降至 34%。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-14T00:35:37.915324Z"
     }
   },
   "rejections": {
@@ -4695,6 +4695,10 @@
     "d58dbfc514f154c245011071a52f73625eaa365bbe63599a7fa327265ccf45d6": {
       "reason": "validation_length",
       "created_at": "2026-10-30T15:35:34.191691Z"
+    },
+    "f9523de1708ea026b586c36f4c19b3ad8963d3be426efb1067309beed75a3551": {
+      "reason": "insufficient_context",
+      "created_at": "2026-10-30T16:05:30.292838Z"
     }
   }
 }

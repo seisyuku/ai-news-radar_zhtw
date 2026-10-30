@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "AgentCore 网关现在支持 Bedrock InvokeModel API 和模型回退",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/agentcore-gateway-invokemodel-fallback",
-  "last_seen_at": "2026-10-30T15:35:34.191691Z",
+  "last_seen_at": "2026-10-30T16:05:30.292838Z",
   "summary": "Amazon Bedrock AgentCore 网关现在在其推理端点上支持 Amazon Bedrock InvokeModel 和 InvokeModelWithResponseStream API，以及针对推理流量的模型回退路由。利用 InvokeModel 支持，您可以将现有的 Amazon Bedrock SDK 集成指向网关，并通过一个受治理的端点访问任何模型提供商，而无需为每个提供商重写客户端代码。有了模型回退，当主要目的地受限、容量不足或无法访问时，网关会自动将请求路由到备用模型或提供商，从而确保您的智能体可持续服务，而无需每个客户端都实施自己的重试逻辑。 对于回退路由，您可以在网关规则中定义有序的备用目的地链，以及触发切换的条件，例如限制、服务器错误或响应超时。内置的断路器可以跳过当前失败的目的地，使请求可以更快地到达正常的目的地，并且您可以避免因尝试失败而增加延迟。回退路由在后台进行，这意味着无论给定请求的内部尝试和错误如何，您都会发送一个请求并收到一个响应。 这些功能已在提供 Amazon Bedrock AgentCore 网关的所有 AWS 区域（中国区域除外）推出。要了解更多信息，请参阅 Amazon Bedrock AgentCore 网关用户指南 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway-rules-fallback.html"
