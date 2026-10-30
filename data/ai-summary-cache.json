@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v2",
   "entries": {
+    "241dd7f5c4fac975c4a763bc01ef4e5b25682d89408b61f3b123084472bfea1d": {
+      "summary": "Anthropic、OpenAI、Cloudflare 與 Google 各自發布了用於偵測原始碼安全漏洞的 AI 代理，四者皆採用相同的發現、反證與修補循環。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-30T18:28:40.193463Z"
+    },
     "52cf15ef1a84bb56a4f7474d451b8b17b4359860c7c85da40dd5bbf207c59a4e": {
       "summary": "Starbucks CEO Brian Niccol 於週四財報電話會議表示，公司將探索在顧客抵達時識別身分、呈現個人化數位選單並簡化付款的體驗。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-10-14T02:05:35.849333Z"
-    },
-    "28ec84a71d0e001c1ab60d9828d61a50f08fdc7ba666903551541fb5bf1a7280": {
-      "summary": "谷歌週二宣佈旗艦AI模型Argon向全球開發者開放，此前僅透過Fairwind計劃提供測試。該模型現可透過Google AI Studio API及Gemini App訂閱使用，定價資訊尚未完整披露。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-14T01:35:39.253653Z"
     }
   },
   "rejections": {
@@ -4684,10 +4684,6 @@
       "reason": "validation_length",
       "created_at": "2026-10-29T21:23:27.669691Z"
     },
-    "ca600529138b666d9b6ec8d397867d2df8a8f701a0d99cc5fc348c66d9486f7d": {
-      "reason": "validation_length",
-      "created_at": "2026-10-30T12:27:21.495988Z"
-    },
     "d58dbfc514f154c245011071a52f73625eaa365bbe63599a7fa327265ccf45d6": {
       "reason": "validation_length",
       "created_at": "2026-10-30T15:35:34.191691Z"
@@ -4699,6 +4695,10 @@
     "1df3d7ef235d3b295971c943b403327aa5eacf3e75029450a906860cf2c504d2": {
       "reason": "insufficient_context",
       "created_at": "2026-10-30T17:41:21.426352Z"
+    },
+    "ca600529138b666d9b6ec8d397867d2df8a8f701a0d99cc5fc348c66d9486f7d": {
+      "reason": "validation_length",
+      "created_at": "2026-10-30T18:28:40.193463Z"
     }
   }
 }
