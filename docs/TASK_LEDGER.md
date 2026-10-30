@@ -1,6 +1,14 @@
 # 任務台帳
 
-更新：2026-10-30。任務狀態、完成條件與續接入口集中於本頁；方向見[ROADMAP](ROADMAP.md)，歷史見[HANDOVER](HANDOVER.md)。產品、來源與操作規則仍分別以README、[SOURCE_COVERAGE](SOURCE_COVERAGE.md)及[OPERATIONS](OPERATIONS.md)為準。
+## 2026-10-31 發布整合（已提交本機master，遠端驗證中）
+
+本次依維護者commit／push指示，以最新遠端master `78435f6b493b`為基礎，保留113筆既有刷新提交；僅移入私人早報移除 `7d5a2c4cf1ea`、新聞版本／品質與有界官方文字整合 `cbd1e1a5923b`、維護文件 `8edc35b31ffd`，未合併舊T04實驗歷史。10/28來源品質與AIBase降級已由 `aaba6389dbb0` 正式發布，HF與摘要補修亦保留，不再列為待合併。
+
+最終master完整1913項測試通過（98個既有feedparser棄用警告），Python／5份JS語法、workflow YAML與差異檢查通過。固定輸入7504檔與已驗整合結果一致，僅source-status實測耗時不同；14個固定來源輸入無失敗。正式data／item／state未被離線輸出覆寫。前端共同版本20261030-quality1。
+
+目前本機提交完成；遠端推送、CI／Pages、正常刷新後同代資料及三個舊頁404仍待讀回，完成前不標為線上結案。發布備份及證據位於 /Users/lordmi/Downloads/ai-news-release-20261031/。下方10/30「未發布」及較早狀態為當時階段紀錄，現況優先依本節。
+
+更新：2026-10-31。任務狀態、完成條件與續接入口集中於本頁；方向見[ROADMAP](ROADMAP.md)，歷史見[HANDOVER](HANDOVER.md)。產品、來源與操作規則仍分別以README、[SOURCE_COVERAGE](SOURCE_COVERAGE.md)及[OPERATIONS](OPERATIONS.md)為準。
 
 舊文件的「下一步」「待驗」「尚未推送」描述其日期當時的狀態，不能直接當成現行任務。T編號沿用本次盤點，P1／P2沿用原Roadmap，不代表已排定順序或期限。
 
