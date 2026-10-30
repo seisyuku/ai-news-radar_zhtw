@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Muse Spark Open 模型现已在 Amazon SageMaker JumpStart 上推出",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/01/muse-spark-open-on-sagemaker-jumpstart",
-  "last_seen_at": "2026-10-30T02:35:28.649717Z",
+  "last_seen_at": "2026-10-30T03:05:29.542116Z",
   "summary": "Meta 的 Muse Spark Open 现已在 Amazon SageMaker JumpStart 上推出，为 AWS 客户提供了更丰富的基础模型选择。这款来自 Meta 的经过编码优化的开放权重模型专为智能体编码工作流程而打造，为 AWS 基础设施上的企业软件工程带来了多步推理和工具调用。 Muse Spark Open 专为长时间运行的编程智能体和多模态工程工作流程而设计。它建立在混合专家（MoE）架构之上，总共有 8,160 亿个参数，每个令牌有 420 亿个活跃参数，它提供了超大型网络的容量，同时使每个令牌的计算量更接近于小得多的密集型模型。该模型拥有一个 100 万个令牌的上下文窗口，使其能够摄取整个项目（包括依赖关系、遗留代码和数千个文件），而无需将任务拆分成较小的部分。它接受文本、图像、文档、音频和音视频作为输入，并生成文本输出。它接受过基于真实开发人员工作流程（如多文件重构和长时间调试会话）的训练，可在较长周期内规划、行动、观察结果和自我更正，而非仅调用单个工具。SageMaker JumpStart 提供两种变体：BF16（Muse-Spark-Open-816B-A42B）和 NVFP4 量化版（Muse-Spark-Open-816B-A42B-NVFP4），其中 NVFP4 版本所需内存约为四分之一，便于经济高效的部署。 借助 SageMaker JumpStart，客户只需点击几下即可部署 Muse Spark Open，端点在他们自己的 AWS 账户中运行，从而能完全控制源代码和提示。 要开始使用此模型，请导航到 SageMaker 控制台中的 SageMaker JumpStart 模型目录，或使用 SageMaker Python SDK 将模型部署到您的 AWS 账户。有关在 SageMaker JumpStart 中部署和使用基础模型的更多信息，请参阅 Amazon SageMaker JumpStart 文档 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/sagemaker/latest/dg/studio-jumpstart.html"
