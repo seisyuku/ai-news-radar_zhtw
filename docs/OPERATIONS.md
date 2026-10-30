@@ -1,12 +1,16 @@
 # Operations Notes
 
-## 2026-10-31 發布整合（已提交本機master，遠端驗證中）
+## 2026-10-31 正式發布與驗收完成
 
-本次依維護者commit／push指示，以最新遠端master `78435f6b493b`為基礎，保留113筆既有刷新提交；僅移入私人早報移除 `7d5a2c4cf1ea`、新聞版本／品質與有界官方文字整合 `cbd1e1a5923b`、維護文件 `8edc35b31ffd`，未合併舊T04實驗歷史。10/28來源品質與AIBase降級已由 `aaba6389dbb0` 正式發布，HF與摘要補修亦保留，不再列為待合併。
+本次依維護者commit／push指示，以遠端master `78435f6b493b`為基礎，保留113筆既有刷新提交；私人早報移除 `7d5a2c4cf1ea`、新聞版本／品質與有界官方文字整合 `cbd1e1a5923b`、維護文件 `8edc35b31ffd`已推送master。既有HF／摘要修正及10/28來源品質／AIBase降級均保留；未合併舊T04實驗歷史，也未刪其他分支。
 
-最終master完整1913項測試通過（98個既有feedparser棄用警告），Python／5份JS語法、workflow YAML與差異檢查通過。固定輸入7504檔與已驗整合結果一致，僅source-status實測耗時不同；14個固定來源輸入無失敗。正式data／item／state未被離線輸出覆寫。前端共同版本20261030-quality1。
+首次離線CI因刪除雲端套件後不再間接安裝jsonschema而失敗（run 41093066318），已由 `1598a2069b88` 明確宣告測試依賴jsonschema==4.26.0。全新Python3.12環境完整1913項通過；[GitHub離線CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41093539300)為1912 passed、1項資產比較刻意分流、98個既有feedparser警告；[獨立資產版本檢查](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41093066138)成功。Python／5份JS語法、workflow YAML及差異檢查通過。
 
-目前本機提交完成；遠端推送、CI／Pages、正常刷新後同代資料及三個舊頁404仍待讀回，完成前不標為線上結案。發布備份及證據位於 /Users/lordmi/Downloads/ai-news-release-20261031/。下方10/30「未發布」及較早狀態為當時階段紀錄，現況優先依本節。
+[程式Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41093065891)與[依賴補修後Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41093537947)成功；[一次既有公開刷新](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41093175458)由新程式產生 `cf3f601098c2`。臺北00:48:35快照168篇一般AI、4則重點（3核心＋1補位），14/14來源正常；brief與publisher governance皆ready。首頁＋6份資產HTTP與發布版本位元一致，8份公開JSON與生成提交逐檔一致，正式資料通過讀者端guard。前端共同版本20261030-quality1。
+
+私人早報84檔已從master移除，3份私人workflow不再出現在正式清單，3個舊說明頁HTTP均404。七日來源觀察／報告／SMTP三流程仍disabled_manually；私人稿件、Drive、OAuth／secret與其他歷史artifact未操作，T04摘要備援未恢復。正式data／item／state只由正常公開刷新更新，未以Downloads離線輸出覆寫。
+
+固定輸入7504檔與已驗整合結果一致，僅source-status實測耗時不同；這不宣稱獨立新聞precision。程式／移除／發布驗收已完成，無下一個必跑功能階段。備份及HTTP／離線證據位於 /Users/lordmi/Downloads/ai-news-release-20261031/；下方10/30「未發布」及較早狀態均為當時階段紀錄。
 
 ## 2026-10-30 私人早報程式移除（本機已驗證，未發布）
 
