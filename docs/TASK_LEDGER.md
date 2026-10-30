@@ -1,98 +1,47 @@
 # 任務台帳
 
-## 2026-10-31 正式發布與驗收完成
+更新：2026-10-31（臺北）。本頁只保留目前有效狀態與2026-10-21起的任務紀錄；超過十天的項目與歷程不在本頁累積。產品、來源與操作規則分別依README、SOURCE_COVERAGE及OPERATIONS；發布證據與續接入口見[交接摘要](HANDOVER.md)。
 
-本次依維護者commit／push指示，以遠端master `78435f6b493b`為基礎，保留113筆既有刷新提交；私人早報移除 `7d5a2c4cf1ea`、新聞版本／品質與有界官方文字整合 `cbd1e1a5923b`、維護文件 `8edc35b31ffd`已推送master。既有HF／摘要修正及10/28來源品質／AIBase降級均保留；未合併舊T04實驗歷史，也未刪其他分支。
+## 目前待辦
 
-首次離線CI因刪除雲端套件後不再間接安裝jsonschema而失敗（run 41093066318），已由 `1598a2069b88` 明確宣告測試依賴jsonschema==4.26.0。全新Python3.12環境完整1913項通過；[GitHub離線CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41093539300)為1912 passed、1項資產比較刻意分流、98個既有feedparser警告；[獨立資產版本檢查](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41093066138)成功。Python／5份JS語法、workflow YAML及差異檢查通過。
+沒有待啟動的功能研究或待發布程式變更。私人早報移除與新聞品質整合已發布；T01～T06均已結案，不自動恢復觀察、重測或啟用。
 
-[程式Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41093065891)與[依賴補修後Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41093537947)成功；[一次既有公開刷新](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41093175458)由新程式產生 `cf3f601098c2`。臺北00:48:35快照168篇一般AI、4則重點（3核心＋1補位），14/14來源正常；brief與publisher governance皆ready。首頁＋6份資產HTTP與發布版本位元一致，8份公開JSON與生成提交逐檔一致，正式資料通過讀者端guard。前端共同版本20261030-quality1。
-
-私人早報84檔已從master移除，3份私人workflow不再出現在正式清單，3個舊說明頁HTTP均404。七日來源觀察／報告／SMTP三流程仍disabled_manually；私人稿件、Drive、OAuth／secret與其他歷史artifact未操作，T04摘要備援未恢復。正式data／item／state只由正常公開刷新更新，未以Downloads離線輸出覆寫。
-
-固定輸入7504檔與已驗整合結果一致，僅source-status實測耗時不同；這不宣稱獨立新聞precision。程式／移除／發布驗收已完成，無下一個必跑功能階段。備份及HTTP／離線證據位於 /Users/lordmi/Downloads/ai-news-release-20261031/；下方10/30「未發布」及較早狀態均為當時階段紀錄。
-
-## 目前執行狀態
-
-- D+重點選稿及情報列表簡化：I01～I04已正式發布與驗收完成，見[I04](SIGNAL_SELECTION_I04_RELEASE_20261024.md)與C07；本案結案，無下一個必跑階段。後續日常維護GPT-6.1 Sol／Medium，修程式High。
-- PG、BR與方案A維持已結案；D+是新用途選稿案，不重開PG05補修或來源觀察。
-- 私人日報自動化與七日來源觀察已取消；CyberQ／AlphaLab 的七日回放只是先前來源評估，沒有排程或實作驗收義務。退役入口與相依功能的盤點見[取消與移除評估](RETIREMENT_AUDIT_20261025.md)。公開刷新、daily-brief 與全站 24 小時規則照常運作。
-- 2026-10-24文件整理已提交並推送；2026-10-25補正退役日報操作文件及舊影子來源／新 RSS 接入的時序。
-- T03 Groq 摘要跨期回顧已完成，決定維持現有六則上限與 prompt，見[評估](GROQ_SUMMARY_T03_REVIEW_20261025.md)。T02 已依 14 日既有資料完成模型對齊及品質評估，暫不新增 `model_significance`，見[T02評估](MODEL_LIFECYCLE_T02_REVIEW_20261025.md)。T01 六類事件徽章與篩選已[正式發布並驗收](T01_EVENT_FILTER_IMPLEMENTATION_20261025.md)；T05 已移除兩個 Canary 並結案。T06 已完成唯讀量測並依維護者裁決結案，無後續追蹤。T04 已依維護者裁決刪除 Gemini 新聞摘要備援並結案；不再提出重測、接線或啟用建議。
-
-## 本機已整合並驗證、尚未發布（2026-10-30）
-
-新聞版本、品質診斷與有界官方純文字查漏已從候選整合到正式專案；使用者追加確認Hugging Face展示與摘要補修一併納入。涵蓋同URL歷史／最新版本、排除原因、Juya直接官方政策補讀、首段譯文、重點摘要優先與來源摘要展示；前端共同版本20261030-quality1。
-本次13個既有程式／政策／前端／測試檔更新、11個新增模組／測試／fixture、7份文件更新。完整1913項離線回歸通過，固定輸入與已驗候選結果一致；未commit／push／部署，候選保持原樣。私人早報移除與其他既有修改保留。
-2026-10-31核對：10/28來源品質修正及AIBase降級已由aaba6389dbb0合併master並發布；本節「尚未發布」只指10/30新增整合。既有HF與摘要修正亦已在master，本次保留並整合新增版本／品質流程，不重開已結案研究。
-逐階段交接：/Users/lordmi/Downloads/ai-news-quality-integration-20261030/HANDOFF.md。
-
-## 私人早報功能移除（2026-10-30）
-
-維護者已要求開始實作，取代先前僅標記的決定。目前本機已刪除31個生成／派送／Drive／雲端校稿模組、27份專用測試、3份workflow、專用雲端依賴、18份舊操作／設計文件、3頁工具說明與1份部署範本，共84個檔案；清理一般CI引用。全套離線驗證已通過（正式1817項／候選1913項），各自7503個同輸入輸出僅7項實測耗時不同；未提交、推送或部署。
-
-公開RSS連結測試改驗archive與公開故事來源投影；受保護workflow測試改用仍維護的offline-tests範例。保留人工選題研究摘要與簡化退役說明，歷史文件不再導向已移除操作入口。每階段完整交接：/Users/lordmi/Downloads/ai-news-private-digest-removal-20261030/HANDOFF.md。
-
-橘鴉（Juya）接入、直接官方純文字追取、精選／本日重點訊號、daily-brief、24小時窗口及下列核准功能均保留。私人稿件、Drive資料、OAuth／secret、資料快照與state不在程式清理範圍內。遠端工作流程尚未隨本機刪檔發布移除。
-
-## 明確保留項目（2026-10-30確認）
-
-維護者確認以下修改方向正確，須保留，不納入後續統一移除清單：
-
-- Hugging Face 首段補讀：RSS缺少摘要時，沿用既有有界官方首段補讀與翻譯展示流程。
-- 補位影響評分：保留已核准的I／P／E／C權重、門檻與補位選稿流程，讀者窗口維持24小時。
-- 橘鴉早報（Juya）接入、直接官方文字來源追取，以及精選／本日重點訊號篩選流程。
-- 品質追蹤與排除原因：保留來源健康、版本／事件去重與逐階段候選／入選排除原因診斷。
-- 細粒度文字資格判斷：維護者確認為正確修改，保留共用內容範圍排除、核心事件材料資格及補位判斷；維持精選情報與本日重點訊號各自的入選／排序標準，不列為待移除功能。
-- T04已保留的通用API、手動連線診斷與結果通知串接：屬正常功能改進，須保留；Gemini新聞摘要備援設計與專用排程仍依既有退役裁決，不因此恢復或重測。
-
-這些保留決定不代表重新啟動研究、改動參數、擴大抓取或新增排程。
-
-## 尚待處理方向
-
-目前沒有待啟動的功能研究；T04 已移除並結案。
-
-
-## 已完成／已結案
-
-| 編號 | 工作 | 結案依據 |
-| --- | --- | --- |
-| C01 | PG01～PG06：發布者與用途治理 | [PG06](PUBLISHER_GOVERNANCE_PG06_RELEASE_20261024.md)。採最後補修（四）定稿，不開補修（五）。 |
-| C02 | BR01～BR06：brief同事件合併與24小時資格 | [BR06](BRIEF_EVENT_BR06_RELEASE_20261023.md)。 |
-| C03 | 方案A／A01～A06與原S流程收尾 | [A06](SOURCE_GOVERNANCE_A06_RELEASE_20261022.md)。原S04長觀察由提前停止及集中評估取代。 |
-| C04 | D00：日報自動化退役 | [退役交接](DIGEST_RETIREMENT_HANDOFF_20261021.md)及[S03實況](SOURCE_GOVERNANCE_S03_STATUS_20261022.md)。 |
-| C05 | 三失效入口移除、INSIDE接入、RuntimeWire分流 | [來源工作歷史](RADAR_SOURCE_REVISION_20261018.md)及後續A06／PG06；不再等舊文件的下一次自然刷新。 |
-| C06 | 舊外部heartbeat PAT替換 | 使用者2026-10-01已回報替換並驗HTTP 204；原10/17到期提醒取消，例行操作依OPERATIONS。 |
-| C07 | I01～I04：D+重點選稿、模式入口及排序簡化 | [I04正式發布與驗收](SIGNAL_SELECTION_I04_RELEASE_20261024.md)。後端／正常資料／前端與CI、Pages、HTTP及Chrome均通過。 |
-| C08 | T03：Groq 摘要品質與運作回顧 | [10/18～10/24既有快照評估](GROQ_SUMMARY_T03_REVIEW_20261025.md)。回顧可用率、失敗、快取及新聞細節；六則上限與 prompt 維持原樣。 |
-| C09 | T02：模型生命週期與 `model_significance` 評估 | [10/11～10/24既有快照評估](MODEL_LIFECYCLE_T02_REVIEW_20261025.md)。定義模型對齊及長窗品質契約，檢查 14 日來源健康及明確誤報；暫不新增重要性分數，保留 24 小時讀者窗口。 |
-| C10 | T01：一般列表六類事件徽章與篩選 | [正式發布與驗收](T01_EVENT_FILTER_IMPLEMENTATION_20261025.md)。沿用既有六類判定，資產共同版本、離線 CI、Pages、HTTP 與正式站 Chrome 均通過。 |
-| C11 | T05：Usage policy Canary 退役 | 依現行產品定位移除兩個第三方 commit feed、候選卡片及相關程式；價格偵測保留。14 天品質研究與新增入口取消，舊文件僅作歷史紀錄。 |
-| C12 | T06：翻譯快取容量量測 | [五時點唯讀量測與結案裁決](TRANSLATION_CACHE_T06_MEASUREMENT_20261026.md)。維持快取現況；原擬前瞻觀察與預警門檻不啟動，無後續追蹤。 |
-| C13 | T04：Gemini 新聞摘要備援刪除 | [維護者退役裁決](T04_GEMINI_SUMMARY_RETIREMENT_20261027.md)。刪除設計與專用測試／排程；僅留通用串接供其他新用途，不再建議重測。 |
-
-## 已撤回／提前停止／封存
-
-| 編號 | 項目 | 有效狀態與邊界 |
-| --- | --- | --- |
-| R01 | 日報自動生成、派送、排程、三日交付及私人雲端自動交付 | 2026-10-21撤回，D00已停用。2026-10-30追加裁決：生成／派送／校稿工具、專用測試與手動雲端合約流程已整組移除，2026-10-31隨master發布並驗收；詳見上方結果。 |
-| R02 | 七日來源觀察、D7核查、D8停用及收尾Email | A01已提前結束，不等待原10/28～10/29、不重寄、不補成七日通過。CyberQ／AlphaLab 七日回放僅是先前離線來源評估，無持續執行或驗收義務；公開刷新、Pages及daily-brief維持。 |
-| R03 | A03當時八個候選來源的裁決 | 當時資安人、CyberQ、網管人、DIGITIMES、Meet、Cloudflare、Modular、Zed為not_admitted_closed。CyberQ 後續於2026-10-25以新 `tw_media/cyberq` RSS 路線單獨准入一般池，舊 `shadow/cyberq` 裁決不變；其餘候選無再觀察或提醒義務。 |
-| R04 | Free LLM APIs／market_free_tier | 自動分支已退役，無已驗等價替代為已接受損失；價格偵測保持。 |
-
-## 已接受限制
-
-以下不是自動續行任務：有界去重的漏併（如NVHBM）及21日記憶範圍；共享AI分類的基礎設施漏收及覆蓋不足；unknown／reported／unreviewed依政策保守處理；保護材料、既有污染及independent_precision=not_evaluable。PG改善部分教學／材料判斷，不等於全面分類品質已驗。不為解除限制而自動重開matcher、升級來源或解除隔離。
+本次台帳／交接整理屬文件維護，依維護者commit／push指示納入master；不列為待發布功能。
 
 ## 例行維護與可選整理
 
-- 以既有source-status與更新時間處理排程及來源健康，不建立額外監控或提醒。
-- M01：/Users/lordmi/Downloads/ai-news-radar-gemini是已合併、乾淨的舊translation worktree（2026-10-24盤點）。可另行指定清理，非未發布功能；本次不移動或刪除目錄及私人檔案。
+| 項目 | 現況／處理邊界 |
+| --- | --- |
+| 公開刷新與來源健康 | 沿用既有source-status、刷新、watchdog、heartbeat及Pages處理，不另建監控或提醒。 |
+| 七日來源觀察／報告／SMTP工具 | 三份workflow均停用，設定enabled=false；可另案整組清理，目前沒有必刪裁決，不補D7／D8或寄信。 |
+| 舊Gemini翻譯工作目錄 | 功能已在master；/Users/lordmi/Downloads/ai-news-radar-gemini仍保留，可另行指定清理。 |
 
-## 狀態更新與交接
+## 最近十天已完成
 
-使用者指定T項目後，確認起始版本、最小範圍及既有證據，再更新執行狀態。結束時記錄實際完成條件、結果／限制及證據；完成者移至結案表。狀態整理不自動改優先級、排程或准入。
+| 完成日期 | 工作 | 結果／依據 |
+| --- | --- | --- |
+| 10/31 | 私人早報移除 | 84個專用檔案、3份workflow已移除並發布，3個舊頁404；[退役交接](DIGEST_RETIREMENT_HANDOFF_20261021.md)。 |
+| 10/31 | 新聞版本、品質診斷及有界官方文字整合 | 已發布，包含同URL歷史／最新投影、排除原因、Juya官方文字查漏，保留HF與摘要修正；[交接](HANDOVER.md)。 |
+| 10/31 | 共用測試依賴補正 | 明確宣告jsonschema；乾淨環境1913項、GitHub離線1912項及獨立資產檢查通過。 |
+| 10/31 | 草稿分支清理 | 本機及GitHub的featured-duplicate-fix、featured-selection-review、retire-canary、t04-gemini-summary均已移除。 |
+| 10/28 | 來源品質修正及AIBase降級 | 已合併master並發布；[來源規則](SOURCE_COVERAGE.md)。 |
+| 10/28 | 重點摘要、HF首段翻譯及金額尺度修正 | 已發布並保留於本輪整合，既有Gemini讀者翻譯持續維護。 |
+| 10/27 | T04 Gemini摘要備援退役 | 已移除設計與專用流程並結案；[裁決](T04_GEMINI_SUMMARY_RETIREMENT_20261027.md)。 |
+| 10/26 | T06翻譯快取量測 | 維持快取現況，原擬觀察與預警不啟動；[結案](TRANSLATION_CACHE_T06_MEASUREMENT_20261026.md)。 |
+| 10/25 | T01一般列表事件篩選、T02模型生命週期評估、T03摘要回顧、T05 Canary退役 | 均已結案；來源、24小時窗口及摘要上限依現行規則維護，沒有後續研究排程。 |
+| 10/25 | CyberQ／AlphaLab一般情報接入 | 官方RSS已發布，保留來源限定准入與用途限制；[來源規則](SOURCE_COVERAGE.md)。 |
+| 10/24 | PG發布者治理及D+選稿／列表簡化 | 已發布並結案；[PG06](PUBLISHER_GOVERNANCE_PG06_RELEASE_20261024.md)、[I04](SIGNAL_SELECTION_I04_RELEASE_20261024.md)。 |
+| 10/23 | BR同事件合併及時間資格 | 已發布並結案；[BR06](BRIEF_EVENT_BR06_RELEASE_20261023.md)。 |
+| 10/22 | 方案A來源治理及七日觀察提前停止 | A06已發布，不延長日曆或補成七日驗收；[A06](SOURCE_GOVERNANCE_A06_RELEASE_20261022.md)、[取消交接](SOURCE_GOVERNANCE_S04_HANDOFF_20261022.md)。 |
 
-T06 已依維護者裁決結案，沒有後續追蹤；T04 已依維護者裁決刪除 Gemini 新聞摘要備援並結案；不再提出重測、接線或啟用建議。模型建議不構成其他任務的自動續行。
+## 現行保留與限制
 
-T04 已依維護者裁決刪除 Gemini 新聞摘要備援並結案；不再提出重測、接線或啟用建議。
+- 保留Juya外部情報來源、直接官方純文字查漏、HF首段補讀、I／P／E／C補位評分、品質診斷與細粒度材料資格。
+- 保留公開daily-brief、精選／今日重點、24小時讀者窗口與價格偵測。
+- T04通用API、手動診斷及結果通知工具休眠保留，僅供另行指定的新用途；摘要備援不恢復。既有Gemini讀者翻譯持續維護。
+- 私人稿件、Drive資料、憑證、私人feeds及受保護資料不屬程式清理範圍。
+- 有界去重、分類覆蓋、未審來源及independent_precision=not_evaluable為已接受限制，不構成自動續行任務。
+
+## 更新規則
+
+每次續接先查實際Git、工作目錄與遠端狀態；日期與結論以查核當時為準。完成項目只留簡要結果與必要證據入口，不重複保留被取代的待辦。更新時依臺北日期滾動移除超過十天的項目與歷程，交接文件遵守同一規則。

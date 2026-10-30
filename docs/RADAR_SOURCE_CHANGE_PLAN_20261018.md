@@ -274,6 +274,6 @@ LLM Stats、橘鴉維持原級、原上限與身分。先前排除來源不重�
 
 - [目前來源工作入口](RADAR_SOURCE_REVISION_20261018.md)
 - [來源治理](SOURCE_COVERAGE.md)
-- [另案日報選題交接](DIGEST_EDITORIAL_HANDOFF_20261018.md)
+- 私人選題交接（已依十日保留規則移除）
 - Downloads：`ai-news-radar-source-architecture-review-20261018/`、
   `ai-news-radar-media-coverage-research-20261018/`、`ai-news-radar-source-removal-20261018/`。

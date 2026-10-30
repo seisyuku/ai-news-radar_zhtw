@@ -28,6 +28,10 @@ GitHub Actions refresh jobs, and GitHub Pages publishing.
 
 ## Conversation Output and Candidate Lists
 
+- Keep task ledgers and handoff documents current, retaining only current
+  status and items/history from the last ten days in Taipei time. Remove older
+  entries rather than accumulating them in separate handoff archives.
+
 - Default to complete, readable output directly in the conversation, using
   prose, tables, and inline images when useful. The user often reads on a phone;
   avoid requiring a new file, window, or tab to consume the result.
