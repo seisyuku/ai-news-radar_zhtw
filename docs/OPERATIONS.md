@@ -2,7 +2,7 @@
 
 ## 10/31 影響排序發布中
 
-全區影響排序1927項完整測試通過，後端80085cca0c03與配對資料6a827d395150已在master；GitHub Actions／Pages／Webhooks事故造成部署延遲，配對前端與正式站驗收進行中。selection_policy由dplus-v1改為impact-v2，發布必須依[全區影響排序規則](FEATURED_IMPACT_20261031.md)採後端→正常刷新配對資料→前端的順序；不得關閉guard或回推舊state。
+全區影響排序1927項完整測試通過，後端80085cca0c03與配對資料6a827d395150已在master；GitHub Actions／Pages／Webhooks事故造成部署延遲，配對前端4a1148c616d4已推送，GitHub檢查與正式站驗收待恢復。selection_policy由dplus-v1改為impact-v2，發布必須依[全區影響排序規則](FEATURED_IMPACT_20261031.md)採後端→正常刷新配對資料→前端的順序；本輪Pages事故期間先驗證master中的正式配對資料，再推送同時包含配對資料的前端，待平台恢復後驗HTTP；不得關閉guard或回推舊state。
 
 ## 2026-10-31 正式發布與驗收完成
 

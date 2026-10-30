@@ -1,6 +1,6 @@
 # 今日重點訊號：全區影響排序
 
-日期：2026-10-31。狀態：發布中，後端與配對資料已在master；前端待GitHub推送及Pages驗收。本規則取代補位專用評分與核心優先排列；六類事件分類、來源資格及24小時讀者窗口維持。
+日期：2026-10-31。狀態：發布中，後端與配對資料已在master；前端已推送，待GitHub檢查與Pages驗收。本規則取代補位專用評分與核心優先排列；六類事件分類、來源資格及24小時讀者窗口維持。
 
 ## 共用入選規則
 
@@ -35,4 +35,11 @@
 
 一般AI168篇、全量列表內容與順序、archive7596筆、事件state／時間及快取，在同輸入前後完全一致；來源失敗0，回放資料通過新瀏覽器guard。比較基準先重跑舊程式，以排除既有全量列表隨機去重的干擾。輸出為 /Users/lordmi/Downloads/ai-news-impact-20261031/ 的replay-before與replay-final；測試暫存為pytest-sealed。
 
-後端80085cca0c03已推送；正常公開刷新41100707010生成6a827d395150的impact-v2資料，生成時間為臺北10/31 01:41:21，來源失敗／降級皆0。已將前端整合到該資料提交並通過實際guard與混排驗證。GitHub於17:50 UTC公告Actions／Pages／Webhooks事故，獨立資料部署尚未上線；改以包含已驗配對資料的master推送前端，保留所有guard，待Pages恢復後逐檔驗收。這不是以本機輸出覆寫正式資料，亦不宣稱正式站已更新。
+後端80085cca0c03已推送；正常公開刷新41100707010生成6a827d395150的impact-v2資料，生成時間為臺北10/31 01:41:21，來源失敗／降級皆0。已將前端整合到該資料提交並通過實際guard與混排驗證。GitHub於17:50 UTC公告Actions／Pages／Webhooks事故，獨立資料部署尚未上線；改以包含已驗配對資料的master推送前端4a1148c616d4，保留所有guard，待Pages恢復後逐檔驗收。這不是以本機輸出覆寫正式資料，亦不宣稱正式站已更新。
+
+
+## GitHub發布進度
+
+後端與配對前端均已推送master。前端提交[4a1148c616d4](https://github.com/seisyuku/ai-news-radar_zhtw/commit/4a1148c616d447b566a02cc4c23adaa624014383)觸發[離線CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41102288333)、[資產版本](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41102288393)與[Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41102288415)。臺北10/31 01:55查核仍排隊；[GitHub官方事故](https://stspg.io/5cd2m4n59spv)為investigating。正式站仍是16:48:35Z舊資料與quality1資產，不能宣稱已上線。
+
+剩餘驗收：等GitHub恢復，確認上述CI、資產檢查及最新master的Pages成功；逐檔比對首頁與六資產、八份公開JSON，再以正式HTTP資料執行guard與實際混排。若正常刷新已更新資料，須使用最新生成提交比對，保留事件state及原始時間。後端中繼提交使用skip ci，完整GitHub檢查由配對前端提交執行；本機1927項與整合後資產版本檢查已通過，但不代替尚未完成的遠端結果。
