@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon Redshift 使用 Amazon S3 表类数据存储服务实现的长期系统表保留现已在其他 AWS 区域推出",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/redshift-long-term-system-table-retention-expansion",
-  "last_seen_at": "2026-10-30T14:05:31.496955Z",
+  "last_seen_at": "2026-10-30T14:35:33.639226Z",
   "summary": "Amazon Redshift 通过与 Amazon S3 表类数据存储服务 的原生集成实现的长期系统表数据保留现已在其他 AWS 区域推出。借助此功能，您可以将 Redshift 系统表数据留存期配置为超过当前 7 天上限，以满足合规性、审计和可观测性要求。启用此功能后，AWS 会自动以 Apache Iceberg 格式 将系统表数据写入 S3 表类数据存储服务，并管理分区、压缩和留存。 客户使用 Redshift 系统表来监控查询性能、审计数据仓库活动并满足合规要求。此功能支持系统表数据的自动复制，无需使用自定义提取、转换、加载（ETL）管道，也不会与生产工作负载产生资源争用。如果您运营多个数据仓库，则可以将其系统表数据整合到一个位置，以实现跨仓库的可观测性和分析。由于数据采用开放的 Apache Iceberg 格式存储，您可通过 Redshift、 Amazon Athena 、 DuckDB 或任意兼容 Iceberg 的引擎查询数据，还能借助 AWS 服务或第三方工具构建可观测性控制面板，而不会产生额外运维开销。此外，可通过 AWS Agent Toolkit 查询系统表数据，从而获得性能洞察和优化建议。 此功能适用于以下额外 AWS 区域的 Amazon Redshift 预置 RG 和 RA3 实例以及 Amazon Redshift Serverless ：亚太地区（新西兰）、加拿大西部（卡尔加里）、AWS GovCloud（美国东部）和 AWS GovCloud（美国西部）。要了解更多信息，请访问我们的 文档 或 博客 。",
   "publisher_links": [
     "https://aws.amazon.com/redshift/",
