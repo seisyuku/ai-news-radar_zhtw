@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "AWS EC2 Auto Scaling 现已支持在账户级别使用 Launch Before Terminate 来替换实例",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/ec2-auto-scaling-launch-before-terminate",
-  "last_seen_at": "2026-10-30T19:31:53.987618Z",
+  "last_seen_at": "2026-10-30T20:05:26.989781Z",
   "summary": "AWS EC2 Auto Scaling 现在允许您启用 Launch Before Terminate 作为账户中所有自动扩缩组的默认替换行为。启用后，Auto Scaling 会启动一个替换实例，等待该实例通过运行状况检查再终止其替换的实例，从而帮助您的应用程序在实例替换事件期间保持完整容量和可用性。这适用于实例刷新、再平衡、运行状况检查和最大实例生命周期替换等替换事件。 您可以通过 AWS EC2 Auto Scaling 账户设置启用 Launch Before Terminate，这使您可以在账户级别一次性配置行为，而不用在每个自动扩缩组上单独配置行为。您可以使用新的 `PutAccountSetting` 和 `DescribeAccountSettings`API 来管理设置，这些 API 可通过 AWS 管理控制台、AWS CLI 或 AWS SDK 调用。 Launch Before Terminate 已在所有 AWS 区域提供，无需额外付费。 要了解更多信息，请参阅 AWS EC2 Auto Scaling User Guide 中的“Launch Before Terminate”部分和 AWS EC2 Auto Scaling API Reference Guide 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-account-settings.html",

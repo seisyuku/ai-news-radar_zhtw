@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "AWS Transit Gateway 和 AWS 云 WAN 现已支持一对一 NAT",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/aws-transit-gateway-cloud-wan-1-1-nat",
-  "last_seen_at": "2026-10-30T19:31:53.987618Z",
+  "last_seen_at": "2026-10-30T20:05:26.989781Z",
   "summary": "AWS Transit Gateway 和 AWS 云 WAN 现在通过与区域私有 NAT 网关的集成，直接在其连接上提供托管式一对一网络地址转换（NAT）。这使客户能够连接共享同一 IP 地址范围的私有网络，而无需为其中的任一网络重新编号、部署 NAT 设备或编写回程流量规则。 具有重叠的无类别域间路由（CIDR）数据块的网络长期以来一直无法通信，这在并购期间、通过 AWS Site-to-Site VPN 连接合作伙伴网络时、在多云连接中以及独立预置的 VPC 需要互连时，都是常见的障碍。使用此功能，客户可以在 AWS Transit Gateway 或 AWS 云 WAN 连接上定义地址转换规则，指定每个源 CIDR 要转换到的私有 IP 范围，涵盖 Amazon VPC、AWS Site-to-Site VPN、AWS Direct Connect 以及通过 Transit Gateway Connect 连接的 SD-WAN 设备。这两项服务都会自动应用双向转换，无需单独的回程流量规则，也无需部署 NAT 设备。AWS 将 NAT 功能作为连接的一部分运行、扩展和管理。例如，如果客户收购了一家企业，并且两个 VPC 都使用 10.0.0.0/16，则客户可在一个 VPC 的连接上将其地址转换为非重叠范围，并立即连接网络。客户可使用 AWS 管理控制台、AWS 命令行界面（AWS CLI）、AWS SDK 和 AWS CloudFormation 在数分钟内完成设置，并通过 Amazon CloudWatch 指标和 Amazon EventBridge 事件监控转换后的流量。 AWS Transit Gateway 和 AWS 云 WAN 在其运营的所有 AWS 商业区域通过区域私有 NAT 网关提供一对一 NAT。如需了解完整的定价详情，请参阅 Amazon VPC 定价 。要了解更多信息，请参阅 AWS Transit Gateway 和 AWS 云 WAN 产品页面，以及 AWS Transit Gateway 和 AWS 云 WAN 文档。",
   "publisher_links": [
     "https://aws.amazon.com/vpc/pricing/",
