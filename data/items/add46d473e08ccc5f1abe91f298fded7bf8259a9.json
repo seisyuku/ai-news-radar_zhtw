@@ -7,8 +7,8 @@
   "source": "Simon Willison",
   "title": "Inline rendering with document​.currentScript",
   "url": "https://simonwillison.net/2026/Oct/17/document-currentscript",
-  "last_seen_at": "2026-10-30T16:35:34.400808Z",
-  "summary": "Inline rendering with document​.currentScript Lean Rada describes a neat trick that takes advantage of the document.currentScript property. You can use that to drop in a tiny inline <script> element that replaces itself when the page loads: The year is <script> document.currentScript.replaceWith( new Date().getFullYear())</script> If you define a shortcut function like this: $=(...n)=>document.currentScript.replaceWith(...n) You get a tiny template language: The year is <script>$(new Date().getFullYear())</script> Tags: javascript",
+  "last_seen_at": "2026-10-30T16:48:35.061276Z",
+  "summary": "Inline rendering with document​.currentScript Lean Rada describes a neat trick that takes advantage of the document.currentScript property. You can use that to drop in a tiny inline <script> element that replaces itself when the page loads: If you define a shortcut function like this: You get a tiny template language: Tags: javascript",
   "publisher_links": [
     "https://leanrada.com/notes/inline-rendering-currentscript/",
     "https://developer.mozilla.org/en-US/docs/Web/API/Document/currentScript",
@@ -40,7 +40,7 @@
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
-    "registry_revision": "538509a2381cc839f25920bdaa5ce0fede5e259a08c1cfd546fc1391e743dcb9",
+    "registry_revision": "47abcafcf20559e79e23e25d80559dd53cd131880bd818269742b94eb49f5dd4",
     "scope_id": "unreviewed",
     "publisher_kind": "unknown",
     "admission_status": "unreviewed",
@@ -57,5 +57,16 @@
       "not_permitted_for_featured",
       "not_permitted_for_radar"
     ]
-  }
+  },
+  "source_updated_at": "2026-10-17T21:11:12Z",
+  "article_history": [
+    {
+      "title": "Inline rendering with document​.currentScript",
+      "summary": "Inline rendering with document​.currentScript Lean Rada describes a neat trick that takes advantage of the document.currentScript property. You can use that to drop in a tiny inline <script> element that replaces itself when the page loads: The year is <script> document.currentScript.replaceWith( new Date().getFullYear())</script> If you define a shortcut function like this: $=(...n)=>document.currentScript.replaceWith(...n) You get a tiny template language: The year is <script>$(new Date().getFullYear())</script> Tags: javascript",
+      "published_at": "2026-10-17T21:11:12Z",
+      "observed_at": "2026-10-30T16:35:34.400808Z"
+    }
+  ],
+  "article_history_truncated": false,
+  "content_observed_at": "2026-10-30T16:48:35.061276Z"
 }
