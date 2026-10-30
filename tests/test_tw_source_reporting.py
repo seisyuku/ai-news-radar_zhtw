@@ -685,7 +685,7 @@ def test_overdue_in_progress_d7_then_explicit_final_correction(tmp_path):
     assert reporting.audit_stop(api, plan(), later_context, now('09:05:03', '2026-10-27'))['stop'] == 'true'
 
 
-@pytest.mark.parametrize('targets', [['update-news.yml'], ['tw-source-observation.yml', 'digest-generation.yml']])
+@pytest.mark.parametrize('targets', [['update-news.yml'], ['tw-source-observation.yml', 'offline-tests.yml']])
 def test_stop_gate_never_accepts_production_targets(targets):
     value = plan() | {'self_disable_workflows': targets}
     with pytest.raises(ValueError, match='invalid_stop_targets'):

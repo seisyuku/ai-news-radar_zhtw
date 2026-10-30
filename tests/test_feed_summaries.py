@@ -67,13 +67,8 @@ def test_links_are_bounded_and_no_extra_request_is_needed():
     assert len(evidence["publisher_links"]) == 24
 
 
-def test_feed_links_survive_archive_promotion_and_candidate_adaptation():
-    from scripts.update_news import merge_raw_items_into_archive
-    from scripts.digest_candidates import adapt_stories
-    from scripts.digest_pipeline import build_digest_stories
-    from scripts.digest_input import DigestInput
-    from scripts.digest_window import window_for_date
-    from types import MappingProxyType
+def test_feed_links_survive_archive_promotion_and_public_story_projection():
+    from scripts.update_news import merge_raw_items_into_archive, story_item_link
     feed={"title":"Example AI", "xml_url":"https://example.com/feed.xml"}
     items=parse_curated_ai_media_feed_items(b'''<rss><channel><item>
     <title>OpenAI releases GPT-6 model</title><link>https://example.com/article</link>
@@ -82,7 +77,10 @@ def test_feed_links_survive_archive_promotion_and_candidate_adaptation():
     </item></channel></rss>''',feed,datetime(2026,10,1,20,tzinfo=UTC))
     archive={}
     merge_raw_items_into_archive(archive,items,datetime(2026,10,1,20,tzinfo=UTC))
-    snapshot=DigestInput(archive,{},None,(),(),"fixture",MappingProxyType({}))
-    stage=build_digest_stories(snapshot,window_for_date("2026-10-02"),protect_event_aspects=True)
-    candidate=adapt_stories(stage.stories)[0]
-    assert candidate["sources"][0]["publisher_links"] == ["https://example.com/original"]
+    assert len(archive) == 1
+    record = next(iter(archive.values()))
+    assert record["publisher_links"] == ["https://example.com/original"]
+    public_source = story_item_link(record)
+    assert public_source["publisher_links"] == ["https://example.com/original"]
+    assert public_source["summary"] == record["summary"]
+    assert public_source["url"] == "https://example.com/article"

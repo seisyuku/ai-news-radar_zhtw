@@ -9,8 +9,6 @@ on:
       - "assets/**"
       - "index.html"
       - ".github/workflows/offline-tests.yml"
-      - ".github/workflows/digest-generation.yml"
-      - ".github/workflows/digest-validation.yml"
   pull_request:
     paths:
       - "scripts/**"
@@ -19,8 +17,6 @@ on:
       - "assets/**"
       - "index.html"
       - ".github/workflows/offline-tests.yml"
-      - ".github/workflows/digest-generation.yml"
-      - ".github/workflows/digest-validation.yml"
   workflow_dispatch: {}
 
 permissions:
