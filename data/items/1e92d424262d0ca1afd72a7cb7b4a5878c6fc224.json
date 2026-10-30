@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "AWS Glue Data Catalog 现已支持 OAuth 用于 Apache Iceberg REST Catalog API",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/glue-catalog-oauth-iceberg-rest",
-  "last_seen_at": "2026-10-30T19:05:29.956327Z",
+  "last_seen_at": "2026-10-30T19:31:53.987618Z",
   "summary": "AWS Glue Data Catalog 现已支持使用 AWS 登录对 Apache Iceberg REST Catalog（IRC）API 进行 OAuth 2.0 不记名令牌身份验证。Apache Iceberg REST Catalog 规范将 OAuth 2.0 定义为其标准身份验证机制，Apache Spark、Trino 和 Apache Flink 等查询引擎则在本地实施该机制。除了 AWS 签名版本 4（SigV4），这些引擎和外部集成合作伙伴现在还可以使用标准 OAuth 2.0 不记名令牌对 Glue Data Catalog Iceberg 端点进行身份验证。 现在，您可以授予合作伙伴对您的 Iceberg 表的联合访问权限，而无需分发 AWS 证书。使用 OAuth 2.0 Token Exchange（RFC 8693），您可以用 OpenID Connect（OIDC）身份令牌换取短期的、限定于 Glue 范围的不记名令牌，并按照 Iceberg 生态系统中通用的基于标准的模式将后者包含在 IRC 请求中。访问仍受 AWS IAM 和 AWS Lake Formation 权限限制。常见使用案例包括使第三方分析和数据云平台能够通过一个一致的身份验证路径查询 Glue Data Catalog 中的表。 此功能现已在提供 AWS Glue 和 Lake Formation 的所有 AWS 区域推出。要了解更多信息，请参阅 AWS Glue User Guide 和 AWS Sign-In User Guide 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/glue/latest/dg/connect-glu-iceberg-rest.html",
