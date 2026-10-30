@@ -1,0 +1,55 @@
+{
+  "id": "162a10e94962f1d7289a0eebdc782a9cbce20d36",
+  "published_at": "2026-09-29T09:00:00Z",
+  "first_seen_at": "2026-10-30T14:05:31.496955Z",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "MCP Blog",
+  "title": "The Official Ruby SDK for MCP Reaches Tier 1",
+  "url": "https://blog.modelcontextprotocol.io/posts/ruby-sdk-tier-1",
+  "last_seen_at": "2026-10-30T14:05:31.496955Z",
+  "summary": "The official Ruby SDK for the Model Context Protocol is now a Tier 1 SDK under the MCP SDK tiering system, with full support for the 2026-07-28 specification revision and a 100% conformance pass rate across both scored spec revisions.",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "mcp_blog",
+    "name": "MCP Blog",
+    "feed_url": "https://blog.modelcontextprotocol.io/index.xml"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "mcp_blog",
+    "name": "MCP Blog",
+    "domain": "blog.modelcontextprotocol.io",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://blog.modelcontextprotocol.io/posts/ruby-sdk-tier-1",
+      "article_host": "blog.modelcontextprotocol.io",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "538509a2381cc839f25920bdaa5ce0fede5e259a08c1cfd546fc1391e743dcb9",
+    "scope_id": "mcp_blog",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}
