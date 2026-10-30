@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon OpenSearch Service 在 Amazon S3 中引入了对日志和文档的智能摄取",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/amazon-opensearch-intelligent-ingestion-logs-documents-s3",
-  "last_seen_at": "2026-10-30T18:28:40.193463Z",
+  "last_seen_at": "2026-10-30T19:05:29.956327Z",
   "summary": "Amazon OpenSearch 无服务器现在提供了智能摄取，这是一项完全托管式功能，可将存储在 Amazon S3 中的日志和文档转换为 Amazon OpenSearch 无服务器（NextGen）集合中的可搜索内容。借助智能摄取，您只需在 AWS 管理控制台中点击几下或进行一次 API 调用即可设置摄取，无需管理摄取基础设施。智能摄取支持 JSON、NDJSON 和 JSON 数组格式的可观测性日志和结构化数据，以及 PDF、Word、纯文本和 Markdown 格式的非结构化文件。 您只需选择 S3 源和集合索引，其余工作由智能摄取完成。它会自动检测数据类型、解析文档、描述图像、将文本分块、生成向量嵌入以及为结果编制索引。您无需管理摄取或文档处理基础设施，也无需事先调整容量大小。对于迁移和回填等一次性加载操作，请使用摄取作业；如需在新对象到达存储桶时保持索引同步，请使用摄取流。容量会随工作负载而扩展，最高可达到集合的配置上限，并且您只需为活跃处理付费。源 S3 存储桶可以与集合位于同一 AWS 账户中，也可以位于不同的账户中。 对于日志和结构化数据，智能摄取可以应用转换并有选择地添加嵌入，无需管道代码。对于非结构化数据，它可以解析 PDF、Word、纯文本和 Markdown 文件，同时完整保留标题、阅读顺序和表格，从而将内容纳入可用于语义搜索和混合搜索的索引。当文档包含图表、示意图、屏幕截图或照片时，视觉语言模型会生成与周围内容一起编入索引的文本描述，使视觉信息也可搜索。 目前，以 Amazon S3 为来源的 Amazon OpenSearch 无服务器（NextGen）集合现已在七个 AWS 区域提供智能摄取。要开始使用，请打开 Amazon OpenSearch Service 控制台，选择您的集合，然后选择“摄取”选项卡。要了解更多信息，请参阅“Amazon OpenSearch Service 开发人员指南”中的 智能摄取 。有关定价，请参阅 Amazon OpenSearch Service 定价 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-intelligent-ingestion.html",
