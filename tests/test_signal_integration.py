@@ -101,6 +101,7 @@ def test_main_writes_one_v2_bundle_and_preserves_price_sensor(generation):
     assert status["failed_sites"] == [] and status["successful_sites"] == 3
     assert status["translations"].get("request_count",0) == 0
     assert status["ai_summaries"]["enabled"] is False
+    assert status['news_quality']['counts']['selected_events'] == len(daily['items'])
     assert len(list((output/"items").glob("*.json"))) == 2
 
 
@@ -121,6 +122,10 @@ def test_main_event_failure_keeps_general_price_but_disables_governed_views(gene
     assert u.main() == 0
     assert read(output,"stories-merged.json")["publisher_governance"]["status"] == "unavailable"
     assert read(output,"daily-brief.json")["items"] == []
+    quality = read(output,'source-status.json')['news_quality']
+    assert quality['counts']['selected_events'] == 0
+    assert quality['event_generation_status'] == 'unavailable'
+    assert all('event_projection_unavailable' in r['reason_codes'] for r in quality['articles'])
     assert read(output,"latest-24h.json")["items_ai"]
     assert len(read(output,"market-signals.json")["signals"]) == 1
     assert browser_result(output) == {"ready":False,"count":0,"radar":0}

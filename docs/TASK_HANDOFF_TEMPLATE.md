@@ -1,8 +1,8 @@
 # 小任務檢查點與交接模板
 
-配合 [DIGEST_PLAN](DIGEST_PLAN.md)。專案持久狀態記在該臺帳與
+配合 [TASK_LEDGER](TASK_LEDGER.md)。專案持久狀態記在該臺帳與
 [HANDOVER](HANDOVER.md) 最新節；本模板填寫後的執行紀錄、log、patch、
-樣本日報放 `/Users/lordmi/Downloads/` 的唯一任務目錄。
+驗證樣本放 `/Users/lordmi/Downloads/` 的唯一任務目錄。
 
 ## 使用方式
 

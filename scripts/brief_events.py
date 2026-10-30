@@ -19,10 +19,11 @@ from typing import Any, Callable
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 try:
-    from scripts import corroboration, publisher_material
+    from scripts import corroboration, publisher_material, article_versions
 except ModuleNotFoundError:  # direct generator invocation
     import corroboration
     import publisher_material
+    import article_versions
 
 UTC = timezone.utc
 VERSION = "brief-event-v1"
@@ -500,6 +501,8 @@ def build_brief_events(*, stories: list[dict[str, Any]], archive_records: list[d
         if target:
             alias = copy.deepcopy(target)
             alias.row = by_id[rid]
+            if alias.row.get("article_superseded_by"):
+                alias.effective = parse(alias.row.get("published_at")) or parse(alias.row.get("first_seen_at")) or alias.effective
             claims.append(alias)
     by_key: dict[str, Group] = {}
     old_by_hash: dict[str, dict[str, Any]] = {}
@@ -613,6 +616,8 @@ def build_brief_events(*, stories: list[dict[str, Any]], archive_records: list[d
             investment = publisher_material.investment_signature(title)
             if investment:
                 bounded_reports[("investment", *investment)].append(claim)
+            elif (earnings := article_versions.earnings_signature(claim.row)):
+                bounded_reports[("earnings_results", *earnings)].append(claim)
     for members in bounded_reports.values():
         anchors = []
         for claim in sorted(members, key=lambda c: (c.effective, str(c.row["id"]))):
@@ -652,7 +657,8 @@ def build_brief_events(*, stories: list[dict[str, Any]], archive_records: list[d
                 subject = "article:" + hashlib.sha256((url_key(c.row.get("url")) or str(c.row["id"])).encode()).hexdigest()
                 c.key = key_for(subject, "article")
                 c.subject, c.action = subject, "article"
-            g = new_group(article_anchor.get(str(c.row["id"]), c))
+            target = str(c.row.get("article_superseded_by") or c.row["id"])
+            g = new_group(article_anchor.get(target, original_claims.get(target, c)))
             g.attach(c)
 
     events, persisted, errors = [], retained.copy(), []
@@ -769,6 +775,8 @@ def build_brief_events(*, stories: list[dict[str, Any]], archive_records: list[d
         eligible_current_ids = {str(c.row["id"]) for c in current if str(c.row["id"]) in active_ids and not c.unknown_update}
         refs = []
         for c in sorted(g.claims, key=lambda c: str(c.row["id"])):
+            if c.row.get("article_superseded_by"):
+                continue
             rid = str(c.row["id"])
             r = {**c.row, **display.get(rid, {})}
             pub, status = corroboration.identity(c.row)
@@ -809,7 +817,11 @@ def build_brief_events(*, stories: list[dict[str, Any]], archive_records: list[d
         persisted[eid] = entry
         base.update({"brief_event_id": eid, "story_id": eid, "identity": identity,
             "member_story_ids": sorted({sid for c in current for sid in seed_stories[str(c.row["id"])]}),
-            "member_article_ids": sorted(str(c.row["id"]) for c in g.claims), "sources": refs, "items": refs,
+            "member_article_ids": sorted(r["id"] for r in refs), "sources": refs, "items": refs,
+            "history_article_ids": sorted(str(c.row["id"]) for c in g.claims if c.row.get("article_superseded_by")),
+            "raw_record_count": len(g.claims),
+            "article_count": len({article_versions.article_key(r) or r["id"] for r in refs}),
+            "independent_publisher_count": count,
             "primary_item": primary_item, "title": primary_row.get("title_bilingual") or primary_row.get("title") or "",
             "url": primary_row.get("url") or "", "primary_url": primary_row.get("url") or "",
             "source": primary_row.get("source") or "", "source_name": primary_row.get("site_name") or primary_row.get("source_name") or "",
@@ -825,7 +837,7 @@ def build_brief_events(*, stories: list[dict[str, Any]], archive_records: list[d
             "active_phase_id": active["phase_id"], "eligible": effective <= now <= expire,
             "eligibility_reason": "in_window" if effective <= now <= expire else "expired",
             "match_evidence": [{"rule_id": c.rule, "strength": c.strength, "article_id": str(c.row["id"]),
-                                "basis": (sorted(c.facts) if c.facts else [c.key]) + c.spans, "conflicts": []} for c in sorted(g.claims, key=lambda c: str(c.row["id"]))],
+                                "basis": (sorted(c.facts) if c.facts else [c.key]) + c.spans, "conflicts": []} for c in sorted(g.claims, key=lambda c: str(c.row["id"])) if not c.row.get("article_superseded_by")],
             "unknown_update_article_ids": sorted(str(c.row["id"]) for c in g.claims if c.unknown_update)})
         events.append(base)
     state = {"record_type": "brief_event_state", "schema_version": 1, "matcher_version": VERSION,

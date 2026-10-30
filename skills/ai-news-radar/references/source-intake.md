@@ -2,6 +2,17 @@
 
 Use this when evaluating a new information source for AI News Radar.
 
+## Current material boundary
+
+First-party evidence must be native official RSS/Atom text or readable official
+webpage prose. Discovery links and short feed titles support only what they state.
+Existing media reporting retains its source/use policy. PDF, office and media
+attachments are excluded; do not implement PDF/table parsing, OCR, transcription
+or derived financial metrics. Embedded tables/media do not supply missing prose.
+Keep source handling limited to native text. Do not add manual document-evidence
+imports or attachment-parser state/history to compensate for missing prose.
+No text access means hold, not an attachment fallback.
+
 ## Intake Questions
 
 Before implementation, answer these from the URL, repo, or user's message:

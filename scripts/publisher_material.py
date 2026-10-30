@@ -190,8 +190,8 @@ def financial_clauses(title, summary, companies, finance):
 IPO = re.compile(r"(?<![a-z])IPO(?![a-z])|(?<![a-z0-9])S[-‐‑–]?1(?:/A)?(?![a-z0-9])|首次公開募股|首次公开募股|上市申請|上市申请|招股", re.I)
 IPO_ACTION = re.compile(r"\b(?:files?|filed|submits?|submitted)\b|(?:公開|公开)?(?:遞交|递交|提交|申報|申报)|正式(?:啟動|启动)", re.I)
 IPO_NON_FILING = re.compile(r"\b(?:amend\w*|withdraw\w*|cancel\w*|priced?|pricing|debut|listing|listed|S-1/A)\b|撤回|撤銷|撤销|修訂|修订|定價|定价|掛牌|挂牌", re.I)
-FINANCIAL_METRIC = re.compile(r"\b(?:revenue|earnings|net (?:income|profit|loss)|IPO proceeds)\b|營收|营收|財報|财报|淨利|净利|淨損|净损|上市募資|上市募资", re.I)
-FINANCIAL_VALUE = re.compile(r"(?:\$|USD|NT\$|美元|新臺幣|新台幣|人民幣|人民币)\s*\d|\d[\d.,]*\s*(?:%|percent|(?:萬|万|億|亿|兆)?\s*(?:美元|元)|million|billion)", re.I)
+FINANCIAL_METRIC = re.compile(r"\b(?:revenue|earnings|net (?:income|profit|loss)|(?:free |operating )?cash flow|capex|capital expenditures?|IPO proceeds)\b|營收|营收|財報|财报|淨利|净利|淨損|净损|現金流|现金流|資本支出|资本支出|上市募資|上市募资", re.I)
+FINANCIAL_VALUE = re.compile(r"(?:\$|USD|NT\$|美元|新臺幣|新台幣|人民幣|人民币)\s*[-−(]?\s*\d|[-−]?\d[\d.,]*\s*(?:%|percent|(?:萬|万|億|亿|兆)?\s*(?:美元|元)|million|billion)", re.I)
 
 
 def ipo_filing_entity(title, summary):
@@ -232,6 +232,8 @@ def financial_support(title, summary, companies, finance, period):
     if ipo_filing_entity(title, summary):
         return True
     for clause in financial_clauses(title, summary, companies, finance):
+        if re.search(r'\b(?:expects?|forecast|guidance|will report|set to report|prepares to report)\b|預計|预计|預測|预测', clause, re.I):
+            continue
         if FINANCIAL_METRIC.search(clause) and FINANCIAL_VALUE.search(clause) and (period.search(clause) or period.search(title)):
             return True
         # A completed IPO fundraising report need not repeat a financial period.

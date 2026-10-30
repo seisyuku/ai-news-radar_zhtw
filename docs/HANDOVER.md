@@ -1,4 +1,30 @@
-# AI News Radar Pulse — 交接摘要（截至 2026-10-28）
+# AI News Radar Pulse — 交接摘要（截至 2026-10-30）
+
+## 2026-10-30 新聞品質與來源首段整合（本機已驗證，未發布）
+
+已整合新聞同URL版本歷史與最新內容投影、來源／篩選／事件／入選排除原因，以及Juya線索的有界官方純文字政策查漏。僅一份當期對照早報、最多兩個直接官方政策正文；沒有新增排程或任意連結爬取，未知原發布時間保持first_observed，不補造發布日期。
+一併整合Hugging Face首段補讀／翻譯展示、今日重點摘要優先、來源摘要回退、金額譯文修正及既有補位分數相容修正。前端共同版本20261030-quality1；維持AI門檻與24h窗口、來源治理與用途限制。
+私人早報整組移除與PDF／多媒體附件不作證據的裁決保持。實作已落於正式專案工作目錄，完整1913項回歸通過；固定輸入與候選結果一致，原始7489筆新聞內容保留，官方文字查漏與Hugging Face首段回放通過。沒有commit、push、部署或改線上設定。完整交接：/Users/lordmi/Downloads/ai-news-quality-integration-20261030/HANDOFF.md。
+
+
+## 2026-10-30 私人早報程式移除（本機已驗證，未發布）
+
+已移除31個私人生成／派送／Drive／雲端校稿模組、27份專用測試、3份workflow、專用雲端依賴、18份舊操作／設計文件、3頁私人工具說明及1份部署範本；同步清理一般CI引用。RSS原文連結測試改驗公開新聞archive及故事來源投影。完整階段交接位於 /Users/lordmi/Downloads/ai-news-private-digest-removal-20261030/HANDOFF.md。
+
+公開新聞與既有核准保留功能不變，私人稿件／Drive／憑證／資料與state未刪改。本機全套離線驗證已通過：正式1817項、候選1913項；兩版本各7503個同輸入輸出內容一致，僅7項實測耗時不同。沒有commit、push、部署或改遠端設定。遠端手動雲端合約流程仍以發布前狀態為準；不能因本機刪檔宣稱遠端已移除。
+
+
+## 2026-10-30 保留方向確認
+
+維護者另確認「細粒度文字資格判斷」為正確修改，須保留，排除於後續統一移除清單。共用內容排除、核心事件材料資格與補位判斷維持；不改兩區各自的門檻、權重或排序。
+
+維護者追加確認：品質追蹤與排除原因，以及T04目前保留的通用API／手動診斷／結果通知串接，均屬正常功能改進，須排除於後續統一移除清單。T04已退役的Gemini新聞摘要備援與專用排程不恢復、不重測；本次確認不改動既有參數或線上狀態。
+
+維護者明確確認Hugging Face首段補讀與補位影響評分均為正確修改，須保留；橘鴉接入、官方文字追取與精選／重點訊號篩選亦維持。後續統一清理不得將這些項目視為擴張功能而移除。此回合只更新決策記錄，沒有修改程式、參數或排程。
+
+## 2026-10-30 私人早報移除裁決
+
+先前「只標記、暫不實作」已由維護者本次要求開始實作取代。橘鴉（Juya）外部來源、直接官方純文字追取、精選／本日重點訊號、公開daily-brief均保留，與私人早報生成器分離。詳細範圍與進度見[TASK_LEDGER](TASK_LEDGER.md#私人早報功能移除2026-10-30)。
 
 ## 2026-10-28 重點摘要與 Hugging Face 首段翻譯補修
 
@@ -31,6 +57,8 @@ Downloads `ai-radar-source-audit-20261028/` 保存原始公開快照、同輸入
 最終 **2,401 項完整測試通過**；固定 09:05 快照一般池 207→201、daily 6→4，AI 分數保持。11:06 臺北公開刷新失敗／降級 0，事件／治理 ready 且前端資料驗證通過。沒有強湊五則或放寬門檻。
 
 正式發布完成：`aaba6389dbb0` 整合到最新 master，保留已發布的 impact2 修正與 bot 歷史；完整 2,402 項通過。master CI `40626275722`、程式 Pages `40626275654`、公開刷新 `40626297765` 及資料 Pages `40626443195` 均成功。資料 `ff3912e294be`／臺北 11:22:43：171 一般 AI、4 重點（2 核心＋2 補位）、1 雷達、14/14 來源正常；28 篇 AIBase 都為 rank 4。16 個 HTTP 檔與 Git bytes 相同，實際瀏覽器確認新版重點與列表；861 舊根皆保留／alias 延續，原 initial／phase 時鐘未向後移。無下一必跑階段，僅例行刷新。
+
+T06 翻譯快取已[完成唯讀量測並結案](TRANSLATION_CACHE_T06_MEASUREMENT_20261026.md)：10/26 保存版本為 8,471,344 bytes／41,450 筆；10/01～10/26 五時點淨增 1,053,996 bytes。維護者裁決維持現況，原擬前瞻觀察窗與預警門檻均不啟動，無後續追蹤；未改快取、排程或 provider。
 
 T04 已依維護者裁決刪除 Gemini 新聞摘要備援並結案；不再提出重測、接線或啟用建議。
 僅保留通用 Gemini JSON API、手動連線診斷與結果通知機制，供另外明確指定的新用途使用。
@@ -761,7 +789,7 @@ T03 Groq 摘要回顧已依 10/18～10/24 既有 Git 快照完成，維持六則
 
 - 使用者要求繼續執行。當時臺北約02:00、10/12窗口尚未06:00截止，故明確以10/11歷史模式實跑新正式憑證，不保存未完成的10/12當期稿。[38162146429](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/38162146429)success，3則；pair/rerun/delivery_verified均true，storage_saved_at為2026-10-11T18:03:11.303087+00:00。仍是manual_historical／review-only，不算今天或每日準時達標；本輪新token已由runner消費。
 - 既有外部心跳近期:05／:35有成功工作；[38160263615](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/38160263615)guard真SOURCE heartbeat、30分鐘間隔並接管更新，確認可沿用。沒有登入或修改cron-job.org、PAT、刷新schedule與設定Doc。
-- 完成 [每日觸發具體提案](DIGEST_DAILY_TRIGGER_PROPOSAL.md)：A沿用既有刷新完成事件，通常07:35主嘗試／08:35補試；B專用外部07:15／08:15觸發。兩者都需明確接受GitHub觀測建立時間固定臺北期別，取代本路線歷史C02獨立持久intent issuer要求；未默默取消契約或直接啟排程。
+- 完成 [每日觸發具體提案（歷史；已移除）](DIGEST_RETIREMENT_HANDOFF_20261021.md)：A沿用既有刷新完成事件，通常07:35主嘗試／08:35補試；B專用外部07:15／08:15觸發。兩者都需明確接受GitHub觀測建立時間固定臺北期別，取代本路線歷史C02獨立持久intent issuer要求；未默默取消契約或直接啟排程。
 - 規劃當期已保存稿核對後跳過、第一次完成時間私人紀錄、人工校稿保留與部分保存停止；不新增交易服務、通知、來源刷新、LLM或私人稿公開發布。等待觸發選項與期別簡化方式裁決，尚未改產品程式或workflow。只做文件差異，diff check通過，不重跑本機完整套件或SHA核驗。
 - ROADMAP的舊PAT約10/17到期提醒與既有10/01使用者替換紀錄矛盾，已更正為使用者回報無到期日，沒有重建PAT或改續期政策。
 - 私人檢查點Downloads `ai-news-radar-daily-trigger-20261012/` 保存安全report、已觀測原稿／校稿真URL與交接；真URL／IDs不入repo。下一階段例行Sol／High，選A或B且接受期別方式後接線；每日尚未啟用。
@@ -796,7 +824,7 @@ T03 Groq 摘要回顧已依 10/18～10/24 既有 Git 快照完成，維持六則
 
 ## 2026-10-12 單人Drive契約已批准；手動GitHub交付接線
 
-- 使用者已許可簡化C02，現行單人路線以 [Drive交付操作](DIGEST_GOOGLE_DRIVE_DELIVERY.md) 及C02頂部2026-10-12決策為準。舊不可變/交易控制mock保留歷史，不新增服務、不拿舊要求阻塞此路線。
+- 使用者已許可簡化C02，現行單人路線以 [Drive交付操作（歷史；已移除）](DIGEST_RETIREMENT_HANDOFF_20261021.md) 及C02頂部2026-10-12決策為準。舊不可變/交易控制mock保留歷史，不新增服務、不拿舊要求阻塞此路線。
 - 新增 `digest_drive_delivery.py`，手動生成入口/workflow可選deliver_drive（預設false）。保存原始MD/meta並下載讀回，native原稿/獨立校稿副本，owner-only目的地及設定字段核對。同mode/issue/base重送讀取既有文件、不改人工副本；不同base停止，不自動换稿。部分保存失敗不宣稱成功，不清除或覆寫。
 - 新增12項必要接線測試，相關28通過，完整 **1042 passed in 5.72s**，編譯及diff check通過。未新增SHA清冊/遠端比對或重測手機語音。本機真API歷史審閱保存成功，原始pair/可讀原稿/副本讀回驗證；本機快照為10/03，對10/12資料不足、選題零則，不宣稱今日有效日報。
 - GitHub登入/儲存庫擁有者seisyuku及push權限確認；已用標準輸入設定GOOGLE_DRIVE_OAUTH_CREDENTIALS及GOOGLE_DRIVE_DIGEST_TARGET Secrets，未輸出值或寫repo。兩個名稱原先不存在，未改其他Secrets。
@@ -808,7 +836,7 @@ T03 Groq 摘要回顧已依 10/18～10/24 既有 Git 快照完成，維持六則
 ## 2026-10-12 iPhone新app校稿驗收與交付契約裁決（已批准，見頂部）
 
 - 使用者已確認iPhone新校稿副本顯示「校稿保存成功」。新app的API保存/內容/owner-only、connector可讀及手機開啟驗收完成，不重測既有連結或語音。
-- 自動續行檢查 [C02契約](DIGEST_CLOUD_CONTRACT.md)：它明確保留不可變MD/meta物件、交易式delivery/attempt/request receipts及revision控制為正式自動交付要求；目前Drive三份文件試用不具備這層控制。不能在未裁決下假定舊契約已取消，或擅自加交易服務。
+- 自動續行檢查 [C02契約（歷史；已移除）](DIGEST_RETIREMENT_HANDOFF_20261021.md)：它明確保留不可變MD/meta物件、交易式delivery/attempt/request receipts及revision控制為正式自動交付要求；目前Drive三份文件試用不具備這層控制。不能在未裁決下假定舊契約已取消，或擅自加交易服務。
 - 建議單人GitHub+Drive路線採簡化交付標準：私人保存原始MD/meta、native原稿及獨立校稿副本；程序不覆寫既有原稿/人工校稿，沿用pair核對，保存與讀回核對後標私人保存成功。清楚保留owner可手動修改Drive原稿及無跨檔原子交易的界線；生成/快照時效分開，不新增SHA查驗或保守驗證程序。本建議尚未批准，沒有修改C02條款或實作workflow。
 - 具體提案及交接存Downloads `ai-news-radar-desktop-auth-20261012/NEXT-DESIGN.md` / HANDOFF.md。需使用者決定簡化本路線的C02控制層要求，或保留原要求另行設計；決策前不新增服務、scope、GitHub secret、push、OAuth正式狀態或schedule。
 - 設計裁決建議Astra／High；確定後例行接線Sol／High。Google External/Testing七天期限仍是正式運作前需處理的外部設定。
@@ -825,7 +853,7 @@ T03 Groq 摘要回顧已依 10/18～10/24 既有 Git 快照完成，維持六則
 ## 2026-10-12 桌面Google Drive授權準備
 
 - 使用者已回報專案ID/編號、Drive/Docs APIs、External/Testing自己為test user及僅`drive.file`範圍完成。商業與私人帳號須隔離；使用專用profile或新無痕工作階段，先確認帳號和專案。以上控制台狀態為使用者回報。
-- 使用者指定Downloads桌面client JSON；僅核對installed格式、專案ID及必要欄位，未輸出密鑰。改用 [桌面授權入口](DIGEST_GOOGLE_DRIVE_AUTH.md)，修正先前device flow適用性判斷。新增PKCE/state、127.0.0.1暫時listener、15分鐘超時、錯Host/state拒絕及私密保存；不自動開瀏覽器。
+- 使用者指定Downloads桌面client JSON；僅核對installed格式、專案ID及必要欄位，未輸出密鑰。改用 [桌面授權入口（歷史；已移除）](DIGEST_RETIREMENT_HANDOFF_20261021.md)，修正先前device flow適用性判斷。新增PKCE/state、127.0.0.1暫時listener、15分鐘超時、錯Host/state拒絕及私密保存；不自動開瀏覽器。
 - 23項新桌面合成測試與25項歷史測試共48通過；配置現有bundled Node至本次PATH後全套 **1030 passed in 5.57s**，py_compile與diff check通過。先前測試因Downloads父目錄缺少而出現4項setup errors；第一輪全套因PATH沒有node出現39項前端測試失敗，配置既有runtime後完整重跑通過，未為環境問題改產品程式。
 - 真Google登入同意已完成：使用者回報「Response received」，本輪CLI正常exit 0、回報authorized/credentials_saved。私人檔案讀回核對有refresh token及client欄位、scope僅drive.file、Bearer、未保存access token，檔案0600/目錄0700。授權流程不要求profile/email，故未藉token獨立辨認帳號信箱；帳號由使用者在隔離瀏覽器選取。
 - 下一步為使用新app建立合成原稿/校稿/設定，保存讀回與owner-only ACL、iPhone/Chat connector可讀驗收；不能直接假設既有connector試用文件對此app已授權。沒有Drive寫入、GitHub secret、push、啟排程或新增SHA比對。External/Testing為短期授權驗證，正式自動化前須處理7天refresh token期限。
@@ -835,21 +863,21 @@ T03 Groq 摘要回顧已依 10/18～10/24 既有 Git 快照完成，維持六則
 
 - 使用者選擇「建立日報專用專案」，選型已定，不再詢問是否沿用舊專案。已在登入中的Google Cloud控制台填入 `AI News Radar Daily` 並提交；表單曾顯示候選ID，跳到creatingProject頁，但沒有可驗證的成功結果。
 - 控制台的近期專案、通知、資源選擇器及目標專案核對頁持續顯示載入錯誤；核對頁按「重試」一次後仍無法載入。**專案是否建立成功未知**，不得將候選ID當成正式配置、重複建立或在未知專案啟API/client。
-- [Google專案建立交接](DIGEST_GOOGLE_PROJECT_SETUP.md)。下一動作由使用者在iPhone控制台搜尋 `AI News Radar Daily`，回報是否出現及實際專案ID；不重做已完成的Drive文件手機測試。
+- [Google專案建立交接（歷史；已移除）](DIGEST_RETIREMENT_HANDOFF_20261021.md)。下一動作由使用者在iPhone控制台搜尋 `AI News Radar Daily`，回報是否出現及實際專案ID；不重做已完成的Drive文件手機測試。
 - 未連結帳單、啟Drive/Docs API、建立OAuth client、簽發憑證、改workflow、push或啟排程。程式沒有改動，本輪不重跑歷史1007項測試，亦不新增SHA查驗。
 - 檢查點 `/Users/lordmi/Downloads/ai-news-radar-google-project-20261011/` 保存狀態、錯誤畫面及交接。例行接線Sol／High；新的身份／交易裁決再用Astra／High。
 
 ## 2026-10-11 iPhone確認與個人Google授權準備完成
 
 - 使用者確認三份Google文件均可於iPhone開啟，校稿內容吻合，使用一般Google帳號。新連結手機驗收完成，不再要求重做；不擴大為跨帳號／匿名拒絕已驗。
-- 使用者回報citation控制碼外露，後續改普通Markdown文字連結；[正式交付顯示規則與授權入口](DIGEST_GOOGLE_DRIVE_AUTH.md)。已把手機確認、帳號類型及顯示偏好寫回設定文件並讀回；不改原稿或校稿、不變分享。
+- 使用者回報citation控制碼外露，後續改普通Markdown文字連結；[正式交付顯示規則與授權入口（歷史；已移除）](DIGEST_RETIREMENT_HANDOFF_20261021.md)。已把手機確認、帳號類型及顯示偏好寫回設定文件並讀回；不改原稿或校稿、不變分享。
 - 新增Google Drive-file-only手機device authorization helper及25項合成測試；全套 **1007 passed in 5.84s**。沒有呼叫真Google授權、建立OAuth app、讀取真憑證、設GitHubsecret或改workflow。手機登入短碼只在有專案client後才產生，不製造預先可用的授權連結。
 - 下一個需要使用者決定的項目是 **Google Cloud專案：使用現有專案或新建日報專用專案**。決定後再準備API/client與手機授權。生成仍在GitHub、Cloudflare延後、沒有啟每日保存或排程；沒有新增SHA查驗。
 - 完整交接：`/Users/lordmi/Downloads/ai-news-radar-drive-auth-prep-20261011/HANDOFF.md`。例行授權接線Sol／High；若需新身份或交易裁決，Astra／High。
 
 ## 2026-10-10 C08-D Google Drive校稿與設定試用完成
 
-- 使用者選擇先嘗試Google Drive，已以現有connector完成 [校稿與設定實測](DIGEST_GOOGLE_DRIVE_TRIAL.md)。建立設定、合成原稿及native校稿副本；修改副本讀回正確，原稿內容/revision未改。舊revision寫入被400拒絕，讀回沒有副作用。
+- 使用者選擇先嘗試Google Drive，已以現有connector完成 [校稿與設定實測（歷史；已移除）](DIGEST_RETIREMENT_HANDOFF_20261021.md)。建立設定、合成原稿及native校稿副本；修改副本讀回正確，原稿內容/revision未改。舊revision寫入被400拒絕，讀回沒有副作用。
 - 設定的合成JSON已讀回解析；只是設定保存試用，尚未供生成程式消費。三份文件及目的資料夾的權限metadata只列owner／shared=false；未變更分享，匿名/另一帳號拒絕與iPhone開啟仍待驗。
 - 本輪精確搜尋未找到舊C01文件，不推定手機與桌面Google帳號相同。請手機開校稿副本核對「校稿保存成功」，並確認一般Google帳號或Workspace，才能決定下一段GitHub寫入授權。
 - GitHub生成位置與06～06窗口保持。connector不是GitHub的已配置憑證；正式寫入需要專案自己的Google授權，Cloudflare繼續延後。
@@ -859,7 +887,7 @@ T03 Groq 摘要回顧已依 10/18～10/24 既有 Git 快照完成，維持六則
 ## 2026-10-10 最新範圍校正：先完成 GitHub 生成，Cloudflare 接入延後
 
 - 使用者確認架構 A 的生成在 GitHub；Cloudflare 是正式私人保存／手機入口的候選，不能當作生成前置。先前將帳號、預算視為下一步阻塞的安排已撤回。下方 C09 停點是歷史紀錄，以本節為目前入口。
-- [C08-G GitHub 生成與驗證](DIGEST_GITHUB_GENERATION.md)：新增直接讀 checkout 的生成入口與手動 workflow，產生 MD/meta、配對核對及確定性重跑；不呼叫遠端查 SHA 或建立程式雜湊清冊。保留既有稿件完整性核對。
+- [C08-G GitHub 生成與驗證（歷史；已移除）](DIGEST_RETIREMENT_HANDOFF_20261021.md)：新增直接讀 checkout 的生成入口與手動 workflow，產生 MD/meta、配對核對及確定性重跑；不呼叫遠端查 SHA 或建立程式雜湊清冊。保留既有稿件完整性核對。
 - 生成、私人持久保存、手機閱讀／校稿分開驗收。新工作回 `delivery_verified=false`；runner 收尾清除私人稿，只留安全摘要。每日外部觸發、跨工作去重、保存與手機交付仍未接通。
 - 原 C07～C08 模擬及 Cloudflare 本機試驗保留為後續參考，不把它們當成本階段前置。既有來源刷新／Pages／驗證 schedule 未改。
 - 本輪初次相關75項通過；最終全套 **982 passed in 5.40s**，Python編譯、workflow shell／YAML與差異檢查通過。新增workflow變更納入原Offline tests的push/PR路徑範圍；既有schedule未改。
@@ -870,30 +898,30 @@ T03 Groq 摘要回顧已依 10/18～10/24 既有 Git 快照完成，維持六則
 ## 2026-10-10 自動工作重新核對：C08 本機完成，C09 待外部設定
 
 - 最終完整 **966 passed in 5.19s**；Python 編譯、JavaScript 語法、workflow 結構與差異檢查通過。重啟後沿既有檢查點核對，沒有清除先前工作。
-- [C08 本機工作協調](DIGEST_CLOUD_JOBS.md) 已完成可信模擬意圖、生成前排他 guard、固定 commit、租約與最多三次 execution、通知去重計畫及公開摘要白名單。修正暫時失敗被標為終態、重新生成時間污染去重，以及提交成功後協調紀錄失敗的恢復問題。
-- Python MCP/crypto 直接打包至 Workers 的實際試驗失敗；改用 TypeScript 身份/MCP 外層經私人 binding 呼叫同一 Python 核心，本機已驗證授權、保存讀回與重開持久性。詳見 [runtime 證據](DIGEST_CLOUD_RUNTIME.md)，這仍是合成試驗。
+- [C08 本機工作協調（歷史；已移除）](DIGEST_RETIREMENT_HANDOFF_20261021.md) 已完成可信模擬意圖、生成前排他 guard、固定 commit、租約與最多三次 execution、通知去重計畫及公開摘要白名單。修正暫時失敗被標為終態、重新生成時間污染去重，以及提交成功後協調紀錄失敗的恢復問題。
+- Python MCP/crypto 直接打包至 Workers 的實際試驗失敗；改用 TypeScript 身份/MCP 外層經私人 binding 呼叫同一 Python 核心，本機已驗證授權、保存讀回與重開持久性。詳見 [runtime 證據（歷史；已移除）](DIGEST_RETIREMENT_HANDOFF_20261021.md)，這仍是合成試驗。
 - 新增手動合成合約 workflow；修正既有兩份驗證 workflow 的測試暫存目錄，使其符合 Downloads 路徑規則。既有觸發時刻未改，尚未於 GitHub 執行這批新變更。
-- [C09 部署前置與設定範本](DIGEST_CLOUD_DEPLOYMENT_GATE.md) 可審閱；本機未有可用 Cloudflare 登入設定，月費上限及真 OAuth 尚未指定。正式持久控制／intent issuer／交付 workflow、C01b 手機自建工具、C10a～C12 驗收仍未完成。沒有部署、啟用新排程或發送通知。
+- [C09 部署前置與設定範本（歷史；已移除）](DIGEST_RETIREMENT_HANDOFF_20261021.md) 可審閱；本機未有可用 Cloudflare 登入設定，月費上限及真 OAuth 尚未指定。正式持久控制／intent issuer／交付 workflow、C01b 手機自建工具、C10a～C12 驗收仍未完成。沒有部署、啟用新排程或發送通知。
 - 完整自動工作交接：`/Users/lordmi/Downloads/ai-news-radar-cloud-20261009/AUTO-C07-C09-20261010/HANDOFF.md`。下一步 **C09 配置與 provider 定案審查，Astra／High**；定案後例行接線用 GPT-6.1 Sol／High。
 
 ## 2026-10-10 C07b／C07c 本機接入完成
 
-- [Runtime、身份與MCP證據](DIGEST_CLOUD_RUNTIME.md)。C07b實際workerd本機試驗通過DO交易、R2條件寫入、程序重開與版本重送；C07c resource-server使用官方SDK及RS256 owner/scope驗證，HTTP讀寫／讀回與未授權拒絕通過。
+- [Runtime、身份與MCP證據（歷史；已移除）](DIGEST_RETIREMENT_HANDOFF_20261021.md)。C07b實際workerd本機試驗通過DO交易、R2條件寫入、程序重開與版本重送；C07c resource-server使用官方SDK及RS256 owner/scope驗證，HTTP讀寫／讀回與未授權拒絕通過。
 - 此階段新增15項C07c測試；階段完整 **953 passed in 3.55s**。真OAuth登入、JWKS／撤銷與C01b手機自建外掛仍待驗；後續套件打包失敗及替代試驗見頂部最新交接，不能將本機成功稱為正式接通。
 - C07b過程在Downloads/C07b-local-probe，C07c log與快照在Downloads/C07c-local（完整絕對路徑見runtime文件）。依使用者新授權自動繼續C08；模型建議仍為GPT-6.1 Sol／High。
 
 ## 2026-10-10 自動續行與 C07a 完成
 
 - 使用者授權自動執行至無可執行任務，並要求換模型後從此階段起點重新核對；這取代先前每到 High 就停止的續行限制。平台帳號、實際預算、登入與實機證據仍須具體確認，不能假設存在。
-- C07a 已抽出 [純校稿交易規則](../scripts/digest_cloud_editorial_rules.py)、[儲存與身份介面](../scripts/digest_cloud_ports.py)，服務透過交易回傳的結果保存成功／永久拒絕 receipt，再在交易外回報錯誤。既有 mock 與預覽相容。
-- [共用 JSON/identity](../scripts/digest_json.py) 與 [bytes 配對核對](../scripts/digest_integrity.py) 避免雲端校稿服務匯入新聞生成器；`digest_document` 與檔案核對入口保留原 API 與既有核對規則。
-- [SQLite 交易邊界測試](../tests/test_digest_cloud_ports.py) 驗證拒絕紀錄、重開後重送、後續版本不被舊回應覆蓋，以及授權失敗先於儲存操作；SQLite adapter 僅為測試 fixture。另驗證檔案/bytes 邊界均拒絕竄改及錯誤編碼。
+- C07a 已抽出 純校稿交易規則（歷史路徑：`scripts/digest_cloud_editorial_rules.py`）、儲存與身份介面（歷史路徑：`scripts/digest_cloud_ports.py`），服務透過交易回傳的結果保存成功／永久拒絕 receipt，再在交易外回報錯誤。既有 mock 與預覽相容。
+- 共用 JSON/identity（歷史路徑：`scripts/digest_json.py`） 與 bytes 配對核對（歷史路徑：`scripts/digest_integrity.py`） 避免雲端校稿服務匯入新聞生成器；`digest_document` 與檔案核對入口保留原 API 與既有核對規則。
+- SQLite 交易邊界測試（歷史路徑：`tests/test_digest_cloud_ports.py`） 驗證拒絕紀錄、重開後重送、後續版本不被舊回應覆蓋，以及授權失敗先於儲存操作；SQLite adapter 僅為測試 fixture。另驗證檔案/bytes 邊界均拒絕竄改及錯誤編碼。
 - 模型重啟後首輪相關 69 項通過、首輪全套 932 項通過；完成共用 bytes 抽取後最終 **938 passed in 3.51s**。下一步 C07b 候選平台本機 runtime 試驗，已準備隔離工具與合成資料，尚未宣稱平台驗收。
 - C07a 檢查點：`/Users/lordmi/Downloads/ai-news-radar-cloud-20261009/C07a-20261010-023104/`。本輪尚無正式雲端服務、真登入或排程啟用。
 
 ## 2026-10-09 C07 雲端接入審查完成
 
-- [C07 審查、裁決與下一步](DIGEST_CLOUD_C07_REVIEW.md)：架構 A 有條件可行，C07 實作與線上驗收仍未完成。C01a 現成外掛代理驗證完成；C01b 自建工具的手機登入與讀寫保留待驗。
+- [C07 審查、裁決與下一步（歷史；已移除）](DIGEST_RETIREMENT_HANDOFF_20261021.md)：架構 A 有條件可行，C07 實作與線上驗收仍未完成。C01a 現成外掛代理驗證完成；C01b 自建工具的手機登入與讀寫保留待驗。
 - C05 與記憶體私有欄位直接耦合，不能只換儲存設定。特別是記下永久拒絕後拋錯的做法，移入真正資料庫交易會回滾 receipt；先拆出規則與交易邊界，再接平台。
 - 優先評估 Workers + SQLite-backed Durable Objects + 私人 R2；Python 執行相容性、身份服務、帳號及費用尚待驗證／定案。Google Drive 不自動成為正式校稿資料庫。
 - 解開驗收次序：C07a～c 做本機接入準備，C09 準備具體部署設定，核准後 C10a 用受保護合成環境完成 C01b/C07 實機門檻，再進真日報；不以 mock 通過冒充雲端驗收。
@@ -910,10 +938,10 @@ T03 Groq 摘要回顧已依 10/18～10/24 既有 Git 快照完成，維持六則
 
 ## 2026-10-09 C06 合成私人網頁本機預覽完成
 
-- 新增 [C06 本機預覽服務](../scripts/digest_cloud_preview.py)、
+- 新增 C06 本機預覽服務（歷史路徑：`scripts/digest_cloud_preview.py`）、
   [手機尺寸介面](../private_preview/index.html)、
-  [操作與限制](DIGEST_CLOUD_PREVIEW.md)、
-  [五項驗收測試](../tests/test_digest_cloud_preview.py)。頁面直接使用 C05 的
+  [操作與限制（歷史；已移除）](DIGEST_RETIREMENT_HANDOFF_20261021.md)、
+  五項驗收測試（歷史路徑：`tests/test_digest_cloud_preview.py`）。頁面直接使用 C05 的
   原稿、校稿 revision 與選版 API，不另造一套編輯狀態。
 - 顯示期別、狀態、原稿、revision、來源及題號→story ID；可保留/排除、
   重排、聽寫欄位校稿、儲存讀回、還原、明確選版與匯出。寫入帶
@@ -925,7 +953,7 @@ T03 Groq 摘要回顧已依 10/18～10/24 既有 Git 快照完成，維持六則
 - 首次新測試有四個 fixture token 設定錯誤；第二輪有一個合成 slot 重複
   而被正確拒絕。修正測試配置後五項通過；最終完整離線套件
   **928 passed in 3.37s**，Python 編譯、JS 語法與差異檢查通過。
-- [C06 完整交接與 C07 精確入口](DIGEST_CLOUD_CONTRACT.md)。停於 C07 High，
+- [C06 完整交接與 C07 精確入口（歷史；已移除）](DIGEST_RETIREMENT_HANDOFF_20261021.md)。停於 C07 High，
   C01 現成外掛的手機能力代理查核已完成，真實專案工具仍待驗證。建議 **Astra／High** 審查路線，
   若只按已驗證平台接線可改 **GPT-6.1 Sol／High**。
   未部署、連外、啟用排程、取得憑證、修改真實私人稿或 commit/push。
@@ -933,8 +961,8 @@ T03 Groq 摘要回顧已依 10/18～10/24 既有 Git 快照完成，維持六則
 
 ## 2026-10-09 C05 校稿版本與匯出模擬完成
 
-- 新增 [C05校稿服務](../scripts/digest_cloud_editorial.py) 與
-  [驗收測試](../tests/test_digest_cloud_editorial.py)。同base的修改以revision條件交易，
+- 新增 C05校稿服務（歷史路徑：`scripts/digest_cloud_editorial.py`） 與
+  驗收測試（歷史路徑：`tests/test_digest_cloud_editorial.py`）。同base的修改以revision條件交易，
   語音/網頁並發只有一方成功；request去重保留首次結果及目前版本，不靜默覆蓋。
 - 可按story ID保留、排除、改標題/摘要、重排；restore建立新revision，
   無變更仍記receipt；owner明確選base後可匯出指定版本的可讀JSON。
@@ -944,15 +972,15 @@ T03 Groq 摘要回顧已依 10/18～10/24 既有 Git 快照完成，維持六則
 - F26～F33及C05適用的F34～F36合成測試通過；最終完整離線套件
   **923 passed in 3.35s**，程式編譯通過。首次一項測試預期錯誤已修正，
   命令/差異/文件檢查記於C05 checkpoint。
-- [C05完整交接與C06精確入口](DIGEST_CLOUD_CONTRACT.md)。停於C06前；
+- [C05完整交接與C06精確入口（歷史；已移除）](DIGEST_RETIREMENT_HANDOFF_20261021.md)。停於C06前；
   建議 **GPT-6.1 Sol／Medium**。未連網、部署、啟用排程、修改私人稿或commit/push。
 - C05交接證據：`/Users/lordmi/Downloads/ai-news-radar-cloud-20261009/C05-handoff/`。
 
 
 ## 2026-10-09 C04 本機保存與原子控制模擬完成
 
-- 新增 [C04本機假服務](../scripts/digest_cloud_mock.py) 與
-  [故障/併發測試](../tests/test_digest_cloud_mock.py)。上傳不可變原稿、讀回核對後，
+- 新增 C04本機假服務（歷史路徑：`scripts/digest_cloud_mock.py`） 與
+  故障/併發測試（歷史路徑：`tests/test_digest_cloud_mock.py`）。上傳不可變原稿、讀回核對後，
   以每期copy-on-write控制紀錄原子提交交付、request去重、嘗試終態與revision 0。
 - 真實時效只在模擬交易提交時取clock；09:00準時、90分鐘來源時效分開。
   上傳半途失敗、manifest失敗、資料損壞或補跑失敗都不清除先前成功稿。
@@ -961,7 +989,7 @@ T03 Groq 摘要回顧已依 10/18～10/24 既有 Git 快照完成，維持六則
 - 首次完整測試因PATH缺Node.js導致39個前端用例無法啟動、862通過；使用桌面
   附帶Node後最終完整 **903 passed in 3.06s**；此前相關 **101 passed in 0.74s**。
   編譯及文件/差異檢查結果、版本與快照在C04 checkpoint。
-- [完整契約、C04範圍及C05精確入口](DIGEST_CLOUD_CONTRACT.md)。停於C05前；
+- [完整契約、C04範圍及C05精確入口（歷史；已移除）](DIGEST_RETIREMENT_HANDOFF_20261021.md)。停於C05前；
   建議 **GPT-6.1 Sol／High**，若revision交易一致性有難題再用Astra／High。
 - 未連網、部署、啟用排程、取得憑證、修改私人稿或commit/push。
 - C04交接證據：`/Users/lordmi/Downloads/ai-news-radar-cloud-20261009/C04-handoff/`。
@@ -969,13 +997,13 @@ T03 Groq 摘要回顧已依 10/18～10/24 既有 Git 快照完成，維持六則
 
 ## 2026-10-09 C03 離線生成入口完成
 
-- 新增 [C03離線準備入口](../scripts/digest_cloud_prepare.py) 與
-  [合成測試](../tests/test_digest_cloud_prepare.py)，重用既有composer、原稿配對驗證與獨立重跑；
+- 新增 C03離線準備入口（歷史路徑：`scripts/digest_cloud_prepare.py`） 與
+  合成測試（歷史路徑：`tests/test_digest_cloud_prepare.py`），重用既有composer、原稿配對驗證與獨立重跑；
   只回傳可交給C04的不可變bytes和來源證據，不標ready或已交付。
 - 檢查固定期別、可信模擬issuer、slot及手動歷史期別、三檔同commit/hash、
   跨日拒絕及Downloads暫存邊界。歷史稿只標mode；真雲端來源/手機授權未驗證。
 - C03子集與原有生成/交付/驗證離線測試通過；首次失敗及修正保存在C03檢查點。
-  [C02契約末尾](DIGEST_CLOUD_CONTRACT.md)載明C04精確入口與未完成案例。
+  [C02契約末尾（歷史；已移除）](DIGEST_RETIREMENT_HANDOFF_20261021.md)載明C04精確入口與未完成案例。
 - 停於C04前。建議 **GPT-6.1 Sol／High**；遇交易一致性疑難再用Astra／High。
   本輪未連網、部署、啟用排程、取得憑證、修改私人稿或commit/push。
 - C03交接證據：`/Users/lordmi/Downloads/ai-news-radar-cloud-20261009/C03-handoff/`。
@@ -983,7 +1011,7 @@ T03 Groq 摘要回顧已依 10/18～10/24 既有 Git 快照完成，維持六則
 
 ## 2026-10-09 C02 六項契約審查完成
 
-- 使用者標註續行指令，完成 C02 設計審查；[正式契約與36項驗收案例](DIGEST_CLOUD_CONTRACT.md)。
+- 使用者標註續行指令，完成 C02 設計審查；[正式契約與36項驗收案例（歷史；已移除）](DIGEST_RETIREMENT_HANDOFF_20261021.md)。
 - 固定可信期別意圖、原稿 identity、題號與 story_id 分離、原子交付、revision 交易去重、
   提交當下時效與準時性分開。review-only 不冒充正常交付，舊成功與人工稿保持可追溯。
 - 重要修正：靜態 cron 直接 dispatch 無法證明期別；物件最後寫 manifest 不足以保證交易。
@@ -1002,8 +1030,8 @@ T03 Groq 摘要回顧已依 10/18～10/24 既有 Git 快照完成，維持六則
   三組離線測試 **62 passed in 0.63s**。scripts/tests/workflows 雜湊前後相同。
 - 依既定分級，離線路徑首個 High 為 C02 資料契約，已在開始前停止。
   尚未建立新雲端入口/storage adapter/revision API/網頁/MCP，不宣稱模擬實作完成。
-- [核准範圍與提案](DIGEST_CLOUD_DELIVERY_PROPOSAL.md)、
-  [C02 Astra 六項審查決策與續行提示](DIGEST_CLOUD_ASTRA_REVIEW.md)。
+- [核准範圍與提案（歷史；已移除）](DIGEST_RETIREMENT_HANDOFF_20261021.md)、
+  [C02 Astra 六項審查決策與續行提示（歷史；已移除）](DIGEST_RETIREMENT_HANDOFF_20261021.md)。
 - 檢查點 `/Users/lordmi/Downloads/ai-news-radar-cloud-20261009/C00-20261009-095013/`，
   含起點、命令、測試、結果、最終交接與差異；下一階段 **Astra / High**。
 - C01 帳號/手機雲端語音讀寫仍待復線實測。平台、費用、通知渠道與清理政策未定。
@@ -1024,7 +1052,7 @@ T03 Groq 摘要回顧已依 10/18～10/24 既有 Git 快照完成，維持六則
   artifact零值待實際驗收；手動成功不算三日驗收，未啟用本機automation。
 - 首次[真實GitHub手動驗證](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/37079245894)
   已成功，程式commit 9d42a0419a5a7f021e475290c1d74eaf23f1c9ca；完整Offline tests同樣成功。
-- [GitHub操作與驗收](DIGEST_GITHUB_VALIDATION.md)。發布／真實手動run／測試證據落於
+- [GitHub操作與驗收（歷史；已移除）](DIGEST_RETIREMENT_HANDOFF_20261021.md)。發布／真實手動run／測試證據落於
   `/Users/lordmi/Downloads/ai-news-radar-digest-20261003/O01-GITHUB-20261003-073958/`。
   run ID／commit／結果以該目錄RELEASE.md為準；下一階段GPT-6.1 Sol／Medium。
 
@@ -1066,7 +1094,7 @@ T03 Groq 摘要回顧已依 10/18～10/24 既有 Git 快照完成，維持六則
 - 最終相關67 passed，完整830 passed，語法與格式通過。交接、失敗／成功logs、
   起點、增量patch與固定副本重跑證據在
   `/Users/lordmi/Downloads/ai-news-radar-digest-20261003/O01-LOCAL-20261003-065944/`。
-- [操作說明](DIGEST_USAGE.md) 已補入口／狀態／復原。真實草稿第1題職涯技能、第3題模型
+- [操作說明（歷史；已移除）](DIGEST_RETIREMENT_HANDOFF_20261021.md) 已補入口／狀態／復原。真實草稿第1題職涯技能、第3題模型
   使用指南、第6題月度回顧須人工判斷；同publisher/URL refs不當獨立查證，不改選題算法。
   沒有pull、正式data變更、來源刷新、provider／LLM、workflow／automation、commit/push或部署。
 - 下一階段O01本機排程／3日交付觀察，建議 **GPT-6.1 Sol／Medium**：手動入口已驗證，
@@ -1080,7 +1108,7 @@ T03 Groq 摘要回顧已依 10/18～10/24 既有 Git 快照完成，維持六則
   真遠端master已c32d582705a7ea54ca241cfe50afb914753cbdb8，固定commit archive/health
   同為臺北10/3 06:05:32，最新刷新run成功。本次過舊空日是本機落後，不是遠端停抓。
   該遠端commit沒有generate_digest.py，本機日報程式未提交／發布，CI方案需額外核准。
-- [O01完整提案](DIGEST_OPERATIONS_PROPOSAL.md)：07:15主生成、08:15備援、09:00人工檢查、
+- [O01完整提案（歷史；已移除）](DIGEST_RETIREMENT_HANDOFF_20261021.md)：07:15主生成、08:15備援、09:00人工檢查、
   11:30人工發布；固定同commit輸入，MD/meta核對，時效交付guard不改06～06新聞窗口。
   建議唯讀CI artifact7天，公開repo草稿可見性需接受；備選本機私人交付。
 - 初次沙盒gh網路失敗後，升權僅做GitHub GET；8筆run與固定commit資料時間、
@@ -1101,7 +1129,7 @@ T03 Groq 摘要回顧已依 10/18～10/24 既有 Git 快照完成，維持六則
   `/Users/lordmi/Downloads/ai-news-radar-digest-20261003/D11-20261003-061422/`。
 - archive/health as-of 臺北 **10/1 23:11:39**，早於兩期截止；10/2有8題（89候選），
   10/3無窗內題目，均提示 input_before_cutoff。這是現有過舊快照的結果，不代表當日無新聞。
-  新增 [DIGEST_USAGE](DIGEST_USAGE.md)，說明生成、核對、重跑與校稿副本。
+  新增 [DIGEST_USAGE（歷史；已移除）](DIGEST_RETIREMENT_HANDOFF_20261021.md)，說明生成、核對、重跑與校稿副本。
 - 10/2第6題是提示詞教學，建議校稿移除；第4～8題的多筆refs各自同publisher/URL，
   不當獨立查證。摘要可能只是標題或缺失；cache譯文 unversioned。已列 REVIEW_NOTES，
   本輪不改 score／gate／去重，保留生成配對與独立校稿副本；不是全部8題刊出合格的保證。
@@ -1117,7 +1145,7 @@ T03 Groq 摘要回顧已依 10/18～10/24 既有 Git 快照完成，維持六則
 
 - **D10 已完成**：日報聚焦 281 passed，完整 Python 809 passed，交接已落檔。
 - 使用者 `run d10`。新增真實 CLI／composer／pair 核對的離線整合測試；
-  [D10 實作／驗收](DIGEST_PLAN.md#d10-已實作與整合驗收2026-10-02) 記範圍與限制。
+  [D10 實作／驗收（歷史；已移除）](DIGEST_RETIREMENT_HANDOFF_20261021.md) 記範圍與限制。
 - F01～F19 對照保存於 ACCEPTANCE_MATRIX.md；晚發現新聞同日改稿、窗口證據、空日／
   非 AI、健康失效／不同輪、單次預設日期、record reorder、fake/no key 封鎖外部函式、
   程序兩檔之間 exit 73 與 stream.write 故障均有端到端證據。缺失／不一致配對拒絕交付，
@@ -1144,7 +1172,7 @@ T03 Groq 摘要回顧已依 10/18～10/24 既有 Git 快照完成，維持六則
 
 - **D09 已完成**：聚焦 209 passed，語法／格式通過，交接已落檔。
 - 使用者 `run d09`。新增 digest_document composer、generate_digest CLI 與測試；
-  [D09 實際接口](DIGEST_PLAN.md#d09-已實作接口與驗收2026-10-02) 記參數、identity 與恢復界線。
+  [D09 實際接口（歷史；已移除）](DIGEST_RETIREMENT_HANDOFF_20261021.md) 記參數、identity 與恢復界線。
 - CLI `--input-dir` 必填，date 預設臺北當天，output 預設 Downloads/ai-news-radar-digests；
   日期／參數錯誤 exit 2，生成失敗 exit 1，成功含空日 exit 0。明確 output 可指定新目錄，
   不能寫 input 樹或專案 data/item。全程離線，固定輸入／日期／設定重跑完全一致。
@@ -1170,7 +1198,7 @@ T03 Groq 摘要回顧已依 10/18～10/24 既有 Git 快照完成，維持六則
 
 - **D08 已完成**：聚焦 115 passed，語法／格式通過，交接已落檔。
 - 使用者 `run D08`。新增 `scripts/digest_render.py` 與 renderer 測試；
-  [DIGEST_PLAN 的 D08 接口](DIGEST_PLAN.md#d08-已實作接口與驗收2026-10-02) 記實際欄位與限制。
+  [DIGEST_PLAN 的 D08 接口（歷史；已移除）](DIGEST_RETIREMENT_HANDOFF_20261021.md) 記實際欄位與限制。
 - `render_digest(document) -> str` 是純格式化接口：窗口、候選、health notices、diagnostics
   由呼叫端提供；不抓取、不翻譯、不排序、不呼叫模型。空候選合法，候選缺標題安全失敗。
 - 標題／摘要／來源文字做 Markdown escaping；連結只接受 http(s)，保留合法證據 URL，拒絕
@@ -1193,7 +1221,7 @@ T03 Groq 摘要回顧已依 10/18～10/24 既有 Git 快照完成，維持六則
 
 - **D07 已完成**：聚焦 77 passed，語法／格式通過，交接已落檔。
 - 使用者 `run d07`。新增 `scripts/digest_health.py` 與測試；
-  [DIGEST_PLAN 的 D07 接口](DIGEST_PLAN.md#d07-已實作接口與驗收2026-10-02) 記實際欄位與文案界線。
+  [DIGEST_PLAN 的 D07 接口（歷史；已移除）](DIGEST_RETIREMENT_HANDOFF_20261021.md) 記實際欄位與文案界線。
 - summarize_digest_health(snapshot, window) 產生 DigestHealth 與可選 RoundHealth。
   取 D03 descriptor as-of 解析／比較；matched 且 loaded 才附同輪統計；不同輪／未知
   保留時間但不借健康數字。input_before_cutoff 是提示，不更改 06:00～06:00 窗口。
@@ -1219,7 +1247,7 @@ T03 Groq 摘要回顧已依 10/18～10/24 既有 Git 快照完成，維持六則
 
 - **D06 已完成**：聚焦 107 passed，語法／格式通過，交接已落檔。
 - 使用者 `runmd06` 依前文續接 D06。新增 `scripts/digest_selection.py` 與選題測試；
-  介面與限制見 [DIGEST_PLAN 的 D06 接口](DIGEST_PLAN.md#d06-已實作接口與驗收2026-10-02)。
+  介面與限制見 [DIGEST_PLAN 的 D06 接口（歷史；已移除）](DIGEST_RETIREMENT_HANDOFF_20261021.md)。
 - 對原 story 重用 brief gate／來源降權／同事件抑制；預設 limit 20、penalty 0.03、
   gate 0.72 或多來源。快取譯文不影響排序；同分同標題依 ID 固定順序。
   唯一且集合一致的 story/candidate ID 對回完整證據，deep-copy，不補分、不強湊題數。
@@ -1243,7 +1271,7 @@ T03 Groq 摘要回顧已依 10/18～10/24 既有 Git 快照完成，維持六則
 - **D05 已完成**：最終聚焦 63 passed，語法／格式通過，交接已落檔。
 
 - 使用者要求 `run d05`。新增 `scripts/digest_candidates.py` 與 31 項候選測試；
-  介面與欄位來源見 [DIGEST_PLAN 的 D05 接口](DIGEST_PLAN.md#d05-已實作接口與驗收2026-10-02)。
+  介面與欄位來源見 [DIGEST_PLAN 的 D05 接口（歷史；已移除）](DIGEST_RETIREMENT_HANDOFF_20261021.md)。
 - adapt_story/adapt_stories 保留排序／ID；schema v1，缺 optional 欄位 nullable，
   verification null。主來源依 primary ID 唯一回查，日期不取 latest_at、摘要不借其他來源。
   每題與每個來源保留 publisher 原文、URL、日期、精確 cache 譯文及 unversioned provenance。
@@ -1265,7 +1293,7 @@ T03 Groq 摘要回顧已依 10/18～10/24 既有 Git 快照完成，維持六則
 - **D04 已完成**：聚焦 50 passed／完整 642 passed，交接已落檔。
 
 - 使用者要求 `run d04`。新增 `scripts/digest_pipeline.py` 與 32 項日報 pipeline 測試；
-  實際 stage API 與限制見 [DIGEST_PLAN 的 D04 接口](DIGEST_PLAN.md#d04-已實作接口與驗收2026-10-02)。
+  實際 stage API 與限制見 [DIGEST_PLAN 的 D04 接口（歷史；已移除）](DIGEST_RETIREMENT_HANDOFF_20261021.md)。
 - `build_digest_stories(snapshot, window)` 先排 alias／嚴格發布窗口／無 title 或 link，
   再 deep-copy、重用現有繁中顯示、相關性、分級、去重、來源上限與 merge。
   merge 固定 end_utc/24h，同時刻以 item ID 固定順序；現有公開 ID 算法與 scoring 不改。
@@ -1290,7 +1318,7 @@ T03 Groq 摘要回顧已依 10/18～10/24 既有 Git 快照完成，維持六則
 
 - 使用者要求 `run d03`。新增 `scripts/digest_input.py` 與輸入測試；既有
   archive loader 的結構驗證抽成 `archive_from_payload()`，原 path API 行為保留。
-  介面與限制見 [DIGEST_PLAN 的 D03 接口](DIGEST_PLAN.md#d03-已實作接口與驗收2026-10-02)。
+  介面與限制見 [DIGEST_PLAN 的 D03 接口（歷史；已移除）](DIGEST_RETIREMENT_HANDOFF_20261021.md)。
 - 三檔各讀一次；raw bytes immutable、每檔 SHA-256、目錄無關 fingerprint；
   缺 archive fatal、cache/health 降級、strict as-of/UTC 對齊。不抓取／翻譯／呼叫模型，
   不寫輸入、不套用 AI 摘要快取、不修改公開 ID 或 scoring。
@@ -1314,7 +1342,7 @@ T03 Groq 摘要回顧已依 10/18～10/24 既有 Git 快照完成，維持六則
 
 - 使用者要求 `run d02`。新增獨立 `scripts/digest_window.py` 與
   `tests/test_digest_window.py`；時間契約、實際 signature 與 wire 格式見
-  [DIGEST_PLAN 的 D02 接口](DIGEST_PLAN.md#d02-已實作接口與驗收2026-10-02)。
+  [DIGEST_PLAN 的 D02 接口（歷史；已移除）](DIGEST_RETIREMENT_HANDOFF_20261021.md)。
 - 窗口仍為臺北 `[前一天 06:00, 當天 06:00)`。`window_for_date()` 回傳 frozen
   DigestWindow 與 UTC aware 邊界；預設日期只捕捉一次 clock，06:00 前不換期。
   `parse_published_at()` 拒絕缺值／date-only／naive／非法格式，輸出安全診斷 code；
@@ -1336,7 +1364,7 @@ T03 Groq 摘要回顧已依 10/18～10/24 既有 Git 快照完成，維持六則
 - **D01 已完成**：契約／fixture 清單與文件驗收通過，交接已落檔；新日報行為尚未實作。
 
 - 使用者要求 `run d01`。契約與 19 組 fixture 情境已記於
-  [DIGEST_PLAN.md 的 D01 已定契約](DIGEST_PLAN.md#d01-已定契約2026-10-02)。
+  [DIGEST_PLAN.md 的 D01 已定契約（歷史；已移除）](DIGEST_RETIREMENT_HANDOFF_20261021.md)。
   本輪只補文件，尚未新增 generator、fixture 或測試，也未修 B01～B03。
 - 必要輸入 `archive.json`；可選 `title-zh-cache.json`、`source-status.json`。
   缺 archive 是 fatal，合法空 items 才是空日；legacy keyed archive 沿用既有 loader。
@@ -1362,7 +1390,7 @@ T03 Groq 摘要回顧已依 10/18～10/24 既有 Git 快照完成，維持六則
 - 使用者同意日報採台北時間 `[前一天 06:00, 當天 06:00)`；無 8h 擴散等待、
   跨窗口補充證據或其他新時間規則。06:00 截止後生成，上午人工校稿、
   約 11:30 人工發布為工作目標，尚無日報生成排程或自動發布。
-- 已建立 [DIGEST_PLAN.md](DIGEST_PLAN.md)：28 項小任務，H00 完成；
+- 已建立 [DIGEST_PLAN.md（歷史；已移除）](DIGEST_RETIREMENT_HANDOFF_20261021.md)：28 項小任務，H00 完成；
   D01～D11 主線為無新 LLM 的本機日報；LLM、排程、bug、社群與模型／來源
   後續各有獨立卡片與條件。本輪僅文件，不修改程式、正式快照、feed 或 workflow。
 - 日期與輸入契約要先處理：現有 stories／brief 是滾動 24h，需先從指定 archive

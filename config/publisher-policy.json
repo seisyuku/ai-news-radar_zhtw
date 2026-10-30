@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "policy_id": "publisher-governance-v1",
-  "revision": "538509a2381cc839f25920bdaa5ce0fede5e259a08c1cfd546fc1391e743dcb9",
+  "revision": "47abcafcf20559e79e23e25d80559dd53cd131880bd818269742b94eb49f5dd4",
   "default": {
     "publisher_kind": "unknown",
     "admission_status": "unreviewed",
@@ -1293,6 +1293,28 @@
       ],
       "retained_source_keys": [
         "dynamic/wccftech"
+      ]
+    },
+    {
+      "scope_id": "openai_developer_policy",
+      "publisher_id": "openai",
+      "publisher_kind": "official",
+      "hosts": [
+        {
+          "host": "developers.openai.com",
+          "path_prefix": "/api/docs/guides"
+        }
+      ],
+      "admission_status": "limited",
+      "source_tier": "official",
+      "source_tier_label": "官方一手源",
+      "source_tier_rank": 0,
+      "allow_general": true,
+      "allow_featured": true,
+      "allow_radar": false,
+      "notes": "Primary document recovery only; concrete policy/results material required. No broad collector.",
+      "authority": [
+        "docs/SOURCE_COVERAGE.md"
       ]
     }
   ],

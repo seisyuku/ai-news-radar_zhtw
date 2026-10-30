@@ -1,5 +1,7 @@
 <div align="center">
 
+This project collects and normalizes news. Private digest generation, Drive delivery, and cloud editing are outside its scope.
+
 # AI News Radar Pulse
 
 **A Traditional Chinese pulse dashboard for material AI-industry events, refreshed every 30 minutes.**
@@ -56,6 +58,13 @@ not “how do I use AI to write code?”.
 
 ## Source governance
 
+First-party evidence is limited to native text in official RSS/Atom feeds and
+readable prose on official web pages. Existing media reporting keeps its current
+source and use rules. Headlines, short excerpts and attachment notices support
+only what they actually state. PDFs, office documents, images, audio, video and
+compound attachments are excluded as evidence; the project does not OCR,
+transcribe or parse financial tables or growth rates. Embedded media and tables
+cannot supply missing prose evidence. Missing text remains an evidence gap.
 Sources are separated into official first-party channels, international
 business and technology media, Taiwan media, independent benchmark providers,
 watchlist sources, and comparison-only digests. The source badge shown on the

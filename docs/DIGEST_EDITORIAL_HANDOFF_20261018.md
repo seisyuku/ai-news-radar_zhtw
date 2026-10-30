@@ -7,6 +7,8 @@
 
 ## 最新範圍與狀態
 
+2026-10-30私人生成／派送／雲端校稿程式已在本機移除，現行狀態見[退役說明](DIGEST_RETIREMENT_HANDOFF_20261021.md)。本頁僅保存人工研究參考；下方程式名稱皆屬Git歷史，不能當作可用入口。
+
 **2026-10-21更新，優先於下方歷史描述**：使用者撤回自動產生、自動派送與
 排程目標；日報改為在Web Chat專案中，由使用者要求收集題目／產生文檔，
 性質同過去「第一階段」工作。這份研究只保留人工選題參考，不再推進日報
@@ -83,11 +85,11 @@ D00已於S03完成外部停用與封存發布。以下10/18研究與歷史狀態
 統一入口另保留一份選題樣本及裁決副本。缺少本機材料時，明確回報缺件，
 不得假稱已讀取私人快照或自行重建當時的全文。
 
-## 程式導航與原有邊界
+## 歷史程式與原有邊界（2026-10-30已移除）
 
-- `scripts/digest_news_policy.py`：現行 `daily-news-v2` 資格與優先級。
+- `scripts/digest_news_policy.py`：當時的 `daily-news-v2` 資格與優先級。
 - `scripts/digest_pipeline.py`、`scripts/digest_candidates.py`：上游故事與證據。
-- `scripts/digest_events.py`：現行事件辨識；同一新聞保留較高排名，不將
+- `scripts/digest_events.py`：當時事件辨識；同一新聞保留較高排名，不將
   不同談論點、版本或事件進展任意合併。
 - `scripts/generate_digest.py`、`scripts/digest_daily_job.py`：生成入口。
 - 固定臺北前一天 06:00 至當天 06:00、最多十則、不強迫補滿；沒有新增

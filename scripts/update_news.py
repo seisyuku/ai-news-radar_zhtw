@@ -31,7 +31,7 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
 try:
-    from scripts import archive_output, source_health, corroboration, brief_events, publisher_identity, publisher_policy, publisher_governance, signal_selection, reader_excerpts
+    from scripts import archive_output, source_health, corroboration, brief_events, publisher_identity, publisher_policy, publisher_governance, signal_selection, reader_excerpts, article_versions, news_quality, primary_evidence, evidence_policy
 except ModuleNotFoundError:  # pragma: no cover - direct script invocation
     import archive_output
     import source_health
@@ -42,6 +42,10 @@ except ModuleNotFoundError:  # pragma: no cover - direct script invocation
     import publisher_governance
     import signal_selection
     import reader_excerpts
+    import article_versions
+    import news_quality
+    import primary_evidence
+    import evidence_policy
 
 # Keep these existing imports callable by maintainers and regression tests.
 Archive = archive_output.Archive
@@ -673,6 +677,9 @@ PUBLIC_RAW_META_FIELDS: tuple[str, ...] = (
     "model_vendor_id",
     "release_date",
     "discovery_source",
+    "primary_provenance",
+    "source_material_status",
+    "source_updated_at",
 )
 
 
@@ -1496,12 +1503,14 @@ def feed_entry_evidence(entry: dict[str, Any], max_chars: int = 1600) -> dict[st
         candidates.append(content)
 
     raw = next((str(value) for value in candidates if str(value or "").strip()), "")
+    updated = parse_iso(str(entry.get("updated") or ""))
+    update_meta = {"source_updated_at": iso(updated)} if updated else {}
     if not raw:
-        return {"summary": ""}
+        return {"summary": "", **update_meta}
     links = []
     if re.search(r"<[/!?A-Za-z]", raw):
         soup = BeautifulSoup(raw, "html.parser")
-        for unsafe in soup.select("script, style, iframe, object"):
+        for unsafe in soup.select(evidence_policy.NON_TEXT_NODES):
             unsafe.decompose()
         for anchor in soup.select("a[href]"):
             link = urljoin(str(entry.get("link") or ""), str(anchor.get("href") or ""))
@@ -1511,7 +1520,7 @@ def feed_entry_evidence(entry: dict[str, Any], max_chars: int = 1600) -> dict[st
                           not parsed.username and not parsed.password and len(link) <= 2048)
             except ValueError:
                 usable = False
-            if usable and link not in links:
+            if usable and not evidence_policy.attachment_url(link) and link not in links:
                 links.append(link)
                 if len(links) == 24:
                     break
@@ -1520,6 +1529,7 @@ def feed_entry_evidence(entry: dict[str, Any], max_chars: int = 1600) -> dict[st
         plain = html.unescape(raw)
     clean = re.sub(r"\s+", " ", plain).strip()
     evidence = {"summary": maybe_fix_mojibake(clean[:max_chars].rstrip())}
+    evidence.update(update_meta)
     if links:
         evidence["publisher_links"] = links
     return evidence
@@ -1985,27 +1995,37 @@ def fetch_feed_as_source_items(
     feed_url = feed["xml_url"]
     feed_title = feed["title"]
 
+    if evidence_policy.attachment_url(feed_url):
+        raise ValueError("unsupported_evidence_format")
     resp = session.get(
         feed_url,
         timeout=20,
+        stream=True,
         headers={
             "User-Agent": BROWSER_UA,
             "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
             "Accept": "application/rss+xml, application/xml, text/xml, */*",
         },
     )
-    resp.raise_for_status()
-
+    try:
+        resp.raise_for_status()
+        mime = (getattr(resp, "headers", {}) or {}).get("Content-Type", "")
+        evidence_policy.validate_text_mime(mime, feed=True)
+        content = evidence_policy.validate_text_bytes(resp.content, mime, feed=True)
+    finally:
+        close = getattr(resp, "close", None)
+        if callable(close):
+            close()
     entries: list[dict[str, Any]]
     if validate_group_feed:
-        entries = parse_group_feed_entries(resp.content, now)
+        entries = parse_group_feed_entries(content, now)
     elif feedparser is not None:
-        parsed = feedparser.parse(resp.content)
+        parsed = feedparser.parse(content)
         entries = list(parsed.entries)
         if feed.get("selection") and parsed.bozo:
             raise ValueError(f"Malformed feed: {feed_url}: {parsed.bozo_exception}")
     else:
-        entries = parse_feed_entries_via_xml(resp.content)
+        entries = parse_feed_entries_via_xml(content)
     if feed.get("selection") and not entries:
         raise ValueError(f"No parseable feed entries: {feed_url}")
 
@@ -3225,6 +3245,9 @@ def merge_raw_items_into_archive(
 
     seen: set[str] = set()
     for raw in raw_items:
+        incoming = {**(raw.meta or {}), "url": raw.url, "source": raw.source}
+        if evidence_policy.exclusion_reason(incoming):
+            continue
         title, url = raw.title.strip(), normalize_url(raw.url)
         if not title or not url or not url.startswith("http"):
             continue
@@ -3234,9 +3257,9 @@ def merge_raw_items_into_archive(
         item_id = item_id or make_item_id(raw.site_id, raw.source, title, url)
         if article_key:
             article_ids[article_key] = item_id
-        seen.add(item_id)
         existing = archive.get(item_id)
         previous = dict(existing or {})
+        seen.add(item_id)
         if existing is None:
             existing = archive[item_id] = {
                 "id": item_id, "published_at": iso(raw.published_at),
@@ -3246,7 +3269,7 @@ def merge_raw_items_into_archive(
             "site_id": raw.site_id, "site_name": raw.site_name, "source": raw.source,
             "title": title, "url": url, "last_seen_at": iso(now),
         })
-        if raw.published_at and (aibase or raw.site_id == "opmlrss" or not existing.get("published_at")):
+        if raw.published_at:
             existing["published_at"] = iso(raw.published_at)
         apply_public_raw_meta(existing, raw)
         if aibase:
@@ -3270,6 +3293,7 @@ def merge_raw_items_into_archive(
             existing["aibase_article_id"] = str(raw.meta.get("aibase_article_id") or article_key or "")
             existing["field_languages"] = merged_languages
             existing["content_language"] = merged_languages.get("title", default_language)
+        article_versions.retain_change(existing, previous, now)
     return seen
 
 
@@ -6815,7 +6839,9 @@ def build_brief_event_payloads(stories, archive_records, previous_state, now, wi
                 "importance_breakdown": importance["breakdown"], "category": category,
                 "importance_label": importance_label(category), "reasons": story_reasons(scored, score, count)}
 
-    archive_records = [add_publisher_identity_fields(record) for record in archive_records]
+    archive_records = [add_publisher_identity_fields(record) for record in article_versions.project(archive_records)
+                       if record.get("source_material_status") != "superseded_unverified"
+                       and not evidence_policy.exclusion_reason(record)]
     result = brief_events.build_brief_events(stories=stories, archive_records=archive_records,
         archive_meta=archive_meta, previous_state=previous_state, now=now,
         window_hours=window_hours, record_builder=build, ranker=rank)
@@ -7256,14 +7282,28 @@ def main() -> int:
             phase["state"] = "failed"
 
     with record_generation_phase(phase_metrics, "preparation") as phase:
-        merge_raw_items_into_archive(archive, raw_items, now)
+        recovered_items, primary_evidence_status = primary_evidence.recover(session, raw_items, archive, now)
+        raw_items.extend(recovered_items)
+        incoming_format_holds = {}
+        for raw in raw_items:
+            reason = evidence_policy.exclusion_reason({**(raw.meta or {}), "url": raw.url, "source": raw.source})
+            if reason:
+                incoming_format_holds[reason] = incoming_format_holds.get(reason, 0) + 1
+        fetched_ids = merge_raw_items_into_archive(archive, raw_items, now)
+        # Format retirement applies even with no source enabled or state present.
+        text_evidence_holds = evidence_policy.annotate_archive(archive)
 
         # Resolver files inherit the same last-seen-based retention as archive.json.
         archive = prune_archive_records(archive, now, args.archive_days)
 
         # 24h view
         latest_items_all: list[dict[str, Any]] = []
-        for record in archive.values():
+        reader_archive = {r["id"]: r for r in article_versions.project(archive.values())}
+        for record in reader_archive.values():
+            if record.get("source_material_status") == "superseded_unverified" or evidence_policy.exclusion_reason(record):
+                continue
+            if record.get("duplicate_of"):
+                continue
             if is_within_reader_window(record, now, args.window_hours):
                 normalized = dict(record)
                 normalized["title"] = to_zh_hant(maybe_fix_mojibake(str(normalized.get("title") or "")))
@@ -7283,7 +7323,16 @@ def main() -> int:
         latest_items_all.sort(key=lambda x: event_time(x) or datetime.min.replace(tzinfo=UTC), reverse=True)
         latest_items = [record for record in latest_items_all if record.get("ai_is_related", is_ai_related_record(record))]
         latest_items_ai_raw_count = len(latest_items)
-        latest_items = apply_reader_source_limits(dedupe_same_publisher_items(latest_items))
+        reader_exclusions = {}
+        def filter_pool(rows, fn, reason):
+            kept = fn(rows)
+            kept_ids = {r['id'] for r in kept}
+            for row in rows:
+                if row['id'] not in kept_ids:
+                    reader_exclusions.setdefault(row['id'], []).append(reason)
+            return kept
+        latest_items = filter_pool(latest_items, dedupe_same_publisher_items, 'ai_pool_same_publisher_duplicate')
+        latest_items = filter_pool(latest_items, apply_reader_source_limits, 'ai_pool_source_limit')
         title_cache = load_title_zh_cache(title_cache_path)
         translation_state = load_translation_state(translation_state_path)
         translation_status: dict[str, Any] = {}
@@ -7314,9 +7363,9 @@ def main() -> int:
         latest_items_all = [corroboration.annotate(add_publisher_identity_fields(item)) for item in latest_items_all]
         model_releases_24h = [corroboration.annotate(item) for item in build_model_releases_24h_items(archive, now)]
         llm_radar_payload = build_llm_radar_payload(latest_items, now, raw_records=archive)
-        latest_items_ai_dedup = apply_reader_source_limits(
-            suppress_near_duplicate_items(dedupe_items_by_title_url(latest_items, random_pick=False))
-        )
+        latest_items_ai_dedup = filter_pool(latest_items, lambda rows: dedupe_items_by_title_url(rows, random_pick=False), 'ai_pool_title_url_duplicate')
+        latest_items_ai_dedup = filter_pool(latest_items_ai_dedup, suppress_near_duplicate_items, 'ai_pool_near_duplicate')
+        latest_items_ai_dedup = filter_pool(latest_items_ai_dedup, apply_reader_source_limits, 'ai_pool_source_limit')
         latest_items_all_dedup = apply_reader_source_limits(
             dedupe_same_publisher_items(dedupe_items_by_title_url(latest_items_all, random_pick=True))
         )
@@ -7360,16 +7409,16 @@ def main() -> int:
         # Apply effective source tiers only after all event inputs and scores
         # are fixed. Preserve full archive/references; forbidden scopes leave
         # the ordinary public lists without changing the event matcher.
-        public_all = [add_general_reader_fields(row, archive) for row in latest_items_all]
+        public_all = [add_general_reader_fields(row, reader_archive) for row in latest_items_all]
         latest_items_ai_raw_count -= sum(
             bool(row.get("ai_is_related")) and (not row["source_policy"]["allow_general"] or row["qualification"]["scope"] == "out_of_scope")
             for row in public_all)
         latest_items_ai_raw_count = max(0, latest_items_ai_raw_count)
         latest_items_all = [row for row in public_all if row["source_policy"]["allow_general"] and row["qualification"]["scope"] != "out_of_scope"]
         latest_items_ai_dedup = [row for item in latest_items_ai_dedup
-            if (row := add_general_reader_fields(item, archive))["source_policy"]["allow_general"] and row["qualification"]["scope"] != "out_of_scope"]
+            if (row := add_general_reader_fields(item, reader_archive))["source_policy"]["allow_general"] and row["qualification"]["scope"] != "out_of_scope"]
         latest_items_all_dedup = [row for item in latest_items_all_dedup
-            if (row := add_general_reader_fields(item, archive))["source_policy"]["allow_general"] and row["qualification"]["scope"] != "out_of_scope"]
+            if (row := add_general_reader_fields(item, reader_archive))["source_policy"]["allow_general"] and row["qualification"]["scope"] != "out_of_scope"]
 
         # source-status.json embeds `statuses` (fetch-time site_name, set by
         # collect_all()/individual fetchers) directly - normalize in place here so
@@ -7515,21 +7564,28 @@ def main() -> int:
             "reader_excerpts": reader_excerpt_status,
         }
 
+        status_payload["primary_evidence"] = primary_evidence_status
+        status_payload["evidence_policy"] = {"version": evidence_policy.VERSION,
+            "allowed_primary_formats": sorted(evidence_policy.TEXT_FORMATS),
+            "archive_hold_counts": text_evidence_holds, "incoming_hold_counts": incoming_format_holds}
         latest_payload, latest_all_payload = build_latest_payloads(latest_payload)
         for public_payload in (latest_payload, latest_all_payload, llm_radar_payload):
             public_payload["publisher_governance_meta"] = daily_brief_payload["publisher_governance_meta"]
         status_payload["brief_events"] = brief_result.diagnostics
 
     with record_generation_phase(phase_metrics, "output") as phase:
-        atomic_write_text(latest_path, json.dumps(sanitize_public_payload(latest_payload), ensure_ascii=False, indent=2))
-        atomic_write_text(latest_all_path, json.dumps(sanitize_public_payload(latest_all_payload), ensure_ascii=False, separators=(",", ":")))
         atomic_write_text(
             archive_path,
             json.dumps(sanitize_public_payload(archive_payload), ensure_ascii=False, separators=(",", ":")),
         )
+        atomic_write_text(latest_path, json.dumps(sanitize_public_payload(latest_payload), ensure_ascii=False, indent=2))
+        atomic_write_text(latest_all_path, json.dumps(sanitize_public_payload(latest_all_payload), ensure_ascii=False, separators=(",", ":")))
         brief_result = write_brief_event_bundle(brief_result, daily_brief_payload, stories_merged_payload,
             state_path=brief_event_state_path, merged_path=stories_merged_path, daily_path=daily_brief_path, now=now)
         status_payload["brief_events"] = brief_result.diagnostics
+        status_payload["news_quality"] = news_quality.build(list(archive.values()), latest_items_all_dedup,
+            latest_items_ai_dedup, stories_merged_payload, status_payload, now=now,
+            window_hours=args.window_hours, fetched_ids=fetched_ids, reader_exclusions=reader_exclusions)
         resolver_count = write_item_resolvers(output_dir, archive, prune=False)
         html_adapter_count = write_item_html_adapters(output_dir, archive, prune=False)
         atomic_write_text(

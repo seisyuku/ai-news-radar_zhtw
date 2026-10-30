@@ -1,5 +1,18 @@
 # Source Coverage
 
+## 2026-10-30 新聞品質與來源首段整合（本機已驗證，未發布）
+
+已整合新聞同URL版本歷史與最新內容投影、來源／篩選／事件／入選排除原因，以及Juya線索的有界官方純文字政策查漏。僅一份當期對照早報、最多兩個直接官方政策正文；沒有新增排程或任意連結爬取，未知原發布時間保持first_observed，不補造發布日期。
+一併整合Hugging Face首段補讀／翻譯展示、今日重點摘要優先、來源摘要回退、金額譯文修正及既有補位分數相容修正。前端共同版本20261030-quality1；維持AI門檻與24h窗口、來源治理與用途限制。
+私人早報整組移除與PDF／多媒體附件不作證據的裁決保持。實作已落於正式專案工作目錄，完整1913項回歸通過；固定輸入與候選結果一致，原始7489筆新聞內容保留，官方文字查漏與Hugging Face首段回放通過。沒有commit、push、部署或改線上設定。完整交接：/Users/lordmi/Downloads/ai-news-quality-integration-20261030/HANDOFF.md。
+
+## 官方文字來源與格式邊界
+
+一手材料限官方RSS／Atom的實際文字與官方可讀正文；現有媒體新聞按既有規則收錄。附件、圖片與影音不作證據，不開發文件解析、OCR或轉錄。正文不足就保留缺口。
+
+既有當期Juya對照早報可提供直接官方連結線索；政策頁補讀限developers.openai.com/api/docs/guides/，每輪最多一份早報與兩頁正文，原早報不增加證據票。這是已依維護者核准整合的有界額外網頁請求；不擴大成任意連結爬取。沒有人工財報／文件JSON匯入或Alphabet專用准入例外。
+
+
 This project should help readers track material AI-industry events without
 forcing them to follow noisy timelines or manage many source choices.
 

@@ -13,13 +13,14 @@ import re
 from typing import Any
 
 try:
-    from scripts import brief_events as b, publisher_policy as policy, publisher_identity as identity, publisher_material as material_cues, corroboration
+    from scripts import brief_events as b, publisher_policy as policy, publisher_identity as identity, publisher_material as material_cues, corroboration, evidence_policy
 except ModuleNotFoundError:
     import brief_events as b
     import publisher_policy as policy
     import publisher_identity as identity
     import publisher_material as material_cues
     import corroboration
+    import evidence_policy
 
 
 KINDS = ("earnings", "market", "security", "pricing", "benchmark", "model_release")
@@ -41,11 +42,12 @@ RUMOR = rx(r"rumou?r|reportedly|could launch|may launch|expected to|predicted|pr
 DENIAL = rx(r"(?:not|never|hasn't|has not|did not)\s+(?:been\s+)?(?:released|launched|changed|increased|acquired)|尚未(?:發布|发布|推出)|並未(?:發布|收購|漲價)|并未(?:发布|收购|涨价)|否認.{0,12}(?:收購|併購|漏洞|外洩)|den(?:ies|ied).{0,60}(?:breach|acquisition|acquir|merger)|no (?:confirmed )?(?:breach|vulnerability|acquisition|merger)")
 MONEY = rx(r"(?:\$|US\$|USD|NT\$|美元|新臺幣|新台幣|人民币|人民幣)\s*\d|\d[\d.,]*\s*(?:%|percent|(?:萬|万|億|亿|兆)?\s*(?:美元|元|新臺幣|新台幣|人民币|人民幣)|million|billion)")
 PERIOD = rx(r"(?<![a-z0-9])(?:Q[1-4](?:\s*\d{2,4})?|FY\s*\d{2,4}|20\d{2}|YoY|QoQ|MoM)(?![a-z0-9])|季度|財年|财年|第[一二三四1234]季|年度|本季|上半年|下半年|年化|季增|年增|月增|同比|環比|环比|quarter|fiscal|annualized|annualised|run.rate")
-FINANCE = rx(r"revenue|earnings|net (?:income|profit)|\bIPO\b|營收|营收|財報|财报|淨利|净利|首次公開募股|上市募資")
+FINANCE = rx(r"revenue|earnings|net (?:income|profit)|(?:free |operating )?cash flow|capex|capital expenditures?|\bIPO\b|營收|营收|財報|财报|淨利|净利|現金流|现金流|資本支出|资本支出|首次公開募股|上市募資")
 MARKET_ACTION = rx(r"\bacquir(?:e|es|ed|ing)\b|\bacquisition\b|\bmerg(?:es|ed|er)\b|antitrust (?:probe|investigation|fine)|(?:regulator|FTC|commission).{0,40}(?:orders?|fines?|investigat)|shuts? down|permanent shutdown|ceases? (?:permanently )?operations|permanently cease operations|收購|收购|併購|并购|合併|合并|反壟斷調查|反垄断调查|勒令|宣布.{0,12}(?:停運|停止營運|終止服務)")
 SHARE = rx(r"market share|市場份額|市场份额|市佔|市占|流量占比|traffic share")
 POPULATION = rx(r"global|worldwide|API|traffic|shipments|users|全球|流量|出貨|出货|用戶|用户|企業市場|企业市场")
 PRICE_CHANGE = rx(r"(?:price|pricing|subscription|fee).{0,30}(?:cut|reduc|increas|chang|adjust)|(?:cuts?|reduces?|increases?).{0,30}(?:price|pricing|fee)|漲價|涨价|降價|降价|調整.{0,12}(?:價格|價格|收費|費率)|调整.{0,12}(?:价格|收费|费率)")
+CREDIT_BENEFIT = rx(r"(?:API credits?.{0,45}(?:subscribers|subscription)|(?:subscribers|subscriptions?).{0,55}(?:can claim|receive).{0,30}(?:API )?credits?)|(?:訂閱|订阅).{0,30}(?:發放|发放|領取|领取).{0,15}(?:API|額度|额度)")
 APPLICABILITY = rx(r"per .{0,30}(?:token|month|user)|million tokens|\b(?:API|plan|subscription|input|output)\b|每.{0,15}(?:token|月|用戶|用户)|方案|訂閱|订阅|輸入|输入|輸出|输出")
 BENCH = rx(r"SWE[- ]bench|MMLU|GPQA|AIME|MMMU|Humanity.s Last Exam|\bHLE\b|HumanEval|LiveCodeBench|ARC[- ]AGI|Terminal[- ]Bench")
 MEASURE = rx(r"scores?|scored|achieves?|achieved|evaluat|tested|benchmark result|得分|成績|成绩|達到|达到|測得|测得|評測|评测")
@@ -98,6 +100,8 @@ def has_model_release(text):
 
 
 def qualify(row, material):
+    if reason := evidence_policy.exclusion_reason(row):
+        return {"scope": "out_of_scope", "core_evidence": [], "reason_codes": [reason, "out_of_scope"]}
     title_field = "title_original" if material.get("title_original") else "title"
     title = RELATED.split(material.get(title_field, ""), maxsplit=1)[0][:1600]
     summary = RELATED.split(material.get("summary", ""), maxsplit=1)[0][:1600]
@@ -117,16 +121,17 @@ def qualify(row, material):
     spans = [{"field": key, "start": 0, "end": len(value), "text": value}
              for key, value in ((title_field, title), ("summary", summary)) if value]
     urls = list(dict.fromkeys(url for value in [row.get("url"), *(row.get("publisher_links") or [])]
-                             if (url := identity.public_url(value)[0])))[:24]
+                             if (url := identity.public_url(value)[0]) and not evidence_policy.attachment_url(url)))[:24]
     hints = {"earnings": FINANCE.search(text) or material_cues.ipo_filing_entity(title, summary), "market": MARKET_ACTION.search(text) or SHARE.search(text),
-             "security": ISSUE.search(text), "pricing": PRICE_CHANGE.search(text),
+             "security": ISSUE.search(text), "pricing": PRICE_CHANGE.search(text) or CREDIT_BENEFIT.search(text),
              "benchmark": benchmark, "model_release": RELEASE.search(text) and model}
     supported = {
         "earnings": bool(company and material_cues.financial_support(title, summary, COMPANY, FINANCE, PERIOD)),
         "market": bool(company and (material_cues.market_action_supported(title, summary) or (not material_cues.uncertain_market(text) and SHARE.search(text) and PERIOD.search(text) and POPULATION.search(text) and MONEY.search(text)))),
         "security": bool(product and ISSUE.search(text) and IMPACT.search(text) and MECHANISM.search(text)
                          and (official or METHOD.search(text)) and (not SECONDHAND.search(text) or METHOD.search(text))),
-        "pricing": bool(product and PRICE_CHANGE.search(text) and MONEY.search(text) and APPLICABILITY.search(text)),
+        "pricing": bool(product and (PRICE_CHANGE.search(text) or CREDIT_BENEFIT.search(text)) and MONEY.search(text) and APPLICABILITY.search(text)
+                        and not SPECULATIVE_ACTION.search(text)),
         "benchmark": bool(model and benchmark and MEASURE.search(text) and re.search(r"\d+(?:\.\d+)?\s*(?:%|分|points?)", text, re.I) and not HISTORICAL.search(text)),
         "model_release": bool(model and has_model_release(text)),
     }
@@ -158,7 +163,7 @@ def admitted(annotation, use):
 
 def radar_allowed(row, now, model_org_ids=()):
     when = b.parse(row.get("published_at")) or b.parse(row.get("first_seen_at"))
-    if not admitted(row, "radar") or not when or not now - timedelta(hours=24) < when <= now:
+    if evidence_policy.exclusion_reason(row) or not admitted(row, "radar") or not when or not now - timedelta(hours=24) < when <= now:
         return False
     if row["source_policy"]["scope_id"] == "llm_stats":
         return bool(row.get("model_vendor_id") in model_org_ids and row.get("discovery_source") == "llm_stats_latest_models"

@@ -59,13 +59,21 @@ For non-trivial work:
   as public defaults.
 - Optional X API, email, or other private integrations must skip cleanly when
   their credentials are absent.
-- Do not publish `data/email-digest.json` unless the maintainer explicitly opts
-  into publication and accepts the privacy implications.
+- Never publish private drafts or email content. Retired private digest
+  generation, delivery, and cloud editing are outside the maintained scope.
 - Do not hand-edit scheduled `data/*.json` unless the task explicitly requires
   a snapshot refresh.
 - For changes to AI relevance scoring or its `0.65` floor, follow the 14-day backtest requirement in `docs/HANDOVER.md`. A user request to change the scoring behavior authorizes local implementation and validation; request a product decision only when the requested outcome leaves the threshold or tradeoff unresolved.
 
 ## Source Intake
+
+First-party evidence is restricted to actual text in official RSS/Atom feeds and
+readable official webpage prose. Existing media-news admission remains unchanged.
+Apply `scripts/evidence_policy.py` to reject unsupported material formats. Do not fetch or
+parse PDF/office/media attachments, OCR images, transcribe video/audio, extract
+financial tables, or derive YoY/TTM facts. If prose is insufficient, retain the
+evidence gap. Do not retain attachment-parser compatibility flags, migration
+state, manual financial-document imports, or dedicated acceptance archives.
 
 Follow `references/source-intake.md` for source classes, evaluation commands,
 parser patterns, and promotion criteria. Record the resulting source status in
