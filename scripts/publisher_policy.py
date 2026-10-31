@@ -26,8 +26,7 @@ REGISTRY_PATH = Path(__file__).resolve().parents[1] / "config/publisher-policy.j
 TIER_FIELDS = ("source_tier", "source_tier_label", "source_tier_rank")
 PERMISSIONS = ("allow_general", "allow_featured", "allow_radar")
 TIERS = {"official", "benchmark", "ai_vertical", "professional_media", "ai_media",
-         "community", "builders", "user_opml", "self_media", "advanced",
-         "discussion", "tw_media", "watchlist", "other"}
+         "user_opml", "advanced", "tw_media", "watchlist", "other"}
 KINDS = {"official", "benchmark", "media", "aggregator", "control", "unknown"}
 
 

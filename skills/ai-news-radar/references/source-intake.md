@@ -45,7 +45,7 @@ Only ask the user when the answer changes default vs advanced routing.
 | Public changelog page | Focused `requests` + BeautifulSoup fetcher | Medium |
 | Aggregator site | Existing custom fetcher pattern | Medium |
 | Newsletter archive | RSS if available; stable archive page otherwise | Medium |
-| X/Twitter public timeline | Curated central feed or optional X API adapter | Low as default |
+| X/Twitter public timeline | 專用API入口已退役；不提供社群時間線聚合 | 不列為預設來源 |
 | Email inbox | Do not default; require explicit user-owned bridge/API | Low |
 | WeChat/private social | Optional only, bridge-dependent | Low |
 
@@ -78,24 +78,7 @@ explicitly asks for a self-hosted variant.
 
 ## X/Twitter Rules
 
-Do not depend on public RSSHub/XCancel/Nitter routes as a default source unless
-the user explicitly accepts instability. They can work briefly and then time out.
-
-Stable patterns:
-
-- Read a curated central feed that already uses official X API, like
-  Follow Builders.
-- Add a self-hosted optional X adapter using `X_BEARER_TOKEN`; skip cleanly when
-  the token is missing.
-
-For optional X API adapters:
-
-- Store tokens only in GitHub Secrets or environment variables.
-- Never print or commit tokens.
-- Exclude retweets/replies by default.
-- Cap per-account items.
-- Record rate-limit or permission failures in `source-status.json`.
-- Skip cleanly when `X_BEARER_TOKEN` is missing; the public site must still run.
+社群專用X API、SocialData與TikHub收件已退役，不新增或恢復帳號時間線、付費搜尋與作者篩選。一般RSS／OPML仍依現有來源與內容資格處理；不因發布者名稱、中文廠商或社群字樣取得分類或用途權限。
 
 ## Newsletter Rules
 

@@ -13,7 +13,7 @@ import re
 from typing import Any
 
 try:
-    from scripts import brief_events as b, publisher_policy as policy, publisher_identity as identity, publisher_material as material_cues, corroboration, evidence_policy
+    from scripts import brief_events as b, publisher_policy as policy, publisher_identity as identity, publisher_material as material_cues, corroboration, evidence_policy, security_topics
 except ModuleNotFoundError:
     import brief_events as b
     import publisher_policy as policy
@@ -21,6 +21,7 @@ except ModuleNotFoundError:
     import publisher_material as material_cues
     import corroboration
     import evidence_policy
+    import security_topics
 
 
 KINDS = ("earnings", "market", "security", "pricing", "benchmark", "model_release")
@@ -123,12 +124,12 @@ def qualify(row, material):
     urls = list(dict.fromkeys(url for value in [row.get("url"), *(row.get("publisher_links") or [])]
                              if (url := identity.public_url(value)[0]) and not evidence_policy.attachment_url(url)))[:24]
     hints = {"earnings": FINANCE.search(text) or material_cues.ipo_filing_entity(title, summary), "market": MARKET_ACTION.search(text) or SHARE.search(text),
-             "security": ISSUE.search(text), "pricing": PRICE_CHANGE.search(text) or CREDIT_BENEFIT.search(text),
+             "security": ISSUE.search(text) and security_topics.classify({"title": title, "summary": summary}).event, "pricing": PRICE_CHANGE.search(text) or CREDIT_BENEFIT.search(text),
              "benchmark": benchmark, "model_release": RELEASE.search(text) and model}
     supported = {
         "earnings": bool(company and material_cues.financial_support(title, summary, COMPANY, FINANCE, PERIOD)),
         "market": bool(company and (material_cues.market_action_supported(title, summary) or (not material_cues.uncertain_market(text) and SHARE.search(text) and PERIOD.search(text) and POPULATION.search(text) and MONEY.search(text)))),
-        "security": bool(product and ISSUE.search(text) and IMPACT.search(text) and MECHANISM.search(text)
+        "security": bool(security_topics.classify({"title": title, "summary": summary}).event and product and ISSUE.search(text) and IMPACT.search(text) and MECHANISM.search(text)
                          and (official or METHOD.search(text)) and (not SECONDHAND.search(text) or METHOD.search(text))),
         "pricing": bool(product and (PRICE_CHANGE.search(text) or CREDIT_BENEFIT.search(text)) and MONEY.search(text) and APPLICABILITY.search(text)
                         and not SPECULATIVE_ACTION.search(text)),

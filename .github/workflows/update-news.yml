@@ -3,11 +3,6 @@ name: Update AI News Snapshot
 on:
   workflow_dispatch:
     inputs:
-      force_tikhub:
-        description: "Force a paid TikHub refresh even before its normal interval"
-        required: false
-        default: false
-        type: boolean
       source:
         description: "Trigger source. 'heartbeat' is the only value with special handling - see the freshness-check job below."
         required: false
@@ -184,36 +179,6 @@ jobs:
 
       - name: Update data
         env:
-          # Paid X/social sources (X API, SocialData, TikHub): keys live in
-          # secrets; optional tuning variables override code defaults.
-          # Policy is key-first: a key present => the source runs; ENABLED is
-          # optional and only needs setting to 0 to force it off.
-          X_API_ENABLED: ${{ secrets.X_API_ENABLED || vars.X_API_ENABLED }}
-          X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
-          SOCIALDATA_ENABLED: ${{ secrets.SOCIALDATA_ENABLED || vars.SOCIALDATA_ENABLED }}
-          SOCIALDATA_API_KEY: ${{ secrets.SOCIALDATA_API_KEY }}
-          SOCIALDATA_QUERY: ${{ vars.SOCIALDATA_QUERY }}
-          SOCIALDATA_SEARCH_TYPE: ${{ vars.SOCIALDATA_SEARCH_TYPE }}
-          SOCIALDATA_MAX_RESULTS: ${{ vars.SOCIALDATA_MAX_RESULTS }}
-          SOCIALDATA_DAILY_TWEET_LIMIT: ${{ vars.SOCIALDATA_DAILY_TWEET_LIMIT }}
-          SOCIALDATA_RUN_INTERVAL_HOURS: ${{ vars.SOCIALDATA_RUN_INTERVAL_HOURS }}
-          SOCIALDATA_RUN_UTC_HOUR: ${{ vars.SOCIALDATA_RUN_UTC_HOUR }}
-          SOCIALDATA_RUN_UTC_MINUTE_MAX: ${{ vars.SOCIALDATA_RUN_UTC_MINUTE_MAX }}
-          SOCIALDATA_LIST_ID: ${{ vars.SOCIALDATA_LIST_ID }}
-          SOCIALDATA_LIST_ENABLED: ${{ vars.SOCIALDATA_LIST_ENABLED }}
-          SOCIALDATA_LIST_MAX_RESULTS: ${{ vars.SOCIALDATA_LIST_MAX_RESULTS }}
-          SOCIALDATA_LIST_EXCLUDE: ${{ vars.SOCIALDATA_LIST_EXCLUDE }}
-          TIKHUB_ENABLED: ${{ secrets.TIKHUB_ENABLED || vars.TIKHUB_ENABLED }}
-          TIKHUB_API_KEY: ${{ secrets.TIKHUB_API_KEY }}
-          TIKHUB_API_BASE_URL: ${{ vars.TIKHUB_API_BASE_URL }}
-          TIKHUB_QUERY: ${{ vars.TIKHUB_QUERY }}
-          TIKHUB_PLATFORMS: ${{ vars.TIKHUB_PLATFORMS }}
-          TIKHUB_MAX_RESULTS: ${{ vars.TIKHUB_MAX_RESULTS }}
-          TIKHUB_DAILY_ITEM_LIMIT: ${{ vars.TIKHUB_DAILY_ITEM_LIMIT }}
-          TIKHUB_RUN_INTERVAL_HOURS: ${{ vars.TIKHUB_RUN_INTERVAL_HOURS }}
-          TIKHUB_RUN_UTC_HOUR: ${{ vars.TIKHUB_RUN_UTC_HOUR }}
-          TIKHUB_RUN_UTC_MINUTE_MAX: ${{ vars.TIKHUB_RUN_UTC_MINUTE_MAX }}
-          TIKHUB_FORCE_RUN: ${{ inputs.force_tikhub && '1' || '' }}
           RSS_MAX_FEEDS: ${{ vars.RSS_MAX_FEEDS || 10 }}
           # Optional cache-first news summaries. The site still updates when
           # the secret is absent or Groq is temporarily unavailable.

@@ -42,6 +42,7 @@ class ArchiveRecord(TypedDict, total=False):
     field_languages: dict[str, str]
     aibase_article_id: str
     duplicate_of: str
+    security_topic: bool
 
 
 Archive = dict[str, ArchiveRecord]

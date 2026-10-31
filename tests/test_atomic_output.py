@@ -141,8 +141,6 @@ def offline_generation(tmp_path, monkeypatch):
     monkeypatch.setattr(u, "create_session", lambda: object())
     monkeypatch.setattr(u, "collect_all", lambda *_: ([], []))
     monkeypatch.setattr(u, "run_market_sensors", lambda *_: ({"generated_at": u.iso(NOW), "signals": []}, {}, []))
-    for name in ("maybe_fetch_x_api_updates", "maybe_fetch_socialdata_updates", "maybe_fetch_tikhub_updates"):
-        monkeypatch.setattr(u, name, lambda *_: ([], {"enabled": False}))
     for name in ("X_BEARER_TOKEN", "SOCIALDATA_API_KEY", "TIKHUB_API_KEY", "GEMINI_API_KEY", "GROQ_API_KEY", "GOOGLE_TRANSLATE_API_KEY"):
         monkeypatch.delenv(name, raising=False)
 
@@ -158,7 +156,7 @@ def offline_generation(tmp_path, monkeypatch):
     "data/latest-24h.json", "data/latest-24h-all.json", "data/daily-brief.json",
     "data/stories-merged.json", "data/archive.json", f"data/items/{ACTIVE_ID}.json",
     f"item/{ACTIVE_ID}/index.html", "data/source-status.json", "data/market-signals.json",
-    "data/llm-radar.json", "data/market-sensor-state.json", "data/paid-source-state.json",
+    "data/llm-radar.json", "data/market-sensor-state.json",
     "data/title-zh-cache.json", "data/translation-state.json", "data/ai-summary-cache.json",
 ])
 def test_main_replace_failure_preserves_failed_target_and_both_expired_links(offline_generation, monkeypatch, relative):
@@ -278,9 +276,6 @@ def test_main_phase_metrics_separate_opml_wall_skips_and_output(offline_generati
     monkeypatch.setattr(u, "fetch_opml_rss", rss)
     monkeypatch.setattr(sys, "argv", ["update_news.py", "--output-dir", str(offline_generation),
                                     "--rss-opml", str(opml), "--translate-max-new", "0"])
-    monkeypatch.setattr(u, "maybe_fetch_socialdata_updates", lambda *_: ([], {
-        "enabled": True, "attempted": False, "skipped": True, "ok": None,
-        "item_count": 0, "skip_reason": "interval"}))
     original_write = u.atomic_write_text
     def slow_write(*args, **kwargs):
         clock[0] += 0.005
@@ -292,8 +287,7 @@ def test_main_phase_metrics_separate_opml_wall_skips_and_output(offline_generati
     assert phases["collect"]["duration_ms"] == 500
     assert phases["opml"]["duration_ms"] == 250
     assert next(s for s in payload["sites"] if s["site_id"] == "opmlrss")["duration_ms"] == 700
-    assert phases["socialdata"]["state"] == "skipped"
-    assert phases["x_api"]["state"] == "skipped"
+    assert not {"socialdata", "x_api", "tikhub"} & phases.keys()
     assert phases["translations"]["provider_request_count"] == 0
     assert phases["summaries"]["provider_enabled"] is False
     assert phases["output"]["duration_ms"] >= 50

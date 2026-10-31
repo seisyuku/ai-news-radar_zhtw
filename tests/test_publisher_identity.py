@@ -261,8 +261,6 @@ def test_offline_main_propagates_fresh_rss_source_to_all_outputs(tmp_path, monke
     monkeypatch.setattr(u, "collect_all", lambda *_: ([raw], [
         {"site_id": "curated_media", "site_name": "精選媒體", "ok": True, "item_count": 1}]))
     monkeypatch.setattr(u, "run_market_sensors", lambda *_: ({"generated_at": u.iso(NOW), "signals": []}, {}, []))
-    for name in ("maybe_fetch_x_api_updates", "maybe_fetch_socialdata_updates", "maybe_fetch_tikhub_updates"):
-        monkeypatch.setattr(u, name, lambda *_: ([], {"enabled": False}))
     for key in ("GEMINI_API_KEY", "GROQ_API_KEY", "GOOGLE_TRANSLATE_API_KEY"):
         monkeypatch.delenv(key, raising=False)
     monkeypatch.setattr("requests.sessions.Session.request", lambda *_a, **_k: pytest.fail("network forbidden"))

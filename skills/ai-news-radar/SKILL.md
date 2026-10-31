@@ -57,7 +57,8 @@ For non-trivial work:
 - Prefer official RSS, Atom, OPML, or stable public JSON over custom scraping.
 - Avoid account-bound social timelines, browser automation, and fragile bridges
   as public defaults.
-- Optional X API, email, or other private integrations must skip cleanly when
+- Social X API, SocialData, and TikHub intake is retired; do not restore it
+  through source configuration. Retained integrations must skip cleanly when
   their credentials are absent.
 - Never publish private drafts or email content. Retired private digest
   generation, delivery, and cloud editing are outside the maintained scope.

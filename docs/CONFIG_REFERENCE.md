@@ -21,22 +21,13 @@
 | Secret | 用途 |
 | --- | --- |
 | `FOLLOW_OPML_B64` | 以私人 OPML 覆蓋公開範例 |
-| `SOCIALDATA_API_KEY` | 選用的 SocialData X 來源 |
-| `TIKHUB_API_KEY` | 選用的 TikHub 抖音／小紅書來源 |
-| `X_BEARER_TOKEN` | 選用的官方 X API demo |
 | `GROQ_API_KEY` | 選用的重點新聞 AI 短摘要；預設模型為 `qwen/qwen3.8-27b` |
 
 Secret 值不得寫入 repo、Issue、log、截圖或驗收報告。
 
-## 緊急停用 Variables
+## 社群來源退役
 
-付費來源的 `*_ENABLED=0` 可作為急停開關：
-
-- `SOCIALDATA_ENABLED`
-- `TIKHUB_ENABLED`
-- `X_API_ENABLED`
-
-未設定不代表一定會呼叫服務；沒有對應 secret 時，adapter 必須安全跳過。
+X API、SocialData及TikHub已從候選程式移除；舊憑證、啟用與強制執行變數不再接線，不會啟動收件。憑證本身不由程式清理操作。正式發布狀態以任務台帳為準。
 
 ## AI 摘要 Variables
 
@@ -57,17 +48,7 @@ T04 新聞摘要備援已刪除並結案，沒有摘要專用 Gemini 變數、pr
 
 ## 程式內常數
 
-查詢字串、平台、時間窗、排序、每次上限與間隔以
-`scripts/update_news.py` 內下列常數群組為準：
-
-- `SOCIALDATA_*`
-- `TIKHUB_*`
-- `X_API_*`
-- `PAID_SOURCE_*`
-- `BRIEF_*`
-
-修改時以常數名搜尋，不依賴文件中的歷史行號。第三方 API 的參數值與費率
-可能改變；啟用或擴大額度前必須查閱供應商當期官方文件。
+新聞時間窗與重點排序參數以`scripts/update_news.py`及相關評分模組為準。資安主題／事件的共用判定由`scripts/security_topics.py`維護，不使用付費API或額外模型呼叫。
 
 ## 重點訊號池
 

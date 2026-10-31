@@ -9,7 +9,7 @@ adapters. `update_news.py` remains the CLI and generation coordinator.
 
 | Shape | Contract |
 | --- | --- |
-| `ArchiveRecord` | A `TypedDict` describing known generated fields. `id` is required; source/title/URL, timestamps, summary and AIBASE language/alias metadata are optional. Historical and extension keys remain in the underlying dictionaries. |
+| `ArchiveRecord` | A `TypedDict` describing known generated fields. `id` is required; source/title/URL, timestamps, summary, derived boolean `security_topic` and AIBASE language/alias metadata are optional. Historical and extension keys remain in the underlying dictionaries. |
 | `Archive` | Internal `dict[item_id, ArchiveRecord]`. Loading a legacy keyed archive makes the key authoritative for the record's `id`. |
 | `ArchiveSnapshot` | Canonical generated JSON has `generated_at`, `total_items` and an `items` list. Loading also accepts a legacy `items` object keyed by ID. |
 | `PublicItemResolver` | The public archive record, including extension fields after sanitization; an alias of `ArchiveRecord`, not a separate item schema. JSON filename, lookup key and record `id` agree. |

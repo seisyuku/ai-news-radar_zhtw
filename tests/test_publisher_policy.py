@@ -258,8 +258,6 @@ def test_offline_generation_filters_forbidden_general_scopes_but_retains_archive
         {"site_id": "curated_media", "site_name": "精選媒體", "ok": True, "item_count": 2},
         {"site_id": "juya_daily", "site_name": "對照源", "ok": True, "item_count": 1}]))
     monkeypatch.setattr(u, "run_market_sensors", lambda *_: ({"generated_at": u.iso(now), "signals": []}, {}, []))
-    for name in ("maybe_fetch_x_api_updates", "maybe_fetch_socialdata_updates", "maybe_fetch_tikhub_updates"):
-        monkeypatch.setattr(u, name, lambda *_: ([], {"enabled": False}))
     for key in ("GEMINI_API_KEY", "GROQ_API_KEY", "GOOGLE_TRANSLATE_API_KEY"):
         monkeypatch.delenv(key, raising=False)
     monkeypatch.setattr("requests.sessions.Session.request", lambda *_a, **_k: pytest.fail("network forbidden"))
