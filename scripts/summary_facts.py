@@ -149,3 +149,15 @@ def numeric_facts(text: str) -> set[tuple[str, object]]:
 
 def numbers_supported(summary: str, source: str) -> bool:
     return numeric_facts(summary) <= numeric_facts(source)
+
+
+def money_supported(translation: str, source: str) -> bool:
+    """Check displayed monetary values without imposing other summary rules.
+
+    Translation can spell ordinary counts/dates differently. Currency values
+    must still match the native text; no exchange-rate conversion is inferred.
+    """
+    currencies = set(_CURRENCIES.values()) | {"invalid_currency"}
+    translated = {fact for fact in numeric_facts(translation) if fact[0] in currencies}
+    original = {fact for fact in numeric_facts(source) if fact[0] in currencies}
+    return not any(kind == "invalid_currency" for kind, _ in translated) and translated <= original
