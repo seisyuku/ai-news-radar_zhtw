@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Nemotron 3.5 Super VL 模型现已在 Amazon SageMaker JumpStart 中提供",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/01/nvidia-nemotron-3.5-super-vl-on-sagemaker-jumpstart",
-  "last_seen_at": "2026-10-31T10:35:29.160286Z",
+  "last_seen_at": "2026-10-31T11:05:30.639789Z",
   "summary": "NVIDIA 的 Nemotron 3.5 Super VL 模型现已在 Amazon SageMaker JumpStart 中提供，为 AWS 客户提供了更丰富的基础模型选择。这种来自 Nemotron 3.5 系列的视觉语言模型接受图像、视频和文本作为输入并生成文本，使客户能够在 AWS 基础设施上部署多模态 AI 解决方案。 Nemotron 3.5 Super VL 专为文档智能、GUI 理解、视频问答和多模态智能体应用而设计。该模型采用含 1200 亿参数的混合专家（MoE）语言主干（激活参数 120 亿）搭配视觉编码器，支持最高 100 万令牌的上下文长度。该模型包含一个内置的多令牌预测（MTP）头，用于推测性解码以加快文本生成，并可根据请求配置推理。它支持十种语言，包括英语、法语、西班牙语、德语、日语、印地语、韩语和中文。该模型先基于图像、视频、文档、图表和 GUI 数据完成多模态有监督微调，再执行 GRPO 强化学习以完成后训练，可为企业智能体工作流程提供结构化 JSON 输出、工具调用和可配置推理。SageMaker JumpStart 提供了两种变体：NVFP4，用于对搭载 NVIDIA RTX PRO 4500 Blackwell Server Edition GPU 的 G7 实例做推理优化；BF16 参考权重版本，运行于 ml.p5en.48xlarge，支持 SFT、RL、蒸馏、领域适配等定制操作。 借助 SageMaker JumpStart，客户只需点击几下即可部署 Nemotron 3.5 Super VL，以处理其特定的人工智能使用案例。 要开始使用这些模型，请导航到 SageMaker 控制台中的 SageMaker JumpStart 模型目录，或使用 SageMaker Python SDK 将模型部署到您的 AWS 账户。有关在 SageMaker JumpStart 中部署和使用基础模型的更多信息，请参阅 Amazon SageMaker JumpStart 文档 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/sagemaker/latest/dg/studio-jumpstart.html"
