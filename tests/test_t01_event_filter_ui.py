@@ -88,7 +88,7 @@ const generalReaderSource=()=>({publisher:'Example',level:'media'});
 const sourceKind=()=>({label:'媒體',tone:'media'}),readerSiteId=()=>'';
 const scorePercent=()=>80,itemLabelTone=()=>'',labelText=()=> 'AI';
 const sourceSignal=()=> 'Example',sourceSignalTone=()=>'',setSourceBadge=(el,label)=>{el.textContent=label};
-const itemTagLabels=()=>['模型釋出','開發者'];
+const itemTagLabels=()=>['模型','開發者'];
 const itemTagChip=label=>{const el=new Element('signal-tag');el.textContent=label;return el};
 const fmtTime=()=> '10:00',buildCopyNewsUrlButton=()=>null;
 const itemTitleText=x=>x.title,itemOriginalTitleText=()=>'',feedSummaryText=()=> '摘要';
@@ -101,4 +101,4 @@ console.log(JSON.stringify({tags:meta.filter(x=>x.className.startsWith('signal-t
  linkText:node.querySelector('.card-actions').children[0].textContent}));
 """)
     assert result == {"tags": ["模型發布", "評測", "開發者"], "source": "Example",
-                      "time": "10:00", "link": "https://example.com/story", "linkText": "檢視原文 ↗"}
+                      "time": "發布 10:00", "link": "https://example.com/story", "linkText": "檢視原文 ↗"}

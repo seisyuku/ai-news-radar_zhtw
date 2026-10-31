@@ -69,10 +69,10 @@ def test_html_adapter_uses_archive_record_and_escapes_content(tmp_path):
     assert write_item_html_adapters(tmp_path / "data", archive) == 1
 
     page = (tmp_path / "item" / item_id / "index.html").read_text(encoding="utf-8")
-    assert f"Radar ID</dt>\n    <dd>{item_id}</dd>" in page
+    assert f"新聞編號</dt>\n    <dd>{item_id}</dd>" in page
     assert "Title &lt;tag&gt; &amp; &quot;quote&quot;" in page
-    assert "Source</dt>\n    <dd>Example Newsroom</dd>" in page
-    assert "Published</dt>\n    <dd>2026-09-07T10:00:00Z</dd>" in page
+    assert "收錄來源</dt>\n    <dd>Example Newsroom</dd>" in page
+    assert "發布時間（來源提供）</dt>\n    <dd>2026-09-07T10:00:00Z</dd>" in page
     assert "Summary &lt;unsafe&gt; &amp; &#x27;quote&#x27;" in page
     assert 'href="https://example.com/news/123?x=1&amp;y=2"' in page
     assert (tmp_path / "data" / "items" / f"{item_id}.json").exists()

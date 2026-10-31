@@ -35,27 +35,30 @@
           }),
           timeout,
         ]);
+      } catch (error) {
+        if (error?.message === `載入 ${label} 逾時`) throw error;
+        throw new Error(`暫時無法載入${label}，請稍後重試。`);
       } finally {
         clearTimeoutFn(timeoutId);
       }
     }
 
     function loadMarketSignalsData() {
-      return fetchJson("./data/market-signals.json", "market-signals.json");
+      return fetchJson("./data/market-signals.json", "價格變更");
     }
 
     function loadLlmRadarData() {
-      return fetchJson("./data/llm-radar.json", "llm-radar.json");
+      return fetchJson("./data/llm-radar.json", "LLM 發布雷達");
     }
 
     function loadNewsData() {
-      return fetchJson("./data/latest-24h.json", "latest-24h.json", PRIMARY_FETCH_TIMEOUT_MS);
+      return fetchJson("./data/latest-24h.json", "AI 新聞", PRIMARY_FETCH_TIMEOUT_MS);
     }
 
     async function loadAllModeData() {
       if (state.allDataLoaded) return;
       if (!state.allDataPromise) {
-        state.allDataPromise = fetchJson(`./${state.allDataUrl}`, "latest-24h-all.json", PRIMARY_FETCH_TIMEOUT_MS)
+        state.allDataPromise = fetchJson(`./${state.allDataUrl}`, "全部收錄內容", PRIMARY_FETCH_TIMEOUT_MS)
           .then((payload) => {
             state.itemsAllRaw = payload.items_all_raw || payload.items_all || state.itemsAi;
             state.itemsAll = payload.items_all || state.itemsAi;
@@ -73,15 +76,15 @@
     }
 
     function loadSourceStatusData() {
-      return fetchJson("./data/source-status.json", "source-status.json");
+      return fetchJson("./data/source-status.json", "來源狀態");
     }
 
     function loadDailyBriefData() {
-      return fetchJson("./data/daily-brief.json", "daily-brief.json");
+      return fetchJson("./data/daily-brief.json", "重點訊號");
     }
 
     function loadStoriesData() {
-      return fetchJson(`./${state.storiesDataUrl}`, "stories-merged.json");
+      return fetchJson(`./${state.storiesDataUrl}`, "重點訊號整理資料");
     }
 
     return {

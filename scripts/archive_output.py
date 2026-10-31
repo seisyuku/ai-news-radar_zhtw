@@ -237,20 +237,21 @@ def write_item_html_adapters(
     for item_id in active_ids:
         record = sanitize_record(dict(archive[item_id]))
         record["id"] = item_id
-        rows = [definition_row("Radar ID", item_id)]
+        rows = [definition_row("新聞編號", item_id)]
         publisher = record.get("publisher")
         if isinstance(publisher, dict):
-            rows.append(definition_row("Publisher", publisher.get("name")))
-            rows.append(definition_row("Publisher identity", publisher.get("status")))
+            rows.append(definition_row("發布者", publisher.get("name")))
+            identity = {"identified": "已辨識", "reported": "依來源標示", "unknown": "待辨識", "conflict": "資訊衝突"}
+            rows.append(definition_row("發布者辨識狀態", identity.get(publisher.get("status"), "待辨識")))
         policy = record.get("source_policy")
         if isinstance(policy, dict):
-            rows.append(definition_row("Publisher admission", policy.get("admission_status")))
-            rows.append(definition_row("Publisher scope", policy.get("scope_id")))
+            admission = {"approved": "已收錄", "limited": "限制收錄", "unreviewed": "尚未審核", "excluded": "不收錄"}
+            rows.append(definition_row("來源收錄狀態", admission.get(policy.get("admission_status"), "尚未審核")))
         for label, field in (
-            ("Title", "title"),
-            ("Source", "source"),
-            ("Published", "published_at"),
-            ("Summary", "summary"),
+            ("新聞標題（原文）", "title"),
+            ("收錄來源", "source"),
+            ("發布時間（來源提供）", "published_at"),
+            ("來源摘要（原文）", "summary"),
         ):
             row = definition_row(label, record.get(field))
             if row:
@@ -260,20 +261,20 @@ def write_item_html_adapters(
         if original_url:
             escaped_url = html.escape(original_url, quote=True)
             rows.append(
-                "    <dt>Original URL</dt>\n"
+                "    <dt>原文連結</dt>\n"
                 f'    <dd><a href="{escaped_url}">{escaped_url}</a></dd>'
             )
 
         page = "\n".join((
             "<!doctype html>",
-            '<html lang="zh-Hant">',
+            '<html lang="zh-Hant-TW">',
             "<head>",
             '  <meta charset="utf-8">',
-            "  <title>AI News Radar Pulse — News Item</title>",
+            "  <title>AI News Radar Pulse｜新聞資訊</title>",
             "</head>",
             "<body>",
             "  <main>",
-            "    <h1>AI News Radar Pulse — News Item</h1>",
+            "    <h1>AI News Radar Pulse｜新聞資訊</h1>",
             "    <dl>",
             *rows,
             "    </dl>",

@@ -5,7 +5,7 @@ from tests.js_bridge import extract_declarations, run_js
 def harness():
     return extract_declarations(
         'appendSignalLabels', 'storySourceRefs', 'storySourceCount', 'storySourceCountLabel', 'buildStoryCard', 'sourceChip',
-        'sourceDisplayName', 'readerSiteName', 'readerSiteId',
+        'sourceDisplayName', 'readerSiteName', 'readerSiteId', 'storyScore',
     ) + r'''
 class Element {
   constructor() { this.children=[]; this.dataset={}; this.textContent=''; }
@@ -52,6 +52,17 @@ console.log(JSON.stringify(cardResult(story)));
                       'unchanged': True}
 
 
+def test_featured_card_displays_current_impact_rank_even_in_hot_view():
+    result = run_js(harness() + '''
+const card=buildStoryCard({selection_class:'core',score:.57,importance_score:.57,
+  corroboration_count:1,sources:[source('Reuters','publisher:reuters')]},4);
+const score=find(card,'story-score')[0];
+console.log(JSON.stringify({html:score.innerHTML,title:score.title}));
+''')
+    assert '57' in result['html'] and '重點排序分' in result['html']
+    assert '影響評分' in result['title']
+
+
 def test_publisher_aliases_collapse_but_distinct_publishers_remain():
     result = run_js(harness() + '''
 console.log(JSON.stringify(cardResult({sources:[
@@ -71,7 +82,7 @@ console.log(JSON.stringify(cardResult({corroboration_count:0,sources:[
  {source_name:'Another feed',site_id:'curated_media'},null]})));
 ''')
     assert result['labels'] == ['Unknown feed', 'Another feed']
-    assert result['count'] == '來源待辨識'
+    assert result['count'] == '發布者待辨識'
     assert result['unchanged']
 
 
@@ -91,7 +102,7 @@ def test_missing_sources_produce_no_badge_row():
     result = run_js(harness() + '''console.log(JSON.stringify(cardResult({})));''')
     assert result['labels'] == []
     assert result['more'] == []
-    assert result['count'] == '來源待辨識'
+    assert result['count'] == '發布者待辨識'
 
 
 def test_google_query_refs_display_distinct_reported_publishers_without_votes():
@@ -101,7 +112,7 @@ console.log(JSON.stringify(cardResult({corroboration_count:0,sources:[
  source('DeepSeek (Google News)',null,{publisher:{schema_version:1,status:'reported',name:'Another News'}})]})));
 ''')
     assert result['labels'] == ['Example News', 'Another News']
-    assert result['count'] == '來源資訊待核'
+    assert result['count'] == '發布者資訊待核'
     assert result['unchanged']
 
 

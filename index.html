@@ -6,13 +6,13 @@
     <title>AI News Radar Pulse｜24 小時 AI 更新雷達</title>
     <meta
       name="description"
-      content="自動整理過去 24 小時值得看的 AI 的產業官方消息、模型跑分、資安管理與媒體分析訊息，以全球視角重新為您播報"
+      content="整理過去 24 小時的 AI 新聞、模型發布、評測與價格變更，從中選出值得關注的重點訊號。"
     />
     <link rel="canonical" href="https://seisyuku.github.io/ai-news-radar_zhtw/" />
     <meta property="og:title" content="AI News Radar Pulse｜24 小時 AI 更新雷達" />
     <meta
       property="og:description"
-      content="自動整理過去 24 小時值得看的 AI 的產業官方消息、模型跑分、資安管理與媒體分析訊息，以全球視角重新為您播報"
+      content="整理過去 24 小時的 AI 新聞、模型發布、評測與價格變更，從中選出值得關注的重點訊號。"
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://seisyuku.github.io/ai-news-radar_zhtw/" />
@@ -20,7 +20,7 @@
     <meta property="og:image" content="https://seisyuku.github.io/ai-news-radar_zhtw/assets/og-image.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="AI News Radar Pulse｜24 小時 AI 情報雷達" />
+    <meta property="og:image:alt" content="AI News Radar Pulse｜24 小時 AI 更新雷達" />
     <meta name="application-name" content="AI News Radar Pulse" />
     <meta name="theme-color" content="#f6f6f2" />
     <meta name="mobile-web-app-capable" content="yes" />
@@ -31,14 +31,14 @@
     <meta name="twitter:title" content="AI News Radar Pulse｜24 小時 AI 更新雷達" />
     <meta
       name="twitter:description"
-      content="自動整理過去 24 小時值得看的 AI 的產業官方消息、模型跑分、資安管理與媒體分析訊息，以全球視角重新為您播報"
+      content="整理過去 24 小時的 AI 新聞、模型發布、評測與價格變更，從中選出值得關注的重點訊號。"
     />
     <meta name="twitter:image" content="https://seisyuku.github.io/ai-news-radar_zhtw/assets/og-image.jpg" />
     <link rel="icon" href="./assets/logo.svg" type="image/svg+xml" />
     <link rel="icon" href="./assets/icons/favicon-32.png" sizes="32x32" type="image/png" />
     <link rel="apple-touch-icon" href="./assets/icons/apple-touch-icon.png" sizes="180x180" />
     <link rel="manifest" href="./site.webmanifest" />
-    <link rel="stylesheet" href="./assets/styles.css?v=20261031-impact3" />
+    <link rel="stylesheet" href="./assets/styles.css?v=20261031-wording1" />
   </head>
   <body>
     <a class="skip-link" href="#briefPicksWrap">跳到今日重點訊號</a>
@@ -60,7 +60,7 @@
             target="_blank"
             rel="noopener noreferrer"
           >GitHub</a>
-          <span class="updated-label">更新時間</span>
+          <span class="updated-label">資料更新時間</span>
           <span class="updated" id="updatedAt">載入中...</span>
         </div>
 
@@ -69,17 +69,17 @@
         <section class="stats" id="stats"></section>
 
         <section class="section-nav-wrap" aria-label="內容欄目">
-          <div class="section-tabs" id="sectionTabs" role="tablist" aria-label="AI 新聞欄目"></div>
+          <div class="section-tabs" id="sectionTabs" role="tablist" aria-label="新聞分類"></div>
           <div class="section-scroll-hint" aria-hidden="true">左右滑動，檢視更多欄目 →</div>
           <div class="section-summary" id="sectionSummary">正在整理欄目...</div>
         </section>
       </header>
 
       <section class="primary-controls">
-        <input id="searchInput" type="search" placeholder="搜尋精選情報／來源" aria-label="搜尋精選情報或來源" />
+        <input id="searchInput" type="search" placeholder="搜尋精選新聞／來源" aria-label="搜尋精選新聞或來源" />
         <details class="advanced-panel">
           <summary>
-            <span>高階篩選</span>
+            <span>進階篩選</span>
           </summary>
           <div class="advanced-content">
             <div class="advanced-controls">
@@ -90,25 +90,15 @@
                 </select>
               </label>
               <label class="field">
-                <span>來源型別</span>
-                <select id="sourceTypeSelect">
-                  <option value="">全部來源</option>
-                  <option value="original">原始來源</option>
-                  <option value="media">專業媒體</option>
-                  <option value="aggregate">聚合／二次整理</option>
-                  <option value="other">其他與觀察來源</option>
-                </select>
-              </label>
-              <label class="field">
-                <span>內容型別</span>
+                <span>新聞分類</span>
                 <select id="sectionSelect"></select>
               </label>
               <label class="field">
-                <span>訊號等級</span>
+                <span>閱讀條件</span>
                 <select id="signalLevelSelect">
-                  <option value="">全部訊號</option>
-                  <option value="high">高優先順序</option>
-                  <option value="curated">精選 / 官方</option>
+                  <option value="">不限閱讀條件</option>
+                  <option value="high">精選新聞</option>
+                  <option value="curated">指定來源清單</option>
                   <option value="multi">多方報導</option>
                 </select>
               </label>
@@ -125,29 +115,29 @@
                 </select>
               </label>
               <label class="field">
-                <span>具體來源</span>
+                <span>來源類型</span>
                 <select id="siteSelect">
-                  <option value="">全部站點</option>
+                  <option value="">全部來源類型</option>
                 </select>
               </label>
               <div class="field">
-                <span>進階內容</span>
+                <span>收錄範圍</span>
                 <div class="mode-switch">
-                  <button id="modeAllBtn" class="mode-btn" type="button" aria-pressed="false">全量原始</button>
+                  <button id="modeAllBtn" class="mode-btn" type="button" aria-pressed="false">全部收錄內容</button>
                 </div>
               </div>
-              <label id="allDedupeWrap" class="all-dedupe" for="allDedupeToggle">
+              <label id="allDedupeWrap" class="all-dedupe" for="allDedupeToggle" title="控制收錄內容的重複合併；同發布者的重複連結仍會合併顯示。">
                 <input id="allDedupeToggle" type="checkbox" checked />
                 <span class="all-dedupe-dot"></span>
-                <span id="allDedupeLabel">去重開</span>
+                <span id="allDedupeLabel">合併重複內容：開</span>
               </label>
             </div>
-            <div class="source-health" id="sourceHealth">源狀態載入中...</div>
+            <div class="source-health" id="sourceHealth">來源狀態載入中...</div>
             <details class="source-detail-panel">
-              <summary>檢視源狀態詳情</summary>
+              <summary>檢視來源狀態詳情</summary>
               <div class="source-health-details" id="sourceHealthDetails"></div>
-              <section class="coverage-strip" id="coverageStrip" aria-label="Source coverage status"></section>
-              <section class="source-status-table" id="sourceStatusTable" aria-label="源狀態詳情"></section>
+              <section class="coverage-strip" id="coverageStrip" aria-label="收錄來源概況"></section>
+              <section class="source-status-table" id="sourceStatusTable" aria-label="來源狀態詳情"></section>
               <section class="site-pills" id="sitePills"></section>
             </details>
           </div>
@@ -155,7 +145,7 @@
         <button class="clear-filters-btn" id="clearFiltersBtn" type="button" hidden>清除篩選</button>
       </section>
 
-      <section class="brief-picks-wrap" aria-label="今日 Top 3" id="briefPicksWrap">
+      <section class="brief-picks-wrap" aria-label="今日重點訊號" id="briefPicksWrap">
         <div class="brief-picks-head">
           <div>
             <p class="section-eyebrow">TODAY'S SIGNALS</p>
@@ -163,10 +153,10 @@
           </div>
           <div class="brief-head-tools">
             <div class="brief-view-toggle" id="briefViewToggle" hidden>
-              <button id="briefHotBtn" class="mode-btn" type="button" aria-pressed="false">當前熱點</button>
-              <button id="briefTimelineBtn" class="mode-btn" type="button" aria-pressed="false">時間線</button>
+              <button id="briefHotBtn" class="mode-btn" type="button" aria-pressed="false">依重要性</button>
+              <button id="briefTimelineBtn" class="mode-btn" type="button" aria-pressed="false">依時間</button>
             </div>
-            <span id="briefPicksMeta">按評分排序</span>
+            <span id="briefPicksMeta">依重要性排序</span>
           </div>
         </div>
         <div id="briefPicksList" class="brief-board"></div>
@@ -178,7 +168,7 @@
             <p class="section-eyebrow">LLM RELEASES</p>
             <h2>LLM 發布雷達</h2>
           </div>
-          <span id="llmRadarMeta">過去 24 小時新訊號</span>
+          <span id="llmRadarMeta">過去 24 小時模型發布</span>
         </div>
         <div class="sensor-grid" id="llmRadarList" role="region" aria-label="LLM 發布雷達消息" tabindex="0"></div>
       </section>
@@ -189,24 +179,24 @@
             <p class="section-eyebrow">MODEL PRICES</p>
             <h2>價格變更</h2>
           </div>
-          <span id="marketSignalsMeta">結構化差異</span>
+          <span id="marketSignalsMeta">過去 24 小時價格變更</span>
         </div>
         <div class="sensor-grid" id="marketSignalsList" role="region" aria-label="價格變更消息" tabindex="0"></div>
       </section>
 
       <section class="list-wrap">
         <div class="list-head">
-          <h2 id="listTitle">精選情報</h2>
+          <h2 id="listTitle">精選新聞</h2>
           <div class="list-head-tools">
             <div class="mode-switch list-mode-switch" role="group" aria-label="新聞列表範圍">
-              <button id="modeSelectedBtn" class="mode-btn active" type="button" aria-pressed="true">精選 0</button>
-              <button id="modeAiBtn" class="mode-btn" type="button" aria-pressed="false">全部 AI 0</button>
+              <button id="modeSelectedBtn" class="mode-btn active" type="button" aria-pressed="true">精選新聞 0</button>
+              <button id="modeAiBtn" class="mode-btn" type="button" aria-pressed="false">全部 AI 新聞 0</button>
             </div>
-            <span id="resultCount">0 條</span>
+            <span id="resultCount">0 篇</span>
           </div>
         </div>
         <div id="newsList" class="news-list" aria-live="polite"></div>
-        <button id="viewAllAiBtn" class="view-all-ai-btn" type="button">查看全部 AI</button>
+        <button id="viewAllAiBtn" class="view-all-ai-btn" type="button">查看全部 AI 新聞</button>
       </section>
 
     </main>
@@ -234,10 +224,10 @@
     </template>
 
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" integrity="sha384-HOvlOYPIs/zjoIkWUGXkVmXsjr8GuZLV+Q+rcPwmJOVZVpvTSXQChiN4t9Euv9Vc" crossorigin="anonymous" defer></script>
-    <script src="./assets/motion.js?v=20261031-impact3" defer></script>
-    <script src="./assets/loader.js?v=20261031-impact3" defer></script>
-    <script src="./assets/selection.js?v=20261031-impact3" defer></script>
-    <script src="./assets/publisher-governance.js?v=20261031-impact3" defer></script>
-    <script src="./assets/app.js?v=20261031-impact3" defer></script>
+    <script src="./assets/motion.js?v=20261031-wording1" defer></script>
+    <script src="./assets/loader.js?v=20261031-wording1" defer></script>
+    <script src="./assets/selection.js?v=20261031-wording1" defer></script>
+    <script src="./assets/publisher-governance.js?v=20261031-wording1" defer></script>
+    <script src="./assets/app.js?v=20261031-wording1" defer></script>
   </body>
 </html>

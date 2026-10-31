@@ -143,7 +143,7 @@ async function main() {
     assert.equal(env.events.filter((event) => event === "aiRadar:ready").length, 1);
     if (key.includes("source-status")) {
       assert.ok(env.observed.health.some(Boolean));
-      assert.match(env.state.sourceStatusError || "", /source-status\.json/);
+      assert.match(env.state.sourceStatusError || "", /來源狀態/);
       assert.ok(env.observed.stats.some((snapshot) => snapshot.error), "source failure did not refresh header stats");
     }
   } else if (scenario === "main-fail") {
@@ -152,7 +152,7 @@ async function main() {
     await flush();
     await flush();
     assert.equal(env.updatedAtEl.textContent, "新聞資料載入失敗");
-    assert.match(env.newsListEl.innerHTML, /latest-24h\.json/);
+    assert.match(env.newsListEl.innerHTML, /AI 新聞/);
     assert.equal(env.observed.list, 0);
     assert.deepEqual(env.events, ["aiRadar:ready"]);
     if (env.gates["./data/stories-merged.json"]) env.release("./data/stories-merged.json");

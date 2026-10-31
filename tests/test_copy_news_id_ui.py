@@ -31,7 +31,7 @@ def test_single_source_cards_render_the_copy_url_button_without_social_editor_te
     source = (ROOT / "assets" / "app.js").read_text(encoding="utf-8")
 
     assert 'button.className = "copy-id-btn"' in source
-    assert 'button.textContent = "複製URL"' in source
+    assert 'button.textContent = "複製原文連結"' in source
     assert "const copyUrlButton = buildCopyNewsUrlButton(item);" in source
     assert "const cardActions = node.querySelector(\".card-actions\");" in source
     assert "if (copyUrlButton) cardActions.appendChild(copyUrlButton);" in source

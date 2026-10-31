@@ -89,7 +89,7 @@ const llmRadarMetaEl = document.getElementById("llmRadarMeta");
 const SOURCE_KINDS = {
   official_ai: { label: "官方", tone: "official" },
   arc_prize: { label: "評測第三方", tone: "research" },
-  curated_media: { label: "精選媒體", tone: "aihub" },
+  curated_media: { label: "指定來源", tone: "aihub" },
   xapi: { label: "X API", tone: "builders" },
   socialdata_x: { label: "X 搜尋", tone: "builders" },
   opmlrss: { label: "OPML", tone: "newsletter" },
@@ -109,11 +109,11 @@ const SOURCE_KINDS = {
 };
 
 const SECTION_DEFS = [
-  { id: "hot", label: "熱點", short: "熱點", description: "跨來源聚合後的優先閱讀列表" },
-  { id: "models", label: "模型", short: "模型", description: "模型釋出、能力升級、評測與開源權重" },
+  { id: "hot", label: "總覽", short: "總覽", description: "過去 24 小時收錄的新聞總覽" },
+  { id: "models", label: "模型", short: "模型", description: "模型發布、能力升級、評測與開源權重" },
   { id: "products", label: "產品", short: "產品", description: "AI 應用、Agent、生成工具和使用者產品更新" },
   { id: "devtools", label: "開發者", short: "開發者", description: "程式設計工具、API、開源專案、推理與工程實踐" },
-  { id: "industry", label: "行業", short: "行業", description: "公司戰略、融資收購、監管、晶片與產業變化" },
+  { id: "industry", label: "產業", short: "產業", description: "公司戰略、融資收購、監管、晶片與產業變化" },
   { id: "research", label: "研究", short: "研究", description: "論文、基準、方法、資料集與研究團隊動態" },
   { id: "community", label: "社群", short: "社群", description: "WaytoAGI、中文社群、公眾號和 Builders/X 訊號" },
 ];
@@ -137,12 +137,12 @@ const BUSINESS_EVENT_LABELS = {
 // itemTagLabels() (section membership only). When both would appear in the
 // same card's tag row and say near enough the same thing, the event badge
 // wins and the content tag is dropped instead of showing both ("模型發布"
-// event badge vs. "模型釋出" content tag for the same models-section item).
+// event badge vs. "模型發布" content tag for the same models-section item).
 // "模型" is itemTagLabels()'s echo of the currently active section tab
 // (sectionBadgeLabel) - it shows up here too whenever someone is browsing
 // the 模型 tab, which reads as the same word repeated next to "模型發布".
 const TAG_SYNONYM_SUPPRESS = {
-  model_release: ["模型釋出", "模型"],
+  model_release: ["模型發布", "模型"],
 };
 
 function businessEventBadges(events) {
@@ -198,7 +198,7 @@ function rowBusinessEvents(row) {
 }
 
 function fmtNumber(n) {
-  return new Intl.NumberFormat("zh-CN").format(n || 0);
+  return new Intl.NumberFormat("zh-TW").format(n || 0);
 }
 
 const UNSAFE_HARD_PATTERNS = [
@@ -252,7 +252,7 @@ function fmtTime(iso) {
   if (!iso) return "時間未知";
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return "時間未知";
-  return new Intl.DateTimeFormat("zh-CN", {
+  return new Intl.DateTimeFormat("zh-TW", {
     month: "2-digit",
     day: "2-digit",
     hour: "2-digit",
@@ -264,7 +264,7 @@ function fmtDate(iso) {
   if (!iso) return "未知日期";
   const d = new Date(`${iso}T00:00:00`);
   if (Number.isNaN(d.getTime())) return iso;
-  return new Intl.DateTimeFormat("zh-CN", {
+  return new Intl.DateTimeFormat("zh-TW", {
     month: "2-digit",
     day: "2-digit",
   }).format(d);
@@ -304,32 +304,30 @@ function renderStaleBanner() {
 function setStats() {
   statsEl.innerHTML = "";
   const items = safeItems(state.itemsAi);
-  const highCount = items.filter((item) => isHighPriorityItem(item)).length;
-  const curatedCount = briefStories().length;
+  const aiCount = displayItemCount(items);
+  const selectedCount = displayItemCount(items.filter(isHighPriorityItem));
+  const featuredCount = briefStories().length;
   const status = state.sourceStatus;
   const totalSites = Array.isArray(status?.sites) ? status.sites.length : 0;
   const okSites = Number(status?.successful_sites || 0);
-  const health = status ? `${fmtNumber(okSites)}/${fmtNumber(totalSites)}正常` : (state.sourceStatusError ? "異常" : "載入中");
+  const health = status ? `${fmtNumber(okSites)}/${fmtNumber(totalSites)} 正常` : (state.sourceStatusError ? "異常" : "載入中");
   const cards = [
-    ["AI", `${fmtNumber(items.length)}條`],
-    ["高優", `${fmtNumber(highCount)}條`],
-    ["故事", `${fmtNumber(curatedCount)}條`],
-    ["源", health],
+    ["AI 新聞", `${fmtNumber(aiCount)} 篇`],
+    ["精選新聞", `${fmtNumber(selectedCount)} 篇`],
+    ["重點訊號", `${fmtNumber(featuredCount)} 則`],
+    ["抓取來源", health],
   ];
-  statsEl.setAttribute(
-    "aria-label",
-    `過去 24 小時：AI 訊號 ${fmtNumber(items.length)} 條，高優先順序 ${fmtNumber(highCount)} 條，重點故事 ${fmtNumber(curatedCount)} 條，源狀態 ${status ? `${fmtNumber(okSites)}/${fmtNumber(totalSites)} 源正常` : (state.sourceStatusError ? "異常" : "載入中")}`,
-  );
-
+  statsEl.setAttribute("aria-label",
+    `全站過去 24 小時：AI 新聞 ${fmtNumber(aiCount)} 篇，精選新聞 ${fmtNumber(selectedCount)} 篇，重點訊號 ${fmtNumber(featuredCount)} 則，抓取來源 ${health}。全站數量不受下方篩選影響。`);
+  statsEl.title = "全站數量不受下方篩選影響；精選新聞與重點訊號採不同入選條件。";
   const prefix = document.createElement("div");
   prefix.className = "stat-prefix";
-  prefix.textContent = "過去 24 小時：";
+  prefix.textContent = "過去 24 小時（全站）：";
   statsEl.appendChild(prefix);
-
-  cards.forEach(([k, v]) => {
+  cards.forEach(([label, value]) => {
     const node = document.createElement("div");
     node.className = "stat";
-    node.innerHTML = `<div class="k">${k}</div><div class="v">${v}</div>`;
+    node.innerHTML = `<div class="k">${label}</div><div class="v">${value}</div>`;
     statsEl.appendChild(node);
   });
 }
@@ -350,7 +348,7 @@ function readerSiteId(itemOrSiteId) {
 
 function readerSiteName(item) {
   return readerSiteId(item) === "curated_media" && item?.site_id === "aibase"
-    ? "精選媒體"
+    ? "指定來源"
     : (item?.site_name || readerSiteId(item));
 }
 
@@ -381,7 +379,7 @@ function sourceDisplayName(item) {
           return host;
         }
       } catch { /* malformed URL: keep the unknown label */ }
-      return "來源待辨識";
+      return "發布者待辨識";
     }
   }
   const source = String(item?.source || item?.source_name || "").trim();
@@ -392,7 +390,7 @@ function sourceDisplayName(item) {
 // Presentation-only levels for the general list. Never use these for scoring
 // or featured-event selection; feed transports are not publisher identities.
 const READER_SOURCE_LEVELS = {
-  original: { label: "原始來源", rank: 1, tone: "official" },
+  original: { label: "一手來源", rank: 1, tone: "official" },
   media: { label: "專業媒體", rank: 2, tone: "aihub" },
   aggregate: { label: "聚合／二次整理", rank: 3, tone: "aggregate" },
   other: { label: "其他與觀察來源", rank: 4, tone: "watchlist" },
@@ -552,10 +550,10 @@ function paidSourceLabel(status, poolCount, activeLabel, idleLabel) {
   const liveCount = Number(status?.item_count || 0);
   const displayCount = liveCount || Number(poolCount || 0);
   if (connected) {
-    if (displayCount) return `${activeLabel} ${fmtNumber(displayCount)}條`;
-    return `${activeLabel} ${status?.skipped ? "待視窗" : "已連線暫無匹配"}`;
+    if (displayCount) return `${activeLabel} ${fmtNumber(displayCount)} 篇`;
+    return `${activeLabel} ${status?.skipped ? "等待下次更新" : "已連線暫無符合"}`;
   }
-  if (displayCount) return `${activeLabel} ${fmtNumber(displayCount)}條`;
+  if (displayCount) return `${activeLabel} ${fmtNumber(displayCount)} 篇`;
   return idleLabel;
 }
 
@@ -593,23 +591,23 @@ function renderCoverageStrip(errorMessage = "") {
   const totalSites = rows.length;
   const okSites = Number(state.sourceStatus?.successful_sites || 0);
   const opmlValue = rss.enabled ? `${fmtNumber(rss.ok_feeds || 0)}/${fmtNumber(rss.effective_feed_total || 0)}` : "OPML";
-  const opmlMeta = rss.enabled ? "RSS示例/自定義訂閱已接入" : "可用OPML批次接入RSS";
+  const opmlMeta = rss.enabled ? "已接入 RSS 訂閱來源" : "可匯入 RSS 訂閱清單";
   const socialdataLabel = paidSourceLabel(socialdata, socialdataPoolCount, "SocialData", "");
   const xApiLabel = paidSourceLabel(xApi, xApiPoolCount, "X API", "");
-  const xSourceLabel = socialdataLabel || xApiLabel || "X待配置";
-  const advancedValue = xPoolCount ? `X ${fmtNumber(xPoolCount)}` : "X待配置";
+  const xSourceLabel = socialdataLabel || xApiLabel || "X 尚未設定";
+  const advancedValue = xPoolCount ? `X ${fmtNumber(xPoolCount)}` : "X 尚未設定";
   const advancedMeta = socialdata.enabled || xApi.enabled || xPoolCount
     ? `額度保護 · ${xSourceLabel}`
     : "X API 預設關閉";
 
   const cards = [
-    ["源健康", totalSites ? `${fmtNumber(okSites)}/${fmtNumber(totalSites)}` : "載入中", failedSites.length ? `${fmtNumber(failedSites.length)} 個失敗源` : (errorMessage || "內建源正常"), failedSites.length ? "warn" : "ok"],
-    ["今日覆蓋池", `${fmtNumber(coverageCount)} 條`, allCount ? `全網抓取原始訊號 · ${fmtNumber(allCount)} 條入池` : "全網抓取原始訊號", "signal"],
-    ["AI強相關", `${fmtNumber(safeItems(state.itemsAi).length)} 條`, "24小時強相關訊號", "signal"],
-    ["官方源池", `${fmtNumber(officialCount)} 條`, "官方節點", "official"],
-    ["精選媒體源池", `${fmtNumber(curatedMediaCount)} 條`, "The Decoder / TC / Verge / MTP 等", "signal"],
-    ["RSS/OPML擴充套件", opmlValue, opmlMeta, "private"],
-    ["高階源", advancedValue, advancedMeta, "private"],
+    ["來源健康", totalSites ? `${fmtNumber(okSites)}/${fmtNumber(totalSites)}` : "載入中", failedSites.length ? `${fmtNumber(failedSites.length)} 個失敗來源` : (errorMessage || "抓取來源正常"), failedSites.length ? "warn" : "ok"],
+    ["24 小時收錄內容", `${fmtNumber(coverageCount)} 篇`, allCount ? `已設定來源 · 收錄 ${fmtNumber(allCount)} 篇` : "已設定來源收錄內容", "signal"],
+    ["AI 新聞", `${fmtNumber(safeItems(state.itemsAi).length)} 篇`, "過去 24 小時的 AI 新聞", "signal"],
+    ["官方來源內容", `${fmtNumber(officialCount)} 篇`, "官方來源群組", "official"],
+    ["指定來源內容", `${fmtNumber(curatedMediaCount)} 篇`, "指定來源群組，含媒體與聚合來源", "signal"],
+    ["RSS 訂閱來源", opmlValue, opmlMeta, "private"],
+    ["外部 API 來源", advancedValue, advancedMeta, "private"],
   ];
 
   cards.forEach(([label, value, meta, tone]) => {
@@ -632,7 +630,7 @@ function renderClearFiltersButton() {
   if (!clearFiltersBtnEl) return;
   const count = activeAdjustmentCount();
   clearFiltersBtnEl.hidden = count === 0;
-  clearFiltersBtnEl.textContent = count ? `清除 ${fmtNumber(count)} 項調整` : "清除篩選";
+  clearFiltersBtnEl.textContent = count ? `清除 ${fmtNumber(count)} 項篩選` : "清除篩選";
 }
 
 function clearAllFilters() {
@@ -778,15 +776,13 @@ function renderSectionSummary(filteredItems = null) {
   if (!sectionSummaryEl) return;
   const section = SECTION_BY_ID[state.activeSection] || SECTION_BY_ID.hot;
   const items = filteredItems || getFilteredItems();
-  const highCount = items.filter((item) => (
-    isHighPriorityItem(item) || (section.id === "models" && itemHasModelRelease(item))
-  )).length;
-  const sources = new Set(items.map((item) => item.source || item.site_name || item.site_id).filter(Boolean));
-  const modeText = state.mode === "selected"
-    ? "高優先順序精選"
-    : (state.mode === "all" ? (state.allDedup ? "全量去重" : "全量原始") : "全部 AI");
-  const timeWindow = "過去 24 小時";
-  sectionSummaryEl.textContent = `${timeWindow} · ${fmtNumber(items.length)} 條${section.id === "hot" ? "" : ` ${section.label}`}訊號 · ${fmtNumber(highCount)} 條高優先順序 · ${fmtNumber(sources.size)} 個來源 · ${modeText}`;
+  const selectedKeys = new Set(getFilteredItems("selected").map(item => item.id || item.url));
+  const selectedCount = displayItemCount(items.filter(item => selectedKeys.has(item.id || item.url)));
+  const publishers = new Set(items.map(item => generalReaderSource(item).publisher).filter(Boolean));
+  const noun = state.mode === "selected" ? "精選新聞" : state.mode === "all" ? "收錄內容" : "AI 新聞";
+  const selectionNote = state.mode === "selected" ? "" : `（含 ${fmtNumber(selectedCount)} 篇精選新聞）`;
+  const topic = section.id === "hot" ? "" : `${section.label} · `;
+  sectionSummaryEl.textContent = `${topic}過去 24 小時 · ${fmtNumber(displayItemCount(items))} 篇${noun}${selectionNote} · ${fmtNumber(publishers.size)} 個發布者`;
 }
 
 function siteRatioText(siteStats) {
@@ -796,16 +792,16 @@ function siteRatioText(siteStats) {
     const scanned = Number(siteRow(siteStats.site_id)?.item_count || 0);
     if (!count && scanned) return `24h 0 · 已掃 ${fmtNumber(scanned)}`;
     if (!count) return "已掃 0";
-    return `${fmtNumber(count)} 條`;
+    return `${fmtNumber(count)} 篇`;
   }
-  if (raw === count) return `${fmtNumber(count)} 條`;
+  if (raw === count) return `${fmtNumber(count)} 篇`;
   return `${fmtNumber(count)}/${fmtNumber(raw)} · ${Math.round((count / raw) * 100)}%AI`;
 }
 
 function renderSiteFilters() {
   const stats = currentSiteStats();
 
-  siteSelectEl.innerHTML = '<option value="">全部站點</option>';
+  siteSelectEl.innerHTML = '<option value="">全部來源類型</option>';
   stats.forEach((s) => {
     const opt = document.createElement("option");
     opt.value = s.site_id;
@@ -817,7 +813,7 @@ function renderSiteFilters() {
   sitePillsEl.innerHTML = "";
   const allPill = document.createElement("button");
   allPill.className = `pill ${state.siteFilter === "" ? "active" : ""}`;
-  allPill.textContent = "全部";
+  allPill.textContent = "全部來源類型";
   allPill.onclick = () => {
     state.siteFilter = "";
     renderSiteFilters();
@@ -830,8 +826,8 @@ function renderSiteFilters() {
     const authorPill = document.createElement("button");
     authorPill.type = "button";
     authorPill.className = "pill active author-filter-pill";
-    authorPill.textContent = `X 博主 ${state.authorFilter} ×`;
-    authorPill.title = "清除博主篩選";
+    authorPill.textContent = `X 作者 ${state.authorFilter} ×`;
+    authorPill.title = "清除作者篩選";
     authorPill.onclick = () => {
       state.authorFilter = "";
       state.siteFilter = "";
@@ -861,13 +857,13 @@ function renderSiteFilters() {
 function renderModeSwitch() {
   const selectedCount = displayItemCount(getFilteredItems("selected"));
   const aiCount = displayItemCount(getFilteredItems("ai"));
-  modeSelectedBtnEl.textContent = `精選 ${fmtNumber(selectedCount)}`;
-  modeAiBtnEl.textContent = `全部 AI ${fmtNumber(aiCount)}`;
+  modeSelectedBtnEl.textContent = `精選新聞 ${fmtNumber(selectedCount)}`;
+  modeAiBtnEl.textContent = `全部 AI 新聞 ${fmtNumber(aiCount)}`;
   if (viewAllAiBtnEl) {
     viewAllAiBtnEl.hidden = state.mode !== "selected";
-    viewAllAiBtnEl.textContent = `查看全部 AI（${fmtNumber(aiCount)}）`;
+    viewAllAiBtnEl.textContent = `查看全部 AI 新聞（${fmtNumber(aiCount)}）`;
   }
-  const scope = state.mode === "selected" ? "精選情報" : state.mode === "ai" ? "全部 AI 情報" : "全量情報";
+  const scope = state.mode === "selected" ? "精選新聞" : state.mode === "ai" ? "全部 AI 新聞" : "全部收錄內容";
   if (searchInputEl) {
     searchInputEl.placeholder = `搜尋${scope}／來源`;
     searchInputEl.setAttribute("aria-label", `搜尋${scope}或來源；同時篩選上方重點訊號`);
@@ -880,7 +876,7 @@ function renderModeSwitch() {
   modeAllBtnEl.setAttribute("aria-pressed", state.mode === "all" ? "true" : "false");
   if (allDedupeWrapEl) allDedupeWrapEl.classList.toggle("show", state.mode === "all");
   if (allDedupeToggleEl) allDedupeToggleEl.checked = state.allDedup;
-  if (allDedupeLabelEl) allDedupeLabelEl.textContent = state.allDedup ? "去重開" : "去重關";
+  if (allDedupeLabelEl) allDedupeLabelEl.textContent = state.allDedup ? "合併重複內容：開" : "合併重複內容：關";
   if (listTitleEl) {
     listTitleEl.textContent = listTitleText();
   }
@@ -891,10 +887,10 @@ function renderModeSwitch() {
 function listTitleText() {
   const section = SECTION_BY_ID[state.activeSection] || SECTION_BY_ID.hot;
   const pool = state.mode === "selected"
-    ? "精選情報"
+    ? "精選新聞"
     : (state.mode === "all"
-      ? (state.allDedup ? "情報流 · 全量去重" : "情報流 · 全量原始")
-      : "全部 AI 情報");
+      ? (state.allDedup ? "全部收錄內容 · 已合併重複" : "全部收錄內容 · 未合併重複")
+      : "全部 AI 新聞");
   return state.activeSection === "hot" ? pool : `${section.label} · ${pool}`;
 }
 
@@ -985,7 +981,7 @@ function isMostlyEnglishTitle(text) {
 }
 
 function itemTitleText(item) {
-  const preferred = (item.title_zh || item.title || item.title_en || "未命名更新").trim();
+  const preferred = (item.title_zh || item.title || item.title_en || "未命名新聞").trim();
   const titleParts = preferred.includes(" / ") ? preferred.split(" / ") : [];
   const display = !item.title_zh && titleParts.length ? titleParts[0].trim() : preferred;
   const original = item.title_en || item.title_original || (titleParts.length > 1 ? titleParts.slice(1).join(" / ") : "");
@@ -1048,7 +1044,7 @@ function itemTagTone(label) {
   if (text.includes("研究")) return "research";
   if (text.includes("社群")) return "community";
   if (text.includes("產品")) return "products";
-  if (text.includes("行業")) return "industry";
+  if (text.includes("產業")) return "industry";
   return "default";
 }
 
@@ -1103,21 +1099,21 @@ function itemPriorityScore(item) {
 
 function labelText(item) {
   const labels = {
-    ai_general: "AI訊號",
-    model_release: "模型釋出",
+    ai_general: "AI 新聞",
+    model_release: "模型發布",
     agent_workflow: "Agent工作流",
     ai_product_update: "產品更新",
     developer_tooling: "開發工具",
     developer_tool: "開發工具",
     infrastructure: "基礎設施",
     infra_compute: "基礎設施",
-    industry_business: "行業動態",
+    industry_business: "產業新聞",
     research_paper: "研究論文",
     robotics: "機器人",
-    curated_hotlist: "熱點",
+    curated_hotlist: "焦點新聞",
     ai_tech: "技術趨勢",
   };
-  return labels[item.ai_label] || item.ai_label || "精選訊號";
+  return labels[item.ai_label] || item.ai_label || "AI 新聞";
 }
 
 const { itemSections, itemMatchesSection } = AiRadarSelection;
@@ -1130,7 +1126,7 @@ function reasonText(item) {
   const signals = Array.isArray(item.ai_signals) ? item.ai_signals.filter(Boolean).slice(0, 3) : [];
   if (signals.length) return `命中方向：${signals.join(" / ")}`;
   if (item.ai_relevance_reason) return String(item.ai_relevance_reason).replaceAll("_", " ");
-  return "來源與標題訊號透過篩選";
+  return "來源與標題符合收錄條件";
 }
 
 function timelineIso(item) {
@@ -1301,7 +1297,7 @@ function storyImportanceTone(label) {
   if (label.includes("重大")) return "hot";
   if (label.includes("官方")) return "official";
   if (label.includes("多源")) return "strong";
-  if (label.includes("行業")) return "watch";
+  if (label.includes("產業")) return "watch";
   return "watch";
 }
 
@@ -1315,7 +1311,7 @@ function storyPrimaryTitleText(story) {
     const [zh, en] = bilingual.split(" / ");
     return repairDisplayedTitle(explicitOriginal || en, (zh || en || bilingual).trim());
   }
-  return bilingual || "未命名更新";
+  return bilingual || "未命名新聞";
 }
 
 function storyPrimaryEnText(story) {
@@ -1369,9 +1365,9 @@ function storySourceCountLabel(story) {
   if (count) return `${count} 個發布者${suffix}`;
   const publishers = (Array.isArray(story?.sources) ? story.sources : [])
     .map((s) => s?.publisher).filter((p) => p?.schema_version === 1);
-  if (publishers.some((p) => p.status === "identified" && p.name)) return `來源已標示${suffix}`;
-  if (publishers.some((p) => p.status === "reported" && p.name)) return `來源資訊待核${suffix}`;
-  return `來源待辨識${suffix}`;
+  if (publishers.some((p) => p.status === "identified" && p.name)) return `發布者已標示${suffix}`;
+  if (publishers.some((p) => p.status === "reported" && p.name)) return `發布者資訊待核${suffix}`;
+  return `發布者待辨識${suffix}`;
 }
 
 function storyDurationLabel(earliest, latest) {
@@ -1404,8 +1400,8 @@ function formatStoryTime(story) {
 
 function briefReasonText(row) {
   const signals = row.sourceSignals || [];
-  const sourceText = signals.length ? `來源命中：${signals.join(" / ")}` : "來源命中：單源";
-  const mergeText = row.mergedCount > 1 ? `合併${row.mergedCount}條同事件` : "單條事件";
+  const sourceText = signals.length ? `報導來源：${signals.join(" / ")}` : "單一發布者";
+  const mergeText = row.mergedCount > 1 ? `合併 ${row.mergedCount} 篇同事件新聞` : "單篇報導";
   return `${sourceText} · ${mergeText} · ${reasonText(row.item)}`;
 }
 
@@ -1463,7 +1459,7 @@ function buildStoryCard(story, rank) {
   const { latest, rangeLabel, reportedDay } = formatStoryTime(story);
   const labelEl = document.createElement("span");
   labelEl.className = "story-time-label";
-  labelEl.textContent = story.brief_event_id ? "事件" : "最新";
+  labelEl.textContent = story.brief_event_id ? "報導時間" : "最新報導";
   const latestEl = document.createElement("span");
   latestEl.className = "story-time-latest";
   latestEl.textContent = reportedDay || fmtTime(latest);
@@ -1499,14 +1495,14 @@ function buildStoryCard(story, rank) {
   countEl.className = "story-count";
   countEl.textContent = storySourceCountLabel(story);
   meta.appendChild(countEl);
-  const displayScore = storySortScore(story);
+  const featured = ["core", "supplement"].includes(story.selection_class);
+  const displayScore = featured ? storyScore(story) : storySortScore(story);
   if (displayScore > 0) {
     const scoreEl = document.createElement("strong");
     scoreEl.className = `story-score ${state.briefView === "hot" ? "heat" : ""}`.trim();
-    scoreEl.title = state.briefView === "hot"
-      ? "熱度分 = 多源強度 × 時間衰減"
-      : "編輯重要性分";
-    scoreEl.innerHTML = `<span>${displayScore}</span><small>${state.briefView === "hot" ? "熱度" : "分"}</small>`;
+    scoreEl.title = featured ? "重點排序分：影響評分、核心加分與新鮮度；同發布者另有排序扣分。"
+      : state.briefView === "hot" ? "多方報導熱度，依發布者數量與時間衰減計算。" : "優先閱讀分";
+    scoreEl.innerHTML = `<span>${displayScore}</span><small>${featured ? "重點排序分" : state.briefView === "hot" ? "報導熱度" : "優先閱讀分"}</small>`;
     meta.appendChild(scoreEl);
   }
   body.appendChild(meta);
@@ -1633,7 +1629,7 @@ function renderBriefFallback(picks) {
 
   const note = document.createElement("div");
   note.className = "brief-fallback-note";
-  note.textContent = "故事合併資料暫未生成，先展示重點候選訊號。";
+  note.textContent = "重點訊號整理資料暫未生成，先展示候選內容。";
   briefPicksListEl.appendChild(note);
 
   if (!picks.length) {
@@ -1795,6 +1791,7 @@ function scheduleBriefExpiry(projection) {
   state.briefExpiryTimer = setTimeout(() => {
     renderBriefPicks({ animate: false });
     renderLlmRadar();
+    setStats();
     if (state.activeSection === "models") renderList();
   }, Math.min(2147483647, Math.max(1, Math.min(...deadlines) - Date.now())));
   state.briefExpiryTimer?.unref?.();
@@ -1979,8 +1976,8 @@ function buildBriefFollowupPanel(rows, topCount, usesStories) {
   panel.className = "brief-story-panel";
   const heading = document.createElement("div");
   heading.className = "brief-story-panel-head";
-  const viewLabel = state.briefView === "hot" ? "當前熱點" : "故事時間線";
-  heading.textContent = `${viewLabel} · ${fmtNumber(rows.length)} 條${usesStories ? "故事" : "候選"} · Top${topCount} 後續`;
+  const viewLabel = state.briefView === "hot" ? "依重要性" : "依時間";
+  heading.textContent = `更多重點訊號 · ${fmtNumber(remaining.length)} 則 · ${viewLabel}`;
   panel.appendChild(heading);
 
   const list = document.createElement("div");
@@ -2000,8 +1997,8 @@ function buildBriefFollowupPanel(rows, topCount, usesStories) {
     moreBtn.type = "button";
     moreBtn.className = "brief-more-btn";
     moreBtn.textContent = state.briefExpanded
-      ? "收起後續"
-      : `展開後續 ${fmtNumber(remaining.length - followupLimit)} 條`;
+      ? "收起更多重點訊號"
+      : `展開其餘 ${fmtNumber(remaining.length - followupLimit)} 則重點訊號`;
     moreBtn.addEventListener("click", () => {
       state.briefExpanded = !state.briefExpanded;
       renderBriefPicks();
@@ -2091,9 +2088,8 @@ function renderBriefPicks({ animate = true } = {}) {
   scheduleBriefExpiry(storyPools.projection);
   const top = rows.slice(0, 3);
   if (topStoriesTitleEl) topStoriesTitleEl.textContent = state.activeSection === "hot" ? "今日重點訊號" : `${section.label}重點訊號`;
-  const storyMeta = usesStories
-    ? `可檢視 ${fmtNumber(rows.length)} 則重點訊號`
-    : `可檢視 ${fmtNumber(rows.length)} 條重點訊號`;
+  const storyMeta = `過去 24 小時 · ${fmtNumber(rows.length)} 則重點訊號`;
+  briefPicksWrapEl?.setAttribute("aria-label", topStoriesTitleEl?.textContent || "今日重點訊號");
   briefPicksMetaEl.textContent = storyPools.cached
     ? `${storyMeta} · 暫用 ${fmtTime(storyPools.projection.generated_at)} 的有效資料` : storyMeta;
   if (briefViewToggleEl) {
@@ -2102,18 +2098,18 @@ function renderBriefPicks({ animate = true } = {}) {
     if (briefTimelineBtnEl) briefTimelineBtnEl.classList.toggle("active", state.briefView === "timeline");
     if (briefHotBtnEl) briefHotBtnEl.setAttribute("aria-pressed", state.briefView === "hot" ? "true" : "false");
     if (briefTimelineBtnEl) briefTimelineBtnEl.setAttribute("aria-pressed", state.briefView === "timeline" ? "true" : "false");
-    if (briefHotBtnEl) briefHotBtnEl.textContent = `當前熱點 ${fmtNumber(candidateCounts.hot)}`;
+    if (briefHotBtnEl) briefHotBtnEl.textContent = `依重要性 ${fmtNumber(candidateCounts.hot)}`;
     if (briefTimelineBtnEl) briefTimelineBtnEl.textContent = `時間線 ${fmtNumber(candidateCounts.timeline)}`;
   }
 
   if (!top.length) {
     const empty = document.createElement("div");
     empty.className = "brief-empty";
-    empty.textContent = storyPools.projection ? "目前沒有符合重點條件的事件，可先查看新聞列表。" : "重點整理暫不可用，可先查看新聞列表。";
+    empty.textContent = storyPools.projection ? "目前沒有符合條件的重點訊號，可先查看新聞列表。" : "重點訊號暫時無法載入，可先查看新聞列表。";
     const allAi = document.createElement("button");
     allAi.type = "button";
     allAi.className = "view-all-ai-btn";
-    allAi.textContent = "查看全部 AI";
+    allAi.textContent = "查看全部 AI 新聞";
     allAi.addEventListener("click", showAllAi);
     empty.appendChild(allAi);
     briefPicksListEl.appendChild(empty);
@@ -2165,17 +2161,17 @@ function itemTagLabels(item, row = null) {
   const sections = itemSections(item);
   const onModelsTab = state.activeSection === "models" && sections.has("models");
   // feature/badge-system-audit-0721: sectionBadgeLabel() echoes the active
-  // tab's own name (熱點/模型/產品/開發者/行業/研究/社群). For 開發者/研究/
+  // tab's own name (熱點/模型/產品/開發者/產業/研究/社群). For 開發者/研究/
   // 社群 that string is identical to the content tag pushed below for the
   // same section, so Array.from(new Set(...)) already collapses the repeat.
   // 模型 is the one section whose tab label ("模型") and content tag
-  // ("模型釋出") use different wording, so the Set dedup can't catch it -
-  // skip the tab echo here instead of renaming "模型釋出" (still used
+  // ("模型發布") use different wording, so the Set dedup can't catch it -
+  // skip the tab echo here instead of renaming "模型發布" (still used
   // elsewhere as its own, more specific "release" label).
   if (state.activeSection !== "hot" && !onModelsTab) tags.push(sectionBadgeLabel(state.activeSection));
   if (row && rowSourceCount(row) > 1) tags.push("多方報導");
   if (item.site_id === "official_ai") tags.push("官方");
-  if (sections.has("models")) tags.push("模型釋出");
+  if (sections.has("models")) tags.push("模型");
   if (sections.has("devtools")) tags.push("開發者");
   if (sections.has("research")) tags.push("研究");
   if (sections.has("community")) tags.push("社群");
@@ -2231,8 +2227,10 @@ function newsSummaryText(row) {
 
 function topStorySummary(row) {
   const generated = newsSummaryText(row);
-  return generated ? { label: "AI 新聞摘要", text: generated }
-    : { label: "來源摘要", text: itemSummaryText(row?.item, 400) };
+  const sourceLabel = row?.item?.reader_summary_kind === "publisher_lead"
+    ? row.item.summary_zh ? "來源首段譯文" : "來源首段" : "來源摘要";
+  return generated ? { label: "AI 摘要", text: generated }
+    : { label: sourceLabel, text: itemSummaryText(row?.item, 400) };
 }
 
 function buildTopStoryCard(row, rank) {
@@ -2330,7 +2328,7 @@ function buildIntelCard(item, rank) {
   const score = scorePercent(item);
   const scoreEl = document.createElement("strong");
   scoreEl.className = `intel-score ${scoreTone(score)}`;
-  scoreEl.textContent = score ? `AI ${score}分` : "AI觀察";
+  scoreEl.textContent = score ? `AI 相關度 ${score}分` : "AI 相關度待評估";
   meta.append(rankEl, time, scoreEl);
 
   const title = document.createElement("a");
@@ -2354,7 +2352,7 @@ function buildIntelCard(item, rank) {
   sources.className = "intel-card-sources";
   const refs = itemSourceRefs(item);
   const count = document.createElement("strong");
-  count.textContent = `${fmtNumber(refs.length)} 個來源`;
+  count.textContent = `${fmtNumber(refs.length)} 類來源`;
   sources.appendChild(count);
   refs.slice(0, 3).forEach((ref) => {
     sources.appendChild(sourceChip(ref.label, ref.tone, "source-chip"));
@@ -2367,7 +2365,7 @@ function buildIntelCard(item, rank) {
 function feedSummaryText(item) {
   const editorialSummary = itemSummaryText(item);
   if (editorialSummary) return item.reader_summary_kind === "publisher_lead"
-    ? `來源首段${item.summary_zh ? "譯文" : ""}：${editorialSummary}` : editorialSummary;
+    ? `來源首段${item.summary_zh ? "譯文" : ""}：${editorialSummary}` : `來源摘要：${editorialSummary}`;
   const signals = Array.isArray(item.ai_signals) ? item.ai_signals.filter(Boolean).slice(0, 2) : [];
   if (signals.length) return `相關線索：${signals.join(" / ")}。`;
   const reason = reasonText(item);
@@ -2423,8 +2421,8 @@ function buildCopyNewsUrlButton(item) {
   const button = document.createElement("button");
   button.type = "button";
   button.className = "copy-id-btn";
-  button.textContent = "複製URL";
-  button.setAttribute("aria-label", `複製「${itemTitleText(item)}」的原文 URL`);
+  button.textContent = "複製原文連結";
+  button.setAttribute("aria-label", `複製「${itemTitleText(item)}」的原文連結`);
   button.addEventListener("click", async () => {
     button.disabled = true;
     try {
@@ -2436,7 +2434,7 @@ function buildCopyNewsUrlButton(item) {
       button.classList.add("copy-failed");
     }
     window.setTimeout(() => {
-      button.textContent = "複製URL";
+      button.textContent = "複製原文連結";
       button.classList.remove("copied", "copy-failed");
       button.disabled = false;
     }, 1600);
@@ -2464,13 +2462,13 @@ function renderItemNode(item, context = {}) {
   const score = scorePercent(item);
   const tagEl = document.createElement("span");
   tagEl.className = `ai-tag tone-${itemLabelTone(item)}`;
-  tagEl.textContent = `${labelText(item)} · ${score || "?"}分`;
+  tagEl.textContent = `${labelText(item)} · AI 相關度 ${score ? `${score}分` : "待評估"}`;
   categoryEl.insertAdjacentElement("afterend", tagEl);
 
   const sourceEl = node.querySelector(".source");
   const sourceLabel = item.publisher?.schema_version === 1 ? sourceDisplayName(item) : sourceSignal(item);
   setSourceBadge(sourceEl, sourceLabel, sourceSignalTone(sourceLabel),
-    item.publisher?.status === "reported" ? "發布者資訊由 Google News 提供" : displaySource ? `分割槽: ${displaySource}` : "");
+    item.publisher?.status === "reported" ? "發布者資訊由 Google News 提供" : displaySource ? `發布者： ${displaySource}` : "");
   if (context.source && context.source === displaySource) {
     sourceEl.hidden = true;
   }
@@ -2493,7 +2491,7 @@ function renderItemNode(item, context = {}) {
       metaRow.insertBefore(itemTagChip(label), sourceEl);
     });
 
-  node.querySelector(".time").textContent = fmtTime(item.published_at || item.first_seen_at);
+  node.querySelector(".time").textContent = `${item.published_at ? "發布" : "首次收錄"} ${fmtTime(item.published_at || item.first_seen_at)}`;
   const originalLink = document.createElement("a");
   originalLink.className = "original-link";
   originalLink.href = item.url || "#";
@@ -2546,6 +2544,7 @@ function buildSourceGroupNode(source, items, rawCount = items.length) {
   const count = document.createElement("span");
   count.className = "group-summary";
   count.textContent = subgroupSummary(items, rawCount);
+  count.title = "優先閱讀分取此發布者前三篇新聞的平均值。";
   const listEl = document.createElement("div");
   listEl.className = "source-group-list";
   header.append(title, count);
@@ -2561,8 +2560,8 @@ function buildSourceGroupNode(source, items, rawCount = items.length) {
       const visibleItems = expanded ? items : items.slice(0, SOURCE_ITEM_INITIAL_LIMIT);
       visibleItems.forEach((item) => listEl.appendChild(renderItemNode(item, { source })));
       moreBtn.textContent = expanded
-        ? `收起，僅看前 ${SOURCE_ITEM_INITIAL_LIMIT} 條`
-        : `展開剩餘 ${fmtNumber(items.length - SOURCE_ITEM_INITIAL_LIMIT)} 條`;
+        ? `收起，僅看前 ${SOURCE_ITEM_INITIAL_LIMIT} 篇`
+        : `展開剩餘 ${fmtNumber(items.length - SOURCE_ITEM_INITIAL_LIMIT)} 篇`;
     };
     moreBtn.addEventListener("click", () => {
       expanded = !expanded;
@@ -2609,10 +2608,10 @@ function subgroupSortValue(items) {
 }
 
 function subgroupSummary(items, rawCount = items.length) {
-  const count = `${fmtNumber(items.length)} 條`;
+  const count = `${fmtNumber(items.length)} 篇`;
   const merged = rawCount - items.length;
-  const ranking = `綜合 ${subgroupSortValue(items)}`;
-  const mergedLabel = merged > 0 ? `合併 ${fmtNumber(merged)} 條重複` : "";
+  const ranking = `優先閱讀分 ${subgroupSortValue(items)}`;
+  const mergedLabel = merged > 0 ? `已合併 ${fmtNumber(merged)} 篇重複新聞` : "";
   return [count, ranking, mergedLabel].filter(Boolean).join(" · ");
 }
 
@@ -2638,7 +2637,7 @@ function sourceGroupEntries(items) {
       if (byScore !== 0) return byScore;
       const byCount = b.items.length - a.items.length;
       if (byCount !== 0) return byCount;
-      return a.source.localeCompare(b.source, "zh-CN");
+      return a.source.localeCompare(b.source, "zh-TW");
     });
 }
 
@@ -2657,6 +2656,7 @@ function buildSiteGroupNode(site) {
   const count = document.createElement("span");
   count.className = "group-summary";
   count.textContent = subgroupSummary(site.items, site.rawCount);
+  count.title = "優先閱讀分取此來源類型前三篇新聞的平均值。";
   const siteListEl = document.createElement("div");
   siteListEl.className = "site-group-list";
   header.append(title, count);
@@ -2697,12 +2697,12 @@ function buildSiteGroupNode(site) {
 function renderLoadingNotice(label, count) {
   const loading = document.createElement("div");
   loading.className = "list-loading";
-  loading.textContent = `正在整理 ${label} · ${fmtNumber(count)} 條`;
+  loading.textContent = `正在整理 ${label} · ${fmtNumber(count)} 篇`;
   newsListEl.appendChild(loading);
 }
 
 function currentFilterLabel(filtered) {
-  if (state.authorFilter) return `${listTitleText()} · X 博主 ${state.authorFilter}`;
+  if (state.authorFilter) return `${listTitleText()} · X 作者 ${state.authorFilter}`;
   if (state.siteFilter) {
     const stat = currentSiteStats().find((s) => s.site_id === state.siteFilter);
     return `${listTitleText()} · ${stat?.site_name || state.siteFilter}`;
@@ -2768,8 +2768,8 @@ function renderSiteGroups(items) {
     addLoadMoreButton(
       newsListEl,
       state.siteGroupsExpanded
-        ? `收起，僅看前 ${SITE_GROUP_INITIAL_LIMIT} 個來源`
-        : `展開其餘 ${fmtNumber(hiddenCount)} 個來源`,
+        ? `收起，僅看前 ${SITE_GROUP_INITIAL_LIMIT} 類來源`
+        : `展開其餘 ${fmtNumber(hiddenCount)} 類來源`,
       () => {
         state.siteGroupsExpanded = !state.siteGroupsExpanded;
         renderList();
@@ -2782,7 +2782,7 @@ function renderSiteGroups(items) {
 function renderList() {
   const filtered = getFilteredItems();
   renderModeSwitch();
-  resultCountEl.textContent = `${fmtNumber(displayItemCount(filtered))} 條`;
+  resultCountEl.textContent = `${fmtNumber(displayItemCount(filtered))} 篇`;
   renderSectionSummary(filtered);
   renderClearFiltersButton();
 
@@ -2794,9 +2794,9 @@ function renderList() {
     const empty = document.createElement("div");
     empty.className = "empty";
     const title = document.createElement("h3");
-    title.textContent = "沒有找到匹配內容";
+    title.textContent = "沒有符合條件的內容";
     const message = document.createElement("p");
-    message.textContent = "可以換個關鍵詞，或清除目前篩選。";
+    message.textContent = "可以換個關鍵字，或清除目前篩選。";
     empty.append(title, message);
     if (activeAdjustmentCount()) {
       const reset = document.createElement("button");
@@ -2880,10 +2880,10 @@ function renderSocialdataAuthorList(authors, itemCount) {
   panel.className = "health-author-list";
   const heading = document.createElement("div");
   heading.className = "health-author-list-title";
-  heading.textContent = "本輪 X 掃到的博主";
+  heading.textContent = "本輪 X 掃到的作者";
   const meta = document.createElement("div");
   meta.className = "health-author-list-meta";
-  meta.textContent = `${fmtNumber(authors.length)} 位博主 · ${fmtNumber(itemCount)} 條入池內容`;
+  meta.textContent = `${fmtNumber(authors.length)} 位作者 · ${fmtNumber(itemCount)} 篇收錄內容`;
   const list = document.createElement("div");
   list.className = "health-author-list-items";
   authors.forEach((author) => {
@@ -2924,15 +2924,17 @@ function renderSourceHealthSummaryNode(status, errorMessage = "") {
   node.className = "source-health-summary";
   if (!status) {
     node.classList.add(errorMessage ? "bad" : "warn");
-    node.innerHTML = `<strong>${errorMessage ? "源狀態異常" : "源狀態未生成"}</strong><span>${errorMessage || "等待 source-status.json"}</span>`;
+    node.innerHTML = `<strong>${errorMessage ? "來源狀態異常" : "來源狀態未生成"}</strong><span>${errorMessage || "正在取得來源狀態"}</span>`;
     return node;
   }
   const sites = Array.isArray(status.sites) ? status.sites : [];
   const okSites = Number(status.successful_sites || 0);
   const failed = failedSourceCount(status);
+  const failedGroups = Array.isArray(status.failed_sites) ? status.failed_sites.length : 0;
+  const failedSubscriptions = Array.isArray(status.rss_opml?.failed_feeds) ? status.rss_opml.failed_feeds.length : 0;
   const fetched = Number(status.fetched_raw_items || state.totalRaw || status.items_before_topic_filter || 0);
   node.classList.toggle("warn", failed > 0);
-  node.innerHTML = `<strong>${fmtNumber(okSites)}/${fmtNumber(sites.length)} 源正常</strong><span>今日採集 ${fmtNumber(fetched)} 條 · 失敗 ${fmtNumber(failed)}</span>`;
+  node.innerHTML = `<strong>${fmtNumber(okSites)}/${fmtNumber(sites.length)} 個抓取來源正常</strong><span>本輪讀取 ${fmtNumber(fetched)} 筆原始條目 · 抓取來源失敗 ${fmtNumber(failedGroups)} 個 · RSS 訂閱失敗 ${fmtNumber(failedSubscriptions)} 個</span>`;
   return node;
 }
 
@@ -2951,14 +2953,14 @@ function renderSourceStatusTable(status) {
       const ratio = ratioBase ? Math.round((aiCount / ratioBase) * 100) : 0;
       return { ...site, aiCount, rawCount: ratioBase, ratio };
     })
-    .sort((a, b) => b.aiCount - a.aiCount || b.rawCount - a.rawCount || String(a.site_name).localeCompare(String(b.site_name), "zh-CN"))
+    .sort((a, b) => b.aiCount - a.aiCount || b.rawCount - a.rawCount || String(a.site_name).localeCompare(String(b.site_name), "zh-TW"))
     .slice(0, 12);
 
   const table = document.createElement("div");
   table.className = "source-table";
   const header = document.createElement("div");
   header.className = "source-table-row source-table-head";
-  header.innerHTML = "<span>來源</span><span>AI / 原始</span><span>AI佔比</span><span>狀態</span>";
+  header.innerHTML = "<span>抓取來源</span><span>AI 新聞 / 讀取條目</span><span>AI 比例</span><span>狀態</span>";
   table.appendChild(header);
   rows.forEach((site) => {
     const row = document.createElement("div");
@@ -3001,7 +3003,7 @@ function renderSourceHealth(errorMessage = "") {
   const replacedFeeds = Array.isArray(rss.replaced_feeds) ? rss.replaced_feeds : [];
   // Paid sources run on a protected interval. A skipped refresh can still have
   // usable records from the last successful run in today's data pool, so don't
-  // hide them behind a misleading "待視窗" status.
+  // hide them behind a misleading "等待下次更新" status.
   const socialdataLiveCount = Number(socialdata.item_count || 0);
   const socialdataPoolCount = siteAiPoolCount("socialdata_x");
   const socialdataDisplayCount = socialdataLiveCount || socialdataPoolCount;
@@ -3012,32 +3014,32 @@ function renderSourceHealth(errorMessage = "") {
   const xAuthors = socialdataAuthors();
 
   const xMetricValue = xDisplayCount
-    ? `已入池 ${fmtNumber(xDisplayCount)}條`
+    ? `已收錄 ${fmtNumber(xDisplayCount)} 篇`
     : socialdata.enabled
     ? (socialdataDisplayCount
       ? "成功"
-      : (socialdata.skipped ? "待視窗" : "已連線，暫無匹配"))
+      : (socialdata.skipped ? "等待下次更新" : "已連線，暫無符合條件的內容"))
     : (xApi.enabled
       ? (xApiDisplayCount
         ? "成功"
-        : (xApi.skipped ? "待視窗" : "已連線，暫無匹配"))
+        : (xApi.skipped ? "等待下次更新" : "已連線，暫無符合條件的內容"))
       : "未啟用");
   const xMetricTone = socialdata.error || xApi.error ? "bad" : (xDisplayCount ? "ok" : (emptyAdvanced.length ? "warn" : ""));
 
   const metricGrid = document.createElement("div");
   metricGrid.className = "health-grid";
   metricGrid.append(
-    renderMetric("內建源", `${fmtNumber(status.successful_sites || 0)}/${fmtNumber(sites.length)}`, failedSites.length ? "warn" : "ok"),
-    renderMetric("RSS", rss.enabled ? `${fmtNumber(rss.ok_feeds || 0)}/${fmtNumber(rss.effective_feed_total || 0)}` : "未啟用"),
-    renderMetric("X資料來源", xMetricValue, xMetricTone, xAuthors.length ? {
+    renderMetric("抓取來源", `${fmtNumber(status.successful_sites || 0)}/${fmtNumber(sites.length)}`, failedSites.length ? "warn" : "ok"),
+    renderMetric("RSS 訂閱", rss.enabled ? `${fmtNumber(rss.ok_feeds || 0)}/${fmtNumber(rss.effective_feed_total || 0)}` : "未啟用"),
+    renderMetric("X 抓取來源", xMetricValue, xMetricTone, xAuthors.length ? {
       expanded: state.xAuthorsExpanded,
-      title: "檢視本輪掃描到的 X 博主",
+      title: "檢視本輪掃描到的 X 作者",
       onClick: () => {
         state.xAuthorsExpanded = !state.xAuthorsExpanded;
         renderSourceHealth();
       },
     } : {}),
-    renderMetric("失敗源", fmtNumber(failedSites.length + failedFeeds.length), failedSites.length || failedFeeds.length ? "bad" : "ok"),
+    renderMetric("失敗抓取來源／RSS 訂閱", `${fmtNumber(failedSites.length)}／${fmtNumber(failedFeeds.length)}`, failedSites.length || failedFeeds.length ? "bad" : "ok"),
     renderMetric("替換/跳過", `${fmtNumber(replacedFeeds.length)}/${fmtNumber(skippedFeeds.length)}`)
   );
   sourceHealthEl.appendChild(renderSourceHealthSummaryNode(status, errorMessage));
@@ -3049,10 +3051,10 @@ function renderSourceHealth(errorMessage = "") {
 
   const issues = document.createElement("div");
   issues.className = "health-issues";
-  if (failedSites.length) issues.appendChild(renderIssueList("失敗站點", failedSites));
-  if (zeroSites.length) issues.appendChild(renderIssueList("零結果站點", zeroSites));
+  if (failedSites.length) issues.appendChild(renderIssueList("失敗抓取來源", failedSites));
+  if (zeroSites.length) issues.appendChild(renderIssueList("零結果抓取來源", zeroSites));
   if (emptyAdvanced.length) {
-    issues.appendChild(renderIssueList("高階源暫無匹配", emptyAdvanced.map((item) => `${item.site_name || item.site_id} · 已連線，暫無匹配結果`)));
+    issues.appendChild(renderIssueList("外部 API 來源暫無符合內容", emptyAdvanced.map((item) => `${item.site_name || item.site_id} · 已連線，暫無符合條件的內容`)));
   }
   if (failedFeeds.length) issues.appendChild(renderIssueList("失敗 RSS", failedFeeds));
   if (skippedFeeds.length) {
@@ -3064,7 +3066,7 @@ function renderSourceHealth(errorMessage = "") {
   } else {
     const ok = document.createElement("div");
     ok.className = "health-ok";
-    ok.textContent = "詳細源狀態正常";
+    ok.textContent = "詳細來源狀態正常";
     detailTarget.appendChild(ok);
   }
   renderSourceStatusTable(status);
@@ -3125,11 +3127,11 @@ function renderLlmRadar() {
     llmRadarListEl,
     llmRadarMetaEl,
     events,
-    "目前沒有新的 LLM 發布訊號",
+    "過去 24 小時沒有新的 LLM 發布",
     "latest",
   );
   if (events.length && llmRadarMetaEl) {
-    llmRadarMetaEl.textContent = `過去 24 小時 ${fmtNumber(events.length)} 則新訊號`;
+    llmRadarMetaEl.textContent = `過去 24 小時 ${fmtNumber(events.length)} 則模型發布`;
   }
 }
 
@@ -3205,6 +3207,7 @@ async function init() {
     state.storiesMerged = stories;
     renderBriefPicks({ animate: false });
     renderLlmRadar();
+    setStats();
     if (state.activeSection === "models") renderList();
     setStats();
   }, () => { state.storiesMerged = null; renderBriefPicks({ animate: false }); });
@@ -3293,7 +3296,7 @@ modeAllBtnEl.addEventListener("click", async () => {
   newsListEl.innerHTML = "";
   const loading = document.createElement("div");
   loading.className = "empty";
-  loading.textContent = "正在載入全量更新...";
+  loading.textContent = "正在載入全部收錄內容...";
   newsListEl.appendChild(loading);
   try {
     await loadAllModeData();
@@ -3345,6 +3348,7 @@ document.addEventListener?.("visibilitychange", () => {
   if (!document.hidden) {
     renderBriefPicks({ animate: false });
     renderLlmRadar();
+    setStats();
     if (state.activeSection === "models") renderList();
   }
 });

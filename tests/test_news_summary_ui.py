@@ -62,7 +62,7 @@ def test_top_card_fallback_is_primary_article_only_and_never_labeled_ai():
         topStorySummary({{story: {{}}, item: {{summary: 'original', summary_zh: '來源譯文'}}}}),
         topStorySummary({{story: {{sources: [{{summary: '別篇摘要'}}]}}, item: {{}}}})
       ]));''')
-    assert result == [dict(label="AI 新聞摘要", text="AI摘要"),
+    assert result == [dict(label="AI 摘要", text="AI摘要"),
                       dict(label="來源摘要", text="來源譯文"), dict(label="來源摘要", text="")]
 
 
@@ -71,7 +71,7 @@ def test_fixed_why_important_copy_is_removed_from_shipped_ui():
 
     assert "為什麼重要" not in source
     assert "whyImportantText" not in source
-    assert "AI 新聞摘要" in source
+    assert "AI 摘要" in source
 
 
 def test_workflow_configures_optional_groq_qwen_summary_runtime():

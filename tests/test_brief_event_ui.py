@@ -17,7 +17,8 @@ function generalReaderSource(i){return {level:i.site_id};}
 function isHighPriorityItem(i){return i.score>=.75;}
 function isCuratedItem(i){return i.site_id==='official_ai';}
 function itemMatchesSection(i,s){return i.section===s;}
-let rendered=0, timer=null;
+let rendered=0, timer=null, statRenders=0;
+function setStats(){statRenders+=1;}
 function setTimeout(fn,delay){timer={fn,delay};return 1;}
 function clearTimeout(){timer=null;}
 function renderBriefPicks(){rendered++;}
@@ -74,8 +75,8 @@ def test_expiry_schedules_only_local_render_and_replaces_old_timer():
     result=run_js(harness()+'''
 scheduleBriefExpiry(projection());const delay=timer.delay;timer.fn();
 now=Date.parse('2026-10-23T11:00:00Z');scheduleBriefExpiry(projection());
-console.log(JSON.stringify({delay,rendered,noTimer:timer===null}));''')
-    assert result == {'delay':23*3600000,'rendered':1,'noTimer':True}
+console.log(JSON.stringify({delay,rendered,noTimer:timer===null,statRenders}));''')
+    assert result == {'delay':23*3600000,'rendered':1,'noTimer':True,'statRenders':1}
 
 
 @pytest.mark.parametrize(('basis','expected'), [('source_report','首次報導'),('first_observed','本系統初見'),('reported_day_upper_bound','報導日期 2026-10-21（時刻不明）')])

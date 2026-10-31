@@ -75,7 +75,7 @@ test("fetch and body parsing are covered by the same timeout and abort", async (
     const pending = env.api.loadNewsData();
     await Promise.resolve();
     env.timers[0].callback();
-    await assert.rejects(pending, /載入 latest-24h\.json 逾時/);
+    await assert.rejects(pending, /載入 AI 新聞 逾時/);
     assert.equal(signal.aborted, true);
     assert.deepEqual(env.cleared, [1]);
   }
@@ -87,7 +87,7 @@ test("HTTP, network and parse errors reject and clear their timer", async () => 
       if (kind === "network") throw new Error("network offline");
       return { ok: kind !== "http", status: 503, json: async () => { throw new Error("bad JSON"); } };
     });
-    await assert.rejects(env.api.loadSourceStatusData(), kind === "http" ? /失敗: 503/ : kind === "network" ? /network offline/ : /bad JSON/);
+    await assert.rejects(env.api.loadSourceStatusData(), /暫時無法載入來源狀態，請稍後重試。/);
     assert.deepEqual(env.cleared, [1]);
   }
 });

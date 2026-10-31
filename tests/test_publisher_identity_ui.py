@@ -79,4 +79,4 @@ console.log(JSON.stringify({name:sourceDisplayName(base),group:generalReaderSour
 ''')
     assert result == {'name': 'www.infoq.cn',
                       'group': {'level': 'other', 'publisher': 'www.infoq.cn'},
-                      'google': '來源待辨識', 'conflict': '來源資訊衝突'}
+                      'google': '發布者待辨識', 'conflict': '來源資訊衝突'}
