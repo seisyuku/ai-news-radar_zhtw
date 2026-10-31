@@ -2,7 +2,7 @@
 
 更新：2026-10-31（臺北）。本頁僅保留目前有效狀態與2026-10-21起的交接紀錄；超過十天的項目與歷程已從本頁移除。任務清單以[TASK_LEDGER](TASK_LEDGER.md)為準，產品／來源／操作細節分別依README、SOURCE_COVERAGE與OPERATIONS。
 
-## 10/31 來源摘要尾註補修與模型輸入清理（實作完成，發布驗收中）
+## 10/31 來源摘要尾註補修與模型輸入清理（已發布並驗收，結案）
 
 維護者再次回報「文章（原標題）…」殘留。重新同步master 0231cda9e3a9並下載臺北22:51:18正式資料，87篇新聞中確認Claude小鼠手術條目的summary_zh含「文章〈Claude模型…〉最初發表於The Decoder」。英文summary本來就有The article…appeared first on，Gemini把尾註一起翻譯；第一版前端規則漏掉單獨「文章」前綴，前次僅檢查原先句型的驗收不足。本輪取代第一版的無待辦結論。
 
@@ -14,7 +14,11 @@
 
 新譯文與當期成功快取輸出再次清理；Groq提示明訂直接陳述事實、不重述報導標題或加入出版聲明，輸出清理後仍須通過原長度、數字、版本與語言驗證。保留原始來源與翻譯／總結既有快取識別，22則現有總結均可重用，不全庫清除或重譯，不增加預算、排程、provider或逐篇健康紀錄。Python與前端共用43個基礎正反例與13個原文發布者／句子邊界案例驗證，涵蓋無前綴括號標題、《標題》一文、首先出現在網站上、標題內問句與錯誤發布者。
 
-本機完整2106項通過，98個既有feedparser警告；Python／JS語法、資產版本與差異檢查通過。臺北22:51:18資料離線回放87篇AI新聞中10篇清理、全部收錄104篇中11篇清理且無殘留，前後端逐筆一致；目標中文譯文清理，原始記錄逐項保持。翻譯0次請求，Groq快取重用22則、新增／失敗均0。共同資產20261031-summary-clean3。待GitHub、正常公開刷新與正式站桌面／手機驗收。證據位於 /Users/lordmi/Downloads/ai-news-summary-attribution-recheck-20261031/ 。
+本機完整2106項通過，98個既有feedparser警告；Python／JS語法、資產版本與差異檢查通過。臺北22:51:18資料離線回放87篇AI新聞中10篇清理、全部收錄104篇中11篇清理且無殘留，前後端逐筆一致；目標中文譯文清理，原始記錄逐項保持。翻譯0次請求，Groq快取重用22則、新增／失敗均0。共同資產20261031-summary-clean3。證據位於 /Users/lordmi/Downloads/ai-news-summary-attribution-recheck-20261031/ 。
+
+統一規則[2c19e03b1ce7](https://github.com/seisyuku/ai-news-radar_zhtw/commit/2c19e03b1ce72bc88a9a84b3c510df2c74964a26)已推送master；[GitHub CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41214129310)2105項通過、1項資產比較分流，[資產版本](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41214129423)與[程式Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41214128823)成功。[正常公開刷新](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41214197364)產生28a575ec2aeb，[資料Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41214323992)成功。臺北23:18:32正式快照：86篇AI新聞／102篇全部收錄，所有來源譯文均通過尾註檢查，目標summary_zh只留正文、原始summary仍保留來源原附聲明。Gemini重用113筆快取、1次請求成功2筆／失敗0；Groq重用20則、新增1則／失敗0，來源失敗／降級均0，沒有整批重譯。
+
+首頁、六資產與五份資料共12檔正式HTTP與生成提交一致。隔離Chrome1440桌面／390手機實際搜尋目標，中文主標／英文副標及來源正文可見、無尾註、無JS例外或橫向溢出；重點治理ready。正式載入的共用函式另外驗證「正文。（原標題）發表於The Decoder」只保留正文。本輪已發布並驗收結案，無後續監控或待處理項目；第一版不足之處由本輪統一規則取代。
 
 ## 10/31 來源摘要移除發表尾註（第一版已發布，殘留已由本輪補修）
 
