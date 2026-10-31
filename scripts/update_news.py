@@ -88,10 +88,12 @@ try:
     from scripts.ai_relevance import add_ai_relevance_fields, score_ai_relevance
     from scripts.source_scope import platform_event_decision, runtimewire_article_allowed
     from scripts.summary_facts import money_supported
+    from scripts.summary_text import strip_summary_attribution
 except ModuleNotFoundError:  # pragma: no cover - direct `python scripts/update_news.py`
     from ai_relevance import add_ai_relevance_fields, score_ai_relevance
     from source_scope import platform_event_decision, runtimewire_article_allowed
     from summary_facts import money_supported
+    from summary_text import strip_summary_attribution
 
 try:
     from scripts.news_summaries import (
@@ -3953,10 +3955,10 @@ def translate_candidate_batches(
                 status["literal_placeholder_recoveries"] = int(status.get("literal_placeholder_recoveries") or 0) + 1
             restored = backfill_canonical_names(value, candidate.get("placeholders") or {})
             native = str(candidate.get("source_text") or source)
-            display = repair_zh_title_translation(native, restored) if candidate.get("kind") == "title" else restored
-            failure = ("empty" if not value else "unchanged" if value == source
+            display = repair_zh_title_translation(native, restored) if candidate.get("kind") == "title" else strip_summary_attribution(restored)
+            failure = ("empty" if not value or not display else "unchanged" if value == source
                        else "protected_tokens" if not _translation_preserves_protected_tokens(source, value)
-                       else "missing_chinese" if not has_cjk(restored)
+                       else "missing_chinese" if not has_cjk(display)
                        else "monetary_value" if not money_supported(display, native) else None)
             if failure:
                 status["validation_failed_count"] = int(status.get("validation_failed_count") or 0) + 1
@@ -4685,11 +4687,17 @@ def add_bilingual_fields(
 
     def queue_candidate(cache_key: str, source_text: str, kind: str) -> None:
         nonlocal cache_hits, negative_cache_hits
+        if kind == "summary":
+            source_text = strip_summary_attribution(source_text)
+            if not source_text:
+                return
         if cache.get(cache_key):
             cached = cache[cache_key]
             if kind == "title":
                 cached = repair_zh_title_translation(source_text, cached)
-            if money_supported(cached, source_text):
+            else:
+                cached = strip_summary_attribution(cached)
+            if cached and money_supported(cached, source_text):
                 cache[cache_key] = cached
                 cache_hits += 1
                 return
@@ -4750,7 +4758,7 @@ def add_bilingual_fields(
         if not has_cjk(normalized):
             continue
         if candidate["kind"] == "summary":
-            normalized = apply_canonical_reverse_fix(to_zh_hant(normalized), source=source_text)
+            normalized = strip_summary_attribution(apply_canonical_reverse_fix(to_zh_hant(normalized), source=source_text))
         else:
             normalized = repair_zh_title_translation(source_text, normalized)
         cache[str(candidate["cache_key"])] = normalized
@@ -4782,6 +4790,8 @@ def add_bilingual_fields(
                 if cache.get(summary_cache_key) != normalized_summary:
                     cache[summary_cache_key] = normalized_summary
                 summary_zh = normalized_summary
+        if summary_zh:
+            summary_zh = strip_summary_attribution(summary_zh)
         if summary_zh:
             out["summary_zh"] = summary_zh
             if url:

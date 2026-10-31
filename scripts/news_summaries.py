@@ -18,8 +18,10 @@ import requests
 
 try:
     from scripts.summary_facts import numbers_supported
+    from scripts.summary_text import strip_summary_attribution
 except ModuleNotFoundError:  # direct update_news.py invocation
     from summary_facts import numbers_supported
+    from summary_text import strip_summary_attribution
 
 
 UTC = timezone.utc
@@ -86,8 +88,9 @@ def to_zh_hant_summary(value: Any) -> str:
         return text
 
 
-def _context_without_title_echo(item: Mapping[str, Any], title: str) -> str:
-    summary = _clean_text(item.get("summary"))
+def _context_without_title_echo(item: Mapping[str, Any], title: str, *, clean_attribution: bool = True) -> str:
+    raw = item.get("summary")
+    summary = _clean_text(strip_summary_attribution(raw) if clean_attribution else raw)
     # Google News feeds often place only a title and publisher in summary.
     # Strip only exact normalized title/label fragments; do not reject short
     # genuine snippets or a richer peer in the same merged story.
@@ -114,7 +117,7 @@ def _context_without_title_echo(item: Mapping[str, Any], title: str) -> str:
     return summary if residue else ""
 
 
-def story_source_context(story: Mapping[str, Any], max_chars: int = 4000) -> str:
+def story_source_context(story: Mapping[str, Any], max_chars: int = 4000, *, clean_attribution: bool = True) -> str:
     """Return deduplicated publisher feed summaries, never title-only text."""
 
     summaries: list[str] = []
@@ -122,7 +125,7 @@ def story_source_context(story: Mapping[str, Any], max_chars: int = 4000) -> str
     for item in story.get("sources") or story.get("items") or []:
         if not isinstance(item, Mapping):
             continue
-        summary = _context_without_title_echo(item, source_story_title(story))
+        summary = _context_without_title_echo(item, source_story_title(story), clean_attribution=clean_attribution)
         key = summary.casefold()
         if not summary or key in seen:
             continue
@@ -133,7 +136,7 @@ def story_source_context(story: Mapping[str, Any], max_chars: int = 4000) -> str
     if not summaries:
         primary = story.get("primary_item")
         if isinstance(primary, Mapping):
-            summary = _context_without_title_echo(primary, source_story_title(story))
+            summary = _context_without_title_echo(primary, source_story_title(story), clean_attribution=clean_attribution)
             if summary:
                 source = _clean_text(primary.get("source") or primary.get("source_name"), 120) or "未標示來源"
                 summaries.append(f"[{source}] {summary}")
@@ -160,6 +163,7 @@ def build_story_summary_prompt(story: Mapping[str, Any], source_context: str) ->
 5. 只輸出 JSON：{{"summary":"..."}}。
 6. 保留來源中的歸因與限制，不把廠商自述或作者推論改寫為已獲獨立驗證的事實。
 7. 摘要中的 API、價格、授權、正式／預覽狀態與 benchmark 數字，須保留來源所指的服務供應商、產品版本及條件；不得移用到其他供應商或版本，也不得補入來源未提供的資訊。
+8. 直接陳述新聞事實，不重述文章標題，不加入「本文／文章〈標題〉」或首次發表、轉載等出版聲明；保留事實必要的產品名稱、版本與歸因。
 
 <UNTRUSTED_NEWS_DATA>
 標題：{title}
@@ -244,7 +248,7 @@ def _repair_instruction(reason: str) -> str:
 
 
 def validate_generated_summary(value: str, *, source_text: str = "") -> str:
-    clean = _clean_text(value, SUMMARY_MAX_CHARS + 1000)
+    clean = _clean_text(strip_summary_attribution(value), SUMMARY_MAX_CHARS + 1000)
     if clean == INSUFFICIENT_SUMMARY:
         raise ValueError("provider reported insufficient context")
     if len(clean) < SUMMARY_MIN_CHARS or len(clean) > SUMMARY_MAX_CHARS:
@@ -415,16 +419,19 @@ def summarize_stories(
         if not context:
             status["ineligible"] += 1
             continue
-        key = summary_cache_key(story, context, model)
+        # Preserve existing cache identities; only clean the model's evidence
+        # and reader copy. This avoids re-generating all affected summaries.
+        cache_context = story_source_context(story, clean_attribution=False)
+        key = summary_cache_key(story, cache_context, model)
         contexts[index] = (context, key)
         entry = entries.get(key)
         if entry is None:
-            old_key = summary_cache_key(story, context, model, prompt_version=_PREVIOUS_PROMPT_VERSION)
+            old_key = summary_cache_key(story, cache_context, model, prompt_version=_PREVIOUS_PROMPT_VERSION)
             entry = entries.get(old_key)
         if isinstance(entry, Mapping) and str(entry.get("summary") or "").strip():
             try:
                 normalized_cached_summary = to_zh_hant_summary(entry.get("summary"))
-                validate_generated_summary(normalized_cached_summary,
+                normalized_cached_summary = validate_generated_summary(normalized_cached_summary,
                     source_text=f"{source_story_title(story)}\n{context}")
             except ValueError:
                 entries.pop(key, None)

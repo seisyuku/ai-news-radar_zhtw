@@ -55,6 +55,36 @@ def test_exact_canonical_brand_is_accepted_without_spending_a_repair_request():
     assert status["literal_placeholder_recoveries"] == 1
 
 
+def test_summary_footer_never_enters_translation_and_raw_cache_key_survives():
+    raw = "Researchers released a model and published evaluation results. The article Model update appeared first on Example News ."
+    translated = "研究人員發布模型，並公開評估結果。"
+    session = Translator(lambda _text, _call: translated + "文章（模型更新）最初發表於 Example News。")
+    row, all_row, cache, status = translate(session, title="模型更新", summary=raw)
+    payload = json.loads(session.calls[0]["contents"][0]["parts"][0]["text"])
+    assert payload["items"][0]["text"] == "Researchers released a model and published evaluation results."
+    assert row["summary"] == all_row["summary"] == raw
+    assert row["summary_zh"] == all_row["summary_zh"] == translated
+    assert cache["summary::" + raw] == translated
+    assert status["request_count"] == status["translated_count"] == 1
+
+
+def test_current_summary_cache_footer_is_removed_without_retranslation():
+    raw = "Researchers released a model. The post Model update appeared first on Example News ."
+    body = "研究人員發布模型。"
+    old_cache = {"summary::" + raw: body + "文章〈模型更新〉最初發表於 Example News。", "historical": "文章〈舊標題〉最初發表於網站。"}
+    session = Translator(lambda *_: (_ for _ in ()).throw(AssertionError("must reuse cache")))
+    row, _, cache, status = translate(session, title="模型更新", summary=raw, cache=old_cache)
+    assert row["summary_zh"] == body and cache["summary::" + raw] == body
+    assert cache["historical"] == "文章〈舊標題〉最初發表於網站。"
+    assert status["request_count"] == 0 and session.calls == []
+
+
+def test_footer_only_summary_is_not_a_translation_candidate():
+    session = Translator(lambda *_: (_ for _ in ()).throw(AssertionError("no content")))
+    row, _, _, status = translate(session, title="模型更新", summary="The post Model update appeared first on Example News .")
+    assert "summary_zh" not in row and status["request_count"] == 0
+
+
 @pytest.mark.parametrize("value,mapping,expected", [
     ("OpenAI 發布模型", {"ZXQ0QXZ": "OpenAI"}, "ZXQ0QXZ 發布模型"),
     ("OpenAIX 發布模型", {"ZXQ0QXZ": "OpenAI"}, "OpenAIX 發布模型"),
