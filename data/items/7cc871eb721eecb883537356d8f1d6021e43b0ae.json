@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "宣布推出 Amazon ECS Gateway，这是一种适用于 ECS 服务的托管式入口解决方案",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/announcing-amazon-ecs-gateway",
-  "last_seen_at": "2026-10-31T16:05:28.842554Z",
+  "last_seen_at": "2026-10-31T16:35:28.935267Z",
   "summary": "AWS 宣布推出 Amazon Elastic Container Service（Amazon ECS）Gateway 这一全新资源，它可直接在您的账户中动态预置和管理应用程序负载均衡器（ALB）及其配套资源，简化容器化应用程序的入口联网配置。 借助 ECS Gateway，平台团队只需在网关定义一次组织联网标准并将其与一个或多个集群关联，即可让组织集中管理流量如何到达其 ECS 服务。应用程序团队只需选择启用即可继承这些标准，无需具备联网专业知识。ECS Gateway 提供了基于主机的路由，支持多达 25 个服务共享 ALB 以优化基础设施成本，并为每项服务提供了唯一的域名系统（DNS）主机名。ECS 可管理底层基础设施的整个生命周期，在第一项服务连接时预置第一个 ALB，在容量达到上限时增加 ALB，在不再需要这些 ALB 时将其移除。您可以检查这些资源和通往每项服务的网关路由，以确切了解请求是如何到达您的应用程序的。对于流量和运行状况监控，您可以使用 Amazon CloudWatch 中的标准 ALB 指标，以及弹性负载均衡的目标运行状况信息。 要开始使用，请创建 ECS Gateway，将其与集群关联，然后使用 AWS 管理控制台、AWS CLI、API、AWS SDK 或 AWS CloudFormation 添加网关连接器参数以接入您的 ECS 服务。ECS Gateway 适用于采用 awsvpc 网络模式的 ECS 服务，涵盖所有启动类型。该功能已在所有 AWS 商业区域推出，不收取额外费用。当您的服务连接到网关时，您只需为账户中预置的底层基础设施付费。要了解更多信息，请参阅 AWS 新闻博客 和我们的 文档 页面。",
   "publisher_links": [
     "https://aws.amazon.com/blogs/aws/introducing-amazon-ecs-gateway-a-fully-managed-ingress-solution-for-ecs-services",
