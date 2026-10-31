@@ -3955,7 +3955,7 @@ def translate_candidate_batches(
                 status["literal_placeholder_recoveries"] = int(status.get("literal_placeholder_recoveries") or 0) + 1
             restored = backfill_canonical_names(value, candidate.get("placeholders") or {})
             native = str(candidate.get("source_text") or source)
-            display = repair_zh_title_translation(native, restored) if candidate.get("kind") == "title" else strip_summary_attribution(restored)
+            display = repair_zh_title_translation(native, restored) if candidate.get("kind") == "title" else strip_summary_attribution(restored, source_text=candidate.get("attribution_source") or native)
             failure = ("empty" if not value or not display else "unchanged" if value == source
                        else "protected_tokens" if not _translation_preserves_protected_tokens(source, value)
                        else "missing_chinese" if not has_cjk(display)
@@ -4687,6 +4687,7 @@ def add_bilingual_fields(
 
     def queue_candidate(cache_key: str, source_text: str, kind: str) -> None:
         nonlocal cache_hits, negative_cache_hits
+        attribution_source = source_text
         if kind == "summary":
             source_text = strip_summary_attribution(source_text)
             if not source_text:
@@ -4696,7 +4697,7 @@ def add_bilingual_fields(
             if kind == "title":
                 cached = repair_zh_title_translation(source_text, cached)
             else:
-                cached = strip_summary_attribution(cached)
+                cached = strip_summary_attribution(cached, source_text=attribution_source)
             if cached and money_supported(cached, source_text):
                 cache[cache_key] = cached
                 cache_hits += 1
@@ -4718,6 +4719,7 @@ def add_bilingual_fields(
             {
                 "cache_key": cache_key,
                 "source_text": source_text,
+                "attribution_source": attribution_source,
                 "text": masked,
                 "placeholders": placeholders,
                 "kind": kind,
@@ -4758,7 +4760,7 @@ def add_bilingual_fields(
         if not has_cjk(normalized):
             continue
         if candidate["kind"] == "summary":
-            normalized = strip_summary_attribution(apply_canonical_reverse_fix(to_zh_hant(normalized), source=source_text))
+            normalized = strip_summary_attribution(apply_canonical_reverse_fix(to_zh_hant(normalized), source=source_text), source_text=candidate["attribution_source"])
         else:
             normalized = repair_zh_title_translation(source_text, normalized)
         cache[str(candidate["cache_key"])] = normalized
@@ -4791,7 +4793,7 @@ def add_bilingual_fields(
                     cache[summary_cache_key] = normalized_summary
                 summary_zh = normalized_summary
         if summary_zh:
-            summary_zh = strip_summary_attribution(summary_zh)
+            summary_zh = strip_summary_attribution(summary_zh, source_text=summary)
         if summary_zh:
             out["summary_zh"] = summary_zh
             if url:

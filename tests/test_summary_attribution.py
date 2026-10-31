@@ -48,3 +48,34 @@ def test_frontend_and_pipeline_share_publication_footer_behavior():
     result = run_js(f'''{declarations}
       console.log(JSON.stringify({sources}.map(summary => itemSummaryText({{summary}}, 10000))));''')
     assert result == [expected for _, expected in CASES]
+
+
+NATIVE = "The model refused to continue after a calibration error. The article An AI performs surgery appeared first on The Decoder ."
+LEGACY = [
+    (BODY + "（Claude 模型自主進行手術）發表於 The Decoder。", NATIVE, BODY),
+    (BODY + "《Claude 模型自主進行手術》一文最初發表於 The Decoder。", NATIVE, BODY),
+    (BODY + "「模型為什麼拒絕？研究結果」一文最先發布於 The Decoder。", NATIVE, BODY),
+    (BODY + "模型自主進行手術的文章首先出現在 The Decoder 上。", NATIVE, BODY),
+    (BODY + "這篇模型手術報導最初發表在 The Decoder 網站上。", NATIVE, BODY),
+    ("（Claude 模型自主進行手術）發表於 The Decoder。", NATIVE, ""),
+    (BODY + "（模型手術）發表於 Example News。", NATIVE, BODY + "（模型手術）發表於 Example News。"),
+    (BODY + "（模型手術）發表於 The Decoder。", "A research report without a publication footer.", BODY + "（模型手術）發表於 The Decoder。"),
+    ("研究發表於 The Decoder，研究人員另提供方法與數據。", NATIVE, "研究發表於 The Decoder，研究人員另提供方法與數據。"),
+    (BODY + "研究最初發表於 Nature。", NATIVE, BODY + "研究最初發表於 Nature。"),
+    ("模型研究發表於 The Decoder。", NATIVE, "模型研究發表於 The Decoder。"),
+    (BODY + "（模型 1.0 的結果）發表於 AI.News。", "The post Model results appeared first on AI.News .", BODY),
+    (BODY + "（模型 1.0 的結果）發表於 AIXNews。", "The post Model results appeared first on AI.News .", BODY + "（模型 1.0 的結果）發表於 AIXNews。"),
+]
+
+
+@pytest.mark.parametrize("translated,native,expected", LEGACY)
+def test_legacy_footer_uses_native_publisher_and_sentence_boundary(translated, native, expected):
+    assert strip_summary_attribution(translated, source_text=native) == expected
+
+
+def test_frontend_uses_the_same_native_publisher_boundary_for_legacy_translations():
+    declarations = extract_declarations("stripSummaryAttribution", "itemSummaryText")
+    rows = json.dumps([{"summary_zh": translated, "summary": native} for translated, native, _ in LEGACY], ensure_ascii=False)
+    result = run_js(f'''{declarations}
+      console.log(JSON.stringify({rows}.map(item => itemSummaryText(item, 10000))));''')
+    assert result == [expected for _, _, expected in LEGACY]

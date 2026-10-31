@@ -66,7 +66,7 @@ def test_existing_summary_cache_identity_survives_input_footer_cleanup():
     key = summary_cache_key(item, raw_context, DEFAULT_GROQ_MODEL)
     cached = "Qwen 團隊發布 Qwen3.8-27B，開放所有開發者下載，並公開模型權重、評估結果與部署文件。"
     cache = empty_summary_cache()
-    cache["entries"][key] = {"summary": cached + "文章〈模型更新〉最初發表於 Example News。"}
+    cache["entries"][key] = {"summary": cached + "（模型更新）最初發表於 Example News。"}
     out, status, updated = summarize_stories([item], cache=cache,
         generate_fn=lambda *_: (_ for _ in ()).throw(AssertionError("must reuse cache")), now=NOW)
     assert out[0]["news_summary"] == cached

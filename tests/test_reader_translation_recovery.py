@@ -71,7 +71,7 @@ def test_summary_footer_never_enters_translation_and_raw_cache_key_survives():
 def test_current_summary_cache_footer_is_removed_without_retranslation():
     raw = "Researchers released a model. The post Model update appeared first on Example News ."
     body = "研究人員發布模型。"
-    old_cache = {"summary::" + raw: body + "文章〈模型更新〉最初發表於 Example News。", "historical": "文章〈舊標題〉最初發表於網站。"}
+    old_cache = {"summary::" + raw: body + "（模型更新）最初發表於 Example News。", "historical": "文章〈舊標題〉最初發表於網站。"}
     session = Translator(lambda *_: (_ for _ in ()).throw(AssertionError("must reuse cache")))
     row, _, cache, status = translate(session, title="模型更新", summary=raw, cache=old_cache)
     assert row["summary_zh"] == body and cache["summary::" + raw] == body

@@ -247,8 +247,8 @@ def _repair_instruction(reason: str) -> str:
     return f"\n\n請依原始資料重新產生一次摘要。上次未通過本地驗證：{feedback}其餘來源與安全規則仍適用。"
 
 
-def validate_generated_summary(value: str, *, source_text: str = "") -> str:
-    clean = _clean_text(strip_summary_attribution(value), SUMMARY_MAX_CHARS + 1000)
+def validate_generated_summary(value: str, *, source_text: str = "", attribution_source: str = "") -> str:
+    clean = _clean_text(strip_summary_attribution(value, source_text=attribution_source), SUMMARY_MAX_CHARS + 1000)
     if clean == INSUFFICIENT_SUMMARY:
         raise ValueError("provider reported insufficient context")
     if len(clean) < SUMMARY_MIN_CHARS or len(clean) > SUMMARY_MAX_CHARS:
@@ -413,7 +413,7 @@ def summarize_stories(
         "max_new": max(0, int(max_new)),
     }
 
-    contexts: dict[int, tuple[str, str]] = {}
+    contexts: dict[int, tuple[str, str, str]] = {}
     for index, story in enumerate(output):
         context = story_source_context(story)
         if not context:
@@ -423,7 +423,7 @@ def summarize_stories(
         # and reader copy. This avoids re-generating all affected summaries.
         cache_context = story_source_context(story, clean_attribution=False)
         key = summary_cache_key(story, cache_context, model)
-        contexts[index] = (context, key)
+        contexts[index] = (context, key, cache_context)
         entry = entries.get(key)
         if entry is None:
             old_key = summary_cache_key(story, cache_context, model, prompt_version=_PREVIOUS_PROMPT_VERSION)
@@ -432,7 +432,7 @@ def summarize_stories(
             try:
                 normalized_cached_summary = to_zh_hant_summary(entry.get("summary"))
                 normalized_cached_summary = validate_generated_summary(normalized_cached_summary,
-                    source_text=f"{source_story_title(story)}\n{context}")
+                    source_text=f"{source_story_title(story)}\n{context}", attribution_source=cache_context)
             except ValueError:
                 entries.pop(key, None)
             else:
@@ -454,7 +454,7 @@ def summarize_stories(
         if index not in contexts:
             continue
         considered += 1
-        context, key = contexts[index]
+        context, key, cache_context = contexts[index]
         if output[index].get("news_summary"):
             continue
         rejection = rejections.get(key)
@@ -477,6 +477,7 @@ def summarize_stories(
                 summary = validate_generated_summary(
                     to_zh_hant_summary(raw),
                     source_text=f"{source_story_title(output[index])}\n{context}",
+                    attribution_source=cache_context,
                 )
                 break
             except Exception as exc:

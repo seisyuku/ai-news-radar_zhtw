@@ -945,15 +945,33 @@ function itemOriginalTitleText(item) {
   return "";
 }
 
-function stripSummaryAttribution(text) {
+function stripSummaryAttribution(text, sourceText = "") {
   // Match publisher footers at the end, not substantive sentences such as 本文討論….
   const chinese = /(?:本文|本篇(?:文章)?|[這这]篇(?:文章|(?=題為|题为|名為|名为))|文章|[該该]文)(?:(?:\s*[《〈「『（(“"][^。！？]*?[》〉」』）)”"]|\s+[^。！？]*?|(?:題為|题为|名為|名为)[^。！？]*?)(?:的文章)?)?\s*[，,]?\s*(?:最先|最初|首次|初次|最早|首先)?(?:發表|发表|發布|发布|刊登|刊載|刊载|首發|首发)(?:於|于|在)\s*[^。！？，,；;]+[。.]?$/u;
-  const english = /\b(?:The|This) (?:article|post)\b(?:[^.!?]|\.(?=\S)|[!?](?=\s+(?:appeared|first|was)))*?\b(?:appeared first on|first appeared on|was (?:first|originally) published (?:on|in))\s+[^,;.!?]+(?:\.[^,;.!?\s]+)*\s*[.!]?$/iu;
-  return text.replace(chinese, "").replace(english, "").trim();
+  const english = /\b(?:The|This) (?:article|post)\b(?:[^.!?]|\.(?=\S)|[!?](?=\s+(?:appeared|first|was)))*?\b(?:appeared first on|first appeared on|was (?:first|originally) published (?:on|in))\s+(?<publisher>[^,;.!?]+(?:\.[^,;.!?\s]+)*)\s*[.!]?$/iu;
+  const clean = text.replace(chinese, "").replace(english, "").trim();
+  if (clean !== text) return clean;
+  // Use the publisher proved by the original footer for legacy translations.
+  const native = String(sourceText).replace(/\s+/g, " ").trim().match(english);
+  if (!native) return text;
+  const publisher = native.groups.publisher.trim().replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const clause = text.match(new RegExp("(?:發表|发表|發布|发布|發佈|刊登|刊載|刊载|出現|出现|首發|首发)\\s*(?:於|于|在)\\s*[《〈「]?" + publisher + "[》〉」]?\\s*(?:網站|网站)?\\s*上?[。.!]?$", "iu"));
+  if (!clause) return text;
+  const pairs = { "《": "》", "〈": "〉", "「": "」", "『": "』", "（": "）", "(": ")", "“": "”", '"': '"' };
+  const stack = [];
+  let start = 0;
+  for (let index = 0; index < clause.index; index += 1) {
+    const char = text[index];
+    if (stack.length && char === stack[stack.length - 1]) stack.pop();
+    else if (pairs[char]) stack.push(pairs[char]);
+    else if (!stack.length && "。！？!?".includes(char)) start = index + 1;
+  }
+  if (start === 0 && !text.startsWith('"') && !/^(?:[《〈「『（(“]|本文|本篇|[這这]篇|文章|[該该]文)/u.test(text)) return text;
+  return text.slice(0, start).trim();
 }
 
 function itemSummaryText(item, maxLength = 180) {
-  const text = stripSummaryAttribution(String(item?.summary_zh || item?.summary || item?.reader_summary || "").replace(/\s+/g, " ").trim());
+  const text = stripSummaryAttribution(String(item?.summary_zh || item?.summary || item?.reader_summary || "").replace(/\s+/g, " ").trim(), item?.summary || item?.reader_summary || "");
   if (!text) return "";
   return text.length > maxLength ? `${text.slice(0, maxLength - 1).trim()}…` : text;
 }
