@@ -6,9 +6,9 @@
 
 依10:31:03正式快照、10:38:45模擬截點（臺北），資料與前端guard均ready；微軟與Anthropic／SpaceX於08:38、09:04超過24小時，剩餘四個來源／材料合格候選為65／65／55／55分，現行70分門檻入選零則。純降65或60分會選航空AI定價、Dessa；降55分會再加入Marvis、Spotify；65分加排除純標題重述則只剩Dessa。這是同資料的機械模擬，未改正式門檻。
 
-維護者裁決「不調整，結案」：保留70分及原I／P／E／C條件、來源／材料資格、24小時窗口、核心3分與新鮮度排序，接受沒有合格熱門事件。降低門檻、額外材料gate與中文E詞彙校正建議均不自動續行，不列待辦。既有Groq摘要前四項本機修正仍是另一案件，保持待發布；其第五項仍暫緩。分析暫存位於 /Users/lordmi/Downloads/ai-news-featured-threshold-20261031/，正式程式／資料未因本研究變更。
+維護者裁決「不調整，結案」：保留70分及原I／P／E／C條件、來源／材料資格、24小時窗口、核心3分與新鮮度排序，接受沒有合格熱門事件。降低門檻、額外材料gate與中文E詞彙校正建議均不自動續行，不列待辦。既有Groq摘要前四項修正仍是另一案件，已完成發布；其第五項仍暫緩。分析暫存位於 /Users/lordmi/Downloads/ai-news-featured-threshold-20261031/，正式程式／資料未因本研究變更。
 
-## 10/31 Groq摘要修正（本機已驗證，未發布）
+## 10/31 Groq摘要修正（已發布並驗收）
 
 維護者核准前四項規劃並執行；第五項只記錄，日後健康盤點有更多證據時再評估成本與價值，本輪不實作。
 
@@ -19,25 +19,27 @@
 | 長度 | 提示以含英文、數字、空白、標點的總字元計算，目標50～90，硬性30～120；只取一至兩項核心事實，不用截斷文字湊長度。 |
 | 標題重述 | 生成前排除只重複標題／媒體名的片段，三則歷史不足材料案例不再呼叫provider；短而有實質資訊或同事件其他來源仍可使用。 |
 
-prompt版本提升為v3；v2成功快取通過新版完整數字／版本驗證後可重用，避免全部重生成。來源、選稿、Gemini讀者翻譯與現有來源摘要回退不變；驗證不覆寫正式data／state，也不呼叫真實provider。
+prompt版本提升為v3；v2成功快取通過新版完整數字／版本驗證後可重用，避免全部重生成。來源、選稿、Gemini讀者翻譯與現有來源摘要回退不變；離線驗證不覆寫正式data／state，也不呼叫真實provider；正式發布資料由既有公開刷新生成。
 
 第五項暫緩範圍：逐項新聞ID／失敗分類／輸出長度／截斷等詳細紀錄及另設每輪總請求上限，均不加入本輪例行流程；維持既有彙總狀態、20候選與最多6則成功新增規則，不新增監控、排程或報告。未來只在另一次健康盤點，以新增證據衡量是否值得額外處理能力。
 
-驗證完成：完整1990項通過，98個既有feedparser警告；Python編譯與git diff --check通過。新增63項測試覆蓋等值／錯誤量級、幣別、百分比／百分點、版本、單次補試、冷卻及到期／材料更新、失敗文字不回送、標題重述／豐富同儕材料與v2快取移轉。使用10:08正式快照檢查，14筆有效成功快取可重用，3筆只有標題的舊成功快取不再展示；三則歷史insufficient_context原始材料回放皆為零provider呼叫。本機測試暫存位於 /Users/lordmi/Downloads/ai-news-groq-fixes-20261031/；沒有改動正式快照、呼叫真實provider、commit或push。實際模型成功率須在後續正式發布後用既有健康彙總檢查，不以離線案例宣稱已改善。
+驗證完成：完整1990項通過，98個既有feedparser警告；Python編譯與git diff --check通過。新增63項測試覆蓋等值／錯誤量級、幣別、百分比／百分點、版本、單次補試、冷卻及到期／材料更新、失敗文字不回送、標題重述／豐富同儕材料與v2快取移轉。使用10:08正式快照檢查，14筆有效成功快取可重用，3筆只有標題的舊成功快取不再展示；三則歷史insufficient_context原始材料回放皆為零provider呼叫。本機測試暫存位於 /Users/lordmi/Downloads/ai-news-groq-fixes-20261031/；發布前離線階段未改動正式快照或呼叫真實provider。後續實際模型成功率沿用既有健康彙總，不擴充第五項紀錄。
 
-## 10/31 全區影響排序（發布中）
+Groq修正程式[5e911b10e93e](https://github.com/seisyuku/ai-news-radar_zhtw/commit/5e911b10e93e9bf30b982de3443d5e27531ec768)已整合最新master並推送。[GitHub離線CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41161478560)1989項通過、1項資產比較分流，98個既有警告；本機完整1990項已通過，前端資產未修改。[程式Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41161477951)成功後，以既有[公開刷新](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41161538219)產生e19bf57e1ebb，資料[Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41161652223)亦成功。
 
-核心／產業動態共用I／P／E／C與門檻，核心僅加3分；全區混合排序最多五則。新鮮度為2^(-sqrt(t/48))，保留48小時減半點並加快前段衰減；24小時讀者窗口、來源資格及一般AI評分保持。契約改用impact-v2，前端共同版本20261031-impact3，分數拆解不再沿用舊AI相關度欄位。
+臺北10:47:34快照：Groq新增6則、失敗0次、成功快取重用14筆，prompt版本v3；來源失敗／降級皆0。一般AI139篇，事件與治理ready，重點0則符合維持70分的裁決。首頁＋六資產＋八份公開JSON與摘要快取共16檔HTTP bytes和生成提交一致；正式下載資料通過讀者端guard與實際混排選集檢查。這是單次正式執行結果，不宣稱長期成功率或獨立新聞precision。發布備份及HTTP證據位於 /Users/lordmi/Downloads/ai-news-groq-fixes-20261031/release/。
 
-固定正式快照同輸入前後比較：重點4→2，微軟AI建設籌資在前、Anthropic／SpaceX營收在後；ADT影響分55，未達門檻。一般AI168篇與全量列表、archive、事件state及快取皆一致，來源失敗0；新資料通過瀏覽器guard。只代表固定輸入回放，不宣稱正式站已更動或獨立新聞precision。
+## 10/31 全區影響排序（已發布並驗收）
 
-程式與測試已完成本機驗證：完整1927項通過，98個既有feedparser警告；語法、契約與差異檢查通過。後端80085cca0c03與配對資料6a827d395150已推送，配對前端4a1148c616d4亦已推送，待GitHub檢查與Pages驗收；GitHub已公告Actions／Pages／Webhooks事故。輸出位於 /Users/lordmi/Downloads/ai-news-impact-20261031/；後續發布須按[新規則文件](FEATURED_IMPACT_20261031.md)先上後端、生成配對資料再上前端，不得單獨推新前端配舊policy或覆寫正式state。
+核心／產業動態共用I／P／E／C與70分門檻，核心僅加3分；混合排序最多五則。新鮮度為2^(-sqrt(t/48))，保留48小時減半點、加快前段衰減，24小時窗口及來源資格保持。後端80085cca0c03、前端4a1148c616d4已在master，impact-v2及共同資產20261031-impact3正式上線。
+
+先前GitHub平台事故造成的待驗收狀態已解除；原[離線CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41102288333)與[資產檢查](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41102288393)均成功。本次Groq發布再核對16檔正式HTTP、同代資料與讀者端guard／混排，全部通過。規則及固定輸入結果見[全區影響排序](FEATURED_IMPACT_20261031.md)。降標研究依維護者裁決維持現狀結案，不重列待辦。
 
 ## 目前續接狀態
 
-正式專案為 /Users/lordmi/Documents/ai-news-radar_zhtw，工作分支master；最近推送程式提交為 `4a1148c616d4`，Pages受GitHub事故影響尚未驗收，最近已驗收程式仍為 `3279606d9c36`；後續文件版本以master的Git紀錄為準。私人早報移除、新聞版本／品質診斷及有界官方純文字整合均已發布，待辦為10/31重點區全域影響排序的GitHub檢查與正式站驗收，詳見任務台帳；既有發布案件維持結案。
+正式專案為 /Users/lordmi/Documents/ai-news-radar_zhtw，分支master；最新程式發布為5e911b10e93e，本次正常刷新資料為e19bf57e1ebb，後續文件及自動資料版本以master紀錄為準。私人早報移除、新聞品質、全區影響排序及Groq前四項修正均已發布並驗收；無必須續行項目，待辦以任務台帳為準。
 
-本輪依維護者commit／push指示發布10/31影響排序。後端先行、由正常刷新生成配對資料並驗證guard，前端連同該資料整合master；Pages受GitHub事故延遲，尚未完成正式站驗收。後續接手先核對最新master、工作目錄與部署進度。
+維持公開24小時窗口與重點70分門檻，接受零則，不加入第五項詳細健康紀錄或新總請求上限；不重啟退役工作。續接先核對最新master、工作目錄與來源健康，不沿用事故期間的過期發布待辦。
 
 ## 10/31 正式發布結果
 
@@ -47,7 +49,7 @@ prompt版本提升為v3；v2成功快取通過新版完整數字／版本驗證�
 - 首次CI缺少原由雲端套件間接安裝的jsonschema，已由 `1598a2069b88` 明確宣告測試依賴。乾淨Python3.12環境1913項通過；[GitHub離線CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41093539300)1912項通過，1項資產比較由[獨立檢查](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41093066138)驗證。98個feedparser棄用警告為既有狀態。
 - [公開刷新](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41093175458)由新程式產生 `cf3f601098c2`；該次臺北00:48:35快照168篇一般AI、4則重點（3核心＋1補位），14個來源正常，brief與governance皆ready。這是該次發布驗收快照，不代替下一次維護時的即時查核。
 - 首頁與6份資產和發布版本位元一致，8份公開JSON和生成提交一致，資料通過讀者端guard；[最終文件Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41094003358)成功。固定輸入7504檔和已驗整合結果僅實測耗時不同；不宣稱獨立新聞precision。
-- 本輪最新唯讀查核：公開刷新於臺北01:05建立的run已成功；公開刷新、watchdog、離線測試、資產檢查及Pages保持啟用，七日觀察／報告／SMTP三流程仍手動停用。
+- 該次唯讀查核：公開刷新於臺北01:05建立的run已成功；公開刷新、watchdog、離線測試、資產檢查及Pages保持啟用，七日觀察／報告／SMTP三流程仍手動停用。
 
 發布備份與驗證材料：/Users/lordmi/Downloads/ai-news-release-20261031/。整合階段入口：/Users/lordmi/Downloads/ai-news-quality-integration-20261030/HANDOFF.md；私人早報移除入口：/Users/lordmi/Downloads/ai-news-private-digest-removal-20261030/HANDOFF.md。這些為已完成階段證據，不是待重跑工作。
 
