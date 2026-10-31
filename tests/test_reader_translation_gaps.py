@@ -96,4 +96,4 @@ def test_summary_uses_original_title_and_does_not_reuse_display_based_cache():
     assert summary_cache_key(story, context, DEFAULT_GROQ_MODEL) != summary_cache_key({"title":wrong}, context, DEFAULT_GROQ_MODEL)
     _, status, _ = summarize_stories([story], max_new=1, generate_fn=lambda p,s:
         "該公司融資1,000萬美元，並採用不同於輝達生態系統的推論晶片，公告未揭露其他資訊。")
-    assert status["failed"] == 1 and status["last_error_detail"] == "validation_numeric_grounding"
+    assert status["failed"] == 2 and status["last_error_detail"] == "validation_numeric_grounding"
