@@ -1,31 +1,29 @@
 <!doctype html>
-<html lang="zh-Hant">
+<html lang="zh-Hant-TW">
 <head>
   <meta charset="utf-8">
-  <title>AI News Radar Pulse — News Item</title>
+  <title>AI News Radar Pulse｜新聞資訊</title>
 </head>
 <body>
   <main>
-    <h1>AI News Radar Pulse — News Item</h1>
+    <h1>AI News Radar Pulse｜新聞資訊</h1>
     <dl>
-    <dt>Radar ID</dt>
+    <dt>新聞編號</dt>
     <dd>c0e4ab79d0e8fd18a5d924a16e37ac60848288c7</dd>
 
-    <dt>Publisher identity</dt>
-    <dd>unknown</dd>
-    <dt>Publisher admission</dt>
-    <dd>unreviewed</dd>
-    <dt>Publisher scope</dt>
-    <dd>unreviewed</dd>
-    <dt>Title</dt>
+    <dt>發布者辨識狀態</dt>
+    <dd>待辨識</dd>
+    <dt>來源收錄狀態</dt>
+    <dd>尚未審核</dd>
+    <dt>新聞標題（原文）</dt>
     <dd>Redesigning source control at Anthropic</dd>
-    <dt>Source</dt>
+    <dt>收錄來源</dt>
     <dd>Simon Willison</dd>
-    <dt>Published</dt>
+    <dt>發布時間（來源提供）</dt>
     <dd>2026-10-13T23:00:06Z</dd>
-    <dt>Summary</dt>
+    <dt>來源摘要（原文）</dt>
     <dd>Redesigning source control at Anthropic Interesting piece from Anthropic describing why and how they built their own custom alternative to Git, based on the dramatic increase in rate of changes to their code after the past six months. In May 2026, Anthropic averaged around 2,500 code changes merged per day; as of September, we merged over 30,000 per day. They included a chart showing those changes. I had Claude modify their chart ( code here ) to add markers for the public releases of each of their models in 2026: This shows public release dates, not the date when models became available for Anthropic&#x27;s internal use. My guess is that the introduction of Fable/Mythos class models is a key factor in the increased coding velocity. &quot;Antique&quot; is their new code review system. The source control system is called Scion, and sounds to me like a reinvention of centralized source control along the lines of Subversion. ( Update : Anthropic credit Google&#x27;s Piper and Meta&#x27;s Sapling as &quot;prior art&quot; - it looks like the core concept of &quot;derived data&quot; was heavily inspired by Mononoke , the server component of Sapling.) They had some pretty extreme requirements: The history of our main branch alone is almost 100 GB, and a compressed working copy is over 25 GB. We perform on the order of 25 million code checkouts per day for CI, before counting developer environments, agent sandboxes, and research jobs. Fetched naively, that would be over 600 PB of git traffic per day. The new system was built by a team of seven people, and the migration from Git was completed in five months. When asked on Hack</dd>
-    <dt>Original URL</dt>
+    <dt>原文連結</dt>
     <dd><a href="https://simonwillison.net/2026/Oct/13/redesigning-source-control-at-anthropic">https://simonwillison.net/2026/Oct/13/redesigning-source-control-at-anthropic</a></dd>
     </dl>
   </main>
