@@ -137,9 +137,9 @@ TRANSLATION_BATCH_MAX_CHARS = 4_800
 TRANSLATION_REJECTION_TTL_SECONDS = 6 * 60 * 60
 TRANSLATION_PROVIDER_FAILURE_TTL_SECONDS = 30 * 60
 TRANSLATION_TITLE_RETRY_DELAY_SECONDS = 30 * 60
-# Bump when the provider's failure semantics change so a prior provider's
-# short-lived rejections never suppress a newly configured provider.
-TRANSLATION_STATE_VERSION = 4
+# Bump when provider or validation semantics change so obsolete short-lived
+# rejections cannot suppress the corrected reader translation path.
+TRANSLATION_STATE_VERSION = 5
 GEMINI_TRANSLATION_MODEL = "gemini-3.5-flash-lite"
 GEMINI_API_ORIGIN = "https://generativelanguage.googleapis.com/"
 GEMINI_TRANSLATION_SYSTEM_INSTRUCTION = """You translate English AI-industry news text into natural Taiwan Traditional Chinese.
@@ -3813,6 +3813,22 @@ def _translation_preserves_protected_tokens(source: str, translated: str) -> boo
     return all(token in translated for token in placeholders) and all(url in translated for url in urls)
 
 
+def _restore_literal_translation_placeholders(value: str, placeholders: dict[str, str]) -> str:
+    """Accept an exact canonical name in place of its missing marker.
+
+    No aliases, guessing, or partial name matches. Repeated/ambiguous mappings
+    and extra occurrences still fail the original marker check.
+    """
+    missing = {key: name for key, name in placeholders.items() if key not in value}
+    for key, name in sorted(missing.items(), key=lambda pair: -len(pair[1])):
+        if not name or list(placeholders.values()).count(name) != 1:
+            continue
+        pattern = re.compile(r"(?<![A-Za-z0-9])" + re.escape(name) + r"(?![A-Za-z0-9])")
+        if len(pattern.findall(value)) == 1:
+            value = pattern.sub(lambda _match: key, value, count=1)
+    return value
+
+
 def _translation_batches(candidates: list[dict[str, Any]]) -> list[list[dict[str, Any]]]:
     batches: list[list[dict[str, Any]]] = []
     batch: list[dict[str, Any]] = []
@@ -3931,12 +3947,21 @@ def translate_candidate_batches(
         repairs = []
         for candidate, value in zip(batch, translated_batch):
             source = str(candidate["text"])
+            original_value = value
+            value = _restore_literal_translation_placeholders(value, candidate.get("placeholders") or {})
+            if value != original_value:
+                status["literal_placeholder_recoveries"] = int(status.get("literal_placeholder_recoveries") or 0) + 1
             restored = backfill_canonical_names(value, candidate.get("placeholders") or {})
             native = str(candidate.get("source_text") or source)
             display = repair_zh_title_translation(native, restored) if candidate.get("kind") == "title" else restored
-            if (not value or value == source or not _translation_preserves_protected_tokens(source, value)
-                    or not has_cjk(restored) or not money_supported(display, native)):
+            failure = ("empty" if not value else "unchanged" if value == source
+                       else "protected_tokens" if not _translation_preserves_protected_tokens(source, value)
+                       else "missing_chinese" if not has_cjk(restored)
+                       else "monetary_value" if not money_supported(display, native) else None)
+            if failure:
                 status["validation_failed_count"] = int(status.get("validation_failed_count") or 0) + 1
+                reasons = status.setdefault("validation_failure_reasons", {})
+                reasons[failure] = int(reasons.get(failure) or 0) + 1
                 rejections[candidate["cache_key"]] = {
                     "reason": "invalid_translation",
                     "created_at": iso(now),

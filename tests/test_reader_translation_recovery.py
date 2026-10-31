@@ -48,6 +48,25 @@ def test_invalid_title_gets_one_corrective_retry_without_echoing_rejected_output
     assert "錯誤回應" not in json.dumps(session.calls[1], ensure_ascii=False)
 
 
+def test_exact_canonical_brand_is_accepted_without_spending_a_repair_request():
+    session = Translator(lambda _text, _call: ZH)
+    row, _, _, status = translate(session)
+    assert row["title_zh"] == ZH and status["request_count"] == 1
+    assert status["literal_placeholder_recoveries"] == 1
+
+
+@pytest.mark.parametrize("value,mapping,expected", [
+    ("OpenAI 發布模型", {"ZXQ0QXZ": "OpenAI"}, "ZXQ0QXZ 發布模型"),
+    ("OpenAIX 發布模型", {"ZXQ0QXZ": "OpenAI"}, "OpenAIX 發布模型"),
+    ("OpenAI 與 OpenAI", {"ZXQ0QXZ": "OpenAI"}, "OpenAI 與 OpenAI"),
+    ("OpenAI 發布模型", {"ZXQ0QXZ": "OpenAI", "ZXQ1QXZ": "OpenAI"}, "OpenAI 發布模型"),
+    ("微軟發布模型", {"ZXQ0QXZ": "微軟"}, "ZXQ0QXZ發布模型"),
+    ("微軟發布模型", {"ZXQ0QXZ": "Microsoft"}, "微軟發布模型"),
+])
+def test_literal_placeholder_recovery_is_exact_and_unambiguous(value, mapping, expected):
+    assert u._restore_literal_translation_placeholders(value, mapping) == expected
+
+
 def test_two_invalid_title_outputs_cool_down_instead_of_retrying_every_refresh():
     session = Translator(lambda text, _call: text)
     state = u.empty_translation_state()
@@ -55,6 +74,7 @@ def test_two_invalid_title_outputs_cool_down_instead_of_retrying_every_refresh()
     row2, _, _, second = translate(session, state=state, now=NOW+timedelta(minutes=30))
     assert row["title_zh"] is None and row2["title_zh"] is None
     assert len(session.calls) == first["request_count"] == 2
+    assert first["validation_failure_reasons"] == {"unchanged": 2}
     assert state["rejections"][TITLE]["title_retry_attempted"] is True
     assert second["request_count"] == 0 and second["negative_cache_hits"] == 1
 
