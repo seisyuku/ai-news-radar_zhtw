@@ -2,7 +2,7 @@
 
 更新：2026-10-31（臺北）。本頁僅保留目前有效狀態與2026-10-21起的交接紀錄；超過十天的項目與歷程已從本頁移除。任務清單以[TASK_LEDGER](TASK_LEDGER.md)為準，產品／來源／操作細節分別依README、SOURCE_COVERAGE與OPERATIONS。
 
-## 10/31 The Decoder讀者翻譯補修（本機通過，發布中）
+## 10/31 The Decoder讀者翻譯補修（已發布並驗收，結案）
 
 維護者回報正式站有一則The Decoder標題未翻譯。重新下載臺北20:05:28正式快照並核對最新主線，確認新聞4fe9c610a0a546976837774949a06b2f4dbf77db（OpenAI募資未達目標）title_zh為null；17:35:30首次翻譯留下invalid_translation後，原流程六小時不補試，其他新聞仍正常翻譯。未保留首次provider原回應，不能斷言是空回應、原文重送或品牌佔位符哪一項驗證失敗。同篇來源摘要譯文另把$11 billion／$30 billion寫成11百萬／30億美元，正確量級應為110億／300億美元。
 
@@ -12,7 +12,11 @@
 
 首次修補22de9f2a8cbe的正常刷新38e731f91e72（臺北20:50:55）仍有四筆回應未通過驗證，目標title_zh尚未恢復，錯誤summary_zh已停止顯示。追加精確品牌回填：缺失marker只有在回應中出現唯一、完整且完全相同的正典名稱時才還原，不接受別名、模糊匹配、額外重複或歧義。健康只增加固定枚舉的失敗彙總與還原筆數，不存provider原回應／逐項新聞紀錄；狀態升v5清除舊驗證語意的短期拒絕，成功翻譯快取保留。
 
-本機完整2000項通過，98個既有feedparser警告；Python編譯與差異檢查通過。24項新增回歸涵蓋本案金額與舊拒絕快取、單次修正、再次失敗冷卻、30分鐘補救、額度／時間上限、摘要不補試、缺憑證原文回退、不推測幣別及精確品牌還原邊界。測試使用模擬provider，沒有呼叫真實模型或覆寫正式data。證據保存在 /Users/lordmi/Downloads/ai-news-title-gap-20261031/ 。修補正依正式站問題回報發布，待正常公開刷新驗證實際標題／摘要及Pages；前端資產無變更，維持20261031-security1。Groq第五項維持暫緩，不增加監控、排程或provider。
+本機完整2000項通過，98個既有feedparser警告；Python編譯與差異檢查通過。24項新增回歸涵蓋本案金額與舊拒絕快取、單次修正、再次失敗冷卻、30分鐘補救、額度／時間上限、摘要不補試、缺憑證原文回退、不推測幣別及精確品牌還原邊界。測試使用模擬provider，沒有呼叫真實模型或覆寫正式data。證據保存在 /Users/lordmi/Downloads/ai-news-title-gap-20261031/ 。前端資產無變更，維持20261031-security1。Groq第五項維持暫緩，不增加監控、排程或provider。
+
+修補[4beb9d04e444](https://github.com/seisyuku/ai-news-radar_zhtw/commit/4beb9d04e444d98d47bbc50690f6213964b142eb)已整合master；[GitHub CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41203524593)1999項通過、1項Git資產比較分流，[程式Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41203524330)成功。既有[正常公開刷新](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41203574252)產生1dd95b566107，[資料Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41203718128)成功；臺北21:00:37正式資料中目標title_zh及summary_zh均已恢復，金額為110億／300億美元及1.25兆美元，目標拒絕記錄清除。當輪4候選、2次請求、2筆成功，另外3次驗證拒收彙總為原文未改2次、金額1次，均在既有上限內；沒有證據能從這些其他拒收推回17:35首輪的精確原因。
+
+正式站首頁、app.js及七份相關JSON共9檔HTTP與生成提交一致；目標中英文主／副標、完整來源摘要與金額通過資料核對。1440桌面／390手機實際搜尋目標後，中文主標可見、英文原文保留副標、無JS例外或橫向溢出，治理ready；來源失敗／降級均0。[正式站](https://seisyuku.github.io/ai-news-radar_zhtw/?fix=20261031-reader-title)。本案已發布並驗收結案，沒有待恢復標題或新增監控項目。
 
 ## 10/31 社群退役與資安分類（已發布並驗收，結案）
 
