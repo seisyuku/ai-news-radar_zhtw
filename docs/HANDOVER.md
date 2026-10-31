@@ -2,11 +2,13 @@
 
 更新：2026-10-31（臺北）。本頁僅保留目前有效狀態與2026-10-21起的交接紀錄；超過十天的項目與歷程已從本頁移除。任務清單以[TASK_LEDGER](TASK_LEDGER.md)為準，產品／來源／操作細節分別依README、SOURCE_COVERAGE與OPERATIONS。
 
-## 10/31 來源摘要移除發表尾註（實作完成，發布驗收中）
+## 10/31 來源摘要移除發表尾註（已發布並驗收，結案）
 
 依維護者要求，所有使用來源摘要的前端顯示統一在截短前移除末尾的「本文最先發表於…」「本文〈標題〉最初發布於…」與英文 appeared first on 等發表聲明；來源名稱及連結保留。共用itemSummaryText涵蓋來源首段、一般新聞及重點來源摘要備援，生成AI摘要不變；原始來源、翻譯快取、評分與翻譯預算不改寫。
 
-新增36組中英文／三種摘要欄位尾註案例與正文保留、純尾註及不改寫來源測試；相關58項、JavaScript語法與差異檢查通過。以臺北21:00:37正式資料93篇離線回放，9篇顯示摘要去除尾註，英文原文備援亦通過檢查；OpenAI募資摘要保留110億／300億美元正文。共同資產更新為20261031-summary-clean1，待GitHub與正式站桌面／手機驗收後結案。
+新增36組中英文／三種摘要欄位尾註案例與正文保留、純尾註及不改寫來源測試；相關58項、JavaScript語法與差異檢查通過。以臺北21:00:37正式資料93篇離線回放，9篇顯示摘要去除尾註，英文原文備援亦通過檢查；OpenAI募資摘要保留110億／300億美元正文。共同資產更新為20261031-summary-clean1。
+
+修正[e5bc602f8f49](https://github.com/seisyuku/ai-news-radar_zhtw/commit/e5bc602f8f496b0305b9baf6e922e58a9a7a00b5)已推送master；[GitHub CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41205320645)2041項通過、1項資產比較分流，[資產版本](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41205320639)與[Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41205320474)成功。首頁、六資產及當期兩份資料共9檔正式HTTP與發布內容一致。1440桌面／390手機實際搜尋目標，來源摘要無發表尾註、中文主標／英文副標及金額正文保留，無JS例外或橫向溢出；正式前端全93篇的摘要尾註檢查亦通過。資料沿用正常刷新1dd95b566107，沒有新增模型呼叫或覆寫生成快照。證據保存在 /Users/lordmi/Downloads/ai-news-summary-attribution-20261031/ 。本案已驗收結案，無後續追蹤項目。
 
 ## 10/31 The Decoder讀者翻譯補修（已發布並驗收，結案）
 
