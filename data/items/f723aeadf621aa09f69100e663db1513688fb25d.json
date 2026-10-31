@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "适用于 Valkey 的 Amazon ElastiCache 无服务器现在支持零停机时间的在线迁移",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/amazon-elasticache-serverless-valkey-online-migration",
-  "last_seen_at": "2026-10-31T17:05:30.619723Z",
+  "last_seen_at": "2026-10-31T17:35:25.012346Z",
   "summary": "适用于 Valkey 的 Amazon ElastiCache 无服务器现在支持从 Amazon EC2 上的自管理 Valkey 和 Redis OSS 进行零停机时间的在线迁移。零停机时间意味着迁移期间向客户端返回的错误为零，其衡量方式与 ElastiCache SLA 衡量可用性的方式相同。您的应用程序在割接期间将继续读取和写入，并且您不需要第三方复制工具。 在线迁移分为三个步骤，即准备迁移、开始数据同步和完成割接。ElastiCache 为您提供了一个迁移端点，您的应用程序可以在您准备迁移时指向该端点，并且一旦您开始同步，数据就会从源端持续复制。您可以选择何时将写入内容移至无服务器缓存，既可以手动割接，也可以在数据同步后自动割接。ElastiCache 会在缓存的“事件”选项卡上将每个步骤记录为一个事件，并附上任何失败步骤的原因。 在线迁移使用传输中加密（TLS）和身份验证连接到您的来源，并从 AWS Secrets Manager 读取凭证，因此您的现有安全控制措施将保持不变。在线迁移支持 Amazon EC2 上采用集群模式的自管理缓存（运行 Redis OSS 4.0 到 7.2 或 Valkey 7.2 到 8.1），并且您可以将它们直接迁移到 Valkey 9.0。 每个 AWS 账户在头 180 天可免费使用迁移，从账户首次准备迁移时开始计时。此后，您需要按节点小时数为 ElastiCache 用于复制您数据的迁移节点付费，且该费用将持续收取至迁移操作结束为止。ElastiCache 无服务器缓存根据标准数据存储和 ECPU 费率单独计费，免费期间也不例外。有关定价详情，请参阅 Amazon ElastiCache 定价 。在线迁移已在所有 AWS 商业区域、中国区域和 AWS GovCloud（美国）区域推出。 要开始使用，请创建或选择一个空的 ElastiCache 无服务器缓存作为迁移目标，然后从 ElastiCache 控制台 或 AWS CLI 开始迁移。要了解更多信息，请参阅 文档 。",
   "publisher_links": [
     "https://aws.amazon.com/elasticache/",
