@@ -2,9 +2,9 @@
 
 更新：2026-10-31（臺北）。本頁僅保留目前有效狀態與2026-10-21起的交接紀錄；超過十天的項目與歷程已從本頁移除。任務清單以[TASK_LEDGER](TASK_LEDGER.md)為準，產品／來源／操作細節分別依README、SOURCE_COVERAGE與OPERATIONS。
 
-## 10/31 前端用詞統一（發布中，待遠端人工審閱）
+## 10/31 前端用詞統一（已發布，待人工審閱）
 
-維護者要求先全部實作再人工審閱；因遠端手機無法開啟本機連結，另明確指示commit／push至GitHub。共用資產版本20261031-wording1正在整合master發布，完成後從GitHub Pages正式站人工審閱。沒有改動70分門檻、來源／材料資格、新鮮度、24小時窗口、資料schema或API路徑，也未覆寫正式data與既有item快照。
+維護者要求先全部實作再人工審閱；因遠端手機無法開啟本機連結，另明確指示commit／push至GitHub。程式692c0e9c1d18與共用資產版本20261031-wording1已整合master並發布GitHub Pages。沒有改動70分門檻、來源／材料資格、新鮮度、24小時窗口、資料schema或API路徑；正式data與item僅由既有正常公開刷新生成，未以離線驗證輸出覆寫。
 
 | 概念 | 前端統一名稱與範圍 |
 | --- | --- |
@@ -16,11 +16,13 @@
 | 摘要 | AI 摘要／來源摘要／來源首段或其譯文，依實際來源標示。 |
 | 時間與健康 | 資料更新時間、新聞發布／首次收錄時間；本輪讀取量不稱今日累計，抓取來源失敗與RSS訂閱失敗分開標示。 |
 
-前端載入錯誤使用區域名稱而非JSON檔名；新聞資訊頁生成器已中文化欄位與狀態，原始JSON欄位保留，審閱範例另外生成於Downloads。README同步候選用詞。只修正顯示與篩選入口命名，舊sourceTypeFilter程式介面保留相容，頁面只保留一個來源類型選單。
+前端載入錯誤使用區域名稱而非JSON檔名；新聞資訊頁生成器已中文化欄位與狀態，原始JSON欄位保留，正式新聞資訊頁已由正常刷新更新。README同步用詞。只修正顯示與篩選入口命名，舊sourceTypeFilter程式介面保留相容，頁面只保留一個來源類型選單。
 
-驗證：完整1991項通過（98個既有feedparser警告），JS語法、Python編譯及資產版本檢查通過；隔離Chrome在1440桌面及390手機寬度實際載入，來源篩選、精選／全部AI／全部收錄切換、合併開關、空區及新聞資訊頁皆正常，無JS例外或整頁橫向溢出。固定正式快照顯示109篇AI新聞、32篇精選、0則重點，治理ready；篩選後全站統計不變。
+驗證：完整1991項通過（98個既有feedparser警告），JS語法、Python編譯及資產版本檢查通過；隔離Chrome在1440桌面及390手機寬度實際載入，來源篩選、精選／全部AI／全部收錄切換、合併開關、空區及新聞資訊頁皆正常，無JS例外或整頁橫向溢出。正式站臺北15:59:35快照顯示105篇AI新聞、30篇精選、0則重點，治理ready；篩選後全站統計不變。
 
-遠端審閱入口：[GitHub Pages正式站](https://seisyuku.github.io/ai-news-radar_zhtw/)。本機連結僅適用同一台電腦，不再作為遠端審閱入口。截圖、browser-results.json、單頁審閱範例、測試及發布備份位於 /Users/lordmi/Downloads/ai-news-wording-review-20261031/ 。本輪依使用者指示發布並驗收，人工審閱仍待使用者進行；Groq第五項維持暫緩。
+發布驗收：[程式692c0e9c1d18](https://github.com/seisyuku/ai-news-radar_zhtw/commit/692c0e9c1d18bf9a1d78abdc3478cf4167a2de24)、[離線CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41182642617)1990項通過／1項資產比較分流、[資產檢查](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41182642586)、[程式Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41182641617)皆成功。[正常公開刷新](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41182725807)產生940aaf86a7ee，[資料Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41182843549)成功；首頁、manifest、六資產、九份JSON及一份中文新聞資訊頁共18檔HTTP內容與該生成提交一致，來源失敗／降級與RSS訂閱失敗皆0。正式站1440桌面與390手機瀏覽器檢查通過，無JS例外或整頁橫向溢出。
+
+遠端審閱入口：[GitHub Pages正式站](https://seisyuku.github.io/ai-news-radar_zhtw/?review=20261031-wording1)。本機連結僅適用同一台電腦，不再作為遠端審閱入口。截圖、browser-results.json、單頁審閱範例、測試及發布備份位於 /Users/lordmi/Downloads/ai-news-wording-review-20261031/ 。本輪依使用者指示發布並驗收，人工審閱仍待使用者進行；Groq第五項維持暫緩。
 
 ## 10/31 重點訊號空區研究（維持現狀，結案）
 
@@ -51,13 +53,13 @@ Groq修正程式[5e911b10e93e](https://github.com/seisyuku/ai-news-radar_zhtw/co
 
 ## 10/31 全區影響排序（已發布並驗收）
 
-核心／產業動態共用I／P／E／C與70分門檻，核心僅加3分；混合排序最多五則。新鮮度為2^(-sqrt(t/48))，保留48小時減半點、加快前段衰減，24小時窗口及來源資格保持。後端80085cca0c03、前端4a1148c616d4已在master，impact-v2及共同資產20261031-impact3正式上線。
+核心／產業動態共用I／P／E／C與70分門檻，核心僅加3分；混合排序最多五則。新鮮度為2^(-sqrt(t/48))，保留48小時減半點、加快前段衰減，24小時窗口及來源資格保持。後端80085cca0c03、前端4a1148c616d4已在master，impact-v2已正式上線；本次用詞發布將共同資產升為20261031-wording1，排序規則不變。
 
 先前GitHub平台事故造成的待驗收狀態已解除；原[離線CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41102288333)與[資產檢查](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41102288393)均成功。本次Groq發布再核對16檔正式HTTP、同代資料與讀者端guard／混排，全部通過。規則及固定輸入結果見[全區影響排序](FEATURED_IMPACT_20261031.md)。降標研究依維護者裁決維持現狀結案，不重列待辦。
 
 ## 目前續接狀態
 
-正式專案為 /Users/lordmi/Documents/ai-news-radar_zhtw，分支master；最新程式發布為5e911b10e93e，本次正常刷新資料為e19bf57e1ebb，後續文件及自動資料版本以master紀錄為準。私人早報移除、新聞品質、全區影響排序及Groq前四項修正均已發布並驗收；前端用詞統一正依維護者指示發布，完成後待遠端人工審閱，待辦以任務台帳為準。
+正式專案為 /Users/lordmi/Documents/ai-news-radar_zhtw，分支master；最新程式發布為692c0e9c1d18，本次正常刷新資料為940aaf86a7ee，後續文件及自動資料版本以master紀錄為準。私人早報移除、新聞品質、全區影響排序及Groq前四項修正均已發布並驗收；前端用詞統一亦已發布並完成正式站驗收，待使用者人工審閱，待辦以任務台帳為準。
 
 維持公開24小時窗口與重點70分門檻，接受零則，不加入第五項詳細健康紀錄或新總請求上限；不重啟退役工作。續接先核對最新master、工作目錄與來源健康，不沿用事故期間的過期發布待辦。
 

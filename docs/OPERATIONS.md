@@ -1,5 +1,13 @@
 # Operations Notes
 
+## 10/31 前端用詞統一發布驗收完成
+
+程式[692c0e9c1d18](https://github.com/seisyuku/ai-news-radar_zhtw/commit/692c0e9c1d18bf9a1d78abdc3478cf4167a2de24)已整合master，保留並行自動刷新歷史；共同資產20261031-wording1。本機完整1991項通過，[離線CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41182642617)1990項通過／1項資產比較分流，[資產檢查](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41182642586)及[程式Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41182641617)成功。
+
+[正常公開刷新](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41182725807)產生940aaf86a7ee，[資料Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41182843549)成功。臺北15:59:35快照105篇AI新聞、30篇精選、0則重點，來源失敗／降級及RSS訂閱失敗皆0；治理ready。首頁、manifest、六資產、九份JSON及中文新聞資訊頁共18檔正式HTTP與生成提交一致，1440桌面／390手機實際切換模式、來源篩選與合併開關皆正常，無JS例外或整頁橫向溢出。證據位於 /Users/lordmi/Downloads/ai-news-wording-review-20261031/release/。
+
+[正式站遠端審閱入口](https://seisyuku.github.io/ai-news-radar_zhtw/?review=20261031-wording1)可由手機開啟，仍待使用者人工審閱用詞。只改呈現與入口命名；70分、來源／材料資格、排序、新鮮度、24小時窗口與資料契約不變，正式data／item由既有正常刷新生成。Groq第五項仍暫緩；沒有新增監控或排程。
+
 ## 10/31 Groq修正與影響排序發布驗收完成
 
 Groq修正程式[5e911b10e93e](https://github.com/seisyuku/ai-news-radar_zhtw/commit/5e911b10e93e9bf30b982de3443d5e27531ec768)已整合最新master並推送。[GitHub離線CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41161478560)1989項通過、1項資產比較分流，98個既有警告；本機完整1990項已通過，前端資產未修改。[程式Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41161477951)成功後，以既有[公開刷新](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41161538219)產生e19bf57e1ebb，資料[Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41161652223)亦成功。
