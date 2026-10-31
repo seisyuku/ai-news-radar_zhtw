@@ -2,9 +2,9 @@
 
 更新：2026-10-31（臺北）。本頁僅保留目前有效狀態與2026-10-21起的交接紀錄；超過十天的項目與歷程已從本頁移除。任務清單以[TASK_LEDGER](TASK_LEDGER.md)為準，產品／來源／操作細節分別依README、SOURCE_COVERAGE與OPERATIONS。
 
-## 10/31 社群退役與資安分類（發布中，待正式站驗收）
+## 10/31 社群退役與資安分類（已發布並驗收，結案）
 
-目標：將一般分類「社群」改為「資安」，建立分類、統計、篩選、重點連動與標籤功能，完整移除社群專用收件與顯示機制。依維護者確認的本節計劃執行，階段1～6已完成；維護者已指示commit push，正執行第7階段，後端a910ced30573先行推送，再以正常刷新資料配對前端發布。先前用詞統一已人工審閱通過，維持結案、不追蹤。
+目標：將一般分類「社群」改為「資安」，建立分類、統計、篩選、重點連動與標籤功能，完整移除社群專用收件與顯示機制。依維護者確認的本節計劃，階段1～7均完成：後端a910ced30573先行、正常刷新738a761f45d2產生配對資料，再發布前端a5c54b36cb71。GitHub CI／資產／Pages、同代HTTP與正式站驗收均通過，本案結案，沒有必須續行的工作。先前用詞統一已人工審閱通過，維持結案、不追蹤。
 
 ### 範圍與判定
 
@@ -23,7 +23,15 @@
 - 完整1976項測試通過，98個既有feedparser警告；退休API專用測試隨功能移除，共用來源跳過／失敗歷史移至test_source_health_skips.py並保留。JS／Python語法、workflow YAML、資產版本與git diff --check通過。殘留舊啟用／強制執行與測試憑證時，真實main流程只呼叫既有價格感測器，不呼叫退役provider。
 - 隔離Chrome實測1440桌面及390手機：精選資安2篇／全部AI資安5篇／事件篩選3篇，搜尋與來源、全量與合併開關正常，篩選不改全站統計，資安標籤不重複，無JS例外或整頁橫向溢出。舊資料缺欄位及零結果顯示0篇而保留一般新聞；混版時重點投影拒收、一般新聞仍可讀。未關閉既有治理guard或改門檻。
 
-基準備份、移除函式清單、回放與comparison.json、測試日誌、browser-results.json及桌面／手機截圖位於 /Users/lordmi/Downloads/ai-news-security-20261031/ 。正式data／item、私人feeds、憑證及歷史狀態未因驗證變更。本輪完成本機實作與驗收，依維護者最新指示執行第7階段發布，完成後補上正式站驗收結果；不自動增加來源、分類子選單、模型判定或監控。
+基準備份、移除函式清單、回放與comparison.json、測試日誌、browser-results.json及桌面／手機截圖位於 /Users/lordmi/Downloads/ai-news-security-20261031/ 。正式data／item、私人feeds、憑證及歷史狀態未因離線驗證變更；正式發布資料由正常刷新生成。本輪依維護者指示完成第7階段發布並驗收，不自動增加來源、分類子選單、模型判定或監控。
+
+### 正式發布與驗收完成
+
+後端[a910ced30573](https://github.com/seisyuku/ai-news-radar_zhtw/commit/a910ced305735350c7b46c1c1dd2521de71e5818)已保留最新master快照後先行發布；[後端離線CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41187240534)1969項通過、1項資產比較分流，[後端Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41187240328)成功。既有[正常公開刷新](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41187350005)產生資料738a761f45d2，[資料Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41187471281)成功且六份主要JSON正式HTTP先驗同代，才推送前端[a5c54b36cb71](https://github.com/seisyuku/ai-news-radar_zhtw/commit/a5c54b36cb719e3fd5eab5788fa3e50e384e3900)。[前端離線CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41187611633)1975項通過、1項資產比較分流，[前端Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41187610914)與[資產版本檢查](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41187611542)均成功；本機完整1976項已通過。
+
+發布快照為臺北10/31 17:07:26：AI新聞96篇、精選27篇、資安3篇（其中精選2篇、具體資安事件2篇）、重點0則；14/14來源正常，失敗／降級及RSS訂閱失敗皆0。這是新的發布快照，與前述15:59固定輸入回放分開記錄。公開資料的新聞副本皆有布林security_topic，事件／治理ready；source-status不再包含三條退役社群API狀態。
+
+首頁、manifest、六資產、九份JSON、一份資安新聞HTML及其JSON resolver共19檔正式HTTP與發布提交逐檔一致。正式站1440桌面／390手機的精選／全部AI／全量／合併、來源／搜尋／事件篩選、導覽／手機選單及標籤去重均通過；全站統計不因篩選改變，無JS例外或整頁橫向溢出。正式站：[GitHub Pages](https://seisyuku.github.io/ai-news-radar_zhtw/?review=20261031-security1)。發布HTTP、瀏覽器結果、截圖及備份位於 /Users/lordmi/Downloads/ai-news-security-20261031/release/ 。正式data／item由正常刷新產生，沒有以本機離線資料覆寫、改排程或重啟已結案工作。
 
 ### 執行順序與完成條件
 
@@ -102,7 +110,7 @@ Groq修正程式[5e911b10e93e](https://github.com/seisyuku/ai-news-radar_zhtw/co
 
 ## 目前續接狀態
 
-正式專案為 /Users/lordmi/Documents/ai-news-radar_zhtw，分支master；社群退役／資安分類後端a910ced30573已先行推送，正配對正常刷新資料與新前端發布，後續版本以master紀錄為準。私人早報移除、新聞品質、全區影響排序及Groq前四項修正均已發布並驗收；前端用詞統一已通過人工審閱，結案且無需追蹤。新的資安分類待完成正式站驗收，待辦以任務台帳為準。
+正式專案為 /Users/lordmi/Documents/ai-news-radar_zhtw，分支master；最新資安分類前端a5c54b36cb71、後端a910ced30573與正常刷新資料738a761f45d2已正式發布並驗收，後續版本以master紀錄為準。私人早報移除、新聞品質、全區影響排序及Groq前四項修正均已發布並驗收；前端用詞統一已通過人工審閱，結案且無需追蹤。資安分類與社群退役亦已結案，沒有必須續行的工作，待辦以任務台帳為準。
 
 維持公開24小時窗口與重點70分門檻，接受零則，不加入第五項詳細健康紀錄或新總請求上限；不重啟退役工作。續接先核對最新master、工作目錄與來源健康，不沿用事故期間的過期發布待辦。
 

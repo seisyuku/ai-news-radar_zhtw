@@ -27,7 +27,7 @@ Secret 值不得寫入 repo、Issue、log、截圖或驗收報告。
 
 ## 社群來源退役
 
-X API、SocialData及TikHub已從候選程式移除；舊憑證、啟用與強制執行變數不再接線，不會啟動收件。憑證本身不由程式清理操作。正式發布狀態以任務台帳為準。
+X API、SocialData及TikHub已從master移除並正式發布；舊憑證、啟用與強制執行變數不再接線，不會啟動收件。憑證本身不由程式清理操作。發布證據見任務台帳。
 
 ## AI 摘要 Variables
 

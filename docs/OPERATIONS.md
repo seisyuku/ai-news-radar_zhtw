@@ -1,10 +1,14 @@
 # Operations Notes
 
-## 10/31 社群退役與資安分類（發布中）
+## 10/31 社群退役與資安分類（已發布並驗收）
 
-階段1～6完成，共同資產20261031-security1；完整1976項、Python／JS語法、workflow YAML、資產與差異檢查通過。固定臺北15:59:35快照前後完整離線生成：AI105篇／全量去重120篇／archive7580筆、事件歷史、既有分數／來源權限／時間與價格／翻譯／摘要快取保持；資安主題5篇、精選2篇、具體事件3篇。1440桌面／390手機的模式、來源／搜尋／事件篩選、合併與空區正常，舊資料缺欄位不猜測、混版拒收重點而保留一般閱讀，無JS例外或整頁橫向溢出。
+階段1～7完成，共同資產20261031-security1；完整1976項、Python／JS語法、workflow YAML、資產與差異檢查通過。固定臺北15:59:35快照前後完整離線生成：AI105篇／全量去重120篇／archive7580筆、事件歷史、既有分數／來源權限／時間與價格／翻譯／摘要快取保持；資安主題5篇、精選2篇、具體事件3篇。1440桌面／390手機的模式、來源／搜尋／事件篩選、合併與空區正常，舊資料缺欄位不猜測、混版拒收重點而保留一般閱讀，無JS例外或整頁橫向溢出。
 
-社群API專用workflow接線、強制TikHub輸入、付費狀態讀寫及前端作者／X健康顯示已移除，舊變數與測試憑證不能啟動收件；共用RSS／OPML與健康歷史保留。證據在 /Users/lordmi/Downloads/ai-news-security-20261031/ 。本機驗證未覆寫正式data／item；維護者已指示commit push，正按交接文件第7階段發布，後端a910ced30573先行，再由既有正常刷新產生含security_topic資料，配對新前端並驗收同代HTTP／Pages。不更改排程，不回推舊state或重啟社群收件。
+後端a910ced30573、[正常公開刷新](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41187350005)資料738a761f45d2與前端a5c54b36cb71已依序發布，保留較新的bot快照。[後端CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41187240534)1969項／[前端CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41187611633)1975項通過，各分流1項資產比較；[資產版本](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41187611542)、[後端Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41187240328)、[資料Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41187471281)及[前端Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41187610914)均成功。
+
+發布快照臺北17:07:26：AI96篇、精選27篇、資安3篇（精選2篇、具體事件2篇）、重點0則；14/14來源正常，來源失敗／降級與RSS失敗皆0。首頁、manifest、六資產、九份JSON及一份資安新聞HTML／JSON resolver共19檔正式HTTP與發布提交一致；正式站桌面／手機篩選、模式、合併與標籤去重均通過，治理ready。正式站：[GitHub Pages](https://seisyuku.github.io/ai-news-radar_zhtw/?review=20261031-security1)。本案結案，發布證據在 /Users/lordmi/Downloads/ai-news-security-20261031/release/ 。
+
+社群API專用workflow接線、強制TikHub輸入、付費狀態讀寫及前端作者／X健康顯示已移除，舊變數與測試憑證不能啟動收件；共用RSS／OPML與健康歷史保留。正式data／item由正常刷新產生，沒有用離線輸出覆寫、更改排程、回推舊state或重啟社群收件。
 
 ## 10/31 前端用詞統一發布驗收完成
 

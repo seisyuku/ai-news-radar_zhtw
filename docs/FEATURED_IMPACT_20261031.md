@@ -23,7 +23,7 @@
 
 ## 契約與發布
 
-保留schema_version=2，以selection_policy=impact-v2區隔舊dplus-v1。沿用supplement_impact欄位名稱，但現在核心及產業動態均提供四軸分數；Python及瀏覽器驗證器都重算分數、門檻與選集，拒絕竄改或混版。此排序首次發布的前端共同資產版本為20261031-impact3；10/31用詞統一已升為20261031-wording1，impact-v2及本頁規則不變。
+保留schema_version=2，以selection_policy=impact-v2區隔舊dplus-v1。沿用supplement_impact欄位名稱，但現在核心及產業動態均提供四軸分數；Python及瀏覽器驗證器都重算分數、門檻與選集，拒絕竄改或混版。此排序首次發布的前端共同資產版本為20261031-impact3；10/31用詞統一使用wording1，其後資安分類已升為20261031-security1，impact-v2及本頁規則不變。
 
 正式發布先上後端、由正常刷新生成impact-v2資料，再部署配對前端；新舊驗證器皆拒絕不相容policy，過渡期間重點區可能保守不可用，不能取消驗證或回推舊state來填補。一般新聞、來源准入、全域AI相關度公式、價格與模型雷達規則不因本次排序調整放寬。
 
