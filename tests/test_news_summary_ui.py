@@ -1,9 +1,13 @@
+import json
 from pathlib import Path
+
+import pytest
 
 from tests.js_bridge import extract_declarations, run_js
 
 
 ROOT = Path(__file__).resolve().parent.parent
+SOURCE_SUMMARY_DECLARATIONS = extract_declarations("stripSummaryAttribution", "itemSummaryText")
 DECLARATIONS = "\n".join(
     [
         extract_declarations("storyNewsSummaryText"),
@@ -25,7 +29,7 @@ def test_news_summary_text_uses_generated_story_summary_only():
 
 
 def test_item_summary_prefers_translated_rss_copy_when_available():
-    declarations = extract_declarations("itemSummaryText")
+    declarations = SOURCE_SUMMARY_DECLARATIONS
     result = run_js(
         f"""{declarations}
         console.log(JSON.stringify({{
@@ -35,6 +39,49 @@ def test_item_summary_prefers_translated_rss_copy_when_available():
     )
 
     assert result == {"translated": "繁體中文 RSS 摘要", "fallback": "English RSS copy"}
+
+
+@pytest.mark.parametrize("footer", [
+    "本文最先發表於 The Decoder。",
+    "本文《OpenAI raises $11 billion》最初發布於 The Decoder。",
+    "本文（標題）首次刊登於來源網站。",
+    "本文「安全更新」首次發表於 The Decoder。",
+    "這篇文章 Google Deepmind 利用衛星資料與 AI 建立全球森林地圖 首次發表於 The Decoder。",
+    "這篇題為 Google's AI Mode「不會為任何人」帶來流量 的文章最初發表於 The Decoder。",
+    "這篇名為「認識 Droid 1.0」的文章最初發表於 MarkTechPost。",
+    "本文最初发布于來源網站。",
+    "The article Meet Droid 1.0: An AI Agent appeared first on MarkTechPost .",
+    "The post AI model update appeared first on Example News.",
+    "This article was originally published on Example News.",
+    "The article AI model update first appeared on Example News.",
+])
+@pytest.mark.parametrize("field", ["summary_zh", "summary", "reader_summary"])
+def test_source_summary_removes_publisher_footer_before_truncation(footer, field):
+    body = "模型更新已發布。"
+    item = json.dumps({field: f"{body} {footer}"}, ensure_ascii=False)
+    result = run_js(f'''{SOURCE_SUMMARY_DECLARATIONS}
+      console.log(JSON.stringify(itemSummaryText({item}, 20)));''')
+    assert result == body
+
+
+@pytest.mark.parametrize("body", [
+    "本文討論估值風險，沒有宣布具體交易。",
+    "本文研究首次發表於期刊的模型，並比較評估結果。",
+    "研究最初發表於 Nature，這次新增公開資料。",
+    "The article explains how the model works. It was originally published in Nature.",
+    "The post discusses an article that appeared first on a research site, with new results.",
+])
+def test_source_summary_keeps_substantive_publication_discussion(body):
+    result = run_js(f'''{SOURCE_SUMMARY_DECLARATIONS}
+      console.log(JSON.stringify(itemSummaryText({{summary: {json.dumps(body)}}}, 500)));''')
+    assert result == body
+
+
+def test_source_summary_footer_only_becomes_empty_without_mutating_source():
+    result = run_js(f'''{SOURCE_SUMMARY_DECLARATIONS}
+      const item = {{summary_zh: '本文最先發表於 The Decoder。', summary: 'Original source copy'}};
+      console.log(JSON.stringify({{display: itemSummaryText(item), stored: item.summary_zh}}));''')
+    assert result == {"display": "", "stored": "本文最先發表於 The Decoder。"}
 
 
 def test_followup_story_rows_render_generated_summary_when_present():
@@ -55,7 +102,7 @@ def test_top_card_renders_generated_or_attributed_publisher_copy():
 
 
 def test_top_card_fallback_is_primary_article_only_and_never_labeled_ai():
-    declarations = DECLARATIONS + extract_declarations("itemSummaryText") + extract_declarations("topStorySummary")
+    declarations = DECLARATIONS + SOURCE_SUMMARY_DECLARATIONS + extract_declarations("topStorySummary")
     result = run_js(f'''{declarations}
       console.log(JSON.stringify([
         topStorySummary({{story: {{news_summary: 'AI摘要'}}, item: {{summary_zh: '來源譯文'}}}}),

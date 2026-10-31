@@ -945,8 +945,15 @@ function itemOriginalTitleText(item) {
   return "";
 }
 
+function stripSummaryAttribution(text) {
+  // Match publisher footers at the end, not substantive sentences such as 本文討論….
+  const chinese = /(?:本文|本篇(?:文章)?|[這这]篇(?:文章|(?=題為|题为|名為|名为)))(?:(?:\s*[《〈「（(“"][^。！？]*?[》〉」）)”"]|\s+[^。！？]*?|(?:題為|题为|名為|名为)[^。！？]*?)(?:的文章)?)?\s*(?:最先|最初|首次|初次|最早)?(?:發表|发表|發布|发布|刊登|刊載|刊载)(?:於|于|在)\s*[^。！？，,；;]+[。.]?$/u;
+  const english = /\b(?:The|This) (?:article|post)\b(?:[^.!?]|\.(?=\S))*?\b(?:appeared first on|first appeared on|was (?:first|originally) published (?:on|in))\s+[^,;.!?]+(?:\.[^,;.!?\s]+)*\s*[.!]?$/iu;
+  return text.replace(chinese, "").replace(english, "").trim();
+}
+
 function itemSummaryText(item, maxLength = 180) {
-  const text = String(item?.summary_zh || item?.summary || item?.reader_summary || "").replace(/\s+/g, " ").trim();
+  const text = stripSummaryAttribution(String(item?.summary_zh || item?.summary || item?.reader_summary || "").replace(/\s+/g, " ").trim());
   if (!text) return "";
   return text.length > maxLength ? `${text.slice(0, maxLength - 1).trim()}…` : text;
 }
