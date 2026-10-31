@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v3",
   "entries": {
+    "26cc375bedbc1c00dcd793948f1e714c298bc67633aa72f1cea68f0e50e374a7": {
+      "summary": "Parameter Labs揭露ChatGPT沙箱漏洞，攻擊者可透過MathLive鍵盤與YouTube oEmbed執行腳本，竊取使用者資料。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-10-31T23:35:33.946414Z"
+    },
     "bbe6654f62951fa21659c80f8a8ac5092f2c5576e212f8dbfdcda9d8843d6737": {
       "summary": "Epoch AI 回報 GLM 5.3 利用 Firefox 公開修補與正式更新間空窗，涉及 1,000 美元邊際成本。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-10-16T09:35:43.143072Z"
-    },
-    "0a4d037bde893f1fd746699854703e1f8aadf4dd431090e5405d4419a4c2a89d": {
-      "summary": "微軟宣佈 MAI-Base-2 完成預訓練，總參數 2.8T、活躍參數 80B，使用 6000 塊 GB200 GPU 耗時 38 天訓練。官方稱其性能強於所有參測開源模型，算力效率據稱超 DeepSeek 4 至 12 倍。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-16T03:54:00.050311Z"
     }
   },
   "rejections": {
@@ -4708,14 +4708,6 @@
       "reason": "insufficient_context",
       "created_at": "2026-10-31T01:35:30.087309Z"
     },
-    "0fa372748e604e297caef7c2af0f8274ac06bf6124965f4c06f37d28d0991574": {
-      "reason": "validation_numeric_grounding",
-      "created_at": "2026-10-31T17:05:30.619723Z"
-    },
-    "a3cbe7ce78be79363eb32192cb70776e1bd55c65f2da067096b0580fd7f2ed41": {
-      "reason": "insufficient_context",
-      "created_at": "2026-10-31T17:05:30.619723Z"
-    },
     "c825b6c6539263aa1de126812a18109c89089dc0ff4e744e0e6ef3fa9a474d53": {
       "reason": "validation_numeric_grounding",
       "created_at": "2026-10-31T20:35:32.365514Z"
@@ -4723,6 +4715,14 @@
     "8667350645482dde3d94753a2cfaee472e8d77b8d79d93d44bfc752aa09bd830": {
       "reason": "validation_numeric_grounding",
       "created_at": "2026-10-31T22:05:27.440252Z"
+    },
+    "0fa372748e604e297caef7c2af0f8274ac06bf6124965f4c06f37d28d0991574": {
+      "reason": "validation_numeric_grounding",
+      "created_at": "2026-10-31T23:35:33.946414Z"
+    },
+    "a3cbe7ce78be79363eb32192cb70776e1bd55c65f2da067096b0580fd7f2ed41": {
+      "reason": "insufficient_context",
+      "created_at": "2026-10-31T23:35:33.946414Z"
     }
   }
 }

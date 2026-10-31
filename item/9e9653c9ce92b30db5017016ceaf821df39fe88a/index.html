@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <title>AI News Radar Pulse｜新聞資訊</title>
+</head>
+<body>
+  <main>
+    <h1>AI News Radar Pulse｜新聞資訊</h1>
+    <dl>
+    <dt>新聞編號</dt>
+    <dd>9e9653c9ce92b30db5017016ceaf821df39fe88a</dd>
+
+    <dt>發布者辨識狀態</dt>
+    <dd>待辨識</dd>
+    <dt>來源收錄狀態</dt>
+    <dd>尚未審核</dd>
+    <dt>新聞標題（原文）</dt>
+    <dd>How We Took Over ChatGPT Accounts</dd>
+    <dt>收錄來源</dt>
+    <dd>Simon Willison</dd>
+    <dt>發布時間（來源提供）</dt>
+    <dd>2026-10-31T23:15:22Z</dd>
+    <dt>來源摘要（原文）</dt>
+    <dd>How We Took Over ChatGPT Accounts Parameter Labs describe an exploit they found against ChatGPT&#x27;s implementation of the artifacts pattern (OpenAI used to call this &quot;Canvas&quot; but it looks like the latest revision is called HTML previews ), where interactive custom HTML apps are displayed in a sandboxed iframe. It&#x27;s important that HTML in these stays tightly sandboxed to avoid untrusted code interacting with OpenAI APIs and accessing private data. Parameter found quite a complex attack chain. OpenAI use the MathLive JavaScript library as part of their graph support, and that library includes its own virtual keyboard , which can be triggered in the parent page via postMessage() from the sandboxed iframe. That message receiving code uses innerHTML , so anything that sends a message can add custom HTML to the parent - and there was no mechanism to prevent other sandboxed frames, including HTML preview frames, from calling that method. This meant untrusted code in an iframe could insert HTML, and while innerHTML doesn&#x27;t directly execute script elements it could be used to inject a new iframe without sandbox restrictions. OpenAI’s CSP rules blocked inline scripts entirely, and only allowed script loading from a handful of domains, but one of those was YouTube - and the YouTube oEmbed endpoint could be used to reflect JavaScript back in a way that executed it. Once the attack had JavaScript execution on ChatGPT, it was trivial to fetch private user data from APIs and exfiltrate it via an image reference. The end result: you could create a ChatGPT share URL which, when visited by ano</dd>
+    <dt>原文連結</dt>
+    <dd><a href="https://simonwillison.net/2026/Oct/31/how-we-took-over-chatgpt-accounts">https://simonwillison.net/2026/Oct/31/how-we-took-over-chatgpt-accounts</a></dd>
+    </dl>
+  </main>
+</body>
+</html>
