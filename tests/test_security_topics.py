@@ -125,3 +125,7 @@ def test_retired_workflow_and_frontend_entrypoints_are_absent():
     workflow = (root / ".github/workflows/update-news.yml").read_text()
     for term in ["force_tikhub", "X_BEARER_TOKEN", "SOCIALDATA_API_KEY", "TIKHUB_API_KEY"]:
         assert term not in workflow
+    app = (root / "assets/app.js").read_text()
+    assert 'id: "security", label: "資安"' in app
+    for term in ["COMMUNITY_SOURCE_TYPES", "featuredCandidatesGate", "authorFilter", "socialdataAuthors", 'id: "community"']:
+        assert term not in app

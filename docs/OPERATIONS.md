@@ -1,12 +1,18 @@
 # Operations Notes
 
+## 10/31 社群退役與資安分類（發布中）
+
+階段1～6完成，共同資產20261031-security1；完整1976項、Python／JS語法、workflow YAML、資產與差異檢查通過。固定臺北15:59:35快照前後完整離線生成：AI105篇／全量去重120篇／archive7580筆、事件歷史、既有分數／來源權限／時間與價格／翻譯／摘要快取保持；資安主題5篇、精選2篇、具體事件3篇。1440桌面／390手機的模式、來源／搜尋／事件篩選、合併與空區正常，舊資料缺欄位不猜測、混版拒收重點而保留一般閱讀，無JS例外或整頁橫向溢出。
+
+社群API專用workflow接線、強制TikHub輸入、付費狀態讀寫及前端作者／X健康顯示已移除，舊變數與測試憑證不能啟動收件；共用RSS／OPML與健康歷史保留。證據在 /Users/lordmi/Downloads/ai-news-security-20261031/ 。本機驗證未覆寫正式data／item；維護者已指示commit push，正按交接文件第7階段發布，後端a910ced30573先行，再由既有正常刷新產生含security_topic資料，配對新前端並驗收同代HTTP／Pages。不更改排程，不回推舊state或重啟社群收件。
+
 ## 10/31 前端用詞統一發布驗收完成
 
 程式[692c0e9c1d18](https://github.com/seisyuku/ai-news-radar_zhtw/commit/692c0e9c1d18bf9a1d78abdc3478cf4167a2de24)已整合master，保留並行自動刷新歷史；共同資產20261031-wording1。本機完整1991項通過，[離線CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41182642617)1990項通過／1項資產比較分流，[資產檢查](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41182642586)及[程式Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41182641617)成功。
 
 [正常公開刷新](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41182725807)產生940aaf86a7ee，[資料Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41182843549)成功。臺北15:59:35快照105篇AI新聞、30篇精選、0則重點，來源失敗／降級及RSS訂閱失敗皆0；治理ready。首頁、manifest、六資產、九份JSON及中文新聞資訊頁共18檔正式HTTP與生成提交一致，1440桌面／390手機實際切換模式、來源篩選與合併開關皆正常，無JS例外或整頁橫向溢出。證據位於 /Users/lordmi/Downloads/ai-news-wording-review-20261031/release/。
 
-[正式站遠端審閱入口](https://seisyuku.github.io/ai-news-radar_zhtw/?review=20261031-wording1)可由手機開啟，仍待使用者人工審閱用詞。只改呈現與入口命名；70分、來源／材料資格、排序、新鮮度、24小時窗口與資料契約不變，正式data／item由既有正常刷新生成。Groq第五項仍暫緩；沒有新增監控或排程。
+[正式站](https://seisyuku.github.io/ai-news-radar_zhtw/?review=20261031-wording1)已通過維護者人工審閱，用詞統一結案，無需後續追蹤。只改呈現與入口命名；70分、來源／材料資格、排序、新鮮度、24小時窗口與資料契約不變，正式data／item由既有正常刷新生成。Groq第五項仍暫緩；沒有新增監控或排程。
 
 ## 10/31 Groq修正與影響排序發布驗收完成
 
@@ -669,19 +675,7 @@ entry、並補上對應 pytest 案例，屬於例行維護，不需要為此開�
 來源健康計算與診斷格式由 `scripts/source_health.py` 管理；API、最小型別、
 子來源擴充條件及公開診斷邊界見 [來源健康契約](SOURCE_HEALTH.md)。
 
-X API、SocialData 與 TikHub 在憑證已設定但尚未到抓取視窗時，
-`source-status.json.sites` 會保留該站的 `skipped: true`、`attempted: false`。
-這一輪沒有新抓取結果：`consecutive_failures`、`first_failure_at`、
-`last_failure_at` 與 `last_success_at` 都沿用最近一次實際檢查的歷史。
-`last_attempt_ok` 是最近一次非跳過檢查的結果；首次即跳過時為 `null`。
-若最近一次檢查失敗，跳過輪會標為 `degraded`，但不增加失敗次數，
-也不再次發出 persistent failure annotation；下一次真正失敗才延續計數。
-真正成功才清除失敗連續次數並更新成功時間。SocialData／TikHub 的
-`paid-source-state.json` 亦只在實際嘗試時更新 `last_run_at` 與結果。
-
-這些欄位區分「尚未到視窗」與「本輪成功」，不代表每個排程輪次都曾
-對付費來源發出請求。舊狀態若已把跳過誤記為成功，且沒有可用的
-付費來源狀態紀錄，過去失去的精確故障次數無法還原。
+共用來源任務跳過時不增加失敗次數或假造成功時間，最近一次實際結果及故障歷史保持；相關回歸由`test_source_health_skips.py`覆蓋。候選程式已退役X API／SocialData／TikHub，不再提供抓取視窗、額度處理或讀寫paid-source-state.json；歷史狀態檔保留，不視為仍啟用的功能。
 
 官方群組、精選媒體與台灣媒體的 `sites[].subsources` 另以固定
 `source_id` 分別保留失敗次數與成功／失敗時間。部分失敗時群組仍可保留

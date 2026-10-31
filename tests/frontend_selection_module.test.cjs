@@ -20,7 +20,9 @@ test("model versus product terms and multilingual section signals remain distinc
   assert.equal(selection.itemMatchesSection({ title: "Codex CLI update", ai_label: "developer_tool" }, "devtools"), true);
   assert.equal(selection.itemMatchesSection({ ai_label: "robotics" }, "products"), true);
   assert.equal(selection.itemMatchesSection({ title_zh: "模型評測研究" }, "research"), true);
-  assert.equal(selection.itemMatchesSection({ source: "36氪" }, "community"), true);
+  assert.equal(selection.itemMatchesSection({ source: "36氪" }, "community"), false);
+  assert.equal(selection.itemMatchesSection({ title: "AI 漏洞", security_topic: true }, "security"), true);
+  assert.equal(selection.itemMatchesSection({ title: "AI 漏洞" }, "security"), false);
   assert.equal(selection.itemMatchesSection({ title: "Company funding IPO" }, "industry"), true);
 });
 

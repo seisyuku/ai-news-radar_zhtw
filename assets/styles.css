@@ -384,10 +384,6 @@ button {
   border-color: rgba(31, 122, 77, 0.28);
 }
 
-.coverage-card.builders {
-  border-color: rgba(181, 82, 49, 0.32);
-}
-
 .coverage-card.aggregate {
   border-color: rgba(102, 100, 95, 0.32);
 }
@@ -750,53 +746,6 @@ summary:focus-visible {
 .health-issues {
   display: grid;
   gap: 8px;
-}
-
-.health-author-list {
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 10px 12px;
-  background: var(--surface-soft);
-}
-
-.health-author-list-title {
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.health-author-list-meta {
-  margin-top: 3px;
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.health-author-list-items {
-  display: flex;
-  max-height: 220px;
-  margin-top: 9px;
-  gap: 6px;
-  overflow: auto;
-  flex-wrap: wrap;
-  align-content: flex-start;
-}
-
-.health-author-list-items button {
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 3px 7px;
-  color: var(--ink-soft);
-  background: var(--surface);
-  font: inherit;
-  font-size: 12px;
-  line-height: 1.25;
-  cursor: pointer;
-}
-
-.health-author-list-items button:hover,
-.health-author-list-items button:focus-visible {
-  border-color: var(--accent);
-  color: var(--accent);
-  outline: none;
 }
 
 .health-issue {
@@ -1668,9 +1617,7 @@ summary:focus-visible {
 }
 
 .signal-tag.tone-hot,
-.ai-tag.tone-hot,
-.signal-tag.tone-community,
-.ai-tag.tone-community {
+.ai-tag.tone-hot {
   color: var(--accent-warm);
   border-color: rgba(181, 82, 49, 0.32);
   background: rgba(181, 82, 49, 0.08);
@@ -1791,7 +1738,6 @@ summary:focus-visible {
   background: rgba(18, 106, 115, 0.07);
 }
 
-.kind-builders,
 .kind-newsletter {
   color: var(--warn);
   border-color: rgba(154, 103, 0, 0.28);
@@ -1824,7 +1770,6 @@ summary:focus-visible {
   background: rgba(18, 106, 115, 0.07);
 }
 
-.source-chip.kind-builders,
 .source-chip.kind-newsletter {
   color: var(--warn);
   border-color: rgba(154, 103, 0, 0.28);
@@ -2134,8 +2079,7 @@ summary:focus-visible {
   border-color: rgba(31, 122, 77, 0.26);
 }
 
-.story-source-chip.kind-newsletter,
-.story-source-chip.kind-builders {
+.story-source-chip.kind-newsletter {
   color: var(--warn);
   border-color: rgba(154, 103, 0, 0.26);
 }
@@ -2304,11 +2248,6 @@ summary:focus-visible {
 .category.kind-newsletter {
   border-color: rgba(154, 103, 0, 0.34);
   color: var(--warn);
-}
-
-.category.kind-builders {
-  border-color: rgba(181, 82, 49, 0.36);
-  color: var(--accent-warm);
 }
 
 .category.kind-aihub {
@@ -2853,4 +2792,11 @@ summary:focus-visible {
 .app-footer-note a {
   color: inherit;
   text-decoration: underline;
+}
+
+.signal-tag.tone-security,
+.ai-tag.tone-security {
+  color: #9a3434;
+  border-color: rgba(154, 52, 52, 0.3);
+  background: rgba(154, 52, 52, 0.07);
 }

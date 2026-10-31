@@ -20,7 +20,6 @@ const state = {
   allDataUrl: "data/latest-24h-all.json",
   allDataPromise: null,
   siteFilter: "",
-  authorFilter: "",
   query: "",
   mode: "selected",
   sourceStatus: null,
@@ -40,7 +39,6 @@ const state = {
   llmRadar: [],
   llmRadarGeneratedAt: null,
   siteGroupsExpanded: false,
-  xAuthorsExpanded: false,
 };
 
 const statsEl = document.getElementById("stats");
@@ -90,8 +88,6 @@ const SOURCE_KINDS = {
   official_ai: { label: "官方", tone: "official" },
   arc_prize: { label: "評測第三方", tone: "research" },
   curated_media: { label: "指定來源", tone: "aihub" },
-  xapi: { label: "X API", tone: "builders" },
-  socialdata_x: { label: "X 搜尋", tone: "builders" },
   opmlrss: { label: "OPML", tone: "newsletter" },
   // feature/source-kinds-gap-fix-0721: these three are active in
   // scripts/update_news.py's collect_all() task list but were never added
@@ -115,7 +111,7 @@ const SECTION_DEFS = [
   { id: "devtools", label: "開發者", short: "開發者", description: "程式設計工具、API、開源專案、推理與工程實踐" },
   { id: "industry", label: "產業", short: "產業", description: "公司戰略、融資收購、監管、晶片與產業變化" },
   { id: "research", label: "研究", short: "研究", description: "論文、基準、方法、資料集與研究團隊動態" },
-  { id: "community", label: "社群", short: "社群", description: "WaytoAGI、中文社群、公眾號和 Builders/X 訊號" },
+  { id: "security", label: "資安", short: "資安", description: "AI 漏洞、攻擊與外洩、防禦產品及安全研究" },
 ];
 
 const SECTION_BY_ID = Object.fromEntries(SECTION_DEFS.map((section) => [section.id, section]));
@@ -143,6 +139,7 @@ const BUSINESS_EVENT_LABELS = {
 // the 模型 tab, which reads as the same word repeated next to "模型發布".
 const TAG_SYNONYM_SUPPRESS = {
   model_release: ["模型發布", "模型"],
+  security: ["資安"],
 };
 
 function businessEventBadges(events) {
@@ -482,7 +479,6 @@ function sourceSignalTone(signal) {
   const text = String(signal || "").toLowerCase();
   if (text.includes("官方") || text.includes("official")) return "official";
   if (text.includes("ai hot") || text.includes("精選")) return "hot";
-  if (text.includes("builders") || text.includes("github") || text.includes("x")) return "builders";
   if (text.includes("aihub") || text.includes("aibase") || text.includes("媒體")) return "aihub";
   if (text.includes("hn") || text.includes("hacker") || text.includes("聚合")) return "aggregate";
   if (text.includes("opml") || text.includes("日報")) return "newsletter";
@@ -541,21 +537,6 @@ function safeAiSiteStats() {
   }));
 }
 
-function siteAiPoolCount(siteId) {
-  return Number(aiSiteStat(siteId)?.count || 0);
-}
-
-function paidSourceLabel(status, poolCount, activeLabel, idleLabel) {
-  const connected = Boolean(status?.enabled);
-  const liveCount = Number(status?.item_count || 0);
-  const displayCount = liveCount || Number(poolCount || 0);
-  if (connected) {
-    if (displayCount) return `${activeLabel} ${fmtNumber(displayCount)} 篇`;
-    return `${activeLabel} ${status?.skipped ? "等待下次更新" : "已連線暫無符合"}`;
-  }
-  if (displayCount) return `${activeLabel} ${fmtNumber(displayCount)} 篇`;
-  return idleLabel;
-}
 
 function renderCoverageCard(label, value, meta, tone = "") {
   const node = document.createElement("div");
@@ -579,27 +560,14 @@ function renderCoverageStrip(errorMessage = "") {
   const rows = siteRows();
   const failedSites = Array.isArray(state.sourceStatus?.failed_sites) ? state.sourceStatus.failed_sites : [];
   const rss = state.sourceStatus?.rss_opml || {};
-  const xApi = state.sourceStatus?.x_api || {};
-  const socialdata = state.sourceStatus?.socialdata || {};
   const allCount = Number(state.sourceStatus?.items_before_topic_filter || state.totalAllMode || state.itemsAll.length || 0);
   const coverageCount = Number(state.sourceStatus?.fetched_raw_items || state.totalRaw || allCount || 0);
   const officialCount = Number(siteRow("official_ai")?.item_count || 0);
   const curatedMediaCount = Number(siteRow("curated_media")?.item_count || 0);
-  const socialdataPoolCount = siteAiPoolCount("socialdata_x");
-  const xApiPoolCount = siteAiPoolCount("xapi");
-  const xPoolCount = socialdataPoolCount + xApiPoolCount;
   const totalSites = rows.length;
   const okSites = Number(state.sourceStatus?.successful_sites || 0);
   const opmlValue = rss.enabled ? `${fmtNumber(rss.ok_feeds || 0)}/${fmtNumber(rss.effective_feed_total || 0)}` : "OPML";
   const opmlMeta = rss.enabled ? "已接入 RSS 訂閱來源" : "可匯入 RSS 訂閱清單";
-  const socialdataLabel = paidSourceLabel(socialdata, socialdataPoolCount, "SocialData", "");
-  const xApiLabel = paidSourceLabel(xApi, xApiPoolCount, "X API", "");
-  const xSourceLabel = socialdataLabel || xApiLabel || "X 尚未設定";
-  const advancedValue = xPoolCount ? `X ${fmtNumber(xPoolCount)}` : "X 尚未設定";
-  const advancedMeta = socialdata.enabled || xApi.enabled || xPoolCount
-    ? `額度保護 · ${xSourceLabel}`
-    : "X API 預設關閉";
-
   const cards = [
     ["來源健康", totalSites ? `${fmtNumber(okSites)}/${fmtNumber(totalSites)}` : "載入中", failedSites.length ? `${fmtNumber(failedSites.length)} 個失敗來源` : (errorMessage || "抓取來源正常"), failedSites.length ? "warn" : "ok"],
     ["24 小時收錄內容", `${fmtNumber(coverageCount)} 篇`, allCount ? `已設定來源 · 收錄 ${fmtNumber(allCount)} 篇` : "已設定來源收錄內容", "signal"],
@@ -607,7 +575,6 @@ function renderCoverageStrip(errorMessage = "") {
     ["官方來源內容", `${fmtNumber(officialCount)} 篇`, "官方來源群組", "official"],
     ["指定來源內容", `${fmtNumber(curatedMediaCount)} 篇`, "指定來源群組，含媒體與聚合來源", "signal"],
     ["RSS 訂閱來源", opmlValue, opmlMeta, "private"],
-    ["外部 API 來源", advancedValue, advancedMeta, "private"],
   ];
 
   cards.forEach(([label, value, meta, tone]) => {
@@ -619,7 +586,7 @@ function activeAdjustmentCount() {
   return [
     Boolean(state.query.trim()),
     state.activeSection !== "hot",
-    Boolean(state.siteFilter || state.authorFilter),
+    Boolean(state.siteFilter),
     Boolean(state.sourceTypeFilter),
     Boolean(state.signalLevelFilter),
     Boolean(state.businessEventFilter),
@@ -637,14 +604,12 @@ function clearAllFilters() {
   state.query = "";
   state.activeSection = "hot";
   state.siteFilter = "";
-  state.authorFilter = "";
   state.sourceTypeFilter = "";
   state.signalLevelFilter = "";
   state.businessEventFilter = "";
   state.briefView = "hot";
   state.briefExpanded = false;
   state.siteGroupsExpanded = false;
-  state.xAuthorsExpanded = false;
   if (searchInputEl) searchInputEl.value = "";
   if (siteSelectEl) siteSelectEl.value = "";
   if (sourceTypeSelectEl) sourceTypeSelectEl.value = "";
@@ -695,7 +660,6 @@ function itemSourceType(item) {
     || siteId === "runtimewire"
   ) return "media";
   if (siteId === "opmlrss" || tier === "user_opml") return "rss";
-  if (siteId === "socialdata_x" || siteId === "xapi") return "advanced";
   return "aggregate";
 }
 
@@ -822,30 +786,12 @@ function renderSiteFilters() {
   };
   sitePillsEl.appendChild(allPill);
 
-  if (state.authorFilter) {
-    const authorPill = document.createElement("button");
-    authorPill.type = "button";
-    authorPill.className = "pill active author-filter-pill";
-    authorPill.textContent = `X 作者 ${state.authorFilter} ×`;
-    authorPill.title = "清除作者篩選";
-    authorPill.onclick = () => {
-      state.authorFilter = "";
-      state.siteFilter = "";
-      state.siteGroupsExpanded = false;
-      renderSiteFilters();
-      renderBriefPicks();
-      renderList();
-    };
-    sitePillsEl.appendChild(authorPill);
-  }
-
   stats.forEach((s) => {
     const btn = document.createElement("button");
     btn.className = `pill ${state.siteFilter === s.site_id ? "active" : ""}`;
     btn.textContent = `${s.site_name} ${siteRatioText(s)}`;
     btn.onclick = () => {
       state.siteFilter = s.site_id;
-      if (s.site_id !== "socialdata_x") state.authorFilter = "";
       renderSiteFilters();
       renderBriefPicks();
       renderList();
@@ -948,10 +894,7 @@ function sectionItems(items = modeItems(), sectionId = state.activeSection) {
 function getFilteredItems(mode = state.mode) {
   const q = state.query.trim().toLowerCase();
   const preliminary = sectionItems(modeItems(state.activeSection, mode)).filter((item) => {
-    if (state.siteFilter && (state.siteFilter === "socialdata_x"
-      ? item.site_id !== "socialdata_x"
-      : generalReaderSource(item).level !== state.siteFilter)) return false;
-    if (state.authorFilter && (item.site_id !== "socialdata_x" || item.source !== state.authorFilter)) return false;
+    if (state.siteFilter && generalReaderSource(item).level !== state.siteFilter) return false;
     if (state.sourceTypeFilter && generalReaderSource(item).level !== state.sourceTypeFilter) return false;
     if (!itemMatchesBusinessEvent(item)) return false;
     if (!q) return true;
@@ -1029,7 +972,7 @@ function itemLabelTone(item) {
   if (label === "research_paper") return "research";
   if (label === "industry_business") return "industry";
   if (label === "ai_product_update" || label === "agent_workflow" || label === "robotics") return "products";
-  if (itemSections(item).has("community")) return "community";
+  if (itemSections(item).has("security")) return "security";
   return "default";
 }
 
@@ -1042,7 +985,7 @@ function itemTagTone(label) {
   if (text.includes("模型")) return "models";
   if (text.includes("開發")) return "devtools";
   if (text.includes("研究")) return "research";
-  if (text.includes("社群")) return "community";
+  if (text.includes("資安")) return "security";
   if (text.includes("產品")) return "products";
   if (text.includes("產業")) return "industry";
   return "default";
@@ -1670,7 +1613,6 @@ function storyMatchesFilteredItems(story, filteredItems) {
   if (
     state.activeSection === "hot" &&
     !state.siteFilter &&
-    !state.authorFilter &&
     !state.sourceTypeFilter &&
     !state.signalLevelFilter &&
     !state.query.trim()
@@ -1770,8 +1712,7 @@ function briefEventMatchesFilters(story) {
   return [story.primary_item, ...story.sources].some((item) => {
     if (state.activeSection !== "hot" && !itemMatchesSection(item, state.activeSection)) return false;
     const source = generalReaderSource(item).level;
-    if (state.siteFilter && (state.siteFilter === "socialdata_x" ? item.site_id !== "socialdata_x" : source !== state.siteFilter)) return false;
-    if (state.authorFilter && (item.site_id !== "socialdata_x" || item.source !== state.authorFilter)) return false;
+    if (state.siteFilter && source !== state.siteFilter) return false;
     if (state.sourceTypeFilter && source !== state.sourceTypeFilter) return false;
     if (state.signalLevelFilter === "curated" && !isCuratedItem(item)) return false;
     return !q || `${item.title || ""} ${item.title_zh || ""} ${item.title_en || ""} ${item.site_name || ""} ${item.source || ""} ${sourceDisplayName(item)}`.toLowerCase().includes(q);
@@ -2008,49 +1949,6 @@ function buildBriefFollowupPanel(rows, topCount, usesStories) {
   return panel;
 }
 
-// feature/signal-gate (Step 3): site_ids whose content is inherently
-// community/forum discussion rather than edited news - ineligible for the
-// no-badge backfill slots in "今日重點訊號" (see featuredCandidatesGate()
-// below). AIBASE remains a community/creator feed by design.
-const COMMUNITY_SOURCE_TYPES = new Set([
-  "aibase",
-]);
-
-// feature/signal-gate (Step 3): eligibility pre-filter for "今日重點訊號"'s
-// candidate pool - applied before either the story-pool path (hotStories/
-// latestStories) or the no-story-data fallback path (rankedFallbackRows)
-// runs its own ranking, so this narrows *what's eligible*, not *the order*
-// (briefStorySortCompare's badge-first four-tier sort is unchanged). Primary
-// rule: a confirmed business-event badge earns a seat on its own merit.
-// Backfill rule: once badged candidates are exhausted, badge-less
-// candidates may still fill remaining seats UNLESS their site_id is a
-// community/forum source (COMMUNITY_SOURCE_TYPES) - this is what actually
-// stops V2EX-shaped forum chatter from padding out a thin-supply day.
-// "寧缺勿濫" falls out for free: this never pads the result, it only
-// removes ineligible candidates, so a short list stays short instead of
-// being backfilled with disqualified ones.
-//
-// Deliberately does NOT also try to exclude "only cleared via the has_ai
-// floor" candidates: the backend's score_ai_relevance() overwrites the raw
-// score with max(score, AI_RELEVANCE_THRESHOLD) before it ever reaches this
-// JSON (see scripts/ai_relevance.py), so there is no signal left here that
-// reliably tells a genuine ~0.65 score apart from a floor-boosted one -
-// ai_score === 0.65 exactly would be a guess dressed up as a fact, not a
-// real distinction, so this gate is source-type-only as scoped by the
-// ticket rather than attempting a score-based cut too.
-function featuredCandidatesGate(candidates, getBusinessEventCount, getSiteId) {
-  const badged = [];
-  const backfillEligible = [];
-  (Array.isArray(candidates) ? candidates : []).forEach((candidate) => {
-    if (getBusinessEventCount(candidate) > 0) {
-      badged.push(candidate);
-    } else if (!COMMUNITY_SOURCE_TYPES.has(getSiteId(candidate))) {
-      backfillEligible.push(candidate);
-    }
-  });
-  return [...badged, ...backfillEligible];
-}
-
 function storyCandidateSiteId(story) {
   if (story?.publisher_qualified && story.governance_publisher_key) return story.governance_publisher_key;
   const item = story && (story.primary_item || story);
@@ -2161,20 +2059,20 @@ function itemTagLabels(item, row = null) {
   const sections = itemSections(item);
   const onModelsTab = state.activeSection === "models" && sections.has("models");
   // feature/badge-system-audit-0721: sectionBadgeLabel() echoes the active
-  // tab's own name (熱點/模型/產品/開發者/產業/研究/社群). For 開發者/研究/
-  // 社群 that string is identical to the content tag pushed below for the
+  // tab's own name (總覽/模型/產品/開發者/產業/研究/資安). For 開發者/研究/
+  // 資安 that string is identical to the content tag pushed below for the
   // same section, so Array.from(new Set(...)) already collapses the repeat.
   // 模型 is the one section whose tab label ("模型") and content tag
   // ("模型發布") use different wording, so the Set dedup can't catch it -
   // skip the tab echo here instead of renaming "模型發布" (still used
   // elsewhere as its own, more specific "release" label).
   if (state.activeSection !== "hot" && !onModelsTab) tags.push(sectionBadgeLabel(state.activeSection));
+  if (sections.has("security")) tags.push("資安");
   if (row && rowSourceCount(row) > 1) tags.push("多方報導");
   if (item.site_id === "official_ai") tags.push("官方");
   if (sections.has("models")) tags.push("模型");
   if (sections.has("devtools")) tags.push("開發者");
   if (sections.has("research")) tags.push("研究");
-  if (sections.has("community")) tags.push("社群");
   return Array.from(new Set(tags)).slice(0, 3);
 }
 
@@ -2702,7 +2600,6 @@ function renderLoadingNotice(label, count) {
 }
 
 function currentFilterLabel(filtered) {
-  if (state.authorFilter) return `${listTitleText()} · X 作者 ${state.authorFilter}`;
   if (state.siteFilter) {
     const stat = currentSiteStats().find((s) => s.site_id === state.siteFilter);
     return `${listTitleText()} · ${stat?.site_name || state.siteFilter}`;
@@ -2850,53 +2747,6 @@ function renderMetric(label, value, tone = "", options = {}) {
   return node;
 }
 
-function socialdataAuthors() {
-  return Array.from(new Set(
-    state.itemsAi
-      .filter((item) => item.site_id === "socialdata_x")
-      .map((item) => String(item.source || "").trim())
-      .filter(Boolean),
-  )).sort((a, b) => a.localeCompare(b, "en"));
-}
-
-function selectSocialdataAuthor(author) {
-  state.authorFilter = author;
-  state.siteFilter = "socialdata_x";
-  state.activeSection = "hot";
-  state.briefExpanded = false;
-  state.siteGroupsExpanded = false;
-  state.xAuthorsExpanded = false;
-  renderSectionTabs();
-  renderModeSwitch();
-  renderSiteFilters();
-  renderBriefPicks();
-  renderList();
-  renderSourceHealth();
-  document.querySelector(".list-wrap")?.scrollIntoView({ behavior: "smooth", block: "start" });
-}
-
-function renderSocialdataAuthorList(authors, itemCount) {
-  const panel = document.createElement("section");
-  panel.className = "health-author-list";
-  const heading = document.createElement("div");
-  heading.className = "health-author-list-title";
-  heading.textContent = "本輪 X 掃到的作者";
-  const meta = document.createElement("div");
-  meta.className = "health-author-list-meta";
-  meta.textContent = `${fmtNumber(authors.length)} 位作者 · ${fmtNumber(itemCount)} 篇收錄內容`;
-  const list = document.createElement("div");
-  list.className = "health-author-list-items";
-  authors.forEach((author) => {
-    const item = document.createElement("button");
-    item.type = "button";
-    item.textContent = author;
-    item.title = `檢視 ${author} 的 X 內容`;
-    item.addEventListener("click", () => selectSocialdataAuthor(author));
-    list.appendChild(item);
-  });
-  panel.append(heading, meta, list);
-  return panel;
-}
 
 function renderIssueList(title, items) {
   const wrap = document.createElement("div");
@@ -2995,67 +2845,24 @@ function renderSourceHealth(errorMessage = "") {
   const failedSites = Array.isArray(status.failed_sites) ? status.failed_sites : [];
   const zeroSites = Array.isArray(status.zero_item_sites) ? status.zero_item_sites : [];
   const rss = status.rss_opml || {};
-  const xApi = status.x_api || {};
-  const socialdata = status.socialdata || {};
-  const emptyAdvanced = Array.isArray(status.empty_advanced_sources) ? status.empty_advanced_sources : [];
   const failedFeeds = Array.isArray(rss.failed_feeds) ? rss.failed_feeds : [];
   const skippedFeeds = Array.isArray(rss.skipped_feeds) ? rss.skipped_feeds : [];
   const replacedFeeds = Array.isArray(rss.replaced_feeds) ? rss.replaced_feeds : [];
-  // Paid sources run on a protected interval. A skipped refresh can still have
-  // usable records from the last successful run in today's data pool, so don't
-  // hide them behind a misleading "等待下次更新" status.
-  const socialdataLiveCount = Number(socialdata.item_count || 0);
-  const socialdataPoolCount = siteAiPoolCount("socialdata_x");
-  const socialdataDisplayCount = socialdataLiveCount || socialdataPoolCount;
-  const xApiLiveCount = Number(xApi.item_count || 0);
-  const xApiPoolCount = siteAiPoolCount("xapi");
-  const xApiDisplayCount = xApiLiveCount || xApiPoolCount;
-  const xDisplayCount = socialdataDisplayCount + xApiDisplayCount;
-  const xAuthors = socialdataAuthors();
-
-  const xMetricValue = xDisplayCount
-    ? `已收錄 ${fmtNumber(xDisplayCount)} 篇`
-    : socialdata.enabled
-    ? (socialdataDisplayCount
-      ? "成功"
-      : (socialdata.skipped ? "等待下次更新" : "已連線，暫無符合條件的內容"))
-    : (xApi.enabled
-      ? (xApiDisplayCount
-        ? "成功"
-        : (xApi.skipped ? "等待下次更新" : "已連線，暫無符合條件的內容"))
-      : "未啟用");
-  const xMetricTone = socialdata.error || xApi.error ? "bad" : (xDisplayCount ? "ok" : (emptyAdvanced.length ? "warn" : ""));
-
   const metricGrid = document.createElement("div");
   metricGrid.className = "health-grid";
   metricGrid.append(
     renderMetric("抓取來源", `${fmtNumber(status.successful_sites || 0)}/${fmtNumber(sites.length)}`, failedSites.length ? "warn" : "ok"),
     renderMetric("RSS 訂閱", rss.enabled ? `${fmtNumber(rss.ok_feeds || 0)}/${fmtNumber(rss.effective_feed_total || 0)}` : "未啟用"),
-    renderMetric("X 抓取來源", xMetricValue, xMetricTone, xAuthors.length ? {
-      expanded: state.xAuthorsExpanded,
-      title: "檢視本輪掃描到的 X 作者",
-      onClick: () => {
-        state.xAuthorsExpanded = !state.xAuthorsExpanded;
-        renderSourceHealth();
-      },
-    } : {}),
     renderMetric("失敗抓取來源／RSS 訂閱", `${fmtNumber(failedSites.length)}／${fmtNumber(failedFeeds.length)}`, failedSites.length || failedFeeds.length ? "bad" : "ok"),
     renderMetric("替換/跳過", `${fmtNumber(replacedFeeds.length)}/${fmtNumber(skippedFeeds.length)}`)
   );
   sourceHealthEl.appendChild(renderSourceHealthSummaryNode(status, errorMessage));
   const detailTarget = sourceHealthDetailsEl || sourceHealthEl;
   detailTarget.appendChild(metricGrid);
-  if (state.xAuthorsExpanded && xAuthors.length) {
-    detailTarget.appendChild(renderSocialdataAuthorList(xAuthors, socialdataDisplayCount));
-  }
-
   const issues = document.createElement("div");
   issues.className = "health-issues";
   if (failedSites.length) issues.appendChild(renderIssueList("失敗抓取來源", failedSites));
   if (zeroSites.length) issues.appendChild(renderIssueList("零結果抓取來源", zeroSites));
-  if (emptyAdvanced.length) {
-    issues.appendChild(renderIssueList("外部 API 來源暫無符合內容", emptyAdvanced.map((item) => `${item.site_name || item.site_id} · 已連線，暫無符合條件的內容`)));
-  }
   if (failedFeeds.length) issues.appendChild(renderIssueList("失敗 RSS", failedFeeds));
   if (skippedFeeds.length) {
     issues.appendChild(renderIssueList("跳過 RSS", skippedFeeds.map((item) => `${item.feed_url} · ${item.reason || "skipped"}`)));
@@ -3237,7 +3044,6 @@ if (clearFiltersBtnEl) {
 
 siteSelectEl.addEventListener("change", (e) => {
   state.siteFilter = e.target.value;
-  if (state.siteFilter !== "socialdata_x") state.authorFilter = "";
   state.siteGroupsExpanded = false;
   renderSiteFilters();
   renderBriefPicks();
@@ -3255,7 +3061,6 @@ if (sourceTypeSelectEl) {
   sourceTypeSelectEl.addEventListener("change", (e) => {
     state.sourceTypeFilter = e.target.value;
     state.siteFilter = "";
-    state.authorFilter = "";
     rerenderCurrentView();
   });
 }

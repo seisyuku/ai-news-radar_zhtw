@@ -38,7 +38,6 @@
     ].filter(Boolean).join(" ").toLowerCase();
     const sections = new Set();
     const label = item.ai_label || "";
-    const source = `${item.source || ""} ${item.site_name || ""}`.toLowerCase();
     const hasExplicitModelTerm = matchesAny(contentHay, [
       /gpt[-\s]?\d|claude|gemini|grok|llama|qwen|deepseek|mistral|kimi\s?k\d|glm|gemma|模型|model|weights|权重|權重|多模态|多模態|视频生成|影片生成|diffusion|sora|seedance|llm|大模型/,
     ]);
@@ -83,19 +82,7 @@
       ])
     ) sections.add("research");
 
-    if (
-      source.includes("it之家") ||
-      source.includes("36氪") ||
-      source.includes("掘金") ||
-      source.includes("readhub") ||
-      source.includes("公众号") || source.includes("公眾號") ||
-      source.includes("宝玉") || source.includes("寶玉") ||
-      source.includes("小互") ||
-      source.includes("ayi") ||
-      matchesAny(hay, [
-        /社区|社群|公众号|公眾號|阿里|通义|通義|千问|千問|智谱|智譜|kimi|月之暗面|minimax|字节|字節|火山|百度|腾讯|騰訊|华为|華為|蚂蚁|螞蟻|讯飞|訊飛|国内|國內|中文|开源中国|開源中國|少数派|少數派|虎嗅/,
-      ])
-    ) sections.add("community");
+    if (item.security_topic === true) sections.add("security");
 
     if (!sections.size) sections.add("industry");
     return sections;
