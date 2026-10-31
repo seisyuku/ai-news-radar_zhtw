@@ -4,45 +4,45 @@
     "phases": {
       "inputs": {
         "state": "completed",
-        "duration_ms": 675
+        "duration_ms": 655
       },
       "collect": {
         "state": "completed",
-        "duration_ms": 25934
+        "duration_ms": 23388
       },
       "sensors": {
         "state": "completed",
-        "duration_ms": 181
+        "duration_ms": 84
       },
       "opml": {
         "state": "completed",
-        "duration_ms": 1852
+        "duration_ms": 1884
       },
       "preparation": {
         "state": "completed",
-        "duration_ms": 2938
+        "duration_ms": 2932
       },
       "translations": {
         "state": "completed",
         "provider_request_count": 1,
-        "duration_ms": 1352
+        "duration_ms": 1417
       },
       "aggregation": {
         "state": "completed",
-        "duration_ms": 486
+        "duration_ms": 449
       },
       "summaries": {
         "state": "completed",
         "provider_enabled": true,
-        "duration_ms": 5887
+        "duration_ms": 6575
       },
       "payloads": {
         "state": "completed",
-        "duration_ms": 10731
+        "duration_ms": 10624
       },
       "output": {
         "state": "completed",
-        "duration_ms": 19391
+        "duration_ms": 19569
       }
     },
     "output_excludes": [
@@ -50,12 +50,12 @@
       "resolver_cleanup"
     ]
   },
-  "generated_at": "2026-10-31T21:35:28.103169Z",
+  "generated_at": "2026-10-31T22:05:27.440252Z",
   "brief_selection": {
-    "candidate_count": 63,
+    "candidate_count": 61,
     "eligible_count": 0,
     "selected_count": 0,
-    "below_gate_count": 63,
+    "below_gate_count": 61,
     "diversity_or_limit_count": 0,
     "max_score": null,
     "max_source_count": null,
@@ -72,7 +72,7 @@
       "site_name": "官方更新",
       "ok": true,
       "item_count": 389,
-      "duration_ms": 7896,
+      "duration_ms": 8000,
       "error": null,
       "degraded": false,
       "degraded_reason": null,
@@ -82,14 +82,14 @@
           "ok": true,
           "item_count": 109,
           "error": null,
-          "duration_ms": 836,
+          "duration_ms": 827,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-10-31T21:35:28.103169Z",
+          "last_success_at": "2026-10-31T22:05:27.440252Z",
           "persistent_failure": false
         },
         {
@@ -97,20 +97,125 @@
           "ok": true,
           "item_count": 14,
           "error": null,
-          "duration_ms": 276,
+          "duration_ms": 237,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-10-31T21:35:28.103169Z",
+          "last_success_at": "2026-10-31T22:05:27.440252Z",
           "persistent_failure": false
         },
         {
           "source_id": "google_ai_blog",
           "ok": true,
           "item_count": 10,
+          "error": null,
+          "duration_ms": 487,
+          "skipped": false,
+          "attempted": true,
+          "last_attempt_ok": true,
+          "consecutive_failures": 0,
+          "first_failure_at": null,
+          "last_failure_at": null,
+          "last_success_at": "2026-10-31T22:05:27.440252Z",
+          "persistent_failure": false
+        },
+        {
+          "source_id": "google_gemini_blog",
+          "ok": true,
+          "item_count": 20,
+          "error": null,
+          "duration_ms": 93,
+          "skipped": false,
+          "attempted": true,
+          "last_attempt_ok": true,
+          "consecutive_failures": 0,
+          "first_failure_at": null,
+          "last_failure_at": null,
+          "last_success_at": "2026-10-31T22:05:27.440252Z",
+          "persistent_failure": false
+        },
+        {
+          "source_id": "hugging_face_blog",
+          "ok": true,
+          "item_count": 33,
+          "error": null,
+          "duration_ms": 456,
+          "skipped": false,
+          "attempted": true,
+          "last_attempt_ok": true,
+          "consecutive_failures": 0,
+          "first_failure_at": null,
+          "last_failure_at": "2026-10-14T04:44:41.283260Z",
+          "last_success_at": "2026-10-31T22:05:27.440252Z",
+          "persistent_failure": false
+        },
+        {
+          "source_id": "github_ai_ml",
+          "ok": true,
+          "item_count": 10,
+          "error": null,
+          "duration_ms": 294,
+          "skipped": false,
+          "attempted": true,
+          "last_attempt_ok": true,
+          "consecutive_failures": 0,
+          "first_failure_at": null,
+          "last_failure_at": null,
+          "last_success_at": "2026-10-31T22:05:27.440252Z",
+          "persistent_failure": false
+        },
+        {
+          "source_id": "github_changelog",
+          "ok": true,
+          "item_count": 10,
+          "error": null,
+          "duration_ms": 45,
+          "skipped": false,
+          "attempted": true,
+          "last_attempt_ok": true,
+          "consecutive_failures": 0,
+          "first_failure_at": null,
+          "last_failure_at": null,
+          "last_success_at": "2026-10-31T22:05:27.440252Z",
+          "persistent_failure": false
+        },
+        {
+          "source_id": "openai_skills",
+          "ok": true,
+          "item_count": 0,
+          "error": null,
+          "duration_ms": 252,
+          "skipped": false,
+          "attempted": true,
+          "last_attempt_ok": true,
+          "consecutive_failures": 0,
+          "first_failure_at": null,
+          "last_failure_at": "2026-10-15T12:35:38.704679Z",
+          "last_success_at": "2026-10-31T22:05:27.440252Z",
+          "persistent_failure": false
+        },
+        {
+          "source_id": "thinking_machines_lab",
+          "ok": true,
+          "item_count": 0,
+          "error": null,
+          "duration_ms": 1424,
+          "skipped": false,
+          "attempted": true,
+          "last_attempt_ok": true,
+          "consecutive_failures": 0,
+          "first_failure_at": null,
+          "last_failure_at": null,
+          "last_success_at": "2026-10-31T22:05:27.440252Z",
+          "persistent_failure": false
+        },
+        {
+          "source_id": "nvidia_blog",
+          "ok": true,
+          "item_count": 18,
           "error": null,
           "duration_ms": 291,
           "skipped": false,
@@ -119,112 +224,7 @@
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-10-31T21:35:28.103169Z",
-          "persistent_failure": false
-        },
-        {
-          "source_id": "google_gemini_blog",
-          "ok": true,
-          "item_count": 20,
-          "error": null,
-          "duration_ms": 83,
-          "skipped": false,
-          "attempted": true,
-          "last_attempt_ok": true,
-          "consecutive_failures": 0,
-          "first_failure_at": null,
-          "last_failure_at": null,
-          "last_success_at": "2026-10-31T21:35:28.103169Z",
-          "persistent_failure": false
-        },
-        {
-          "source_id": "hugging_face_blog",
-          "ok": true,
-          "item_count": 33,
-          "error": null,
-          "duration_ms": 535,
-          "skipped": false,
-          "attempted": true,
-          "last_attempt_ok": true,
-          "consecutive_failures": 0,
-          "first_failure_at": null,
-          "last_failure_at": "2026-10-14T04:44:41.283260Z",
-          "last_success_at": "2026-10-31T21:35:28.103169Z",
-          "persistent_failure": false
-        },
-        {
-          "source_id": "github_ai_ml",
-          "ok": true,
-          "item_count": 10,
-          "error": null,
-          "duration_ms": 473,
-          "skipped": false,
-          "attempted": true,
-          "last_attempt_ok": true,
-          "consecutive_failures": 0,
-          "first_failure_at": null,
-          "last_failure_at": null,
-          "last_success_at": "2026-10-31T21:35:28.103169Z",
-          "persistent_failure": false
-        },
-        {
-          "source_id": "github_changelog",
-          "ok": true,
-          "item_count": 10,
-          "error": null,
-          "duration_ms": 65,
-          "skipped": false,
-          "attempted": true,
-          "last_attempt_ok": true,
-          "consecutive_failures": 0,
-          "first_failure_at": null,
-          "last_failure_at": null,
-          "last_success_at": "2026-10-31T21:35:28.103169Z",
-          "persistent_failure": false
-        },
-        {
-          "source_id": "openai_skills",
-          "ok": true,
-          "item_count": 0,
-          "error": null,
-          "duration_ms": 339,
-          "skipped": false,
-          "attempted": true,
-          "last_attempt_ok": true,
-          "consecutive_failures": 0,
-          "first_failure_at": null,
-          "last_failure_at": "2026-10-15T12:35:38.704679Z",
-          "last_success_at": "2026-10-31T21:35:28.103169Z",
-          "persistent_failure": false
-        },
-        {
-          "source_id": "thinking_machines_lab",
-          "ok": true,
-          "item_count": 0,
-          "error": null,
-          "duration_ms": 1454,
-          "skipped": false,
-          "attempted": true,
-          "last_attempt_ok": true,
-          "consecutive_failures": 0,
-          "first_failure_at": null,
-          "last_failure_at": null,
-          "last_success_at": "2026-10-31T21:35:28.103169Z",
-          "persistent_failure": false
-        },
-        {
-          "source_id": "nvidia_blog",
-          "ok": true,
-          "item_count": 18,
-          "error": null,
-          "duration_ms": 258,
-          "skipped": false,
-          "attempted": true,
-          "last_attempt_ok": true,
-          "consecutive_failures": 0,
-          "first_failure_at": null,
-          "last_failure_at": null,
-          "last_success_at": "2026-10-31T21:35:28.103169Z",
+          "last_success_at": "2026-10-31T22:05:27.440252Z",
           "persistent_failure": false
         },
         {
@@ -232,14 +232,14 @@
           "ok": true,
           "item_count": 10,
           "error": null,
-          "duration_ms": 138,
+          "duration_ms": 230,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-10-31T21:35:28.103169Z",
+          "last_success_at": "2026-10-31T22:05:27.440252Z",
           "persistent_failure": false
         },
         {
@@ -247,14 +247,14 @@
           "ok": true,
           "item_count": 100,
           "error": null,
-          "duration_ms": 367,
+          "duration_ms": 260,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-10-31T21:35:28.103169Z",
+          "last_success_at": "2026-10-31T22:05:27.440252Z",
           "persistent_failure": false
         },
         {
@@ -262,14 +262,14 @@
           "ok": true,
           "item_count": 5,
           "error": null,
-          "duration_ms": 253,
+          "duration_ms": 318,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-10-31T08:49:41.546831Z",
-          "last_success_at": "2026-10-31T21:35:28.103169Z",
+          "last_success_at": "2026-10-31T22:05:27.440252Z",
           "persistent_failure": false
         },
         {
@@ -277,14 +277,14 @@
           "ok": true,
           "item_count": 2,
           "error": null,
-          "duration_ms": 423,
+          "duration_ms": 383,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-10-27T18:05:39.870087Z",
-          "last_success_at": "2026-10-31T21:35:28.103169Z",
+          "last_success_at": "2026-10-31T22:05:27.440252Z",
           "persistent_failure": false
         },
         {
@@ -292,14 +292,14 @@
           "ok": true,
           "item_count": 9,
           "error": null,
-          "duration_ms": 611,
+          "duration_ms": 775,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-10-31T21:35:28.103169Z",
+          "last_success_at": "2026-10-31T22:05:27.440252Z",
           "persistent_failure": false
         },
         {
@@ -307,14 +307,14 @@
           "ok": true,
           "item_count": 39,
           "error": null,
-          "duration_ms": 1495,
+          "duration_ms": 1630,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-10-31T21:35:28.103169Z",
+          "last_success_at": "2026-10-31T22:05:27.440252Z",
           "persistent_failure": false
         }
       ],
@@ -322,7 +322,7 @@
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": null,
-      "last_success_at": "2026-10-31T21:35:28.103169Z",
+      "last_success_at": "2026-10-31T22:05:27.440252Z",
       "persistent_failure": false
     },
     {
@@ -330,13 +330,13 @@
       "site_name": "Mistral News",
       "ok": true,
       "item_count": 6,
-      "duration_ms": 163,
+      "duration_ms": 144,
       "error": null,
       "last_attempt_ok": true,
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": null,
-      "last_success_at": "2026-10-31T21:35:28.103169Z",
+      "last_success_at": "2026-10-31T22:05:27.440252Z",
       "persistent_failure": false
     },
     {
@@ -344,13 +344,13 @@
       "site_name": "MCP Blog",
       "ok": true,
       "item_count": 1,
-      "duration_ms": 555,
+      "duration_ms": 312,
       "error": null,
       "last_attempt_ok": true,
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": null,
-      "last_success_at": "2026-10-31T21:35:28.103169Z",
+      "last_success_at": "2026-10-31T22:05:27.440252Z",
       "persistent_failure": false
     },
     {
@@ -358,13 +358,13 @@
       "site_name": "ARC Prize",
       "ok": true,
       "item_count": 0,
-      "duration_ms": 159,
+      "duration_ms": 383,
       "error": null,
       "last_attempt_ok": true,
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": null,
-      "last_success_at": "2026-10-31T21:35:28.103169Z",
+      "last_success_at": "2026-10-31T22:05:27.440252Z",
       "persistent_failure": false
     },
     {
@@ -372,7 +372,7 @@
       "site_name": "精選媒體",
       "ok": true,
       "item_count": 83,
-      "duration_ms": 4216,
+      "duration_ms": 4737,
       "error": null,
       "degraded": false,
       "degraded_reason": null,
@@ -382,14 +382,14 @@
           "ok": true,
           "item_count": 10,
           "error": null,
-          "duration_ms": 1419,
+          "duration_ms": 1118,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-10-20T11:05:28.474205Z",
-          "last_success_at": "2026-10-31T21:35:28.103169Z",
+          "last_success_at": "2026-10-31T22:05:27.440252Z",
           "persistent_failure": false
         },
         {
@@ -397,14 +397,14 @@
           "ok": true,
           "item_count": 8,
           "error": null,
-          "duration_ms": 58,
+          "duration_ms": 113,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-10-31T21:35:28.103169Z",
+          "last_success_at": "2026-10-31T22:05:27.440252Z",
           "persistent_failure": false
         },
         {
@@ -412,14 +412,14 @@
           "ok": true,
           "item_count": 1,
           "error": null,
-          "duration_ms": 98,
+          "duration_ms": 120,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-10-31T21:35:28.103169Z",
+          "last_success_at": "2026-10-31T22:05:27.440252Z",
           "persistent_failure": false
         },
         {
@@ -427,14 +427,14 @@
           "ok": true,
           "item_count": 6,
           "error": null,
-          "duration_ms": 207,
+          "duration_ms": 229,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-10-30T17:35:32.599875Z",
-          "last_success_at": "2026-10-31T21:35:28.103169Z",
+          "last_success_at": "2026-10-31T22:05:27.440252Z",
           "persistent_failure": false
         },
         {
@@ -442,14 +442,14 @@
           "ok": true,
           "item_count": 6,
           "error": null,
-          "duration_ms": 131,
+          "duration_ms": 141,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-10-31T21:35:28.103169Z",
+          "last_success_at": "2026-10-31T22:05:27.440252Z",
           "persistent_failure": false
         },
         {
@@ -457,14 +457,14 @@
           "ok": true,
           "item_count": 10,
           "error": null,
-          "duration_ms": 528,
+          "duration_ms": 611,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-10-31T08:49:41.546831Z",
-          "last_success_at": "2026-10-31T21:35:28.103169Z",
+          "last_success_at": "2026-10-31T22:05:27.440252Z",
           "persistent_failure": false
         },
         {
@@ -472,14 +472,14 @@
           "ok": true,
           "item_count": 10,
           "error": null,
-          "duration_ms": 387,
+          "duration_ms": 533,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-10-31T08:49:41.546831Z",
-          "last_success_at": "2026-10-31T21:35:28.103169Z",
+          "last_success_at": "2026-10-31T22:05:27.440252Z",
           "persistent_failure": false
         },
         {
@@ -487,14 +487,14 @@
           "ok": true,
           "item_count": 8,
           "error": null,
-          "duration_ms": 467,
+          "duration_ms": 690,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-10-31T08:49:41.546831Z",
-          "last_success_at": "2026-10-31T21:35:28.103169Z",
+          "last_success_at": "2026-10-31T22:05:27.440252Z",
           "persistent_failure": false
         },
         {
@@ -502,14 +502,14 @@
           "ok": true,
           "item_count": 8,
           "error": null,
-          "duration_ms": 292,
+          "duration_ms": 414,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-10-31T08:49:41.546831Z",
-          "last_success_at": "2026-10-31T21:35:28.103169Z",
+          "last_success_at": "2026-10-31T22:05:27.440252Z",
           "persistent_failure": false
         },
         {
@@ -517,14 +517,14 @@
           "ok": true,
           "item_count": 8,
           "error": null,
-          "duration_ms": 438,
+          "duration_ms": 513,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-10-31T08:49:41.546831Z",
-          "last_success_at": "2026-10-31T21:35:28.103169Z",
+          "last_success_at": "2026-10-31T22:05:27.440252Z",
           "persistent_failure": false
         },
         {
@@ -532,14 +532,14 @@
           "ok": true,
           "item_count": 8,
           "error": null,
-          "duration_ms": 193,
+          "duration_ms": 255,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-10-31T08:49:41.546831Z",
-          "last_success_at": "2026-10-31T21:35:28.103169Z",
+          "last_success_at": "2026-10-31T22:05:27.440252Z",
           "persistent_failure": false
         }
       ],
@@ -547,7 +547,7 @@
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": null,
-      "last_success_at": "2026-10-31T21:35:28.103169Z",
+      "last_success_at": "2026-10-31T22:05:27.440252Z",
       "persistent_failure": false
     },
     {
@@ -555,13 +555,13 @@
       "site_name": "LLM Stats 模型查漏",
       "ok": true,
       "item_count": 2,
-      "duration_ms": 2122,
+      "duration_ms": 872,
       "error": null,
       "last_attempt_ok": true,
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": "2026-09-17T03:35:33.534116Z",
-      "last_success_at": "2026-10-31T21:35:28.103169Z",
+      "last_success_at": "2026-10-31T22:05:27.440252Z",
       "persistent_failure": false
     },
     {
@@ -569,13 +569,13 @@
       "site_name": "LLM Rumors 模型分析",
       "ok": true,
       "item_count": 6,
-      "duration_ms": 1030,
+      "duration_ms": 514,
       "error": null,
       "last_attempt_ok": true,
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": null,
-      "last_success_at": "2026-10-31T21:35:28.103169Z",
+      "last_success_at": "2026-10-31T22:05:27.440252Z",
       "persistent_failure": false
     },
     {
@@ -583,13 +583,13 @@
       "site_name": "RuntimeWire AI媒體",
       "ok": true,
       "item_count": 0,
-      "duration_ms": 266,
+      "duration_ms": 267,
       "error": null,
       "last_attempt_ok": true,
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": "2026-10-24T23:23:52.578245Z",
-      "last_success_at": "2026-10-31T21:35:28.103169Z",
+      "last_success_at": "2026-10-31T22:05:27.440252Z",
       "persistent_failure": false
     },
     {
@@ -597,7 +597,7 @@
       "site_name": "AIBASE",
       "ok": true,
       "item_count": 22,
-      "duration_ms": 5000,
+      "duration_ms": 2807,
       "error": null,
       "language_status": {
         "tw": {
@@ -619,7 +619,7 @@
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": "2026-09-08T17:35:30.793951Z",
-      "last_success_at": "2026-10-31T21:35:28.103169Z",
+      "last_success_at": "2026-10-31T22:05:27.440252Z",
       "persistent_failure": false
     },
     {
@@ -627,7 +627,7 @@
       "site_name": "台灣媒體",
       "ok": true,
       "item_count": 37,
-      "duration_ms": 3601,
+      "duration_ms": 4080,
       "error": null,
       "degraded": false,
       "degraded_reason": null,
@@ -637,14 +637,14 @@
           "ok": true,
           "item_count": 7,
           "error": null,
-          "duration_ms": 1029,
+          "duration_ms": 199,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-10-31T21:35:28.103169Z",
+          "last_success_at": "2026-10-31T22:05:27.440252Z",
           "persistent_failure": false
         },
         {
@@ -652,14 +652,14 @@
           "ok": true,
           "item_count": 8,
           "error": null,
-          "duration_ms": 245,
+          "duration_ms": 865,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-10-31T21:35:28.103169Z",
+          "last_success_at": "2026-10-31T22:05:27.440252Z",
           "persistent_failure": false
         },
         {
@@ -667,14 +667,14 @@
           "ok": true,
           "item_count": 8,
           "error": null,
-          "duration_ms": 707,
+          "duration_ms": 900,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-10-31T16:05:28.842554Z",
-          "last_success_at": "2026-10-31T21:35:28.103169Z",
+          "last_success_at": "2026-10-31T22:05:27.440252Z",
           "persistent_failure": false
         },
         {
@@ -682,14 +682,14 @@
           "ok": true,
           "item_count": 8,
           "error": null,
-          "duration_ms": 426,
+          "duration_ms": 382,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-10-31T08:49:41.546831Z",
-          "last_success_at": "2026-10-31T21:35:28.103169Z",
+          "last_success_at": "2026-10-31T22:05:27.440252Z",
           "persistent_failure": false
         },
         {
@@ -697,14 +697,14 @@
           "ok": true,
           "item_count": 6,
           "error": null,
-          "duration_ms": 466,
+          "duration_ms": 411,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-10-31T21:35:28.103169Z",
+          "last_success_at": "2026-10-31T22:05:27.440252Z",
           "persistent_failure": false
         },
         {
@@ -712,14 +712,14 @@
           "ok": true,
           "item_count": 0,
           "error": null,
-          "duration_ms": 728,
+          "duration_ms": 1323,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-10-31T21:35:28.103169Z",
+          "last_success_at": "2026-10-31T22:05:27.440252Z",
           "persistent_failure": false
         }
       ],
@@ -727,7 +727,7 @@
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": null,
-      "last_success_at": "2026-10-31T21:35:28.103169Z",
+      "last_success_at": "2026-10-31T22:05:27.440252Z",
       "persistent_failure": false
     },
     {
@@ -735,7 +735,7 @@
       "site_name": "36Kr AI (Watchlist)",
       "ok": true,
       "item_count": 5,
-      "duration_ms": 451,
+      "duration_ms": 543,
       "error": null,
       "fetch_path": "google_news",
       "degraded": false,
@@ -743,7 +743,7 @@
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": "2026-10-31T08:49:41.546831Z",
-      "last_success_at": "2026-10-31T21:35:28.103169Z",
+      "last_success_at": "2026-10-31T22:05:27.440252Z",
       "persistent_failure": false
     },
     {
@@ -751,13 +751,13 @@
       "site_name": "橘鴉AI早報 (Watchlist)",
       "ok": true,
       "item_count": 5,
-      "duration_ms": 469,
+      "duration_ms": 723,
       "error": null,
       "last_attempt_ok": true,
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": "2026-10-14T16:05:44.503854Z",
-      "last_success_at": "2026-10-31T21:35:28.103169Z",
+      "last_success_at": "2026-10-31T22:05:27.440252Z",
       "persistent_failure": false
     },
     {
@@ -766,13 +766,13 @@
       "ok": true,
       "item_count": 64,
       "signal_count": 0,
-      "duration_ms": 180,
+      "duration_ms": 83,
       "error": null,
       "last_attempt_ok": true,
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": "2026-10-15T06:35:47.527651Z",
-      "last_success_at": "2026-10-31T21:35:28.103169Z",
+      "last_success_at": "2026-10-31T22:05:27.440252Z",
       "persistent_failure": false
     },
     {
@@ -781,7 +781,7 @@
       "ok": true,
       "partial_failures": 0,
       "item_count": 2575,
-      "duration_ms": 8567,
+      "duration_ms": 10541,
       "error": null,
       "feed_count": 10,
       "effective_feed_count": 10,
@@ -793,7 +793,7 @@
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": null,
-      "last_success_at": "2026-10-31T21:35:28.103169Z",
+      "last_success_at": "2026-10-31T22:05:27.440252Z",
       "persistent_failure": false
     }
   ],
@@ -807,22 +807,22 @@
     "runtimewire"
   ],
   "fetched_raw_items": 3131,
-  "items_before_topic_filter": 71,
-  "items_in_24h": 61,
+  "items_before_topic_filter": 68,
+  "items_in_24h": 59,
   "translations": {
     "enabled": true,
     "primary_provider": "gemini",
     "model": "gemini-3.5-flash-lite",
-    "candidate_count": 2,
+    "candidate_count": 4,
     "request_count": 1,
-    "translated_count": 2,
+    "translated_count": 4,
     "failed_count": 0,
     "negative_cache_hits": 0,
     "request_timeout_seconds": 45,
     "total_budget_seconds": 120,
     "max_requests": 6,
     "provider_used": "gemini",
-    "cache_hits": 70,
+    "cache_hits": 64,
     "candidate_limit": 80
   },
   "rss_opml": {
@@ -844,7 +844,7 @@
         "effective_feed_url": "https://blog.google/technology/ai/rss/",
         "ok": true,
         "item_count": 20,
-        "duration_ms": 360,
+        "duration_ms": 348,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -859,7 +859,7 @@
         "effective_feed_url": "https://deepmind.google/blog/rss.xml",
         "ok": true,
         "item_count": 100,
-        "duration_ms": 127,
+        "duration_ms": 1183,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -874,7 +874,7 @@
         "effective_feed_url": "https://huggingface.co/blog/feed.xml",
         "ok": true,
         "item_count": 894,
-        "duration_ms": 925,
+        "duration_ms": 1345,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -889,7 +889,7 @@
         "effective_feed_url": "https://www.infoq.cn/feed",
         "ok": true,
         "item_count": 20,
-        "duration_ms": 1504,
+        "duration_ms": 1874,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -904,7 +904,7 @@
         "effective_feed_url": "https://news.microsoft.com/source/topics/ai/feed/",
         "ok": true,
         "item_count": 10,
-        "duration_ms": 195,
+        "duration_ms": 250,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -919,7 +919,7 @@
         "effective_feed_url": "https://developer.nvidia.com/blog/category/generative-ai/feed/",
         "ok": true,
         "item_count": 100,
-        "duration_ms": 1419,
+        "duration_ms": 1792,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -934,7 +934,7 @@
         "effective_feed_url": "https://openai.com/news/rss.xml",
         "ok": true,
         "item_count": 1341,
-        "duration_ms": 1847,
+        "duration_ms": 1738,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -949,7 +949,7 @@
         "effective_feed_url": "https://simonwillison.net/atom/everything/",
         "ok": true,
         "item_count": 30,
-        "duration_ms": 939,
+        "duration_ms": 1239,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -964,7 +964,7 @@
         "effective_feed_url": "https://www.wired.com/feed/tag/ai/latest/rss",
         "ok": true,
         "item_count": 10,
-        "duration_ms": 232,
+        "duration_ms": 280,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -979,7 +979,7 @@
         "effective_feed_url": "https://baoyu.io/feed.xml",
         "ok": true,
         "item_count": 50,
-        "duration_ms": 1019,
+        "duration_ms": 492,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -992,12 +992,14 @@
     "provider": "groq",
     "model": "qwen/qwen3.8-27b",
     "enabled": true,
-    "cache_hits": 18,
+    "cache_hits": 17,
     "generated": 1,
-    "failed": 0,
+    "failed": 2,
     "rejection_cache_hits": 3,
-    "ineligible": 14,
-    "max_new": 6
+    "ineligible": 13,
+    "max_new": 6,
+    "last_error_type": "ValueError",
+    "last_error_detail": "validation_numeric_grounding"
   },
   "reader_excerpts": {
     "attempted": 0,
@@ -1012,7 +1014,7 @@
     "already_archived": 0,
     "failed": 0,
     "reason_counts": {},
-    "generated_at": "2026-10-31T21:35:28.103169Z"
+    "generated_at": "2026-10-31T22:05:27.440252Z"
   },
   "evidence_policy": {
     "version": "official-text-v1",
@@ -1027,41 +1029,41 @@
   "brief_events": {
     "recovery_mode": "none",
     "errors": [],
-    "candidate_article_count": 63,
-    "root_count": 63,
-    "expired_count": 3,
+    "candidate_article_count": 61,
+    "root_count": 61,
+    "expired_count": 2,
     "context_attachment_count": 4,
     "unresolved_count": 7411,
-    "state_bytes": 1396372,
+    "state_bytes": 1398248,
     "capacity_warning": false
   },
   "news_quality": {
     "schema_version": 1,
-    "generated_at": "2026-10-31T21:35:28.103169Z",
+    "generated_at": "2026-10-31T22:05:27.440252Z",
     "counts": {
       "fetched_raw_records": 3131,
-      "window_raw_records": 74,
-      "current_records": 73,
-      "unique_articles": 73,
-      "public_raw_pool_articles": 70,
-      "ai_pool_articles": 61,
-      "events": 63,
+      "window_raw_records": 70,
+      "current_records": 70,
+      "unique_articles": 70,
+      "public_raw_pool_articles": 67,
+      "ai_pool_articles": 59,
+      "events": 61,
       "selected_events": 0,
-      "same_url_version_groups": 1,
-      "superseded_records": 1,
+      "same_url_version_groups": 0,
+      "superseded_records": 0,
       "summary_missing": 0,
       "summary_stale_preview": 0,
       "summary_stale_preview_visible": 0,
       "summary_placeholder": 0,
       "events_single_publisher": 48,
-      "events_without_identified_publisher": 15,
+      "events_without_identified_publisher": 13,
       "duplicate_event_id_count": 0,
       "articles_in_multiple_active_events": 0,
       "high_impact_review_leads": 6
     },
     "event_generation_status": "ready",
     "source_health": {
-      "generated_at": "2026-10-31T21:35:28.103169Z",
+      "generated_at": "2026-10-31T22:05:27.440252Z",
       "scope": "top_level_source_groups",
       "success_rate": 1.0,
       "sources": [
@@ -1071,7 +1073,7 @@
           "item_count": 389,
           "error": null,
           "latest_published_at": "2026-10-31T04:09:04Z",
-          "latest_observed_at": "2026-10-31T21:35:28.103169Z",
+          "latest_observed_at": "2026-10-31T22:05:27.440252Z",
           "observation_age_seconds": 0
         },
         {
@@ -1099,15 +1101,15 @@
           "error": null,
           "latest_published_at": "2026-09-03T00:00:00Z",
           "latest_observed_at": "2026-10-17T23:31:00.908689Z",
-          "observation_age_seconds": 1202667.19448
+          "observation_age_seconds": 1204466.531563
         },
         {
           "site_id": "curated_media",
           "ok": true,
           "item_count": 83,
           "error": null,
-          "latest_published_at": "2026-10-31T21:17:03Z",
-          "latest_observed_at": "2026-10-31T21:35:28.103169Z",
+          "latest_published_at": "2026-10-31T21:41:00Z",
+          "latest_observed_at": "2026-10-31T22:05:27.440252Z",
           "observation_age_seconds": 0
         },
         {
@@ -1116,7 +1118,7 @@
           "item_count": 2,
           "error": null,
           "latest_published_at": "2026-10-28T00:00:00Z",
-          "latest_observed_at": "2026-10-31T21:35:28.103169Z",
+          "latest_observed_at": "2026-10-31T22:05:27.440252Z",
           "observation_age_seconds": 0
         },
         {
@@ -1125,7 +1127,7 @@
           "item_count": 6,
           "error": null,
           "latest_published_at": "2026-10-31T00:00:00Z",
-          "latest_observed_at": "2026-10-31T21:35:28.103169Z",
+          "latest_observed_at": "2026-10-31T22:05:27.440252Z",
           "observation_age_seconds": 0
         },
         {
@@ -1135,7 +1137,7 @@
           "error": null,
           "latest_published_at": "2026-10-30T01:26:03Z",
           "latest_observed_at": "2026-10-31T21:05:31.671244Z",
-          "observation_age_seconds": 1796.431925
+          "observation_age_seconds": 3595.769008
         },
         {
           "site_id": "aibase",
@@ -1152,7 +1154,7 @@
           "item_count": 37,
           "error": null,
           "latest_published_at": "2026-10-31T14:48:00Z",
-          "latest_observed_at": "2026-10-31T21:35:28.103169Z",
+          "latest_observed_at": "2026-10-31T22:05:27.440252Z",
           "observation_age_seconds": 0
         },
         {
@@ -1161,7 +1163,7 @@
           "item_count": 5,
           "error": null,
           "latest_published_at": "2026-10-31T08:50:16Z",
-          "latest_observed_at": "2026-10-31T21:35:28.103169Z",
+          "latest_observed_at": "2026-10-31T22:05:27.440252Z",
           "observation_age_seconds": 0
         },
         {
@@ -1170,7 +1172,7 @@
           "item_count": 5,
           "error": null,
           "latest_published_at": "2026-10-31T01:19:32Z",
-          "latest_observed_at": "2026-10-31T21:35:28.103169Z",
+          "latest_observed_at": "2026-10-31T22:05:27.440252Z",
           "observation_age_seconds": 0
         },
         {
@@ -1188,95 +1190,19 @@
           "item_count": 2575,
           "error": null,
           "latest_published_at": "2026-10-31T20:43:05Z",
-          "latest_observed_at": "2026-10-31T21:35:28.103169Z",
+          "latest_observed_at": "2026-10-31T22:05:27.440252Z",
           "observation_age_seconds": 0
         }
       ]
     },
     "articles": [
       {
-        "article_id": "828223eab5e5cccd0dce91e47a77e95639321d6d",
-        "url": "https://developer.nvidia.com/blog/build-a-validated-kubernetes-runtime-for-nvidia-dynamo",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-10-30T21:35:28.399210Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_12c935ba96b53df8c3d33896"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "8c2ee58ae959eaf457ae359f1ce8020cbc3b520d",
-        "url": "https://techcrunch.com/2026/10/30/intels-stock-crashes-knocking-12b-from-governments-stake",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-10-30T22:05:30.832007Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_6ec040af12c08cfeac39c84d"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "b104a0d71be03515f76bd5fb4092c135e735a899",
-        "url": "https://simonwillison.net/2026/Oct/30/nesformer",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-10-30T22:05:30.832007Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": false,
-        "superseded_by": null,
-        "event_ids": [],
-        "aggregation_status": "not_in_event_projection",
-        "reason_codes": [
-          "ai_relevance_below_floor",
-          "insufficient_evidence",
-          "missing_meaningful_ai_signal"
-        ]
-      },
-      {
-        "article_id": "edaaeb225c3a7ae15d856159b452ac829e16c135",
-        "url": "https://techcrunch.com/2026/10/30/anthropic-expected-to-receive-high-junk-rating-from-credit-agencies-following-ipo-report-says",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-10-30T22:35:30.126400Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_dc67151753db99f44bdfd4cb"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "insufficient_evidence"
-        ]
-      },
-      {
         "article_id": "f1e1fb2eef611aeaa8a83b5ed3e6ee2293e536a8",
         "url": "https://techcrunch.com/2026/10/30/ollie-a-privacy-focused-ai-assistant-is-shutting-down",
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-30T23:10:21.990522Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1295,7 +1221,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-30T22:51:39.078756Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1314,7 +1240,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-30T22:51:39.078756Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1333,7 +1259,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T00:35:29.655987Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1352,7 +1278,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T00:35:29.655987Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1371,7 +1297,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T00:35:29.655987Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1390,7 +1316,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T00:35:29.655987Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1409,7 +1335,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T01:35:30.087309Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1428,7 +1354,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T01:35:30.087309Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": false,
         "in_ai_pool": false,
@@ -1451,7 +1377,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T04:05:29.845207Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1470,7 +1396,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T04:05:29.845207Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": false,
         "in_ai_pool": false,
@@ -1489,7 +1415,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T04:05:29.845207Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1508,7 +1434,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T04:05:29.845207Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1527,7 +1453,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T00:05:41.766340Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1546,7 +1472,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T02:05:28.594143Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": false,
@@ -1565,7 +1491,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T05:05:31.686633Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": false,
@@ -1584,7 +1510,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T07:35:26.752164Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1603,7 +1529,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T07:35:26.752164Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1622,7 +1548,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T07:35:26.752164Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": false,
@@ -1641,7 +1567,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T07:35:26.752164Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1660,7 +1586,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T07:59:35.321444Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1679,7 +1605,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T07:59:35.321444Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1698,7 +1624,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T08:35:31.150331Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1712,31 +1638,12 @@
         ]
       },
       {
-        "article_id": "24c13b2735721a538674f7a917ea898cc51bb9e7",
-        "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1nUTdEWHpPeDdMZXBPNDNiYnhUaXBVVFlPNk5SOS03NWpnTWh2alpIS0o5ak1zNFBXNXBnMHA5MnZyZE1XMkhMSHJFSVJDekVBM1VLWHh3UnJnWjRSZm1WNGx3UWRNY0tiVnc?oc=5",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-10-20T00:05:35.550219Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_d400ff81f5fd1d14976dd47f"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
         "article_id": "710b94929234a94808c364111705a06852a6f772",
         "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxQeEJLWXRCYmZVWWdnRnoyMUh4dWktaWJEV1NJenBuRTNfMWQyd1RXTkx0V0wycnJFbmxxNHFnZFBsWFZKdl9SN1dXUjFTbVJ4Q1VYbjZCM0ZPMWNDcmRoM3R3ZmZNTUt4TE9vdHpEQTZFSF9oUXg5aXVZWEZhTGVJeURWOXBJaHF4MzE0N21TMW0tZmNTTUtXT19MUl8?oc=5",
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-30T20:05:26.989781Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1755,7 +1662,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T02:05:28.594143Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1776,7 +1683,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T05:35:39.438835Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1795,7 +1702,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T09:35:30.189258Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1814,7 +1721,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T10:05:26.551512Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1833,7 +1740,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T10:35:29.160286Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1852,7 +1759,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T10:35:29.160286Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1871,7 +1778,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T10:35:29.160286Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1890,7 +1797,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T10:05:26.551512Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1911,7 +1818,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T11:05:30.639789Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1930,7 +1837,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T12:05:28.690688Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1949,7 +1856,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T12:05:28.690688Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1968,7 +1875,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T12:35:30.534428Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1985,7 +1892,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T12:35:30.534428Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2004,7 +1911,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T12:50:55.063183Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2023,7 +1930,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T14:35:33.754554Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": false,
@@ -2042,7 +1949,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T15:18:32.404276Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2061,7 +1968,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T15:18:32.404276Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2080,7 +1987,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T01:35:30.087309Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2099,7 +2006,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T03:35:28.302155Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2118,7 +2025,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T06:05:28.080935Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": false,
@@ -2137,7 +2044,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T06:05:28.080935Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2156,7 +2063,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T06:05:28.080935Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2175,7 +2082,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T06:35:24.998274Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2194,7 +2101,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T07:05:29.243110Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2213,7 +2120,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T09:07:26.526854Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2232,7 +2139,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T16:35:28.935267Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2251,7 +2158,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T16:35:28.935267Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2270,7 +2177,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T17:05:30.619723Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2289,7 +2196,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T17:35:25.012346Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2308,7 +2215,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T19:35:28.083597Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2327,7 +2234,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T20:05:25.573148Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2343,7 +2250,7 @@
       {
         "article_id": "14aa729d0bbaa2c426c00707f9ebdaddcb6820c3",
         "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTFBjVjd2MDM5c0tmdlY3aEtDVFFYSDRBY1ZweTNHc1lpXzR2NklnRlVFRm1MWnBfNV9RbDFtUm9UVDNoZjZzcHNWOU5lUQ?oc=5",
-        "fetch_observed": true,
+        "fetch_observed": false,
         "archived": true,
         "first_seen_at": "2026-10-31T14:35:33.754554Z",
         "last_seen_at": "2026-10-31T21:35:28.103169Z",
@@ -2359,12 +2266,31 @@
         ]
       },
       {
+        "article_id": "5bc12084f9ae9375a2069486ce2dd1045c70b087",
+        "url": "https://techcrunch.com/2026/10/31/judge-allows-naacp-lawsuit-over-xai-data-center-pollution-to-move-forward",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-10-31T21:35:28.103169Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_5dd4c13e32a60370e24ab6f1"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
         "article_id": "94f797da13776a94e432f160b6041e8b5cbc4150",
         "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFAzdjlSQVFHVlZleHdMNUtES09XQnE4dTFwa0J6MmdxaTlXaXhxb1FlMDEwN2Ffb0ZZQ1JWeUx4QzVwZ3czSWZLMzZoeWd0dndi?oc=5",
-        "fetch_observed": false,
+        "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T06:05:28.080935Z",
-        "last_seen_at": "2026-10-31T20:35:32.365514Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2380,10 +2306,10 @@
       {
         "article_id": "cee64c4fcf511d8575f98fe14aac90eee6ed148f",
         "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1CQVI0anRUZldDYmp2ajRIek1LNzI0aWlfeHMwaUFRZGlMMi1ySzJDbHlVRnN5cUpfTGNxU1BYS2ZQaXE4T0llYVVJWmxSTzFhNEp4blduZWM4eW8ybWd3Sg?oc=5",
-        "fetch_observed": false,
+        "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-10-31T09:07:26.526854Z",
-        "last_seen_at": "2026-10-31T20:35:32.365514Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2569,38 +2495,37 @@
         ]
       },
       {
-        "article_id": "b8a6fe49e24439fadd849e3c0f1352e349a8240e",
-        "url": "https://techcrunch.com/2026/10/30/anthropic-expected-to-receive-high-junk-rating-from-credit-agencies-following-ipo-report-says",
-        "fetch_observed": false,
-        "archived": true,
-        "first_seen_at": "2026-10-30T22:05:30.832007Z",
-        "last_seen_at": "2026-10-30T22:05:30.832007Z",
-        "in_window": true,
-        "in_raw_pool": false,
-        "in_ai_pool": false,
-        "superseded_by": "edaaeb225c3a7ae15d856159b452ac829e16c135",
-        "event_ids": [
-          "be1_dc67151753db99f44bdfd4cb"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "insufficient_evidence",
-          "superseded_article_version"
-        ]
-      },
-      {
-        "article_id": "5bc12084f9ae9375a2069486ce2dd1045c70b087",
-        "url": "https://techcrunch.com/2026/10/31/judge-allows-naacp-lawsuit-over-xai-data-center-pollution-to-move-forward",
+        "article_id": "cde183a2a14c2ad11595b9c019a32001a39326e7",
+        "url": "https://techcrunch.com/2026/10/31/apple-ceo-says-the-company-doesnt-want-to-ship-ai-for-ais-sake",
         "fetch_observed": true,
         "archived": true,
-        "first_seen_at": "2026-10-31T21:35:28.103169Z",
-        "last_seen_at": "2026-10-31T21:35:28.103169Z",
+        "first_seen_at": "2026-10-31T22:05:27.440252Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
         "superseded_by": null,
         "event_ids": [
-          "be1_5dd4c13e32a60370e24ab6f1"
+          "be1_b7b978495e3eb7d186dcf907"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "5f4607f575f4dc1f45bcedebe7385db701f53753",
+        "url": "https://techcrunch.com/2026/10/31/4-days-left-how-techcrunch-founder-summit-helps-you-make-more-useful-connections-to-scale",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-10-31T22:05:27.440252Z",
+        "last_seen_at": "2026-10-31T22:05:27.440252Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_263073ff8af51121b656d05e"
         ],
         "aggregation_status": "aggregated",
         "reason_codes": [
@@ -2765,33 +2690,6 @@
         "supplement_impact": null
       },
       {
-        "event_id": "be1_12c935ba96b53df8c3d33896",
-        "article_ids": [
-          "828223eab5e5cccd0dce91e47a77e95639321d6d"
-        ],
-        "eligible": false,
-        "selected": false,
-        "selection_class": null,
-        "featured_score": null,
-        "effective_at": "2026-10-30T21:35:28.399210Z",
-        "expires_at": "2026-10-31T21:35:28.399210Z",
-        "reason_codes": [
-          "no_current_qualified_article"
-        ],
-        "article_reasons": {
-          "828223eab5e5cccd0dce91e47a77e95639321d6d": [
-            "no_core_event",
-            "publisher_identity_not_countable",
-            "not_permitted_for_featured"
-          ]
-        },
-        "raw_record_count": 1,
-        "article_count": 1,
-        "independent_publisher_count": 0,
-        "qualified_publisher_count": 0,
-        "supplement_impact": null
-      },
-      {
         "event_id": "be1_134bb7be14395b3acd3802c9",
         "article_ids": [
           "d19ae3dc532eb05209df661d5afb73dfc706b283"
@@ -2883,6 +2781,31 @@
         ],
         "article_reasons": {
           "13a4376b95bfc681e751ccf461bb6aa4ce1b949a": [
+            "no_core_event"
+          ]
+        },
+        "raw_record_count": 1,
+        "article_count": 1,
+        "independent_publisher_count": 1,
+        "qualified_publisher_count": 0,
+        "supplement_impact": null
+      },
+      {
+        "event_id": "be1_263073ff8af51121b656d05e",
+        "article_ids": [
+          "5f4607f575f4dc1f45bcedebe7385db701f53753"
+        ],
+        "eligible": false,
+        "selected": false,
+        "selection_class": null,
+        "featured_score": null,
+        "effective_at": "2026-10-31T21:36:07Z",
+        "expires_at": "2026-11-01T21:36:07Z",
+        "reason_codes": [
+          "no_current_qualified_article"
+        ],
+        "article_reasons": {
+          "5f4607f575f4dc1f45bcedebe7385db701f53753": [
             "no_core_event"
           ]
         },
@@ -3028,7 +2951,7 @@
         "eligible": true,
         "selected": false,
         "selection_class": "core",
-        "featured_score": 0.4741,
+        "featured_score": 0.4706,
         "effective_at": "2026-10-31T10:38:14Z",
         "expires_at": "2026-11-01T10:38:14Z",
         "reason_codes": [
@@ -3471,31 +3394,6 @@
         "supplement_impact": null
       },
       {
-        "event_id": "be1_6ec040af12c08cfeac39c84d",
-        "article_ids": [
-          "8c2ee58ae959eaf457ae359f1ce8020cbc3b520d"
-        ],
-        "eligible": false,
-        "selected": false,
-        "selection_class": null,
-        "featured_score": null,
-        "effective_at": "2026-10-30T21:54:34Z",
-        "expires_at": "2026-10-31T21:54:34Z",
-        "reason_codes": [
-          "no_current_qualified_article"
-        ],
-        "article_reasons": {
-          "8c2ee58ae959eaf457ae359f1ce8020cbc3b520d": [
-            "no_core_event"
-          ]
-        },
-        "raw_record_count": 1,
-        "article_count": 1,
-        "independent_publisher_count": 1,
-        "qualified_publisher_count": 0,
-        "supplement_impact": null
-      },
-      {
         "event_id": "be1_717f22fb20fb6d1d85fbdaff",
         "article_ids": [
           "8eb2915b1d8e167bd415e557f4e6aafe731fa70a"
@@ -3755,6 +3653,31 @@
         "supplement_impact": null
       },
       {
+        "event_id": "be1_b7b978495e3eb7d186dcf907",
+        "article_ids": [
+          "cde183a2a14c2ad11595b9c019a32001a39326e7"
+        ],
+        "eligible": false,
+        "selected": false,
+        "selection_class": null,
+        "featured_score": null,
+        "effective_at": "2026-10-31T21:41:00Z",
+        "expires_at": "2026-11-01T21:41:00Z",
+        "reason_codes": [
+          "no_current_qualified_article"
+        ],
+        "article_reasons": {
+          "cde183a2a14c2ad11595b9c019a32001a39326e7": [
+            "no_core_event"
+          ]
+        },
+        "raw_record_count": 1,
+        "article_count": 1,
+        "independent_publisher_count": 1,
+        "qualified_publisher_count": 0,
+        "supplement_impact": null
+      },
+      {
         "event_id": "be1_bbc835951264b7c7a61a4e65",
         "article_ids": [
           "44886a376f69195ab8a7c12dc019a3649df3d8c6"
@@ -3884,33 +3807,6 @@
         "supplement_impact": null
       },
       {
-        "event_id": "be1_d400ff81f5fd1d14976dd47f",
-        "article_ids": [
-          "24c13b2735721a538674f7a917ea898cc51bb9e7"
-        ],
-        "eligible": false,
-        "selected": false,
-        "selection_class": null,
-        "featured_score": null,
-        "effective_at": "2026-10-30T06:38:53Z",
-        "expires_at": "2026-10-31T06:38:53Z",
-        "reason_codes": [
-          "outside_reader_window"
-        ],
-        "article_reasons": {
-          "24c13b2735721a538674f7a917ea898cc51bb9e7": [
-            "no_core_event",
-            "publisher_identity_not_countable",
-            "not_permitted_for_featured"
-          ]
-        },
-        "raw_record_count": 1,
-        "article_count": 1,
-        "independent_publisher_count": 0,
-        "qualified_publisher_count": 0,
-        "supplement_impact": null
-      },
-      {
         "event_id": "be1_d81ebd8bae53d8a092a61783",
         "article_ids": [
           "1197a1a34cc5f98ea8267f069b371a5c8868ad78"
@@ -3960,35 +3856,6 @@
         "raw_record_count": 1,
         "article_count": 1,
         "independent_publisher_count": 0,
-        "qualified_publisher_count": 0,
-        "supplement_impact": null
-      },
-      {
-        "event_id": "be1_dc67151753db99f44bdfd4cb",
-        "article_ids": [
-          "edaaeb225c3a7ae15d856159b452ac829e16c135"
-        ],
-        "eligible": false,
-        "selected": false,
-        "selection_class": null,
-        "featured_score": null,
-        "effective_at": "2026-10-30T21:52:03Z",
-        "expires_at": "2026-10-31T21:52:03Z",
-        "reason_codes": [
-          "no_current_qualified_article"
-        ],
-        "article_reasons": {
-          "edaaeb225c3a7ae15d856159b452ac829e16c135": [
-            "insufficient_evidence"
-          ],
-          "b8a6fe49e24439fadd849e3c0f1352e349a8240e": [
-            "insufficient_evidence",
-            "superseded_article_version"
-          ]
-        },
-        "raw_record_count": 2,
-        "article_count": 1,
-        "independent_publisher_count": 1,
         "qualified_publisher_count": 0,
         "supplement_impact": null
       },
