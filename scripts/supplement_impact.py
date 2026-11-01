@@ -31,7 +31,7 @@ CONTENT_ONLY = re.compile(r"\b(?:clip|trailer|video generated|film|Odyssey)\b|�
 E_DETAIL = re.compile(r"\b(?:because|after|using|uses?|found|affect\w*|caus\w*|result\w*|includ\w*|add\w*|built?|deplo\w*|test\w*|quality|sav\w*|customer\w*|closed|expand\w*|leaked|entered|scor\w*)\b|引入|功能|發現|发现|影響|影响|造成|結果|结果|採用|采用|測試|测试|節省|节省|外洩|外泄|憑證|凭证|渠道", re.I)
 
 
-FACTORY_BRAND = re.compile(r"\bFactory(?:['’]s)?(?=\s+(?:Droid\b|(?:releases?|released|launches?|launched|introduces?|introduced)\s+Droid\b))")
+FACTORY_BRAND = re.compile(r"\bFactory(?:['’]s)?(?=\s+(?:Droid\b|(?:releases?|released|launches?|launched|introduces?|introduced)\s+Droid\b))", re.ASCII)
 
 
 def _dollars(text):

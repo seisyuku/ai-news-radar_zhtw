@@ -86,6 +86,8 @@ def test_new_primary_replaces_fallback_without_changing_event_clocks():
 @pytest.mark.parametrize("title,expected", [
     ("Meet Factory Droid 1.0: A Model-Independent Coding Agent Harness",20),
     ("Factory releases Droid 1.0 coding agent",20),
+    ("Factory Droid工具新增AI模型功能",20),
+    ("認識Factory Droid編碼代理",20),
     ("A factory deploys an AI model for manufacturing",10),
     ("Factory Droid deploys an AI model in a bank",10),
 ])
