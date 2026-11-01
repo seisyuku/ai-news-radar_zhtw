@@ -1845,12 +1845,15 @@ function dplusStories(stories, view, limit) {
   // No qualification or lower-list threshold is inferred here. Input already
   // passed the versioned guard and reader filters, including source permissions.
   const counts = new Map(), selected = [];
-  const remaining = stories.filter(s => s.supplement_impact?.passes).map(s => {
+  const primary = stories.filter(s => s.supplement_impact?.passes);
+  const pool = primary.length ? primary : stories.filter(s => s.selection_tier === "fallback");
+  const maximum = primary.length ? 5 : 2;
+  const remaining = pool.map(s => {
     const score = AiRadarGovernance.rank(s.supplement_impact, s.selection_class, s.effective_at);
     return {...s, score, importance: score, importance_score: score};
   });
   const key = s => s.governance_publisher_key || s.brief_event_id;
-  while (remaining.length && selected.length < Math.min(limit, 5)) {
+  while (remaining.length && selected.length < Math.min(limit, maximum)) {
     remaining.sort((a,b) => {
       if (view === "timeline") {
         const time = storyTimeMs(b, "latest_at") - storyTimeMs(a, "latest_at");
@@ -2227,6 +2230,7 @@ function buildTopStoryCard(row, rank) {
 function appendSignalLabels(parent, story) {
   if (!["core", "supplement"].includes(story?.selection_class)) return;
   const labels = [story.selection_class === "core" ? "核心事件" : "產業動態"];
+  if (story.selection_tier === "fallback") labels.unshift("候補");
   if (story.disclosure_flags?.includes("provider_claim")) labels.push("廠商宣稱");
   if (story.disclosure_flags?.includes("unreleased")) labels.push("未發布");
   labels.forEach((label) => {

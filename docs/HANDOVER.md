@@ -10,6 +10,8 @@ Factory修正限Factory Droid產品名稱及其直接發布句型，不把品牌
 
 發布順序：先提交後端、契約及配對驗證器（共同資產20261101-empty-fallback1），由既有正常公開刷新生成v3資料，再提交候補顯示與配對前端（20261101-empty-fallback2），最後核對GitHub CI／資產／Pages、正式HTTP與桌面／手機及候補情境。過渡期間不相容資料保守拒收，一般新聞保持可讀。正式資料只由Actions生成。證據位於 /Users/lordmi/Downloads/ai-news-empty-fallback-release-20261101/ 。目前待發布與驗收完成。
 
+後端ddde3d51c980與[GitHub CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41267869409)2123項通過／1項資產比較分流；先行後端與舊顯示的完整本機2124項亦通過。[程式Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41267869230)成功後，[正常刷新](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41267952897)產生b3583215ccd5，[資料Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41268060397)成功，四份主要正式資料HTTP逐檔一致。臺北11:08:50快照主要1則為Factory Droid 75分、候補0；來源失敗／降級0，Gemini0請求、55筆快取重用，Groq重用21則／新增1則／失敗0。待配對前端empty-fallback2與最終驗收，不以離線資料填補。
+
 ## 11/1 重點新聞用詞統一與空白候補方案
 
 維護者要求將讀者用詞統一為「重點新聞」，另規劃完全空白時放寬候補、重要新聞仍優先的方案。本輪用詞已發布並驗收，涵蓋標題、統計、搜尋與無障礙提示、展開／空白／載入提示、分享描述、manifest及維護文件；英文副標改TODAY'S NEWS，內部事件ID、欄位、評分與入選結果不變。共同資產20261101-featured-news1。候補規則僅完成規劃，不在本輪先行啟用；現行仍是impact-v2／70分與24小時窗口。
