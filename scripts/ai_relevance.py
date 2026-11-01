@@ -8,6 +8,11 @@ from typing import Any
 from urllib.parse import urlparse
 
 try:
+    from .publisher_material import event_promotion
+except ImportError:
+    from publisher_material import event_promotion
+
+try:
     from .source_scope import platform_event_decision, runtimewire_article_allowed
 except ImportError:  # direct script invocation
     from source_scope import platform_event_decision, runtimewire_article_allowed
@@ -415,6 +420,11 @@ def _score_base_ai_relevance(record: dict[str, Any]) -> dict[str, Any]:
             signals=[],
             noise=["unsafe_promotional_content"],
         )
+
+    if event_promotion(title, str(record.get("summary") or "")):
+        return _result(is_ai_related=False, score=0.15, label="source_scope_drop",
+                       reason="event_ticket_promotion", signals=ai_signals + tech_signals,
+                       noise=["event_ticket_promotion"])
 
     if is_tutorial_title(title):
         return _result(

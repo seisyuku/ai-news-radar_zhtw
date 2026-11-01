@@ -9,18 +9,19 @@ import copy
 import re
 
 try:
-    from scripts import publisher_governance as legacy, publisher_material as cues, ai_relevance
+    from scripts import publisher_governance as legacy, publisher_material as cues, ai_relevance, service_terms
 except ModuleNotFoundError:  # direct generator invocation
     import publisher_governance as legacy
     import publisher_material as cues
     import ai_relevance
+    import service_terms
 
 
 INDUSTRY_LABELS = frozenset({"model_release", "ai_product_update", "industry_business",
     "infra_compute", "infrastructure", "developer_tool", "developer_tooling",
     "ai_tech", "agent_workflow"})
 GENRE = legacy.rx(r"^(?:how\b|using\b|building\b|scaling\b|see\b|meet\b|turning\b)|"
-    r"\b(?:tutorial|walkthrough|tips|showcase|builders? (?:are|using)|"
+    r"\b(?:tutorial|walkthrough|showcase|builders? (?:are|using)|"
     r"(?:our|my|we(?:'re| are)).{0,35}portfolio|"
     r"what .{0,30} (?:building|making)|part (?:one|two|three|\d+))\b|"
     r"教學|教程|技巧|攻略|看看|如何|操作指南|心得|使用分享|案例分享|第[一二三123]部分")
@@ -128,6 +129,17 @@ def qualify_core(row, material):
     result = copy.deepcopy(legacy.qualify(row, material))
     if result["scope"] != "in_scope" or "evidence_conflict" in result["reason_codes"]:
         return result
+    if service_change(material) == "pricing":
+        spans, urls = evidence(row, material)
+        result["core_evidence"] = [e for e in result["core_evidence"] if e["kind"] != "pricing"] + [{
+            "kind": "pricing", "status": "supported",
+            "basis": "official_primary" if row["source_policy"]["publisher_kind"] == "official" else "editorial_report",
+            "spans": spans, "urls": urls}]
+        _, title, _ = native(material)
+        if re.search(r"(?:chat|聊天).{0,18}(?:work|工作).{0,30}(?:merg|合併|合并)|(?:merg|合併|合并).{0,30}(?:chat|聊天).{0,18}(?:work|工作)", title, re.I):
+            result["core_evidence"] = [e for e in result["core_evidence"]
+                if not (e["kind"] == "market" and e["status"] == "insufficient")]
+        result["reason_codes"] = [r for r in result["reason_codes"] if r not in {"no_core_event", "insufficient_evidence"}]
     released = versioned_release(material)
     _, title, _ = native(material)
     unseen_object = any(re.search(r"\d", match.group("name"))
@@ -171,6 +183,43 @@ def concrete_funding(title):
     return any(cues.names(title[:action.start()]) for action in FUNDING_COMPLETION.finditer(title))
 
 
+def service_change(material):
+    """Use only original, subject-focused clauses; translations are never proof."""
+    _, title, summary = native(material)
+    # A quota shared by ChatGPT and Codex must retain both products. Reject
+    # rival-company clauses instead of dropping every multi-product clause.
+    companies = list(legacy.COMPANY.finditer(title))
+    products = list(legacy.PRODUCT.finditer(title))
+    scoped = []
+    for clause in cues.CLAUSES.split(summary):
+        mentions = list(legacy.COMPANY.finditer(clause)) if companies else list(legacy.PRODUCT.finditer(clause))
+        target = companies[0].group() if companies else products[0].group() if products else None
+        if target and mentions and not any(cues.same_name(x.group(), target) for x in mentions):
+            continue
+        clause_products = list(legacy.PRODUCT.finditer(clause))
+        if products and clause_products and not any(cues.same_name(x.group(), products[0].group()) for x in clause_products):
+            continue
+        scoped.append(clause)
+    scoped_summary = "\n".join(scoped)
+    focused = title + "\n" + scoped_summary
+    product = (legacy.PRODUCT.search(focused) or cues.models(focused, legacy.b.MODEL_RE)
+               or (companies and service_terms.MODEL_OBJECT.search(focused)))
+    return service_terms.classify(title, scoped_summary, product=bool(product))
+
+
+def research_report(title, summary):
+    """The tips are research stimuli, not instructions addressed to the reader."""
+    return bool(re.search(r"\btips\b.{0,65}\bcan train\b.{0,25}\bmodels?\b", title, re.I)
+        and MODEL_CONTEXT.search(summary) and legacy.COMPANY.search(summary)
+        and re.search(r"\b(?:training data|datasets?)\b", summary, re.I)
+        and re.search(r"\b(?:sabotag\w*|deceiv\w*|bypass\w*)\b", summary, re.I))
+
+
+def genre_noise(title, summary):
+    return bool(GENRE.search(title) or (re.search(r"\btips\b", title, re.I)
+                                      and not research_report(title, summary)))
+
+
 def supplement(row, material, qualification):
     """Specific news or attributed measured disclosure, not a seventh core kind."""
     result = {"kind": None, "spans": [], "urls": [], "qualifiers": []}
@@ -178,7 +227,7 @@ def supplement(row, material, qualification):
     text = title + "\n" + summary
     if (qualification["scope"] != "in_scope" or not title
             or any(e["status"] == "conflict" for e in qualification["core_evidence"])
-            or legacy.PROMO.search(title) or legacy.ADVICE.search(title) or GENRE.search(title)
+            or legacy.PROMO.search(title) or legacy.ADVICE.search(title) or genre_noise(title, summary)
             or legacy.RUMOR.search(text) or legacy.SPECULATIVE_ACTION.search(text)):
         return result
     relevance = ai_relevance.score_ai_relevance({**row, **material})
@@ -197,6 +246,7 @@ def supplement(row, material, qualification):
         if UNRELEASED.search(text):
             result["qualifiers"].append("unreleased")
     elif ((relevance["label"] in INDUSTRY_LABELS and NEWS_ACTION.search(title))
+          or service_change(material) == "policy" or research_report(title, summary)
           or concrete_funding(title)
           or (relevance["label"] == "research_paper" and concrete_tool_release(title, summary))):
         if (OPINION.search(title) or legacy.DENIAL.search(text)

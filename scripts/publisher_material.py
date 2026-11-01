@@ -287,6 +287,12 @@ def focused_text(title, summary, known_models, products, companies):
     return title + "\n" + summary
 
 
+def event_promotion(title, summary):
+    """Reader-directed ticket marketing, rather than reporting conference news."""
+    return bool(re.search(r"\b(?:summit|conference|event)\b|論壇|论坛|峰會|峰会|大會|大会", title, re.I)
+        and re.search(r"\b(?:register (?:now|before|today)|buy (?:your |a )?(?:ticket|pass)|book your (?:ticket|pass))\b|立即(?:報名|报名|購票|购票)", summary, re.I))
+
+
 def out_of_scope(title, summary, legacy):
     # Reporting a new teaching product, guide publication, or conference result
     # is distinct from asking the reader to follow instructions or buy tickets.
@@ -307,10 +313,10 @@ def out_of_scope(title, summary, legacy):
         r"(?:用|使用)\s*AI\s*工作.{0,30}(?:如何|怎麼|怎么|測試|测试)|"
         r"(?:導入|导入)\s*AI.{0,20}先從.{0,12}(?:件事|下手)|"
         r"\b(?:troubleshoot(?:ing)?|prompt(?:ing)? (?:tips|guide|recipes))\b", title, re.I)
-    event_promotion = re.search(r"(?:全日|線上|线上)?論壇.{0,25}(?:如何|鏈動|链动)|(?:報名|报名|購票|购票).{0,30}(?:論壇|论坛|大會|大会)", title)
+    event_sale = event_promotion(title, summary) or re.search(r"(?:全日|線上|线上)?論壇.{0,25}(?:如何|鏈動|链动)|(?:報名|报名|購票|购票).{0,30}(?:論壇|论坛|大會|大会)", title)
     # Search bridges also index documentation landing pages as fresh articles.
     landing_page = re.search(r"(?:documentation|文件|文檔|文档)\s*[–—:：-]\s*(?:changelog|downloads?|下載|下载|更新紀錄|更新记录)(?:\s*-\s*[^-]+)?\s*$", title, re.I)
-    return bool(imperative_sale or summary_sale or event_promotion or landing_page
+    return bool(imperative_sale or summary_sale or event_sale or landing_page
                 or (not reporting and (tutorial or legacy or advice or local_instruction)))
 
 
