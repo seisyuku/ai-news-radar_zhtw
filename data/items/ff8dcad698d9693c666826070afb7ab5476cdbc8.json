@@ -1,14 +1,23 @@
 {
-  "id": "ec6e21bd1cfac441fd749fc780504473c9cebc3c",
-  "published_at": "2026-09-29T22:20:28Z",
-  "first_seen_at": "2026-09-29T22:35:32.786254Z",
+  "id": "ff8dcad698d9693c666826070afb7ab5476cdbc8",
+  "published_at": "2026-10-31T22:10:01Z",
+  "first_seen_at": "2026-11-01T00:35:29.570558Z",
   "site_id": "opmlrss",
   "site_name": "OPML RSS",
   "source": "Simon Willison",
-  "title": "Quoting Anthropic Frontier Red Team",
-  "url": "https://simonwillison.net/2026/Sep/29/anthropic-frontier-red-team",
-  "last_seen_at": "2026-10-11T00:05:49.072156Z",
-  "summary": "We evaluate several models on 100 tasks from the [internal Binary Exploitation benchmark] (selected at random), and find that GLM-5.3 develops full control flow hijacks in 4% of the trials; Claude Mythos Preview did so in 6%. Although GLM-5.3 performs below Claude Mythos Preview here, a meaningful threshold has clearly been crossed: earlier models, like Claude Opus 4.6 and GLM-5.2, do not succeed in any of them. — Anthropic Frontier Red Team , GLM-5.3 and the spread of advanced cyber capabilities Tags: anthropic , generative-ai , ai-security-research , glm , ai , ai-in-china , llms",
+  "title": "datasette-llm 0.1a9",
+  "url": "https://simonwillison.net/2026/Oct/31/datasette-llm",
+  "last_seen_at": "2026-11-01T00:35:29.570558Z",
+  "summary": "Release: datasette-llm 0.1a9 I have some big upgrades to Datasette Agent in the pipeline, but in the meantime here's a tiny user experience improvement to the underlying datasette-llm plugin. It now picks up the default model used by LLM , which means you can start using Datasette Agent without needing to explicitly configure a default model: Previously you would also need to specify a model with -s plugins.datasette-agent.default_model gpt-6-astra . Tags: datasette , llm , datasette-agent",
+  "publisher_links": [
+    "https://github.com/datasette/datasette-llm/releases/tag/0.1a9",
+    "https://agent.datasette.io/",
+    "https://llm.datasette.io/",
+    "https://simonwillison.net/tags/datasette",
+    "https://simonwillison.net/tags/llm",
+    "https://simonwillison.net/tags/datasette-agent"
+  ],
+  "source_updated_at": "2026-10-31T22:10:01Z",
   "ingress": {
     "kind": "private_opml",
     "site_id": "opmlrss",
@@ -32,6 +41,7 @@
       "conflicts": []
     }
   },
+  "security_topic": false,
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
@@ -52,6 +62,5 @@
       "not_permitted_for_featured",
       "not_permitted_for_radar"
     ]
-  },
-  "security_topic": false
+  }
 }

@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v3",
   "entries": {
+    "0aa2f86965c99ad4f2204371fd7bc7ccb794ed7a783f7f9dadba72e37c78f50d": {
+      "summary": "datasette-llm 0.1a9 發布，現可自動採用 LLM 預設模型，無需手動設定。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-01T00:35:29.570558Z"
+    },
     "26cc375bedbc1c00dcd793948f1e714c298bc67633aa72f1cea68f0e50e374a7": {
       "summary": "Parameter Labs揭露ChatGPT沙箱漏洞，攻擊者可透過MathLive鍵盤與YouTube oEmbed執行腳本，竊取使用者資料。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-10-16T09:35:43.143072Z"
-    },
-    "b4e3d47b950be4fbc9f51c706673c48877c64b1b835f5664dff644b64e72f1fe": {
-      "summary": "東元電機16日舉辦成立70週年論壇，聚焦AI時代產業轉型與未來能源發展。董事長利明獻表示，將以AI基建助攻千億營收目標。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-16T09:35:43.143072Z"
     }
   },
   "rejections": {
@@ -4723,6 +4723,10 @@
     "a3cbe7ce78be79363eb32192cb70776e1bd55c65f2da067096b0580fd7f2ed41": {
       "reason": "insufficient_context",
       "created_at": "2026-10-31T23:35:33.946414Z"
+    },
+    "fe0bdc9cfdf8c2df853d65dcf73a566db4a2f57a770e30adcff0b0e79e87f3f4": {
+      "reason": "validation_length",
+      "created_at": "2026-11-01T00:35:29.570558Z"
     }
   }
 }
