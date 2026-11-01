@@ -1,14 +1,18 @@
 {
-  "id": "dcb6a67b8e290469751bf51a30e584350124aa0a",
-  "published_at": "2026-10-08T04:04:15Z",
-  "first_seen_at": "2026-10-08T22:35:37.875937Z",
+  "id": "5279a3885f4a41636f9e1b24c037bffa4c114a0e",
+  "published_at": "2026-10-31T14:28:41Z",
+  "first_seen_at": "2026-11-01T01:05:28.564335Z",
   "site_id": "curated_media",
   "site_name": "精選媒體",
   "source": "xAI / Grok (Google News)",
-  "title": "Elon Musk’s Grok sues Minnesota for right to keep ‘nudifying’ images - Baptist News Global",
-  "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPMjkzWE81Z2dYSGFRZXJyZWpNUjM4VGNvX0RfeWtXd3d6R3pJeHZ4SGlqSkdjcGJfX1NIQkIzY2hadmswcTFQbWdMM09PcGhxb2xiNXkxLUtNRXZzQXNEMXkzTFJjcEhfbnhtRjlFdnVPajVMME9TMXVRQU5XN2VaMTRTYVc1cHJVOG1RN24zTnlTTDYxRWlnNUxsWTh6dUE?oc=5",
-  "last_seen_at": "2026-10-11T00:35:51.375554Z",
-  "summary": "Elon Musk’s Grok sues Minnesota for right to keep ‘nudifying’ images Baptist News Global",
+  "title": "Elon Musk says 'Opus-class' Grok 4.5 is about to launch - Mashable",
+  "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9kY2dLWEZSeHdTZ3FhT19RdVdOWDdqeHdFd21YTWFucGNFNi1SZk9Ia21vQV9ZdVZXZ3k4Ym8zQndCZVQ2T3pWRXdLUXAwXzNPaWxuWHVXTFBndw?oc=5",
+  "last_seen_at": "2026-11-01T01:05:28.564335Z",
+  "summary": "Elon Musk says 'Opus-class' Grok 4.5 is about to launch Mashable",
+  "publisher_links": [
+    "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9kY2dLWEZSeHdTZ3FhT19RdVdOWDdqeHdFd21YTWFucGNFNi1SZk9Ia21vQV9ZdVZXZ3k4Ym8zQndCZVQ2T3pWRXdLUXAwXzNPaWxuWHVXTFBndw?oc=5"
+  ],
+  "source_updated_at": "2026-10-31T14:28:41Z",
   "ingress": {
     "kind": "google_news",
     "site_id": "curated_media",
@@ -19,19 +23,22 @@
   "publisher": {
     "schema_version": 1,
     "publisher_id": null,
-    "name": null,
-    "domain": null,
-    "status": "unknown",
-    "basis": [],
+    "name": "Mashable",
+    "domain": "mashable.com",
+    "status": "reported",
+    "basis": [
+      "google_rss_source"
+    ],
     "evidence": {
-      "rss_source_name": null,
-      "rss_source_url": null,
+      "rss_source_name": "Mashable",
+      "rss_source_url": "https://mashable.com",
       "article_url": null,
       "article_host": "news.google.com",
       "expected_publisher_id": null,
       "conflicts": []
     }
   },
+  "security_topic": false,
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
@@ -46,12 +53,11 @@
     "allow_featured": false,
     "allow_radar": false,
     "reason_codes": [
-      "missing_identity",
-      "scope_unknown",
+      "reported_rss_source",
+      "scope_mismatch",
       "unreviewed_publisher",
       "not_permitted_for_featured",
       "not_permitted_for_radar"
     ]
-  },
-  "security_topic": false
+  }
 }
