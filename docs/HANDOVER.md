@@ -2,13 +2,15 @@
 
 更新：2026-11-01（臺北）。本頁僅保留目前有效狀態與2026-10-22起的交接紀錄；超過十天的項目與歷程已從本頁移除。任務清單以[TASK_LEDGER](TASK_LEDGER.md)為準，產品／來源／操作細節分別依README、SOURCE_COVERAGE與OPERATIONS。
 
-## 11/1 服務條件與內容類型修正（本機驗證完成，待正式發布驗收）
+## 11/1 服務條件與內容類型修正（已發布並驗收，結案）
 
 維護者已授權按本輪診斷實作並推送master，重大變更先詢問。邊界限額度／計量／共用配額及付費帳戶限制沿用pricing，原始摘要可提供動作與機制；資料訓練用途／退出條件及浮水印部署只作industry_news材料；修正研究刺激材料tips誤排及媒體購票宣傳誤收。不新增類別、來源、模型、排程、評分級距或門檻，翻譯／AI摘要不作證據。研究及政策取得材料資格後仍可能不達重點分數。
 
 新增30項正反例通過；包含原文支持、競品條件借用、否定／傳聞／缺生效時間、中文、翻譯與生成摘要不能補證、未審來源、介面合併不當併購、事件時鐘與Python／瀏覽器資料契約。完整2159項通過（98個既有feedparser警告）、Python編譯與差異檢查通過。14日AI相關度回測涵蓋2971篇，2790→2787，僅移除3篇TechCrunch峰會購票／人脈宣傳，新增0。
 
-臺北20:55:48固定快照完整離線生成：一般AI58→57，僅移除購票宣傳；重點0→2，為ChatGPT付費帳戶限制及Chat／Work共用Token配額，均I15／P20／E20／C20=75。Daybreak資料用途、浮水印部署及刺激材料研究3篇取得industry_news材料資格，仍未達重點門檻。讀者事件投影59→58只退出該宣傳；保留事件身分／有效與到期時間、完整事件state、archive、價格、雷達內容及翻譯／摘要快取逐項一致；治理綁定雜湊按新選集重算。完整離線投影通過Python與瀏覽器guard。未呼叫真實provider，不以離線輸出覆寫正式data；證據留於 /Users/lordmi/Downloads/ai-news-service-terms-release-20261101/。正式發布與同代HTTP驗收續行。
+臺北20:55:48固定快照完整離線生成：一般AI58→57，僅移除購票宣傳；重點0→2，為ChatGPT付費帳戶限制及Chat／Work共用Token配額，均I15／P20／E20／C20=75。Daybreak資料用途、浮水印部署及刺激材料研究3篇取得industry_news材料資格，仍未達重點門檻。讀者事件投影59→58只退出該宣傳；保留事件身分／有效與到期時間、完整事件state、archive、價格、雷達內容及翻譯／摘要快取逐項一致；治理綁定雜湊按新選集重算。完整離線投影通過Python與瀏覽器guard。未呼叫真實provider，不以離線輸出覆寫正式data；證據留於 /Users/lordmi/Downloads/ai-news-service-terms-release-20261101/。程式[21f572d43761](https://github.com/seisyuku/ai-news-radar_zhtw/commit/21f572d43761de1801be0c40940cfaa867259c7f)已保留並行快照推送master；[GitHub CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41311343239)2158項通過／1項資產比較分流，[程式Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41311342866)成功。既有[公開刷新](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41311450787)產生1ebd142042c7，[資料Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41311548971)成功。
+
+正式臺北21:29:09快照為57篇AI、2則主要重點（付費帳戶限制及共用Token配額，各75分），14/14來源正常，失敗／降級0，治理ready。首頁、manifest、六資產及六份JSON共14檔HTTP與生成提交逐檔一致；Python重算、讀者JS guard、跨檔meta與實際resolve均通過，可讀重點2則。前端資產未改，沿用20261101-empty-fallback2；只以現有Actions產生正式資料，不推本機回放輸出。本輪已發布並驗收結案，無必須續行工作。
 
 ## 11/1 空白候補與Factory誤判修正（已發布並驗收，結案）
 
