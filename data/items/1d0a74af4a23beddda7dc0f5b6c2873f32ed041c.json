@@ -1,14 +1,18 @@
 {
-  "id": "79a7e5c508dfc99894b23d4cba9f699dbbb97060",
-  "published_at": "2026-10-08T21:51:35Z",
-  "first_seen_at": "2026-10-09T12:35:35.323839Z",
+  "id": "1d0a74af4a23beddda7dc0f5b6c2873f32ed041c",
+  "published_at": "2026-11-01T21:27:44Z",
+  "first_seen_at": "2026-11-01T21:35:31.546635Z",
   "site_id": "curated_media",
   "site_name": "精選媒體",
   "source": "DeepSeek (Google News)",
-  "title": "China's DeepSeek launches V4.1-Flash model - The Standard (HK)",
-  "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQd1dzTFFkSnBwQ1hwaE1FUVZCVE93cmtfQ1hhblJhUWxiUm96NXdud3BUd2YxVGFlMnJzMDBoQmoxS05IVjBGSk5qampXazB2aWstcUI0Uk91bkZQb2pjeXFTVC16aU5GUlRIUWJUMEl0REhFT1lBdVI4OVd5My1sa2hVaGxQdGVJcFRLRVlOaHdOUjZnLUNhUEtB?oc=5",
-  "last_seen_at": "2026-10-11T21:05:33.135471Z",
-  "summary": "China's DeepSeek launches V4.1-Flash model The Standard (HK)",
+  "title": "DeepSeek developing AI agent requiring less human input: Report - Cryptonews.net",
+  "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFBoazBUMDBOcjBDV3IxcEZ0TjdaenpMamU0aURwdEFCODBnOUNkc3VMUU5IdTh5QVVQWVlHWTlWS19YMzI3eEV6STlvTWY1Ykx4ZTVPODB3?oc=5",
+  "last_seen_at": "2026-11-01T21:35:31.546635Z",
+  "summary": "DeepSeek developing AI agent requiring less human input: Report Cryptonews.net",
+  "publisher_links": [
+    "https://news.google.com/rss/articles/CBMiVkFVX3lxTFBoazBUMDBOcjBDV3IxcEZ0TjdaenpMamU0aURwdEFCODBnOUNkc3VMUU5IdTh5QVVQWVlHWTlWS19YMzI3eEV6STlvTWY1Ykx4ZTVPODB3?oc=5"
+  ],
+  "source_updated_at": "2026-11-01T21:27:44Z",
   "ingress": {
     "kind": "google_news",
     "site_id": "curated_media",
@@ -19,19 +23,22 @@
   "publisher": {
     "schema_version": 1,
     "publisher_id": null,
-    "name": null,
-    "domain": null,
-    "status": "unknown",
-    "basis": [],
+    "name": "Cryptonews.net",
+    "domain": "cryptonews.net",
+    "status": "reported",
+    "basis": [
+      "google_rss_source"
+    ],
     "evidence": {
-      "rss_source_name": null,
-      "rss_source_url": null,
+      "rss_source_name": "Cryptonews.net",
+      "rss_source_url": "https://cryptonews.net",
       "article_url": null,
       "article_host": "news.google.com",
       "expected_publisher_id": null,
       "conflicts": []
     }
   },
+  "security_topic": false,
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
@@ -46,12 +53,11 @@
     "allow_featured": false,
     "allow_radar": false,
     "reason_codes": [
-      "missing_identity",
-      "scope_unknown",
+      "reported_rss_source",
+      "scope_mismatch",
       "unreviewed_publisher",
       "not_permitted_for_featured",
       "not_permitted_for_radar"
     ]
-  },
-  "security_topic": false
+  }
 }
