@@ -2,6 +2,30 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v3",
   "entries": {
+    "b147d1b2c9e2e89a5c08c3def8db2aac1a13032625f7a82bc60088d7669f9833": {
+      "summary": "Santander、Novartis等公司稱AI開始提升營收、降低成本或改善獲利。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-01T12:35:26.140263Z"
+    },
+    "735fb6c7517d6ab848bffcfa62a423693a4530e3c39c7563c5199074c0858d50": {
+      "summary": "Meta廣告營收成長與Google搜尋擴張差距創2021年以來最大。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-01T12:35:26.140263Z"
+    },
+    "2324e6fb74430a36ce1f4bde3355cf2eb0e83e33ed6871b9ddf78a84ad15cb82": {
+      "summary": "OpenAI限制每裝置與支付卡之付費ChatGPT帳號數量，達上限者無法訂閱新方案。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-01T12:35:26.140263Z"
+    },
+    "3a061e3f1e0ce8889eebc78d76c33febcdcae54fcee3c72f8481ce784ef75642": {
+      "summary": "Vals AI研究測試25個AI模型，發現中國模型對政治問題回應較不統一，西方模型偶爾採納北京立場，提示語言影響顯著。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-01T12:35:26.140263Z"
+    },
     "029d2371e579a6d9fcf5ee19789373d6fb00971c27c764b07f9d98c334375463": {
       "summary": "ChatGPT API Credits 核發涉及訂閱扣款、組織連結與額度三項獨立流程，可透過六步對帳定位缺入口或續期問題。",
       "provider": "groq",
@@ -2977,30 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-10-17T02:35:25.578637Z"
-    },
-    "c85cc633d6ccddf5ea6ec4def988d7e93809c838ede93de9b95d2c5f9f30cee0": {
-      "summary": "中國計畫限制23項關鍵AI技術出口，包括達10^26 FLOPs或2兆參數系統的模型權重與訓練方法。該措施可能促使西方企業更依賴美國開源權重模型。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-17T02:35:25.578637Z"
-    },
-    "1e2411e127e88891476af5b0e65f8fa7978436b94c7c71be492a7440e4fdf9bd": {
-      "summary": "仁寶AI伺服器轉型解析：營收佔比拚10%，如何搶攻雲端大廠訂單？",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-17T01:35:25.431467Z"
-    },
-    "6f3b3d9e4be054adbeec9fdd313c9f619f1e95a2748882b26e65d12f9b05290d": {
-      "summary": "華爾街股市大幅收低，對人工智慧交易的擔憂與高油價帶來沉重壓力。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-17T01:35:25.431467Z"
-    },
-    "78f4c689fb5e30c80e91d14a69678dfd6f23be0d30f5c96794e5114ebd7ee59f": {
-      "summary": "OpenAI 更新 Chrome 擴充功能，讓 ChatGPT 可存取開啟的分頁、總結內容，並在使用者模式透過「Computer Use」填寫表單或比較產品，此功能對所有 ChatGPT 方案開放。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-17T01:05:28.205079Z"
     }
   },
   "rejections": {
@@ -4720,10 +4720,6 @@
       "reason": "validation_length",
       "created_at": "2026-11-01T00:35:29.570558Z"
     },
-    "0fa372748e604e297caef7c2af0f8274ac06bf6124965f4c06f37d28d0991574": {
-      "reason": "validation_numeric_grounding",
-      "created_at": "2026-11-01T06:05:46.663735Z"
-    },
     "26f0a8b87f6c7f7e791a6aa4008f52c5f9bd4b79618970a22cddd6569014530d": {
       "reason": "validation_numeric_grounding",
       "created_at": "2026-11-01T10:05:30.798999Z"
@@ -4739,6 +4735,10 @@
     "cbfbf310c6faebafb850617f706f9830faa80a980f277cc9b13f4266b54b4e0f": {
       "reason": "insufficient_context",
       "created_at": "2026-11-01T11:05:26.233852Z"
+    },
+    "0fa372748e604e297caef7c2af0f8274ac06bf6124965f4c06f37d28d0991574": {
+      "reason": "validation_numeric_grounding",
+      "created_at": "2026-11-01T12:35:26.140263Z"
     }
   }
 }
