@@ -19,7 +19,7 @@ except ModuleNotFoundError:
     import supplement_impact
 
 b, policy, corroboration = legacy.b, legacy.policy, legacy.corroboration
-SCHEMA_VERSION, SELECTION_POLICY, DEFAULT_VISIBLE_LIMIT = 2, "impact-v2", 5
+SCHEMA_VERSION, SELECTION_POLICY, DEFAULT_VISIBLE_LIMIT = 2, "impact-v3-empty-fallback", 5
 MAX_BYTES, MAX_EVENTS, MAX_ARTICLES = legacy.MAX_BYTES, legacy.MAX_EVENTS, legacy.MAX_ARTICLES
 BASES = {"supported_core", "industry_news", "capability_disclosure"}
 REASONS = legacy.REASONS | BASES
@@ -38,7 +38,7 @@ def decide(event, annotations, rows, now, scorer):
         "support_scores": [], "eligibility_basis": None, "featured_primary_article_id": None,
         "featured_primary_item": None, "featured_score": None, "featured_business_events": [],
         "featured_news_summary": None, "summary_article_id": None, "disclosure_flags": [],
-        "supplement_impact": None}
+        "supplement_impact": None, "selection_tier": None}
     if not event["eligible"] or not b.parse(event["effective_at"]) <= now < b.parse(event["expires_at"]):
         result["reason_codes"] = ["outside_reader_window"]
         return result
@@ -87,6 +87,7 @@ def decide(event, annotations, rows, now, scorer):
         featured_business_events=kinds, disclosure_flags=[] if core else supplement_evidence["qualifiers"])
     result["featured_primary_item"]["business_events"] = kinds
     result["supplement_impact"] = impact_for(primary)
+    result["selection_tier"] = selection_tier(result["supplement_impact"])
     summary = event.get("news_summary")
     if isinstance(summary, str) and summary:
         if primary["id"] == event["primary_item"]["id"] and len(summary) <= 2000:
@@ -96,15 +97,31 @@ def decide(event, annotations, rows, now, scorer):
     return result
 
 
+def selection_tier(impact):
+    if impact and impact["passes"]:
+        return "primary"
+    if impact and impact["total"] >= 65 and impact.get("e") == 20 and impact.get("p") == 20:
+        return "fallback"
+    return None
+
+
+def selection_pool(decisions):
+    eligible = [d for d in decisions if d["featured_eligible"]]
+    primary = [d for d in eligible if selection_tier(d["supplement_impact"]) == "primary"]
+    return primary or [d for d in eligible if selection_tier(d["supplement_impact"]) == "fallback"]
+
+
 def select(decisions, *, limit=20, target=DEFAULT_VISIBLE_LIMIT):
-    """Select after caller filtering using one impact gate and five shared slots."""
+    """Primary news first; use at most two fallbacks only when none qualify."""
     if not 0 <= target <= limit <= 20:
         raise ValueError("invalid_selection_bounds")
     eligible = [d for d in decisions if d["featured_eligible"]]
     if len({d["brief_event_id"] for d in eligible}) != len(eligible):
         raise ValueError("duplicate_event")
     selected, counts = [], defaultdict(int)
-    remaining = [d for d in eligible if d["supplement_impact"]["passes"]]
+    remaining = selection_pool(eligible)
+    if remaining and selection_tier(remaining[0]["supplement_impact"]) == "fallback":
+        target = min(target, 2)
     while remaining and len(selected) < min(limit, target):
         def key(d):
             primary = d["featured_primary_item"]
@@ -121,6 +138,7 @@ def featured_view(event, decision):
     out.update(selection_class=decision["selection_class"],
         signal_label="核心事件" if decision["selection_class"] == "core" else "產業動態",
         disclosure_flags=copy.deepcopy(decision["disclosure_flags"]),
+        selection_tier=decision["selection_tier"],
         supplement_impact=copy.deepcopy(decision["supplement_impact"]))
     impact = decision["supplement_impact"]
     bonus = 3 if decision["selection_class"] == "core" else 0

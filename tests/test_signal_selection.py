@@ -51,7 +51,7 @@ def supported(q, kind="model_release"):
 def test_default_backend_uses_v2_and_daily_is_a_bound_adapter():
     parent, daily, result = bundle()
     overlay = parent["publisher_governance"]
-    assert overlay["schema_version"] == 2 and overlay["selection_policy"] == "impact-v2"
+    assert overlay["schema_version"] == 2 and overlay["selection_policy"] == "impact-v3-empty-fallback"
     assert s.validate(overlay, parent["brief_events"])
     schema_validator().validate(overlay)
     assert daily["publisher_governance_meta"] == s.metadata(overlay)

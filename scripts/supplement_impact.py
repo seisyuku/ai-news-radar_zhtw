@@ -31,6 +31,9 @@ CONTENT_ONLY = re.compile(r"\b(?:clip|trailer|video generated|film|Odyssey)\b|�
 E_DETAIL = re.compile(r"\b(?:because|after|using|uses?|found|affect\w*|caus\w*|result\w*|includ\w*|add\w*|built?|deplo\w*|test\w*|quality|sav\w*|customer\w*|closed|expand\w*|leaked|entered|scor\w*)\b|引入|功能|發現|发现|影響|影响|造成|結果|结果|採用|采用|測試|测试|節省|节省|外洩|外泄|憑證|凭证|渠道", re.I)
 
 
+FACTORY_BRAND = re.compile(r"\bFactory(?:['’]s)?(?=\s+(?:Droid\b|(?:releases?|released|launches?|launched|introduces?|introduced)\s+Droid\b))")
+
+
 def _dollars(text):
     amounts = []
     for value, unit in MONEY.findall(text):
@@ -56,7 +59,8 @@ def score(native, basis):
     unit_cost = bool(len(DOLLAR_VALUE.findall(summary)) + len(CENT_VALUE.findall(summary)) >= 2
                      and UNIT_COMPARE.search(summary)
                      and WORK_UNIT.search(text) and QUALITY.search(text))
-    deployment = bool(DEPLOYMENT.search(title))
+    industry_title = FACTORY_BRAND.sub("", title)
+    deployment = bool(DEPLOYMENT.search(industry_title))
     product = bool(PRODUCT.search(title) and not CONTENT_ONLY.search(title))
 
     if supply_harm or amount >= 1_000_000_000:
@@ -95,7 +99,7 @@ def score(native, basis):
 
     if CONTENT_ONLY.search(title):
         centrality = 0
-    elif (OTHER_INDUSTRY.search(title) and deployment) or (capital and re.search(r"(?:AI|OpenAI|Anthropic)[ -]backed|(?:AI|人工智慧).{0,6}(?:支持|支援|投資)", title, re.I) and not re.search(r"\b(?:model|LLM|inference)\b|模型|推理", title, re.I)):
+    elif (OTHER_INDUSTRY.search(industry_title) and deployment) or (capital and re.search(r"(?:AI|OpenAI|Anthropic)[ -]backed|(?:AI|人工智慧).{0,6}(?:支持|支援|投資)", title, re.I) and not re.search(r"\b(?:model|LLM|inference)\b|模型|推理", title, re.I)):
         centrality = 10
     elif basis == "capability_disclosure" or AI_DIRECT.search(text):
         centrality = 20

@@ -324,6 +324,7 @@
           "maxItems": 2,
           "uniqueItems": true
         },
+        "selection_tier": {"enum": [null, "primary", "fallback"]},
         "supplement_impact": {
           "anyOf": [
             {"type": "null"},
@@ -361,7 +362,8 @@
         "featured_news_summary",
         "summary_article_id",
         "disclosure_flags",
-        "supplement_impact"
+        "supplement_impact",
+        "selection_tier"
       ],
       "additionalProperties": false,
       "allOf": [
@@ -520,7 +522,7 @@
           "const": "publisher-governance-v1"
         },
         "selection_policy": {
-          "const": "impact-v2"
+          "const": "impact-v3-empty-fallback"
         },
         "default_visible_limit": {
           "const": 5

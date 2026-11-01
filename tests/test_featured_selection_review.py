@@ -127,8 +127,12 @@ def test_editorial_selection_expectations(case_id, title, summary, url, source,
     decision = overlay["events"][0]
     assert decision["selection_class"] == expected_class
     assert decision["featured_eligible"] is (expected_class is not None)
-    expected_visible = expected_class is not None and decision["supplement_impact"]["passes"]
+    expected_fallback = case_id == "open_source_data_tool"
+    expected_visible = expected_class is not None and (decision["supplement_impact"]["passes"] or expected_fallback)
     assert len(daily["items"]) == int(expected_visible)
+    if expected_fallback:
+        assert decision["selection_tier"] == "fallback"
+        assert decision["supplement_impact"] == {"i": 5, "p": 20, "e": 20, "c": 20, "total": 65, "passes": False}
     if expected_class == "core":
         assert expected_kind in decision["featured_business_events"]
     elif expected_class == "supplement":
