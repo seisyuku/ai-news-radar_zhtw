@@ -2,17 +2,23 @@
 
 更新：2026-11-01（臺北）。本頁僅保留目前有效狀態與2026-10-22起的交接紀錄；超過十天的項目與歷程已從本頁移除。任務清單以[TASK_LEDGER](TASK_LEDGER.md)為準，產品／來源／操作細節分別依README、SOURCE_COVERAGE與OPERATIONS。
 
-## 11/1 空白候補與Factory誤判修正（實作完成，發布中）
+## 11/1 空白候補與Factory誤判修正（已發布並驗收，結案）
 
 維護者已確認前輪方案並要求commit到正式站。本輪依既定邊界實作：主要新聞原70分及I／P條件、最多5則；只有全站24小時有效主要名單為0且資料正常時，才採65分且P20／E20的原有合格候選，最多2則，卡片標候補。有主要不混入候補，篩選歸零不啟動、資料失效不啟動，沒有候補仍空；不加來源、模型、排程或新評分軸。保留passes的原主要門檻語意，另加selection_tier=primary／fallback／null，選集policy升為impact-v3-empty-fallback，schema仍2；Python與JS重算並拒收舊policy／偽造身分。
 
 Factory修正限Factory Droid產品名稱及其直接發布句型，不把品牌名當作工廠產業／部署詞；真正工廠、銀行等部署保持原分類。完整2129項通過（98個既有feedparser警告），新增23項涵蓋前後端選集、兩則上限、P／E與65分界線、舊policy與偽造候補、資料缺失／失效、原24小時到期、主要出現撤候補、事件時鐘、篩選零結果、兩種排序及候補徽章、品牌／真實產業反例，以及中英混排的字詞邊界一致性。臺北10:35:28正式快照離線回放由0則變為Factory Droid主要1則，I15／P20／E20／C20=75，事件ID／有效與到期時間逐項相同；實際瀏覽器驗證器接受新投影。未用離線輸出覆寫正式data。
 
-發布順序：先提交後端、契約及配對驗證器（共同資產20261101-empty-fallback1），由既有正常公開刷新生成v3資料，再提交候補顯示與配對前端（20261101-empty-fallback2），最後核對GitHub CI／資產／Pages、正式HTTP與桌面／手機及候補情境。過渡期間不相容資料保守拒收，一般新聞保持可讀。正式資料只由Actions生成。證據位於 /Users/lordmi/Downloads/ai-news-empty-fallback-release-20261101/ 。目前待發布與驗收完成。
+發布順序：先提交後端、契約及配對驗證器（共同資產20261101-empty-fallback1），由既有正常公開刷新生成v3資料，再提交候補顯示與配對前端（20261101-empty-fallback2），最後核對GitHub CI／資產／Pages、正式HTTP與桌面／手機及候補情境。過渡期間不相容資料保守拒收，一般新聞保持可讀。正式資料只由Actions生成。證據位於 /Users/lordmi/Downloads/ai-news-empty-fallback-release-20261101/ 。發布與驗收已完成，無必須續行項目。
 
-後端ddde3d51c980與[GitHub CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41267869409)2123項通過／1項資產比較分流；先行後端與舊顯示的完整本機2124項亦通過。[程式Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41267869230)成功後，[正常刷新](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41267952897)產生b3583215ccd5，[資料Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41268060397)成功，四份主要正式資料HTTP逐檔一致。臺北11:08:50快照主要1則為Factory Droid 75分、候補0；來源失敗／降級0，Gemini0請求、55筆快取重用，Groq重用21則／新增1則／失敗0。待配對前端empty-fallback2與最終驗收，不以離線資料填補。
+後端ddde3d51c980與[GitHub CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41267869409)2123項通過／1項資產比較分流；先行後端與舊顯示的完整本機2124項亦通過。[程式Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41267869230)成功後，[正常刷新](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41267952897)產生b3583215ccd5，[資料Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41268060397)成功，四份主要正式資料HTTP逐檔一致。臺北11:08:50快照主要1則為Factory Droid 75分、候補0；來源失敗／降級0，Gemini0請求、55筆快取重用，Groq重用21則／新增1則／失敗0。配對前端與最終驗收見下段，沒有以離線資料填補。
+
+配對前端[8117a6a700a7](https://github.com/seisyuku/ai-news-radar_zhtw/commit/8117a6a700a7c010191a23a227569421ad8935ba)、[前端CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41268188069)2126項／1項分流、[資產版本](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41268187954)及[Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41268187360)均成功。追加中英混排邊界對齊[a6b0acf1a3d5](https://github.com/seisyuku/ai-news-radar_zhtw/commit/a6b0acf1a3d5747085aea87512279193a775019c)，本機完整2129項、[最終CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41268457538)2128項通過／1項資產比較分流，[最終程式Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41268456752)成功；原正式資料亦通過對齊後Python與JS重算，不必額外重抓或重譯。共同資產20261101-empty-fallback2。
+
+首頁、manifest、六資產與六份資料共14檔正式HTTP逐檔一致。1440桌面／390手機實際顯示Factory Droid主要新聞1則、沒有候補，治理ready，無JS例外或橫向溢出。隔離瀏覽器注入本機合約案例，確認3個候補最多顯示2則且有「候補」徽章；加入主要後只顯示主要1則，搜尋僅符合候補時顯示0、不另啟候補；無合格材料時0，資料unavailable時0且治理拒收。這些是隔離案例，不是正式來源另有3篇候補；沒有改動公開資料。來源失敗／降級0。本案正式發布並驗收結案，無新增監控、來源或模型預算。
 
 ## 11/1 重點新聞用詞統一與空白候補方案
+
+本節為前輪用詞發布與方案紀錄；候補已依上方發布結果正式啟用。
 
 維護者要求將讀者用詞統一為「重點新聞」，另規劃完全空白時放寬候補、重要新聞仍優先的方案。本輪用詞已發布並驗收，涵蓋標題、統計、搜尋與無障礙提示、展開／空白／載入提示、分享描述、manifest及維護文件；英文副標改TODAY'S NEWS，內部事件ID、欄位、評分與入選結果不變。共同資產20261101-featured-news1。候補規則僅完成規劃，不在本輪先行啟用；現行仍是impact-v2／70分與24小時窗口。
 
