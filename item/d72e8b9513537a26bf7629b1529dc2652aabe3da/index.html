@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <title>AI News Radar Pulse｜新聞資訊</title>
+</head>
+<body>
+  <main>
+    <h1>AI News Radar Pulse｜新聞資訊</h1>
+    <dl>
+    <dt>新聞編號</dt>
+    <dd>d72e8b9513537a26bf7629b1529dc2652aabe3da</dd>
+
+    <dt>發布者辨識狀態</dt>
+    <dd>待辨識</dd>
+    <dt>來源收錄狀態</dt>
+    <dd>尚未審核</dd>
+    <dt>新聞標題（原文）</dt>
+    <dd>If in doubt, delete the uv.lock file</dd>
+    <dt>收錄來源</dt>
+    <dd>Simon Willison</dd>
+    <dt>發布時間（來源提供）</dt>
+    <dd>2026-11-01T23:24:22Z</dd>
+    <dt>來源摘要（原文）</dt>
+    <dd>I&#x27;ve been getting the occasional confusing Python dependency error since switching over to Python 3.15 and the rule I&#x27;m having to remember is: If in doubt, delete the uv.lock file Most of my projects are libraries which don&#x27;t include a uv.lock file, since it&#x27;s rude for a library dependency to lock versions for anything else that uses it. Running uv run pytest etc tends to leave uv.lock files lying around, which are listed in .gitignore and so do not get committed to my repositories. But... sometimes that uv.lock pins a version of a dependency that doesn&#x27;t yet have a Python 3.15 wheel. An example from earlier today: Deleting that file and running uv run pytest again usually fixes the problem. Tags: uv , til , python</dd>
+    <dt>原文連結</dt>
+    <dd><a href="https://simonwillison.net/2026/Nov/1/delete-uv-lock-first">https://simonwillison.net/2026/Nov/1/delete-uv-lock-first</a></dd>
+    </dl>
+  </main>
+</body>
+</html>
