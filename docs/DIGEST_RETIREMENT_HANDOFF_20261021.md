@@ -4,6 +4,6 @@
 
 本機已移除31個模組、27份測試、3份workflow、專用依賴、18份舊操作／設計文件、3頁工具說明及1份部署範本；2026-10-31已推送master並完成CI／Pages與HTTP驗收；三個舊頁均404，私人workflow已從正式清單移除。現行進度見[TASK_LEDGER](TASK_LEDGER.md)，逐階段交接位於 /Users/lordmi/Downloads/ai-news-private-digest-removal-20261030/HANDOFF.md。
 
-公開新聞收集、橘鴉外部來源、官方純文字查漏、daily-brief、精選／本日重點訊號、24小時窗口與既有刷新保留。私人稿件、Drive資料、OAuth／secret及歷史資料不在清理範圍內；不恢復排程、不重送稿件。
+公開新聞收集、橘鴉外部來源、官方純文字查漏、daily-brief、精選／本日重點新聞、24小時窗口與既有刷新保留。私人稿件、Drive資料、OAuth／secret及歷史資料不在清理範圍內；不恢復排程、不重送稿件。
 
 本頁取代已刪除的私人操作文件，舊程式與接口只可由Git歷史查閱。人工選題／產文須由使用者當次提出；超過十天的選題交接已移除。2026-10-31已核對正式workflow清單無私人早報入口；歷史artifact與私人資料保留。

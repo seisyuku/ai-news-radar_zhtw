@@ -1,5 +1,5 @@
 """Unit tests for assets/app.js's applyFeaturedSourceDiversityCap(), the
-今日重點訊號 source-diversity cap (N=2) added per
+今日重點新聞 source-diversity cap (N=2) added per
 .claude-reports/2026-07-21-aibase-signal-area-diagnosis.md /
 fix/featured-source-diversity-cap-0721.
 

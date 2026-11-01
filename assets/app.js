@@ -311,12 +311,12 @@ function setStats() {
   const cards = [
     ["AI 新聞", `${fmtNumber(aiCount)} 篇`],
     ["精選新聞", `${fmtNumber(selectedCount)} 篇`],
-    ["重點訊號", `${fmtNumber(featuredCount)} 則`],
+    ["重點新聞", `${fmtNumber(featuredCount)} 則`],
     ["抓取來源", health],
   ];
   statsEl.setAttribute("aria-label",
-    `全站過去 24 小時：AI 新聞 ${fmtNumber(aiCount)} 篇，精選新聞 ${fmtNumber(selectedCount)} 篇，重點訊號 ${fmtNumber(featuredCount)} 則，抓取來源 ${health}。全站數量不受下方篩選影響。`);
-  statsEl.title = "全站數量不受下方篩選影響；精選新聞與重點訊號採不同入選條件。";
+    `全站過去 24 小時：AI 新聞 ${fmtNumber(aiCount)} 篇，精選新聞 ${fmtNumber(selectedCount)} 篇，重點新聞 ${fmtNumber(featuredCount)} 則，抓取來源 ${health}。全站數量不受下方篩選影響。`);
+  statsEl.title = "全站數量不受下方篩選影響；精選新聞與重點新聞採不同入選條件。";
   const prefix = document.createElement("div");
   prefix.className = "stat-prefix";
   prefix.textContent = "過去 24 小時（全站）：";
@@ -812,7 +812,7 @@ function renderModeSwitch() {
   const scope = state.mode === "selected" ? "精選新聞" : state.mode === "ai" ? "全部 AI 新聞" : "全部收錄內容";
   if (searchInputEl) {
     searchInputEl.placeholder = `搜尋${scope}／來源`;
-    searchInputEl.setAttribute("aria-label", `搜尋${scope}或來源；同時篩選上方重點訊號`);
+    searchInputEl.setAttribute("aria-label", `搜尋${scope}或來源；同時篩選上方重點新聞`);
   }
   modeSelectedBtnEl.classList.toggle("active", state.mode === "selected");
   modeAiBtnEl.classList.toggle("active", state.mode === "ai");
@@ -1556,7 +1556,7 @@ function storyHasBusinessEvent(story) {
   return storyBusinessEvents(story).length > 0;
 }
 
-// Shared four-level sort key for the 今日重點訊號 block, applied to both the
+// Shared four-level sort key for the 今日重點新聞 block, applied to both the
 // "hot" and "timeline" views: business-event hit dominates, then hot score,
 // then backend importance score, then recency as the final tiebreak.
 function briefStorySortCompare(a, b) {
@@ -1597,7 +1597,7 @@ function renderBriefFallback(picks) {
 
   const note = document.createElement("div");
   note.className = "brief-fallback-note";
-  note.textContent = "重點訊號整理資料暫未生成，先展示候選內容。";
+  note.textContent = "重點新聞整理資料暫未生成，先展示候選內容。";
   briefPicksListEl.appendChild(note);
 
   if (!picks.length) {
@@ -1772,7 +1772,7 @@ const FEATURED_DIVERSITY_VISIBLE_SLOTS = 5;
 const FEATURED_DIVERSITY_SOURCE_CAP = 2;
 
 // feature/featured-source-diversity-cap: caps how many of the default
-// FEATURED_DIVERSITY_VISIBLE_SLOTS (5) 今日重點訊號 seats a single source
+// FEATURED_DIVERSITY_VISIBLE_SLOTS (5) 今日重點新聞 seats a single source
 // can take - but ONLY in the degenerate case diagnosed in
 // .claude-reports/2026-07-21-aibase-signal-area-diagnosis.md: most badged
 // candidates are single-source (storyHotScore=0), so briefStorySortCompare's
@@ -1943,7 +1943,7 @@ function buildBriefFollowupPanel(rows, topCount, usesStories) {
   const heading = document.createElement("div");
   heading.className = "brief-story-panel-head";
   const viewLabel = state.briefView === "hot" ? "依重要性" : "依時間";
-  heading.textContent = `更多重點訊號 · ${fmtNumber(remaining.length)} 則 · ${viewLabel}`;
+  heading.textContent = `更多重點新聞 · ${fmtNumber(remaining.length)} 則 · ${viewLabel}`;
   panel.appendChild(heading);
 
   const list = document.createElement("div");
@@ -1963,8 +1963,8 @@ function buildBriefFollowupPanel(rows, topCount, usesStories) {
     moreBtn.type = "button";
     moreBtn.className = "brief-more-btn";
     moreBtn.textContent = state.briefExpanded
-      ? "收起更多重點訊號"
-      : `展開其餘 ${fmtNumber(remaining.length - followupLimit)} 則重點訊號`;
+      ? "收起更多重點新聞"
+      : `展開其餘 ${fmtNumber(remaining.length - followupLimit)} 則重點新聞`;
     moreBtn.addEventListener("click", () => {
       state.briefExpanded = !state.briefExpanded;
       renderBriefPicks();
@@ -2010,9 +2010,9 @@ function renderBriefPicks({ animate = true } = {}) {
   const rows = storyRowsForPool(availableStoryPool);
   scheduleBriefExpiry(storyPools.projection);
   const top = rows.slice(0, 3);
-  if (topStoriesTitleEl) topStoriesTitleEl.textContent = state.activeSection === "hot" ? "今日重點訊號" : `${section.label}重點訊號`;
-  const storyMeta = `過去 24 小時 · ${fmtNumber(rows.length)} 則重點訊號`;
-  briefPicksWrapEl?.setAttribute("aria-label", topStoriesTitleEl?.textContent || "今日重點訊號");
+  if (topStoriesTitleEl) topStoriesTitleEl.textContent = state.activeSection === "hot" ? "今日重點新聞" : `${section.label}重點新聞`;
+  const storyMeta = `過去 24 小時 · ${fmtNumber(rows.length)} 則重點新聞`;
+  briefPicksWrapEl?.setAttribute("aria-label", topStoriesTitleEl?.textContent || "今日重點新聞");
   briefPicksMetaEl.textContent = storyPools.cached
     ? `${storyMeta} · 暫用 ${fmtTime(storyPools.projection.generated_at)} 的有效資料` : storyMeta;
   if (briefViewToggleEl) {
@@ -2028,7 +2028,7 @@ function renderBriefPicks({ animate = true } = {}) {
   if (!top.length) {
     const empty = document.createElement("div");
     empty.className = "brief-empty";
-    empty.textContent = storyPools.projection ? "目前沒有符合條件的重點訊號，可先查看新聞列表。" : "重點訊號暫時無法載入，可先查看新聞列表。";
+    empty.textContent = storyPools.projection ? "目前沒有符合條件的重點新聞，可先查看新聞列表。" : "重點新聞暫時無法載入，可先查看新聞列表。";
     const allAi = document.createElement("button");
     allAi.type = "button";
     allAi.className = "view-all-ai-btn";

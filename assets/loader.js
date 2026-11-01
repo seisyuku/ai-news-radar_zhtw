@@ -80,11 +80,11 @@
     }
 
     function loadDailyBriefData() {
-      return fetchJson("./data/daily-brief.json", "重點訊號");
+      return fetchJson("./data/daily-brief.json", "重點新聞");
     }
 
     function loadStoriesData() {
-      return fetchJson(`./${state.storiesDataUrl}`, "重點訊號整理資料");
+      return fetchJson(`./${state.storiesDataUrl}`, "重點新聞整理資料");
     }
 
     return {

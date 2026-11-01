@@ -50,7 +50,7 @@ T04 新聞摘要備援已刪除並結案，沒有摘要專用 Gemini 變數、pr
 
 新聞時間窗與重點排序參數以`scripts/update_news.py`及相關評分模組為準。資安主題／事件的共用判定由`scripts/security_topics.py`維護，不使用付費API或額外模型呼叫。
 
-## 重點訊號池
+## 重點新聞池
 
 `data/daily-brief.json` 是全站共用的精選故事池。入選與排序由
 `story_passes_brief_gate()`、`calculate_item_importance()` 及 `BRIEF_*`
