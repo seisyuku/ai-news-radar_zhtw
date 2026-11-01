@@ -22,7 +22,11 @@ ROLLOUT = rx(r"\b(?:expand\w*|roll\w* out|extend\w*)\b|擴大|扩大|擴展|扩�
 UNCERTAIN = rx(r"\b(?:rumou?r|reportedly|might|could|may|expected to|plans? to|considering|if)\b|據傳|据传|傳聞|传闻|可能|考慮|考虑|如果|擬議|拟议")
 DENIED = rx(r"\b(?:not|never|no longer)\s+(?:sharing|share|changing|change|capping|using|use|expanding)|\b(?:quota|usage limits?)\b.{0,15}\bunchanged\b|沒有調整|没有调整|並未調整|并未调整|額度不變|额度不变")
 NEGATED_CHANGE = rx(r"\b(?:not|never|denies|denied)\b.{0,25}\b(?:doubl\w*|increas\w*|reduc\w*|shar\w*|chang\w*|capp?ing)\b|(?:並未|并未|否認|否认).{0,8}(?:翻倍|共享|限制|調整|调整)")
-START = rx(r"\b(?:starting|effective|from|on)\b.{0,25}(?:\b(?:January|February|March|April|May|June|July|August|September|October|November|December)\b|\d)|(?:自|從|从)\s*\d.{0,12}(?:起|生效)")
+MONTH = r"(?:January|February|March|April|May|June|July|August|September|October|November|December)"
+START = rx(r"\b(?:starting|effective|from|on)\s+(?:(?:in|on)\s+)?(?:" + MONTH
+           + r"\b(?:\s+\d{1,2})?|\d{1,2}\s+" + MONTH
+           + r"\b|\d{4}[-/]\d{1,2}(?:[-/]\d{1,2})?|\d{1,2}[-/]\d{1,2})"
+           + r"|(?:自|從|从)\s*(?:\d{4}年)?\d{1,2}月(?:\d{1,2}日)?(?:起|生效)?")
 MODEL_OBJECT = rx(r"\b(?:models?|AI|ChatGPT|Codex|Claude|Copilot|Gemini)\b|模型|人工智慧|人工智能")
 
 
@@ -38,11 +42,11 @@ def classify(title, summary, *, product):
     # Sentence boundaries exclude decimal/version dots and publication footers.
     summary = re.split(r"\bThe article\b|\bThe post\b", summary, flags=re.I)[0]
     clauses = re.split(r"(?<=[!?。！？])\s*|\.(?=\s+[A-Z])|\n|[;；]", title + "\n" + summary)
-    title_uncertain = UNCERTAIN.search(title)
+    title_uncertain = UNCERTAIN.search(START.sub("", title))
     if title_uncertain and not re.search(r"\bplans? to\b", title, re.I):
         return None
     for clause in clauses:
-        if (not clause.strip() or UNCERTAIN.search(clause) or DENIED.search(clause)
+        if (not clause.strip() or UNCERTAIN.search(START.sub("", clause)) or DENIED.search(clause)
                 or NEGATED_CHANGE.search(clause)):
             continue
         if re.search(r"\bwill\b", clause, re.I) and not START.search(clause):

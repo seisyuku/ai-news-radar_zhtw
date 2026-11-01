@@ -18,6 +18,7 @@ PRICING = [
      "OpenAI is now capping the number of paid ChatGPT accounts per device and payment card. Users who hit the limit can't start new subscriptions, and affected accounts can't be used on that device."),
     ("ChatGPT調整方案額度", "ChatGPT Pro付費方案額度翻倍，適用所有現有訂閱會員，無需重新訂閱。"),
     ("ChatGPT合併計量", "自12月起，ChatGPT Plus與Pro方案將共用Token配額，簡單聊天不計入配額。"),
+    ("OpenAI plans to change ChatGPT quota", "Starting in May, ChatGPT Pro plans will share a common quota."),
 ]
 
 
@@ -33,6 +34,8 @@ def test_original_service_terms_support_existing_pricing_kind(title, summary):
 @pytest.mark.parametrize("title,summary", [
     ("OpenAI may double ChatGPT Pro quota", "The company is considering more paid usage."),
     ("OpenAI will double ChatGPT Pro quota", "A future possibility without an effective date."),
+    ("OpenAI plans to change ChatGPT quota", "ChatGPT Pro plans will double usage limits from 100 to 200 tokens."),
+    ("OpenAI plans to change ChatGPT quota", "On ChatGPT Pro, users will share a common quota of 100 tokens."),
     ("OpenAI does not double ChatGPT Pro quota", "The Pro quota is unchanged."),
     ("OpenAI denies doubling ChatGPT Pro quota", "OpenAI previously doubled Pro usage limits."),
     ("OpenAI may double ChatGPT Pro quota", "Starting December 1, ChatGPT Pro plans will share a common quota."),
