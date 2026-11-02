@@ -2,6 +2,18 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v3",
   "entries": {
+    "cfe5a4fcb85b38c3f68fddcdcf15db85e8250580ee5accea6937cecb8be8e64b": {
+      "summary": "xAI Grok正式支持支付寶與銀聯，中國大陸用戶享首月半價優惠。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-02T03:05:28.063690Z"
+    },
+    "4d8428c2371ca3f42839d082f2b3f45725d6102c0e18597155f460e0f4e1f3b7": {
+      "summary": "OpenAI擬於中期選舉後啟動宣傳，由首席全球事務官克里斯·萊漢操盤，欲搶先定義AI敘事。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-02T03:05:28.063690Z"
+    },
     "53dec2e6c4b2e980d687bc3d4ef07f38546405be3156125a4ee7f79c08205601": {
       "summary": "Cursor市集10月29日出現惡意Claude Code擴充套件，攻擊者企圖建立SSH後門，影響版本2.1.312及2.1.313，約5,000名使用者受影響。",
       "provider": "groq",
@@ -2989,18 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-10-18T06:05:27.824099Z"
-    },
-    "f1744e6904cefe4891a7ed739335bba935f79278c4fd7d8e5897194a08128e3a": {
-      "summary": "DeepSeek 推出更快、更便宜的 AI 模型，提升編碼與推理能力。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-18T05:05:28.514501Z"
-    },
-    "613b25927eb1bae462f296e052c1c1173c4888876089da99441cc0a934025de8": {
-      "summary": "美國聯準會主席華許16日表示，人工智慧是他所見過對全球經濟影響最深遠的變革。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-18T05:05:28.514501Z"
     }
   },
   "rejections": {
@@ -4743,6 +4743,10 @@
     "98c3e11ab84915040ddcb45dd66ea72490e77a6f957513ff22ddeb882ed5fd7d": {
       "reason": "validation_length",
       "created_at": "2026-11-02T00:05:27.852631Z"
+    },
+    "b5b9630f8798119231a130ce05f4163ee20999135ee9867e6d5a1b6c62dd8e48": {
+      "reason": "validation_numeric_grounding",
+      "created_at": "2026-11-02T03:05:28.063690Z"
     }
   }
 }
