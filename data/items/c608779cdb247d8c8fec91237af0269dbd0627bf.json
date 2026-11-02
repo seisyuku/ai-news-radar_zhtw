@@ -1,14 +1,18 @@
 {
-  "id": "0cb894901e33fc5a39c3f13f891a376ea430c25c",
-  "published_at": "2026-10-09T02:46:00Z",
-  "first_seen_at": "2026-10-09T03:05:41.182647Z",
+  "id": "c608779cdb247d8c8fec91237af0269dbd0627bf",
+  "published_at": "2026-11-02T08:34:00Z",
+  "first_seen_at": "2026-11-02T09:05:46.523508Z",
   "site_id": "tw_media",
   "site_name": "TW Media",
   "source": "數位時代 (Google News)",
-  "title": "AI味怎麼去除？「去AI味改稿師」skill幫你潤稿，還能學你的寫作風格 - 數位時代",
-  "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxQYmRiV3pSMVJnVTlCeGl6ZHNoWmNOVWYtaXZuWUR0dUUtTXBXUlJEbFUxMk1RRkNMUkZKQk9zdzFHMTlOT1ZUcEk3ZXdsNWtCVnk3MEV4TUMtZ1lBaFlGVTRyTlYwaW96OVZTTksxdXhVRlhwUVFTempHRGp2ZWpaSzliYzRyVmZsWHFj?oc=5",
-  "last_seen_at": "2026-10-12T09:05:41.161208Z",
-  "summary": "AI味怎麼去除？「去AI味改稿師」skill幫你潤稿，還能學你的寫作風格 數位時代",
+  "title": "導入 AI 怎麼讓第一線買單？亞東預拌總經理帶主管上課、鼓勵提案，524 人交出逾千件點子 - 未來商務",
+  "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE9PcXZyeG1YUTZzS3hlbGR0eC1IREU5SXZ4VUtFM3JzeDNWNHJlN082aUc2MS1CaUl0cWN4UDNOSUFXczBzbXpEWXNxMmdGSjBWMzZJRg?oc=5",
+  "last_seen_at": "2026-11-02T09:05:46.523508Z",
+  "summary": "導入 AI 怎麼讓第一線買單？亞東預拌總經理帶主管上課、鼓勵提案，524 人交出逾千件點子 未來商務",
+  "publisher_links": [
+    "https://news.google.com/rss/articles/CBMiVEFVX3lxTE9PcXZyeG1YUTZzS3hlbGR0eC1IREU5SXZ4VUtFM3JzeDNWNHJlN082aUc2MS1CaUl0cWN4UDNOSUFXczBzbXpEWXNxMmdGSjBWMzZJRg?oc=5"
+  ],
+  "source_updated_at": "2026-11-02T08:34:00Z",
   "ingress": {
     "kind": "google_news",
     "site_id": "tw_media",
@@ -19,27 +23,29 @@
   "publisher": {
     "schema_version": 1,
     "publisher_id": "bnext",
-    "name": "數位時代",
-    "domain": null,
+    "name": "未來商務",
+    "domain": "fc.bnext.com.tw",
     "status": "identified",
     "basis": [
+      "google_rss_source",
       "configured_bridge"
     ],
     "evidence": {
-      "rss_source_name": null,
-      "rss_source_url": null,
+      "rss_source_name": "未來商務",
+      "rss_source_url": "https://fc.bnext.com.tw",
       "article_url": null,
       "article_host": "news.google.com",
       "expected_publisher_id": null,
       "conflicts": []
     }
   },
+  "security_topic": false,
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
     "registry_revision": "47abcafcf20559e79e23e25d80559dd53cd131880bd818269742b94eb49f5dd4",
-    "scope_id": "unreviewed",
-    "publisher_kind": "unknown",
+    "scope_id": "edition/fc.bnext.com.tw",
+    "publisher_kind": "media",
     "admission_status": "unreviewed",
     "source_tier": "watchlist",
     "source_tier_label": "未審來源",
@@ -48,12 +54,10 @@
     "allow_featured": false,
     "allow_radar": false,
     "reason_codes": [
-      "legacy_identity",
-      "scope_unknown",
+      "identified_bridge",
       "unreviewed_publisher",
       "not_permitted_for_featured",
       "not_permitted_for_radar"
     ]
-  },
-  "security_topic": false
+  }
 }
