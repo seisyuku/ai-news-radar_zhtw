@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v3",
   "entries": {
+    "afdae98d02ba885cd60cccff5d1b6f5c9d8c65e8c223119077645a1664754f8e": {
+      "summary": "OpenAI推出LifeVal基準，衡量AI協助完成日常任務的能力。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-02T18:06:28.094665Z"
+    },
     "9f3bbb2a9ba581d5fbaf4046bef5304e1e4061b6a8e026e8091a438f81c345fc": {
       "summary": "OpenAI 表示，ChatGPT 與 Codex 將共用同一配額池。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-10-18T21:05:30.617076Z"
-    },
-    "0c5c11e8270e223dd388e90d7e2101a2aeb223e3ad094e36d3cb6a86f8681bbc": {
-      "summary": "DeepSeek 將代理檢索層商業化，每 1,000 次呼叫收費 0.75 美元，而每家競爭對手的收費至少為 5 美元。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-18T21:05:30.617076Z"
     }
   },
   "rejections": {
@@ -4744,10 +4744,6 @@
       "reason": "validation_numeric_grounding",
       "created_at": "2026-11-02T05:05:29.045312Z"
     },
-    "98c3e11ab84915040ddcb45dd66ea72490e77a6f957513ff22ddeb882ed5fd7d": {
-      "reason": "validation_length",
-      "created_at": "2026-11-02T12:05:30.774953Z"
-    },
     "53b1c2a7cdf0bea9fb537b6f417a48b88a01faa7006cb7a673e54f3060e2635a": {
       "reason": "validation_numeric_grounding",
       "created_at": "2026-11-02T14:35:41.271068Z"
@@ -4755,6 +4751,14 @@
     "42428aab888a92a554d6f245af5fc68ff6e901f1a3e39d59bf7f5bc460c66c35": {
       "reason": "validation_length",
       "created_at": "2026-11-02T17:35:50.656615Z"
+    },
+    "98c3e11ab84915040ddcb45dd66ea72490e77a6f957513ff22ddeb882ed5fd7d": {
+      "reason": "validation_length",
+      "created_at": "2026-11-02T18:06:28.094665Z"
+    },
+    "a1efc380c4f9b0f7f00b71c32df96a089a0a68783506d1bb3b268d2703d90064": {
+      "reason": "insufficient_context",
+      "created_at": "2026-11-02T18:06:28.094665Z"
     }
   }
 }
