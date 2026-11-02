@@ -1,0 +1,61 @@
+{
+  "id": "ef36459886df9cca46d95f9caceb1b9cc7067d78",
+  "published_at": "2026-10-31T00:16:35Z",
+  "first_seen_at": "2026-11-02T16:05:30.420580Z",
+  "site_id": "curated_media",
+  "site_name": "精選媒體",
+  "source": "Epoch AI (Google News)",
+  "title": "AI use in research documentation – Limitations - Epoch AI",
+  "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE95V0xkeUNlWlgzV2s3eV8yWXFSNW5IbW10TlBWcUMyc1pIWldOZEEyU05WYXFlSEZLNGhmcTZLNU00T05sckNVYi1IZ2d1eDM3S0ZLSDBQcmdlb2dCSGVOYlNIWFhJbVo4MjlDbzhsQ2k?oc=5",
+  "last_seen_at": "2026-11-02T16:05:30.420580Z",
+  "summary": "AI use in research documentation – Limitations Epoch AI",
+  "publisher_links": [
+    "https://news.google.com/rss/articles/CBMicEFVX3lxTE95V0xkeUNlWlgzV2s3eV8yWXFSNW5IbW10TlBWcUMyc1pIWldOZEEyU05WYXFlSEZLNGhmcTZLNU00T05sckNVYi1IZ2d1eDM3S0ZLSDBQcmdlb2dCSGVOYlNIWFhJbVo4MjlDbzhsQ2k?oc=5"
+  ],
+  "source_updated_at": "2026-10-31T00:16:35Z",
+  "ingress": {
+    "kind": "google_news",
+    "site_id": "curated_media",
+    "source_id": "epoch_ai_news",
+    "name": "Epoch AI (Google News)",
+    "feed_url": "https://news.google.com/rss/search?q=site%3Aepoch.ai+when%3A14d&hl=en-US&gl=US&ceid=US%3Aen"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "epoch",
+    "name": "Epoch AI",
+    "domain": "epoch.ai",
+    "status": "identified",
+    "basis": [
+      "google_rss_source",
+      "configured_bridge"
+    ],
+    "evidence": {
+      "rss_source_name": "Epoch AI",
+      "rss_source_url": "https://epoch.ai",
+      "article_url": null,
+      "article_host": "news.google.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "47abcafcf20559e79e23e25d80559dd53cd131880bd818269742b94eb49f5dd4",
+    "scope_id": "epoch",
+    "publisher_kind": "media",
+    "admission_status": "limited",
+    "source_tier": "ai_media",
+    "source_tier_label": "精選AI媒體",
+    "source_tier_rank": 2,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_bridge",
+      "limited_scope"
+    ]
+  }
+}
