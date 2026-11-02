@@ -1,17 +1,18 @@
 {
-  "id": "d521cd5381f282e32d91b6e31dbe8f586648ac48",
-  "published_at": "2026-10-12T10:47:00Z",
-  "first_seen_at": "2026-10-12T11:35:38.823090Z",
+  "id": "ca18a48791579e5e40273a3e61313e82daa98252",
+  "published_at": "2026-10-31T12:23:34Z",
+  "first_seen_at": "2026-11-02T11:36:15.761837Z",
   "site_id": "curated_media",
   "site_name": "精選媒體",
   "source": "DeepSeek (Google News)",
-  "title": "Chinese AI Labs Publish Few Safety Test Results - Technology Org",
-  "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQYUVUVlp4aU1teXpLdkpNdjNKMVJ2Q1lpT0hJLTMxRzJXM3BIeXRjZjBab0JZSkd0TXhLZmZJREZjZFVDMGY1WGNvbHpsRWZ5eDUtdmhkcjRmOTRwS2luU0phYkFBNkg5LVNldWdzYzk0ZjlvY2lENWdGcUlwTXBiNV8wZFZJWmFNZm9xSWJR?oc=5",
-  "last_seen_at": "2026-10-12T11:35:38.823090Z",
-  "summary": "Chinese AI Labs Publish Few Safety Test Results Technology Org",
+  "title": "DeepSeek V4.1 Flash Goes Uncensored, Tops 2,254 DLs [2026] - shattered.io",
+  "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE96QzgzWnBvb0ZLemE2OEljRklObzNNMUZsNmJ4NXZuX0ZRRWFUVjBlaUR1cVNuelk3cHNGSUZLMTdFSndjN01oWmVackJkZHo0bzVPWGkzMjVTcmRDcTlnRHROb3ZlSnFzTkJRNU9yZVhkc1hPaDVWNw?oc=5",
+  "last_seen_at": "2026-11-02T11:36:15.761837Z",
+  "summary": "DeepSeek V4.1 Flash Goes Uncensored, Tops 2,254 DLs [2026] shattered.io",
   "publisher_links": [
-    "https://news.google.com/rss/articles/CBMijgFBVV95cUxQYUVUVlp4aU1teXpLdkpNdjNKMVJ2Q1lpT0hJLTMxRzJXM3BIeXRjZjBab0JZSkd0TXhLZmZJREZjZFVDMGY1WGNvbHpsRWZ5eDUtdmhkcjRmOTRwS2luU0phYkFBNkg5LVNldWdzYzk0ZjlvY2lENWdGcUlwTXBiNV8wZFZJWmFNZm9xSWJR?oc=5"
+    "https://news.google.com/rss/articles/CBMieEFVX3lxTE96QzgzWnBvb0ZLemE2OEljRklObzNNMUZsNmJ4NXZuX0ZRRWFUVjBlaUR1cVNuelk3cHNGSUZLMTdFSndjN01oWmVackJkZHo0bzVPWGkzMjVTcmRDcTlnRHROb3ZlSnFzTkJRNU9yZVhkc1hPaDVWNw?oc=5"
   ],
+  "source_updated_at": "2026-10-31T12:23:34Z",
   "ingress": {
     "kind": "google_news",
     "site_id": "curated_media",
@@ -22,19 +23,22 @@
   "publisher": {
     "schema_version": 1,
     "publisher_id": null,
-    "name": null,
-    "domain": null,
-    "status": "unknown",
-    "basis": [],
+    "name": "shattered.io",
+    "domain": "shattered.io",
+    "status": "reported",
+    "basis": [
+      "google_rss_source"
+    ],
     "evidence": {
-      "rss_source_name": null,
-      "rss_source_url": null,
+      "rss_source_name": "shattered.io",
+      "rss_source_url": "https://shattered.io",
       "article_url": null,
       "article_host": "news.google.com",
       "expected_publisher_id": null,
       "conflicts": []
     }
   },
+  "security_topic": false,
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
@@ -49,12 +53,11 @@
     "allow_featured": false,
     "allow_radar": false,
     "reason_codes": [
-      "missing_identity",
-      "scope_unknown",
+      "reported_rss_source",
+      "scope_mismatch",
       "unreviewed_publisher",
       "not_permitted_for_featured",
       "not_permitted_for_radar"
     ]
-  },
-  "security_topic": false
+  }
 }
