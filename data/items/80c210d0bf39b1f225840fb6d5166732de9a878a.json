@@ -1,14 +1,15 @@
 {
-  "id": "61e020b5b6afcdc0e7dbdd183a18b636e49c44c4",
-  "published_at": "2026-10-07T18:00:00Z",
-  "first_seen_at": "2026-10-07T18:06:00.000304Z",
+  "id": "80c210d0bf39b1f225840fb6d5166732de9a878a",
+  "published_at": "2026-11-02T17:00:00Z",
+  "first_seen_at": "2026-11-02T17:35:50.656615Z",
   "site_id": "opmlrss",
   "site_name": "OPML RSS",
-  "source": "Wired AI",
-  "title": "The New ChatGPT Is More Show Than Tell",
-  "url": "https://www.wired.com/story/openai-chatgpt-intelligent-ui-is-more-show-than-tell",
-  "last_seen_at": "2026-10-12T17:35:33.082952Z",
-  "summary": "OpenAI is updating ChatGPT for all users with an “Intelligent UI” that’s more visual—generating interactive elements as part of the chatbot’s outputs.",
+  "source": "NVIDIA Generative AI Blog",
+  "title": "Build World Models for Interactive Simulation with NVIDIA Cosmos",
+  "url": "https://developer.nvidia.com/blog/build-world-models-for-interactive-simulation-with-nvidia-cosmos",
+  "last_seen_at": "2026-11-02T17:35:50.656615Z",
+  "summary": "Physical AI developers working with world models face two distinct challenges: adapting models to their sensors, tasks, and data, and getting those models into...",
+  "source_updated_at": "2026-10-30T22:17:16Z",
   "ingress": {
     "kind": "private_opml",
     "site_id": "opmlrss",
@@ -18,22 +19,21 @@
   },
   "publisher": {
     "schema_version": 1,
-    "publisher_id": "wired",
-    "name": "Wired",
-    "domain": "www.wired.com",
-    "status": "identified",
-    "basis": [
-      "article_host"
-    ],
+    "publisher_id": null,
+    "name": null,
+    "domain": "developer.nvidia.com",
+    "status": "unknown",
+    "basis": [],
     "evidence": {
       "rss_source_name": null,
       "rss_source_url": null,
-      "article_url": "https://www.wired.com/story/openai-chatgpt-intelligent-ui-is-more-show-than-tell",
-      "article_host": "www.wired.com",
+      "article_url": null,
+      "article_host": "developer.nvidia.com",
       "expected_publisher_id": null,
       "conflicts": []
     }
   },
+  "security_topic": false,
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
@@ -48,12 +48,11 @@
     "allow_featured": false,
     "allow_radar": false,
     "reason_codes": [
-      "legacy_identity",
+      "missing_identity",
       "scope_mismatch",
       "unreviewed_publisher",
       "not_permitted_for_featured",
       "not_permitted_for_radar"
     ]
-  },
-  "security_topic": false
+  }
 }
