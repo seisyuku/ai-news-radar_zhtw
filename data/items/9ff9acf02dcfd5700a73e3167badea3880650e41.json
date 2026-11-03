@@ -7,7 +7,7 @@
   "source": "AIBASE",
   "title": "特斯拉人形機器人迎來重大突破：量產版Optimus首次搭載端到端視覺大模型，動作流暢度對標真人",
   "url": "https://news.aibase.com/tw/news/32017",
-  "last_seen_at": "2026-11-03T00:35:30.934663Z",
+  "last_seen_at": "2026-11-03T00:46:04.071716Z",
   "summary": "特斯拉人形機器人Optimus關鍵升級：最新量產版首次全面搭載與FSD同源的端到端視覺大模型。該架構取代傳統硬編碼程序，使機器人在複雜物理環境中的自主決策和肢體動作實現質變。技術路徑上，新一代Optimus放棄模塊化分步算法，改由神經網絡直接驅動決策與動作，提升自主性與適應性。",
   "ingress": {
     "kind": "public_adapter",
@@ -45,7 +45,7 @@
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
-    "registry_revision": "47abcafcf20559e79e23e25d80559dd53cd131880bd818269742b94eb49f5dd4",
+    "registry_revision": "a6dd827b98a3b10758c307cb9bd94385ffc0a95096975a7217c073bee8003b33",
     "scope_id": "aibase",
     "publisher_kind": "aggregator",
     "admission_status": "limited",
@@ -53,11 +53,13 @@
     "source_tier_label": "次級AI媒體",
     "source_tier_rank": 4,
     "allow_general": true,
-    "allow_featured": true,
-    "allow_radar": true,
+    "allow_featured": false,
+    "allow_radar": false,
     "reason_codes": [
       "identified_host",
-      "limited_scope"
+      "limited_scope",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
     ]
   }
 }

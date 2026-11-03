@@ -7,7 +7,7 @@
   "source": "AIBASE",
   "title": "韓國史上最大預算案：820 萬億韓元，AI 與半導體成絕對主角",
   "url": "https://news.aibase.com/tw/news/32021",
-  "last_seen_at": "2026-11-03T00:35:30.934663Z",
+  "last_seen_at": "2026-11-03T00:46:04.071716Z",
   "summary": "李在明公佈韓國2027年預算案，總支出增12.8%至820.9萬億韓元（約4.09萬億元人民幣），創歷史新高。重押AI與半導體：21.3萬億韓元（約1061億元）投半導體、物理AI和AI數據中心，近2026年兩倍；另4.7萬億韓元（約234億元）攻自研大模型，目標直指“全球”。",
   "ingress": {
     "kind": "public_adapter",
@@ -45,7 +45,7 @@
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
-    "registry_revision": "47abcafcf20559e79e23e25d80559dd53cd131880bd818269742b94eb49f5dd4",
+    "registry_revision": "a6dd827b98a3b10758c307cb9bd94385ffc0a95096975a7217c073bee8003b33",
     "scope_id": "aibase",
     "publisher_kind": "aggregator",
     "admission_status": "limited",
@@ -53,11 +53,13 @@
     "source_tier_label": "次級AI媒體",
     "source_tier_rank": 4,
     "allow_general": true,
-    "allow_featured": true,
-    "allow_radar": true,
+    "allow_featured": false,
+    "allow_radar": false,
     "reason_codes": [
       "identified_host",
-      "limited_scope"
+      "limited_scope",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
     ]
   }
 }

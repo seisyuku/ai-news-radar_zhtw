@@ -7,7 +7,7 @@
   "source": "AIBASE",
   "title": "xAI Grok正式支持支付寶與銀聯，中國大陸用戶迎首月半價優惠",
   "url": "https://news.aibase.com/tw/news/32008",
-  "last_seen_at": "2026-11-03T00:35:30.934663Z",
+  "last_seen_at": "2026-11-03T00:46:04.071716Z",
   "summary": "11月1日消息，馬斯克旗下xAI（又稱SpaceXAI）的旗艦AI助手Grok已全面支持中國銀聯和支付寶付款；訂閱頁面地區選項也可直接選擇中國大陸、中國香港、中國澳門及中國臺灣。此次支付方式拓寬並非毫無徵兆，此前Cursor已於2025年4月9日率先支持支付寶支付，相關動向早有鋪墊。",
   "ingress": {
     "kind": "public_adapter",
@@ -45,7 +45,7 @@
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
-    "registry_revision": "47abcafcf20559e79e23e25d80559dd53cd131880bd818269742b94eb49f5dd4",
+    "registry_revision": "a6dd827b98a3b10758c307cb9bd94385ffc0a95096975a7217c073bee8003b33",
     "scope_id": "aibase",
     "publisher_kind": "aggregator",
     "admission_status": "limited",
@@ -53,11 +53,13 @@
     "source_tier_label": "次級AI媒體",
     "source_tier_rank": 4,
     "allow_general": true,
-    "allow_featured": true,
-    "allow_radar": true,
+    "allow_featured": false,
+    "allow_radar": false,
     "reason_codes": [
       "identified_host",
-      "limited_scope"
+      "limited_scope",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
     ]
   }
 }

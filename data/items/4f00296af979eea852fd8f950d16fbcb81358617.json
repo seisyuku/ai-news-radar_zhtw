@@ -7,7 +7,7 @@
   "source": "AIBASE",
   "title": "螞蟻阿福獲世界互聯網大會領先科技獎  成爲首個獲得該獎的健康AI應用",
   "url": "https://news.aibase.com/tw/news/32026",
-  "last_seen_at": "2026-11-03T00:35:30.934663Z",
+  "last_seen_at": "2026-11-03T00:46:04.071716Z",
   "summary": "11月2日，2026年世界互聯網大會上，螞蟻集團健康AI“螞蟻阿福”獲“領先科技獎”，成首個獲此獎的健康垂類AI應用。其已服務1.5億用戶，單日解答近2000萬人次健康諮詢，爲全球第一大健康管理AI App。專家認爲，其發展契合大衆健康需求，體現“健康中國”與“人工智能+”行動落地。",
   "ingress": {
     "kind": "public_adapter",
@@ -45,7 +45,7 @@
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
-    "registry_revision": "47abcafcf20559e79e23e25d80559dd53cd131880bd818269742b94eb49f5dd4",
+    "registry_revision": "a6dd827b98a3b10758c307cb9bd94385ffc0a95096975a7217c073bee8003b33",
     "scope_id": "aibase",
     "publisher_kind": "aggregator",
     "admission_status": "limited",
@@ -53,11 +53,13 @@
     "source_tier_label": "次級AI媒體",
     "source_tier_rank": 4,
     "allow_general": true,
-    "allow_featured": true,
-    "allow_radar": true,
+    "allow_featured": false,
+    "allow_radar": false,
     "reason_codes": [
       "identified_host",
-      "limited_scope"
+      "limited_scope",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
     ]
   }
 }

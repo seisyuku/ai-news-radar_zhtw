@@ -7,7 +7,7 @@
   "source": "AIBASE",
   "title": "Meta攜手傅利葉僅用三月推出人形機器人原型Max",
   "url": "https://news.aibase.com/tw/news/32004",
-  "last_seen_at": "2026-11-03T00:35:30.934663Z",
+  "last_seen_at": "2026-11-03T00:46:04.071716Z",
   "summary": "Meta被曝與中國機器人企業傅利葉合作，僅用三個月打造出首款人形機器人原型“Max”，並於9月啓動第二代Max2研發。原型身高約1.5米、重48千克，搭載英偉達Jetson Thor芯片，配可模擬人類表情的面部屏、揚聲器與五指機械手，支持5米外識別聲音、3米外理解手勢。Meta CTO Bosworth內部亦曾談及人形機器人。",
   "ingress": {
     "kind": "public_adapter",
@@ -45,7 +45,7 @@
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
-    "registry_revision": "47abcafcf20559e79e23e25d80559dd53cd131880bd818269742b94eb49f5dd4",
+    "registry_revision": "a6dd827b98a3b10758c307cb9bd94385ffc0a95096975a7217c073bee8003b33",
     "scope_id": "aibase",
     "publisher_kind": "aggregator",
     "admission_status": "limited",
@@ -53,11 +53,13 @@
     "source_tier_label": "次級AI媒體",
     "source_tier_rank": 4,
     "allow_general": true,
-    "allow_featured": true,
-    "allow_radar": true,
+    "allow_featured": false,
+    "allow_radar": false,
     "reason_codes": [
       "identified_host",
-      "limited_scope"
+      "limited_scope",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
     ]
   }
 }

@@ -7,7 +7,7 @@
   "source": "AIBASE",
   "title": "OpenAI宣佈12月起ChatGPT與Codex共享使用額度，Instant chat不受影響",
   "url": "https://news.aibase.com/tw/news/32012",
-  "last_seen_at": "2026-11-03T00:35:30.934663Z",
+  "last_seen_at": "2026-11-03T00:46:04.071716Z",
   "summary": "OpenAI宣佈，自12月起，ChatGPT Plus、Pro和Business套餐的部分使用額度將在ChatGPT與Codex間共享，推動Work智能體融入ChatGPT主交互界面。用戶對話、編程及智能體任務將逐步納入統一額度管理，按Token計量，消耗取決於模型和任務複雜度，複雜任務更高；即時對話等場景亦受關注。",
   "ingress": {
     "kind": "public_adapter",
@@ -45,7 +45,7 @@
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
-    "registry_revision": "47abcafcf20559e79e23e25d80559dd53cd131880bd818269742b94eb49f5dd4",
+    "registry_revision": "a6dd827b98a3b10758c307cb9bd94385ffc0a95096975a7217c073bee8003b33",
     "scope_id": "aibase",
     "publisher_kind": "aggregator",
     "admission_status": "limited",
@@ -53,11 +53,13 @@
     "source_tier_label": "次級AI媒體",
     "source_tier_rank": 4,
     "allow_general": true,
-    "allow_featured": true,
-    "allow_radar": true,
+    "allow_featured": false,
+    "allow_radar": false,
     "reason_codes": [
       "identified_host",
-      "limited_scope"
+      "limited_scope",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
     ]
   }
 }

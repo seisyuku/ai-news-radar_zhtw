@@ -7,7 +7,7 @@
   "source": "AIBASE",
   "title": "ChatGPT 要能主動掛斷危險對話，屢犯者直接封號",
   "url": "https://news.aibase.com/tw/news/32025",
-  "last_seen_at": "2026-11-03T00:35:30.934663Z",
+  "last_seen_at": "2026-11-03T00:46:04.071716Z",
   "summary": "OpenAI 日前宣佈，未來幾周爲 ChatGPT 升級暴力內容管控：對話若持續圍繞暴力或嚴重傷害他人，模型可主動結束；同一賬號多次因此被切斷，可能被封號。此前已禁止提供策劃或實施暴力的指導，此次是把“主動切斷”納入執行，從被動拒答轉向主動干預，不再只靠用戶自行收手。",
   "ingress": {
     "kind": "public_adapter",
@@ -45,7 +45,7 @@
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
-    "registry_revision": "47abcafcf20559e79e23e25d80559dd53cd131880bd818269742b94eb49f5dd4",
+    "registry_revision": "a6dd827b98a3b10758c307cb9bd94385ffc0a95096975a7217c073bee8003b33",
     "scope_id": "aibase",
     "publisher_kind": "aggregator",
     "admission_status": "limited",
@@ -53,11 +53,13 @@
     "source_tier_label": "次級AI媒體",
     "source_tier_rank": 4,
     "allow_general": true,
-    "allow_featured": true,
-    "allow_radar": true,
+    "allow_featured": false,
+    "allow_radar": false,
     "reason_codes": [
       "identified_host",
-      "limited_scope"
+      "limited_scope",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
     ]
   }
 }

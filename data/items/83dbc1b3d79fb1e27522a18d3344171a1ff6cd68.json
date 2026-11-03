@@ -7,7 +7,7 @@
   "source": "AIBASE",
   "title": "Claude Code搭載Opus 5. 5 正式封殺復刻特定現有遊戲",
   "url": "https://news.aibase.com/tw/news/32009",
-  "last_seen_at": "2026-11-03T00:35:30.934663Z",
+  "last_seen_at": "2026-11-03T00:46:04.071716Z",
   "summary": "近期AI工具大幅降低遊戲開發門檻，獨立遊戲行業普遍焦慮作品被AI搶先克隆發售，不少開發者因擔憂遭惡意抄襲，推遲公開測試或撤下試玩版。爲此，Anthropic爲搭載Opus5.5模型的Claude Code遠程下發用戶無法關閉的隱藏規則，要求AI不得復刻特定現有遊戲，僅可……（原文至此）",
   "ingress": {
     "kind": "public_adapter",
@@ -45,7 +45,7 @@
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
-    "registry_revision": "47abcafcf20559e79e23e25d80559dd53cd131880bd818269742b94eb49f5dd4",
+    "registry_revision": "a6dd827b98a3b10758c307cb9bd94385ffc0a95096975a7217c073bee8003b33",
     "scope_id": "aibase",
     "publisher_kind": "aggregator",
     "admission_status": "limited",
@@ -53,11 +53,13 @@
     "source_tier_label": "次級AI媒體",
     "source_tier_rank": 4,
     "allow_general": true,
-    "allow_featured": true,
-    "allow_radar": true,
+    "allow_featured": false,
+    "allow_radar": false,
     "reason_codes": [
       "identified_host",
-      "limited_scope"
+      "limited_scope",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
     ]
   },
   "article_history": [

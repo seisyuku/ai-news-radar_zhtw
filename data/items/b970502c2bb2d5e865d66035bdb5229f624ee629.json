@@ -7,7 +7,7 @@
   "source": "AIBASE",
   "title": "破解AI長期記憶瓶頸，阿里雲賦能Personal Agent邁向深度個性化",
   "url": "https://news.aibase.com/tw/news/32023",
-  "last_seen_at": "2026-11-03T00:35:30.934663Z",
+  "last_seen_at": "2026-11-03T00:46:04.071716Z",
   "summary": "11月2日，阿里雲宣佈Memory服務全面升級，重點面向Personal Agent場景，增強用戶偏好、計劃及歷史約定的長期記憶與個性化處理，並提供MCP、CLI等主流接入方式。該服務從對話中實時提取關鍵信息，自動保存爲用戶畫像與結構化記憶，後續按用戶身份與當前問題精準檢索調用相關上下文，持續跟進用戶需求。",
   "ingress": {
     "kind": "public_adapter",
@@ -45,7 +45,7 @@
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
-    "registry_revision": "47abcafcf20559e79e23e25d80559dd53cd131880bd818269742b94eb49f5dd4",
+    "registry_revision": "a6dd827b98a3b10758c307cb9bd94385ffc0a95096975a7217c073bee8003b33",
     "scope_id": "aibase",
     "publisher_kind": "aggregator",
     "admission_status": "limited",
@@ -53,11 +53,13 @@
     "source_tier_label": "次級AI媒體",
     "source_tier_rank": 4,
     "allow_general": true,
-    "allow_featured": true,
-    "allow_radar": true,
+    "allow_featured": false,
+    "allow_radar": false,
     "reason_codes": [
       "identified_host",
-      "limited_scope"
+      "limited_scope",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
     ]
   }
 }

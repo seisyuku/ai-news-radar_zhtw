@@ -7,7 +7,7 @@
   "source": "AIBASE",
   "title": "李佳琦直播間也賣Token了!AI算力與智能硬件亮相雙11娛樂主管",
   "url": "https://news.aibase.com/tw/news/32014",
-  "last_seen_at": "2026-11-03T00:35:30.934663Z",
+  "last_seen_at": "2026-11-03T00:46:04.071716Z",
   "summary": "今晚19:30，天貓雙11李佳琦直播間將首次上架Token（詞元）商品，AI算力服務首次進入頭部電商直播間，標誌Token商品化向大衆消費市場延伸。千問辦公CEO陳宇森將做客，他是阿里最年輕副總裁，與李佳琦均生於1992年。直播還將展示AI電腦等。",
   "ingress": {
     "kind": "public_adapter",
@@ -45,7 +45,7 @@
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
-    "registry_revision": "47abcafcf20559e79e23e25d80559dd53cd131880bd818269742b94eb49f5dd4",
+    "registry_revision": "a6dd827b98a3b10758c307cb9bd94385ffc0a95096975a7217c073bee8003b33",
     "scope_id": "aibase",
     "publisher_kind": "aggregator",
     "admission_status": "limited",
@@ -53,11 +53,13 @@
     "source_tier_label": "次級AI媒體",
     "source_tier_rank": 4,
     "allow_general": true,
-    "allow_featured": true,
-    "allow_radar": true,
+    "allow_featured": false,
+    "allow_radar": false,
     "reason_codes": [
       "identified_host",
-      "limited_scope"
+      "limited_scope",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
     ]
   }
 }

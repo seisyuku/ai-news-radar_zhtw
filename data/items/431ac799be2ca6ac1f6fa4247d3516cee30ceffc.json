@@ -7,7 +7,7 @@
   "source": "AIBASE",
   "title": "微軟 AI 掌門人劃紅線：AI 不該有意識，有了就全員暫停",
   "url": "https://news.aibase.com/tw/news/32007",
-  "last_seen_at": "2026-11-03T00:35:30.934663Z",
+  "last_seen_at": "2026-11-03T00:46:04.071716Z",
   "summary": "微軟AI負責人、DeepMind聯合創始人穆斯塔法·蘇萊曼11月2日在X髮長文，公開給“AI意識”劃禁區：當前模型並無意識，人類應讓這一狀態永遠維持。作爲執掌微軟AI的巨頭高管，其表態分量遠超普通工程師擔憂；措辭更從“沒有”推進到“不該有”，比單純描述現狀更進一層。",
   "ingress": {
     "kind": "public_adapter",
@@ -45,7 +45,7 @@
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
-    "registry_revision": "47abcafcf20559e79e23e25d80559dd53cd131880bd818269742b94eb49f5dd4",
+    "registry_revision": "a6dd827b98a3b10758c307cb9bd94385ffc0a95096975a7217c073bee8003b33",
     "scope_id": "aibase",
     "publisher_kind": "aggregator",
     "admission_status": "limited",
@@ -53,11 +53,13 @@
     "source_tier_label": "次級AI媒體",
     "source_tier_rank": 4,
     "allow_general": true,
-    "allow_featured": true,
-    "allow_radar": true,
+    "allow_featured": false,
+    "allow_radar": false,
     "reason_codes": [
       "identified_host",
-      "limited_scope"
+      "limited_scope",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
     ]
   }
 }

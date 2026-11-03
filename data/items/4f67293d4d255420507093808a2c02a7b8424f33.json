@@ -7,7 +7,7 @@
   "source": "AIBASE",
   "title": "四大 AI 巨頭聯手設\"拒爬\"標準：網站主有了統一退出開關",
   "url": "https://news.aibase.com/tw/news/32011",
-  "last_seen_at": "2026-11-03T00:35:30.934663Z",
+  "last_seen_at": "2026-11-03T00:46:04.071716Z",
   "summary": "11月1日消息，OpenAI、谷歌、微軟與Anthropic將共同採用新標準，讓網站主能在現有robots.txt中一次性聲明“拒絕AI抓取”，不必逐家協商。該機制由Anthropic的Kevin Kelley提交IETF。此前robots.txt只用於告知搜索引擎，今後可統一管理AI爬蟲，方便內容方拒絕被“薅”內容。",
   "ingress": {
     "kind": "public_adapter",
@@ -45,7 +45,7 @@
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
-    "registry_revision": "47abcafcf20559e79e23e25d80559dd53cd131880bd818269742b94eb49f5dd4",
+    "registry_revision": "a6dd827b98a3b10758c307cb9bd94385ffc0a95096975a7217c073bee8003b33",
     "scope_id": "aibase",
     "publisher_kind": "aggregator",
     "admission_status": "limited",
@@ -53,11 +53,13 @@
     "source_tier_label": "次級AI媒體",
     "source_tier_rank": 4,
     "allow_general": true,
-    "allow_featured": true,
-    "allow_radar": true,
+    "allow_featured": false,
+    "allow_radar": false,
     "reason_codes": [
       "identified_host",
-      "limited_scope"
+      "limited_scope",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
     ]
   }
 }

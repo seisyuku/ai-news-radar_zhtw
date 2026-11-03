@@ -7,7 +7,7 @@
   "source": "AIBASE",
   "title": "DeepSeek 甩出 Super-agent：AI 從\"等人派活\"變成\"自己找活幹\"",
   "url": "https://news.aibase.com/tw/news/32016",
-  "last_seen_at": "2026-11-03T00:35:30.934663Z",
+  "last_seen_at": "2026-11-03T00:46:04.071716Z",
   "summary": "DeepSeek Harness團隊在公衆號發佈技術長文《Super-agent設計探索：邁向更自主的Agent系統》，並開源MIT協議原型dsh-superagent-prototype。官方強調這是工程向研究原型，並非現成產品。文中內部已跑實例參與缺陷復現、代碼審查，無人@也能嗅出潛在bug並後臺復現。團隊指出，卡住多任務的是人不是模型；主流Agent仍以單個Session爲單位，會話彼此割裂。",
   "ingress": {
     "kind": "public_adapter",
@@ -45,7 +45,7 @@
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
-    "registry_revision": "47abcafcf20559e79e23e25d80559dd53cd131880bd818269742b94eb49f5dd4",
+    "registry_revision": "a6dd827b98a3b10758c307cb9bd94385ffc0a95096975a7217c073bee8003b33",
     "scope_id": "aibase",
     "publisher_kind": "aggregator",
     "admission_status": "limited",
@@ -53,11 +53,13 @@
     "source_tier_label": "次級AI媒體",
     "source_tier_rank": 4,
     "allow_general": true,
-    "allow_featured": true,
-    "allow_radar": true,
+    "allow_featured": false,
+    "allow_radar": false,
     "reason_codes": [
       "identified_host",
-      "limited_scope"
+      "limited_scope",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
     ]
   }
 }

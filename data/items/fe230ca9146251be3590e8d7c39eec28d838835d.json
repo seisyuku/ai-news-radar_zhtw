@@ -7,7 +7,7 @@
   "source": "AIBASE",
   "title": "美團龍貓發佈 LongCat-2.5:1.6萬億參數原生多模態模型",
   "url": "https://news.aibase.com/tw/news/32006",
-  "last_seen_at": "2026-11-03T00:35:30.934663Z",
+  "last_seen_at": "2026-11-03T00:46:04.071716Z",
   "summary": "美團龍貓11月2日發佈LongCat-2.5，定位長程智能體任務的原生多模態模型，總參數1.6萬億，每token激活約480億。它在LongCat-2.0基礎上強化原生視覺理解與智能體編程，在線體驗和API已開放，GitHub與HuggingFace權重將上線。技術上，視覺信號被表示爲多層級離散token，沿用LongCat-Next語義對齊編碼器並施加殘差向量量化，支持原生分辨率離散化。",
   "ingress": {
     "kind": "public_adapter",
@@ -45,7 +45,7 @@
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
-    "registry_revision": "47abcafcf20559e79e23e25d80559dd53cd131880bd818269742b94eb49f5dd4",
+    "registry_revision": "a6dd827b98a3b10758c307cb9bd94385ffc0a95096975a7217c073bee8003b33",
     "scope_id": "aibase",
     "publisher_kind": "aggregator",
     "admission_status": "limited",
@@ -53,11 +53,13 @@
     "source_tier_label": "次級AI媒體",
     "source_tier_rank": 4,
     "allow_general": true,
-    "allow_featured": true,
-    "allow_radar": true,
+    "allow_featured": false,
+    "allow_radar": false,
     "reason_codes": [
       "identified_host",
-      "limited_scope"
+      "limited_scope",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
     ]
   }
 }

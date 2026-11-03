@@ -7,7 +7,7 @@
   "source": "AIBASE",
   "title": "北京出臺智能眼鏡消費政策：購新補貼15%，單件最高500元",
   "url": "https://news.aibase.com/tw/news/32020",
-  "last_seen_at": "2026-11-03T00:35:30.934663Z",
+  "last_seen_at": "2026-11-03T00:46:04.071716Z",
   "summary": "北京市商務局印發《促進智能眼鏡消費政策指南》，推出購新補貼、首店首發、品牌聯名、國際化消費場景、離境退稅、數字化轉型、國際市場開拓等七項舉措，推動智能眼鏡消費增長，釋放新型智能終端市場潛力。消費者購買符合條件產品，可依規享受2026年家電以舊換新及數碼智能產品購新補貼。",
   "ingress": {
     "kind": "public_adapter",
@@ -45,7 +45,7 @@
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
-    "registry_revision": "47abcafcf20559e79e23e25d80559dd53cd131880bd818269742b94eb49f5dd4",
+    "registry_revision": "a6dd827b98a3b10758c307cb9bd94385ffc0a95096975a7217c073bee8003b33",
     "scope_id": "aibase",
     "publisher_kind": "aggregator",
     "admission_status": "limited",
@@ -53,11 +53,13 @@
     "source_tier_label": "次級AI媒體",
     "source_tier_rank": 4,
     "allow_general": true,
-    "allow_featured": true,
-    "allow_radar": true,
+    "allow_featured": false,
+    "allow_radar": false,
     "reason_codes": [
       "identified_host",
-      "limited_scope"
+      "limited_scope",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
     ]
   }
 }

@@ -7,7 +7,7 @@
   "source": "AIBASE",
   "title": "OpenAI 要搞大公關：把\"數據中心\"改名\"AI 算力園區\"",
   "url": "https://news.aibase.com/tw/news/32005",
-  "last_seen_at": "2026-11-03T00:35:30.934663Z",
+  "last_seen_at": "2026-11-03T00:46:04.071716Z",
   "summary": "OpenAI正醞釀一場面向華盛頓與選民的公關攻勢。據Axios，公司擬在週二美國中期選舉結束後啓動大規模宣傳，由首席全球事務官克里斯·萊漢操盤。他視中期選舉爲2028年總統大選“預告片”，認爲AI將成競選核心議題。在監管與輿論收緊下，OpenAI欲搶先定義敘事，打一場防禦戰。",
   "ingress": {
     "kind": "public_adapter",
@@ -45,7 +45,7 @@
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
-    "registry_revision": "47abcafcf20559e79e23e25d80559dd53cd131880bd818269742b94eb49f5dd4",
+    "registry_revision": "a6dd827b98a3b10758c307cb9bd94385ffc0a95096975a7217c073bee8003b33",
     "scope_id": "aibase",
     "publisher_kind": "aggregator",
     "admission_status": "limited",
@@ -53,11 +53,13 @@
     "source_tier_label": "次級AI媒體",
     "source_tier_rank": 4,
     "allow_general": true,
-    "allow_featured": true,
-    "allow_radar": true,
+    "allow_featured": false,
+    "allow_radar": false,
     "reason_codes": [
       "identified_host",
-      "limited_scope"
+      "limited_scope",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
     ]
   }
 }
