@@ -1,0 +1,57 @@
+{
+  "id": "b9b93a3d086d2c5cb15ca658002a431c2c48a3a4",
+  "published_at": "2026-11-02T18:00:00Z",
+  "first_seen_at": "2026-11-03T03:05:30.549609Z",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "OpenAI News",
+  "title": "Preparing our next security sprint to harden OpenAI",
+  "url": "https://openai.com/index/preparing-our-next-security-sprint-to-harden-openai",
+  "last_seen_at": "2026-11-03T03:05:30.549609Z",
+  "summary": "OpenAI is preparing its next internal security sprint with Cathedral Systems to test and strengthen its defenses using AI.",
+  "source_updated_at": "2026-11-02T18:00:00Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "openai_news",
+    "name": "OpenAI News",
+    "feed_url": "https://openai.com/news/rss.xml"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "openai",
+    "name": "OpenAI",
+    "domain": "openai.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://openai.com/index/preparing-our-next-security-sprint-to-harden-openai",
+      "article_host": "openai.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "a6dd827b98a3b10758c307cb9bd94385ffc0a95096975a7217c073bee8003b33",
+    "scope_id": "openai",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}
