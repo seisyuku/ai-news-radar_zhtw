@@ -1,1 +1,3 @@
-{}
+{
+  "https://huggingface.co/blog/transformers-mic": "On July 30, 2026, Transformers enabled PyTorch's scaled dot-product attention (SDPA) for T5. As a side effect, UMT5's decoder could attend to future tokens. During training, it could peek at the answer it was supposed to predict. Nothing crashed, and the bug stayed in main for almost two months."
+}
