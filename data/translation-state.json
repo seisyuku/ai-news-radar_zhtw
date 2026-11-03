@@ -4,34 +4,6 @@
     "summary::Yesterday's hot paper was Sparks of Weight-Space Programming: LLMs can natively read & write neural network weights by Rikiya Takehi, Jayden Teoh, Alex Zhang, and Omar Khattab. The paper found that frontier models, in particular GPT-6 Astra, can both interpret and modify the raw weights of a machine learning model - literally a text description of the model containing a bunch of floating point numbers. I've been playing with one of the examples from the paper and I'm delighted to share that Qwen 3.8 27B running on my laptop can do this as well! Weight-Space Programming Here's the highlight from their abstract, describing impressive capabilities for GPT-6 Astra and coining the term Weight-Space Programming for when LLMs analyze and modify model weights: Just by looking at the raw weights, GPT-6 Astra can tell what a network was trained to do . And without any environment feedback, it has no trouble writing, from scratch, small game-playing networks that outplay networks trained with PPO for 100 million steps. Likewise, asked to make Qwen3.5-0.8B better at math without gradients, Astra identifies an issue in its weights causing reasoning loops that Qwen’s own model card warns about, and fixes this by natively editing 0.016% of the weights . With the same sampling settings, this weight correction raises MATH-500 from 7.9% to 48.1% and generalizes out of the box to instruction following, raising IFEval by 3x. All of this is possible without allowing Astra to write training loops. It uses its reasoning to figure out what each part of a neural network computes, or should compute,": {
       "reason": "invalid_translation",
       "created_at": "2026-11-03T16:35:37.052312Z"
-    },
-    "summary::The SETI Institute and Breakthrough Listen are now using AI agents at the Allen Telescope Array to control the telescope and analyze incoming radio signals. Tasks that used to take weeks can now wrap up in hours, and the team says the system detected a pulsar in the Crab Nebula in real time for the first time. The article AI agents take over at SETI's Allen Telescope Array, scanning for extraterrestrial intelligence appeared first on The Decoder .": {
-      "reason": "provider_unavailable",
-      "created_at": "2026-11-03T17:05:33.906619Z"
-    },
-    "AI agents take over at SETI's Allen Telescope Array, scanning for extraterrestrial intelligence": {
-      "reason": "provider_unavailable",
-      "created_at": "2026-11-03T17:05:33.906619Z"
-    },
-    "summary::Google is completely turning off Search in schools that reject its AI features, the company told The New York Times. The decision was also shared in a broader education-related update from Google on Tuesday, saying that access to Gemini, Gemini Notebook, Gemini in Classroom, and Google Search \"will be entirely off\" for K-12 student accounts […]": {
-      "reason": "provider_unavailable",
-      "created_at": "2026-11-03T17:05:33.906619Z"
-    },
-    "Google is entirely disabling Search in schools that don&#8217;t want AI": {
-      "reason": "provider_unavailable",
-      "created_at": "2026-11-03T17:05:33.906619Z"
-    },
-    "Binance co-CEO Richard Teng says hackers used fake job interviews, AI tool to steal $6.3 billion in crypto": {
-      "reason": "provider_unavailable",
-      "created_at": "2026-11-03T17:05:33.906619Z"
-    },
-    "summary::Setback for Google as EU court adviser sides with publishers against AI chatbot Reuters": {
-      "reason": "provider_unavailable",
-      "created_at": "2026-11-03T17:05:33.906619Z"
-    },
-    "Setback for Google as EU court adviser sides with publishers against AI chatbot - Reuters": {
-      "reason": "provider_unavailable",
-      "created_at": "2026-11-03T17:05:33.906619Z"
     }
   }
 }
