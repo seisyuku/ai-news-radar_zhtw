@@ -1,5 +1,9 @@
 # Operations Notes
 
+## 11/3 AIBase用途裁決正式發布
+
+裁決提交[757fcbcbd135](https://github.com/seisyuku/ai-news-radar_zhtw/commit/757fcbcbd135c47b140990f84cf271537cfd2ed3)已整合最新master並推送；[CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41555128484)與[正常刷新](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41555128982)成功，資料提交2819ba05e83b的[Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41555340395)成功。臺北11/3 08:46:04快照：18份正式HTTP檔與生成提交位元一致，465筆AIBase封存政策均為rank 4／僅一般收錄，當期重點支持與雷達均無AIBase。治理ready、Python與讀者JS同代驗證通過，重點2則、來源失敗／降級0；正式資料由正常Actions生成，沒有以離線輸出覆寫。驗收證據位於`/Users/lordmi/Downloads/ai-news-source-review-20261103/release/verification.json`。本案已發布驗收，無必須續行項目。
+
 ## 10/31 社群退役與資安分類（已發布並驗收）
 
 階段1～7完成，共同資產20261031-security1；完整1976項、Python／JS語法、workflow YAML、資產與差異檢查通過。固定臺北15:59:35快照前後完整離線生成：AI105篇／全量去重120篇／archive7580筆、事件歷史、既有分數／來源權限／時間與價格／翻譯／摘要快取保持；資安主題5篇、精選2篇、具體事件3篇。1440桌面／390手機的模式、來源／搜尋／事件篩選、合併與空區正常，舊資料缺欄位不猜測、混版拒收重點而保留一般閱讀，無JS例外或整頁橫向溢出。

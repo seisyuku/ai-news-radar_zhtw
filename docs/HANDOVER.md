@@ -2,9 +2,9 @@
 
 更新：2026-11-03（臺北）。本頁僅保留目前有效狀態與2026-10-25起的交接紀錄；超過十天的項目與歷程已從本頁移除。任務清單以[TASK_LEDGER](TASK_LEDGER.md)為準，產品／來源／操作細節分別依README、SOURCE_COVERAGE與OPERATIONS。
 
-## 11/3 AIBase用途裁決（本機完成，未發布）
+## 11/3 AIBase用途裁決（已發布並驗收，結案）
 
-維護者核准執行來源審查裁決。AIBase保留rank 4及一般收錄，關閉重點與雷達用途；其他來源維持。完整2163項通過，固定11/3 08:05正式材料重投影治理ready，候選15→11、已選2則不變，事件ID／時間保持；正式data未覆寫，未commit／push／部署。政策與證據邊界見[SOURCE_COVERAGE](SOURCE_COVERAGE.md)最新節；後續正式生效仍需發布與正常刷新驗收。
+AIBase維持rank 4與一般收錄，關閉重點／雷達，其他來源維持；本機完整2163項、固定快照重投影通過。裁決提交[757fcbcbd135](https://github.com/seisyuku/ai-news-radar_zhtw/commit/757fcbcbd135c47b140990f84cf271537cfd2ed3)已整合最新master並推送；[CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41555128484)與[正常刷新](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41555128982)成功，資料提交2819ba05e83b的[Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41555340395)成功。臺北11/3 08:46:04快照：18份正式HTTP檔與生成提交位元一致，465筆AIBase封存政策均為rank 4／僅一般收錄，當期重點支持與雷達均無AIBase。治理ready、Python與讀者JS同代驗證通過，重點2則、來源失敗／降級0；正式資料由正常Actions生成，沒有以離線輸出覆寫。驗收證據位於`/Users/lordmi/Downloads/ai-news-source-review-20261103/release/verification.json`。本案已發布驗收，無必須續行項目。 政策與審查邊界見[SOURCE_COVERAGE](SOURCE_COVERAGE.md)最新節。
 
 ## 11/1 服務條件與內容類型修正（已發布並驗收，結案）
 

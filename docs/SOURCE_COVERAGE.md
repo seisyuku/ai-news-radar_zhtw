@@ -1,12 +1,14 @@
 # Source Coverage
 
-## 2026-11-03 來源審查裁決（本機套用，未發布）
+## 2026-11-03 來源審查裁決（已發布並驗收）
 
 維護者已核准執行審查裁決：AIBase維持`limited`／`advanced` rank 4及`allow_general=true`，改為`allow_featured=false`、`allow_radar=false`。覆蓋既有全部AIBase host scope及各收件路徑；不改collector、發布者識別、既有佐證計票鍵或封存內容。此用途裁決取代下方10/28「保留用途許可」的歷史狀態。MarkTechPost rank 2、RuntimeWire rank 4、InfoQ CN與TechNews finance／infosecu未審rank 6、36Kr現行限量及政策均維持，沒有來源升級或全域評分調整。
 
 審查窗口臺北2026-10-27 08:05:32～11-03 08:05:32，五份正式HTTP資料同代。AIBase149筆／149網址，採固定分位抽樣加證據狀態案例，共查27篇原文材料；不宣稱隨機抽樣或整站precision。新例包括[Grok水印](https://news.aibase.com/tw/news/31999)將11/7未來生效與當下已啟用混寫（[官方文件](https://docs.x.ai/developers/advanced-api-usage/watermarking)也有endpoint enabled措辭，故判時間狀態不清而非整篇造假）、[新旗艦曝光](https://news.aibase.com/tw/news/32000)缺可追溯依據的確定式能力／流量敘述、[Genie 4](https://news.aibase.com/tw/news/31921)「永久記憶」描述超出官方有限一致性邊界，雖後段補有限制。另有保留限制的正例，故縮減用途而不再全面降等。InfoQ樣本混合稿型；TechNews子站五篇各自受阻，存取失敗不計為品質錯誤；RuntimeWire多篇只有截斷預覽，均不足以支持升級。
 
-完整2163項測試通過（98個既有feedparser警告）。固定正式材料離線重算：治理ready，合格重點候選15→11，退出4個僅由AIBase支持的候選，沒有新增；已選2則及順序不變。AIBase31筆當期治理文章不再提供重點支持，雷達重算無AIBase；事件ID、phase、有效／到期時間與成員保持。這是用途重投影，未執行新抓取或健康探測，保存快照的來源失敗／降級為空；未覆寫正式data、未commit／push／部署。審查與驗證證據位於`/Users/lordmi/Downloads/ai-news-source-review-20261103/`，含`review-decision.json`與`applied-verification.json`。
+完整2163項測試通過（98個既有feedparser警告）。固定正式材料離線重算：治理ready，合格重點候選15→11，退出4個僅由AIBase支持的候選，沒有新增；已選2則及順序不變。AIBase31筆當期治理文章不再提供重點支持，雷達重算無AIBase；事件ID、phase、有效／到期時間與成員保持。此為發布前用途重投影，沒有新抓取或健康探測，保存快照的來源失敗／降級為空；正式發布驗收見下段。審查與驗證證據位於`/Users/lordmi/Downloads/ai-news-source-review-20261103/`，含`review-decision.json`與`applied-verification.json`。
+
+裁決提交[757fcbcbd135](https://github.com/seisyuku/ai-news-radar_zhtw/commit/757fcbcbd135c47b140990f84cf271537cfd2ed3)已整合最新master並推送；[CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41555128484)與[正常刷新](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41555128982)成功，資料提交2819ba05e83b的[Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41555340395)成功。臺北11/3 08:46:04快照：18份正式HTTP檔與生成提交位元一致，465筆AIBase封存政策均為rank 4／僅一般收錄，當期重點支持與雷達均無AIBase。治理ready、Python與讀者JS同代驗證通過，重點2則、來源失敗／降級0；正式資料由正常Actions生成，沒有以離線輸出覆寫。驗收證據位於`/Users/lordmi/Downloads/ai-news-source-review-20261103/release/verification.json`。本案已發布驗收，無必須續行項目。
 
 2026-10-31發布狀態：本頁10/30新增的新聞版本／品質診斷與有界官方文字查漏已合併master並完成正式刷新、CI與HTTP驗收，詳見[TASK_LEDGER](TASK_LEDGER.md)最新節；10/28來源品質修正及AIBase降級亦早已發布。
 
