@@ -2,6 +2,39 @@
 
 更新：2026-11-03（臺北）。本頁僅保留目前有效狀態與2026-10-25起的交接紀錄；超過十天的項目與歷程已從本頁移除。任務清單以[TASK_LEDGER](TASK_LEDGER.md)為準，產品／來源／操作細節分別依README、SOURCE_COVERAGE與OPERATIONS。
 
+## 11/3 Claude公告漏報補洞第1～4階段（本機驗收完成，發布中）
+
+維護者已授權按階段實作，每階段完成後直接在對話回報結果及下一階段模型／推理強度；遠端手機操作不依賴本機報告或跳轉頁面。已核准只接Claude Product announcements、沿用Anthropic官方逐篇用途且同發布者只計一票、補強既有Issue／診斷流程。來源限RSS／Feed及HTTP可取得的結構化文字，轉檔、非結構化正文搜尋、圖像及影音處理均不在本案。
+
+第1階段新增`parse_claude_product_announcements_items`與獨立fetcher，只讀固定官方索引內嵌JSON；不執行腳本、不補抓文章或附件。單頁2MiB、最多20篇，分類／型別／slug／日期檢查後去重限量，回補沿用官方45日設定；未來日期即使落在既有六小時容忍內也排除。合法空索引、僅舊文或未來日期的有效資料可成功回零；缺少結構、必要欄位全失效或歧義payload回報來源失敗。原始日期與日期精度先保存在RawItem metadata，第2階段已接入公開投影。
+
+49項新增測試、相關81項與完整2212項通過（98個既有feedparser警告）；完整測試需將內建Node的bin加入PATH。Python編譯及差異檢查通過。臺北11/3 16:13:15以既有HTTP session隔離抓取：一次請求588849 bytes、13篇／13網址、來源正常，包含Message Threads且UTF-8標點保持。官方只給2026-11-02，按已接受規則換算UTC零時；固定11/2 20:00臺北回放可發現，當前24小時窗口已過期，不以抓取時間續命。
+
+第1階段精簡文字樣本與隔離診斷位於`/Users/lordmi/Downloads/ai-news-claude-announcements-stage1-20261103/`。第2階段已將入口註冊為`official_ai/claude_product_announcements`，使用獨立子來源健康與既有失敗歷史，Claude失敗保留Anthropic正常新聞、反向失敗亦保留Claude；有效空值不降級。`claude.com/resources/articles/`沿用Anthropic官方逐篇用途，其他Claude頁面、未知子網域及仿冒host不取得權限。兩入口計票均為`publisher:anthropic`，沒有新增獨立發布者票。`source_published_date`、`source_time_precision`是可選的向後相容欄位，保留於archive、一般池、resolver及事件引用；舊文章不補造精度。
+
+第2階段新增30項，相關250項與完整2242項測試通過（98個既有feedparser警告），Python編譯及差異檢查通過。固定樣本跑完整main：可進原始／一般AI池、沒有強制入選重點；到期後退出讀者池但保留archive／resolver。真實前端治理驗證器接受投影，跨網址改寫仍可能兩事件但同發布者只算一票。
+
+臺北11/3 08:46:04保留快照配對離線生成：原archive7601筆全部ID／URL／發布／首次與末次觀測／原標題／摘要保持，新增13篇至7614；一般AI172、全部183、重點2均保持，173個當期事件的ID、initial/effective/expiry與active phase均相同。新13篇resolver逐筆等於archive，Python與讀者JS治理ready。此為以16:13取得的索引回放08:46截點的反事實收件測試，不能宣稱當時已可見或當時抓取正常。七日對照為4個公告候選、1449筆既有記錄，hard／possible重複均0；樣本不足5，僅作輔助，不推論整站品質。證據位於`/Users/lordmi/Downloads/ai-news-claude-announcements-stage2-20261103/`，含before／after完整輸出、`verification.json`及`overlap.json`；全程無真實模型或網路呼叫，不覆寫正式data。
+
+第3階段已補強既有feedback Issue模板：分開收集臺北觀察時間與頁首資料更新時間、頁尾版號、原始文字來源／發布資訊，以及查看位置、模式與篩選。未知欄位可如實註記。OPERATIONS新增六步定位：綁定同代快照→入口健康→archive與時間→公開池與品質追蹤→事件／重點→證據與缺口結案。明確區分公開`items_all_raw`與原始HTTP回應、舊快照缺診斷與未收件、現在規則回放與歷史實際結果；介面截圖僅定位顯示問題。沿用既有Issue與診斷資料，沒有新增CLI、來源、評分或排程。
+
+補充案例已查六份歷史快照；下表時間皆為臺北。10/29 10:35快照61168d24c6e9的archive、latest、all-mode、daily、merged及source-status六檔SHA256，均與既有pulse-quality固定樣本相符。此次只讀歷史JSON及兩個已知官方URL的metadata／JSON-LD，未搜尋正文或解析附件、圖片、影音。
+
+| 案例 | 保存快照的證據 | 可支持的結論與限制 |
+| --- | --- | --- |
+| ChatGPT API credits | 10/29 10:35的61168d24c6e9已有Juya對照早報提及，政策為control且不進公開一般池；10:56的6829725f47e6已有RuntimeWire原始／一般AI池文章，但重點為`no_current_qualified_article`。10/30 07:35的9adcdc3fb165中Simon Willison文章也在一般池，來源用途禁止重點。10/31 12:35的2a06a12f580d中LLM Rumors領取教學、11/2 13:35的4af7f544eafb中數位時代開通教學，均保存`out_of_scope`追蹤。 | 已證實不同時間有對照、一般收錄、用途限制與教學排除，不能歸為全面未抓到。官方[政策頁](https://developers.openai.com/api/docs/guides/chatgpt-api-credits)現在HTTP200，但無發布時間metadata，六份快照均無此URL。01:41的6a827d395150等抽樣快照中既有primary recovery為0次，不能推成全期間0次；也不能用後來的補讀能力宣稱10/29已可補證。 |
+| Alphabet 2026 Q3 | 10/29 10:35的61168d24c6e9中CNBC財報前預告與改標題稿、The Verge均在原始／一般AI池；當時事件未選入重點，保存`no_current_qualified_article`。CNBC同URL稿件保留的摘要仍為「準備公布財報」，未給出具體財務數值；The Verge摘要聚焦搜尋成長。 | 已證實收件及一般池可見，保存材料不足支持回報中的Cloud／現金流具體主張；不能說整則事件沒抓到。官方[CEO講稿](https://blog.google/company-news/inside-google/message-ceo/alphabet-earnings-q3-2026/)現在HTTP200且JSON-LD有日期，但六份快照均無此URL。當時配置是Google AI／Gemini分類RSS；缺原始Feed回應，不能判定該官方稿當時未被Feed提供或被解析漏掉。 |
+
+查核快照依序為61168d24c6e9（10/29 10:35）、6829725f47e6（10/29 10:56）、9adcdc3fb165（10/30 07:35）、6a827d395150（10/31 01:41）、2a06a12f580d（10/31 12:35）、4af7f544eafb（11/2 13:35）。前三份沒有`news_quality`，以上歷史結論直接讀當版池／治理資料，未套用現行診斷反推。沒有編輯端原始觀察時間／版號、當時HTTP回應或下游Social Editor選稿紀錄，所以結論只及於已查快照，不能核定原回報那一刻的全部原因。本輪沒有提高分數、強制入選、回補舊文或新增Alphabet入口。
+
+機器可重查的快照雜湊、文章／事件ID、池成員與判定、當前官方metadata保存於`/Users/lordmi/Downloads/ai-news-claude-announcements-stage3-20261103/historical-audit.json`，用於保存本輪歷史證據；結果直接在對話呈現。既有品質診斷／文字來源邊界77項通過（1個既有feedparser警告），差異檢查通過；本階段僅改Issue與文件，前階段完整2242項結果保持適用。
+
+第4階段已完成累積14個檔案的整體複核。發現並修正一個健康邊界：合法分類索引若只有已排除的外站連結、非文章類型或其他分類，應健康回零；原先會誤報`invalid_source`。現在將已知收錄範圍過濾與文章欄位驗證分開；若有本案候選但必要欄位全失效，即使混有排除項仍回報錯誤。沒有擴張收錄類型、抓取位置或格式。調整4個既有反例的健康預期，新增3個回歸；本案合計82項新增測試，最終完整2245項通過（98個既有feedparser警告），Python編譯及差異檢查通過。
+
+修正後重讀第1階段保存的結構化索引，產生的13篇ID、來源、標題、摘要、URL、發布日期與精度，逐項等於第2階段配對輸出；政策revision保持`c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7`。因此沿用已驗的7601→7614封存、172一般AI／183全部／2重點及173事件ID／時鐘保持結果，不重抓來源或重跑模型。最終核對正式data、assets、workflow均無差異；工作樹只有本案14檔，沒有私人Feed、憑證或環境檔。
+
+最終證據位於`/Users/lordmi/Downloads/ai-news-claude-announcements-stage4-20261103/verification.json`，綁定變更檔案SHA256、第2階段配對結果及第3階段稽核證據雜湊。本機驗收基底為master `d5f85fd8f3d0e8a7b03de559f2cd533e7f0344a4`。維護者已於11/3授權commit並整合最新master推送正式站，本輪發布進行中；保留並行資料快照，依既有規則驗證CI、正常刷新、Pages及正式HTTP同代資料。完成後補上提交與實際發布結果，不能把本機通過寫成Actions已驗證。日期只有天的換算與跨網址改寫可能分事件，維持已接受邊界；原回報時刻與原始Feed／下游選稿缺口也保持。
+
 ## 11/3 AIBase用途裁決（已發布並驗收，結案）
 
 AIBase維持rank 4與一般收錄，關閉重點／雷達，其他來源維持；本機完整2163項、固定快照重投影通過。裁決提交[757fcbcbd135](https://github.com/seisyuku/ai-news-radar_zhtw/commit/757fcbcbd135c47b140990f84cf271537cfd2ed3)已整合最新master並推送；[CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41555128484)與[正常刷新](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41555128982)成功，資料提交2819ba05e83b的[Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41555340395)成功。臺北11/3 08:46:04快照：18份正式HTTP檔與生成提交位元一致，465筆AIBase封存政策均為rank 4／僅一般收錄，當期重點支持與雷達均無AIBase。治理ready、Python與讀者JS同代驗證通過，重點2則、來源失敗／降級0；正式資料由正常Actions生成，沒有以離線輸出覆寫。驗收證據位於`/Users/lordmi/Downloads/ai-news-source-review-20261103/release/verification.json`。本案已發布驗收，無必須續行項目。 政策與審查邊界見[SOURCE_COVERAGE](SOURCE_COVERAGE.md)最新節。

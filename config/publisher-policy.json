@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "policy_id": "publisher-governance-v1",
-  "revision": "a6dd827b98a3b10758c307cb9bd94385ffc0a95096975a7217c073bee8003b33",
+  "revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
   "default": {
     "publisher_kind": "unknown",
     "admission_status": "unreviewed",
@@ -173,6 +173,10 @@
         {
           "host": "www.anthropic.com",
           "path_prefix": "/"
+        },
+        {
+          "host": "claude.com",
+          "path_prefix": "/resources/articles/"
         }
       ],
       "admission_status": "limited",
@@ -182,13 +186,14 @@
       "allow_general": true,
       "allow_featured": true,
       "allow_radar": true,
-      "notes": "existing named public publisher and previously accepted article scope only; exact host/path/aliases required in PG03; not arbitrary subdomains",
+      "notes": "Existing Anthropic scope plus claude.com/resources/articles/; the Claude collector accepts only structured Product announcements. Same Anthropic publisher vote; no arbitrary subdomains or whole-site permission.",
       "authority": [
         "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md",
         "docs/SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md"
       ],
       "retained_source_keys": [
-        "official_ai/anthropic_news"
+        "official_ai/anthropic_news",
+        "official_ai/claude_product_announcements"
       ]
     },
     {
@@ -1416,6 +1421,11 @@
     },
     {
       "source_key": "official_ai/anthropic_news",
+      "publisher_id": "anthropic",
+      "action": "retain"
+    },
+    {
+      "source_key": "official_ai/claude_product_announcements",
       "publisher_id": "anthropic",
       "action": "retain"
     },

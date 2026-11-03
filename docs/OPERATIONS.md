@@ -138,6 +138,23 @@ Radar的update-news、watchdog、外部heartbeat、Pages及公開daily-brief持�
 人工選題研究及 Git 紀錄；不再把過時的排程、登入與派送步驟
 列在現行維運手冊。
 
+### 漏報回報與定位（2026-11-03）
+
+使用既有`feedback` Issue模板收集觀察時間、頁首資料更新時間、頁尾版號、原始文字來源URL／標題／發布時間，以及查看位置、模式與篩選。時間統一記臺北並保留原站時區；只有日期就註明日期精度，未知欄位如實標未知。先用已有資料診斷，缺歷史版本或時間才說明無法歸因的部分。回報結果直接在對話／Issue呈現，不要求讀者開本機檔案或另開診斷頁。
+
+本案新增來源及查漏材料限RSS／Feed或固定HTTP入口內可取得的結構化文字。以已知公開URL、Feed條目與保存快照定位；不擴大成站外非結構化正文搜尋、轉檔、圖像／影音解析或附件補證。Issue中的介面截圖僅定位顯示問題。既有與本案無關的收件器不因本流程擴張或重做。
+
+按以下順序查核，每一步保留依據，找不到資料時不跳成推定根因：
+
+1. **綁定快照。** 以回報的資料更新時間找Git保存版本，核對`generated_at`及可用的`publisher_governance_meta`，避免混用不同代JSON。記commit SHA、當時程式／政策與24小時窗口；現在讀到的網站內容只能代表現在。發布時間、首次觀測時間與回報時間分開記。Claude只有日期時沿用UTC零時換算，參照`source_published_date`／`source_time_precision`；不以first_seen替舊文續命。
+2. **檢查入口與健康。** 在當時的registry／collector查原始發布路徑，再查`source-status.json.sites[].subsources[]`對應`source_id`的`ok`、`item_count`、`error`與`attempted`。群組成功、同廠商另一入口成功或有效空結果，都不證明該篇曾被提供或完整涵蓋；缺原始Feed／索引回應時，不能區分原站未列出與解析遺漏。
+3. **查文章與時間。** 在同版`archive.json.items`按原始URL查找，兼查同URL改標題形成的不同ID與`article_history`。核對`published_at`、`first_seen_at`、`last_seen_at`及日期精度。archive無該篇不等於已證明抓取錯誤；archive有該篇亦不代表當時仍在讀者窗口。URL與ID沿用既有契約，不手改正式快照補入。
+4. **查公開候選池。** 對照`latest-24h-all.json.items_all_raw`、`items_all`與`latest-24h.json.items`／`items_ai`。這些是經窗口與既有用途／內容規則處理的公開投影，不是未過濾的HTTP回應。新版`source-status.json.news_quality.articles`可按`article_id`／URL查`fetch_observed`、`in_window`、`in_raw_pool`、`in_ai_pool`、`superseded_by`與`reason_codes`；其中`in_raw_pool`對應公開全部收錄候選，不是原始網路日誌。診斷只列當期窗口文章，沒有該列不能單獨推出未抓到；`fetch_observed=null`代表無抓取紀錄。舊快照沒有此區時，以保存的池與治理資料查到哪層就回報哪層。
+5. **查事件與重點。** 由文章的`event_ids`，或`stories-merged.json.brief_events.events`的`member_article_ids`／`history_article_ids`追到事件；再查`publisher_governance.articles`的來源政策／材料資格、`publisher_governance.events`的`featured_eligible`／`reason_codes`／影響評分，以及`daily_selected_event_ids`和同版`daily-brief.json`。先區分來源用途、材料不足、事件合併、到期、分數與名額，再判斷「一般池有，但重點未選」。沿用當時selection policy；現行規則重跑只算反事實測試。
+6. **關閉回饋。** 回報「未涵蓋入口／抓取或解析失敗／時間窗排除／內容或用途排除／事件合併／已保留但重點未選／證據不足」中有證據支持的狀態，附快照時間、SHA、文章／事件ID、判定依據與缺口。只有取得下游選稿紀錄時，才可歸為Social Editor未選；不以Pulse未入選代替下游根因。需要修正時只處理已證實層級，固定樣本回歸、Downloads隔離生成與來源狀態檢查完成後再驗收。
+
+維護者結案紀錄至少包括：回報／資料時間、快照SHA、來源入口、文章／事件ID、原始池／AI池／重點各層結果、根因的證據與限制、變更與測試、尚未提交或部署的狀態。`review_leads`只是查漏線索，不是獨立證據或自動新增來源的授權。2026-11-03兩則歷史案例的核對結果保存在`HANDOVER.md`當期紀錄；本流程沿用既有Issue及診斷資料，沒有新增診斷CLI、前端或排程。
+
 ## Pre-push source boundary fixes (2026-10-03)
 
 OPML uses the existing grouped-feed validator, preserving valid empty feeds and

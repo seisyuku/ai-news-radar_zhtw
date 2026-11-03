@@ -34,6 +34,8 @@ class ArchiveRecord(TypedDict, total=False):
     first_seen_at: str | None
     last_seen_at: str | None
     summary: str
+    source_published_date: str
+    source_time_precision: str
     publisher_links: list[str]
     publisher: dict[str, Any]
     ingress: dict[str, Any]

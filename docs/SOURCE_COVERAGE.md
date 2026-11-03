@@ -1,5 +1,17 @@
 # Source Coverage
 
+## 2026-11-03 Claude Product announcements與漏報流程（本機驗收完成，發布中）
+
+維護者核准以官方Product announcements補足Anthropic News之外的公告路徑。現已在本機接入`official_ai/claude_product_announcements`，限定`claude.com/resources/articles/`沿用官方逐篇用途與Anthropic同發布者一票；其他Claude頁面、子網域與仿冒host不取得官方用途權限。來源範圍限RSS／Feed與HTTP可取得的結構化文字。此入口只解析`https://claude.com/resources/product-announcements`的內嵌JSON，不執行腳本、不讀非結構化正文、不補抓文章／附件／圖片／影音，沒有新增站外搜尋或服務。
+
+收件器單頁2MiB、最多20篇、固定本站文章URL、`blogPost`與`product-announcements`分類、嚴格ISO日曆日期，先驗證再去重限量；回補沿用官方45日、讀者仍24小時。日期只有天時沿用UTC零時換算，以可選欄位`source_published_date`及`source_time_precision=date`保留原始精度，涵蓋archive、一般池、resolver與事件引用，舊文章不補造欄位；不使用first_seen延長窗口。未來日期排除，有效但無可收近期文章或只含已排除類型／外站連結的索引可健康回零；結構失效或本案候選必要欄位全失效仍回報錯誤。獨立子來源失敗會顯示群組降級並保留正常同伴。健康正常僅代表該索引可解析，不代表整個官方網站完整覆蓋。
+
+第1階段臺北11/3 16:13:15隔離HTTP取得13篇／13不同URL，Message Threads原始標題、URL、摘要與2026-11-02日期正常；固定時間回放可發現，當期24小時已過期。第1、2階段合計新增79項測試，相關250項及完整2242項通過。固定08:46快照反事實離線生成：archive7601→7614，一般AI172、全部183、重點2及173個當期事件ID／時鐘保持，Python／讀者JS治理ready。七日4候選對1449筆hard／possible重複0，樣本太小不作整站品質結論。原始文字樣本與配對證據分別位於Downloads的`ai-news-claude-announcements-stage1-20261103/`及`ai-news-claude-announcements-stage2-20261103/`。跨網址且大幅改寫的標題可能分成兩事件，沿用既有去重邊界。
+
+第3階段已補既有Issue回報欄位與OPERATIONS六步定位，不另建CLI／前端／排程。六份歷史快照確認API credits、Alphabet Q3均有一般池報導，部分材料分別受對照源、用途／教學邊界或重點材料資格限制；不能一律視為未抓取。兩個已知官方URL在查核快照中均未見，現在metadata可讀並不能證明當時Feed的提供情況。當時HTTP回應與下游選稿紀錄缺失，原回報時間亦未知，僅對已查快照下結論；詳細時間、SHA與證據界線見HANDOVER，機器查核紀錄位於Downloads的`ai-news-claude-announcements-stage3-20261103/`。既有品質／文字邊界77項通過。
+
+第4階段已完成整體複核，修正有效索引全部被收錄範圍過濾時的健康誤報，新增3個回歸；最終合計82項新增、完整2245項通過，編譯與差異檢查通過。保存索引13篇與已驗配對結果逐項相同，政策與事件時鐘契約保持；最終雜湊與驗證保存於Downloads的`ai-news-claude-announcements-stage4-20261103/`。維護者已於11/3授權commit並整合最新master推送正式站，目前發布進行中；保留並行資料，由既有正常Actions生成正式快照並驗收CI／Pages／HTTP，不以本機離線輸出覆寫正式data。前端與排程未改，實際發布結果完成後補記。
+
 ## 2026-11-03 來源審查裁決（已發布並驗收）
 
 維護者已核准執行審查裁決：AIBase維持`limited`／`advanced` rank 4及`allow_general=true`，改為`allow_featured=false`、`allow_radar=false`。覆蓋既有全部AIBase host scope及各收件路徑；不改collector、發布者識別、既有佐證計票鍵或封存內容。此用途裁決取代下方10/28「保留用途許可」的歷史狀態。MarkTechPost rank 2、RuntimeWire rank 4、InfoQ CN與TechNews finance／infosecu未審rank 6、36Kr現行限量及政策均維持，沒有來源升級或全域評分調整。

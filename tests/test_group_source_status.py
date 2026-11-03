@@ -25,8 +25,16 @@ class Response:
     def __init__(self, content):
         self.content = content
         self.text = content.decode()
+        self.status_code = 200
+        self.headers = {"Content-Type": "text/html; charset=utf-8"}
 
     def raise_for_status(self):
+        pass
+
+    def iter_content(self, size):
+        yield self.content
+
+    def close(self):
         pass
 
 
@@ -64,13 +72,17 @@ def test_group_reports_each_subsource_without_losing_items(monkeypatch, group, f
             "https://www.anthropic.com/news": b'<a href="/news/old"><h2>Old AI news</h2><time datetime="2021-01-01"></time></a>',
             update_news.TENCENT_NEWSROOM_URL: b'<article class="tc-blog-grid"><h2 class="blog-title"><a href="/old">Old AI news</a></h2><span class="tc-blogpost-date">2021-01-01</span></article>',
             "https://developers.openai.com/codex/changelog": b'<li id="old"><h3>Old AI news</h3><time datetime="2021-01-01"></time></li>',
+            update_news.CLAUDE_PRODUCT_ANNOUNCEMENTS_URL: (
+                b'<script>self.__next_f.push([1,"42:[\\"$\\",\\"$L44\\",null,{\\"scope\\":{\\"kind\\":\\"category\\",'
+                b'\\"value\\":\\"product-announcements\\"},\\"curated\\":{\\"items\\":[],\\"total\\":0}}]\\n"])</script>'
+            ),
         })
         if scenario == "all_failed":
             for url in list(responses)[2:]:
                 responses[url] = RuntimeError("secret=do-not-report")
     items, details = getattr(update_news, fetch_name)(Session(responses), NOW)
     rows = {row["source_id"]: row for row in details["subsources"]}
-    assert len(rows) == (5 if group == "official_ai" else 2)
+    assert len(rows) == (6 if group == "official_ai" else 2)
     assert all(row["ok"] for row in rows.values()) == (scenario in {"all_success", "valid_zero"})
     assert details["ok"] == (scenario != "all_failed")
     assert details["degraded"] == (scenario == "partial")
@@ -93,6 +105,7 @@ def test_invalid_item_fields_are_failure_not_valid_zero(monkeypatch, group, fetc
             "https://www.anthropic.com/news": RuntimeError("down"),
             update_news.TENCENT_NEWSROOM_URL: RuntimeError("down"),
             "https://developers.openai.com/codex/changelog": RuntimeError("down"),
+            update_news.CLAUDE_PRODUCT_ANNOUNCEMENTS_URL: RuntimeError("down"),
         })
     items, details = getattr(update_news, fetch_name)(Session(responses), NOW)
     assert items == []
@@ -106,7 +119,7 @@ def test_configured_subsource_ids_are_stable_and_secret_safe():
         update_news.CURATED_AI_MEDIA_FEEDS,
         update_news.TW_MEDIA_FEEDS,
     ) for feed in group]
-    ids += ["anthropic_news", "tencent_newsroom", "openai_codex_changelog"]
+    ids += ["anthropic_news", "claude_product_announcements", "tencent_newsroom", "openai_codex_changelog"]
     assert len(ids) == len(set(ids))
     assert all(re.fullmatch(r"[a-z][a-z0-9_]*", source_id) for source_id in ids)
 

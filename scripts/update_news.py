@@ -624,6 +624,8 @@ PUBLIC_RAW_META_FIELDS: tuple[str, ...] = (
     "primary_provenance",
     "source_material_status",
     "source_updated_at",
+    "source_published_date",
+    "source_time_precision",
 )
 
 
@@ -1627,6 +1629,7 @@ def publisher_feed_configs():
         ("llm_rumors", LLM_RUMORS_FEED), ("runtimewire", RUNTIMEWIRE_MODEL_FEED)))
     adapters = [
         ("official_ai", "Anthropic News", "anthropic_news"),
+        ("official_ai", "Claude Product Announcements", "claude_product_announcements"),
         ("official_ai", "Tencent Newsroom", "tencent_newsroom"),
         ("official_ai", "OpenAI Codex Changelog", "openai_codex_changelog"),
         ("curated_media", "AIBASE", "aibase"), ("aibase", "AIBASE", "aibase"),
@@ -1748,6 +1751,136 @@ def extract_balanced_json(decoded: str, key: str) -> Any:
     snippet = snippet.replace("$undefined", "null")
     snippet = re.sub(r'"\$D([^\"]+)"', r'"\1"', snippet)
     return json.loads(snippet)
+
+
+CLAUDE_PRODUCT_ANNOUNCEMENTS_URL = "https://claude.com/resources/product-announcements"
+CLAUDE_PRODUCT_ANNOUNCEMENTS_MAX_BYTES = 2 * 1024 * 1024
+CLAUDE_PRODUCT_ANNOUNCEMENTS_MAX_ITEMS = 20
+
+
+def _claude_product_announcement_rows(page_html: str) -> list[dict[str, Any]]:
+    """Read the category's embedded JSON; never execute scripts or scan prose."""
+    if len(page_html.encode("utf-8")) > CLAUDE_PRODUCT_ANNOUNCEMENTS_MAX_BYTES:
+        raise ValueError("claude_index_too_large")
+    chunks: list[str] = []
+    for script in BeautifulSoup(page_html, "html.parser").find_all("script"):
+        call = re.fullmatch(r"\s*self\.__next_f\.push\((.*)\);?\s*", script.get_text(), re.S)
+        if not call:
+            continue
+        try:
+            chunk = json.loads(call.group(1))
+        except ValueError:
+            raise ValueError("invalid_claude_index_data") from None
+        if isinstance(chunk, list) and len(chunk) == 2 and chunk[0] == 1 and isinstance(chunk[1], str):
+            chunks.append(chunk[1])
+
+    # React Flight records have hexadecimal IDs. Decode just their JSON values,
+    # preserving UTF-8 rather than applying the legacy unicode_escape helper.
+    payloads: list[dict[str, Any]] = []
+    decoded = "".join(chunks)
+    decoder = json.JSONDecoder()
+    for match in re.finditer(r"(?m)^[0-9a-f]+:", decoded):
+        try:
+            record, _ = decoder.raw_decode(decoded, match.end())
+        except ValueError:
+            continue  # Non-JSON Flight records include SVG/other UI assets.
+        if not isinstance(record, list) or len(record) != 4 or record[0] != "$" or not isinstance(record[3], dict):
+            continue
+        props = record[3]
+        scope = props.get("scope")
+        if isinstance(scope, dict) and scope.get("kind") == "category" and scope.get("value") == "product-announcements":
+            payloads.append(props)
+    if len(payloads) != 1:
+        raise ValueError("invalid_claude_index_scope")
+    curated = payloads[0].get("curated")
+    if not isinstance(curated, dict):
+        raise ValueError("invalid_claude_index_data")
+    rows, total = curated.get("items"), curated.get("total")
+    if (not isinstance(rows, list) or not all(isinstance(row, dict) for row in rows)
+            or type(total) is not int or total < len(rows) or (not rows and total != 0)):
+        raise ValueError("invalid_claude_index_data")
+    return rows
+
+
+def parse_claude_product_announcements_items(
+    page_html: str, now: datetime, *, require_valid: bool = False,
+) -> list[RawItem]:
+    """Return bounded announcement text with explicit date-only provenance."""
+    try:
+        rows = _claude_product_announcement_rows(page_html)
+    except ValueError:
+        if require_valid:
+            raise
+        return []
+    out: list[RawItem] = []
+    candidate_source_entries = 0
+    valid_source_entries = 0
+    for row in rows:
+        categories = row.get("categorySlugs")
+        # Known out-of-scope entries are valid filtering, not parser failures.
+        # Malformed routing fields still reach validation below so an unusable
+        # article payload cannot silently masquerade as a healthy empty page.
+        if ((isinstance(row.get("_type"), str) and row["_type"] != "blogPost")
+                or (isinstance(categories, list) and "product-announcements" not in categories)
+                or (isinstance(row.get("externalUrl"), str) and row["externalUrl"])):
+            continue
+        candidate_source_entries += 1
+        if (row.get("_type") != "blogPost" or not isinstance(categories, list)
+                or "product-announcements" not in categories or row.get("externalUrl") not in (None, "")):
+            continue
+        slug, title, day, summary = (row.get(key) for key in ("slug", "title", "date", "excerpt"))
+        if (not isinstance(slug, str) or not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", slug)
+                or len(slug) > 200 or not isinstance(title, str) or not title.strip() or len(title) > 500
+                or not isinstance(day, str) or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", day)
+                or (summary is not None and not isinstance(summary, str))):
+            continue
+        try:
+            date.fromisoformat(day)  # Reject impossible dates before the lenient shared parser.
+        except ValueError:
+            continue
+        published = parse_date_any(day, now)
+        if published is None:
+            continue
+        valid_source_entries += 1
+        # Do not use the reader's six-hour skew tolerance for future source dates.
+        if not now - timedelta(days=OFFICIAL_AI_MAX_AGE_DAYS) <= published <= now:
+            continue
+        out.append(RawItem(
+            site_id="official_ai", site_name="Official AI Updates",
+            source="Claude Product Announcements", title=title.strip(),
+            url="https://claude.com/resources/articles/" + slug, published_at=published,
+            meta={"provider": "Anthropic", "summary": (summary or "").strip()[:1600],
+                  "source_published_date": day, "source_time_precision": "date"},
+        ))
+    if require_valid and candidate_source_entries and not valid_source_entries:
+        raise ValueError("invalid_claude_index_fields")
+    unique: dict[str, RawItem] = {}
+    for item in sorted(out, key=lambda item: item.published_at, reverse=True):
+        unique.setdefault(item.url, item)
+    return list(unique.values())[:CLAUDE_PRODUCT_ANNOUNCEMENTS_MAX_ITEMS]
+
+
+def fetch_claude_product_announcements(session: requests.Session, now: datetime) -> list[RawItem]:
+    """One fixed public index request; no article, attachment or script fetches."""
+    response = session.get(CLAUDE_PRODUCT_ANNOUNCEMENTS_URL, timeout=20,
+                           stream=True, allow_redirects=False)
+    try:
+        response.raise_for_status()
+        if response.status_code != 200:
+            raise ValueError("invalid_claude_index_response")
+        mime = response.headers.get("Content-Type", "")
+        evidence_policy.validate_text_mime(mime)
+        chunks: list[bytes] = []
+        size = 0
+        for chunk in response.iter_content(65536):
+            size += len(chunk)
+            if size > CLAUDE_PRODUCT_ANNOUNCEMENTS_MAX_BYTES:
+                raise ValueError("claude_index_too_large")
+            chunks.append(chunk)
+        content = evidence_policy.validate_text_bytes(b"".join(chunks), mime)
+        return parse_claude_product_announcements_items(content.decode("utf-8-sig"), now, require_valid=True)
+    finally:
+        response.close()
 
 
 def parse_anthropic_news_items(page_html: str, now: datetime, *, require_valid: bool = False) -> list[RawItem]:
@@ -2404,6 +2537,12 @@ def fetch_official_ai_updates_with_status(
         items, status = _group_subsource_status(source_id, fetch_page)
         out.extend(items)
         subsources.append(status)
+
+    items, status = _group_subsource_status(
+        "claude_product_announcements", lambda: fetch_claude_product_announcements(session, now),
+    )
+    out.extend(items)
+    subsources.append(status)
 
     return out, _group_source_details(subsources)
 
@@ -5217,6 +5356,9 @@ def story_item_link(item: dict[str, Any]) -> dict[str, Any]:
     }
     if isinstance(item.get("publisher_links"), list):
         ref["publisher_links"] = item["publisher_links"][:24]
+    for key in ("source_published_date", "source_time_precision"):
+        if key in item:
+            ref[key] = item[key]
     return ref
 
 
