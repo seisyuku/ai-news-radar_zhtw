@@ -1,17 +1,15 @@
 {
-  "id": "d6f49f81fe12f4bcbe13c9d7cd35097a12051166",
-  "published_at": "2026-10-12T09:05:00Z",
-  "first_seen_at": "2026-10-12T01:05:39.561958Z",
+  "id": "e7a8a8677af4866e51a457f52802ba6482e07c07",
+  "published_at": "2026-11-03T11:00:00Z",
+  "first_seen_at": "2026-11-03T11:05:38.023694Z",
   "site_id": "opmlrss",
   "site_name": "OPML RSS",
-  "source": "InfoQ CN",
-  "title": "Artifactory 漏洞正被积极利用，可以绕过身份验证并获取管理员权限",
-  "url": "https://www.infoq.cn/article/CSNMcSceutWCGQhZcL7D",
-  "last_seen_at": "2026-10-13T10:35:35.499513Z",
-  "summary": "点击查看原文>",
-  "publisher_links": [
-    "https://www.infoq.cn/article/CSNMcSceutWCGQhZcL7D?utm_source=rss&utm_medium=article"
-  ],
+  "source": "Wired AI",
+  "title": "‘Our Risk, Their Reward’: Zohran Mamdani on AI and Data Centers",
+  "url": "https://www.wired.com/story/the-big-interview-podcast-nyc-mayor-zohran-mamdani",
+  "last_seen_at": "2026-11-03T11:05:38.023694Z",
+  "summary": "Ahead of the midterms, WIRED talked to New York City’s mayor about data centers, AI in schools, and the future of the Democratic party.",
+  "source_updated_at": "2026-11-03T11:00:00Z",
   "ingress": {
     "kind": "private_opml",
     "site_id": "opmlrss",
@@ -21,20 +19,23 @@
   },
   "publisher": {
     "schema_version": 1,
-    "publisher_id": null,
-    "name": null,
-    "domain": "www.infoq.cn",
-    "status": "unknown",
-    "basis": [],
+    "publisher_id": "wired",
+    "name": "Wired",
+    "domain": "www.wired.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
     "evidence": {
       "rss_source_name": null,
       "rss_source_url": null,
-      "article_url": null,
-      "article_host": "www.infoq.cn",
+      "article_url": "https://www.wired.com/story/the-big-interview-podcast-nyc-mayor-zohran-mamdani",
+      "article_host": "www.wired.com",
       "expected_publisher_id": null,
       "conflicts": []
     }
   },
+  "security_topic": false,
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
@@ -49,12 +50,11 @@
     "allow_featured": false,
     "allow_radar": false,
     "reason_codes": [
-      "missing_identity",
+      "legacy_identity",
       "scope_mismatch",
       "unreviewed_publisher",
       "not_permitted_for_featured",
       "not_permitted_for_radar"
     ]
-  },
-  "security_topic": false
+  }
 }
