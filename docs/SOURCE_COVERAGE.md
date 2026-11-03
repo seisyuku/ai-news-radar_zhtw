@@ -1,8 +1,8 @@
 # Source Coverage
 
-## 2026-11-03 Claude Product announcements與漏報流程（本機驗收完成，發布中）
+## 2026-11-03 Claude Product announcements與漏報流程（已發布並驗收）
 
-維護者核准以官方Product announcements補足Anthropic News之外的公告路徑。現已在本機接入`official_ai/claude_product_announcements`，限定`claude.com/resources/articles/`沿用官方逐篇用途與Anthropic同發布者一票；其他Claude頁面、子網域與仿冒host不取得官方用途權限。來源範圍限RSS／Feed與HTTP可取得的結構化文字。此入口只解析`https://claude.com/resources/product-announcements`的內嵌JSON，不執行腳本、不讀非結構化正文、不補抓文章／附件／圖片／影音，沒有新增站外搜尋或服務。
+維護者核准以官方Product announcements補足Anthropic News之外的公告路徑。已正式接入`official_ai/claude_product_announcements`，限定`claude.com/resources/articles/`沿用官方逐篇用途與Anthropic同發布者一票；其他Claude頁面、子網域與仿冒host不取得官方用途權限。來源範圍限RSS／Feed與HTTP可取得的結構化文字。此入口只解析`https://claude.com/resources/product-announcements`的內嵌JSON，不執行腳本、不讀非結構化正文、不補抓文章／附件／圖片／影音，沒有新增站外搜尋或服務。
 
 收件器單頁2MiB、最多20篇、固定本站文章URL、`blogPost`與`product-announcements`分類、嚴格ISO日曆日期，先驗證再去重限量；回補沿用官方45日、讀者仍24小時。日期只有天時沿用UTC零時換算，以可選欄位`source_published_date`及`source_time_precision=date`保留原始精度，涵蓋archive、一般池、resolver與事件引用，舊文章不補造欄位；不使用first_seen延長窗口。未來日期排除，有效但無可收近期文章或只含已排除類型／外站連結的索引可健康回零；結構失效或本案候選必要欄位全失效仍回報錯誤。獨立子來源失敗會顯示群組降級並保留正常同伴。健康正常僅代表該索引可解析，不代表整個官方網站完整覆蓋。
 
@@ -10,7 +10,9 @@
 
 第3階段已補既有Issue回報欄位與OPERATIONS六步定位，不另建CLI／前端／排程。六份歷史快照確認API credits、Alphabet Q3均有一般池報導，部分材料分別受對照源、用途／教學邊界或重點材料資格限制；不能一律視為未抓取。兩個已知官方URL在查核快照中均未見，現在metadata可讀並不能證明當時Feed的提供情況。當時HTTP回應與下游選稿紀錄缺失，原回報時間亦未知，僅對已查快照下結論；詳細時間、SHA與證據界線見HANDOVER，機器查核紀錄位於Downloads的`ai-news-claude-announcements-stage3-20261103/`。既有品質／文字邊界77項通過。
 
-第4階段已完成整體複核，修正有效索引全部被收錄範圍過濾時的健康誤報，新增3個回歸；最終合計82項新增、完整2245項通過，編譯與差異檢查通過。保存索引13篇與已驗配對結果逐項相同，政策與事件時鐘契約保持；最終雜湊與驗證保存於Downloads的`ai-news-claude-announcements-stage4-20261103/`。維護者已於11/3授權commit並整合最新master推送正式站，目前發布進行中；保留並行資料，由既有正常Actions生成正式快照並驗收CI／Pages／HTTP，不以本機離線輸出覆寫正式data。前端與排程未改，實際發布結果完成後補記。
+第4階段已完成整體複核，修正有效索引全部被收錄範圍過濾時的健康誤報，新增3個回歸；最終合計82項新增、完整2245項通過，編譯與差異檢查通過。保存索引13篇與已驗配對結果逐項相同，政策與事件時鐘契約保持；最終本機雜湊與驗證保存於Downloads的`ai-news-claude-announcements-stage4-20261103/`。
+
+正式發布：程式[fc96e417d4bd](https://github.com/seisyuku/ai-news-radar_zhtw/commit/fc96e417d4bd0c58797413f4230adea25d0609b9)已整合最新master並保留18筆並行快照；[CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41617120442)、[程式Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41617120019)、[正常刷新](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41617142956)及6d58d3d27c8d的[資料Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41617441392)均成功。臺北11/3 18:11:39快照的18份正式HTTP與生成提交bytes一致，13篇Claude文章均保留官方政策／日期精度且resolver等於archive；子來源13篇成功，失敗／降級0。Python與實際讀者JS治理valid／resolve／meta通過，184篇AI／203篇全部／3則可讀重點。Message Threads已封存且原始URL／日期保持，超出24小時未強制回到當期列表。發布驗證位於Downloads的`ai-news-claude-announcements-release-20261103/http-6d58d3d27c8d/verification.json`。前端與排程保持，正式資料由既有Actions生成，已發布驗收結案。
 
 ## 2026-11-03 來源審查裁決（已發布並驗收）
 

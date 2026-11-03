@@ -2,7 +2,7 @@
 
 更新：2026-11-03（臺北）。本頁僅保留目前有效狀態與2026-10-25起的交接紀錄；超過十天的項目與歷程已從本頁移除。任務清單以[TASK_LEDGER](TASK_LEDGER.md)為準，產品／來源／操作細節分別依README、SOURCE_COVERAGE與OPERATIONS。
 
-## 11/3 Claude公告漏報補洞第1～4階段（本機驗收完成，發布中）
+## 11/3 Claude公告漏報補洞第1～4階段（已發布並驗收，結案）
 
 維護者已授權按階段實作，每階段完成後直接在對話回報結果及下一階段模型／推理強度；遠端手機操作不依賴本機報告或跳轉頁面。已核准只接Claude Product announcements、沿用Anthropic官方逐篇用途且同發布者只計一票、補強既有Issue／診斷流程。來源限RSS／Feed及HTTP可取得的結構化文字，轉檔、非結構化正文搜尋、圖像及影音處理均不在本案。
 
@@ -33,7 +33,11 @@
 
 修正後重讀第1階段保存的結構化索引，產生的13篇ID、來源、標題、摘要、URL、發布日期與精度，逐項等於第2階段配對輸出；政策revision保持`c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7`。因此沿用已驗的7601→7614封存、172一般AI／183全部／2重點及173事件ID／時鐘保持結果，不重抓來源或重跑模型。最終核對正式data、assets、workflow均無差異；工作樹只有本案14檔，沒有私人Feed、憑證或環境檔。
 
-最終證據位於`/Users/lordmi/Downloads/ai-news-claude-announcements-stage4-20261103/verification.json`，綁定變更檔案SHA256、第2階段配對結果及第3階段稽核證據雜湊。本機驗收基底為master `d5f85fd8f3d0e8a7b03de559f2cd533e7f0344a4`。維護者已於11/3授權commit並整合最新master推送正式站，本輪發布進行中；保留並行資料快照，依既有規則驗證CI、正常刷新、Pages及正式HTTP同代資料。完成後補上提交與實際發布結果，不能把本機通過寫成Actions已驗證。日期只有天的換算與跨網址改寫可能分事件，維持已接受邊界；原回報時刻與原始Feed／下游選稿缺口也保持。
+最終本機證據位於`/Users/lordmi/Downloads/ai-news-claude-announcements-stage4-20261103/verification.json`，綁定變更檔案SHA256、第2階段配對結果及第3階段稽核證據雜湊。本機原驗收基底為master `d5f85fd8f3d0e8a7b03de559f2cd533e7f0344a4`。維護者11/3授權commit push後，保留並整合18筆並行快照至3bfe099dd4ac；整合後2245項測試通過，程式提交[fc96e417d4bd](https://github.com/seisyuku/ai-news-radar_zhtw/commit/fc96e417d4bd0c58797413f4230adea25d0609b9)已推送master。[CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41617120442)、[程式Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41617120019)、[正常刷新](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41617142956)及資料提交[6d58d3d27c8d](https://github.com/seisyuku/ai-news-radar_zhtw/commit/6d58d3d27c8df6c1f96effc600e8bb4daf272a4c)的[Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41617441392)均成功；資料由既有Actions生成，未以本機輸出覆寫。
+
+正式臺北11/3 18:11:39快照：Claude子來源成功13篇、353ms，來源失敗／降級均0；13篇官方文章均為Anthropic、rank0、已核准逐篇用途，保留原日期與date精度。18份正式HTTP首頁／manifest／文字資產／政策／JSON與生成提交逐檔bytes相同，13份公開resolver逐筆等於archive。Message Threads ID為`4d9d80a2333ecca761556dbad4a4301e78ea06cb`，原URL與2026-11-02T00:00:00Z保持；已封存但超過24小時，不強制重新進讀者池。Python驗證與實際上線JS治理valid／resolve／meta均通過，正式一般AI184篇、全部203篇、重點3則，讀者guard可讀3則。
+
+發布證據保存於`/Users/lordmi/Downloads/ai-news-claude-announcements-release-20261103/http-6d58d3d27c8d/verification.json`，含HTTP雜湊、resolver、來源狀態與前後端治理；本機與正式刷新／Pages均已驗收完成，無必須續行功能。日期只有天的換算與跨網址改寫可能分事件，維持已接受邊界；原回報時刻與原始Feed／下游選稿缺口也保持。
 
 ## 11/3 AIBase用途裁決（已發布並驗收，結案）
 
