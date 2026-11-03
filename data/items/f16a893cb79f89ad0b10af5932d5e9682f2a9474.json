@@ -1,17 +1,18 @@
 {
-  "id": "e6b52ddddf846793ff43c500c9882387c944256a",
-  "published_at": "2026-10-13T11:01:59Z",
-  "first_seen_at": "2026-10-13T11:05:38.015801Z",
+  "id": "f16a893cb79f89ad0b10af5932d5e9682f2a9474",
+  "published_at": "2026-11-03T10:00:06Z",
+  "first_seen_at": "2026-11-03T14:05:34.346548Z",
   "site_id": "curated_media",
   "site_name": "精選媒體",
   "source": "DeepSeek (Google News)",
-  "title": "Liang Wenfeng Backed Swin Transformer Author: DeepSeek Launches Strategic Layout for Its Embodied AI Brain - 36 Kr",
-  "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE1MVFFFYmFTX21uTDlabHl1WVlFU3lFc1VuSVNPZVBuNEREb28yVUx5bXlKd281SjEtYmE2OW1SVHRJZFBCSTMyd3lpQjduMURGRXEw?oc=5",
-  "last_seen_at": "2026-10-13T13:35:40.596945Z",
-  "summary": "Liang Wenfeng Backed Swin Transformer Author: DeepSeek Launches Strategic Layout for Its Embodied AI Brain 36 Kr",
+  "title": "DeepSeek Plans to Train Its Next-Generation Model on Huawei Ascend Chips - Geopolitechs",
+  "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE52NkNkNjNrLXlxV3lCc1ZyRzg3UDF3LXhqM3pQSFowSUJESzdFbXJHWHFfU3Q4dTBVd2ZLRlRkWTdWdW94TlJaMGxEMGtEVGkweDlJc2Z0NzRNTGxNQno0YzBaOGt2eUlQRmNQd0dnTDk?oc=5",
+  "last_seen_at": "2026-11-03T14:05:34.346548Z",
+  "summary": "DeepSeek Plans to Train Its Next-Generation Model on Huawei Ascend Chips Geopolitechs",
   "publisher_links": [
-    "https://news.google.com/rss/articles/CBMiU0FVX3lxTE1MVFFFYmFTX21uTDlabHl1WVlFU3lFc1VuSVNPZVBuNEREb28yVUx5bXlKd281SjEtYmE2OW1SVHRJZFBCSTMyd3lpQjduMURGRXEw?oc=5"
+    "https://news.google.com/rss/articles/CBMicEFVX3lxTE52NkNkNjNrLXlxV3lCc1ZyRzg3UDF3LXhqM3pQSFowSUJESzdFbXJHWHFfU3Q4dTBVd2ZLRlRkWTdWdW94TlJaMGxEMGtEVGkweDlJc2Z0NzRNTGxNQno0YzBaOGt2eUlQRmNQd0dnTDk?oc=5"
   ],
+  "source_updated_at": "2026-11-03T10:00:06Z",
   "ingress": {
     "kind": "google_news",
     "site_id": "curated_media",
@@ -22,19 +23,22 @@
   "publisher": {
     "schema_version": 1,
     "publisher_id": null,
-    "name": null,
-    "domain": null,
-    "status": "unknown",
-    "basis": [],
+    "name": "Geopolitechs",
+    "domain": "www.geopolitechs.org",
+    "status": "reported",
+    "basis": [
+      "google_rss_source"
+    ],
     "evidence": {
-      "rss_source_name": null,
-      "rss_source_url": null,
+      "rss_source_name": "Geopolitechs",
+      "rss_source_url": "https://www.geopolitechs.org",
       "article_url": null,
       "article_host": "news.google.com",
       "expected_publisher_id": null,
       "conflicts": []
     }
   },
+  "security_topic": false,
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
@@ -49,12 +53,11 @@
     "allow_featured": false,
     "allow_radar": false,
     "reason_codes": [
-      "missing_identity",
-      "scope_unknown",
+      "reported_rss_source",
+      "scope_mismatch",
       "unreviewed_publisher",
       "not_permitted_for_featured",
       "not_permitted_for_radar"
     ]
-  },
-  "security_topic": false
+  }
 }
