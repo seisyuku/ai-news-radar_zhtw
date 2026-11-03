@@ -230,6 +230,21 @@ def test_radar_requires_scoped_permission_and_expiry_and_never_labels_query_medi
     assert u._llm_radar_model_verification(media) == ("reported", "媒體報導")
 
 
+def test_aibase_native_release_cannot_supply_featured_support_or_radar_after_review():
+    raw = article(url="https://news.aibase.com/tw/news/synthetic", source="AIBASE", site_id="curated_media")
+    row = u.add_reader_source_policy_fields(raw)
+    assert any(e["status"] == "supported" for e in g.qualify(row, g.source_material(row))["core_evidence"])
+    assert not g.admitted(row, "featured")
+    assert not g.radar_allowed(row, NOW)
+    assert not u.build_llm_radar_payload([raw], NOW)["events"]
+    story = u.build_story_record("aibase-review", [raw], NOW, 24)
+    result = u.build_brief_event_payloads([story], [raw], b.StateInput("missing"), NOW, 24,
+        archive_meta=b.ArchiveMeta("valid", u.iso(NOW)))
+    assert result.publisher_governance["status"] == "ready"
+    assert not any(e["featured_eligible"] for e in result.publisher_governance["events"])
+    assert all(e["qualified_source_count"] == 0 for e in result.publisher_governance["events"])
+
+
 CASES = json.loads((Path(__file__).parent / "fixtures/publisher-governance-cases.json").read_text())["cases"]
 
 

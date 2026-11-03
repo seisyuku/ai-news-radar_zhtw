@@ -1,6 +1,10 @@
 # AI News Radar 交接摘要
 
-更新：2026-11-01（臺北）。本頁僅保留目前有效狀態與2026-10-22起的交接紀錄；超過十天的項目與歷程已從本頁移除。任務清單以[TASK_LEDGER](TASK_LEDGER.md)為準，產品／來源／操作細節分別依README、SOURCE_COVERAGE與OPERATIONS。
+更新：2026-11-03（臺北）。本頁僅保留目前有效狀態與2026-10-25起的交接紀錄；超過十天的項目與歷程已從本頁移除。任務清單以[TASK_LEDGER](TASK_LEDGER.md)為準，產品／來源／操作細節分別依README、SOURCE_COVERAGE與OPERATIONS。
+
+## 11/3 AIBase用途裁決（本機完成，未發布）
+
+維護者核准執行來源審查裁決。AIBase保留rank 4及一般收錄，關閉重點與雷達用途；其他來源維持。完整2163項通過，固定11/3 08:05正式材料重投影治理ready，候選15→11、已選2則不變，事件ID／時間保持；正式data未覆寫，未commit／push／部署。政策與證據邊界見[SOURCE_COVERAGE](SOURCE_COVERAGE.md)最新節；後續正式生效仍需發布與正常刷新驗收。
 
 ## 11/1 服務條件與內容類型修正（已發布並驗收，結案）
 
@@ -232,9 +236,6 @@ GitHub目前保留master及asset-version-git-baseline、copy-news-id、gemini-tr
 | 10/27 | T04 Gemini摘要備援退役結案。通用API／手動診斷／結果通知休眠保留，現有讀者翻譯繼續；[裁決](T04_GEMINI_SUMMARY_RETIREMENT_20261027.md)。 |
 | 10/26 | 翻譯快取唯讀量測結案，維持現況，不啟動觀察或預警；[結案](TRANSLATION_CACHE_T06_MEASUREMENT_20261026.md)。 |
 | 10/25 | T01一般列表事件篩選已發布；T02模型生命週期與T03摘要回顧結案，T05 Canary移除結案。CyberQ／AlphaLab以官方RSS進入一般池，保留未審來源與用途限制。 |
-| 10/24 | PG發布者治理與D+選稿／列表簡化正式發布並結案；不重開補修或自動啟動下一階段。 |
-| 10/23 | BR同事件合併、24小時資格與前端同代資料檢查完成發布。 |
-| 10/22 | 來源觀察提前停止並以方案A集中評估，A06正式發布；觀察設定false，不補七日驗收或結案信。 |
 
 ## 下次接手
 

@@ -126,7 +126,9 @@ def test_cn_aggregator_remains_one_vote_and_limited_uses_are_distinct():
     a = output(row("https://aibase.com/news/1", source="AIBASE"))
     k = output(row("https://36kr.com/p/1", source="36Kr", site_id="kr36_ai"))
     assert c.count([a, k]) == 1
-    assert a["source_policy"]["allow_featured"] and not k["source_policy"]["allow_featured"]
+    assert a["source_policy"]["allow_general"] and k["source_policy"]["allow_general"]
+    assert not a["source_policy"]["allow_featured"] and not k["source_policy"]["allow_featured"]
+    assert not a["source_policy"]["allow_radar"]
     assert k["source_tier_rank"] == 6
 
 

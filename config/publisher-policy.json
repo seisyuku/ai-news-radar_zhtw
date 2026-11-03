@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "policy_id": "publisher-governance-v1",
-  "revision": "47abcafcf20559e79e23e25d80559dd53cd131880bd818269742b94eb49f5dd4",
+  "revision": "a6dd827b98a3b10758c307cb9bd94385ffc0a95096975a7217c073bee8003b33",
   "default": {
     "publisher_kind": "unknown",
     "admission_status": "unreviewed",
@@ -69,9 +69,9 @@
       "source_tier_label": "次級AI媒體",
       "source_tier_rank": 4,
       "allow_general": true,
-      "allow_featured": true,
-      "allow_radar": true,
-      "notes": "2026-10-28 maintainer review: retain the scoped news adapter at rank 4; repeated same-topic articles and headline/evidence-state inflation do not support the former curated rank 2. Permissions and corroboration identity remain unchanged.",
+      "allow_featured": false,
+      "allow_radar": false,
+      "notes": "2026-11-03 maintainer review: general-only at rank 4. Repeated evidence-state inflation and untraceable assertions do not support featured or radar use. Retain limited admission, host scope, adapter and corroboration identity. Supersedes the 2026-10-28 use permissions.",
       "authority": [
         "docs/SOURCE_COVERAGE.md",
         "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md",

@@ -210,7 +210,9 @@ def test_aibase_downgrade_is_scoped_to_publisher_across_transports(site, source)
     out = u.add_reader_source_policy_fields(row)
     assert out["source_tier"] == "advanced" and out["source_tier_rank"] == 4
     assert out["source_policy"]["admission_status"] == "limited"
-    assert all(out["source_policy"]["allow_" + use] for use in ("general", "featured", "radar"))
+    assert out["source_policy"]["allow_general"]
+    assert not out["source_policy"]["allow_featured"]
+    assert not out["source_policy"]["allow_radar"]
     other = u.add_reader_source_policy_fields(article(site_id="curated_media", source="TechCrunch AI", url="https://techcrunch.com/news/123"))
     assert other["source_tier_rank"] == 2
     assert row.get("source_policy") is None
