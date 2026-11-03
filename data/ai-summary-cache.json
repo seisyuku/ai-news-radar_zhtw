@@ -2,6 +2,18 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v3",
   "entries": {
+    "b1499933f627c125f53a7d26201e30b7744639232430adafab9a609525729088": {
+      "summary": "華爾街日報稱，Anthropic本月底掛牌估值預計1.5萬億至1.6萬億美元，低於此前近2萬億。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-03T01:35:32.388868Z"
+    },
+    "cc28273e3bbd70ebe023a89ccbcc08a03a38f955944a57433b505d1744156493": {
+      "summary": "高盛撤銷交易員與銀行家的Claude Code及GitHub Copilot存取權，僅限工程師使用，理由為生產力與風險管理。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-03T01:35:32.388868Z"
+    },
     "77ab9615fc59790f71100f924cf6f15c2d82e309a6b37b6022fcbc0c4999d0ff": {
       "summary": "市場質疑AI算力新雲端業者財務體質，引發AI泡沫疑慮，相關股價重挫。",
       "provider": "groq",
@@ -2989,18 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-10-19T00:05:31.470595Z"
-    },
-    "f64eb90cdfed9b4471b07a4e4a4ae28c2a15dec6a0163db5343953ecbe9ccc0c": {
-      "summary": "新創 Ricursive Intelligence 共同創辦人 Anna Goldie 與 Azalia Mi 表示，該公司拒絕無止盡擴建資料中心，讓 AI 設計整顆晶片，盼一週完成一款新設計。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-19T00:05:31.470595Z"
-    },
-    "1d015d05473d956151bfb11372cd8aac05127e0f7ef365514b4b5b1c28c1f999": {
-      "summary": "Simon Willison 發布 llm-echo 0.5 除錯外掛，該外掛模擬不依賴 LLM 的模型以重複輸入提示詞。新版更新模擬 token 用量計算，納入工具呼叫、系統提示詞及推理 token。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-19T00:05:31.470595Z"
     }
   },
   "rejections": {
@@ -4752,13 +4752,13 @@
       "reason": "validation_length",
       "created_at": "2026-11-02T18:06:28.094665Z"
     },
-    "a1efc380c4f9b0f7f00b71c32df96a089a0a68783506d1bb3b268d2703d90064": {
-      "reason": "insufficient_context",
-      "created_at": "2026-11-02T18:06:28.094665Z"
-    },
     "53b1c2a7cdf0bea9fb537b6f417a48b88a01faa7006cb7a673e54f3060e2635a": {
       "reason": "validation_numeric_grounding",
       "created_at": "2026-11-02T21:35:36.539937Z"
+    },
+    "a1efc380c4f9b0f7f00b71c32df96a089a0a68783506d1bb3b268d2703d90064": {
+      "reason": "insufficient_context",
+      "created_at": "2026-11-03T01:35:32.388868Z"
     }
   }
 }
