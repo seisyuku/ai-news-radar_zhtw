@@ -1,17 +1,18 @@
 {
-  "id": "8534d445e3aafbfe37cfdd00bedf169494e13842",
-  "published_at": "2026-10-13T02:08:00Z",
-  "first_seen_at": "2026-10-13T02:35:33.490143Z",
+  "id": "6c678ebaba9919d95bedce847fe905df20be7d6c",
+  "published_at": "2026-11-03T03:42:00Z",
+  "first_seen_at": "2026-11-03T08:35:35.556697Z",
   "site_id": "tw_media",
   "site_name": "TW Media",
   "source": "數位時代 (Google News)",
-  "title": "AI駐廠前先打通資料孤島！看研華、施耐德電機如何開吃IT/OT工業平台商機？ - 數位時代",
-  "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQWFliakdsX05ETm1YYUlYdXQ5WHBzWjZnOUZ1NGVlVXVOOVJTMXE0cVNGMjBKX2NNaEZVNGVEaV9DdExjX2tpc1hLSTBCSWdmQ1JlRmhQMjNES1FGQ1BuTGJBMUg3Q2xFTVBOSzg5eS1sUzViSWxUX1BJWGUwNjZFeGhYNGd6YlpBeS1WdlkyaXg?oc=5",
-  "last_seen_at": "2026-10-13T08:05:35.653967Z",
-  "summary": "AI駐廠前先打通資料孤島！看研華、施耐德電機如何開吃IT/OT工業平台商機？ 數位時代",
+  "title": "服務業迎接AI 時代！SkyCloud騰雲運算受邀百工百業AI服務列車，分享 AI 爬蟲辨識與雲端資安防禦 - Meet創業小聚",
+  "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE5wLUJ5M3ZDTERwMUtFU216UTlrQWdLVVJobUFoQW1QajF4SDNIQzlTR200bmZpZEJQOG43dGVmVGlIY2sxYlRyTmItQ3h4akdSVGNN?oc=5",
+  "last_seen_at": "2026-11-03T08:35:35.556697Z",
+  "summary": "服務業迎接AI 時代！SkyCloud騰雲運算受邀百工百業AI服務列車，分享 AI 爬蟲辨識與雲端資安防禦 Meet創業小聚",
   "publisher_links": [
-    "https://news.google.com/rss/articles/CBMikAFBVV95cUxQWFliakdsX05ETm1YYUlYdXQ5WHBzWjZnOUZ1NGVlVXVOOVJTMXE0cVNGMjBKX2NNaEZVNGVEaV9DdExjX2tpc1hLSTBCSWdmQ1JlRmhQMjNES1FGQ1BuTGJBMUg3Q2xFTVBOSzg5eS1sUzViSWxUX1BJWGUwNjZFeGhYNGd6YlpBeS1WdlkyaXg?oc=5"
+    "https://news.google.com/rss/articles/CBMiU0FVX3lxTE5wLUJ5M3ZDTERwMUtFU216UTlrQWdLVVJobUFoQW1QajF4SDNIQzlTR200bmZpZEJQOG43dGVmVGlIY2sxYlRyTmItQ3h4akdSVGNN?oc=5"
   ],
+  "source_updated_at": "2026-11-03T03:42:00Z",
   "ingress": {
     "kind": "google_news",
     "site_id": "tw_media",
@@ -22,27 +23,29 @@
   "publisher": {
     "schema_version": 1,
     "publisher_id": "bnext",
-    "name": "數位時代",
-    "domain": null,
+    "name": "Meet創業小聚",
+    "domain": "meet.bnext.com.tw",
     "status": "identified",
     "basis": [
+      "google_rss_source",
       "configured_bridge"
     ],
     "evidence": {
-      "rss_source_name": null,
-      "rss_source_url": null,
+      "rss_source_name": "Meet創業小聚",
+      "rss_source_url": "https://meet.bnext.com.tw",
       "article_url": null,
       "article_host": "news.google.com",
       "expected_publisher_id": null,
       "conflicts": []
     }
   },
+  "security_topic": true,
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
     "registry_revision": "a6dd827b98a3b10758c307cb9bd94385ffc0a95096975a7217c073bee8003b33",
-    "scope_id": "unreviewed",
-    "publisher_kind": "unknown",
+    "scope_id": "edition/meet.bnext.com.tw",
+    "publisher_kind": "media",
     "admission_status": "unreviewed",
     "source_tier": "watchlist",
     "source_tier_label": "未審來源",
@@ -51,12 +54,10 @@
     "allow_featured": false,
     "allow_radar": false,
     "reason_codes": [
-      "legacy_identity",
-      "scope_unknown",
+      "identified_bridge",
       "unreviewed_publisher",
       "not_permitted_for_featured",
       "not_permitted_for_radar"
     ]
-  },
-  "security_topic": false
+  }
 }
