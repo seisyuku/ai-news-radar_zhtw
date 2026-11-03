@@ -1,0 +1,61 @@
+{
+  "id": "d6ff18cf0d488215075e4f4174c4b8e00cea796b",
+  "published_at": "2026-10-21T15:07:45Z",
+  "first_seen_at": "2026-11-03T04:05:30.840137Z",
+  "site_id": "curated_media",
+  "site_name": "精選媒體",
+  "source": "Epoch AI (Google News)",
+  "title": "Naomi Bancroft - Epoch AI",
+  "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE1UVlhpREtSR2NaZ1VUT0lGMzlkaXJGNWo3aGcxY2M4Vk1FbldZVkxTZVlpWWpoWGVWVENOUFhqTmJVd2RsYXRCRWtuSnM5QUtLeERGMg?oc=5",
+  "last_seen_at": "2026-11-03T04:05:30.840137Z",
+  "summary": "Naomi Bancroft Epoch AI",
+  "publisher_links": [
+    "https://news.google.com/rss/articles/CBMiVEFVX3lxTE1UVlhpREtSR2NaZ1VUT0lGMzlkaXJGNWo3aGcxY2M4Vk1FbldZVkxTZVlpWWpoWGVWVENOUFhqTmJVd2RsYXRCRWtuSnM5QUtLeERGMg?oc=5"
+  ],
+  "source_updated_at": "2026-10-21T15:07:45Z",
+  "ingress": {
+    "kind": "google_news",
+    "site_id": "curated_media",
+    "source_id": "epoch_ai_news",
+    "name": "Epoch AI (Google News)",
+    "feed_url": "https://news.google.com/rss/search?q=site%3Aepoch.ai+when%3A14d&hl=en-US&gl=US&ceid=US%3Aen"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "epoch",
+    "name": "Epoch AI",
+    "domain": "epoch.ai",
+    "status": "identified",
+    "basis": [
+      "google_rss_source",
+      "configured_bridge"
+    ],
+    "evidence": {
+      "rss_source_name": "Epoch AI",
+      "rss_source_url": "https://epoch.ai",
+      "article_url": null,
+      "article_host": "news.google.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "a6dd827b98a3b10758c307cb9bd94385ffc0a95096975a7217c073bee8003b33",
+    "scope_id": "epoch",
+    "publisher_kind": "media",
+    "admission_status": "limited",
+    "source_tier": "ai_media",
+    "source_tier_label": "精選AI媒體",
+    "source_tier_rank": 2,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_bridge",
+      "limited_scope"
+    ]
+  }
+}
