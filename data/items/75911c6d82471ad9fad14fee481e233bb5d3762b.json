@@ -1,0 +1,62 @@
+{
+  "id": "75911c6d82471ad9fad14fee481e233bb5d3762b",
+  "published_at": "2026-10-29T16:00:00Z",
+  "first_seen_at": "2026-11-04T05:05:28.984510Z",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "Amazon Aurora 现支持后量子 TLS 密钥交换",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/aurora-postgresql-post-quantum-tls-key-exchange",
+  "last_seen_at": "2026-11-04T05:05:28.984510Z",
+  "summary": "即日起， Amazon Aurora PostgreSQL 兼容版 开始支持后量子 TLS（PQ-TLS）密钥交换，为您提供用于加密传输中数据的后量子密码学选项。 Amazon Aurora PostgreSQL 18 及更高版本支持修改 ssl_groups 参数。您可以从 Amazon Aurora PostgreSQL 允许列表中 选择密码组 ，以符合企业的安全标准。 Amazon Aurora 设计具有全球规模的高性能和可用性，与 PostgreSQL 完全兼容。它提供可缩减至零的无服务器计算、支持多区域韧性的 Aurora Global Database、用于提升 I/O 密集型工作负载性价比的 Aurora I/O 优化版，以及内置的安全功能和持续备份。要开始使用，请查看我们的 入门页面 。",
+  "publisher_links": [
+    "https://aws.amazon.com/rds/aurora/",
+    "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraPostgreSQL.Security.html#PostgreSQL.Concepts.General.SSL.Groups",
+    "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_GettingStartedAurora.html"
+  ],
+  "source_updated_at": "2026-10-29T16:00:00Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "aws_news",
+    "name": "AWS News",
+    "feed_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "amazon",
+    "name": "AWS",
+    "domain": "aws.amazon.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/aurora-postgresql-post-quantum-tls-key-exchange",
+      "article_host": "aws.amazon.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "amazon",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}

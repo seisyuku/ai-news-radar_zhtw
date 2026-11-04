@@ -1,0 +1,61 @@
+{
+  "id": "00a019716d0c540b79cb747dff8e3ddbe0d936d5",
+  "published_at": "2026-10-27T08:00:00Z",
+  "first_seen_at": "2026-11-04T05:05:28.984510Z",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "Amazon Neptune 现在支持在线索引重建以回收存储空间",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/neptune-online-index-rebuild",
+  "last_seen_at": "2026-11-04T05:05:28.984510Z",
+  "summary": "Amazon Neptune 数据库现在支持在线索引重建，这是一项新功能，可帮助数据库管理员和应用程序团队对 Neptune 索引进行碎片整理，并在不使数据库离线的情况下回收未使用的存储空间。随着时间的推移，插入、更新和删除操作会在数据页中产生未使用的空间空隙，导致即使在数据被删除后， VolumeBytesUsed 指标仍会人为地保持在较高水平。这种碎片化会增加 I/O 成本，并降低大规模运行 Gremlin、openCypher 或 SPARQL 工作负载的团队的查询性能。 通过在线索引重建，写入器实例和只读副本上的读写查询在整个重建过程中均可不受影响地继续进行。您可以将所有索引、仅四元索引或仅字典索引作为目标，因此该功能非常适合用于删除后清理、定期维护、存储限制管理以及对严重碎片化的数据库进行性能调优。可调的并发和写入缓冲区大小设置，可让您在重建速度与对工作负载的影响之间取得平衡，而内置的存储安全机制则可防止操作过程中出现存储空间耗尽的情况。 从 Amazon Neptune 引擎版本 1.5.0.0 开始，在所有支持 Amazon Neptune 数据库的区域中，已配置的写入器实例均可使用在线索引重建功能。要了解有关配置和运行在线索引重建功能的更多信息，包括 API 参考和调优指南，请访问 Amazon Neptune 文档 。",
+  "publisher_links": [
+    "https://aws.amazon.com/neptune/",
+    "https://docs.aws.amazon.com/neptune/latest/userguide/storage-index-rebuild.html"
+  ],
+  "source_updated_at": "2026-10-27T08:00:00Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "aws_news",
+    "name": "AWS News",
+    "feed_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "amazon",
+    "name": "AWS",
+    "domain": "aws.amazon.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/neptune-online-index-rebuild",
+      "article_host": "aws.amazon.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "amazon",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}

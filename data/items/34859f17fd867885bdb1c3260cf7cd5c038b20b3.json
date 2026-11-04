@@ -1,0 +1,62 @@
+{
+  "id": "34859f17fd867885bdb1c3260cf7cd5c038b20b3",
+  "published_at": "2026-10-27T23:31:00Z",
+  "first_seen_at": "2026-11-04T05:05:28.984510Z",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "Amazon ECS 现在支持通过 NVIDIA Multi-Process Service（MPS）共享 GPU",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/amazon-ecs-gpu-sharing-nvidia-mps",
+  "last_seen_at": "2026-11-04T05:05:28.984510Z",
+  "summary": "Amazon Elastic Container Service （Amazon ECS）现在支持通过 NVIDIA Multi-Process Service（MPS）共享 GPU，使您能够在单个 NVIDIA GPU 上同时运行多个 Amazon ECS 任务。对于仅使用部分 GPU 容量的工作负载（例如小模型推理、AV/ADAS 模拟、嵌入生成以及多模型服务），GPU 共享可帮助您提高 GPU 利用率并降低基础设施成本。 借助 GPU 共享，您无需修改应用程序代码，即可将更多工作负载打包到每个 GPU 实例上。您可以定义每个容器所需的 GPU 内存，并可以选择设置 GPU 计算的最大份额；随着服务的扩展和部署，Amazon ECS 会将任务置于具有可用容量的 GPU 上。Amazon ECS Managed Instances 和 Amazon EC2 上的 Amazon ECS 都支持 GPU 共享。在 Amazon ECS Managed Instances 上，Amazon ECS 还监控 MPS 控制进程守护程序，该程序允许在每个实例上共享。如果进程守护程序停止运行或运行状况不佳，Amazon ECS 会自动替换实例并将任务转移到正常运行的容量，这样您的 GPU 工作负载无需人工干预即可继续运行。 要开始使用，请使用 AWS 管理控制台、AWS CLI、AWS SDK、AWS CloudFormation 或其他基础设施即代码工具，创建一个带 NVIDIA GPU 实例的容量提供程序，在任务定义的容器定义中设置 GPU 共享策略和内存，并在该容量提供程序上创建一个服务。这一功能已在所有 AWS 商业区域和 AWS GovCloud（美国） 区域 推出。要了解更多信息，请访问 Amazon ECS GPU 共享 文档 。",
+  "publisher_links": [
+    "https://aws.amazon.com/ecs/",
+    "https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/",
+    "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-gpu-sharing.html"
+  ],
+  "source_updated_at": "2026-10-27T23:31:00Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "aws_news",
+    "name": "AWS News",
+    "feed_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "amazon",
+    "name": "AWS",
+    "domain": "aws.amazon.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/amazon-ecs-gpu-sharing-nvidia-mps",
+      "article_host": "aws.amazon.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "amazon",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}

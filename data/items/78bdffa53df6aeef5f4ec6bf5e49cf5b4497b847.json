@@ -1,0 +1,60 @@
+{
+  "id": "78bdffa53df6aeef5f4ec6bf5e49cf5b4497b847",
+  "published_at": "2026-10-26T20:24:00Z",
+  "first_seen_at": "2026-11-04T05:05:28.984510Z",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "Amazon ECR 现在支持对现有容器映像进行复制回填",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/replication-backfill-amazon-ecr",
+  "last_seen_at": "2026-11-04T05:05:28.984510Z",
+  "summary": "Amazon Elastic Container Registry（Amazon ECR）现在支持复制回填，使您能够将私有注册表中的现有映像复制到配置的复制注册表目标位置。以前，复制功能仅适用于在启用复制配置后推送的映像，需要客户手动为映像重新添加标签，才能触发对先前存在的映像的复制。借助复制回填功能，您现在只需调用 API 一次，即可将完整的映像目录复制到新目标位置或现有目标位置。 复制回填功能在以下情况下非常有用，在扩展到新的 AWS 区域、验证灾难恢复准备情况、更新复制规则或确保跨区域存在完整映像目录以实现合规性。您可以同时运行最多十个回填作业，通过新的 API 监控进度和每个映像的结果，并且在不删除已复制的映像的情况下随时停止作业。 复制回填功能已在所有提供 Amazon ECR 的 AWS 区域推出。要了解更多信息，请参阅 Amazon ECR 用户指南 。",
+  "publisher_links": [
+    "https://docs.aws.amazon.com/AmazonECR/latest/userguide/replication-backfill.html"
+  ],
+  "source_updated_at": "2026-10-26T20:24:00Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "aws_news",
+    "name": "AWS News",
+    "feed_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "amazon",
+    "name": "AWS",
+    "domain": "aws.amazon.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/replication-backfill-amazon-ecr",
+      "article_host": "aws.amazon.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "amazon",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}

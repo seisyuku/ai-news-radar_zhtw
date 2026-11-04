@@ -1,0 +1,60 @@
+{
+  "id": "111b36cd64fd51e6a0e8a7dd13db9e65a34ba879",
+  "published_at": "2026-10-28T17:33:00Z",
+  "first_seen_at": "2026-11-04T05:05:28.984510Z",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "Amazon EKS 自动模式现在支持 Kubernetes Gateway API",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/amazon-eks-auto-mode-kubernetes-gateway-api",
+  "last_seen_at": "2026-11-04T05:05:28.984510Z",
+  "summary": "Amazon EKS 自动模式现在支持 Kubernetes Gateway API，为客户提供了一种标准、可移植的方式来定义流量如何到达其应用程序。客户可以使用 Gateway 和 HTTPRoute 资源配置应用程序负载均衡，而 EKS 自动模式会自动预置和管理底层 AWS 基础设施。 此次发布后，EKS 自动模式客户无需安装或配置单独的控制器即可采用下一代 Kubernetes 流量管理标准。功能包括 HTTP 和 gRPC 路由、适用于多团队环境的跨命名空间流量路由、加权流量拆分、基于标头的路由，以及通过 AWS Certificate Manager 自动发现 TLS 证书。使用 Ingress 资源的现有工作负载继续与 Gateway API 资源并行运行。 要开始使用，请参阅 Amazon EKS 文档 。Gateway API 支持作为 EKS 自动模式的一部分提供，已在支持 EKS 自动模式的所有 AWS 区域推出。针对预置的 AWS 负载均衡资源收取标准费用。",
+  "publisher_links": [
+    "https://docs.aws.amazon.com/eks/latest/userguide/auto-configure-gateway-api.html"
+  ],
+  "source_updated_at": "2026-10-28T17:33:00Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "aws_news",
+    "name": "AWS News",
+    "feed_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "amazon",
+    "name": "AWS",
+    "domain": "aws.amazon.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/amazon-eks-auto-mode-kubernetes-gateway-api",
+      "article_host": "aws.amazon.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "amazon",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}
