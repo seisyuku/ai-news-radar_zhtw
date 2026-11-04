@@ -1,0 +1,65 @@
+{
+  "id": "a3d8e25ce9745d9631468bf5b7ebbfbd99c1fb98",
+  "published_at": "2026-11-04T03:05:29Z",
+  "first_seen_at": "2026-11-04T03:35:31.237268Z",
+  "site_id": "curated_media",
+  "site_name": "精選媒體",
+  "source": "AIBASE",
+  "title": "Claude 給自己發\"身份證\"：Anthropic 用零知識證明斬斷套殼灰產",
+  "url": "https://news.aibase.com/tw/news/32073",
+  "last_seen_at": "2026-11-04T03:35:31.237268Z",
+  "summary": "大模型供應鏈存在“掏頂配錢卻跑縮水模型”灰色地帶。Anthropic聯合零知識證明學者開源FlashProve：上線前單張H100約39分鐘生成權重“手印”ID並公開；每次對話後GPU生成約19MB證明；用戶普通CPU跑cp_verify，17秒驗真，無需權重和GPU。底層zkSNARK每請求約2000個sumcheck，安全依賴BLAKE2。AI寫代碼，Lean驗證，人類只守六條鐵律。",
+  "ingress": {
+    "kind": "public_adapter",
+    "site_id": "curated_media",
+    "source_id": "aibase",
+    "name": "AIBASE",
+    "feed_url": null
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "aibase",
+    "name": "AIBASE",
+    "domain": "news.aibase.com",
+    "status": "identified",
+    "basis": [
+      "explicit_group"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://news.aibase.com/tw/news/32073",
+      "article_host": "news.aibase.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "aibase_article_id": "32073",
+  "field_languages": {
+    "title": "tw",
+    "url": "tw",
+    "summary": "tw"
+  },
+  "content_language": "tw",
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "aibase",
+    "publisher_kind": "aggregator",
+    "admission_status": "limited",
+    "source_tier": "advanced",
+    "source_tier_label": "次級AI媒體",
+    "source_tier_rank": 4,
+    "allow_general": true,
+    "allow_featured": false,
+    "allow_radar": false,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
+    ]
+  }
+}
