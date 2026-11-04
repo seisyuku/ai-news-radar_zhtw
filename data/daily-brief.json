@@ -1,16 +1,876 @@
 {
-  "generated_at": "2026-11-04T14:35:35.945302Z",
+  "generated_at": "2026-11-04T15:35:35.340946Z",
   "window_hours": 24,
-  "total_items": 1,
+  "total_items": 3,
   "items": [
     {
-      "score": 0.5874,
-      "importance": 0.5874,
-      "importance_score": 0.5874,
+      "score": 0.6821,
+      "importance": 0.6821,
+      "importance_score": 0.6821,
+      "importance_breakdown": {
+        "impact": 75,
+        "core_bonus": 3,
+        "freshness": 0.9007
+      },
+      "category": "official",
+      "importance_label": "官方更新",
+      "reasons": [
+        "official_source",
+        "high_ai_relevance",
+        "high_importance"
+      ],
+      "brief_event_id": "be1_d6b35394ac42bdca5b0aae1d",
+      "story_id": "be1_d6b35394ac42bdca5b0aae1d",
+      "identity": {
+        "key": "{\"action\":\"article\",\"subject\":\"article:1be4fdd8e6ca80f0ec0127711bf05d7cfcd7194eac7f7e3b9f6a7d04824358c9\",\"v\":1}",
+        "subject": "article:1be4fdd8e6ca80f0ec0127711bf05d7cfcd7194eac7f7e3b9f6a7d04824358c9",
+        "version": null,
+        "action": "article",
+        "scope": [],
+        "batch_key": null,
+        "facts": []
+      },
+      "member_story_ids": [
+        "story_3a06f84c0f51"
+      ],
+      "member_article_ids": [
+        "68dc1bad006f6bca35a9c00f7682af9c533fc262",
+        "b44910a7d5e53af32273e3fbd79c780a8976bd7a"
+      ],
+      "sources": [
+        {
+          "id": "68dc1bad006f6bca35a9c00f7682af9c533fc262",
+          "title": "OpenAI to acquire Pierre Computer Company, Inc.",
+          "title_zh": null,
+          "title_en": "OpenAI to acquire Pierre Computer Company, Inc.",
+          "title_original": "OpenAI to acquire Pierre Computer Company, Inc.",
+          "summary": "OpenAI will acquire Pierre Computer Company, expanding Codex’s tools for building, understanding, and reviewing code.",
+          "summary_zh": null,
+          "url": "https://openai.com/index/openai-to-acquire-pierre",
+          "source": "OpenAI News",
+          "site_id": "official_ai",
+          "published_at": "2026-11-04T14:30:00Z",
+          "ingress": {
+            "kind": "public_feed",
+            "site_id": "official_ai",
+            "source_id": "openai_news",
+            "name": "OpenAI News",
+            "feed_url": "https://openai.com/news/rss.xml"
+          },
+          "publisher": {
+            "schema_version": 1,
+            "publisher_id": "openai",
+            "name": "OpenAI",
+            "domain": "openai.com",
+            "status": "identified",
+            "basis": [
+              "article_host"
+            ],
+            "evidence": {
+              "rss_source_name": null,
+              "rss_source_url": null,
+              "article_url": "https://openai.com/index/openai-to-acquire-pierre",
+              "article_host": "openai.com",
+              "expected_publisher_id": null,
+              "conflicts": []
+            }
+          },
+          "corroboration_key": "publisher:openai",
+          "corroboration_status": "identified",
+          "role": "active_phase",
+          "phase_id": "bp1_77937f9c66f9fa2c8ab9ab51",
+          "security_topic": false,
+          "source_policy": {
+            "schema_version": 1,
+            "policy_id": "publisher-governance-v1",
+            "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+            "scope_id": "openai",
+            "publisher_kind": "official",
+            "admission_status": "limited",
+            "source_tier": "official",
+            "source_tier_label": "官方一手源",
+            "source_tier_rank": 0,
+            "allow_general": true,
+            "allow_featured": true,
+            "allow_radar": true,
+            "reason_codes": [
+              "identified_host",
+              "limited_scope"
+            ]
+          },
+          "source_tier": "official",
+          "source_tier_label": "官方一手源",
+          "source_tier_rank": 0,
+          "source_material": {
+            "title_original": "",
+            "title": "OpenAI to acquire Pierre Computer Company, Inc.",
+            "summary": "OpenAI will acquire Pierre Computer Company, expanding Codex’s tools for building, understanding, and reviewing code."
+          },
+          "source_links": [],
+          "source_site_name": "Official AI Updates"
+        }
+      ],
+      "items": [
+        {
+          "id": "68dc1bad006f6bca35a9c00f7682af9c533fc262",
+          "title": "OpenAI to acquire Pierre Computer Company, Inc.",
+          "title_zh": null,
+          "title_en": "OpenAI to acquire Pierre Computer Company, Inc.",
+          "title_original": "OpenAI to acquire Pierre Computer Company, Inc.",
+          "summary": "OpenAI will acquire Pierre Computer Company, expanding Codex’s tools for building, understanding, and reviewing code.",
+          "summary_zh": null,
+          "url": "https://openai.com/index/openai-to-acquire-pierre",
+          "source": "OpenAI News",
+          "site_id": "official_ai",
+          "published_at": "2026-11-04T14:30:00Z",
+          "ingress": {
+            "kind": "public_feed",
+            "site_id": "official_ai",
+            "source_id": "openai_news",
+            "name": "OpenAI News",
+            "feed_url": "https://openai.com/news/rss.xml"
+          },
+          "publisher": {
+            "schema_version": 1,
+            "publisher_id": "openai",
+            "name": "OpenAI",
+            "domain": "openai.com",
+            "status": "identified",
+            "basis": [
+              "article_host"
+            ],
+            "evidence": {
+              "rss_source_name": null,
+              "rss_source_url": null,
+              "article_url": "https://openai.com/index/openai-to-acquire-pierre",
+              "article_host": "openai.com",
+              "expected_publisher_id": null,
+              "conflicts": []
+            }
+          },
+          "corroboration_key": "publisher:openai",
+          "corroboration_status": "identified",
+          "role": "active_phase",
+          "phase_id": "bp1_77937f9c66f9fa2c8ab9ab51",
+          "security_topic": false,
+          "source_policy": {
+            "schema_version": 1,
+            "policy_id": "publisher-governance-v1",
+            "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+            "scope_id": "openai",
+            "publisher_kind": "official",
+            "admission_status": "limited",
+            "source_tier": "official",
+            "source_tier_label": "官方一手源",
+            "source_tier_rank": 0,
+            "allow_general": true,
+            "allow_featured": true,
+            "allow_radar": true,
+            "reason_codes": [
+              "identified_host",
+              "limited_scope"
+            ]
+          },
+          "source_tier": "official",
+          "source_tier_label": "官方一手源",
+          "source_tier_rank": 0,
+          "source_material": {
+            "title_original": "",
+            "title": "OpenAI to acquire Pierre Computer Company, Inc.",
+            "summary": "OpenAI will acquire Pierre Computer Company, expanding Codex’s tools for building, understanding, and reviewing code."
+          },
+          "source_links": [],
+          "source_site_name": "Official AI Updates"
+        }
+      ],
+      "history_article_ids": [],
+      "raw_record_count": 2,
+      "article_count": 1,
+      "independent_publisher_count": 1,
+      "primary_item": {
+        "id": "68dc1bad006f6bca35a9c00f7682af9c533fc262",
+        "title": "OpenAI to acquire Pierre Computer Company, Inc.",
+        "title_zh": null,
+        "title_en": "OpenAI to acquire Pierre Computer Company, Inc.",
+        "title_original": "OpenAI to acquire Pierre Computer Company, Inc.",
+        "summary": "OpenAI will acquire Pierre Computer Company, expanding Codex’s tools for building, understanding, and reviewing code.",
+        "summary_zh": null,
+        "url": "https://openai.com/index/openai-to-acquire-pierre",
+        "source": "OpenAI News",
+        "site_id": "official_ai",
+        "published_at": "2026-11-04T14:30:00Z",
+        "ingress": {
+          "kind": "public_feed",
+          "site_id": "official_ai",
+          "source_id": "openai_news",
+          "name": "OpenAI News",
+          "feed_url": "https://openai.com/news/rss.xml"
+        },
+        "publisher": {
+          "schema_version": 1,
+          "publisher_id": "openai",
+          "name": "OpenAI",
+          "domain": "openai.com",
+          "status": "identified",
+          "basis": [
+            "article_host"
+          ],
+          "evidence": {
+            "rss_source_name": null,
+            "rss_source_url": null,
+            "article_url": "https://openai.com/index/openai-to-acquire-pierre",
+            "article_host": "openai.com",
+            "expected_publisher_id": null,
+            "conflicts": []
+          }
+        },
+        "corroboration_key": "publisher:openai",
+        "corroboration_status": "identified",
+        "role": "active_phase",
+        "phase_id": "bp1_77937f9c66f9fa2c8ab9ab51",
+        "security_topic": false,
+        "source_policy": {
+          "schema_version": 1,
+          "policy_id": "publisher-governance-v1",
+          "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+          "scope_id": "openai",
+          "publisher_kind": "official",
+          "admission_status": "limited",
+          "source_tier": "official",
+          "source_tier_label": "官方一手源",
+          "source_tier_rank": 0,
+          "allow_general": true,
+          "allow_featured": true,
+          "allow_radar": true,
+          "reason_codes": [
+            "identified_host",
+            "limited_scope"
+          ]
+        },
+        "source_tier": "official",
+        "source_tier_label": "官方一手源",
+        "source_tier_rank": 0,
+        "source_material": {
+          "title_original": "",
+          "title": "OpenAI to acquire Pierre Computer Company, Inc.",
+          "summary": "OpenAI will acquire Pierre Computer Company, expanding Codex’s tools for building, understanding, and reviewing code."
+        },
+        "source_links": [],
+        "source_site_name": "Official AI Updates",
+        "business_events": [
+          "market"
+        ]
+      },
+      "title": "OpenAI to acquire Pierre Computer Company, Inc.",
+      "url": "https://openai.com/index/openai-to-acquire-pierre",
+      "primary_url": "https://openai.com/index/openai-to-acquire-pierre",
+      "source": "OpenAI News",
+      "source_name": "",
+      "source_names": [
+        "OpenAI News"
+      ],
+      "source_count": 1,
+      "item_count": 2,
+      "corroboration_count": 1,
+      "duplicate_count": 1,
+      "business_events": [
+        "market"
+      ],
+      "initial_effective_at": "2026-11-04T14:30:00Z",
+      "initial_basis": "source_report",
+      "first_observed_at": "2026-11-04T15:35:35.340946Z",
+      "last_material_at": null,
+      "last_reported_at": "2026-11-04T14:30:00Z",
+      "effective_basis": "source_report",
+      "effective_reported_day": null,
+      "effective_at": "2026-11-04T14:30:00Z",
+      "expires_at": "2026-11-05T14:30:00Z",
+      "earliest_at": "2026-11-04T14:30:00Z",
+      "latest_at": "2026-11-04T14:30:00Z",
+      "active_phase_id": "bp1_77937f9c66f9fa2c8ab9ab51",
+      "eligible": true,
+      "eligibility_reason": "in_window",
+      "match_evidence": [
+        {
+          "rule_id": "R6",
+          "strength": "unresolved",
+          "article_id": "68dc1bad006f6bca35a9c00f7682af9c533fc262",
+          "basis": [
+            "{\"action\":\"article\",\"subject\":\"article:1be4fdd8e6ca80f0ec0127711bf05d7cfcd7194eac7f7e3b9f6a7d04824358c9\",\"v\":1}"
+          ],
+          "conflicts": []
+        },
+        {
+          "rule_id": "R6",
+          "strength": "unresolved",
+          "article_id": "b44910a7d5e53af32273e3fbd79c780a8976bd7a",
+          "basis": [
+            "{\"action\":\"article\",\"subject\":\"article:1be4fdd8e6ca80f0ec0127711bf05d7cfcd7194eac7f7e3b9f6a7d04824358c9\",\"v\":1}"
+          ],
+          "conflicts": []
+        }
+      ],
+      "unknown_update_article_ids": [],
+      "all_sources": [
+        {
+          "id": "68dc1bad006f6bca35a9c00f7682af9c533fc262",
+          "title": "OpenAI to acquire Pierre Computer Company, Inc.",
+          "title_zh": null,
+          "title_en": "OpenAI to acquire Pierre Computer Company, Inc.",
+          "title_original": "OpenAI to acquire Pierre Computer Company, Inc.",
+          "summary": "OpenAI will acquire Pierre Computer Company, expanding Codex’s tools for building, understanding, and reviewing code.",
+          "summary_zh": null,
+          "url": "https://openai.com/index/openai-to-acquire-pierre",
+          "source": "OpenAI News",
+          "site_id": "official_ai",
+          "published_at": "2026-11-04T14:30:00Z",
+          "ingress": {
+            "kind": "public_feed",
+            "site_id": "official_ai",
+            "source_id": "openai_news",
+            "name": "OpenAI News",
+            "feed_url": "https://openai.com/news/rss.xml"
+          },
+          "publisher": {
+            "schema_version": 1,
+            "publisher_id": "openai",
+            "name": "OpenAI",
+            "domain": "openai.com",
+            "status": "identified",
+            "basis": [
+              "article_host"
+            ],
+            "evidence": {
+              "rss_source_name": null,
+              "rss_source_url": null,
+              "article_url": "https://openai.com/index/openai-to-acquire-pierre",
+              "article_host": "openai.com",
+              "expected_publisher_id": null,
+              "conflicts": []
+            }
+          },
+          "corroboration_key": "publisher:openai",
+          "corroboration_status": "identified",
+          "role": "active_phase",
+          "phase_id": "bp1_77937f9c66f9fa2c8ab9ab51",
+          "security_topic": false,
+          "source_policy": {
+            "schema_version": 1,
+            "policy_id": "publisher-governance-v1",
+            "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+            "scope_id": "openai",
+            "publisher_kind": "official",
+            "admission_status": "limited",
+            "source_tier": "official",
+            "source_tier_label": "官方一手源",
+            "source_tier_rank": 0,
+            "allow_general": true,
+            "allow_featured": true,
+            "allow_radar": true,
+            "reason_codes": [
+              "identified_host",
+              "limited_scope"
+            ]
+          },
+          "source_tier": "official",
+          "source_tier_label": "官方一手源",
+          "source_tier_rank": 0,
+          "source_material": {
+            "title_original": "",
+            "title": "OpenAI to acquire Pierre Computer Company, Inc.",
+            "summary": "OpenAI will acquire Pierre Computer Company, expanding Codex’s tools for building, understanding, and reviewing code."
+          },
+          "source_links": [],
+          "source_site_name": "Official AI Updates"
+        },
+        {
+          "id": "b44910a7d5e53af32273e3fbd79c780a8976bd7a",
+          "title": "OpenAI to acquire Pierre Computer Company, Inc.",
+          "title_zh": null,
+          "title_en": null,
+          "title_original": null,
+          "summary": "OpenAI will acquire Pierre Computer Company, expanding Codex’s tools for building, understanding, and reviewing code.",
+          "summary_zh": null,
+          "url": "https://openai.com/index/openai-to-acquire-pierre",
+          "source": "OpenAI News",
+          "site_id": "opmlrss",
+          "published_at": "2026-11-04T14:30:00Z",
+          "ingress": {
+            "kind": "private_opml",
+            "site_id": "opmlrss",
+            "source_id": null,
+            "name": "RSS/OPML",
+            "feed_url": null
+          },
+          "publisher": {
+            "schema_version": 1,
+            "publisher_id": "openai",
+            "name": "OpenAI",
+            "domain": "openai.com",
+            "status": "identified",
+            "basis": [
+              "article_host"
+            ],
+            "evidence": {
+              "rss_source_name": null,
+              "rss_source_url": null,
+              "article_url": "https://openai.com/index/openai-to-acquire-pierre",
+              "article_host": "openai.com",
+              "expected_publisher_id": null,
+              "conflicts": []
+            }
+          },
+          "corroboration_key": "publisher:openai",
+          "corroboration_status": "identified",
+          "role": "past_phase",
+          "phase_id": "bp1_77937f9c66f9fa2c8ab9ab51",
+          "security_topic": false,
+          "source_policy": {
+            "schema_version": 1,
+            "policy_id": "publisher-governance-v1",
+            "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+            "scope_id": "openai",
+            "publisher_kind": "official",
+            "admission_status": "limited",
+            "source_tier": "official",
+            "source_tier_label": "官方一手源",
+            "source_tier_rank": 0,
+            "allow_general": true,
+            "allow_featured": true,
+            "allow_radar": true,
+            "reason_codes": [
+              "identified_host",
+              "limited_scope"
+            ]
+          },
+          "source_tier": "official",
+          "source_tier_label": "官方一手源",
+          "source_tier_rank": 0,
+          "source_material": {
+            "title_original": "",
+            "title": "OpenAI to acquire Pierre Computer Company, Inc.",
+            "summary": "OpenAI will acquire Pierre Computer Company, expanding Codex’s tools for building, understanding, and reviewing code."
+          },
+          "source_links": [],
+          "source_site_name": "OPML RSS"
+        }
+      ],
+      "publisher_qualified": true,
+      "governance_publisher_key": "publisher:openai",
+      "news_summary": "OpenAI將收購Pierre Computer Company，以擴展Codex的程式碼建置、理解與審查工具。",
+      "selection_class": "core",
+      "signal_label": "核心事件",
+      "disclosure_flags": [],
+      "selection_tier": "primary",
+      "supplement_impact": {
+        "i": 15,
+        "p": 20,
+        "e": 20,
+        "c": 20,
+        "total": 75,
+        "passes": true
+      }
+    },
+    {
+      "score": 0.6349,
+      "importance": 0.6349,
+      "importance_score": 0.6349,
+      "importance_breakdown": {
+        "impact": 80,
+        "core_bonus": 0,
+        "freshness": 0.8174
+      },
+      "category": "watch",
+      "importance_label": "值得關注",
+      "reasons": [
+        "recent_ai_signal"
+      ],
+      "brief_event_id": "be1_542a1ca98c5713ae67c931e3",
+      "story_id": "be1_542a1ca98c5713ae67c931e3",
+      "identity": {
+        "key": "{\"action\":\"article\",\"subject\":\"article:6c7b7b502d32b841a937ff45cbb29a82e9c97950ad902468d43dd3c0a93c1ca2\",\"v\":1}",
+        "subject": "article:6c7b7b502d32b841a937ff45cbb29a82e9c97950ad902468d43dd3c0a93c1ca2",
+        "version": null,
+        "action": "article",
+        "scope": [],
+        "batch_key": null,
+        "facts": []
+      },
+      "member_story_ids": [
+        "story_4bc4d3628895"
+      ],
+      "member_article_ids": [
+        "715b879111fd145233e3e856ae6e6caf4fe3b4d9"
+      ],
+      "sources": [
+        {
+          "id": "715b879111fd145233e3e856ae6e6caf4fe3b4d9",
+          "title": "AI sales startup Nooks secures $500 million in funding for expansion - Reuters",
+          "title_zh": null,
+          "title_en": "AI sales startup Nooks secures $500 million in funding for expansion - Reuters",
+          "title_original": "AI sales startup Nooks secures $500 million in funding for expansion - Reuters",
+          "summary": "AI sales startup Nooks secures $500 million in funding for expansion Reuters",
+          "summary_zh": null,
+          "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQOXpKNVNpQ1hhR3lxTGJuem9WcDNINW00TE1ORVZuX0xaWDFtcGhXdENBblhnWTBrVFNkRGU1SzM2S1oyRHJtUUVkSEJEUi1wUXh4Tk5XbWFDZ3FySEZ0U19xRVpwbmVFaWZRZnh1Sm81MnkybWtpY2tuNEhSSFNwOHdQRnZuTm54aWZVcWM4M0l5T0N6ekdVUllFSkFwTU94TWVfanNWSUEybUo3eDRIZi1kRQ?oc=5",
+          "source": "Reuters AI (Google News)",
+          "site_id": "curated_media",
+          "published_at": "2026-11-04T11:32:09Z",
+          "ingress": {
+            "kind": "google_news",
+            "site_id": "curated_media",
+            "source_id": "reuters_ai_news",
+            "name": "Reuters AI (Google News)",
+            "feed_url": "https://news.google.com/rss/search?q=site:reuters.com%20AI%20when:2d&hl=en-US&gl=US&ceid=US:en"
+          },
+          "publisher": {
+            "schema_version": 1,
+            "publisher_id": "reuters",
+            "name": "Reuters",
+            "domain": "www.reuters.com",
+            "status": "identified",
+            "basis": [
+              "google_rss_source",
+              "configured_bridge"
+            ],
+            "evidence": {
+              "rss_source_name": "Reuters",
+              "rss_source_url": "https://www.reuters.com",
+              "article_url": null,
+              "article_host": "news.google.com",
+              "expected_publisher_id": null,
+              "conflicts": []
+            }
+          },
+          "corroboration_key": "publisher:reuters",
+          "corroboration_status": "identified",
+          "role": "active_phase",
+          "phase_id": "bp1_30372d23f0270d565caa223a",
+          "security_topic": false,
+          "source_policy": {
+            "schema_version": 1,
+            "policy_id": "publisher-governance-v1",
+            "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+            "scope_id": "reuters",
+            "publisher_kind": "media",
+            "admission_status": "limited",
+            "source_tier": "ai_media",
+            "source_tier_label": "精選AI媒體",
+            "source_tier_rank": 2,
+            "allow_general": true,
+            "allow_featured": true,
+            "allow_radar": true,
+            "reason_codes": [
+              "identified_bridge",
+              "limited_scope"
+            ]
+          },
+          "source_tier": "ai_media",
+          "source_tier_label": "精選AI媒體",
+          "source_tier_rank": 2,
+          "source_material": {
+            "title_original": "",
+            "title": "AI sales startup Nooks secures $500 million in funding for expansion - Reuters",
+            "summary": "AI sales startup Nooks secures $500 million in funding for expansion Reuters"
+          },
+          "source_links": [
+            "https://news.google.com/rss/articles/CBMiswFBVV95cUxQOXpKNVNpQ1hhR3lxTGJuem9WcDNINW00TE1ORVZuX0xaWDFtcGhXdENBblhnWTBrVFNkRGU1SzM2S1oyRHJtUUVkSEJEUi1wUXh4Tk5XbWFDZ3FySEZ0U19xRVpwbmVFaWZRZnh1Sm81MnkybWtpY2tuNEhSSFNwOHdQRnZuTm54aWZVcWM4M0l5T0N6ekdVUllFSkFwTU94TWVfanNWSUEybUo3eDRIZi1kRQ?oc=5"
+          ],
+          "source_site_name": "精選媒體"
+        }
+      ],
+      "items": [
+        {
+          "id": "715b879111fd145233e3e856ae6e6caf4fe3b4d9",
+          "title": "AI sales startup Nooks secures $500 million in funding for expansion - Reuters",
+          "title_zh": null,
+          "title_en": "AI sales startup Nooks secures $500 million in funding for expansion - Reuters",
+          "title_original": "AI sales startup Nooks secures $500 million in funding for expansion - Reuters",
+          "summary": "AI sales startup Nooks secures $500 million in funding for expansion Reuters",
+          "summary_zh": null,
+          "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQOXpKNVNpQ1hhR3lxTGJuem9WcDNINW00TE1ORVZuX0xaWDFtcGhXdENBblhnWTBrVFNkRGU1SzM2S1oyRHJtUUVkSEJEUi1wUXh4Tk5XbWFDZ3FySEZ0U19xRVpwbmVFaWZRZnh1Sm81MnkybWtpY2tuNEhSSFNwOHdQRnZuTm54aWZVcWM4M0l5T0N6ekdVUllFSkFwTU94TWVfanNWSUEybUo3eDRIZi1kRQ?oc=5",
+          "source": "Reuters AI (Google News)",
+          "site_id": "curated_media",
+          "published_at": "2026-11-04T11:32:09Z",
+          "ingress": {
+            "kind": "google_news",
+            "site_id": "curated_media",
+            "source_id": "reuters_ai_news",
+            "name": "Reuters AI (Google News)",
+            "feed_url": "https://news.google.com/rss/search?q=site:reuters.com%20AI%20when:2d&hl=en-US&gl=US&ceid=US:en"
+          },
+          "publisher": {
+            "schema_version": 1,
+            "publisher_id": "reuters",
+            "name": "Reuters",
+            "domain": "www.reuters.com",
+            "status": "identified",
+            "basis": [
+              "google_rss_source",
+              "configured_bridge"
+            ],
+            "evidence": {
+              "rss_source_name": "Reuters",
+              "rss_source_url": "https://www.reuters.com",
+              "article_url": null,
+              "article_host": "news.google.com",
+              "expected_publisher_id": null,
+              "conflicts": []
+            }
+          },
+          "corroboration_key": "publisher:reuters",
+          "corroboration_status": "identified",
+          "role": "active_phase",
+          "phase_id": "bp1_30372d23f0270d565caa223a",
+          "security_topic": false,
+          "source_policy": {
+            "schema_version": 1,
+            "policy_id": "publisher-governance-v1",
+            "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+            "scope_id": "reuters",
+            "publisher_kind": "media",
+            "admission_status": "limited",
+            "source_tier": "ai_media",
+            "source_tier_label": "精選AI媒體",
+            "source_tier_rank": 2,
+            "allow_general": true,
+            "allow_featured": true,
+            "allow_radar": true,
+            "reason_codes": [
+              "identified_bridge",
+              "limited_scope"
+            ]
+          },
+          "source_tier": "ai_media",
+          "source_tier_label": "精選AI媒體",
+          "source_tier_rank": 2,
+          "source_material": {
+            "title_original": "",
+            "title": "AI sales startup Nooks secures $500 million in funding for expansion - Reuters",
+            "summary": "AI sales startup Nooks secures $500 million in funding for expansion Reuters"
+          },
+          "source_links": [
+            "https://news.google.com/rss/articles/CBMiswFBVV95cUxQOXpKNVNpQ1hhR3lxTGJuem9WcDNINW00TE1ORVZuX0xaWDFtcGhXdENBblhnWTBrVFNkRGU1SzM2S1oyRHJtUUVkSEJEUi1wUXh4Tk5XbWFDZ3FySEZ0U19xRVpwbmVFaWZRZnh1Sm81MnkybWtpY2tuNEhSSFNwOHdQRnZuTm54aWZVcWM4M0l5T0N6ekdVUllFSkFwTU94TWVfanNWSUEybUo3eDRIZi1kRQ?oc=5"
+          ],
+          "source_site_name": "精選媒體"
+        }
+      ],
+      "history_article_ids": [],
+      "raw_record_count": 1,
+      "article_count": 1,
+      "independent_publisher_count": 1,
+      "primary_item": {
+        "id": "715b879111fd145233e3e856ae6e6caf4fe3b4d9",
+        "title": "AI sales startup Nooks secures $500 million in funding for expansion - Reuters",
+        "title_zh": null,
+        "title_en": "AI sales startup Nooks secures $500 million in funding for expansion - Reuters",
+        "title_original": "AI sales startup Nooks secures $500 million in funding for expansion - Reuters",
+        "summary": "AI sales startup Nooks secures $500 million in funding for expansion Reuters",
+        "summary_zh": null,
+        "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQOXpKNVNpQ1hhR3lxTGJuem9WcDNINW00TE1ORVZuX0xaWDFtcGhXdENBblhnWTBrVFNkRGU1SzM2S1oyRHJtUUVkSEJEUi1wUXh4Tk5XbWFDZ3FySEZ0U19xRVpwbmVFaWZRZnh1Sm81MnkybWtpY2tuNEhSSFNwOHdQRnZuTm54aWZVcWM4M0l5T0N6ekdVUllFSkFwTU94TWVfanNWSUEybUo3eDRIZi1kRQ?oc=5",
+        "source": "Reuters AI (Google News)",
+        "site_id": "curated_media",
+        "published_at": "2026-11-04T11:32:09Z",
+        "ingress": {
+          "kind": "google_news",
+          "site_id": "curated_media",
+          "source_id": "reuters_ai_news",
+          "name": "Reuters AI (Google News)",
+          "feed_url": "https://news.google.com/rss/search?q=site:reuters.com%20AI%20when:2d&hl=en-US&gl=US&ceid=US:en"
+        },
+        "publisher": {
+          "schema_version": 1,
+          "publisher_id": "reuters",
+          "name": "Reuters",
+          "domain": "www.reuters.com",
+          "status": "identified",
+          "basis": [
+            "google_rss_source",
+            "configured_bridge"
+          ],
+          "evidence": {
+            "rss_source_name": "Reuters",
+            "rss_source_url": "https://www.reuters.com",
+            "article_url": null,
+            "article_host": "news.google.com",
+            "expected_publisher_id": null,
+            "conflicts": []
+          }
+        },
+        "corroboration_key": "publisher:reuters",
+        "corroboration_status": "identified",
+        "role": "active_phase",
+        "phase_id": "bp1_30372d23f0270d565caa223a",
+        "security_topic": false,
+        "source_policy": {
+          "schema_version": 1,
+          "policy_id": "publisher-governance-v1",
+          "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+          "scope_id": "reuters",
+          "publisher_kind": "media",
+          "admission_status": "limited",
+          "source_tier": "ai_media",
+          "source_tier_label": "精選AI媒體",
+          "source_tier_rank": 2,
+          "allow_general": true,
+          "allow_featured": true,
+          "allow_radar": true,
+          "reason_codes": [
+            "identified_bridge",
+            "limited_scope"
+          ]
+        },
+        "source_tier": "ai_media",
+        "source_tier_label": "精選AI媒體",
+        "source_tier_rank": 2,
+        "source_material": {
+          "title_original": "",
+          "title": "AI sales startup Nooks secures $500 million in funding for expansion - Reuters",
+          "summary": "AI sales startup Nooks secures $500 million in funding for expansion Reuters"
+        },
+        "source_links": [
+          "https://news.google.com/rss/articles/CBMiswFBVV95cUxQOXpKNVNpQ1hhR3lxTGJuem9WcDNINW00TE1ORVZuX0xaWDFtcGhXdENBblhnWTBrVFNkRGU1SzM2S1oyRHJtUUVkSEJEUi1wUXh4Tk5XbWFDZ3FySEZ0U19xRVpwbmVFaWZRZnh1Sm81MnkybWtpY2tuNEhSSFNwOHdQRnZuTm54aWZVcWM4M0l5T0N6ekdVUllFSkFwTU94TWVfanNWSUEybUo3eDRIZi1kRQ?oc=5"
+        ],
+        "source_site_name": "精選媒體",
+        "business_events": []
+      },
+      "title": "AI sales startup Nooks secures $500 million in funding for expansion - Reuters",
+      "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQOXpKNVNpQ1hhR3lxTGJuem9WcDNINW00TE1ORVZuX0xaWDFtcGhXdENBblhnWTBrVFNkRGU1SzM2S1oyRHJtUUVkSEJEUi1wUXh4Tk5XbWFDZ3FySEZ0U19xRVpwbmVFaWZRZnh1Sm81MnkybWtpY2tuNEhSSFNwOHdQRnZuTm54aWZVcWM4M0l5T0N6ekdVUllFSkFwTU94TWVfanNWSUEybUo3eDRIZi1kRQ?oc=5",
+      "primary_url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQOXpKNVNpQ1hhR3lxTGJuem9WcDNINW00TE1ORVZuX0xaWDFtcGhXdENBblhnWTBrVFNkRGU1SzM2S1oyRHJtUUVkSEJEUi1wUXh4Tk5XbWFDZ3FySEZ0U19xRVpwbmVFaWZRZnh1Sm81MnkybWtpY2tuNEhSSFNwOHdQRnZuTm54aWZVcWM4M0l5T0N6ekdVUllFSkFwTU94TWVfanNWSUEybUo3eDRIZi1kRQ?oc=5",
+      "source": "Reuters AI (Google News)",
+      "source_name": "",
+      "source_names": [
+        "Reuters AI (Google News)"
+      ],
+      "source_count": 1,
+      "item_count": 1,
+      "corroboration_count": 1,
+      "duplicate_count": 1,
+      "business_events": [],
+      "initial_effective_at": "2026-11-04T11:32:09Z",
+      "initial_basis": "source_report",
+      "first_observed_at": "2026-11-04T15:35:35.340946Z",
+      "last_material_at": null,
+      "last_reported_at": "2026-11-04T11:32:09Z",
+      "effective_basis": "source_report",
+      "effective_reported_day": null,
+      "effective_at": "2026-11-04T11:32:09Z",
+      "expires_at": "2026-11-05T11:32:09Z",
+      "earliest_at": "2026-11-04T11:32:09Z",
+      "latest_at": "2026-11-04T11:32:09Z",
+      "active_phase_id": "bp1_30372d23f0270d565caa223a",
+      "eligible": true,
+      "eligibility_reason": "in_window",
+      "match_evidence": [
+        {
+          "rule_id": "R6",
+          "strength": "unresolved",
+          "article_id": "715b879111fd145233e3e856ae6e6caf4fe3b4d9",
+          "basis": [
+            "{\"action\":\"article\",\"subject\":\"article:6c7b7b502d32b841a937ff45cbb29a82e9c97950ad902468d43dd3c0a93c1ca2\",\"v\":1}"
+          ],
+          "conflicts": []
+        }
+      ],
+      "unknown_update_article_ids": [],
+      "all_sources": [
+        {
+          "id": "715b879111fd145233e3e856ae6e6caf4fe3b4d9",
+          "title": "AI sales startup Nooks secures $500 million in funding for expansion - Reuters",
+          "title_zh": null,
+          "title_en": "AI sales startup Nooks secures $500 million in funding for expansion - Reuters",
+          "title_original": "AI sales startup Nooks secures $500 million in funding for expansion - Reuters",
+          "summary": "AI sales startup Nooks secures $500 million in funding for expansion Reuters",
+          "summary_zh": null,
+          "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQOXpKNVNpQ1hhR3lxTGJuem9WcDNINW00TE1ORVZuX0xaWDFtcGhXdENBblhnWTBrVFNkRGU1SzM2S1oyRHJtUUVkSEJEUi1wUXh4Tk5XbWFDZ3FySEZ0U19xRVpwbmVFaWZRZnh1Sm81MnkybWtpY2tuNEhSSFNwOHdQRnZuTm54aWZVcWM4M0l5T0N6ekdVUllFSkFwTU94TWVfanNWSUEybUo3eDRIZi1kRQ?oc=5",
+          "source": "Reuters AI (Google News)",
+          "site_id": "curated_media",
+          "published_at": "2026-11-04T11:32:09Z",
+          "ingress": {
+            "kind": "google_news",
+            "site_id": "curated_media",
+            "source_id": "reuters_ai_news",
+            "name": "Reuters AI (Google News)",
+            "feed_url": "https://news.google.com/rss/search?q=site:reuters.com%20AI%20when:2d&hl=en-US&gl=US&ceid=US:en"
+          },
+          "publisher": {
+            "schema_version": 1,
+            "publisher_id": "reuters",
+            "name": "Reuters",
+            "domain": "www.reuters.com",
+            "status": "identified",
+            "basis": [
+              "google_rss_source",
+              "configured_bridge"
+            ],
+            "evidence": {
+              "rss_source_name": "Reuters",
+              "rss_source_url": "https://www.reuters.com",
+              "article_url": null,
+              "article_host": "news.google.com",
+              "expected_publisher_id": null,
+              "conflicts": []
+            }
+          },
+          "corroboration_key": "publisher:reuters",
+          "corroboration_status": "identified",
+          "role": "active_phase",
+          "phase_id": "bp1_30372d23f0270d565caa223a",
+          "security_topic": false,
+          "source_policy": {
+            "schema_version": 1,
+            "policy_id": "publisher-governance-v1",
+            "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+            "scope_id": "reuters",
+            "publisher_kind": "media",
+            "admission_status": "limited",
+            "source_tier": "ai_media",
+            "source_tier_label": "精選AI媒體",
+            "source_tier_rank": 2,
+            "allow_general": true,
+            "allow_featured": true,
+            "allow_radar": true,
+            "reason_codes": [
+              "identified_bridge",
+              "limited_scope"
+            ]
+          },
+          "source_tier": "ai_media",
+          "source_tier_label": "精選AI媒體",
+          "source_tier_rank": 2,
+          "source_material": {
+            "title_original": "",
+            "title": "AI sales startup Nooks secures $500 million in funding for expansion - Reuters",
+            "summary": "AI sales startup Nooks secures $500 million in funding for expansion Reuters"
+          },
+          "source_links": [
+            "https://news.google.com/rss/articles/CBMiswFBVV95cUxQOXpKNVNpQ1hhR3lxTGJuem9WcDNINW00TE1ORVZuX0xaWDFtcGhXdENBblhnWTBrVFNkRGU1SzM2S1oyRHJtUUVkSEJEUi1wUXh4Tk5XbWFDZ3FySEZ0U19xRVpwbmVFaWZRZnh1Sm81MnkybWtpY2tuNEhSSFNwOHdQRnZuTm54aWZVcWM4M0l5T0N6ekdVUllFSkFwTU94TWVfanNWSUEybUo3eDRIZi1kRQ?oc=5"
+          ],
+          "source_site_name": "精選媒體"
+        }
+      ],
+      "publisher_qualified": true,
+      "governance_publisher_key": "publisher:reuters",
+      "selection_class": "supplement",
+      "signal_label": "產業動態",
+      "disclosure_flags": [],
+      "selection_tier": "primary",
+      "supplement_impact": {
+        "i": 30,
+        "p": 20,
+        "e": 10,
+        "c": 20,
+        "total": 80,
+        "passes": true
+      }
+    },
+    {
+      "score": 0.5801,
+      "importance": 0.5801,
+      "importance_score": 0.5801,
       "importance_breakdown": {
         "impact": 90,
         "core_bonus": 0,
-        "freshness": 0.6722
+        "freshness": 0.6639
       },
       "category": "watch",
       "importance_label": "值得關注",
@@ -397,27 +1257,29 @@
     }
   ],
   "selection_diagnostics": {
-    "candidate_count": 184,
-    "eligible_count": 1,
-    "selected_count": 1,
-    "below_gate_count": 183,
+    "candidate_count": 183,
+    "eligible_count": 3,
+    "selected_count": 3,
+    "below_gate_count": 180,
     "diversity_or_limit_count": 0,
-    "max_score": 0.5874,
+    "max_score": 0.6821,
     "max_source_count": 1,
     "score_gate": null,
     "empty_reason": null,
     "selection_policy": "impact-v3-empty-fallback",
-    "core_count": 0,
-    "supplement_candidate_count": 4,
+    "core_count": 1,
+    "supplement_candidate_count": 5,
     "default_visible_limit": 5
   },
   "brief_event_meta": {
     "schema_version": 1,
     "matcher_version": "brief-event-v1",
-    "generation_id": "bg1_c6bc38b54aceeda1ff6e497f",
-    "generated_at": "2026-11-04T14:35:35.945302Z",
+    "generation_id": "bg1_7e0d5a1de05822688874037c",
+    "generated_at": "2026-11-04T15:35:35.340946Z",
     "status": "ready",
     "selected_event_ids": [
+      "be1_d6b35394ac42bdca5b0aae1d",
+      "be1_542a1ca98c5713ae67c931e3",
       "be1_3a6b7e5309e822344fd35613"
     ],
     "record_type": "brief_event_selection"
@@ -426,10 +1288,10 @@
     "schema_version": 2,
     "policy_id": "publisher-governance-v1",
     "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
-    "generated_at": "2026-11-04T14:35:35.945302Z",
-    "brief_generation_id": "bg1_c6bc38b54aceeda1ff6e497f",
-    "brief_state_revision": "205d14d41cc25cc024e382fd8aa98ebfaf75ecd1a15e80ddcb9613d5d0b18ea9",
-    "generation_id": "pg2_9c1987cc472b6f3477733688",
+    "generated_at": "2026-11-04T15:35:35.340946Z",
+    "brief_generation_id": "bg1_7e0d5a1de05822688874037c",
+    "brief_state_revision": "348f8ed18b7e5e462e9386bd73eb434a1a99211efdce96efbae557c4b78c9214",
+    "generation_id": "pg2_26387b1a5543946e551a54ba",
     "status": "ready",
     "selection_policy": "impact-v3-empty-fallback",
     "default_visible_limit": 5
