@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon SageMaker AI 现支持 SOCI 索引映像，可在数秒内启动训练作业",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/sagemaker-ai-soci-images-training",
-  "last_seen_at": "2026-11-04T11:05:31.698170Z",
+  "last_seen_at": "2026-11-04T11:35:33.652645Z",
   "summary": "今天，Amazon SageMaker AI 宣布支持用于训练和处理任务的 Seekable OCI（SOCI）索引容器映像，让您的任务能够更快地开始运行代码。SOCI 索引映像可在数秒内启动 Amazon SageMaker AI 训练容器，将映像拉取过程中的 GPU 空闲时间缩短多达 90%，且不会影响训练性能。在训练或处理任务运行之前，SageMaker AI 会将其容器映像下载到实例上。对于深度学习映像（其大小通常超过 10GB），每次任务启动前都需要花费数分钟进行下载，而您需要为这段时间付费。现在，当您的映像包含 SOCI 索引时，SageMaker AI 会采用延迟加载方式：仅获取启动容器所需的文件，其余部分则在代码运行时通过后台流式传输。 要使用此功能，请在您的训练或处理任务中引用来自私有 Amazon ECR 存储库的 SOCI 索引映像。您可以通过将映像标签更改为其 -soci 变体来使用预索引的 AWS 深度学习容器，或者使用开源工具在 Amazon ECR 中为您的自有映像添加 SOCI 索引，而无需重新构建映像。您无需更改作业定义、入口点或数据通道。SageMaker AI 会自动检查索引，未包含索引的映像将按原方式下载。如果无法使用索引，作业将回退到标准下载模式并继续运行。 适用于 SageMaker AI 训练和处理任务的 SOCI 索引映像现已在所有提供 SageMaker AI 的 AWS 区域推出，可通过 SageMaker AI API、CLI、SDK 和控制台访问。要了解更多信息，请参阅 训练作业 和 处理作业 的文档，或阅读 发布博客 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/sagemaker/latest/dg/train-soci-indexed-images.html",
