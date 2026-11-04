@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon MSK Connect 现支持更新连接器插件和工作线程配置",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/amazon-msk-connect-update-plugin-worker-configurations",
-  "last_seen_at": "2026-11-04T08:05:29.987944Z",
+  "last_seen_at": "2026-11-04T08:35:28.605236Z",
   "summary": "Amazon MSK Connect （Amazon Managed Streaming for Apache Kafka Connect）现在支持您更新现有连接器的自定义插件和工作线程配置。当您需要更新自定义插件以运行连接器代码的新版本（例如包含更新后依赖项的版本）时，此功能非常有用。您还可以更新工作线程配置来更改工作线程级别的设置，例如切换键和值转换器，或调整生产者和使用者属性以优化吞吐量和延迟。 Amazon MSK Connect 是一项完全托管的服务，支持您使用 Amazon MSK （Managed Streaming for Apache Kafka）部署、监控和扩展 Apache Kafka Connect 连接器。此前，更新连接器的插件或工作线程配置意味着必须先删除该连接器，然后重新创建。这是一项会中断服务的操作，不仅会增加风险，还会产生运营开销。此次发布后，您可以直接更新连接器的插件和工作线程配置。连接器会保留已提交的偏移量，因此更新完成后，其任务将从中断的位置继续处理。 此功能已在支持 Amazon MSK Connect 的所有 AWS 区域推出，无需额外付费。要了解更多信息，请访问 Amazon MSK Connect 开发人员指南 。",
   "publisher_links": [
     "https://aws.amazon.com/msk/features/msk-connect/",
