@@ -1,0 +1,57 @@
+{
+  "id": "f9118510d8769a5c24d58c238e769395b736ddb2",
+  "published_at": "2026-11-04T00:00:00Z",
+  "first_seen_at": "2026-11-05T00:35:31.591393Z",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "OpenAI News",
+  "title": "Introducing Images 2.6",
+  "url": "https://openai.com/index/introducing-images-2-6",
+  "last_seen_at": "2026-11-05T00:35:31.591393Z",
+  "summary": "Images 2.6 brings faster image generation, GIF creation, more precise editing, and new API controls across ChatGPT, Codex, and the API.",
+  "source_updated_at": "2026-11-04T00:00:00Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "openai_news",
+    "name": "OpenAI News",
+    "feed_url": "https://openai.com/news/rss.xml"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "openai",
+    "name": "OpenAI",
+    "domain": "openai.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://openai.com/index/introducing-images-2-6",
+      "article_host": "openai.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "openai",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}

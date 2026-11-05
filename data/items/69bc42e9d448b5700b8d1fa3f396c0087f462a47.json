@@ -1,0 +1,57 @@
+{
+  "id": "69bc42e9d448b5700b8d1fa3f396c0087f462a47",
+  "published_at": "2026-11-05T08:11:00Z",
+  "first_seen_at": "2026-11-05T00:35:31.591393Z",
+  "site_id": "tw_media",
+  "site_name": "TW Media",
+  "source": "iThome",
+  "title": "多家AI開發平臺接連發生資安事件，遭竊金鑰被用來大量呼叫AI模型",
+  "url": "https://www.ithome.com.tw/news/180198",
+  "last_seen_at": "2026-11-05T00:35:31.591393Z",
+  "summary": "雲端資安業者Wiz近日調查10月接連發生的AI程式開發及部署平臺資安事件，發現其中部分事件的攻擊者曾存取客戶儲存在平臺的環境變數及敏感憑證。由於這些環境變數可能包含AI服務API金鑰等敏感資訊，一旦平臺遭入侵，攻擊者便可能利用遭竊金鑰，未經授權使用客戶的AI服務。",
+  "source_updated_at": "2026-11-05T08:11:00Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "tw_media",
+    "source_id": "ithome",
+    "name": "iThome",
+    "feed_url": "https://www.ithome.com.tw/rss"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "ithome",
+    "name": "iThome",
+    "domain": "www.ithome.com.tw",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://www.ithome.com.tw/news/180198",
+      "article_host": "www.ithome.com.tw",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": true,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "ithome",
+    "publisher_kind": "media",
+    "admission_status": "limited",
+    "source_tier": "professional_media",
+    "source_tier_label": "專業科技媒體",
+    "source_tier_rank": 1,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}
