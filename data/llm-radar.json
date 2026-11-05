@@ -1,110 +1,17 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-05T16:35:51.437029Z",
+  "generated_at": "2026-11-05T17:05:48.896475Z",
   "window_hours": 24,
-  "total_events": 1,
-  "events": [
-    {
-      "id": "model_release::e10449c0ae11259aa5b81912da1141f53b02923c",
-      "kind": "model_release",
-      "category": "model_release",
-      "verification_status": "reported",
-      "verification_label": "媒體報導",
-      "title": "月之暗面 釋出其 2.8 兆參數模型的 Kimi K3.1 Pro 權重",
-      "summary": "楊植麟的 月之暗面 於 11 月 4 日在 Hugging Face 上發布了這個具備 2.8 兆參數的模型，採用 Kimi 專屬授權。",
-      "provider": "",
-      "product": "",
-      "detected_at": "2026-11-04T20:05:36.018909Z",
-      "effective_at": "2026-11-04T16:36:39Z",
-      "source_name": "RuntimeWire",
-      "source_url": "https://runtimewire.com/article/moonshot-ai-kimi-k3-1-pro-weights",
-      "evidence_url": "https://runtimewire.com/article/moonshot-ai-kimi-k3-1-pro-weights",
-      "ingress": {
-        "kind": "public_feed",
-        "site_id": "runtimewire",
-        "source_id": "runtimewire",
-        "name": "RuntimeWire",
-        "feed_url": "https://runtimewire.com/rss"
-      },
-      "publisher": {
-        "schema_version": 1,
-        "publisher_id": "runtimewire",
-        "name": "RuntimeWire",
-        "domain": "runtimewire.com",
-        "status": "identified",
-        "basis": [
-          "article_host"
-        ],
-        "evidence": {
-          "rss_source_name": null,
-          "rss_source_url": null,
-          "article_url": "https://runtimewire.com/article/moonshot-ai-kimi-k3-1-pro-weights",
-          "article_host": "runtimewire.com",
-          "expected_publisher_id": null,
-          "conflicts": []
-        }
-      },
-      "source_policy": {
-        "schema_version": 1,
-        "policy_id": "publisher-governance-v1",
-        "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
-        "scope_id": "runtimewire",
-        "publisher_kind": "media",
-        "admission_status": "limited",
-        "source_tier": "advanced",
-        "source_tier_label": "次級AI媒體",
-        "source_tier_rank": 4,
-        "allow_general": true,
-        "allow_featured": true,
-        "allow_radar": true,
-        "reason_codes": [
-          "identified_host",
-          "limited_scope"
-        ]
-      },
-      "source_material": {
-        "title_original": "",
-        "title": "Moonshot AI releases Kimi K3.1 Pro weights for its 2.8-trillion-parameter model",
-        "summary": "Yang Zhilin's Moonshot AI published the 2.8-trillion-parameter model on Hugging Face on November 4th, under a Kimi-specific license."
-      },
-      "qualification": {
-        "scope": "in_scope",
-        "core_evidence": [
-          {
-            "kind": "model_release",
-            "status": "supported",
-            "basis": "editorial_report",
-            "spans": [
-              {
-                "field": "title",
-                "start": 0,
-                "end": 79,
-                "text": "Moonshot AI releases Kimi K3.1 Pro weights for its 2.8-trillion-parameter model"
-              },
-              {
-                "field": "summary",
-                "start": 0,
-                "end": 132,
-                "text": "Yang Zhilin's Moonshot AI published the 2.8-trillion-parameter model on Hugging Face on November 4th, under a Kimi-specific license."
-              }
-            ],
-            "urls": [
-              "https://runtimewire.com/article/moonshot-ai-kimi-k3-1-pro-weights"
-            ]
-          }
-        ],
-        "reason_codes": []
-      }
-    }
-  ],
+  "total_events": 0,
+  "events": [],
   "publisher_governance_meta": {
     "schema_version": 2,
     "policy_id": "publisher-governance-v1",
     "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
-    "generated_at": "2026-11-05T16:35:51.437029Z",
-    "brief_generation_id": "bg1_d410f3edcfadab0f92c353f3",
-    "brief_state_revision": "7803b78bfbf43159902e4e86f7d996f4db4a54787d445ea3f676dd4e50de4937",
-    "generation_id": "pg2_951ff4f04cf6b2deb1acb0f9",
+    "generated_at": "2026-11-05T17:05:48.896475Z",
+    "brief_generation_id": "bg1_fe7917ab433ed2237b59f7b5",
+    "brief_state_revision": "d0822e06f7c1cd525de60e01bf37968e55bffd5fb2304b46a1c6402611b73f45",
+    "generation_id": "pg2_61b915b367d2f15213eefb38",
     "status": "ready",
     "selection_policy": "impact-v3-empty-fallback",
     "default_visible_limit": 5
