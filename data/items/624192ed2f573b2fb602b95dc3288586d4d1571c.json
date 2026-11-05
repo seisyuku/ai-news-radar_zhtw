@@ -1,17 +1,18 @@
 {
-  "id": "5af881afd78abdcbf51309c3c3a0f78f75eb9278",
-  "published_at": "2026-10-12T13:09:54Z",
-  "first_seen_at": "2026-10-12T14:05:59.341714Z",
+  "id": "624192ed2f573b2fb602b95dc3288586d4d1571c",
+  "published_at": "2026-11-05T11:02:51Z",
+  "first_seen_at": "2026-11-05T13:35:35.623112Z",
   "site_id": "curated_media",
   "site_name": "精選媒體",
   "source": "DeepSeek (Google News)",
-  "title": "DeepSeek is moving to lead a $400 million seed round for a Chinese robotics AI startup - Quartz",
-  "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE5sWHNkbFVvb2V2cUxFSktiZzdoX0RXVDVDdnFxdTQ4YW9TRGJ0T0UxSnUtd3JST0FfS2l1UlNvYmdyWVJZdHlSWmJ3Qlc2WmJObzhuejBxakRKWFJubkZIWW5lb0hnVkNWOXk1QVVjbw?oc=5",
-  "last_seen_at": "2026-10-15T13:05:43.468150Z",
-  "summary": "DeepSeek is moving to lead a $400 million seed round for a Chinese robotics AI startup Quartz",
+  "title": "Is DeepSeek Free? Why There Is No Paid Plan to Upgrade To - Fello AI",
+  "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTFAwOVByNGcwbWZkZVZqSFk5LUFnV3J1Y1lLdmtYd2hZYXpNaHE5QkliUlNfZnVBRW05V0lHak9NaHphMl9seTlfTkZfNlY2QQ?oc=5",
+  "last_seen_at": "2026-11-05T13:35:35.623112Z",
+  "summary": "Is DeepSeek Free? Why There Is No Paid Plan to Upgrade To Fello AI",
   "publisher_links": [
-    "https://news.google.com/rss/articles/CBMib0FVX3lxTE5sWHNkbFVvb2V2cUxFSktiZzdoX0RXVDVDdnFxdTQ4YW9TRGJ0T0UxSnUtd3JST0FfS2l1UlNvYmdyWVJZdHlSWmJ3Qlc2WmJObzhuejBxakRKWFJubkZIWW5lb0hnVkNWOXk1QVVjbw?oc=5"
+    "https://news.google.com/rss/articles/CBMiTkFVX3lxTFAwOVByNGcwbWZkZVZqSFk5LUFnV3J1Y1lLdmtYd2hZYXpNaHE5QkliUlNfZnVBRW05V0lHak9NaHphMl9seTlfTkZfNlY2QQ?oc=5"
   ],
+  "source_updated_at": "2026-11-05T11:02:51Z",
   "ingress": {
     "kind": "google_news",
     "site_id": "curated_media",
@@ -22,19 +23,22 @@
   "publisher": {
     "schema_version": 1,
     "publisher_id": null,
-    "name": null,
-    "domain": null,
-    "status": "unknown",
-    "basis": [],
+    "name": "Fello AI",
+    "domain": "felloai.com",
+    "status": "reported",
+    "basis": [
+      "google_rss_source"
+    ],
     "evidence": {
-      "rss_source_name": null,
-      "rss_source_url": null,
+      "rss_source_name": "Fello AI",
+      "rss_source_url": "https://felloai.com",
       "article_url": null,
       "article_host": "news.google.com",
       "expected_publisher_id": null,
       "conflicts": []
     }
   },
+  "security_topic": false,
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
@@ -49,12 +53,11 @@
     "allow_featured": false,
     "allow_radar": false,
     "reason_codes": [
-      "missing_identity",
-      "scope_unknown",
+      "reported_rss_source",
+      "scope_mismatch",
       "unreviewed_publisher",
       "not_permitted_for_featured",
       "not_permitted_for_radar"
     ]
-  },
-  "security_topic": false
+  }
 }
