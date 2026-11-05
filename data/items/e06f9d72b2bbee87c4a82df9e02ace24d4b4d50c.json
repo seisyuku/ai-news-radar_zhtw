@@ -1,0 +1,61 @@
+{
+  "id": "e06f9d72b2bbee87c4a82df9e02ace24d4b4d50c",
+  "published_at": "2026-10-30T18:15:00Z",
+  "first_seen_at": "2026-11-05T06:05:30.556302Z",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "Amazon CloudFront 现提供查看器 ISP 和后量子 TLS 详细信息",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/cloudfront-viewer-isp-post-quantum-visbility",
+  "last_seen_at": "2026-11-05T06:05:30.556302Z",
+  "summary": "Amazon CloudFront 现可将两个新的可选标头转发至您的源服务器。CloudFront-Viewer-ISP 标头包含查看器的互联网服务提供商（ISP）的名称，便于查看请求来自哪个网络。CloudFront-Viewer-TLS-Details 标头描述了每个查看器的 TLS 连接所使用的加密算法，便于查看该连接是否使用了后量子密码学（PQC）。 使用 Cloudfront-Viewer-ISP，您可以按网络细分流量和性能。您还可以隔离来自单个提供商的异常流量。CloudFront-Viewer-TLS-Details 包含每个连接的密钥交换、签名方案和签名公钥类型。您可以使用它来衡量实际与 PQC 建立连接的查看器比例，并识别尚未这样做的客户端。要将任一标头转发到您的源服务器，请将其添加到源请求策略中，并将该策略附加到您的分配中。 要开始使用，请参阅 Amazon CloudFront Developer Guide 中的 Adding CloudFront headers 和 Controlling origin requests with a policy",
+  "publisher_links": [
+    "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/adding-cloudfront-headers.html",
+    "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/controlling-origin-requests.html"
+  ],
+  "source_updated_at": "2026-10-30T18:15:00Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "aws_news",
+    "name": "AWS News",
+    "feed_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "amazon",
+    "name": "AWS",
+    "domain": "aws.amazon.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/cloudfront-viewer-isp-post-quantum-visbility",
+      "article_host": "aws.amazon.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "amazon",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}

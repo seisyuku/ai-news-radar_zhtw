@@ -1,0 +1,57 @@
+{
+  "id": "aac38767f6b05f4f6c2e23d01d69721565f726d2",
+  "published_at": "2026-10-30T19:30:00Z",
+  "first_seen_at": "2026-11-05T06:05:30.556302Z",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "Amazon Connect Customer 自动将正在处理的电子邮件保存为草稿",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/amazon-connect-email-draft-save",
+  "last_seen_at": "2026-11-05T06:05:30.556302Z",
+  "summary": "Amazon Connect Customer 会自动将正在处理的电子邮件保存为草稿，这样当连接中断，或者浏览器意外关闭或刷新时，座席可以继续工作，而不会丢失进度。座席返回时，他们的草稿将恢复，且邮件正文、收件人、主题行和附件引用均保持不变。客户还可以访问其 Amazon S3 存储桶中保存的草稿数据，以建立与其他应用程序的集成。",
+  "source_updated_at": "2026-10-30T19:30:00Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "aws_news",
+    "name": "AWS News",
+    "feed_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "amazon",
+    "name": "AWS",
+    "domain": "aws.amazon.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/amazon-connect-email-draft-save",
+      "article_host": "aws.amazon.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "amazon",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}

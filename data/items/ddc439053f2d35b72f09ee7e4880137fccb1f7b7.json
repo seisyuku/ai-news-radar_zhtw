@@ -1,0 +1,64 @@
+{
+  "id": "ddc439053f2d35b72f09ee7e4880137fccb1f7b7",
+  "published_at": "2026-10-30T08:00:00Z",
+  "first_seen_at": "2026-11-05T06:05:30.556302Z",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "托管式 Prometheus 收集器现在支持 Amazon MSK 消费者组指标",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/prometheus-collectors-msk-metrics",
+  "last_seen_at": "2026-11-05T06:05:30.556302Z",
+  "summary": "托管式 Prometheus 收集器现已支持 Amazon Managed Service for Prometheus 和 Amazon CloudWatch 的 Amazon MSK 消费者组指标。该集成可从您的 Amazon MSK 集群中收集 Kafka 导出器指标和消费者组延迟指标。 托管式 Prometheus 收集器会从您的工作负载中发现并收集 Prometheus 指标，因此您无需自己运行和操作收集智能体。您可以将收集到的指标导入 Amazon Managed Service for Prometheus 工作区或 Amazon CloudWatch，在那里查询和分析这些指标。您可以使用消费者组指标监控 Kafka 流的运行状况和消费者性能。这可以帮助您检测流式处理应用程序中的处理瓶颈。 此功能已在正式发布托管式 Prometheus 收集器的所有 AWS 区域 推出。要了解更多信息，请参阅 Amazon Managed Service for Prometheus 和 Amazon CloudWatch 的文档。",
+  "publisher_links": [
+    "https://aws.amazon.com/prometheus/",
+    "https://aws.amazon.com/cloudwatch/",
+    "https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/",
+    "https://docs.aws.amazon.com/prometheus/latest/userguide/prom-msk-kafka-exporter.html",
+    "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/managed-prometheus-collectors-msk-kafka-exporter.html"
+  ],
+  "source_updated_at": "2026-10-30T08:00:00Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "aws_news",
+    "name": "AWS News",
+    "feed_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "amazon",
+    "name": "AWS",
+    "domain": "aws.amazon.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/prometheus-collectors-msk-metrics",
+      "article_host": "aws.amazon.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "amazon",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "id": "6e3b06dc3800a2ce2dfb6896a5e44efc37daecfb",
+  "published_at": "2026-10-30T17:00:00Z",
+  "first_seen_at": "2026-11-05T06:05:30.556302Z",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "Amazon RDS for Oracle 不再要求对 JVM、Spatial、Locator 和 OLAP 选项进行自动次要版本升级",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/oracle-jvm-spatial-locator-olap-options-amvu-optional",
+  "last_seen_at": "2026-11-05T06:05:30.556302Z",
+  "summary": "Amazon Relational Database Service（Amazon RDS）for Oracle 现支持您在使用 JVM、Spatial、Locator 或 OLAP 选项的新的和现有的数据库实例上关闭自动次要版本升级。以前，这些选项需要启用自动次要版本升级。 此次变更后，您可以利用这些选项，自行决定何时对数据库实例应用次要版本升级。如果您关闭自动次要版本升级，我们建议您定期应用新的次要版本，以便您的数据库实例保持最新的 Oracle 安全修复。要保持次要版本自动升级处于开启状态，同时仍控制环境的升级顺序，您可以使用 AWS Organizations 升级部署策略 。 此变更已在提供 Amazon RDS for Oracle 的 所有 AWS 商业区域和 AWS GovCloud（美国）区域 推出。要了解有关 Amazon RDS for Oracle 中可用选项的更多信息，请参阅 Amazon RDS User Guide 中的 Adding options to Oracle DB instances 。",
+  "publisher_links": [
+    "https://aws.amazon.com/rds/oracle/",
+    "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/RDS.Maintenance.AMVU.UpgradeRollout.html",
+    "https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/",
+    "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Appendix.Oracle.Options.html"
+  ],
+  "source_updated_at": "2026-10-30T17:00:00Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "aws_news",
+    "name": "AWS News",
+    "feed_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "amazon",
+    "name": "AWS",
+    "domain": "aws.amazon.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/oracle-jvm-spatial-locator-olap-options-amvu-optional",
+      "article_host": "aws.amazon.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "amazon",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}
