@@ -1,5 +1,28 @@
 # Source Coverage
 
+## 2026-11-05 BlockTempo AI一般候選試接（本機完成，待發布）
+
+維護者同意研究判斷並授權執行待辦。已接入`tw_media/blocktempo_ai`，以[原站公開分類JSON](https://www.blocktempo.com/wp-json/wp/v2/posts?categories=309&per_page=30&_fields=id,date_gmt,link,title,excerpt,categories)取代本輪確認落後的RSS路線。這是未審一般候選試接，不認定B級品質；沿用既有刷新與健康，不重啟七日觀察／報告／SMTP流程。
+
+| 範圍 | 最終實作與驗收 |
+| --- | --- |
+| 收件 | 單次固定原站API、回應最多2MB／30筆，限定AI分類309、原站HTTPS文章slug、原生`date_gmt`日期。僅讀標題與短摘要，不讀`content`、文章正文、附件或影音；不自動追抓引用。缺必要欄位全失效或結構失效報錯，有效空分類／舊文／未來稿健康回零。 |
+| 篩選與限量 | 先排來源內的教學、業配、彙整、槓桿投機、板卡通路及已查生活／個人展示雜訊，再按共用AI規則判斷；排序、去重後每輪最多8篇，回補5日、讀者仍24小時。全球評分、來源政策與去重公式保持。 |
+| 用途 | 沿用未審預設`watchlist`／rank 6，允許一般收錄，禁止重點支持與模型雷達；不新增發布者票、不升級registry。入口身分為`public_json`，不把來源名稱B／secondary當作政策。短摘要不足就保留證據缺口，不以網頁其他內容補證。 |
+| HTTP驗真 | 11/5 14:23取得30篇的18217-byte分類JSON，包含RSS缺少的兩篇11/5新稿；14:29:59以正式收件函式單來源真實HTTP驗收成功8篇、410ms，來源無失敗／降級。這是本機實測，不冒稱正式站已接入或長期穩定。 |
+| 配對生成 | 以公開提交`bad44835cc014f7bf8fe63bcb36c790780cffced`、臺北11/5 14:05:30同代資料固定時間完整離線生成：archive7681→7689，一般AI188→195。原7681筆完整記錄保持，8個resolver逐筆等於archive；原2223個事件的initial／effective／expiry／phase保持，4則重點及雷達事件逐項相同，治理valid。新增8篇均rank6且無重點／雷達權限。無真實模型呼叫，不以回放輸出覆寫正式data。 |
+| 回歸 | 新增49項來源／健康／完整生成測試，完整2294項通過（98個既有feedparser警告）；編譯與差異檢查通過。 |
+
+試接前研究以同一14:05:30快照7681筆Archive為基準，七日窗口10/29 14:05:30～11/5 14:05:30，六頁RSS樣本54筆對1442筆同窗封存（排除13筆未來日期）機械hard 0／possible 4。RSS首頁10篇至少5個已有事件，Postman的AlphaLab首次收錄比動區發稿早約12小時；Google學校搜尋稿則可能有提早發現價值。未匹配不等於新增事件，也不以後來抓到的Feed倒推當時可見性。研究原始證據在Downloads的`ai-news-blocktempo-20261105/`。
+
+### 14日觀察與結案條件
+
+D0以正式站首次成功的`tw_media/blocktempo_ai`健康時間為準，屆滿時間為D0加14日；本機回放不算正式觀察起點。期間沿用既有刷新、子來源健康及21日Archive，不新增排程、提醒、寄信或自動升級。
+
+D14人工核對來源／事件／首次收錄時間，分開計算「新事件補漏」「提早發現」「已有但未入選」「跨站重報」與「範圍外內容」。建議保留門檻為至少3個重要、可由原生官方文字或原始媒體核實、既有入口未先捕捉的新增事件；提早發現另記，不能把網址或機械未匹配數當事件增益。尚未核實的Revolut／Northflank線索不預算入達標。若不足，評估維持低頻補充或停止入口；到期不自動給B級、提高權重或開重點／雷達。
+
+本機試接與配對證據保存於`/Users/lordmi/Downloads/ai-news-blocktempo-implementation-20261105/`，含單一公開提交基準與雜湊、原始API、before／after完整生成、配對驗證及隔離來源健康；保存供重查，主要結果直接在對話回報。發布及正式D0尚待完成。
+
 ## 2026-11-03 Claude Product announcements與漏報流程（已發布並驗收）
 
 維護者核准以官方Product announcements補足Anthropic News之外的公告路徑。已正式接入`official_ai/claude_product_announcements`，限定`claude.com/resources/articles/`沿用官方逐篇用途與Anthropic同發布者一票；其他Claude頁面、子網域與仿冒host不取得官方用途權限。來源範圍限RSS／Feed與HTTP可取得的結構化文字。此入口只解析`https://claude.com/resources/product-announcements`的內嵌JSON，不執行腳本、不讀非結構化正文、不補抓文章／附件／圖片／影音，沒有新增站外搜尋或服務。

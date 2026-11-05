@@ -1,6 +1,14 @@
 # AI News Radar 交接摘要
 
-更新：2026-11-03（臺北）。本頁僅保留目前有效狀態與2026-10-25起的交接紀錄；超過十天的項目與歷程已從本頁移除。任務清單以[TASK_LEDGER](TASK_LEDGER.md)為準，產品／來源／操作細節分別依README、SOURCE_COVERAGE與OPERATIONS。
+更新：2026-11-05（臺北）。本頁僅保留目前有效狀態與2026-10-27起的交接紀錄；超過十天的項目與歷程已從本頁移除。任務清單以[TASK_LEDGER](TASK_LEDGER.md)為準，產品／來源／操作細節分別依README、SOURCE_COVERAGE與OPERATIONS。
+
+## 11/5 BlockTempo AI一般候選試接（本機完成，待發布）
+
+維護者同意判斷並授權執行待辦，已以公開分類JSON接入`tw_media/blocktempo_ai`，避開落後RSS；固定原站API、2MB／30筆、原生GMT發布時間與AI分類，僅短摘要、不追抓正文／附件／引用。來源限定篩選先排教學／投機／生活雜訊，再套共用AI判斷、排序去重與每輪8篇上限；未審rank6，只供一般候選，無重點／雷達資格、不新增發布者票。其他已結案／暫緩項目不重啟。
+
+完整2294項通過（新增49項），真實HTTP單來源成功8篇。固定11/5 14:05:30公開提交bad44835cc01完整離線比較：archive7681→7689、一般AI188→195，原7681筆記錄、2223事件時鐘／phase、4則重點與雷達保持，resolver一致且治理valid。證據在Downloads的`ai-news-blocktempo-implementation-20261105/`；正式data不使用離線輸出覆寫。
+
+發布後以首個正式成功健康時間為D0，沿用現有刷新／Archive觀察14日，按事件人工區分新增、提早發現、已收未選、重報與範圍外；至少3則重要可驗證新增只是驗收門檻，未達標或到期不自動升級。沒有新增觀察workflow／提醒／寄信。待完成master發布、正式CI／Pages／資料驗收及記錄D0；原有阿梨研究文件保留，不混入本案程式發布。詳見[SOURCE_COVERAGE](SOURCE_COVERAGE.md)最新節。
 
 ## 11/3 Claude公告漏報補洞第1～4階段（已發布並驗收，結案）
 
@@ -271,8 +279,6 @@ GitHub目前保留master及asset-version-git-baseline、copy-news-id、gemini-tr
 | 10/30 | 核准保留HF首段、補位評分、Juya／官方文字追取、品質診斷與細粒度資格；已在10/31發布，不保留「只完成本機、待發布」接續步驟。 |
 | 10/28 | 來源品質修正與AIBase降級已由 `aaba6389dbb0` 發布；HF／重點摘要與金額翻譯補修也已發布，不能因舊分支歷史重列為待合併。 |
 | 10/27 | T04 Gemini摘要備援退役結案。通用API／手動診斷／結果通知休眠保留，現有讀者翻譯繼續；[裁決](T04_GEMINI_SUMMARY_RETIREMENT_20261027.md)。 |
-| 10/26 | 翻譯快取唯讀量測結案，維持現況，不啟動觀察或預警；[結案](TRANSLATION_CACHE_T06_MEASUREMENT_20261026.md)。 |
-| 10/25 | T01一般列表事件篩選已發布；T02模型生命週期與T03摘要回顧結案，T05 Canary移除結案。CyberQ／AlphaLab以官方RSS進入一般池，保留未審來源與用途限制。 |
 
 ## 下次接手
 

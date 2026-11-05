@@ -1,5 +1,11 @@
 # Operations Notes
 
+## 11/5 BlockTempo一般候選試接
+
+`tw_media/blocktempo_ai`使用固定原站WordPress AI分類JSON（分類309），不在每次刷新重試已確認落後的RSS，也不以靜默RSS回退掩蓋JSON失效。單次最多2MB／30筆、每輪最多8篇；只收原生標題／GMT發布時間／短摘要，不補抓正文、附件或引用。來源空值與失敗沿用既有子來源健康；有效但無近期候選可成功回零，結構或必要欄位失效則報錯。
+
+沿用未審rank6、僅一般收錄；不改registry、全域評分、排程、provider或讀者窗口。正式首次成功健康時間為14日觀察D0，D14按[SOURCE_COVERAGE](SOURCE_COVERAGE.md)的事件增益條件人工驗收，不自動升級，也不恢復已停用的來源觀察／報告／SMTP流程。發布與D0結果續記於HANDOVER。
+
 ## 11/3 AIBase用途裁決正式發布
 
 裁決提交[757fcbcbd135](https://github.com/seisyuku/ai-news-radar_zhtw/commit/757fcbcbd135c47b140990f84cf271537cfd2ed3)已整合最新master並推送；[CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41555128484)與[正常刷新](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41555128982)成功，資料提交2819ba05e83b的[Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41555340395)成功。臺北11/3 08:46:04快照：18份正式HTTP檔與生成提交位元一致，465筆AIBase封存政策均為rank 4／僅一般收錄，當期重點支持與雷達均無AIBase。治理ready、Python與讀者JS同代驗證通過，重點2則、來源失敗／降級0；正式資料由正常Actions生成，沒有以離線輸出覆寫。驗收證據位於`/Users/lordmi/Downloads/ai-news-source-review-20261103/release/verification.json`。本案已發布驗收，無必須續行項目。

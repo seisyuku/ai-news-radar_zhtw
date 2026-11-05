@@ -31,7 +31,7 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
 try:
-    from scripts import archive_output, source_health, corroboration, brief_events, publisher_identity, publisher_policy, publisher_governance, signal_selection, reader_excerpts, article_versions, news_quality, primary_evidence, evidence_policy, security_topics
+    from scripts import archive_output, source_health, corroboration, brief_events, publisher_identity, publisher_policy, publisher_governance, signal_selection, reader_excerpts, article_versions, news_quality, primary_evidence, evidence_policy, security_topics, blocktempo_source
 except ModuleNotFoundError:  # pragma: no cover - direct script invocation
     import archive_output
     import source_health
@@ -47,6 +47,7 @@ except ModuleNotFoundError:  # pragma: no cover - direct script invocation
     import primary_evidence
     import evidence_policy
     import security_topics
+    import blocktempo_source
 
 # Keep these existing imports callable by maintainers and regression tests.
 Archive = archive_output.Archive
@@ -504,6 +505,15 @@ TW_MEDIA_INCLUDE_KEYWORDS = (
     "晶片,輝達,nvidia,英偉達"
 )
 TW_MEDIA_FEEDS: tuple[dict[str, Any], ...] = (
+    {
+        "source_id": blocktempo_source.SOURCE_ID,
+        "title": blocktempo_source.SOURCE_NAME,
+        "xml_url": blocktempo_source.API_URL,
+        "html_url": blocktempo_source.HOME_URL,
+        "max_entries": blocktempo_source.MAX_ITEMS,
+        "ingress_kind": "public_json",
+        "adapter": "blocktempo_json",
+    },
     {
         "source_id": "inside",
         "title": "INSIDE",
@@ -2573,6 +2583,15 @@ def fetch_tw_media_with_status(
 
     for feed in TW_MEDIA_FEEDS:
         def fetch_one() -> list[RawItem]:
+            if feed.get("adapter") == "blocktempo_json":
+                return [RawItem(
+                    site_id=site_id, site_name=site_name, source=blocktempo_source.SOURCE_NAME,
+                    title=row["title"], url=row["url"],
+                    published_at=parse_iso(row["published_at"]),
+                    meta={"feed_url": blocktempo_source.API_URL,
+                          "feed_home": blocktempo_source.HOME_URL,
+                          **{key: row[key] for key in ("summary", "publisher_links") if key in row}},
+                ) for row in blocktempo_source.fetch_posts(session, now)]
             resp = session.get(
                 str(feed["xml_url"]),
                 timeout=20,

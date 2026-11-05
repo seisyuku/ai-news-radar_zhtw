@@ -74,8 +74,9 @@ site reflects that tier. See [Source Coverage](docs/SOURCE_COVERAGE.md) for the
 current source policy and [Operations](docs/OPERATIONS.md) for deployment and
 monitoring procedures.
 
-CyberQ and AlphaLab use their public RSS feeds as unreviewed general-news
-sources. Their items start collapsed and may enter the lower Selected list by
+CyberQ and AlphaLab use their public RSS feeds, while BlockTempo is being
+trialed through its public AI-category JSON as an unreviewed general-news
+source. Their items start collapsed and may enter the lower Selected list by
 article score; they receive no primary-signal or model-radar grant. The sitewide
 reader window remains 24 hours.
 

@@ -215,7 +215,7 @@ def test_same_article_cannot_be_claimed_as_independent_evidence():
 def test_meet_remains_outside_formal_sources_after_cyberq_admission():
     from scripts.update_news import TW_MEDIA_FEEDS
     assert next(s for s in shadow.SOURCES if s["source_id"] == "meet")["group"] == "bnext_media"
-    assert {s["source_id"] for s in TW_MEDIA_FEEDS} == {"inside", "ithome", "technews_tw", "bnext_news", "alphalab", "cyberq"}
+    assert {s["source_id"] for s in TW_MEDIA_FEEDS} == {"inside", "ithome", "technews_tw", "bnext_news", "alphalab", "cyberq", "blocktempo_ai"}
     assert set(s["source_id"] for s in shadow.SOURCES) & {s["source_id"] for s in TW_MEDIA_FEEDS} == {"cyberq"}
     assert "evaluate_tw_source_admission" not in (shadow.ROOT / "scripts/update_news.py").read_text()
 
