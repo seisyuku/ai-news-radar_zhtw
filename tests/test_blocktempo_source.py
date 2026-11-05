@@ -170,6 +170,18 @@ def test_bad_json_degrades_group_without_dropping_healthy_rss_peer(monkeypatch):
     assert status["subsources"][0]["error"] == "invalid_source"
 
 
+def test_ordinary_ranking_does_not_inherit_the_tw_media_group_bonus():
+    row = u.add_ai_relevance_fields(source.parse_posts(payload(post()), NOW)[0])
+    peer = dict(row, site_id="llm_rumors", source="LLM Rumors")
+    trusted = dict(row, source="TechNews 科技新報")
+    trial_score = u.calculate_item_importance(u.add_source_tier_fields(row), NOW, 24)
+    peer_score = u.calculate_item_importance(u.add_source_tier_fields(peer), NOW, 24)
+    trusted_score = u.calculate_item_importance(u.add_source_tier_fields(trusted), NOW, 24)
+    assert trial_score == peer_score
+    assert trial_score["score"] < trusted_score["score"]
+    assert u.source_tier_for_record(row)["source_tier_rank"] == 6
+
+
 @pytest.mark.parametrize("expired", [False, True])
 def test_full_generator_keeps_archive_resolver_window_and_general_only(tmp_path, monkeypatch, expired):
     now = NOW + timedelta(days=2) if expired else NOW

@@ -3492,6 +3492,7 @@ SOURCE_TIER_BY_SITE: dict[str, tuple[str, str, int]] = {
 # this keeps fetch status stable while avoiding one weak/strong sibling moving
 # every source in the same transport group.
 SOURCE_TIER_BY_PUBLISHER: dict[tuple[str, str], tuple[str, str, int]] = {
+    ("tw_media", blocktempo_source.SOURCE_NAME.casefold()): ("watchlist", "未審來源", 6),
     ("curated_media", "the decoder ai news"): ("ai_vertical", "AI垂直專業媒體", 1),
     ("tw_media", "ithome"): ("professional_media", "專業科技媒體", 1),
     ("tw_media", "數位時代 (google news)"): ("advanced", "台灣媒體觀察源", 4),
