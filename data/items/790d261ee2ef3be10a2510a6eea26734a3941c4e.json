@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "适用于 Valkey 的 Amazon ElastiCache 现在支持更改现有集群的持久性",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/elasticache-changing-durability",
-  "last_seen_at": "2026-11-05T02:04:14.022393Z",
+  "last_seen_at": "2026-11-05T02:35:33.465975Z",
   "summary": "适用于 Valkey 的 Amazon ElastiCache 现在允许您在现有的基于节点的集群上启用或禁用持久性。以前，您无法更改现有集群的持久性配置。这使得从缓存转到持久性数据存储使用案例变得更加困难，也更难根据应用程序要求的变化进行调整。现在，您可以在应用程序生命周期的任何阶段更改持久性。 您可以在两种持久性选项之间进行选择：同步写入和异步写入。同步写入在响应客户端之前将数据保存到至少两个可用区，旨在实现零数据丢失，同时保持个位数毫秒级的写入延迟。异步写入在响应客户端之后保存数据，保持微秒级写入延迟且无需额外成本。但是，在极少数故障情况下，最多可能丢失 10 秒的未提交数据。这两个选项均可保持微秒级读取延迟。现在，您可以将 ElastiCache 用于缓存之外更广泛的使用场景（这些场景不可接受数据丢失），例如：人工智能智能体的长期记忆、人工智能智能体的工作流状态、RAG 应用程序的知识库、支付令牌化以及实时库存管理。 此功能已在提供适用于 Valkey 的 ElastiCache 9.0 及更高版本的所有 AWS 区域推出。要开始使用，请使用 AWS 管理控制台、AWS SDK 或 AWS CLI。有关定价，请参阅 Amazon ElastiCache 定价页面 。要了解更多信息，请参阅 ElastiCache 文档中的 持久性 。",
   "publisher_links": [
     "https://aws.amazon.com/elasticache/pricing/",
