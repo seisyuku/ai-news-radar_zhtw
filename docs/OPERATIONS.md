@@ -4,7 +4,7 @@
 
 `tw_media/blocktempo_ai`使用固定原站WordPress AI分類JSON（分類309），不在每次刷新重試已確認落後的RSS，也不以靜默RSS回退掩蓋JSON失效。單次最多2MB／30筆、每輪最多8篇；只收原生標題／GMT發布時間／短摘要，不補抓正文、附件或引用。來源空值與失敗沿用既有子來源健康；有效但無近期候選可成功回零，結構或必要欄位失效則報錯。
 
-沿用未審rank6、僅一般收錄；不改registry、全域評分、排程、provider或讀者窗口。正式首次成功健康時間為14日觀察D0，D14按[SOURCE_COVERAGE](SOURCE_COVERAGE.md)的事件增益條件人工驗收，不自動升級，也不恢復已停用的來源觀察／報告／SMTP流程。發布與D0結果續記於HANDOVER。
+沿用未審rank6、僅一般收錄，一般排序也使用watchlist來源分數0.3；不改registry、全域評分、排程、provider或讀者窗口。正式首次成功健康時間為14日觀察D0，D14按[SOURCE_COVERAGE](SOURCE_COVERAGE.md)的事件增益條件人工驗收，不自動升級，也不恢復已停用的來源觀察／報告／SMTP流程。本次已發布並驗收，D0為臺北11/5 14:35:12、D14為11/19 14:35:12；發布證據見HANDOVER。
 
 ## 11/3 AIBase用途裁決正式發布
 

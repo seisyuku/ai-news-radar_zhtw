@@ -4,9 +4,9 @@
 
 ## 目前待辦
 
-11/5 BlockTempo一般候選試接本機完成：公開分類JSON解決本輪RSS新稿缺漏，來源限定排除與每輪8篇上限已實作，保留未審rank6／無重點及雷達資格。完整2294項、HTTP8篇與配對離線生成通過；archive7681→7689、AI188→195，原記錄／2223事件時鐘／4則重點／雷達保持。待master發布、CI／Pages與正式資料驗收；首個正式成功時間為14日觀察D0，到期人工核實至少3則重要新增補漏，不能自動升級。沿用既有刷新／Archive，不重啟舊workflow或其他暫緩工作。詳見[SOURCE_COVERAGE](SOURCE_COVERAGE.md)最新節。
+11/5 BlockTempo一般候選試接已完成發布驗收：收件1e81a325cc0c與一般排序補正5ee10deee385在master，最終CI／正常刷新／Pages成功。完整2295項、HTTP8篇與配對生成通過；正式14:42:18快照BlockTempo收8篇／一般AI7篇，均未審rank6／一般排序來源分數0.3，無重點／雷達資格。26檔正式HTTP同代，治理與resolver通過，來源失敗／降級0。可立即執行事項已完成；**唯一後續為14日觀察，D0 11/5 14:35:12～D14 11/19 14:35:12（臺北）**，屆滿按事件人工驗收至少3則重要可驗證新增，不由未匹配數或重報湊數、不自動升級。沿用既有刷新／Archive，不重啟舊workflow或其他暫緩工作。詳見[SOURCE_COVERAGE](SOURCE_COVERAGE.md)最新節。
 
-目前無必須續行工作。Claude公告漏報補洞第1～4階段已由fc96e417d4bd整合最新master發布，保留18筆並行快照；本機2245項、GitHub CI／程式Pages／正常刷新／資料Pages均通過。正式資料6d58d3d27c8d生成於臺北11/3 18:11:39，18檔HTTP與13份resolver同提交一致，Claude子來源13篇、來源失敗／降級0，Python／讀者JS治理ready，184篇AI與3則可讀重點。來源限RSS／Feed與HTTP結構化文字，Anthropic同票、日期精度與既有時間／去重邊界保持。Issue／六步定位與兩案歷史稽核完成，原回報時間／當時Feed／下游選稿證據缺口如實保留；本案已發布驗收結案。詳見[交接摘要](HANDOVER.md)最新節。
+以下既有案件均已結案。Claude公告漏報補洞第1～4階段已由fc96e417d4bd整合最新master發布，保留18筆並行快照；本機2245項、GitHub CI／程式Pages／正常刷新／資料Pages均通過。正式資料6d58d3d27c8d生成於臺北11/3 18:11:39，18檔HTTP與13份resolver同提交一致，Claude子來源13篇、來源失敗／降級0，Python／讀者JS治理ready，184篇AI與3則可讀重點。來源限RSS／Feed與HTTP結構化文字，Anthropic同票、日期精度與既有時間／去重邊界保持。Issue／六步定位與兩案歷史稽核完成，原回報時間／當時Feed／下游選稿證據缺口如實保留；本案已發布驗收結案。詳見[交接摘要](HANDOVER.md)最新節。
 
 11/3 AIBase用途裁決已由757fcbcbd135發布，正常刷新2819ba05e83b及CI／Pages成功；本機2163項、18檔正式HTTP與Python／讀者JS驗證通過，465筆AIBase政策均僅允許一般收錄，來源失敗／降級0。詳見[SOURCE_COVERAGE](SOURCE_COVERAGE.md)。
 
@@ -39,7 +39,7 @@ The Decoder讀者翻譯補修已由4beb9d04e444發布，正常刷新1dd95b566107
 
 | 完成日期 | 工作 | 結果／依據 |
 | --- | --- | --- |
-| 11/5 | BlockTempo AI研究與本機試接 | 原站公開分類JSON、來源限定篩選及一般候選用途完成；2294項、HTTP8篇與配對生成通過，待正式發布啟動14日觀察；[來源判斷](SOURCE_COVERAGE.md)。 |
+| 11/5 | BlockTempo AI一般候選試接發布 | 1e81a325cc0c／5ee10deee385、正常刷新4f267b443b95與CI／Pages通過；2295項、26檔HTTP／resolver與前後端治理通過，正式收8篇／一般7篇；14日觀察至11/19 14:35:12；[來源判斷](SOURCE_COVERAGE.md)。 |
 | 11/3 | Claude官方公告覆蓋與漏報定位 | fc96e417d4bd及正常刷新6d58d3d27c8d已發布；2245項、CI／Pages、18檔HTTP與13份resolver、前後端治理通過，Claude13篇，結案。 |
 | 11/1 | 服務條件與內容類型修正 | 21f572d43761及正常刷新1ebd142042c7已發布；2162項、14日回測、CI／Pages、14檔HTTP及同代讀者guard通過，結案。 |
 | 10/31 | The Decoder讀者標題翻譯與金額補修 | 4beb9d04e444、正常刷新1dd95b566107已發布；目標標題／摘要恢復中文，110億／300億美元與1.25兆美元核對正確，拒絕記錄清除。本機2000項、GitHub CI／Pages、9檔HTTP與正式站桌面／手機驗收通過，結案。 |
