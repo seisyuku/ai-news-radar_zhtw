@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "AWS Lambda 耐用函数现在可以导出实时遥测数据，以获得执行见解",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/lambda-durable-telemetry",
-  "last_seen_at": "2026-11-05T11:05:32.772111Z",
+  "last_seen_at": "2026-11-05T11:35:32.364920Z",
   "summary": "AWS Lambda 宣布推出适用于 Lambda 耐用函数的 Durable Execution Telemetry Exporter 插件。这个新的可观测性插件可以捕获持久执行的分步历史记录，并将它们发送到所选的一个或多个目标位置。您可以利用导出的数据来收集运营和业务见解，并在标准保留期之后继续保留历史记录。我们还发布了配套的模型上下文协议（MCP）服务器，允许诸如 Kiro 之类的智能体使用自然语言查询导出的遥测数据。 Lambda 耐用函数可帮助您构建可运行长达一年的韧性多步应用程序和 AI 工作流。新的 Telemetry Exporter 将执行状态、操作时间、步骤输入和输出以及错误等数据发送到 13 个内置目标位置。目标位置包括 Amazon CloudWatch Logs、适用于 Amazon Athena 的 Amazon S3、Amazon DynamoDB、Amazon Aurora 和 Amazon OpenSearch Service。您可以在导出之前对敏感字段进行脱敏处理，并设置采样率以控制数据量。借助 MCP 服务器，值班工程师可以要求智能体列出最近失败的执行并找出失败的原因，业务分析师可以找到特定客户的所有交易。 该导出器支持 TypeScript、Python、Java 和 Go。要开始使用，请 安装 导出器，在函数处理程序中注册插件，然后将 MCP 服务器 添加 到智能体中。 Durable Execution Telemetry Exporter 已在支持 Lambda 耐用函数的所有 AWS 区域推出，不额外收费。要了解更多信息，请参阅 Durable Execution SDK 文档 和 博客文章 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/durable-execution/sdk-reference/observability/telemetry/exporter/",
