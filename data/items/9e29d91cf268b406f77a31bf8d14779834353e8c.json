@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "AWS Lambda 支持 Lambda Managed Instances 的 Seekable OCI（SOCI）延迟加载",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/aws-lambda-seekable-oci-soci",
-  "last_seen_at": "2026-11-05T19:03:56.963166Z",
+  "last_seen_at": "2026-11-05T19:35:34.697509Z",
   "summary": "AWS Lambda 现支持 Seekable OCI（SOCI） ，用于延迟加载打包为 Open Container Initiative（OCI）映像并在 Lambda Managed Instances 上运行的 事件函数 。借助 SOCI 支持，Lambda 仅在执行环境启动的每个阶段提取所需的文件，而不是预先下载整个映像，从而将容器启动所需时间缩短多达 70%。 构建计算密集型应用程序（例如数据处理管道、高吞吐量 API 后端和批量计算工作负载）的客户需要大量内存和 CPU 资源来处理大型数据集、大规模提供低延迟响应，并高效运行复杂计算。这些工作负载的容器映像可以达到几千兆字节，在预置新的执行环境时，下载和准备整个映像可能需要几分钟。Lambda Managed Instances 上的 SOCI 支持通过在执行环境启动的每个阶段仅流式传输所需的文件，消除了这一瓶颈，因此随着您进行扩展，函数的启动速度会更快。 要开始使用，请为您的容器映像创建一个 SOCI 索引 （即映像层中文件的目录），然后将其推送到 Amazon ECR 。创建或更新您的函数时，将映像 URI 设置为 Amazon ECR 中的 SOCI 索引标签（例如 my-function:v1-soci），然后发布函数版本。Lambda 会自动检测 SOCI 索引并启用延迟加载，无需额外配置。如果您使用 Kiro、Claude Code 或 Codex 等编程助手，请安装 Agent Toolkit for AWS 中的 Lambda Managed Instances 技能，通过您的智能体配置和部署函数。 此功能已在提供 Lambda Managed Instances 的所有 AWS 商业区域 推出。要了解更多信息，请访问 AWS Lambda Managed Instances 开发人员指南 。",
   "publisher_links": [
     "https://github.com/awslabs/soci-snapshotter",
