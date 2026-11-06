@@ -1,17 +1,18 @@
 {
-  "id": "71db97ee3541e1e1aeb34b4a7056f262ec76ceec",
-  "published_at": "2026-10-11T23:11:49Z",
-  "first_seen_at": "2026-10-14T07:35:45.039276Z",
+  "id": "4775fbad82ae469cd2d79867cded53587dd40c57",
+  "published_at": "2026-11-03T20:22:46Z",
+  "first_seen_at": "2026-11-06T11:35:34.243626Z",
   "site_id": "curated_media",
   "site_name": "精選媒體",
   "source": "Meta AI (Google News)",
-  "title": "Musing About Meta AI 09/25/2026 - MediaPost",
-  "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOZ2lWWEFSc3U4b3U4b2E4cG5FRzkwUzVvYnZxVE1IbzhWLVNqYWg2VWRXZmF3dk14Y1N5bW5SV2RnZ0Zadm1WaDJlOGZOcWxXWTdlRWk1QzRTbVA4MFdrcy1DLVVQUUxmNGRCWDZCaTM2UW81cmI3aV9JTGRNSEk3c3gxRmdBajFHeF9na1pKMlBFRHZqd0ZpWkpB?oc=5",
-  "last_seen_at": "2026-10-16T11:05:35.112993Z",
-  "summary": "Musing About Meta AI 09/25/2026 MediaPost",
+  "title": "Meta AI Ads Eye Google Search Budgets: 10M Users [2026] - shattered.io",
+  "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxNQVdBSi1FQ0J2YXdPcldVTEE2dVJSUDJpMXhlZHhZQU1IWkpWaUVwWFB6RkcyQVdGd2N2OHpKQ2ZtaUhCY0VGdXNKTUJ4VjU2bW8wN3BOa2pWZ3JGMHNiZkJIZFBKcmpGb1F2VjdaNUNYdmV0Sk84YkpTaTNqLUhwNW5tTmhUSUs5SlE?oc=5",
+  "last_seen_at": "2026-11-06T11:35:34.243626Z",
+  "summary": "Meta AI Ads Eye Google Search Budgets: 10M Users [2026] shattered.io",
   "publisher_links": [
-    "https://news.google.com/rss/articles/CBMimgFBVV95cUxOZ2lWWEFSc3U4b3U4b2E4cG5FRzkwUzVvYnZxVE1IbzhWLVNqYWg2VWRXZmF3dk14Y1N5bW5SV2RnZ0Zadm1WaDJlOGZOcWxXWTdlRWk1QzRTbVA4MFdrcy1DLVVQUUxmNGRCWDZCaTM2UW81cmI3aV9JTGRNSEk3c3gxRmdBajFHeF9na1pKMlBFRHZqd0ZpWkpB?oc=5"
+    "https://news.google.com/rss/articles/CBMiigFBVV95cUxNQVdBSi1FQ0J2YXdPcldVTEE2dVJSUDJpMXhlZHhZQU1IWkpWaUVwWFB6RkcyQVdGd2N2OHpKQ2ZtaUhCY0VGdXNKTUJ4VjU2bW8wN3BOa2pWZ3JGMHNiZkJIZFBKcmpGb1F2VjdaNUNYdmV0Sk84YkpTaTNqLUhwNW5tTmhUSUs5SlE?oc=5"
   ],
+  "source_updated_at": "2026-11-03T20:22:46Z",
   "ingress": {
     "kind": "google_news",
     "site_id": "curated_media",
@@ -22,19 +23,22 @@
   "publisher": {
     "schema_version": 1,
     "publisher_id": null,
-    "name": null,
-    "domain": null,
-    "status": "unknown",
-    "basis": [],
+    "name": "shattered.io",
+    "domain": "shattered.io",
+    "status": "reported",
+    "basis": [
+      "google_rss_source"
+    ],
     "evidence": {
-      "rss_source_name": null,
-      "rss_source_url": null,
+      "rss_source_name": "shattered.io",
+      "rss_source_url": "https://shattered.io",
       "article_url": null,
       "article_host": "news.google.com",
       "expected_publisher_id": null,
       "conflicts": []
     }
   },
+  "security_topic": false,
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
@@ -49,12 +53,11 @@
     "allow_featured": false,
     "allow_radar": false,
     "reason_codes": [
-      "missing_identity",
-      "scope_unknown",
+      "reported_rss_source",
+      "scope_mismatch",
       "unreviewed_publisher",
       "not_permitted_for_featured",
       "not_permitted_for_radar"
     ]
-  },
-  "security_topic": false
+  }
 }
