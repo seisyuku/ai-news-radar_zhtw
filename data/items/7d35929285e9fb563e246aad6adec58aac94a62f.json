@@ -1,17 +1,18 @@
 {
-  "id": "0ddfc8d8dbca2f17b7b4d97bb50eaa0bfbd8a56c",
-  "published_at": "2026-10-16T04:51:28Z",
-  "first_seen_at": "2026-10-16T05:35:35.018596Z",
+  "id": "7d35929285e9fb563e246aad6adec58aac94a62f",
+  "published_at": "2026-11-04T16:56:24Z",
+  "first_seen_at": "2026-11-06T12:35:31.920882Z",
   "site_id": "curated_media",
   "site_name": "精選媒體",
   "source": "DeepSeek (Google News)",
-  "title": "DeepSeek V4.1 Pro Leak: A 180 tok/s Unlabelled Endpoint - OrcaRouter",
-  "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTFBITFFaNGxvbW40LXlFd01RNXgtN01XX0FZUUJidDZtM0xQeENQV29wTlRYSFg4bm5WVHJFazJzMHhzMHhCSFpEYzVTV0k4ZlloRlBTaWZDUzVFNDkydjROSTV0NjdSb0NFLVc5SWdn?oc=5",
-  "last_seen_at": "2026-10-16T12:05:34.073416Z",
-  "summary": "DeepSeek V4.1 Pro Leak: A 180 tok/s Unlabelled Endpoint OrcaRouter",
+  "title": "DeepSeek Researcher Explains Why Open Source Matters at Wuzhen Summit - Geopolitechs",
+  "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBIdG5lbkJTUERDdVkxNm5YaTZ1REFqTkJLS1ZGcFFlMFd6VmdjNWxLR3VKZVRWejlvdEJWdVc3TGRnSWpTUl9GSUxldDB0OVotNEVSaUttUThZYXRzaHpHdWhuemFGMUxUc1N1aXh0QV8?oc=5",
+  "last_seen_at": "2026-11-06T12:35:31.920882Z",
+  "summary": "DeepSeek Researcher Explains Why Open Source Matters at Wuzhen Summit Geopolitechs",
   "publisher_links": [
-    "https://news.google.com/rss/articles/CBMibkFVX3lxTFBITFFaNGxvbW40LXlFd01RNXgtN01XX0FZUUJidDZtM0xQeENQV29wTlRYSFg4bm5WVHJFazJzMHhzMHhCSFpEYzVTV0k4ZlloRlBTaWZDUzVFNDkydjROSTV0NjdSb0NFLVc5SWdn?oc=5"
+    "https://news.google.com/rss/articles/CBMicEFVX3lxTFBIdG5lbkJTUERDdVkxNm5YaTZ1REFqTkJLS1ZGcFFlMFd6VmdjNWxLR3VKZVRWejlvdEJWdVc3TGRnSWpTUl9GSUxldDB0OVotNEVSaUttUThZYXRzaHpHdWhuemFGMUxUc1N1aXh0QV8?oc=5"
   ],
+  "source_updated_at": "2026-11-04T16:56:24Z",
   "ingress": {
     "kind": "google_news",
     "site_id": "curated_media",
@@ -22,19 +23,22 @@
   "publisher": {
     "schema_version": 1,
     "publisher_id": null,
-    "name": null,
-    "domain": null,
-    "status": "unknown",
-    "basis": [],
+    "name": "Geopolitechs",
+    "domain": "www.geopolitechs.org",
+    "status": "reported",
+    "basis": [
+      "google_rss_source"
+    ],
     "evidence": {
-      "rss_source_name": null,
-      "rss_source_url": null,
+      "rss_source_name": "Geopolitechs",
+      "rss_source_url": "https://www.geopolitechs.org",
       "article_url": null,
       "article_host": "news.google.com",
       "expected_publisher_id": null,
       "conflicts": []
     }
   },
+  "security_topic": false,
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
@@ -49,12 +53,11 @@
     "allow_featured": false,
     "allow_radar": false,
     "reason_codes": [
-      "missing_identity",
-      "scope_unknown",
+      "reported_rss_source",
+      "scope_mismatch",
       "unreviewed_publisher",
       "not_permitted_for_featured",
       "not_permitted_for_radar"
     ]
-  },
-  "security_topic": false
+  }
 }
