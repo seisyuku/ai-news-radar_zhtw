@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon SageMaker AI 推理现在支持实时端点的 GPU 分区",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/sagemaker-gpu-partitioning",
-  "last_seen_at": "2026-11-06T09:05:30.144030Z",
+  "last_seen_at": "2026-11-06T09:35:31.048492Z",
   "summary": "Amazon SageMaker AI 推理现在支持 GPU 分区，使您能够在单个 GPU 上运行多个模型，而不必为每个模型指定一个完整的加速器。借助 NVIDIA 多实例 GPU（MIG）技术，SageMaker AI 将一个 GPU 划分为最多七个相互隔离的分区，每个分区都拥有独立的内存和计算资源。此前，使用中小型模型（例如经过微调的变体、嵌入模型、重新排序器和分类器）的客户，必须为每个模型分配一个完整的加速器，因此单个实例托管的模型数量不会超过其拥有的 GPU 数量，且需要为这些模型不会用到的 GPU 容量付费。 借助 GPU 分区，您可以选择如何划分端点后面的 GPU，并将每个模型放置在大小与其适配的分区上。然后，多个模型共享一个加速器，并通过硬件强制隔离，让一个繁忙的模型不会占用其旁边模型的内存或吞吐量。根据工作负载调整加速器，还能释放出新一代实例资源，否则这些资源的容量将超过单个模型的实际需求。在创建托管推理组件的端点时，您可以配置 GPU 分区；之后仍可按名称调用每个模型，因此您的应用程序代码无需更改。 GPU 分区功能已在以下区域的 P4d、P5、G7 和 G7e 实例上推出：美国东部（弗吉尼亚州北部）、美国东部（俄亥俄州）、美国西部（俄勒冈州）、亚太地区（新加坡）、亚太地区（东京）、欧洲地区（法兰克福）和欧洲地区（爱尔兰）。要了解更多信息，请访问 Amazon SageMaker AI 部署页面 并查看 Amazon SageMaker AI Developer Guide 。",
   "publisher_links": [
     "https://aws.amazon.com/sagemaker/ai/deploy/",
