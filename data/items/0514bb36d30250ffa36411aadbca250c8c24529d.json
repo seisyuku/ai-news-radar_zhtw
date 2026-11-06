@@ -1,0 +1,57 @@
+{
+  "id": "0514bb36d30250ffa36411aadbca250c8c24529d",
+  "published_at": "2026-11-06T03:40:19Z",
+  "first_seen_at": "2026-11-06T04:05:37.494730Z",
+  "site_id": "tw_media",
+  "site_name": "TW Media",
+  "source": "TechNews 科技新報",
+  "title": "一句提示詞防堵 AI 失控，實測證實「先詢問再行動」能有效攔截未授權操作",
+  "url": "https://technews.tw/2026/11/06/prompt-prevents-ai-runaway-tests-confirm-ask-first-act-blocks-unauthorized-operations",
+  "last_seen_at": "2026-11-06T04:05:37.494730Z",
+  "summary": "AI 代理愈來愈能代替使用者處理搜尋、整理與撰寫等工作，但也可能在沒有明確授權的情況下，直接替人發信、送出表單 […]",
+  "source_updated_at": "2026-11-06T03:40:19Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "tw_media",
+    "source_id": "technews_tw",
+    "name": "TechNews 科技新報",
+    "feed_url": "https://technews.tw/feed/"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "technews",
+    "name": "TechNews 科技新報",
+    "domain": "technews.tw",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://technews.tw/2026/11/06/prompt-prevents-ai-runaway-tests-confirm-ask-first-act-blocks-unauthorized-operations",
+      "article_host": "technews.tw",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "technews",
+    "publisher_kind": "media",
+    "admission_status": "limited",
+    "source_tier": "tw_media",
+    "source_tier_label": "台灣繁中媒體",
+    "source_tier_rank": 2,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}
