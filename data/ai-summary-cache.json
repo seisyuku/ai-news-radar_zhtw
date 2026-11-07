@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v3",
   "entries": {
+    "1e292b707e11578ce340322ffe6cf60197068e06203edae86794ddfb66e9178b": {
+      "summary": "Perplexity推出「Teammates」常駐AI代理，需訂閱每月200美元Max方案。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-07T07:05:28.802999Z"
+    },
     "501ed06ebd64f8f77cde2bcbb6c977064e7dfbd103b57fbe01835636efbe6163": {
       "summary": "Anthropic 1.5兆美元IPO遇阻，投資者對估值表示反對。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-10-22T04:01:11.277683Z"
-    },
-    "e5bcc7818b5132422806902d5d98851969225c3944b9cf78b31a8f21c0a4d2ef": {
-      "summary": "微軟開源評測平臺Scope，可讓GitHub Copilot、Claude Code等AI程式開發代理執行指定任務，檢查是否正確使用SDK、API及相關工具，並記錄操作過程與測試結果。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-22T02:35:27.887161Z"
     }
   },
   "rejections": {
@@ -4799,6 +4799,10 @@
     "bd2faad6d453f4f2f18f9fedd47d8ae0ae4f01202f13395c249f127ebd82f79f": {
       "reason": "validation_length",
       "created_at": "2026-11-06T21:35:35.058630Z"
+    },
+    "4fec0ca862d7cc350798ea0b4821c7d7d87d30f2af4dee1acffa646a19f643cc": {
+      "reason": "validation_numeric_grounding",
+      "created_at": "2026-11-07T07:05:28.802999Z"
     }
   }
 }
