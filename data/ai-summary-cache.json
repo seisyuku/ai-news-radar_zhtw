@@ -2,6 +2,18 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v3",
   "entries": {
+    "e1132390e8af5ad2c8024eed75a756d0b2ff16b62ac9bb7f32633b7b675cebf3": {
+      "summary": "Vals AI基準測試顯示，OpenAI GPT-6 Sol Daybreak達成80.8%攻擊目標，DeepSeek V4.1 Flash以十分之一成本達成72.8%。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-07T16:05:28.643858Z"
+    },
+    "ec9958b9468e2b8d2b81b401ca0d5195663bce655c0ae55db338465127237cb9": {
+      "summary": "美眾議員Josh Gottheimer在支持國會交易禁令數月後，揭露新購AI相關股票。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-07T16:05:28.643858Z"
+    },
     "f40e8e2cf65ba9ef986dc73a2c49512cd5a3611d405e687c6c747021f2c34332": {
       "summary": "METR報告指出，Anthropic模型改進速度約為一年前兩倍，且無放緩跡象。",
       "provider": "groq",
@@ -2989,18 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-10-22T15:35:34.075559Z"
-    },
-    "482de958adeaa7cef81877121bb11b1b3c7c4c092b51bbabb3fb876eaa109347": {
-      "summary": "關鍵 PHP 網路安全漏洞引發全球警戒，Google、OpenAI 與亞馬遜隨之做出回應。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-22T13:05:33.161035Z"
-    },
-    "52d7fc57dd7e4c13ed457ec17c597b8d53197869b216699b35967eadc9ffa90d": {
-      "summary": "10月21日，PHP開發團隊修補重大漏洞PHPShell（CVE-2026-109618、CVE-2026-109619）。通報該漏洞的資安公司Wiz同日公佈發現過程。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-22T10:35:32.423433Z"
     }
   },
   "rejections": {
@@ -4800,13 +4800,13 @@
       "reason": "validation_length",
       "created_at": "2026-11-06T21:35:35.058630Z"
     },
-    "f56a7df67f3c301c19637160b72d9706bd3d50cf2c831b33140b2489cf40acad": {
-      "reason": "validation_numeric_grounding",
-      "created_at": "2026-11-07T10:05:27.587620Z"
-    },
     "4fec0ca862d7cc350798ea0b4821c7d7d87d30f2af4dee1acffa646a19f643cc": {
       "reason": "validation_numeric_grounding",
       "created_at": "2026-11-07T13:05:35.748058Z"
+    },
+    "f56a7df67f3c301c19637160b72d9706bd3d50cf2c831b33140b2489cf40acad": {
+      "reason": "validation_numeric_grounding",
+      "created_at": "2026-11-07T16:05:28.643858Z"
     }
   }
 }
