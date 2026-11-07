@@ -2,6 +2,18 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v3",
   "entries": {
+    "975bd728016b8c8311c4ae053c7cce1ab6e3835cf672a7a8a4969c2078e94a80": {
+      "summary": "TechCrunch AI 分析中期選舉對科技產業的影響，指出 Elon Musk 與資料中心前景不穩。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-07T22:35:33.863333Z"
+    },
+    "5b33b73d141037bbe358c80bda4070ff42c717419088dc09e595c5961195f0da": {
+      "summary": "OpenAI估值達1.25兆美元，但募資未達預期；Anthropic申請上市，OpenAI以安全為由審慎看待IPO。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-07T22:35:33.863333Z"
+    },
     "366acca1d4e73f288b12c0eee9d8d95e3c0789e5a3bbc0549ba0fbf3882478f0": {
       "summary": "據美國情報備忘錄，中國國安部招募女性高管刺探Nvidia執行長。",
       "provider": "groq",
@@ -2989,18 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-10-22T18:05:32.679546Z"
-    },
-    "9b33e22563a7ecb0ff4c97ba571724d60cf4d78db9f57fcab50f2562eafb4c9a": {
-      "summary": "GitHub Copilot 影響力儀錶板新增「產業比較」區塊，企業及非企業所有組織可將 Copilot agentic 採用與利用情況與聚合基準進行比較。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-22T17:35:21.011794Z"
-    },
-    "84794d5076b84d9dae269ef75e145f26a5a9dc9ea1cd6b8f77f4dd20d155567c": {
-      "summary": "MarkTechPost 發布開發者指南，說明如何審計與重建 Datalab 的 OmniParseBench，並透過文件層級自舉法測試解析器排名確定性，同時評估 Tesseract 與 Indra OCR 在自訂樣本上的效能。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-22T17:35:21.011794Z"
     }
   },
   "rejections": {
@@ -4804,13 +4804,13 @@
       "reason": "validation_numeric_grounding",
       "created_at": "2026-11-07T13:05:35.748058Z"
     },
-    "f56a7df67f3c301c19637160b72d9706bd3d50cf2c831b33140b2489cf40acad": {
-      "reason": "validation_numeric_grounding",
-      "created_at": "2026-11-07T16:05:28.643858Z"
-    },
     "040b56fbd51c4fb7dfcd3feb3e5eaf8d4608369f62492b86211a3377aaf8123e": {
       "reason": "validation_numeric_grounding",
       "created_at": "2026-11-07T18:05:32.750163Z"
+    },
+    "f56a7df67f3c301c19637160b72d9706bd3d50cf2c831b33140b2489cf40acad": {
+      "reason": "validation_numeric_grounding",
+      "created_at": "2026-11-07T22:35:33.863333Z"
     }
   }
 }
