@@ -1,17 +1,18 @@
 {
-  "id": "2b996191649c1abda9ac58127fb76372fe98f985",
-  "published_at": "2026-10-16T01:17:00Z",
-  "first_seen_at": "2026-10-16T08:53:53.911996Z",
+  "id": "c3a97a78d5727e148f42d25147291d595635c987",
+  "published_at": "2026-11-07T03:29:00Z",
+  "first_seen_at": "2026-11-07T03:35:28.378941Z",
   "site_id": "tw_media",
   "site_name": "TW Media",
   "source": "數位時代 (Google News)",
-  "title": "a16z領投19歲創辦人！新創Ghost推出無螢幕、手機操控的AI電腦「Core」 - Meet創業小聚",
-  "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTFByRVJBeHlYY0ZKNy1EZnZCR0pUOHFnY0pnTDN6R214VmhobTh6d1lSVlBEWHRyWVJIcG15TGcwekNlbDBGcHhFemYxNjhpR3A0VVVjMzR2bGc?oc=5",
-  "last_seen_at": "2026-10-17T03:35:26.696823Z",
-  "summary": "a16z領投19歲創辦人！新創Ghost推出無螢幕、手機操控的AI電腦「Core」 Meet創業小聚",
+  "title": "上傳合約給AI 安全嗎？不讓對話拿去訓練不等於刪除，ChatGPT、Claude 記憶、分享連結這樣設定 - 未來商務",
+  "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE05dVhRUTFwNl9xOUl3a1RsbnVPaG5DUmx1TWFhTWlycW81TDZZUjhnRG1HUDdVcGJFR1F3S0cwUWt4RGx5czViMjNBRUIwS3RkejJlXw?oc=5",
+  "last_seen_at": "2026-11-07T03:35:28.378941Z",
+  "summary": "上傳合約給AI 安全嗎？不讓對話拿去訓練不等於刪除，ChatGPT、Claude 記憶、分享連結這樣設定 未來商務",
   "publisher_links": [
-    "https://news.google.com/rss/articles/CBMiWEFVX3lxTFByRVJBeHlYY0ZKNy1EZnZCR0pUOHFnY0pnTDN6R214VmhobTh6d1lSVlBEWHRyWVJIcG15TGcwekNlbDBGcHhFemYxNjhpR3A0VVVjMzR2bGc?oc=5"
+    "https://news.google.com/rss/articles/CBMiVEFVX3lxTE05dVhRUTFwNl9xOUl3a1RsbnVPaG5DUmx1TWFhTWlycW81TDZZUjhnRG1HUDdVcGJFR1F3S0cwUWt4RGx5czViMjNBRUIwS3RkejJlXw?oc=5"
   ],
+  "source_updated_at": "2026-11-07T03:29:00Z",
   "ingress": {
     "kind": "google_news",
     "site_id": "tw_media",
@@ -22,27 +23,29 @@
   "publisher": {
     "schema_version": 1,
     "publisher_id": "bnext",
-    "name": "數位時代",
-    "domain": null,
+    "name": "未來商務",
+    "domain": "fc.bnext.com.tw",
     "status": "identified",
     "basis": [
+      "google_rss_source",
       "configured_bridge"
     ],
     "evidence": {
-      "rss_source_name": null,
-      "rss_source_url": null,
+      "rss_source_name": "未來商務",
+      "rss_source_url": "https://fc.bnext.com.tw",
       "article_url": null,
       "article_host": "news.google.com",
       "expected_publisher_id": null,
       "conflicts": []
     }
   },
+  "security_topic": false,
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
     "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
-    "scope_id": "unreviewed",
-    "publisher_kind": "unknown",
+    "scope_id": "edition/fc.bnext.com.tw",
+    "publisher_kind": "media",
     "admission_status": "unreviewed",
     "source_tier": "watchlist",
     "source_tier_label": "未審來源",
@@ -51,12 +54,10 @@
     "allow_featured": false,
     "allow_radar": false,
     "reason_codes": [
-      "legacy_identity",
-      "scope_unknown",
+      "identified_bridge",
       "unreviewed_publisher",
       "not_permitted_for_featured",
       "not_permitted_for_radar"
     ]
-  },
-  "security_topic": false
+  }
 }
