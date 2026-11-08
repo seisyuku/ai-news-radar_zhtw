@@ -1,0 +1,70 @@
+{
+  "id": "d29b1a31ec77b2f3c7c4e6d065df46ce8c9bb457",
+  "published_at": "2026-11-08T22:26:00Z",
+  "first_seen_at": "2026-11-08T22:49:43.466997Z",
+  "site_id": "opmlrss",
+  "site_name": "OPML RSS",
+  "source": "Simon Willison",
+  "title": "parse_number() as a SQLite extension: C vs Rust",
+  "url": "https://simonwillison.net/2026/Nov/8/sqlite-parse-number-c-vs-rust",
+  "last_seen_at": "2026-11-08T22:49:43.466997Z",
+  "summary": "Research: parse_number() as a SQLite extension: C vs Rust I was out walking the dog when I got curious about how easy/difficult it would be to write a SQLite C extension that adds a parse_number() function for turning strings like -$1,234.56 or '12.5%' into numeric values that could be summed and sorted. I fired up regular Claude chat (Opus 5.5) and prompted : I'm thinking about a SQLite custom function 'parse_number(value)' that strips ',', '$', '£' and '%', handles a leading '-', and returns 'NULL' for anything it can’t parse Explore the difference between building this as a SQLite extension in C v.s. in Rust - I want to compare performance and code complexity and size of the resulting .so (or whatever) file This gave me a solid starting point - the Rust extension was 321 KB (using Rusqlite ) and 298 KB (using sqlite-loadable-rs ), while the C extension was 14 KB. But the Rust extension was faster! Turns out that's because the Rust equivalent of C's strtod is \"twice as fast\". So I prompted: Try writing your own C function for parsing text into a decimal number that catches up to or beats the Rust implementation And it did: Net cost per row over 2 million rows, lower is better: Finally, I had it rewrite the prototype as a research report to match the others in simonw/research by prompting this: Clone simonw/research from GitHub and turn your above investigation into a research report as seen in that repository - you can give me a zip file to download that contains your new folder Here's the resulting report . Tags: c , research , sqlite , rust , claude",
+  "publisher_links": [
+    "https://github.com/simonw/research/tree/main/sqlite-parse-number-c-vs-rust#readme",
+    "https://claude.ai/share/7f18f157-6c96-4d49-a1d4-f02403e3b261",
+    "https://github.com/rusqlite/rusqlite",
+    "https://github.com/asg017/sqlite-loadable-rs",
+    "https://github.com/simonw/research",
+    "https://simonwillison.net/tags/c",
+    "https://simonwillison.net/tags/research",
+    "https://simonwillison.net/tags/sqlite",
+    "https://simonwillison.net/tags/rust",
+    "https://simonwillison.net/tags/claude"
+  ],
+  "source_updated_at": "2026-11-08T22:26:00Z",
+  "ingress": {
+    "kind": "private_opml",
+    "site_id": "opmlrss",
+    "source_id": null,
+    "name": "RSS/OPML",
+    "feed_url": null
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": null,
+    "name": null,
+    "domain": "simonwillison.net",
+    "status": "unknown",
+    "basis": [],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": null,
+      "article_host": "simonwillison.net",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "unreviewed",
+    "publisher_kind": "unknown",
+    "admission_status": "unreviewed",
+    "source_tier": "watchlist",
+    "source_tier_label": "未審來源",
+    "source_tier_rank": 6,
+    "allow_general": true,
+    "allow_featured": false,
+    "allow_radar": false,
+    "reason_codes": [
+      "missing_identity",
+      "scope_mismatch",
+      "unreviewed_publisher",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
+    ]
+  }
+}
