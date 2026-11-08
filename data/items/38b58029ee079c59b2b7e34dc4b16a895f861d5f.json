@@ -1,0 +1,61 @@
+{
+  "id": "38b58029ee079c59b2b7e34dc4b16a895f861d5f",
+  "published_at": "2026-11-02T18:36:00Z",
+  "first_seen_at": "2026-11-08T00:05:30.641244Z",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "Amazon Quick 桌面版现在支持使用企业现有的 Amazon Quick 登录方法",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/amazon-quick-desktop-organization-sign-in",
+  "last_seen_at": "2026-11-08T00:05:30.641244Z",
+  "summary": "对于使用 Amazon Quick 的企业，桌面应用程序现在支持使用与企业在 Quick Web 版上使用的相同登录方法让用户登录。管理员无需再在身份提供者中注册 OIDC 应用程序，也无需设置单独的桌面登录方法，即可让用户开始登录。如果用户可以登录 Quick Web 版，则该用户就可以登录桌面应用程序。 要开启桌面访问权限，管理员只需在 Amazon Quick 控制台中添加一次桌面连接器。然后，用户输入其 Quick 账户名，选择“登录”，即可通过浏览器完成登录。这适用于使用 IAM Identity Center、IAM 联合身份验证或原生 Amazon Quick 用户的账户。如果您的企业希望单独管理桌面登录，您仍然可以使用 Microsoft Entra ID、Google Workspace、Okta 或 Ping Identity 等提供者来设置专用的身份提供者配置。 Amazon Quick 桌面版已在 支持完整 Amazon Quick 功能集的 AWS 区域 推出。 要开始使用，请参阅 Amazon Quick User Guide 中的 Amazon Quick on desktop 。",
+  "publisher_links": [
+    "https://docs.aws.amazon.com/quick/latest/userguide/regions.html#regions-qs",
+    "https://docs.aws.amazon.com/quick/latest/userguide/amazon-quick-desktop.html"
+  ],
+  "source_updated_at": "2026-11-02T18:36:00Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "aws_news",
+    "name": "AWS News",
+    "feed_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "amazon",
+    "name": "AWS",
+    "domain": "aws.amazon.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/amazon-quick-desktop-organization-sign-in",
+      "article_host": "aws.amazon.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "amazon",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}

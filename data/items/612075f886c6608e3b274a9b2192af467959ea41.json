@@ -1,0 +1,68 @@
+{
+  "id": "612075f886c6608e3b274a9b2192af467959ea41",
+  "published_at": "2026-11-07T23:57:46Z",
+  "first_seen_at": "2026-11-08T00:05:30.641244Z",
+  "site_id": "opmlrss",
+  "site_name": "OPML RSS",
+  "source": "Simon Willison",
+  "title": "datasette #3046: Don't serve link: rel=next HTTP headers to Firefox for HTML pages",
+  "url": "https://simonwillison.net/2026/Nov/7/link-rel-next",
+  "last_seen_at": "2026-11-08T00:05:30.641244Z",
+  "summary": "datasette #3046: Don't serve link: rel=next HTTP headers to Firefox for HTML pages I was looking at the Firefox network panel today when I noticed that requests to a Datasette table page were triggering an HTTP prefetch to the next page of rows in that table. This was happening because Datasette pages serve an HTTP link header like this: link: <https://latest.datasette.io/fixtures/compound_three_primary_keys?_next=a%2Cd%2Cv>; rel=\"next\" This is bad. A tiny fraction of the visitors to one of those pages will click the \"next\" link, which means their browser is fetching unnecessary data and the Datasette server is having to render an entire page that then gets thrown away. I dug in and learned that Firefox has an issue that has been open for 24 years about this behavior... And one of the early comments on that issue links to my blog post from 2002 complaining about this feature. I hadn't just forgotten that I had written about it, I had forgotten the feature entirely! Tags: firefox , html , mozilla , datasette",
+  "publisher_links": [
+    "https://github.com/simonw/datasette/issues/3046",
+    "https://developer.mozilla.org/en-US/docs/Glossary/Prefetch",
+    "https://bugzilla.mozilla.org/show_bug.cgi?id=175418",
+    "https://simonwillison.net/2002/Oct/17/mozillaPrefetching/",
+    "https://simonwillison.net/tags/firefox",
+    "https://simonwillison.net/tags/html",
+    "https://simonwillison.net/tags/mozilla",
+    "https://simonwillison.net/tags/datasette"
+  ],
+  "source_updated_at": "2026-11-07T23:57:46Z",
+  "ingress": {
+    "kind": "private_opml",
+    "site_id": "opmlrss",
+    "source_id": null,
+    "name": "RSS/OPML",
+    "feed_url": null
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": null,
+    "name": null,
+    "domain": "simonwillison.net",
+    "status": "unknown",
+    "basis": [],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": null,
+      "article_host": "simonwillison.net",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "unreviewed",
+    "publisher_kind": "unknown",
+    "admission_status": "unreviewed",
+    "source_tier": "watchlist",
+    "source_tier_label": "未審來源",
+    "source_tier_rank": 6,
+    "allow_general": true,
+    "allow_featured": false,
+    "allow_radar": false,
+    "reason_codes": [
+      "missing_identity",
+      "scope_mismatch",
+      "unreviewed_publisher",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
+    ]
+  }
+}
