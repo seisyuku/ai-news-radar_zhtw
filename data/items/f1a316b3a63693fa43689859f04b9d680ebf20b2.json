@@ -1,17 +1,18 @@
 {
-  "id": "bdb45b11267aa7e1e420b67830196db1702fbcfe",
-  "published_at": "2026-10-18T03:06:53Z",
-  "first_seen_at": "2026-10-18T09:35:24.929061Z",
+  "id": "f1a316b3a63693fa43689859f04b9d680ebf20b2",
+  "published_at": "2026-11-08T16:44:05Z",
+  "first_seen_at": "2026-11-08T20:05:30.939406Z",
   "site_id": "curated_media",
   "site_name": "精選媒體",
   "source": "DeepSeek (Google News)",
-  "title": "DeepSeek Updates Its AI Model: The Race for Smarter AI Continues 🚀 - Binance",
-  "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE1CalhzR0RaaHcyVmJ2Z0U1RTMzYWRVaGVSbjNUa011YkdFajdmYWJ6YlkwOWRnR2djeVZ6RVFqN1FyTERqOTRYcnhseTFyTmhmUWxZcmJUa1pEVE9wd3A3cmxoMGU?oc=5",
-  "last_seen_at": "2026-10-18T19:35:27.538521Z",
-  "summary": "DeepSeek Updates Its AI Model: The Race for Smarter AI Continues 🚀 Binance",
+  "title": "DeepSeek Model Completes 21 of 31 Tasks in Vals AI Hacking Test - www.tokenpost.com",
+  "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE4ybFZXOW5selpiOWJrMWFnaUdJcnc2emYtT0IyazdHSjFwWlFMMkZQRFFqTGdkUVA5UkRXZnpGZzhELW5zUzVmRkZlWHZQNkdHR2dPUGdfLVBveTA?oc=5",
+  "last_seen_at": "2026-11-08T20:05:30.939406Z",
+  "summary": "DeepSeek Model Completes 21 of 31 Tasks in Vals AI Hacking Test www.tokenpost.com",
   "publisher_links": [
-    "https://news.google.com/rss/articles/CBMiZEFVX3lxTE1CalhzR0RaaHcyVmJ2Z0U1RTMzYWRVaGVSbjNUa011YkdFajdmYWJ6YlkwOWRnR2djeVZ6RVFqN1FyTERqOTRYcnhseTFyTmhmUWxZcmJUa1pEVE9wd3A3cmxoMGU?oc=5"
+    "https://news.google.com/rss/articles/CBMiW0FVX3lxTE4ybFZXOW5selpiOWJrMWFnaUdJcnc2emYtT0IyazdHSjFwWlFMMkZQRFFqTGdkUVA5UkRXZnpGZzhELW5zUzVmRkZlWHZQNkdHR2dPUGdfLVBveTA?oc=5"
   ],
+  "source_updated_at": "2026-11-08T16:44:05Z",
   "ingress": {
     "kind": "google_news",
     "site_id": "curated_media",
@@ -22,19 +23,22 @@
   "publisher": {
     "schema_version": 1,
     "publisher_id": null,
-    "name": null,
-    "domain": null,
-    "status": "unknown",
-    "basis": [],
+    "name": "www.tokenpost.com",
+    "domain": "www.tokenpost.com",
+    "status": "reported",
+    "basis": [
+      "google_rss_source"
+    ],
     "evidence": {
-      "rss_source_name": null,
-      "rss_source_url": null,
+      "rss_source_name": "www.tokenpost.com",
+      "rss_source_url": "https://www.tokenpost.com",
       "article_url": null,
       "article_host": "news.google.com",
       "expected_publisher_id": null,
       "conflicts": []
     }
   },
+  "security_topic": false,
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
@@ -49,12 +53,11 @@
     "allow_featured": false,
     "allow_radar": false,
     "reason_codes": [
-      "missing_identity",
-      "scope_unknown",
+      "reported_rss_source",
+      "scope_mismatch",
       "unreviewed_publisher",
       "not_permitted_for_featured",
       "not_permitted_for_radar"
     ]
-  },
-  "security_topic": false
+  }
 }
