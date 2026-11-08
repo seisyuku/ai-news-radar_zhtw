@@ -2,6 +2,18 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v3",
   "entries": {
+    "618ae04494381648d146fb69422abaedf2c7b64015c1908c70ad6d589aceef78": {
+      "summary": "Claude Code「不要再問」選項緻密碼外洩至1,122個公開GitHub檔案。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-08T05:05:27.078935Z"
+    },
+    "dbc612112cbd96bf8834aec0d2079a2301c06739893dc1d74be1b1baf8afbaf2": {
+      "summary": "AI代理ARTEX瞄準GitHub公開憑證，微軟示警攻擊鏈已壓縮至五分鐘。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-08T05:05:27.078935Z"
+    },
     "7814e6f7074f0fd5abc11fb075aebebf331ad32223bd6cd984d3f0e36af3ecb0": {
       "summary": "OpenAI 發表逾 700 篇 AI 數學論文，數學家卡萊加里指其具突破性但品質差。",
       "provider": "groq",
@@ -2989,18 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-10-23T02:35:32.672148Z"
-    },
-    "7aa2ed03a3f839981434485b13c3a9570fbc39ac2e5bd8f676c2d25f1639bc9b": {
-      "summary": "CyberSN分析顯示，2026年1月至9月美國資安職缺較2025年同期減少26.4%，創2023年以來新低；其中AI安全工程師職缺逆勢年增268.3%。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-23T02:35:32.672148Z"
-    },
-    "fa4dc8ed4fc2c5cff5d62334295bfaa8d63ad30d202cdd7fdeaefc8882edfbca": {
-      "summary": "OpenAI 全面開放決策 API，基於 GPT-6 Luna，專攻答案範圍明確的實時判斷場景，支持文本、圖像及結構化數據。定價為輸入每百萬 token 0.1 美元，並涉及緩存命中計費。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-23T02:01:55.783623Z"
     }
   },
   "rejections": {
@@ -4804,10 +4804,6 @@
       "reason": "validation_numeric_grounding",
       "created_at": "2026-11-07T13:05:35.748058Z"
     },
-    "f56a7df67f3c301c19637160b72d9706bd3d50cf2c831b33140b2489cf40acad": {
-      "reason": "validation_numeric_grounding",
-      "created_at": "2026-11-07T22:35:33.863333Z"
-    },
     "040b56fbd51c4fb7dfcd3feb3e5eaf8d4608369f62492b86211a3377aaf8123e": {
       "reason": "validation_numeric_grounding",
       "created_at": "2026-11-08T00:35:29.961009Z"
@@ -4819,6 +4815,14 @@
     "405ac25eabba010f457a2d2371947d49a005a2a2c8005b9ad96fbc9308f4bbe2": {
       "reason": "insufficient_context",
       "created_at": "2026-11-08T04:35:28.454458Z"
+    },
+    "f56a7df67f3c301c19637160b72d9706bd3d50cf2c831b33140b2489cf40acad": {
+      "reason": "validation_numeric_grounding",
+      "created_at": "2026-11-08T05:05:27.078935Z"
+    },
+    "28e60b98b01df6e32fb9c915eaa91605a4fcc5926eec16b92a589d309b2f46b0": {
+      "reason": "insufficient_context",
+      "created_at": "2026-11-08T05:05:27.078935Z"
     }
   }
 }
