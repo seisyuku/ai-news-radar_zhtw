@@ -1,21 +1,21 @@
 {
-  "generated_at": "2026-11-08T11:35:32.260827Z",
+  "generated_at": "2026-11-08T12:05:30.658682Z",
   "window_hours": 24,
-  "total_items": 51,
-  "total_items_ai_raw": 53,
-  "total_items_raw": 58,
-  "total_items_all_mode": 56,
+  "total_items": 53,
+  "total_items_ai_raw": 54,
+  "total_items_raw": 59,
+  "total_items_all_mode": 58,
   "topic_filter": "ai_relevance_scoring_v0_4",
   "ai_relevance_threshold": 0.65,
-  "archive_total": 7739,
+  "archive_total": 7738,
   "site_count": 14,
   "source_count": 15,
   "site_stats": [
     {
       "site_id": "curated_media",
       "site_name": "精選媒體",
-      "count": 22,
-      "raw_count": 22
+      "count": 23,
+      "raw_count": 23
     },
     {
       "site_id": "tw_media",
@@ -24,16 +24,16 @@
       "raw_count": 20
     },
     {
+      "site_id": "opmlrss",
+      "site_name": "OPML",
+      "count": 5,
+      "raw_count": 9
+    },
+    {
       "site_id": "kr36_ai",
       "site_name": "36Kr AI (Watchlist)",
       "count": 5,
-      "raw_count": 7
-    },
-    {
-      "site_id": "opmlrss",
-      "site_name": "OPML",
-      "count": 4,
-      "raw_count": 8
+      "raw_count": 6
     },
     {
       "site_id": "runtimewire",
@@ -98,6 +98,101 @@
   ],
   "items": [
     {
+      "id": "55cd4b30f1f531bc3bcfc68e50bb9e35b2b31204",
+      "published_at": "2026-11-08T11:44:41Z",
+      "first_seen_at": "2026-11-08T12:05:30.658682Z",
+      "site_id": "curated_media",
+      "site_name": "精選媒體",
+      "source": "The Decoder AI News",
+      "title": "The inventor of the bitter lesson has a bitter lesson for LLM scaling enthusiasts",
+      "url": "https://the-decoder.com/the-inventor-of-the-bitter-lesson-has-a-bitter-lesson-for-llm-scaling-enthusiasts",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
+      "summary": "Turing Award winner Richard Sutton reaffirms that raw compute alone isn't enough for intelligence and that fundamentally new learning methods are needed. Ex-OpenAI researcher Tworek agrees, saying blind transformer scaling \"has reward hacked brains of a whole generation of scientists.\" A growing wave of startups is already betting on exactly this gap. The article The inventor of the bitter lesson has a bitter lesson for LLM scaling enthusiasts appeared first on The Decoder .",
+      "publisher_links": [
+        "https://the-decoder.com/the-inventor-of-the-bitter-lesson-has-a-bitter-lesson-for-llm-scaling-enthusiasts/",
+        "https://the-decoder.com"
+      ],
+      "source_updated_at": "2026-11-08T11:44:41Z",
+      "ingress": {
+        "kind": "public_feed",
+        "site_id": "curated_media",
+        "source_id": "the_decoder",
+        "name": "The Decoder AI News",
+        "feed_url": "https://the-decoder.com/feed/"
+      },
+      "publisher": {
+        "schema_version": 1,
+        "publisher_id": "the_decoder",
+        "name": "The Decoder",
+        "domain": "the-decoder.com",
+        "status": "identified",
+        "basis": [
+          "article_host"
+        ],
+        "evidence": {
+          "rss_source_name": null,
+          "rss_source_url": null,
+          "article_url": "https://the-decoder.com/the-inventor-of-the-bitter-lesson-has-a-bitter-lesson-for-llm-scaling-enthusiasts",
+          "article_host": "the-decoder.com",
+          "expected_publisher_id": null,
+          "conflicts": []
+        }
+      },
+      "article_key": "https://the-decoder.com/the-inventor-of-the-bitter-lesson-has-a-bitter-lesson-for-llm-scaling-enthusiasts",
+      "security_topic": true,
+      "business_events": [
+        "security"
+      ],
+      "ai_is_related": true,
+      "ai_score": 0.79,
+      "ai_label": "research_paper",
+      "ai_relevance_reason": "curated_media_source_filter",
+      "ai_signals": [
+        "llm"
+      ],
+      "ai_noise": [],
+      "source_tier": "ai_vertical",
+      "source_tier_label": "AI垂直專業媒體",
+      "source_tier_rank": 1,
+      "summary_zh": "圖靈獎得主李察·薩頓（Richard Sutton）重申，僅靠原始運算能力並不足以實現智慧，且需要根本上全新的學習方法。前 OpenAI 研究員特沃雷克（Tworek）表示贊同，並稱盲目的 transformer 規模化「對整世代科學家的頭腦進行了獎勵駭客（reward hacked）。」一股日益增長的創業公司浪潮已經在押注這個差距。",
+      "title_original": "The inventor of the bitter lesson has a bitter lesson for LLM scaling enthusiasts",
+      "title_en": "The inventor of the bitter lesson has a bitter lesson for LLM scaling enthusiasts",
+      "title_zh": "苦澀教訓的發明者給 LLM 規模化狂熱者上了一課慘痛的教訓",
+      "title_bilingual": "苦澀教訓的發明者給 LLM 規模化狂熱者上了一課慘痛的教訓 / The inventor of the bitter lesson has a bitter lesson for LLM scaling enthusiasts",
+      "corroboration_key": "publisher:the_decoder",
+      "corroboration_status": "identified",
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+        "scope_id": "the_decoder",
+        "publisher_kind": "media",
+        "admission_status": "limited",
+        "source_tier": "ai_vertical",
+        "source_tier_label": "AI垂直專業媒體",
+        "source_tier_rank": 1,
+        "allow_general": true,
+        "allow_featured": true,
+        "allow_radar": true,
+        "reason_codes": [
+          "identified_host",
+          "limited_scope"
+        ]
+      },
+      "source_material": {
+        "title_original": "",
+        "title": "The inventor of the bitter lesson has a bitter lesson for LLM scaling enthusiasts",
+        "summary": "Turing Award winner Richard Sutton reaffirms that raw compute alone isn't enough for intelligence and that fundamentally new learning methods are needed. Ex-OpenAI researcher Tworek agrees, saying blind transformer scaling \"has reward hacked brains of a whole generation of scientists.\" A growing wave of startups is already betting on exactly this gap. The article The inventor of the bitter lesson has a bitter lesson for LLM scaling enthusiasts appeared first on The Decoder ."
+      },
+      "qualification": {
+        "scope": "in_scope",
+        "core_evidence": [],
+        "reason_codes": [
+          "no_core_event"
+        ]
+      }
+    },
+    {
       "id": "9111871dfda8e698a7527c2b709c555fbac6984c",
       "published_at": "2026-11-08T09:50:59Z",
       "first_seen_at": "2026-11-08T09:59:14.931734Z",
@@ -106,7 +201,7 @@
       "source": "The Decoder AI News",
       "title": "AI coding agents still need human cleanup on nearly three out of four tasks in a real-world test",
       "url": "https://the-decoder.com/ai-coding-agents-still-need-human-cleanup-on-nearly-three-out-of-four-tasks-in-a-real-world-test",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "Alibaba's new coding-agent benchmark, Co-Design Bench, tests AI agents on real user requests that already tripped them up in practice. Even GPT-6 Astra, the top performer, fully solves only 26.4 percent of tasks. On older benchmarks, the same models score above 99 percent. The article AI coding agents still need human cleanup on nearly three out of four tasks in a real-world test appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/ai-coding-agents-still-need-human-cleanup-on-nearly-three-out-of-four-tasks-in-a-real-world-test/",
@@ -201,7 +296,7 @@
       "source": "The Decoder AI News",
       "title": "Anthropic pushes ahead with pre-Thanksgiving IPO despite tech selloff, accepts lower valuation",
       "url": "https://the-decoder.com/anthropic-pushes-ahead-with-pre-thanksgiving-ipo-despite-tech-selloff-accepts-lower-valuation",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "Despite the tech selloff, Anthropic is pressing ahead with its IPO at a valuation of $1.25 to $1.75 trillion, well below the hoped-for $2 trillion. The Claude developer aims to raise $80 to $100 billion before Thanksgiving. Rival OpenAI has also recently had to cut its valuation. The article Anthropic pushes ahead with pre-Thanksgiving IPO despite tech selloff, accepts lower valuation appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/anthropic-pushes-ahead-with-pre-thanksgiving-ipo-despite-tech-selloff-accepts-lower-valuation/",
@@ -302,7 +397,7 @@
       "source": "The Decoder AI News",
       "title": "AI auditors catch most agent misbehavior but flood reviewers with false alarms, new study finds",
       "url": "https://the-decoder.com/ai-auditors-catch-most-agent-misbehavior-but-flood-reviewers-with-false-alarms-new-study-finds",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "AI models can often spot problematic behavior by other AI agents in logs, according to a study by Anthropic researcher Andy Hall. GPT-5 found about 98 percent of reward-hacking cases, but the more exhaustively the search is tuned, the more false alarms pile up. That's not yet enough for reliable safety checks. The article AI auditors catch most agent misbehavior but flood reviewers with false alarms, new study finds appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/ai-auditors-catch-most-agent-misbehavior-but-flood-reviewers-with-false-alarms-new-study-finds/",
@@ -395,7 +490,7 @@
       "source": "The Decoder AI News",
       "title": "Thinking Machines' Inkling 2 Small drops 316 F-bombs across benchmark runs",
       "url": "https://the-decoder.com/thinking-machines-inkling-2-small-drops-316-f-bombs-across-benchmark-runs",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "Thinking Machines' AI model Inkling 2 Small swears during its internal reasoning, 316 times across 2,655 benchmark runs, according to an analysis by Vals AI. The profanity typically shows up late in long runs that fail anyway. But it doesn't work as a warning signal: 96 percent of failed runs contained no cursing at all. The article Thinking Machines' Inkling 2 Small drops 316 F-bombs across benchmark runs appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/thinking-machines-inkling-2-small-drops-316-f-bombs-across-benchmark-runs/",
@@ -490,7 +585,7 @@
       "source": "The Decoder AI News",
       "title": "The gap between open and closed AI models in cyber capabilities keeps shrinking",
       "url": "https://the-decoder.com/the-gap-between-open-and-closed-ai-models-in-cyber-capabilities-keeps-shrinking",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "In the Vals AI benchmark, OpenAI's GPT-6 Sol Daybreak hits 80.8 percent of attack objectives in simulated corporate networks. Worse, the open-weight model DeepSeek V4.1 Flash reaches 72.8 percent at a tenth of the cost. Because open models can no longer be restricted, analysts say the window for defenders is shrinking fast. The article The gap between open and closed AI models in cyber capabilities keeps shrinking appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/the-gap-between-open-and-closed-ai-models-in-cyber-capabilities-keeps-shrinking/",
@@ -585,7 +680,7 @@
       "source": "The Decoder AI News",
       "title": "State propaganda in some Chinese AI models is only \"a thin layer\" that fine-tuning can strip away",
       "url": "https://the-decoder.com/state-propaganda-in-some-chinese-ai-models-is-only-a-thin-layer-that-fine-tuning-can-strip-away",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "Nous Research retrained Alibaba's Qwen3.8-27B to produce Arete-27B, largely stripping out its pro-Chinese bias. The propaganda rate dropped from 22 percent to less than one percent, while general capabilities remained intact in tests. The method relied on 53 million tokens of supervised fine-tuning. The political bias is \"applied late, it is applied thin,\" the team writes. The article State propaganda in some Chinese AI models is only \"a thin layer\" that fine-tuning can strip away appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/state-propaganda-in-some-chinese-ai-models-is-only-a-thin-layer-that-fine-tuning-can-strip-away/",
@@ -678,7 +773,7 @@
       "source": "MarkTechPost Research",
       "title": "Google AI Releases Elephant-Goldfish Model Plugin for Spec-First Coding",
       "url": "https://www.marktechpost.com/2026/11/08/google-elephant-goldfish-model-plugin-spec-review-coding-agents",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "Google's Elephant-Goldfish Model plugin makes coding agents draft specs, then runs 5 zero-context review stages before any code. The post Google AI Releases Elephant-Goldfish Model Plugin for Spec-First Coding appeared first on MarkTechPost .",
       "publisher_links": [
         "https://www.marktechpost.com/2026/11/08/google-elephant-goldfish-model-plugin-spec-review-coding-agents/",
@@ -710,24 +805,7 @@
           "conflicts": []
         }
       },
-      "article_key": "https://www.marktechpost.com/2026/11/08/google-elephant-goldfish-model-plugin-spec-review-coding-agents",
       "security_topic": false,
-      "business_events": [],
-      "ai_is_related": true,
-      "ai_score": 0.68,
-      "ai_label": "research_paper",
-      "ai_relevance_reason": "curated_media_source_filter",
-      "ai_signals": [],
-      "ai_noise": [],
-      "source_tier": "ai_media",
-      "source_tier_label": "精選AI媒體",
-      "source_tier_rank": 2,
-      "title_original": "Google AI Releases Elephant-Goldfish Model Plugin for Spec-First Coding",
-      "title_en": "Google AI Releases Elephant-Goldfish Model Plugin for Spec-First Coding",
-      "title_zh": null,
-      "title_bilingual": "Google AI Releases Elephant-Goldfish Model Plugin for Spec-First Coding",
-      "corroboration_key": "publisher:marktechpost",
-      "corroboration_status": "identified",
       "source_policy": {
         "schema_version": 1,
         "policy_id": "publisher-governance-v1",
@@ -746,6 +824,23 @@
           "limited_scope"
         ]
       },
+      "article_key": "https://www.marktechpost.com/2026/11/08/google-elephant-goldfish-model-plugin-spec-review-coding-agents",
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.68,
+      "ai_label": "research_paper",
+      "ai_relevance_reason": "curated_media_source_filter",
+      "ai_signals": [],
+      "ai_noise": [],
+      "source_tier": "ai_media",
+      "source_tier_label": "精選AI媒體",
+      "source_tier_rank": 2,
+      "title_original": "Google AI Releases Elephant-Goldfish Model Plugin for Spec-First Coding",
+      "title_en": "Google AI Releases Elephant-Goldfish Model Plugin for Spec-First Coding",
+      "title_zh": null,
+      "title_bilingual": "Google AI Releases Elephant-Goldfish Model Plugin for Spec-First Coding",
+      "corroboration_key": "publisher:marktechpost",
+      "corroboration_status": "identified",
       "source_material": {
         "title_original": "",
         "title": "Google AI Releases Elephant-Goldfish Model Plugin for Spec-First Coding",
@@ -776,7 +871,7 @@
       "source": "MarkTechPost Research",
       "title": "Which Routing Does Each MoE Model Use? DeepSeek, Qwen, Mixtral, Llama 4, gpt-oss Compared",
       "url": "https://www.marktechpost.com/2026/11/08/moe-model-routing-comparison",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "A config-verified comparison of how 10 open MoE models route tokens: total and active parameters, expert counts, top-k, shared experts, gating functions and load-balancing methods. The post Which Routing Does Each MoE Model Use? DeepSeek, Qwen, Mixtral, Llama 4, gpt-oss Compared appeared first on MarkTechPost .",
       "publisher_links": [
         "https://www.marktechpost.com/2026/11/08/moe-model-routing-comparison/",
@@ -863,6 +958,102 @@
       }
     },
     {
+      "id": "9f90d1b42ee493f1163bfbcb4134e98c63850176",
+      "published_at": "2026-11-08T10:00:00Z",
+      "first_seen_at": "2026-11-08T12:05:30.658682Z",
+      "site_id": "curated_media",
+      "site_name": "精選媒體",
+      "source": "DeepSeek (Google News)",
+      "title": "Which AI Chatbots Have the Highest Emissions? Here's What We Know - Bloomberg",
+      "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxNT2I0SW8wX19vQTV5cm9qR2pfUFVDY2dKVXozSTRNOC1aQXRMWVJwbURVWVVkQ0FBYWM1S01Ic3VXdDVfZHgzTl9xTDZaNG9iX1VVTjdpRW5XcUhka19KeHlBTk84WkhpTllkd2dTazB3T2JoVFhkMGJ4dlZmOEl6MTBsUk1kRG9WRTVpUnkzN0dHbmFmM2plaXl2ZXBfQnVncVluVWdJMzBia3BLcnppSGwyck9ib0hJSzN5YlQwLUZrMTJIMnc?oc=5",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
+      "summary": "Which AI Chatbots Have the Highest Emissions? Here's What We Know Bloomberg",
+      "publisher_links": [
+        "https://news.google.com/rss/articles/CBMixgFBVV95cUxNT2I0SW8wX19vQTV5cm9qR2pfUFVDY2dKVXozSTRNOC1aQXRMWVJwbURVWVVkQ0FBYWM1S01Ic3VXdDVfZHgzTl9xTDZaNG9iX1VVTjdpRW5XcUhka19KeHlBTk84WkhpTllkd2dTazB3T2JoVFhkMGJ4dlZmOEl6MTBsUk1kRG9WRTVpUnkzN0dHbmFmM2plaXl2ZXBfQnVncVluVWdJMzBia3BLcnppSGwyck9ib0hJSzN5YlQwLUZrMTJIMnc?oc=5"
+      ],
+      "source_updated_at": "2026-11-08T10:00:00Z",
+      "ingress": {
+        "kind": "google_news",
+        "site_id": "curated_media",
+        "source_id": "deepseek_news",
+        "name": "DeepSeek (Google News)",
+        "feed_url": "https://news.google.com/rss/search?q=DeepSeek+AI+model+when%3A3d&hl=en-US&gl=US&ceid=US%3Aen"
+      },
+      "publisher": {
+        "schema_version": 1,
+        "publisher_id": "bloomberg",
+        "name": "Bloomberg",
+        "domain": "www.bloomberg.com",
+        "status": "identified",
+        "basis": [
+          "google_rss_source",
+          "legacy_suffix"
+        ],
+        "evidence": {
+          "rss_source_name": "Bloomberg",
+          "rss_source_url": "https://www.bloomberg.com",
+          "article_url": null,
+          "article_host": "news.google.com",
+          "expected_publisher_id": null,
+          "conflicts": []
+        }
+      },
+      "article_key": "https://news.google.com/rss/articles/CBMixgFBVV95cUxNT2I0SW8wX19vQTV5cm9qR2pfUFVDY2dKVXozSTRNOC1aQXRMWVJwbURVWVVkQ0FBYWM1S01Ic3VXdDVfZHgzTl9xTDZaNG9iX1VVTjdpRW5XcUhka19KeHlBTk84WkhpTllkd2dTazB3T2JoVFhkMGJ4dlZmOEl6MTBsUk1kRG9WRTVpUnkzN0dHbmFmM2plaXl2ZXBfQnVncVluVWdJMzBia3BLcnppSGwyck9ib0hJSzN5YlQwLUZrMTJIMnc?oc=5",
+      "security_topic": false,
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.71,
+      "ai_label": "model_release",
+      "ai_relevance_reason": "curated_media_source_filter",
+      "ai_signals": [
+        "deepseek"
+      ],
+      "ai_noise": [],
+      "source_tier": "watchlist",
+      "source_tier_label": "未審來源",
+      "source_tier_rank": 6,
+      "summary_zh": "哪些 AI 聊天機器人的碳排放量最高？以下是彭博社的報導",
+      "title_original": "Which AI Chatbots Have the Highest Emissions? Here's What We Know - Bloomberg",
+      "title_en": "Which AI Chatbots Have the Highest Emissions? Here's What We Know - Bloomberg",
+      "title_zh": "哪些 AI 聊天機器人的碳排放量最高？以下是我們所知道的資訊 - 彭博社",
+      "title_bilingual": "哪些 AI 聊天機器人的碳排放量最高？以下是我們所知道的資訊 - 彭博社 / Which AI Chatbots Have the Highest Emissions? Here's What We Know - Bloomberg",
+      "corroboration_key": "publisher:bloomberg",
+      "corroboration_status": "identified",
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+        "scope_id": "unreviewed",
+        "publisher_kind": "unknown",
+        "admission_status": "unreviewed",
+        "source_tier": "watchlist",
+        "source_tier_label": "未審來源",
+        "source_tier_rank": 6,
+        "allow_general": true,
+        "allow_featured": false,
+        "allow_radar": false,
+        "reason_codes": [
+          "legacy_identity",
+          "scope_mismatch",
+          "unreviewed_publisher",
+          "not_permitted_for_featured",
+          "not_permitted_for_radar"
+        ]
+      },
+      "source_material": {
+        "title_original": "",
+        "title": "Which AI Chatbots Have the Highest Emissions? Here's What We Know - Bloomberg",
+        "summary": "Which AI Chatbots Have the Highest Emissions? Here's What We Know Bloomberg"
+      },
+      "qualification": {
+        "scope": "in_scope",
+        "core_evidence": [],
+        "reason_codes": [
+          "no_core_event"
+        ]
+      }
+    },
+    {
       "id": "e6e3bbc6033e58a64ecba7c221a137dd6f759d1f",
       "published_at": "2026-11-08T09:00:45Z",
       "first_seen_at": "2026-11-08T09:05:28.258834Z",
@@ -871,7 +1062,7 @@
       "source": "TechNews 科技新報",
       "title": "AI 讓 App 變得可有可無，消費性軟體入口正轉向訊息對話框",
       "url": "https://technews.tw/2026/11/08/ai-is-making-the-app-optional",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "AI 正在將消費性軟體的使用方式，從「下載一個 App」推向「直接在訊息裡完成任務」。根據 11 月 3 日的 […]",
       "source_updated_at": "2026-11-08T09:00:45Z",
       "ingress": {
@@ -960,7 +1151,7 @@
       "source": "TechNews 科技新報",
       "title": "AI 自動化攻擊秒速得手！防守不能只拚快，專家點名企業必備的三大資安決策",
       "url": "https://infosecu.technews.tw/2026/11/08/three-steps-companies-should-take-to-defend-against-ai-attacks",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "「我看大家的眼神都非常疲倦，」在 11 月 3 日舉行的臺灣資安通報應變年會上，奧義智慧科技技術長暨共同創辦人 […]",
       "source_updated_at": "2026-11-08T08:30:20Z",
       "ingress": {
@@ -1050,7 +1241,7 @@
       "source": "TechNews 科技新報",
       "title": "AI 演算法解碼兩萬基因發現天然胜肽 BRP，進食量降 50% 且純減脂不甩肌",
       "url": "https://technews.tw/2026/11/08/stanford-ai-discovers-natural-weight-loss-peptide",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "史丹佛醫學院研究團隊日前利用人工智慧（AI），從大量候選生物分子中成功篩選出一種名為「BRP」的天然胜肽。最新 […]",
       "source_updated_at": "2026-11-08T08:00:12Z",
       "ingress": {
@@ -1139,7 +1330,7 @@
       "source": "TechNews 科技新報",
       "title": "阿貢實驗室獲百倍 GPU 記憶體加持，結合全新 AI 算力開啟「自主實驗室」研究新紀元",
       "url": "https://technews.tw/2026/11/08/argonne-national-laboratory-expands-ai-inference-computing",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "美國能源部阿貢國家實驗室（Argonne National Laboratory）4 日宣佈，將擴充其推論服務 […]",
       "source_updated_at": "2026-11-08T07:00:08Z",
       "ingress": {
@@ -1229,7 +1420,7 @@
       "source": "CNBC Technology",
       "title": "AI is speeding up recruitment — and putting agency fees under pressure",
       "url": "https://www.cnbc.com/2026/11/08/ai-recruitment-agency-fees.html",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "Recruiters say AI is speeding up screening and reshaping agency work, raising questions about whether percentage-based placement fees can hold.",
       "source_updated_at": "2026-11-08T06:00:01Z",
       "ingress": {
@@ -1316,7 +1507,7 @@
       "source": "CyberQ 賽博客",
       "title": "實測 NVIDIA Sync 叢集精靈與 Models：一鍵部署 Qwen3.8 27B 與 DGX Spark 叢集",
       "url": "https://cyberq.tw/2026/11/08/real-world-testing-of-nvidia-sync",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "NVIDIA Sync 這次更新（0.148.0-153）在設定視窗加入兩個新分頁，Clusters（Clus […]",
       "ingress": {
         "kind": "public_feed",
@@ -1404,7 +1595,7 @@
       "source": "TechNews 科技新報",
       "title": "「AI 開發 AI」時代來臨？解密遞迴式自我改進的無限潛力與作弊隱憂",
       "url": "https://infosecu.technews.tw/2026/11/08/ai-autonomously-creates-next-gen-ai",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "人工智慧是否有一天能「自己打造自己」，正成為 AI 圈最受關注的議題之一。根據最新報導，越來越多頂尖 AI 研 […]",
       "source_updated_at": "2026-11-08T05:00:54Z",
       "ingress": {
@@ -1494,7 +1685,7 @@
       "source": "MarkTechPost Research",
       "title": "Nous Research Releases Arete-27B that Cuts Qwen3.8-27B Propaganda From 22% to 0.9%",
       "url": "https://www.marktechpost.com/2026/11/07/nous-research-arete-27b-qwen3-8-27b-propaganda-fine-tune",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "Nous Research released Arete-27B, an Apache 2.0 fine-tune of Qwen3.8-27B. On Nous’s 803-prompt eval, propaganda answers fell from 22% to 0.9% while Hermes Bench stayed flat at 65.60%. The post Nous Research Releases Arete-27B that Cuts Qwen3.8-27B Propaganda From 22% to 0.9% appeared first on MarkTechPost .",
       "publisher_links": [
         "https://www.marktechpost.com/2026/11/07/nous-research-arete-27b-qwen3-8-27b-propaganda-fine-tune/",
@@ -1597,7 +1788,7 @@
       "source": "CyberQ 賽博客",
       "title": "Claude Code 的「不要再問」選項，讓密碼外洩到 1,122 個公開 GitHub 檔案",
       "url": "https://cyberq.tw/2026/11/08/claude-codes-dont-ask-again-option-led",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "AI 程式碼開發助理愈來愈普及，但便利的背後自然還是有我們提醒過很多次的資安風險。資安廠商 Apiiro 近日 […]",
       "ingress": {
         "kind": "public_feed",
@@ -1685,7 +1876,7 @@
       "source": "CyberQ 賽博客",
       "title": "AI 代理 ARTEX 盯上 GitHub 公開憑證，微軟示警攻擊鏈已壓縮到五分鐘",
       "url": "https://cyberq.tw/2026/11/08/ai-agent-artex-targets-publicly",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "最近 Threat actors use agentic AI tooling to find and abu […]",
       "ingress": {
         "kind": "public_feed",
@@ -1771,7 +1962,7 @@
       "source": "TechNews 科技新報",
       "title": "OpenAI 發表逾 700 篇 AI 數學論文，數學家指有突破性但品質差",
       "url": "https://technews.tw/2026/11/08/mathematician-criticizes-the-quality-of-700-openai-math-papers",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "數學家弗蘭克·卡萊加里（Frank Calegari）在陶哲軒（Terence Tao）的網誌發表客座文章，指 […]",
       "source_updated_at": "2026-11-08T04:30:32Z",
       "ingress": {
@@ -1860,7 +2051,7 @@
       "source": "TechNews 科技新報",
       "title": "AI 時代最好的機會不是追流行，奧特曼喊話年輕人：別做下一個 OpenAI，要做更大的新事業",
       "url": "https://technews.tw/2026/11/08/openai-ceo-slams-mba-programs-disappointment-students-5-year-old-trends",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "史丹佛大學商學研究所（Stanford Graduate School of Business）的「頂峰視野」 […]",
       "source_updated_at": "2026-11-08T03:00:19Z",
       "ingress": {
@@ -1949,7 +2140,7 @@
       "source": "TechNews 科技新報",
       "title": "AI 理財是神隊友還是陷阱，採納建議前必做的交叉驗證四步驟",
       "url": "https://finance.technews.tw/2026/11/08/how-to-check-ai-financial-advice-before-you-act-on-it",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "隨著越來越多人將 AI 當作理財與投資研究工具，最新內容也同步提醒，這類建議不能直接照單全收。文章指出，AI […]",
       "source_updated_at": "2026-11-08T02:30:24Z",
       "ingress": {
@@ -2128,7 +2319,7 @@
       "source": "AlphaLab",
       "title": "Claude 個人理財解讀：銀行帳戶接上了，唯讀就夠可靠嗎？（2026）",
       "url": "https://www.alphalab.site/claude-personal-finance-plaid-read-only",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "Claude 透過 Plaid 讀取帳戶，能把日常支出變成可追問的對話。但唯讀權限、資料新鮮度與答案準確度各管不同問題。從官方公告與支援文件，看懂美國 beta 的用途、隱私範圍，以及第一次試用該核對哪一筆。",
       "ingress": {
         "kind": "public_feed",
@@ -2216,7 +2407,7 @@
       "source": "TechCrunch AI",
       "title": "After the midterms, things are looking rocky for Elon Musk and data centers",
       "url": "https://techcrunch.com/2026/11/07/after-the-midterms-things-are-looking-rocky-for-elon-musk-and-data-centers",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "On Equity, we unpacked what the midterms mean for the tech industry.",
       "source_updated_at": "2026-11-07T22:07:22Z",
       "ingress": {
@@ -2305,7 +2496,7 @@
       "source": "CNBC Technology",
       "title": "Meta chief strategy officer Dave Wehner leaves to join AI infrastructure startup Fireworks as CFO",
       "url": "https://www.cnbc.com/2026/11/07/dave-wehner-meta-fireworks-cfo.html",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "Dave Wehner, Meta’s chief strategy officer, is leaving the company to become CFO of Fireworks, the AI infrastructure startup valued at $17.5 billion in July.",
       "source_updated_at": "2026-11-07T22:01:17Z",
       "ingress": {
@@ -2402,7 +2593,7 @@
       "source": "TechCrunch AI",
       "title": "Megaspeed exec was recruited to spy on Nvidia CEO, according to US intelligence memo",
       "url": "https://techcrunch.com/2026/11/07/chinese-exec-was-recruited-to-spy-on-nvidia-ceo-according-to-us-intelligence-memo",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "A memo circulated earlier this year reportedly claimed that China’s Ministry of State Security recruited a female technology executive to spy on Nvidia's CEO.",
       "source_updated_at": "2026-11-07T21:17:08Z",
       "ingress": {
@@ -2499,7 +2690,7 @@
       "source": "DeepSeek (Google News)",
       "title": "DeepSeek Harness 0.2.2 Lands, and It Can Delegate to Codex and Claude - Pasquale Pillitteri",
       "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxOQUJ3MXYtWk45RTY5MnBxUW5hMjZZSTN6RzFYZDRfRjhrZFcwOXZvLWlXdHJCeGF5TEhVUkpKekxLRkRZT2g1bzFPTk9VVkVtRnk5Z2xPZ1ZqVFJZd1NyUlRjckFWQkwxal9menpQVUlIV2VvZklual8xbEFuU0JXSXR3dnZNeDRaYy1GeGJLSEk?oc=5",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "DeepSeek Harness 0.2.2 Lands, and It Can Delegate to Codex and Claude Pasquale Pillitteri",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMikAFBVV95cUxOQUJ3MXYtWk45RTY5MnBxUW5hMjZZSTN6RzFYZDRfRjhrZFcwOXZvLWlXdHJCeGF5TEhVUkpKekxLRkRZT2g1bzFPTk9VVkVtRnk5Z2xPZ1ZqVFJZd1NyUlRjckFWQkwxal9menpQVUlIV2VvZklual8xbEFuU0JXSXR3dnZNeDRaYy1GeGJLSEk?oc=5"
@@ -2596,7 +2787,7 @@
       "source": "The Verge",
       "title": "NYT Cooking’s AI assistant saved my weeknight chicken, but almost ruined my cake",
       "url": "https://www.theverge.com/tech/1029489/nyt-cooking-ai-assistant-review",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "Around 7PM each weeknight, I find myself standing in front of the fridge, trying to decide on something for dinner that won't make my husband complain, \"Chicken again?\" Yes, I should meal plan more, but I don't, so this is where I'm at. A nightly battle in which the chicken usually wins. Recently, my best […]",
       "source_updated_at": "2026-11-07T15:47:15Z",
       "ingress": {
@@ -2683,7 +2874,7 @@
       "source": "The Verge",
       "title": "AI broke the cybersecurity world. What’s next?",
       "url": "https://www.theverge.com/podcast/1029038/ai-cybersecurity-hackers-data-breach-dark-age-alex-stamos",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "Today, I’m talking with Alex Stamos, chief security officer at Cognition and longtime cybersecurity expert, about what a mess cybersecurity is right now. This episode is part one of a special series looking at AI in real life. I’ve always enjoyed talking to Alex because he’s so direct, and you’re going to hear him say […]",
       "source_updated_at": "2026-11-07T05:43:11Z",
       "ingress": {
@@ -2770,7 +2961,7 @@
       "source": "CNBC Technology",
       "title": "America's newest small business owners with no employees are off to a hot start in AI era",
       "url": "https://www.cnbc.com/2026/11/07/americas-new-no-employee-small-business-owners-start-hot-in-ai-era.html",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "New small business formation is rising for owners who can grow with AI serving in finance, marketing and design roles, eliminating the need for hiring.",
       "source_updated_at": "2026-11-07T14:45:01Z",
       "ingress": {
@@ -2857,7 +3048,7 @@
       "source": "CNBC Technology",
       "title": "Democrat shaping AI policy bought chip stocks despite backing congressional trading ban",
       "url": "https://www.cnbc.com/2026/11/07/josh-gottheimer-ai-stocks-congress-trading-ban.html",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "Rep. Josh Gottheimer disclosed new AI-linked stock purchases months after voting for a congressional trading ban, as Democrats prepare to regulate the industry.",
       "source_updated_at": "2026-11-07T13:30:01Z",
       "ingress": {
@@ -2946,7 +3137,7 @@
       "source": "CNBC Technology",
       "title": "Anthropic IPO meets AI backlash after midterms show stinging rebuke of data centers",
       "url": "https://www.cnbc.com/2026/11/07/anthropic-ipo-ai-data-center-backlash.html",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "Anthropic is poised to become the first pure-play AI company to hit the public market at a time when the public is increasingly leary of the industry.",
       "source_updated_at": "2026-11-07T13:00:01Z",
       "ingress": {
@@ -3043,7 +3234,7 @@
       "source": "DeepSeek (Google News)",
       "title": "Who Owns DeepSeek, The Chinese AI Company? - BGR",
       "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE5ia290ZXNtM2dLektvdUJXRHp6dVJjeEdZTFY3OHRENnJKblk1N2hKcVRxMV9qYl81aFZ6Yk1yUk11V3ZqUGpKVDZmQjlTMklISEpRdjVZM1dQX043UkE?oc=5",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "Who Owns DeepSeek, The Chinese AI Company? BGR",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiXkFVX3lxTE5ia290ZXNtM2dLektvdUJXRHp6dVJjeEdZTFY3OHRENnJKblk1N2hKcVRxMV9qYl81aFZ6Yk1yUk11V3ZqUGpKVDZmQjlTMklISEpRdjVZM1dQX043UkE?oc=5"
@@ -3138,7 +3329,7 @@
       "source": "The Verge",
       "title": "Why a new report on Anthropic automating AI development is alarming researchers",
       "url": "https://www.theverge.com/ai-artificial-intelligence/1029126/anthropic-metr-report-accelerating-ai-development",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "Anthropic is using AI to build more powerful AI. And it appears to be working remarkably well, with the company's models improving roughly twice as quickly as a year ago, with little indication of slowing down. That's according to a new report published Thursday by the AI safety research organization METR, following an 11-week investigation […]",
       "source_updated_at": "2026-11-06T21:48:06Z",
       "ingress": {
@@ -3219,93 +3410,6 @@
       }
     },
     {
-      "id": "e4ad7467325c5c5cf4ddd3c2963b99a7322c9066",
-      "published_at": "2026-11-07T12:00:01Z",
-      "first_seen_at": "2026-11-07T12:35:28.684871Z",
-      "site_id": "curated_media",
-      "site_name": "精選媒體",
-      "source": "CNBC Technology",
-      "title": "Tech companies face mounting child safety lawsuits while pushing AI into schools",
-      "url": "https://www.cnbc.com/2026/11/07/snap-social-media-teen-safety-lawsuits.html",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
-      "summary": "Lawsuits against Snap, Meta and Google are creating headwinds for tech companies just as artificial intelligence tools expand into classrooms.",
-      "source_updated_at": "2026-11-07T12:00:01Z",
-      "ingress": {
-        "kind": "public_feed",
-        "site_id": "curated_media",
-        "source_id": "cnbc_technology",
-        "name": "CNBC Technology",
-        "feed_url": "https://www.cnbc.com/id/19854910/device/rss/rss.html"
-      },
-      "publisher": {
-        "schema_version": 1,
-        "publisher_id": "cnbc",
-        "name": "CNBC Technology",
-        "domain": "www.cnbc.com",
-        "status": "identified",
-        "basis": [
-          "article_host"
-        ],
-        "evidence": {
-          "rss_source_name": null,
-          "rss_source_url": null,
-          "article_url": "https://www.cnbc.com/2026/11/07/snap-social-media-teen-safety-lawsuits.html",
-          "article_host": "www.cnbc.com",
-          "expected_publisher_id": null,
-          "conflicts": []
-        }
-      },
-      "security_topic": false,
-      "source_policy": {
-        "schema_version": 1,
-        "policy_id": "publisher-governance-v1",
-        "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
-        "scope_id": "cnbc",
-        "publisher_kind": "media",
-        "admission_status": "limited",
-        "source_tier": "ai_media",
-        "source_tier_label": "精選AI媒體",
-        "source_tier_rank": 2,
-        "allow_general": true,
-        "allow_featured": true,
-        "allow_radar": true,
-        "reason_codes": [
-          "identified_host",
-          "limited_scope"
-        ]
-      },
-      "article_key": "https://www.cnbc.com/2026/11/07/snap-social-media-teen-safety-lawsuits.html",
-      "business_events": [],
-      "ai_is_related": true,
-      "ai_score": 0.68,
-      "ai_label": "ai_general",
-      "ai_relevance_reason": "curated_media_source_filter",
-      "ai_signals": [],
-      "ai_noise": [],
-      "source_tier": "ai_media",
-      "source_tier_label": "精選AI媒體",
-      "source_tier_rank": 2,
-      "summary_zh": "針對 Snap、Meta 和 Google 的訴訟正為科技公司帶來阻力，此時人工智慧工具正擴展到教室中。",
-      "title_original": "Tech companies face mounting child safety lawsuits while pushing AI into schools",
-      "title_en": "Tech companies face mounting child safety lawsuits while pushing AI into schools",
-      "title_zh": "科技公司在將人工智慧推向學校的同時，正面臨越來越多的兒童安全訴訟",
-      "title_bilingual": "科技公司在將人工智慧推向學校的同時，正面臨越來越多的兒童安全訴訟 / Tech companies face mounting child safety lawsuits while pushing AI into schools",
-      "corroboration_key": "publisher:cnbc",
-      "corroboration_status": "identified",
-      "source_material": {
-        "title_original": "",
-        "title": "Tech companies face mounting child safety lawsuits while pushing AI into schools",
-        "summary": "Lawsuits against Snap, Meta and Google are creating headwinds for tech companies just as artificial intelligence tools expand into classrooms."
-      },
-      "qualification": {
-        "scope": "in_scope",
-        "core_evidence": [],
-        "reason_codes": [
-          "no_core_event"
-        ]
-      }
-    },
-    {
       "id": "cba895ceebd3fede63c07309660fba2c7aaa36cc",
       "published_at": "2026-11-08T16:19:44Z",
       "first_seen_at": "2026-11-08T08:35:30.286999Z",
@@ -3314,7 +3418,7 @@
       "source": "InfoQ CN",
       "title": "AI 生成影片何時才能告別“抽卡”？藏在高效生成背後的返工與成本難題",
       "url": "https://www.infoq.cn/article/xd9o6TyQ8GLON3dmiWpG",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/xd9o6TyQ8GLON3dmiWpG?utm_source=rss&utm_medium=article"
@@ -3405,7 +3509,7 @@
       "source": "InfoQ CN",
       "title": "頂尖 AI 實驗室正在成為“人才黑洞”！Claude Code 團隊工程師離職後首次受訪",
       "url": "https://www.infoq.cn/article/Qs0pJ5M43c56hdozHiR0",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/Qs0pJ5M43c56hdozHiR0?utm_source=rss&utm_medium=article"
@@ -3490,6 +3594,96 @@
       }
     },
     {
+      "id": "73fd8cb8b5a1870e6885d4dc94996c08069ca1f8",
+      "published_at": "2026-11-08T12:00:00Z",
+      "first_seen_at": "2026-11-08T12:05:30.658682Z",
+      "site_id": "opmlrss",
+      "site_name": "OPML",
+      "source": "Wired AI",
+      "title": "I Used NYT Cooking’s New AI-Powered Recipe Modifier, and It’s Actually Pretty Good",
+      "url": "https://www.wired.com/story/nyt-cooking-new-ai-powered-recipe-modifier-is-pretty-good",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
+      "summary": "The New York Times has added a beta feature to its Cooking app that helps readers swap ingredients or adjust recipes to suit their needs. It mostly hits the mark.",
+      "source_updated_at": "2026-11-08T12:00:00Z",
+      "ingress": {
+        "kind": "private_opml",
+        "site_id": "opmlrss",
+        "source_id": null,
+        "name": "RSS/OPML",
+        "feed_url": null
+      },
+      "publisher": {
+        "schema_version": 1,
+        "publisher_id": "wired",
+        "name": "Wired",
+        "domain": "www.wired.com",
+        "status": "identified",
+        "basis": [
+          "article_host"
+        ],
+        "evidence": {
+          "rss_source_name": null,
+          "rss_source_url": null,
+          "article_url": "https://www.wired.com/story/nyt-cooking-new-ai-powered-recipe-modifier-is-pretty-good",
+          "article_host": "www.wired.com",
+          "expected_publisher_id": null,
+          "conflicts": []
+        }
+      },
+      "article_key": "https://www.wired.com/story/nyt-cooking-new-ai-powered-recipe-modifier-is-pretty-good",
+      "security_topic": false,
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.67,
+      "ai_label": "ai_general",
+      "ai_relevance_reason": "matched_ai_signal",
+      "ai_signals": [],
+      "ai_noise": [],
+      "source_tier": "watchlist",
+      "source_tier_label": "未審來源",
+      "source_tier_rank": 6,
+      "summary_zh": "《紐約時報》在其 Cooking 應用程式中新增了一項測試版功能，可幫助讀者替換食材或調整食譜以符合他們的需求。它大致上達到了預期的效果。",
+      "title_original": "I Used NYT Cooking’s New AI-Powered Recipe Modifier, and It’s Actually Pretty Good",
+      "title_en": "I Used NYT Cooking’s New AI-Powered Recipe Modifier, and It’s Actually Pretty Good",
+      "title_zh": "我使用了紐時 Cooking 的全新 AI 驅動食譜修改器，它其實相當不錯",
+      "title_bilingual": "我使用了紐時 Cooking 的全新 AI 驅動食譜修改器，它其實相當不錯 / I Used NYT Cooking’s New AI-Powered Recipe Modifier, and It’s Actually Pretty Good",
+      "corroboration_key": "publisher:wired",
+      "corroboration_status": "identified",
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+        "scope_id": "unreviewed",
+        "publisher_kind": "unknown",
+        "admission_status": "unreviewed",
+        "source_tier": "watchlist",
+        "source_tier_label": "未審來源",
+        "source_tier_rank": 6,
+        "allow_general": true,
+        "allow_featured": false,
+        "allow_radar": false,
+        "reason_codes": [
+          "legacy_identity",
+          "scope_mismatch",
+          "unreviewed_publisher",
+          "not_permitted_for_featured",
+          "not_permitted_for_radar"
+        ]
+      },
+      "source_material": {
+        "title_original": "",
+        "title": "I Used NYT Cooking’s New AI-Powered Recipe Modifier, and It’s Actually Pretty Good",
+        "summary": "The New York Times has added a beta feature to its Cooking app that helps readers swap ingredients or adjust recipes to suit their needs. It mostly hits the mark."
+      },
+      "qualification": {
+        "scope": "in_scope",
+        "core_evidence": [],
+        "reason_codes": [
+          "no_core_event"
+        ]
+      }
+    },
+    {
       "id": "b98844e188457bca874dc7b4264c9f8c13ed3311",
       "published_at": "2026-11-08T10:00:00Z",
       "first_seen_at": "2026-11-08T10:35:30.129425Z",
@@ -3498,7 +3692,7 @@
       "source": "Wired AI",
       "title": "World Models Will Soon Be Inescapable. Here’s What You Need to Know",
       "url": "https://www.wired.com/story/world-models-will-soon-be-inescapable-what-you-need-to-know",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "Moving AI from text to 3D space, world models simulate real-world physics to teach robots and autonomous cars how to navigate reality.",
       "source_updated_at": "2026-11-08T10:00:00Z",
       "ingress": {
@@ -3588,7 +3782,7 @@
       "source": "InfoQ CN",
       "title": "從約束到進化：Ontology 與 AI 自迭代的實踐｜AICon北京",
       "url": "https://www.infoq.cn/article/sy9XMK3zJ3jPwHBN5fQV",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/sy9XMK3zJ3jPwHBN5fQV?utm_source=rss&utm_medium=article"
@@ -3679,7 +3873,7 @@
       "source": "數位時代 (Google News)",
       "title": "2026 AI TAIWAN 精選解方| 每天 50 則租客訊息，該先處理哪一件？Bananas 讓 AI Agent 讀懂租賃管理現場 - 未來商務",
       "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE5ucDEtNGl0SFZRMHNxQ2dnd01NQmZkbEx5djFTRFlCcFNWeE5VSEsxbTEwMUZ6WEViMXhIYk5WUU01d0xQSnN4Slc4S1VicVJQZ3hXRw?oc=5",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "2026 AI TAIWAN 精選解方| 每天 50 則租客訊息，該先處理哪一件？Bananas 讓 AI Agent 讀懂租賃管理現場 未來商務",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiVEFVX3lxTE5ucDEtNGl0SFZRMHNxQ2dnd01NQmZkbEx5djFTRFlCcFNWeE5VSEsxbTEwMUZ6WEViMXhIYk5WUU01d0xQSnN4Slc4S1VicVJQZ3hXRw?oc=5"
@@ -3772,7 +3966,7 @@
       "source": "數位時代 (Google News)",
       "title": "2026 AI TAIWAN 精選解方 | AI 推薦名額僅 4 席，偉利科技以獨家 GEO 工具實測 AI 規則 - 未來商務",
       "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE0xcEpoaExGSGJfVURsZS12azMyMGotQjI4aDk0R1RuRmQ2M3pjUzRvYk5vNk1uSV9wU1VCMzZNY2Q2c0tPSVJyeTFLRlpLUHh5U1psYw?oc=5",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "2026 AI TAIWAN 精選解方 | AI 推薦名額僅 4 席，偉利科技以獨家 GEO 工具實測 AI 規則 未來商務",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiVEFVX3lxTE0xcEpoaExGSGJfVURsZS12azMyMGotQjI4aDk0R1RuRmQ2M3pjUzRvYk5vNk1uSV9wU1VCMzZNY2Q2c0tPSVJyeTFLRlpLUHh5U1psYw?oc=5"
@@ -3865,7 +4059,7 @@
       "source": "數位時代 (Google News)",
       "title": "工程師把程式外包給 AI，手感卻變鈍！關鍵在少了練習，哪些事該回頭自己動手？ - 未來商務",
       "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE84eFl3dlU3anRhemV5ZE9tRHE3VmtOQTlIRVF2bFk0RWZHQmJZNlJ2M1dIOTB6bktSUzBIcjZIRnpxMlg5VHJtZ3U4TGV0VkQyLUFqaw?oc=5",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "工程師把程式外包給 AI，手感卻變鈍！關鍵在少了練習，哪些事該回頭自己動手？ 未來商務",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiVEFVX3lxTE84eFl3dlU3anRhemV5ZE9tRHE3VmtOQTlIRVF2bFk0RWZHQmJZNlJ2M1dIOTB6bktSUzBIcjZIRnpxMlg5VHJtZ3U4TGV0VkQyLUFqaw?oc=5"
@@ -3958,7 +4152,7 @@
       "source": "RuntimeWire",
       "title": "Tencent says DSpine speeds Qwen3.8-27B inference in agent tests",
       "url": "https://runtimewire.com/article/tencent-says-dspine-speeds-qwen3-8-27b-inference-in-agent-tests",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "The five-layer speculative-decoding drafter delivered 2.71x to 3.84x the autoregressive baseline in Tencent's agent throughput tests.",
       "source_updated_at": "2026-11-07T23:14:39Z",
       "ingress": {
@@ -4144,7 +4338,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "反 AI 怒火燒到歐洲：數百人闖微軟資料中心工地，點信號彈抗議",
       "url": "https://www.blocktempo.com/activists-storm-microsoft-amsterdam-datacenter-site-europe-protests-demand-moratorium",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "數百名抗議者闖進微軟在阿姆斯特丹興建中的資料中心工地，警方清場後逮捕 150 到 200 人。這座 78 MW […]",
       "ingress": {
         "kind": "public_json",
@@ -4326,7 +4520,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "輝達六棧板 AI 設備在公路上消失！物流公司成破口，警方束手無策",
       "url": "https://www.blocktempo.com/nvidia-oakland-fictitious-pickup-truck-stolen-pallets-texas-cargo-theft",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "輝達價值 1,140 萬美元的貨物在運往德州途中被卡車載走後失聯，至今無人被捕。AI 硬體的高價與海外價差，讓 […]",
       "ingress": {
         "kind": "public_json",
@@ -4506,7 +4700,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "TeraWulf 挖礦收入崩 69%，但 AI 租賃暴增 774%",
       "url": "https://www.blocktempo.com/terawulf-q3-bitcoin-mining-revenue-falls-69-hpc-leasing-surges-anthropic",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "週五公佈的美國比特幣礦企 TeraWulf 第三季財報，挖礦收入較一年前掉了約 69%，AI 與高階運算租賃收 […]",
       "ingress": {
         "kind": "public_json",
@@ -4802,6 +4996,101 @@
   ],
   "items_ai": [
     {
+      "id": "55cd4b30f1f531bc3bcfc68e50bb9e35b2b31204",
+      "published_at": "2026-11-08T11:44:41Z",
+      "first_seen_at": "2026-11-08T12:05:30.658682Z",
+      "site_id": "curated_media",
+      "site_name": "精選媒體",
+      "source": "The Decoder AI News",
+      "title": "The inventor of the bitter lesson has a bitter lesson for LLM scaling enthusiasts",
+      "url": "https://the-decoder.com/the-inventor-of-the-bitter-lesson-has-a-bitter-lesson-for-llm-scaling-enthusiasts",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
+      "summary": "Turing Award winner Richard Sutton reaffirms that raw compute alone isn't enough for intelligence and that fundamentally new learning methods are needed. Ex-OpenAI researcher Tworek agrees, saying blind transformer scaling \"has reward hacked brains of a whole generation of scientists.\" A growing wave of startups is already betting on exactly this gap. The article The inventor of the bitter lesson has a bitter lesson for LLM scaling enthusiasts appeared first on The Decoder .",
+      "publisher_links": [
+        "https://the-decoder.com/the-inventor-of-the-bitter-lesson-has-a-bitter-lesson-for-llm-scaling-enthusiasts/",
+        "https://the-decoder.com"
+      ],
+      "source_updated_at": "2026-11-08T11:44:41Z",
+      "ingress": {
+        "kind": "public_feed",
+        "site_id": "curated_media",
+        "source_id": "the_decoder",
+        "name": "The Decoder AI News",
+        "feed_url": "https://the-decoder.com/feed/"
+      },
+      "publisher": {
+        "schema_version": 1,
+        "publisher_id": "the_decoder",
+        "name": "The Decoder",
+        "domain": "the-decoder.com",
+        "status": "identified",
+        "basis": [
+          "article_host"
+        ],
+        "evidence": {
+          "rss_source_name": null,
+          "rss_source_url": null,
+          "article_url": "https://the-decoder.com/the-inventor-of-the-bitter-lesson-has-a-bitter-lesson-for-llm-scaling-enthusiasts",
+          "article_host": "the-decoder.com",
+          "expected_publisher_id": null,
+          "conflicts": []
+        }
+      },
+      "article_key": "https://the-decoder.com/the-inventor-of-the-bitter-lesson-has-a-bitter-lesson-for-llm-scaling-enthusiasts",
+      "security_topic": true,
+      "business_events": [
+        "security"
+      ],
+      "ai_is_related": true,
+      "ai_score": 0.79,
+      "ai_label": "research_paper",
+      "ai_relevance_reason": "curated_media_source_filter",
+      "ai_signals": [
+        "llm"
+      ],
+      "ai_noise": [],
+      "source_tier": "ai_vertical",
+      "source_tier_label": "AI垂直專業媒體",
+      "source_tier_rank": 1,
+      "summary_zh": "圖靈獎得主李察·薩頓（Richard Sutton）重申，僅靠原始運算能力並不足以實現智慧，且需要根本上全新的學習方法。前 OpenAI 研究員特沃雷克（Tworek）表示贊同，並稱盲目的 transformer 規模化「對整世代科學家的頭腦進行了獎勵駭客（reward hacked）。」一股日益增長的創業公司浪潮已經在押注這個差距。",
+      "title_original": "The inventor of the bitter lesson has a bitter lesson for LLM scaling enthusiasts",
+      "title_en": "The inventor of the bitter lesson has a bitter lesson for LLM scaling enthusiasts",
+      "title_zh": "苦澀教訓的發明者給 LLM 規模化狂熱者上了一課慘痛的教訓",
+      "title_bilingual": "苦澀教訓的發明者給 LLM 規模化狂熱者上了一課慘痛的教訓 / The inventor of the bitter lesson has a bitter lesson for LLM scaling enthusiasts",
+      "corroboration_key": "publisher:the_decoder",
+      "corroboration_status": "identified",
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+        "scope_id": "the_decoder",
+        "publisher_kind": "media",
+        "admission_status": "limited",
+        "source_tier": "ai_vertical",
+        "source_tier_label": "AI垂直專業媒體",
+        "source_tier_rank": 1,
+        "allow_general": true,
+        "allow_featured": true,
+        "allow_radar": true,
+        "reason_codes": [
+          "identified_host",
+          "limited_scope"
+        ]
+      },
+      "source_material": {
+        "title_original": "",
+        "title": "The inventor of the bitter lesson has a bitter lesson for LLM scaling enthusiasts",
+        "summary": "Turing Award winner Richard Sutton reaffirms that raw compute alone isn't enough for intelligence and that fundamentally new learning methods are needed. Ex-OpenAI researcher Tworek agrees, saying blind transformer scaling \"has reward hacked brains of a whole generation of scientists.\" A growing wave of startups is already betting on exactly this gap. The article The inventor of the bitter lesson has a bitter lesson for LLM scaling enthusiasts appeared first on The Decoder ."
+      },
+      "qualification": {
+        "scope": "in_scope",
+        "core_evidence": [],
+        "reason_codes": [
+          "no_core_event"
+        ]
+      }
+    },
+    {
       "id": "9111871dfda8e698a7527c2b709c555fbac6984c",
       "published_at": "2026-11-08T09:50:59Z",
       "first_seen_at": "2026-11-08T09:59:14.931734Z",
@@ -4810,7 +5099,7 @@
       "source": "The Decoder AI News",
       "title": "AI coding agents still need human cleanup on nearly three out of four tasks in a real-world test",
       "url": "https://the-decoder.com/ai-coding-agents-still-need-human-cleanup-on-nearly-three-out-of-four-tasks-in-a-real-world-test",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "Alibaba's new coding-agent benchmark, Co-Design Bench, tests AI agents on real user requests that already tripped them up in practice. Even GPT-6 Astra, the top performer, fully solves only 26.4 percent of tasks. On older benchmarks, the same models score above 99 percent. The article AI coding agents still need human cleanup on nearly three out of four tasks in a real-world test appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/ai-coding-agents-still-need-human-cleanup-on-nearly-three-out-of-four-tasks-in-a-real-world-test/",
@@ -4905,7 +5194,7 @@
       "source": "The Decoder AI News",
       "title": "Anthropic pushes ahead with pre-Thanksgiving IPO despite tech selloff, accepts lower valuation",
       "url": "https://the-decoder.com/anthropic-pushes-ahead-with-pre-thanksgiving-ipo-despite-tech-selloff-accepts-lower-valuation",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "Despite the tech selloff, Anthropic is pressing ahead with its IPO at a valuation of $1.25 to $1.75 trillion, well below the hoped-for $2 trillion. The Claude developer aims to raise $80 to $100 billion before Thanksgiving. Rival OpenAI has also recently had to cut its valuation. The article Anthropic pushes ahead with pre-Thanksgiving IPO despite tech selloff, accepts lower valuation appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/anthropic-pushes-ahead-with-pre-thanksgiving-ipo-despite-tech-selloff-accepts-lower-valuation/",
@@ -5006,7 +5295,7 @@
       "source": "The Decoder AI News",
       "title": "AI auditors catch most agent misbehavior but flood reviewers with false alarms, new study finds",
       "url": "https://the-decoder.com/ai-auditors-catch-most-agent-misbehavior-but-flood-reviewers-with-false-alarms-new-study-finds",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "AI models can often spot problematic behavior by other AI agents in logs, according to a study by Anthropic researcher Andy Hall. GPT-5 found about 98 percent of reward-hacking cases, but the more exhaustively the search is tuned, the more false alarms pile up. That's not yet enough for reliable safety checks. The article AI auditors catch most agent misbehavior but flood reviewers with false alarms, new study finds appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/ai-auditors-catch-most-agent-misbehavior-but-flood-reviewers-with-false-alarms-new-study-finds/",
@@ -5099,7 +5388,7 @@
       "source": "The Decoder AI News",
       "title": "Thinking Machines' Inkling 2 Small drops 316 F-bombs across benchmark runs",
       "url": "https://the-decoder.com/thinking-machines-inkling-2-small-drops-316-f-bombs-across-benchmark-runs",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "Thinking Machines' AI model Inkling 2 Small swears during its internal reasoning, 316 times across 2,655 benchmark runs, according to an analysis by Vals AI. The profanity typically shows up late in long runs that fail anyway. But it doesn't work as a warning signal: 96 percent of failed runs contained no cursing at all. The article Thinking Machines' Inkling 2 Small drops 316 F-bombs across benchmark runs appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/thinking-machines-inkling-2-small-drops-316-f-bombs-across-benchmark-runs/",
@@ -5194,7 +5483,7 @@
       "source": "The Decoder AI News",
       "title": "The gap between open and closed AI models in cyber capabilities keeps shrinking",
       "url": "https://the-decoder.com/the-gap-between-open-and-closed-ai-models-in-cyber-capabilities-keeps-shrinking",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "In the Vals AI benchmark, OpenAI's GPT-6 Sol Daybreak hits 80.8 percent of attack objectives in simulated corporate networks. Worse, the open-weight model DeepSeek V4.1 Flash reaches 72.8 percent at a tenth of the cost. Because open models can no longer be restricted, analysts say the window for defenders is shrinking fast. The article The gap between open and closed AI models in cyber capabilities keeps shrinking appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/the-gap-between-open-and-closed-ai-models-in-cyber-capabilities-keeps-shrinking/",
@@ -5289,7 +5578,7 @@
       "source": "The Decoder AI News",
       "title": "State propaganda in some Chinese AI models is only \"a thin layer\" that fine-tuning can strip away",
       "url": "https://the-decoder.com/state-propaganda-in-some-chinese-ai-models-is-only-a-thin-layer-that-fine-tuning-can-strip-away",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "Nous Research retrained Alibaba's Qwen3.8-27B to produce Arete-27B, largely stripping out its pro-Chinese bias. The propaganda rate dropped from 22 percent to less than one percent, while general capabilities remained intact in tests. The method relied on 53 million tokens of supervised fine-tuning. The political bias is \"applied late, it is applied thin,\" the team writes. The article State propaganda in some Chinese AI models is only \"a thin layer\" that fine-tuning can strip away appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/state-propaganda-in-some-chinese-ai-models-is-only-a-thin-layer-that-fine-tuning-can-strip-away/",
@@ -5382,7 +5671,7 @@
       "source": "MarkTechPost Research",
       "title": "Google AI Releases Elephant-Goldfish Model Plugin for Spec-First Coding",
       "url": "https://www.marktechpost.com/2026/11/08/google-elephant-goldfish-model-plugin-spec-review-coding-agents",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "Google's Elephant-Goldfish Model plugin makes coding agents draft specs, then runs 5 zero-context review stages before any code. The post Google AI Releases Elephant-Goldfish Model Plugin for Spec-First Coding appeared first on MarkTechPost .",
       "publisher_links": [
         "https://www.marktechpost.com/2026/11/08/google-elephant-goldfish-model-plugin-spec-review-coding-agents/",
@@ -5414,24 +5703,7 @@
           "conflicts": []
         }
       },
-      "article_key": "https://www.marktechpost.com/2026/11/08/google-elephant-goldfish-model-plugin-spec-review-coding-agents",
       "security_topic": false,
-      "business_events": [],
-      "ai_is_related": true,
-      "ai_score": 0.68,
-      "ai_label": "research_paper",
-      "ai_relevance_reason": "curated_media_source_filter",
-      "ai_signals": [],
-      "ai_noise": [],
-      "source_tier": "ai_media",
-      "source_tier_label": "精選AI媒體",
-      "source_tier_rank": 2,
-      "title_original": "Google AI Releases Elephant-Goldfish Model Plugin for Spec-First Coding",
-      "title_en": "Google AI Releases Elephant-Goldfish Model Plugin for Spec-First Coding",
-      "title_zh": null,
-      "title_bilingual": "Google AI Releases Elephant-Goldfish Model Plugin for Spec-First Coding",
-      "corroboration_key": "publisher:marktechpost",
-      "corroboration_status": "identified",
       "source_policy": {
         "schema_version": 1,
         "policy_id": "publisher-governance-v1",
@@ -5450,6 +5722,23 @@
           "limited_scope"
         ]
       },
+      "article_key": "https://www.marktechpost.com/2026/11/08/google-elephant-goldfish-model-plugin-spec-review-coding-agents",
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.68,
+      "ai_label": "research_paper",
+      "ai_relevance_reason": "curated_media_source_filter",
+      "ai_signals": [],
+      "ai_noise": [],
+      "source_tier": "ai_media",
+      "source_tier_label": "精選AI媒體",
+      "source_tier_rank": 2,
+      "title_original": "Google AI Releases Elephant-Goldfish Model Plugin for Spec-First Coding",
+      "title_en": "Google AI Releases Elephant-Goldfish Model Plugin for Spec-First Coding",
+      "title_zh": null,
+      "title_bilingual": "Google AI Releases Elephant-Goldfish Model Plugin for Spec-First Coding",
+      "corroboration_key": "publisher:marktechpost",
+      "corroboration_status": "identified",
       "source_material": {
         "title_original": "",
         "title": "Google AI Releases Elephant-Goldfish Model Plugin for Spec-First Coding",
@@ -5480,7 +5769,7 @@
       "source": "MarkTechPost Research",
       "title": "Which Routing Does Each MoE Model Use? DeepSeek, Qwen, Mixtral, Llama 4, gpt-oss Compared",
       "url": "https://www.marktechpost.com/2026/11/08/moe-model-routing-comparison",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "A config-verified comparison of how 10 open MoE models route tokens: total and active parameters, expert counts, top-k, shared experts, gating functions and load-balancing methods. The post Which Routing Does Each MoE Model Use? DeepSeek, Qwen, Mixtral, Llama 4, gpt-oss Compared appeared first on MarkTechPost .",
       "publisher_links": [
         "https://www.marktechpost.com/2026/11/08/moe-model-routing-comparison/",
@@ -5567,6 +5856,102 @@
       }
     },
     {
+      "id": "9f90d1b42ee493f1163bfbcb4134e98c63850176",
+      "published_at": "2026-11-08T10:00:00Z",
+      "first_seen_at": "2026-11-08T12:05:30.658682Z",
+      "site_id": "curated_media",
+      "site_name": "精選媒體",
+      "source": "DeepSeek (Google News)",
+      "title": "Which AI Chatbots Have the Highest Emissions? Here's What We Know - Bloomberg",
+      "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxNT2I0SW8wX19vQTV5cm9qR2pfUFVDY2dKVXozSTRNOC1aQXRMWVJwbURVWVVkQ0FBYWM1S01Ic3VXdDVfZHgzTl9xTDZaNG9iX1VVTjdpRW5XcUhka19KeHlBTk84WkhpTllkd2dTazB3T2JoVFhkMGJ4dlZmOEl6MTBsUk1kRG9WRTVpUnkzN0dHbmFmM2plaXl2ZXBfQnVncVluVWdJMzBia3BLcnppSGwyck9ib0hJSzN5YlQwLUZrMTJIMnc?oc=5",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
+      "summary": "Which AI Chatbots Have the Highest Emissions? Here's What We Know Bloomberg",
+      "publisher_links": [
+        "https://news.google.com/rss/articles/CBMixgFBVV95cUxNT2I0SW8wX19vQTV5cm9qR2pfUFVDY2dKVXozSTRNOC1aQXRMWVJwbURVWVVkQ0FBYWM1S01Ic3VXdDVfZHgzTl9xTDZaNG9iX1VVTjdpRW5XcUhka19KeHlBTk84WkhpTllkd2dTazB3T2JoVFhkMGJ4dlZmOEl6MTBsUk1kRG9WRTVpUnkzN0dHbmFmM2plaXl2ZXBfQnVncVluVWdJMzBia3BLcnppSGwyck9ib0hJSzN5YlQwLUZrMTJIMnc?oc=5"
+      ],
+      "source_updated_at": "2026-11-08T10:00:00Z",
+      "ingress": {
+        "kind": "google_news",
+        "site_id": "curated_media",
+        "source_id": "deepseek_news",
+        "name": "DeepSeek (Google News)",
+        "feed_url": "https://news.google.com/rss/search?q=DeepSeek+AI+model+when%3A3d&hl=en-US&gl=US&ceid=US%3Aen"
+      },
+      "publisher": {
+        "schema_version": 1,
+        "publisher_id": "bloomberg",
+        "name": "Bloomberg",
+        "domain": "www.bloomberg.com",
+        "status": "identified",
+        "basis": [
+          "google_rss_source",
+          "legacy_suffix"
+        ],
+        "evidence": {
+          "rss_source_name": "Bloomberg",
+          "rss_source_url": "https://www.bloomberg.com",
+          "article_url": null,
+          "article_host": "news.google.com",
+          "expected_publisher_id": null,
+          "conflicts": []
+        }
+      },
+      "article_key": "https://news.google.com/rss/articles/CBMixgFBVV95cUxNT2I0SW8wX19vQTV5cm9qR2pfUFVDY2dKVXozSTRNOC1aQXRMWVJwbURVWVVkQ0FBYWM1S01Ic3VXdDVfZHgzTl9xTDZaNG9iX1VVTjdpRW5XcUhka19KeHlBTk84WkhpTllkd2dTazB3T2JoVFhkMGJ4dlZmOEl6MTBsUk1kRG9WRTVpUnkzN0dHbmFmM2plaXl2ZXBfQnVncVluVWdJMzBia3BLcnppSGwyck9ib0hJSzN5YlQwLUZrMTJIMnc?oc=5",
+      "security_topic": false,
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.71,
+      "ai_label": "model_release",
+      "ai_relevance_reason": "curated_media_source_filter",
+      "ai_signals": [
+        "deepseek"
+      ],
+      "ai_noise": [],
+      "source_tier": "watchlist",
+      "source_tier_label": "未審來源",
+      "source_tier_rank": 6,
+      "summary_zh": "哪些 AI 聊天機器人的碳排放量最高？以下是彭博社的報導",
+      "title_original": "Which AI Chatbots Have the Highest Emissions? Here's What We Know - Bloomberg",
+      "title_en": "Which AI Chatbots Have the Highest Emissions? Here's What We Know - Bloomberg",
+      "title_zh": "哪些 AI 聊天機器人的碳排放量最高？以下是我們所知道的資訊 - 彭博社",
+      "title_bilingual": "哪些 AI 聊天機器人的碳排放量最高？以下是我們所知道的資訊 - 彭博社 / Which AI Chatbots Have the Highest Emissions? Here's What We Know - Bloomberg",
+      "corroboration_key": "publisher:bloomberg",
+      "corroboration_status": "identified",
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+        "scope_id": "unreviewed",
+        "publisher_kind": "unknown",
+        "admission_status": "unreviewed",
+        "source_tier": "watchlist",
+        "source_tier_label": "未審來源",
+        "source_tier_rank": 6,
+        "allow_general": true,
+        "allow_featured": false,
+        "allow_radar": false,
+        "reason_codes": [
+          "legacy_identity",
+          "scope_mismatch",
+          "unreviewed_publisher",
+          "not_permitted_for_featured",
+          "not_permitted_for_radar"
+        ]
+      },
+      "source_material": {
+        "title_original": "",
+        "title": "Which AI Chatbots Have the Highest Emissions? Here's What We Know - Bloomberg",
+        "summary": "Which AI Chatbots Have the Highest Emissions? Here's What We Know Bloomberg"
+      },
+      "qualification": {
+        "scope": "in_scope",
+        "core_evidence": [],
+        "reason_codes": [
+          "no_core_event"
+        ]
+      }
+    },
+    {
       "id": "e6e3bbc6033e58a64ecba7c221a137dd6f759d1f",
       "published_at": "2026-11-08T09:00:45Z",
       "first_seen_at": "2026-11-08T09:05:28.258834Z",
@@ -5575,7 +5960,7 @@
       "source": "TechNews 科技新報",
       "title": "AI 讓 App 變得可有可無，消費性軟體入口正轉向訊息對話框",
       "url": "https://technews.tw/2026/11/08/ai-is-making-the-app-optional",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "AI 正在將消費性軟體的使用方式，從「下載一個 App」推向「直接在訊息裡完成任務」。根據 11 月 3 日的 […]",
       "source_updated_at": "2026-11-08T09:00:45Z",
       "ingress": {
@@ -5664,7 +6049,7 @@
       "source": "TechNews 科技新報",
       "title": "AI 自動化攻擊秒速得手！防守不能只拚快，專家點名企業必備的三大資安決策",
       "url": "https://infosecu.technews.tw/2026/11/08/three-steps-companies-should-take-to-defend-against-ai-attacks",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "「我看大家的眼神都非常疲倦，」在 11 月 3 日舉行的臺灣資安通報應變年會上，奧義智慧科技技術長暨共同創辦人 […]",
       "source_updated_at": "2026-11-08T08:30:20Z",
       "ingress": {
@@ -5754,7 +6139,7 @@
       "source": "TechNews 科技新報",
       "title": "AI 演算法解碼兩萬基因發現天然胜肽 BRP，進食量降 50% 且純減脂不甩肌",
       "url": "https://technews.tw/2026/11/08/stanford-ai-discovers-natural-weight-loss-peptide",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "史丹佛醫學院研究團隊日前利用人工智慧（AI），從大量候選生物分子中成功篩選出一種名為「BRP」的天然胜肽。最新 […]",
       "source_updated_at": "2026-11-08T08:00:12Z",
       "ingress": {
@@ -5843,7 +6228,7 @@
       "source": "TechNews 科技新報",
       "title": "阿貢實驗室獲百倍 GPU 記憶體加持，結合全新 AI 算力開啟「自主實驗室」研究新紀元",
       "url": "https://technews.tw/2026/11/08/argonne-national-laboratory-expands-ai-inference-computing",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "美國能源部阿貢國家實驗室（Argonne National Laboratory）4 日宣佈，將擴充其推論服務 […]",
       "source_updated_at": "2026-11-08T07:00:08Z",
       "ingress": {
@@ -5933,7 +6318,7 @@
       "source": "CNBC Technology",
       "title": "AI is speeding up recruitment — and putting agency fees under pressure",
       "url": "https://www.cnbc.com/2026/11/08/ai-recruitment-agency-fees.html",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "Recruiters say AI is speeding up screening and reshaping agency work, raising questions about whether percentage-based placement fees can hold.",
       "source_updated_at": "2026-11-08T06:00:01Z",
       "ingress": {
@@ -6020,7 +6405,7 @@
       "source": "CyberQ 賽博客",
       "title": "實測 NVIDIA Sync 叢集精靈與 Models：一鍵部署 Qwen3.8 27B 與 DGX Spark 叢集",
       "url": "https://cyberq.tw/2026/11/08/real-world-testing-of-nvidia-sync",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "NVIDIA Sync 這次更新（0.148.0-153）在設定視窗加入兩個新分頁，Clusters（Clus […]",
       "ingress": {
         "kind": "public_feed",
@@ -6108,7 +6493,7 @@
       "source": "TechNews 科技新報",
       "title": "「AI 開發 AI」時代來臨？解密遞迴式自我改進的無限潛力與作弊隱憂",
       "url": "https://infosecu.technews.tw/2026/11/08/ai-autonomously-creates-next-gen-ai",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "人工智慧是否有一天能「自己打造自己」，正成為 AI 圈最受關注的議題之一。根據最新報導，越來越多頂尖 AI 研 […]",
       "source_updated_at": "2026-11-08T05:00:54Z",
       "ingress": {
@@ -6198,7 +6583,7 @@
       "source": "MarkTechPost Research",
       "title": "Nous Research Releases Arete-27B that Cuts Qwen3.8-27B Propaganda From 22% to 0.9%",
       "url": "https://www.marktechpost.com/2026/11/07/nous-research-arete-27b-qwen3-8-27b-propaganda-fine-tune",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "Nous Research released Arete-27B, an Apache 2.0 fine-tune of Qwen3.8-27B. On Nous’s 803-prompt eval, propaganda answers fell from 22% to 0.9% while Hermes Bench stayed flat at 65.60%. The post Nous Research Releases Arete-27B that Cuts Qwen3.8-27B Propaganda From 22% to 0.9% appeared first on MarkTechPost .",
       "publisher_links": [
         "https://www.marktechpost.com/2026/11/07/nous-research-arete-27b-qwen3-8-27b-propaganda-fine-tune/",
@@ -6301,7 +6686,7 @@
       "source": "CyberQ 賽博客",
       "title": "Claude Code 的「不要再問」選項，讓密碼外洩到 1,122 個公開 GitHub 檔案",
       "url": "https://cyberq.tw/2026/11/08/claude-codes-dont-ask-again-option-led",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "AI 程式碼開發助理愈來愈普及，但便利的背後自然還是有我們提醒過很多次的資安風險。資安廠商 Apiiro 近日 […]",
       "ingress": {
         "kind": "public_feed",
@@ -6389,7 +6774,7 @@
       "source": "CyberQ 賽博客",
       "title": "AI 代理 ARTEX 盯上 GitHub 公開憑證，微軟示警攻擊鏈已壓縮到五分鐘",
       "url": "https://cyberq.tw/2026/11/08/ai-agent-artex-targets-publicly",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "最近 Threat actors use agentic AI tooling to find and abu […]",
       "ingress": {
         "kind": "public_feed",
@@ -6475,7 +6860,7 @@
       "source": "TechNews 科技新報",
       "title": "OpenAI 發表逾 700 篇 AI 數學論文，數學家指有突破性但品質差",
       "url": "https://technews.tw/2026/11/08/mathematician-criticizes-the-quality-of-700-openai-math-papers",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "數學家弗蘭克·卡萊加里（Frank Calegari）在陶哲軒（Terence Tao）的網誌發表客座文章，指 […]",
       "source_updated_at": "2026-11-08T04:30:32Z",
       "ingress": {
@@ -6564,7 +6949,7 @@
       "source": "TechNews 科技新報",
       "title": "AI 時代最好的機會不是追流行，奧特曼喊話年輕人：別做下一個 OpenAI，要做更大的新事業",
       "url": "https://technews.tw/2026/11/08/openai-ceo-slams-mba-programs-disappointment-students-5-year-old-trends",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "史丹佛大學商學研究所（Stanford Graduate School of Business）的「頂峰視野」 […]",
       "source_updated_at": "2026-11-08T03:00:19Z",
       "ingress": {
@@ -6653,7 +7038,7 @@
       "source": "TechNews 科技新報",
       "title": "AI 理財是神隊友還是陷阱，採納建議前必做的交叉驗證四步驟",
       "url": "https://finance.technews.tw/2026/11/08/how-to-check-ai-financial-advice-before-you-act-on-it",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "隨著越來越多人將 AI 當作理財與投資研究工具，最新內容也同步提醒，這類建議不能直接照單全收。文章指出，AI […]",
       "source_updated_at": "2026-11-08T02:30:24Z",
       "ingress": {
@@ -6832,7 +7217,7 @@
       "source": "AlphaLab",
       "title": "Claude 個人理財解讀：銀行帳戶接上了，唯讀就夠可靠嗎？（2026）",
       "url": "https://www.alphalab.site/claude-personal-finance-plaid-read-only",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "Claude 透過 Plaid 讀取帳戶，能把日常支出變成可追問的對話。但唯讀權限、資料新鮮度與答案準確度各管不同問題。從官方公告與支援文件，看懂美國 beta 的用途、隱私範圍，以及第一次試用該核對哪一筆。",
       "ingress": {
         "kind": "public_feed",
@@ -6920,7 +7305,7 @@
       "source": "TechCrunch AI",
       "title": "After the midterms, things are looking rocky for Elon Musk and data centers",
       "url": "https://techcrunch.com/2026/11/07/after-the-midterms-things-are-looking-rocky-for-elon-musk-and-data-centers",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "On Equity, we unpacked what the midterms mean for the tech industry.",
       "source_updated_at": "2026-11-07T22:07:22Z",
       "ingress": {
@@ -7009,7 +7394,7 @@
       "source": "CNBC Technology",
       "title": "Meta chief strategy officer Dave Wehner leaves to join AI infrastructure startup Fireworks as CFO",
       "url": "https://www.cnbc.com/2026/11/07/dave-wehner-meta-fireworks-cfo.html",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "Dave Wehner, Meta’s chief strategy officer, is leaving the company to become CFO of Fireworks, the AI infrastructure startup valued at $17.5 billion in July.",
       "source_updated_at": "2026-11-07T22:01:17Z",
       "ingress": {
@@ -7106,7 +7491,7 @@
       "source": "TechCrunch AI",
       "title": "Megaspeed exec was recruited to spy on Nvidia CEO, according to US intelligence memo",
       "url": "https://techcrunch.com/2026/11/07/chinese-exec-was-recruited-to-spy-on-nvidia-ceo-according-to-us-intelligence-memo",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "A memo circulated earlier this year reportedly claimed that China’s Ministry of State Security recruited a female technology executive to spy on Nvidia's CEO.",
       "source_updated_at": "2026-11-07T21:17:08Z",
       "ingress": {
@@ -7203,7 +7588,7 @@
       "source": "DeepSeek (Google News)",
       "title": "DeepSeek Harness 0.2.2 Lands, and It Can Delegate to Codex and Claude - Pasquale Pillitteri",
       "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxOQUJ3MXYtWk45RTY5MnBxUW5hMjZZSTN6RzFYZDRfRjhrZFcwOXZvLWlXdHJCeGF5TEhVUkpKekxLRkRZT2g1bzFPTk9VVkVtRnk5Z2xPZ1ZqVFJZd1NyUlRjckFWQkwxal9menpQVUlIV2VvZklual8xbEFuU0JXSXR3dnZNeDRaYy1GeGJLSEk?oc=5",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "DeepSeek Harness 0.2.2 Lands, and It Can Delegate to Codex and Claude Pasquale Pillitteri",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMikAFBVV95cUxOQUJ3MXYtWk45RTY5MnBxUW5hMjZZSTN6RzFYZDRfRjhrZFcwOXZvLWlXdHJCeGF5TEhVUkpKekxLRkRZT2g1bzFPTk9VVkVtRnk5Z2xPZ1ZqVFJZd1NyUlRjckFWQkwxal9menpQVUlIV2VvZklual8xbEFuU0JXSXR3dnZNeDRaYy1GeGJLSEk?oc=5"
@@ -7300,7 +7685,7 @@
       "source": "The Verge",
       "title": "NYT Cooking’s AI assistant saved my weeknight chicken, but almost ruined my cake",
       "url": "https://www.theverge.com/tech/1029489/nyt-cooking-ai-assistant-review",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "Around 7PM each weeknight, I find myself standing in front of the fridge, trying to decide on something for dinner that won't make my husband complain, \"Chicken again?\" Yes, I should meal plan more, but I don't, so this is where I'm at. A nightly battle in which the chicken usually wins. Recently, my best […]",
       "source_updated_at": "2026-11-07T15:47:15Z",
       "ingress": {
@@ -7387,7 +7772,7 @@
       "source": "The Verge",
       "title": "AI broke the cybersecurity world. What’s next?",
       "url": "https://www.theverge.com/podcast/1029038/ai-cybersecurity-hackers-data-breach-dark-age-alex-stamos",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "Today, I’m talking with Alex Stamos, chief security officer at Cognition and longtime cybersecurity expert, about what a mess cybersecurity is right now. This episode is part one of a special series looking at AI in real life. I’ve always enjoyed talking to Alex because he’s so direct, and you’re going to hear him say […]",
       "source_updated_at": "2026-11-07T05:43:11Z",
       "ingress": {
@@ -7474,7 +7859,7 @@
       "source": "CNBC Technology",
       "title": "America's newest small business owners with no employees are off to a hot start in AI era",
       "url": "https://www.cnbc.com/2026/11/07/americas-new-no-employee-small-business-owners-start-hot-in-ai-era.html",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "New small business formation is rising for owners who can grow with AI serving in finance, marketing and design roles, eliminating the need for hiring.",
       "source_updated_at": "2026-11-07T14:45:01Z",
       "ingress": {
@@ -7561,7 +7946,7 @@
       "source": "CNBC Technology",
       "title": "Democrat shaping AI policy bought chip stocks despite backing congressional trading ban",
       "url": "https://www.cnbc.com/2026/11/07/josh-gottheimer-ai-stocks-congress-trading-ban.html",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "Rep. Josh Gottheimer disclosed new AI-linked stock purchases months after voting for a congressional trading ban, as Democrats prepare to regulate the industry.",
       "source_updated_at": "2026-11-07T13:30:01Z",
       "ingress": {
@@ -7650,7 +8035,7 @@
       "source": "CNBC Technology",
       "title": "Anthropic IPO meets AI backlash after midterms show stinging rebuke of data centers",
       "url": "https://www.cnbc.com/2026/11/07/anthropic-ipo-ai-data-center-backlash.html",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "Anthropic is poised to become the first pure-play AI company to hit the public market at a time when the public is increasingly leary of the industry.",
       "source_updated_at": "2026-11-07T13:00:01Z",
       "ingress": {
@@ -7747,7 +8132,7 @@
       "source": "DeepSeek (Google News)",
       "title": "Who Owns DeepSeek, The Chinese AI Company? - BGR",
       "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE5ia290ZXNtM2dLektvdUJXRHp6dVJjeEdZTFY3OHRENnJKblk1N2hKcVRxMV9qYl81aFZ6Yk1yUk11V3ZqUGpKVDZmQjlTMklISEpRdjVZM1dQX043UkE?oc=5",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "Who Owns DeepSeek, The Chinese AI Company? BGR",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiXkFVX3lxTE5ia290ZXNtM2dLektvdUJXRHp6dVJjeEdZTFY3OHRENnJKblk1N2hKcVRxMV9qYl81aFZ6Yk1yUk11V3ZqUGpKVDZmQjlTMklISEpRdjVZM1dQX043UkE?oc=5"
@@ -7842,7 +8227,7 @@
       "source": "The Verge",
       "title": "Why a new report on Anthropic automating AI development is alarming researchers",
       "url": "https://www.theverge.com/ai-artificial-intelligence/1029126/anthropic-metr-report-accelerating-ai-development",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "Anthropic is using AI to build more powerful AI. And it appears to be working remarkably well, with the company's models improving roughly twice as quickly as a year ago, with little indication of slowing down. That's according to a new report published Thursday by the AI safety research organization METR, following an 11-week investigation […]",
       "source_updated_at": "2026-11-06T21:48:06Z",
       "ingress": {
@@ -7923,93 +8308,6 @@
       }
     },
     {
-      "id": "e4ad7467325c5c5cf4ddd3c2963b99a7322c9066",
-      "published_at": "2026-11-07T12:00:01Z",
-      "first_seen_at": "2026-11-07T12:35:28.684871Z",
-      "site_id": "curated_media",
-      "site_name": "精選媒體",
-      "source": "CNBC Technology",
-      "title": "Tech companies face mounting child safety lawsuits while pushing AI into schools",
-      "url": "https://www.cnbc.com/2026/11/07/snap-social-media-teen-safety-lawsuits.html",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
-      "summary": "Lawsuits against Snap, Meta and Google are creating headwinds for tech companies just as artificial intelligence tools expand into classrooms.",
-      "source_updated_at": "2026-11-07T12:00:01Z",
-      "ingress": {
-        "kind": "public_feed",
-        "site_id": "curated_media",
-        "source_id": "cnbc_technology",
-        "name": "CNBC Technology",
-        "feed_url": "https://www.cnbc.com/id/19854910/device/rss/rss.html"
-      },
-      "publisher": {
-        "schema_version": 1,
-        "publisher_id": "cnbc",
-        "name": "CNBC Technology",
-        "domain": "www.cnbc.com",
-        "status": "identified",
-        "basis": [
-          "article_host"
-        ],
-        "evidence": {
-          "rss_source_name": null,
-          "rss_source_url": null,
-          "article_url": "https://www.cnbc.com/2026/11/07/snap-social-media-teen-safety-lawsuits.html",
-          "article_host": "www.cnbc.com",
-          "expected_publisher_id": null,
-          "conflicts": []
-        }
-      },
-      "security_topic": false,
-      "source_policy": {
-        "schema_version": 1,
-        "policy_id": "publisher-governance-v1",
-        "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
-        "scope_id": "cnbc",
-        "publisher_kind": "media",
-        "admission_status": "limited",
-        "source_tier": "ai_media",
-        "source_tier_label": "精選AI媒體",
-        "source_tier_rank": 2,
-        "allow_general": true,
-        "allow_featured": true,
-        "allow_radar": true,
-        "reason_codes": [
-          "identified_host",
-          "limited_scope"
-        ]
-      },
-      "article_key": "https://www.cnbc.com/2026/11/07/snap-social-media-teen-safety-lawsuits.html",
-      "business_events": [],
-      "ai_is_related": true,
-      "ai_score": 0.68,
-      "ai_label": "ai_general",
-      "ai_relevance_reason": "curated_media_source_filter",
-      "ai_signals": [],
-      "ai_noise": [],
-      "source_tier": "ai_media",
-      "source_tier_label": "精選AI媒體",
-      "source_tier_rank": 2,
-      "summary_zh": "針對 Snap、Meta 和 Google 的訴訟正為科技公司帶來阻力，此時人工智慧工具正擴展到教室中。",
-      "title_original": "Tech companies face mounting child safety lawsuits while pushing AI into schools",
-      "title_en": "Tech companies face mounting child safety lawsuits while pushing AI into schools",
-      "title_zh": "科技公司在將人工智慧推向學校的同時，正面臨越來越多的兒童安全訴訟",
-      "title_bilingual": "科技公司在將人工智慧推向學校的同時，正面臨越來越多的兒童安全訴訟 / Tech companies face mounting child safety lawsuits while pushing AI into schools",
-      "corroboration_key": "publisher:cnbc",
-      "corroboration_status": "identified",
-      "source_material": {
-        "title_original": "",
-        "title": "Tech companies face mounting child safety lawsuits while pushing AI into schools",
-        "summary": "Lawsuits against Snap, Meta and Google are creating headwinds for tech companies just as artificial intelligence tools expand into classrooms."
-      },
-      "qualification": {
-        "scope": "in_scope",
-        "core_evidence": [],
-        "reason_codes": [
-          "no_core_event"
-        ]
-      }
-    },
-    {
       "id": "cba895ceebd3fede63c07309660fba2c7aaa36cc",
       "published_at": "2026-11-08T16:19:44Z",
       "first_seen_at": "2026-11-08T08:35:30.286999Z",
@@ -8018,7 +8316,7 @@
       "source": "InfoQ CN",
       "title": "AI 生成影片何時才能告別“抽卡”？藏在高效生成背後的返工與成本難題",
       "url": "https://www.infoq.cn/article/xd9o6TyQ8GLON3dmiWpG",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/xd9o6TyQ8GLON3dmiWpG?utm_source=rss&utm_medium=article"
@@ -8109,7 +8407,7 @@
       "source": "InfoQ CN",
       "title": "頂尖 AI 實驗室正在成為“人才黑洞”！Claude Code 團隊工程師離職後首次受訪",
       "url": "https://www.infoq.cn/article/Qs0pJ5M43c56hdozHiR0",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/Qs0pJ5M43c56hdozHiR0?utm_source=rss&utm_medium=article"
@@ -8194,6 +8492,96 @@
       }
     },
     {
+      "id": "73fd8cb8b5a1870e6885d4dc94996c08069ca1f8",
+      "published_at": "2026-11-08T12:00:00Z",
+      "first_seen_at": "2026-11-08T12:05:30.658682Z",
+      "site_id": "opmlrss",
+      "site_name": "OPML",
+      "source": "Wired AI",
+      "title": "I Used NYT Cooking’s New AI-Powered Recipe Modifier, and It’s Actually Pretty Good",
+      "url": "https://www.wired.com/story/nyt-cooking-new-ai-powered-recipe-modifier-is-pretty-good",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
+      "summary": "The New York Times has added a beta feature to its Cooking app that helps readers swap ingredients or adjust recipes to suit their needs. It mostly hits the mark.",
+      "source_updated_at": "2026-11-08T12:00:00Z",
+      "ingress": {
+        "kind": "private_opml",
+        "site_id": "opmlrss",
+        "source_id": null,
+        "name": "RSS/OPML",
+        "feed_url": null
+      },
+      "publisher": {
+        "schema_version": 1,
+        "publisher_id": "wired",
+        "name": "Wired",
+        "domain": "www.wired.com",
+        "status": "identified",
+        "basis": [
+          "article_host"
+        ],
+        "evidence": {
+          "rss_source_name": null,
+          "rss_source_url": null,
+          "article_url": "https://www.wired.com/story/nyt-cooking-new-ai-powered-recipe-modifier-is-pretty-good",
+          "article_host": "www.wired.com",
+          "expected_publisher_id": null,
+          "conflicts": []
+        }
+      },
+      "article_key": "https://www.wired.com/story/nyt-cooking-new-ai-powered-recipe-modifier-is-pretty-good",
+      "security_topic": false,
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.67,
+      "ai_label": "ai_general",
+      "ai_relevance_reason": "matched_ai_signal",
+      "ai_signals": [],
+      "ai_noise": [],
+      "source_tier": "watchlist",
+      "source_tier_label": "未審來源",
+      "source_tier_rank": 6,
+      "summary_zh": "《紐約時報》在其 Cooking 應用程式中新增了一項測試版功能，可幫助讀者替換食材或調整食譜以符合他們的需求。它大致上達到了預期的效果。",
+      "title_original": "I Used NYT Cooking’s New AI-Powered Recipe Modifier, and It’s Actually Pretty Good",
+      "title_en": "I Used NYT Cooking’s New AI-Powered Recipe Modifier, and It’s Actually Pretty Good",
+      "title_zh": "我使用了紐時 Cooking 的全新 AI 驅動食譜修改器，它其實相當不錯",
+      "title_bilingual": "我使用了紐時 Cooking 的全新 AI 驅動食譜修改器，它其實相當不錯 / I Used NYT Cooking’s New AI-Powered Recipe Modifier, and It’s Actually Pretty Good",
+      "corroboration_key": "publisher:wired",
+      "corroboration_status": "identified",
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+        "scope_id": "unreviewed",
+        "publisher_kind": "unknown",
+        "admission_status": "unreviewed",
+        "source_tier": "watchlist",
+        "source_tier_label": "未審來源",
+        "source_tier_rank": 6,
+        "allow_general": true,
+        "allow_featured": false,
+        "allow_radar": false,
+        "reason_codes": [
+          "legacy_identity",
+          "scope_mismatch",
+          "unreviewed_publisher",
+          "not_permitted_for_featured",
+          "not_permitted_for_radar"
+        ]
+      },
+      "source_material": {
+        "title_original": "",
+        "title": "I Used NYT Cooking’s New AI-Powered Recipe Modifier, and It’s Actually Pretty Good",
+        "summary": "The New York Times has added a beta feature to its Cooking app that helps readers swap ingredients or adjust recipes to suit their needs. It mostly hits the mark."
+      },
+      "qualification": {
+        "scope": "in_scope",
+        "core_evidence": [],
+        "reason_codes": [
+          "no_core_event"
+        ]
+      }
+    },
+    {
       "id": "b98844e188457bca874dc7b4264c9f8c13ed3311",
       "published_at": "2026-11-08T10:00:00Z",
       "first_seen_at": "2026-11-08T10:35:30.129425Z",
@@ -8202,7 +8590,7 @@
       "source": "Wired AI",
       "title": "World Models Will Soon Be Inescapable. Here’s What You Need to Know",
       "url": "https://www.wired.com/story/world-models-will-soon-be-inescapable-what-you-need-to-know",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "Moving AI from text to 3D space, world models simulate real-world physics to teach robots and autonomous cars how to navigate reality.",
       "source_updated_at": "2026-11-08T10:00:00Z",
       "ingress": {
@@ -8292,7 +8680,7 @@
       "source": "InfoQ CN",
       "title": "從約束到進化：Ontology 與 AI 自迭代的實踐｜AICon北京",
       "url": "https://www.infoq.cn/article/sy9XMK3zJ3jPwHBN5fQV",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/sy9XMK3zJ3jPwHBN5fQV?utm_source=rss&utm_medium=article"
@@ -8383,7 +8771,7 @@
       "source": "數位時代 (Google News)",
       "title": "2026 AI TAIWAN 精選解方| 每天 50 則租客訊息，該先處理哪一件？Bananas 讓 AI Agent 讀懂租賃管理現場 - 未來商務",
       "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE5ucDEtNGl0SFZRMHNxQ2dnd01NQmZkbEx5djFTRFlCcFNWeE5VSEsxbTEwMUZ6WEViMXhIYk5WUU01d0xQSnN4Slc4S1VicVJQZ3hXRw?oc=5",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "2026 AI TAIWAN 精選解方| 每天 50 則租客訊息，該先處理哪一件？Bananas 讓 AI Agent 讀懂租賃管理現場 未來商務",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiVEFVX3lxTE5ucDEtNGl0SFZRMHNxQ2dnd01NQmZkbEx5djFTRFlCcFNWeE5VSEsxbTEwMUZ6WEViMXhIYk5WUU01d0xQSnN4Slc4S1VicVJQZ3hXRw?oc=5"
@@ -8476,7 +8864,7 @@
       "source": "數位時代 (Google News)",
       "title": "2026 AI TAIWAN 精選解方 | AI 推薦名額僅 4 席，偉利科技以獨家 GEO 工具實測 AI 規則 - 未來商務",
       "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE0xcEpoaExGSGJfVURsZS12azMyMGotQjI4aDk0R1RuRmQ2M3pjUzRvYk5vNk1uSV9wU1VCMzZNY2Q2c0tPSVJyeTFLRlpLUHh5U1psYw?oc=5",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "2026 AI TAIWAN 精選解方 | AI 推薦名額僅 4 席，偉利科技以獨家 GEO 工具實測 AI 規則 未來商務",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiVEFVX3lxTE0xcEpoaExGSGJfVURsZS12azMyMGotQjI4aDk0R1RuRmQ2M3pjUzRvYk5vNk1uSV9wU1VCMzZNY2Q2c0tPSVJyeTFLRlpLUHh5U1psYw?oc=5"
@@ -8569,7 +8957,7 @@
       "source": "數位時代 (Google News)",
       "title": "工程師把程式外包給 AI，手感卻變鈍！關鍵在少了練習，哪些事該回頭自己動手？ - 未來商務",
       "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE84eFl3dlU3anRhemV5ZE9tRHE3VmtOQTlIRVF2bFk0RWZHQmJZNlJ2M1dIOTB6bktSUzBIcjZIRnpxMlg5VHJtZ3U4TGV0VkQyLUFqaw?oc=5",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "工程師把程式外包給 AI，手感卻變鈍！關鍵在少了練習，哪些事該回頭自己動手？ 未來商務",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiVEFVX3lxTE84eFl3dlU3anRhemV5ZE9tRHE3VmtOQTlIRVF2bFk0RWZHQmJZNlJ2M1dIOTB6bktSUzBIcjZIRnpxMlg5VHJtZ3U4TGV0VkQyLUFqaw?oc=5"
@@ -8662,7 +9050,7 @@
       "source": "RuntimeWire",
       "title": "Tencent says DSpine speeds Qwen3.8-27B inference in agent tests",
       "url": "https://runtimewire.com/article/tencent-says-dspine-speeds-qwen3-8-27b-inference-in-agent-tests",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "The five-layer speculative-decoding drafter delivered 2.71x to 3.84x the autoregressive baseline in Tencent's agent throughput tests.",
       "source_updated_at": "2026-11-07T23:14:39Z",
       "ingress": {
@@ -8848,7 +9236,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "反 AI 怒火燒到歐洲：數百人闖微軟資料中心工地，點信號彈抗議",
       "url": "https://www.blocktempo.com/activists-storm-microsoft-amsterdam-datacenter-site-europe-protests-demand-moratorium",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "數百名抗議者闖進微軟在阿姆斯特丹興建中的資料中心工地，警方清場後逮捕 150 到 200 人。這座 78 MW […]",
       "ingress": {
         "kind": "public_json",
@@ -9030,7 +9418,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "輝達六棧板 AI 設備在公路上消失！物流公司成破口，警方束手無策",
       "url": "https://www.blocktempo.com/nvidia-oakland-fictitious-pickup-truck-stolen-pallets-texas-cargo-theft",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "輝達價值 1,140 萬美元的貨物在運往德州途中被卡車載走後失聯，至今無人被捕。AI 硬體的高價與海外價差，讓 […]",
       "ingress": {
         "kind": "public_json",
@@ -9210,7 +9598,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "TeraWulf 挖礦收入崩 69%，但 AI 租賃暴增 774%",
       "url": "https://www.blocktempo.com/terawulf-q3-bitcoin-mining-revenue-falls-69-hpc-leasing-surges-anthropic",
-      "last_seen_at": "2026-11-08T11:35:32.260827Z",
+      "last_seen_at": "2026-11-08T12:05:30.658682Z",
       "summary": "週五公佈的美國比特幣礦企 TeraWulf 第三季財報，挖礦收入較一年前掉了約 69%，AI 與高階運算租賃收 […]",
       "ingress": {
         "kind": "public_json",
@@ -9512,10 +9900,10 @@
     "schema_version": 2,
     "policy_id": "publisher-governance-v1",
     "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
-    "generated_at": "2026-11-08T11:35:32.260827Z",
-    "brief_generation_id": "bg1_32187f89335aa58ce0a4f2dc",
-    "brief_state_revision": "ee3b49a60de90c07c61ae2d99fd9292a8e5b1154d1502a4db0803c52ed1dde1e",
-    "generation_id": "pg2_839dcc76936c4f6ffbe55be1",
+    "generated_at": "2026-11-08T12:05:30.658682Z",
+    "brief_generation_id": "bg1_0d58c5dc424e4b385144c72c",
+    "brief_state_revision": "96cee7a761ce51347fabdf2bc6f1135f9fd254fc826da87924ff1245504d4539",
+    "generation_id": "pg2_3bcbaf627e36648fa7fa58e4",
     "status": "ready",
     "selection_policy": "impact-v3-empty-fallback",
     "default_visible_limit": 5
