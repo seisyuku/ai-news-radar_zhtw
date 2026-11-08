@@ -2,6 +2,18 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v3",
   "entries": {
+    "48b735a0987d1cd54c57eca0dabd8f46a5cf6d499fadf81bbb7b4bd9f0d0b9de": {
+      "summary": "Karpathy用Claude Opus 5.5從4300萬則HN評論篩選出6454支影片，他稱效果優於YouTube推薦。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-08T14:29:33.369922Z"
+    },
+    "d055b482dddc7855bf7c45e6111acb807f3ce13818b3f840ea6729d890d11df6": {
+      "summary": "Seth等學者於Nature評論稱，AI系統非意識，矽硬體亦不會產生意識，並警告勿賦予AI權利。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-08T14:29:33.369922Z"
+    },
     "87a8d57393d174d193b781774815cfb87381a57093559e48b62adf22f3746af4": {
       "summary": "美國能源部阿貢國家實驗室4日宣佈，將擴充其推論服務，結合全新AI算力開啟自主實驗室研究新紀元。",
       "provider": "groq",
@@ -2989,18 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-10-23T13:35:34.731275Z"
-    },
-    "b73e07f85b460432793bed9be585d1340a0d535a7812db1137958b42acf3fae1": {
-      "summary": "雲端部署平臺Zeabur再度遭駭，已宣佈年底停止營運並公佈初步事件調查結果；91APP數據庫遭非法存取事件持續延燒，多個合作品牌發佈資安公告及防詐提醒。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-23T10:35:31.795166Z"
-    },
-    "5992f90ac28cc688ff29804fc12a879bd64034bc48dbd2debad86e96e826221b": {
-      "summary": "SpaceX與特斯拉已各自成立特別委員會，開始討論合併事宜。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-23T09:05:35.350827Z"
     }
   },
   "rejections": {
@@ -4823,6 +4823,10 @@
     "040b56fbd51c4fb7dfcd3feb3e5eaf8d4608369f62492b86211a3377aaf8123e": {
       "reason": "validation_numeric_grounding",
       "created_at": "2026-11-08T13:35:29.866134Z"
+    },
+    "3c922d915444646648b8b2c468e05279ee8a249290944d8e9845cb5641dac2d7": {
+      "reason": "validation_length",
+      "created_at": "2026-11-08T14:29:33.369922Z"
     }
   }
 }
