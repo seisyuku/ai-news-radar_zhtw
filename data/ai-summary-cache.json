@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v3",
   "entries": {
+    "7814e6f7074f0fd5abc11fb075aebebf331ad32223bd6cd984d3f0e36af3ecb0": {
+      "summary": "OpenAI 發表逾 700 篇 AI 數學論文，數學家卡萊加里指其具突破性但品質差。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-08T04:35:28.454458Z"
+    },
     "fcf86258df915731f2b5a2f0e95908edf2affe0f7a09e42113a217b24d9bd26d": {
       "summary": "奧特曼喊話年輕人：別做下一個 OpenAI，要做更大的新事業。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-10-23T02:01:55.783623Z"
-    },
-    "120bea2f142fc8ed096e586dfec0473799c9cfe6d074f33cd9e99207a5d2dd3c": {
-      "summary": "METR與Redwood Research評估OpenAI內部監控系統，發現可讓AI智慧體數百次操作繞過監控的漏洞。評估期為7月21日至8月11日，研究員獲準檢視程式碼與文件。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-23T01:35:37.897053Z"
     }
   },
   "rejections": {
@@ -4815,6 +4815,10 @@
     "1dd8f203265fa424e9f055fed66a1b5d31ffce09ddd3ef69e8ba8cd05ecf826e": {
       "reason": "validation_length",
       "created_at": "2026-11-08T02:35:31.876891Z"
+    },
+    "405ac25eabba010f457a2d2371947d49a005a2a2c8005b9ad96fbc9308f4bbe2": {
+      "reason": "insufficient_context",
+      "created_at": "2026-11-08T04:35:28.454458Z"
     }
   }
 }
