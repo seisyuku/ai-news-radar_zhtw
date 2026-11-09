@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v3",
   "entries": {
+    "9bcee503601f33260e774cf18e5b5c607dc986dcd76e8ea4fa2ce8ec22eefe70": {
+      "summary": "AI駭客攻擊日韓企業，自動化網路入侵加劇企業資安與營運風險。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-09T00:05:36.477676Z"
+    },
     "236dcb6116588031cc3dbc7d00760b158bf57ce8c60a109a96417550fcd6ca70": {
       "summary": "蘋果新任執行長特納斯首份財報過關，但蘋果AI避風港光環開始褪色。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-10-24T06:35:30.850467Z"
-    },
-    "dcf5b32349e6f7de5824bbbeccac09dd5e359af9b4d8ac64012ef4697cd37e08": {
-      "summary": "OpenAI 透過可靠的多租戶架構、全球快取及 Azure Cosmos DB 擴展 Habitat，為 ChatGPT 提供 12 倍更快的讀取速度。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-24T06:35:30.850467Z"
     }
   },
   "rejections": {
@@ -4835,6 +4835,14 @@
     "3c922d915444646648b8b2c468e05279ee8a249290944d8e9845cb5641dac2d7": {
       "reason": "validation_length",
       "created_at": "2026-11-08T20:35:31.809906Z"
+    },
+    "75ec77e24e407d800958f41dc3c4c37776479893501574f7bd2d0f67809d4986": {
+      "reason": "insufficient_context",
+      "created_at": "2026-11-09T00:05:36.477676Z"
+    },
+    "080d86b6df630488b8badd6effa6f4e824b473fe42e7fb5424b9b0f46f62ef68": {
+      "reason": "validation_length",
+      "created_at": "2026-11-09T00:05:36.477676Z"
     }
   }
 }
