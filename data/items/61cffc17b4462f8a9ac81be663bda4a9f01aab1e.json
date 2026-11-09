@@ -1,17 +1,18 @@
 {
-  "id": "49bd7cebcee3cea68ae7a8a00ce8028e0d45e72e",
-  "published_at": "2026-10-19T05:13:13Z",
-  "first_seen_at": "2026-10-19T05:14:37.546650Z",
+  "id": "61cffc17b4462f8a9ac81be663bda4a9f01aab1e",
+  "published_at": "2026-11-09T02:00:00Z",
+  "first_seen_at": "2026-11-09T13:35:27.889839Z",
   "site_id": "curated_media",
   "site_name": "精選媒體",
   "source": "DeepSeek (Google News)",
-  "title": "DeepSeek Unveils New AI Model, Slashing User Costs for AI Services - 36Kr",
-  "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE1UUDVvVjUzc1U4WUxYWWpxUnE1RTBiQ1JneDgyd1Y1OEM0OV85SXQ5WGV6WmRxc2Y2bjMzZmhMSzVhMXZrOEc0THQ1MDJJbUViM2g4?oc=5",
-  "last_seen_at": "2026-10-19T13:35:27.502511Z",
-  "summary": "DeepSeek Unveils New AI Model, Slashing User Costs for AI Services 36Kr",
+  "title": "China's DeepSeek AI Agent Surpasses 1.5 Million Daily Users - 아시아경제",
+  "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE91dG43cFc2YUllTlpnWTF0bEd1aUpYU0ZMTVRRWUxyM19ZVUdwbWVSQmFlRnVVZGFIQ0JVU1ZVTmVPUUNhVFBkcEN3OGpodmZycXU3eUpId054TWgya2lpRnZpZXI?oc=5",
+  "last_seen_at": "2026-11-09T13:35:27.889839Z",
+  "summary": "China's DeepSeek AI Agent Surpasses 1.5 Million Daily Users 아시아경제",
   "publisher_links": [
-    "https://news.google.com/rss/articles/CBMiU0FVX3lxTE1UUDVvVjUzc1U4WUxYWWpxUnE1RTBiQ1JneDgyd1Y1OEM0OV85SXQ5WGV6WmRxc2Y2bjMzZmhMSzVhMXZrOEc0THQ1MDJJbUViM2g4?oc=5"
+    "https://news.google.com/rss/articles/CBMiZEFVX3lxTE91dG43cFc2YUllTlpnWTF0bEd1aUpYU0ZMTVRRWUxyM19ZVUdwbWVSQmFlRnVVZGFIQ0JVU1ZVTmVPUUNhVFBkcEN3OGpodmZycXU3eUpId054TWgya2lpRnZpZXI?oc=5"
   ],
+  "source_updated_at": "2026-11-09T02:00:00Z",
   "ingress": {
     "kind": "google_news",
     "site_id": "curated_media",
@@ -21,22 +22,23 @@
   },
   "publisher": {
     "schema_version": 1,
-    "publisher_id": "juya",
-    "name": "橘鴉AI早報",
-    "domain": null,
-    "status": "identified",
+    "publisher_id": null,
+    "name": "아시아경제",
+    "domain": "www.asiae.co.kr",
+    "status": "reported",
     "basis": [
-      "explicit_group"
+      "google_rss_source"
     ],
     "evidence": {
-      "rss_source_name": null,
-      "rss_source_url": null,
+      "rss_source_name": "아시아경제",
+      "rss_source_url": "https://www.asiae.co.kr",
       "article_url": null,
       "article_host": "news.google.com",
       "expected_publisher_id": null,
       "conflicts": []
     }
   },
+  "security_topic": false,
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
@@ -51,12 +53,11 @@
     "allow_featured": false,
     "allow_radar": false,
     "reason_codes": [
-      "legacy_identity",
-      "scope_unknown",
+      "reported_rss_source",
+      "scope_mismatch",
       "unreviewed_publisher",
       "not_permitted_for_featured",
       "not_permitted_for_radar"
     ]
-  },
-  "security_topic": false
+  }
 }
