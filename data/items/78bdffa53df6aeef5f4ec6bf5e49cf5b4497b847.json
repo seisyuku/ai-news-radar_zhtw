@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon ECR 现在支持对现有容器映像进行复制回填",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/replication-backfill-amazon-ecr",
-  "last_seen_at": "2026-11-09T00:05:36.477676Z",
+  "last_seen_at": "2026-11-09T00:35:32.274515Z",
   "summary": "Amazon Elastic Container Registry（Amazon ECR）现在支持复制回填，使您能够将私有注册表中的现有映像复制到配置的复制注册表目标位置。以前，复制功能仅适用于在启用复制配置后推送的映像，需要客户手动为映像重新添加标签，才能触发对先前存在的映像的复制。借助复制回填功能，您现在只需调用 API 一次，即可将完整的映像目录复制到新目标位置或现有目标位置。 复制回填功能在以下情况下非常有用，在扩展到新的 AWS 区域、验证灾难恢复准备情况、更新复制规则或确保跨区域存在完整映像目录以实现合规性。您可以同时运行最多十个回填作业，通过新的 API 监控进度和每个映像的结果，并且在不删除已复制的映像的情况下随时停止作业。 复制回填功能已在所有提供 Amazon ECR 的 AWS 区域推出。要了解更多信息，请参阅 Amazon ECR 用户指南 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/AmazonECR/latest/userguide/replication-backfill.html"
