@@ -1,14 +1,18 @@
 {
-  "id": "30871c44415334094168c10ef1858c6aa237014c",
-  "published_at": "2026-10-14T11:00:00Z",
-  "first_seen_at": "2026-10-14T11:05:49.745955Z",
+  "id": "d0ea5e94013020be91230e8fcce43828bf649abb",
+  "published_at": "2026-11-09T16:00:00Z",
+  "first_seen_at": "2026-11-09T08:35:33.902985Z",
   "site_id": "opmlrss",
   "site_name": "OPML RSS",
-  "source": "Wired AI",
-  "title": "My Friend Has No Soul",
-  "url": "https://www.wired.com/story/my-friend-has-no-soul",
-  "last_seen_at": "2026-10-19T08:35:31.332311Z",
-  "summary": "The second iteration of the viral Friend AI necklace is louder and less interesting.",
+  "source": "InfoQ CN",
+  "title": "不能把整个安全体系押在大模型上：AI 分诊 CVE，人工审查仍不能少",
+  "url": "https://www.infoq.cn/article/mBvmvcQ8a8ty2Ob1xN64",
+  "last_seen_at": "2026-11-09T08:35:33.902985Z",
+  "summary": "点击查看原文>",
+  "publisher_links": [
+    "https://www.infoq.cn/article/mBvmvcQ8a8ty2Ob1xN64?utm_source=rss&utm_medium=article"
+  ],
+  "source_updated_at": "2026-11-09T16:00:00Z",
   "ingress": {
     "kind": "private_opml",
     "site_id": "opmlrss",
@@ -18,22 +22,21 @@
   },
   "publisher": {
     "schema_version": 1,
-    "publisher_id": "wired",
-    "name": "Wired",
-    "domain": "www.wired.com",
-    "status": "identified",
-    "basis": [
-      "article_host"
-    ],
+    "publisher_id": null,
+    "name": null,
+    "domain": "www.infoq.cn",
+    "status": "unknown",
+    "basis": [],
     "evidence": {
       "rss_source_name": null,
       "rss_source_url": null,
-      "article_url": "https://www.wired.com/story/my-friend-has-no-soul",
-      "article_host": "www.wired.com",
+      "article_url": null,
+      "article_host": "www.infoq.cn",
       "expected_publisher_id": null,
       "conflicts": []
     }
   },
+  "security_topic": false,
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
@@ -48,12 +51,11 @@
     "allow_featured": false,
     "allow_radar": false,
     "reason_codes": [
-      "legacy_identity",
+      "missing_identity",
       "scope_mismatch",
       "unreviewed_publisher",
       "not_permitted_for_featured",
       "not_permitted_for_radar"
     ]
-  },
-  "security_topic": false
+  }
 }

@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon ElastiCache 将数据分层功能扩展到欧洲（西班牙）和亚太地区（海得拉巴）的 R8gd 和 R7gd 节点",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/09/elasticache-data-tiering-spain",
-  "last_seen_at": "2026-11-09T07:46:04.097115Z",
+  "last_seen_at": "2026-11-09T08:35:33.902985Z",
   "summary": "适用于 Valkey 的 Amazon ElastiCache 数据分层功能现已在 AWS 欧洲（西班牙）区域基于 Graviton4 的 R8gd 节点上提供，也在欧洲（西班牙）和亚太地区（海得拉巴）区域基于 Graviton3 的 R7gd 节点上提供。数据分层是将 Valkey 集群扩展到数百 TB 容量的一种低成本方式。它在每个节点上使用固态硬盘（SSD）以及内存。当内存已满时，ElastiCache 会自动将最近最少使用的项目移至 SSD。当您的应用程序读取存储在 SSD 上的项目时，ElastiCache 会在处理请求之前将其移回内存中。数据分层非常适合定期访问最多 20% 的数据集的工作负载，以及从 SSD 读取数据时能够容忍一些额外延迟的应用程序。 R8gd 节点由 AWS Graviton4 处理器提供支持。在适用于 Valkey 的 Amazon ElastiCache 中，它们与同等大小的基于 Graviton3 的节点相比，吞吐量最高可提升 47%，P99 延迟最高可降低 43%，按需定价的性价比可提高最多 31%，具体取决于节点系列、大小和工作负载配置。 您可以在 Valkey 7.2 及更高版本的 R8gd 和 R7gD 节点上使用数据分层。要开始使用，请使用 AWS 管理控制台、AWS CLI 或 AWS SDK 创建新集群或升级现有集群。有关定价，请参阅 Amazon ElastiCache 定价页面 。要了解更多信息，请参阅 ElastiCache 文档中的 数据分层 和 支持的节点类型 。",
   "publisher_links": [
     "https://aws.amazon.com/elasticache/pricing/",
