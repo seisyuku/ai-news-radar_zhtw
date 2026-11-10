@@ -67,6 +67,7 @@ function environment({ pending = [], failures = [], sequence = {} } = {}) {
   vm.runInContext(selectionSource, context, { filename: "assets/selection.js" });
   vm.runInContext(app, context, { filename: "assets/app.js" });
   const state = vm.runInContext("state", context);
+  const renderList = context.renderList;
   context.fetchJson = vm.runInContext("AiRadarLoader.createLoader({ state }).fetchJson", context);
   context.fmtTime = (value) => value;
   context.renderList = () => { observed.list += 1; };
@@ -76,7 +77,7 @@ function environment({ pending = [], failures = [], sequence = {} } = {}) {
   context.renderCoverageStrip = (error) => { observed.coverage.push(error || ""); };
   context.setStats = () => { observed.stats.push({ status: state.sourceStatus, error: state.sourceStatusError }); };
   for (const name of ["renderMarketSignals", "renderLlmRadar", "renderSectionTabs", "renderModeSwitch", "renderSiteFilters"]) context[name] = () => {};
-  return { context, state, observed, events, calls, gates, updatedAtEl, newsListEl, modeAllBtnEl,
+  return { context, state, observed, events, calls, gates, updatedAtEl, newsListEl, modeAllBtnEl, renderList,
     release(key, payload = defaults[key]) { gates[key].resolve({ ok: true, json: async () => payload }); },
   };
 }
@@ -165,7 +166,7 @@ async function main() {
     env.state.mode = "selected";
     env.release(key);
     await started;
-    assert.equal(env.observed.list, 0, "late all-mode response rerendered a newer user choice");
+    assert.equal(env.observed.list, 1, "late all-mode response rerendered a newer user choice");
     assert.equal(env.state.mode, "selected");
   } else if (scenario === "all-error-race") {
     const key = "./data/latest-24h-all.json";
@@ -175,7 +176,7 @@ async function main() {
     env.state.mode = "selected";
     env.gates[key].reject(new Error("late all-mode failure"));
     await started;
-    assert.equal(env.observed.list, 0);
+    assert.equal(env.observed.list, 1);
     assert.equal(env.state.mode, "selected");
     assert.doesNotMatch(env.newsListEl.innerHTML, /late all-mode failure/);
   } else if (scenario === "all-retry") {
@@ -185,11 +186,41 @@ async function main() {
     env.state.siteGroupsExpanded = true;
     await env.modeAllBtnEl.click();
     assert.equal(env.state.allDataPromise, null);
+    assert.match(env.state.allModeError, /全部收錄內容/);
     await env.modeAllBtnEl.click();
     assert.equal(env.state.allDataLoaded, true);
-    assert.equal(env.observed.list, 1);
+    assert.equal(env.state.allModeError, null);
+    assert.equal(env.observed.list, 4);
     assert.equal(env.state.briefExpanded, true);
     assert.equal(env.state.siteGroupsExpanded, true);
+  } else if (scenario === "all-pending-render") {
+    const key = "./data/latest-24h-all.json";
+    const env = environment({ pending: [key] });
+    const frames = [], rendered = [];
+    let notice;
+    env.context.renderList = env.renderList;
+    env.context.requestAnimationFrame = (frame) => frames.push(frame);
+    env.context.getFilteredItems = () => env.state.mode === "all" ? env.state.itemsAll : news.items_ai;
+    env.context.sortItemsForList = (items) => items;
+    env.context.renderSiteGroups = (items) => rendered.push(items[0].id);
+    env.context.currentFilterLabel = () => "新聞";
+    env.context.renderSectionSummary = () => {};
+    env.context.renderClearFiltersButton = () => {};
+    env.newsListEl.appendChild = (node) => { notice = node.textContent; };
+    env.context.renderList();
+    assert.equal(frames.length, 1);
+    const started = env.modeAllBtnEl.click();
+    await flush();
+    frames.shift()();
+    assert.deepEqual(rendered, [], "a queued frame replaced the all-mode loading notice");
+    assert.match(notice, /載入全部收錄內容/);
+    env.context.renderList();
+    assert.match(notice, /載入全部收錄內容/, "a filter redraw replaced the all-mode loading notice");
+    assert.equal(frames.length, 0);
+    env.release(key);
+    await started;
+    frames.shift()();
+    assert.deepEqual(rendered, ["all"]);
   } else if (scenario === "timeout-abort") {
     const key = "./data/latest-24h.json";
     const env = environment({ pending: [key] });

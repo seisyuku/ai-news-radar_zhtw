@@ -177,6 +177,8 @@ or source schedule change was used to validate these fixes.
 The I/O implementation lives in `scripts/archive_output.py`; `update_news.py`
 supplies the existing normalization/public policies and coordinates generation.
 See [the archive/output contract](ARCHIVE_OUTPUT.md) for module APIs and shapes.
+See [the state transition and recovery contract](STATE_MACHINES.md) for
+cross-file write order, degraded publication, Git retry, and reader validation.
 
 `scripts/update_news.py` writes each JSON snapshot, state/cache file, JSON
 resolver and HTML item page to a temporary file in the target directory, then
@@ -186,7 +188,10 @@ are retained; new generated files use mode `0644`. Temporary names follow
 invocation's temporary file and leaves the previous target intact.
 
 The main generation run prunes expired JSON and HTML resolvers only after all
-snapshot, resolver, state and optional cache writes succeed. Standalone resolver
+snapshot, resolver, state and optional cache writes succeed. A brief-event
+history write failure can still publish general news and prices with the
+governed views unavailable. That run defers resolver cleanup until a subsequent
+successful write sequence. Standalone resolver
 writers retain their default cleanup behavior after their own writes succeed;
 callers coordinating multiple outputs can pass `prune=False` and call
 `prune_item_outputs` after the complete write phase.

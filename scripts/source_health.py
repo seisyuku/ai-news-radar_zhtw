@@ -103,6 +103,58 @@ def load_source_status(path: Path) -> dict[str, Any]:
     return payload if isinstance(payload, dict) else {}
 
 
+def _apply_attempt_history(
+    row: dict[str, Any],
+    previous: dict[str, Any],
+    now_iso: str,
+    threshold: int,
+    *,
+    outcome: bool | None,
+    last_success_at: str | None,
+) -> None:
+    """Update retained history for success, failure, or a skipped attempt."""
+    count = int(previous.get("consecutive_failures") or 0)
+    last_ok = previous.get("last_attempt_ok")
+    if not isinstance(last_ok, bool):
+        # Legacy skipped snapshots can only recover the last actual outcome
+        # from a retained streak or a recorded success.
+        if previous.get("skipped"):
+            last_ok = False if count else (True if previous.get("last_success_at") else None)
+        else:
+            last_ok = previous.get("ok") if isinstance(previous.get("ok"), bool) else None
+
+    first_failure_at = previous.get("first_failure_at")
+    last_failure_at = previous.get("last_failure_at")
+    if outcome is None:
+        if isinstance(row.get("last_attempt_ok"), bool):
+            last_ok = row["last_attempt_ok"]
+        if last_ok is False:
+            count = count or 1
+        last_failure_at = last_failure_at or (row.get("last_run_at") if last_ok is False else None)
+        first_failure_at = first_failure_at or (last_failure_at if last_ok is False else None)
+    elif outcome:
+        last_ok = True
+        count = 0
+        first_failure_at = None
+        last_success_at = now_iso
+    else:
+        if last_ok is False:
+            count = (count or 1) + 1
+            first_failure_at = first_failure_at or now_iso
+        else:
+            count = 1
+            first_failure_at = now_iso
+        last_ok = False
+        last_failure_at = now_iso
+
+    row["last_attempt_ok"] = last_ok
+    row["consecutive_failures"] = count
+    row["first_failure_at"] = first_failure_at
+    row["last_failure_at"] = last_failure_at
+    row["last_success_at"] = last_success_at
+    row["persistent_failure"] = last_ok is False and count >= max(1, threshold)
+
+
 def apply_subsource_health_history(
     status: dict[str, Any],
     previous: dict[str, Any],
@@ -133,60 +185,27 @@ def apply_subsource_health_history(
             continue
         source_id = str(row["source_id"])
         old = previous_subsources.get(source_id, {})
-        old_count = int(old.get("consecutive_failures") or 0)
-        last_attempt_ok = old.get("last_attempt_ok")
-        if not isinstance(last_attempt_ok, bool):
-            if old.get("skipped"):
-                last_attempt_ok = False if old_count else (True if old.get("last_success_at") else None)
-            else:
-                last_attempt_ok = old.get("ok") if isinstance(old.get("ok"), bool) else None
         skipped = bool(status.get("skipped") or row.get("skipped"))
         row["skipped"] = skipped
         row["attempted"] = not skipped
+        last_success_at = old.get("last_success_at")
         if skipped:
             row["duration_ms"] = 0
-            if isinstance(row.get("last_attempt_ok"), bool):
-                last_attempt_ok = row["last_attempt_ok"]
-            if last_attempt_ok is False and not old_count:
-                old_count = 1
-            last_failure_at = old.get("last_failure_at") or (
-                row.get("last_run_at") if last_attempt_ok is False else None
-            )
             row["ok"] = None
             row["item_count"] = 0
             row["error"] = None
-            row["last_attempt_ok"] = last_attempt_ok
-            row["consecutive_failures"] = old_count
-            row["first_failure_at"] = old.get("first_failure_at") or (
-                last_failure_at if last_attempt_ok is False else None
-            )
-            row["last_failure_at"] = last_failure_at
-            row["last_success_at"] = row.get("last_success_at") or old.get("last_success_at")
-            row["persistent_failure"] = last_attempt_ok is False and old_count >= max(1, threshold)
-            if last_attempt_ok is False:
+            last_success_at = row.get("last_success_at") or last_success_at
+        _apply_attempt_history(
+            row, old, now_iso, threshold, outcome=None if skipped else row.get("ok") is True,
+            last_success_at=last_success_at,
+        )
+        if skipped:
+            if row["last_attempt_ok"] is False:
                 row["degraded"] = True
                 row["degraded_reason"] = "last_attempt_failed_waiting_for_retry"
                 status["degraded"] = True
                 status["degraded_reason"] = "last_subsource_failure_waiting_for_retry"
             continue
-
-        if row.get("ok") is True:
-            row["last_attempt_ok"] = True
-            row["consecutive_failures"] = 0
-            row["first_failure_at"] = None
-            row["last_failure_at"] = old.get("last_failure_at")
-            row["last_success_at"] = now_iso
-            row["persistent_failure"] = False
-            continue
-
-        previous_was_failure = last_attempt_ok is False
-        old_count = old_count or (1 if previous_was_failure else 0)
-        row["last_attempt_ok"] = False
-        row["consecutive_failures"] = old_count + 1 if previous_was_failure else 1
-        row["first_failure_at"] = (old.get("first_failure_at") if previous_was_failure else None) or now_iso
-        row["last_failure_at"] = now_iso
-        row["last_success_at"] = old.get("last_success_at")
-        row["persistent_failure"] = row["consecutive_failures"] >= max(1, threshold)
         if row["persistent_failure"]:
             persistent_failures.append({
                 "site_id": status["site_id"],
@@ -222,68 +241,22 @@ def apply_source_health_history(
         has_subsources = apply_subsource_health_history(
             status, previous, now_iso, threshold, persistent_failures,
         )
-        previous_count = int(previous.get("consecutive_failures") or 0)
-        last_attempt_ok = previous.get("last_attempt_ok")
-        if not isinstance(last_attempt_ok, bool):
-            # Older snapshots did not distinguish a scheduled skip from a
-            # successful fetch. A retained failure streak is the only safe
-            # evidence of the last non-skipped result in that format.
-            if previous.get("skipped"):
-                last_attempt_ok = False if previous_count else (True if previous.get("last_success_at") else None)
-            else:
-                last_attempt_ok = previous.get("ok") if isinstance(previous.get("ok"), bool) else None
-
-        if status.get("skipped"):
-            # A scheduled skip is neither a new success nor a new failure.
-            # Keep the last real result for the next attempted run, but do
-            # not emit another persistent-failure annotation on each skip.
-            if isinstance(status.get("last_attempt_ok"), bool):
-                last_attempt_ok = status["last_attempt_ok"]
-            if last_attempt_ok is False and not previous_count:
-                previous_count = 1
-            status["last_attempt_ok"] = last_attempt_ok
-            status["consecutive_failures"] = previous_count
-            last_failure_at = previous.get("last_failure_at") or (
-                status.get("last_run_at") if last_attempt_ok is False else None
-            )
-            status["first_failure_at"] = previous.get("first_failure_at") or (
-                last_failure_at if last_attempt_ok is False else None
-            )
-            status["last_failure_at"] = last_failure_at
-            status["last_success_at"] = status.get("last_success_at") or previous.get("last_success_at")
-            status["persistent_failure"] = (
-                last_attempt_ok is False and previous_count >= max(1, threshold)
-            )
-            if last_attempt_ok is False:
+        skipped = bool(status.get("skipped"))
+        _apply_attempt_history(
+            status, previous, now_iso, threshold, outcome=None if skipped else bool(status.get("ok")),
+            last_success_at=status.get("last_success_at") or previous.get("last_success_at"),
+        )
+        if skipped:
+            if status["last_attempt_ok"] is False:
                 status["degraded"] = True
                 status["degraded_reason"] = "last_attempt_failed_waiting_for_retry"
             continue
-
-        if status.get("ok"):
-            status["last_attempt_ok"] = True
-            status["consecutive_failures"] = 0
-            status["first_failure_at"] = None
-            status["last_failure_at"] = previous.get("last_failure_at")
-            status["last_success_at"] = now_iso
-            status["persistent_failure"] = False
-            continue
-
-        status["last_attempt_ok"] = False
-        previous_was_failure = last_attempt_ok is False
-        previous_count = previous_count or (1 if previous_was_failure else 0)
-        consecutive_failures = previous_count + 1 if previous_was_failure else 1
-        first_failure_at = previous.get("first_failure_at") if previous_was_failure else now_iso
-        status["consecutive_failures"] = consecutive_failures
-        status["first_failure_at"] = first_failure_at or now_iso
-        status["last_failure_at"] = now_iso
-        status["last_success_at"] = status.get("last_success_at") or previous.get("last_success_at")
-        status["persistent_failure"] = consecutive_failures >= max(1, threshold)
         if status["persistent_failure"] and not has_subsources:
             persistent_failures.append(
                 {
                     "site_id": site_id,
                     "site_name": status.get("site_name") or site_id,
-                    "consecutive_failures": consecutive_failures,
+                    "consecutive_failures": status["consecutive_failures"],
                     "first_failure_at": status["first_failure_at"],
                     "last_failure_at": now_iso,
                     "last_success_at": status.get("last_success_at"),

@@ -5741,13 +5741,16 @@ def apply_brief_event_result(result, daily, merged):
     merged["publisher_governance"] = governance
 
 
+BRIEF_STATE_WRITE_FAILED = "state_write_failed"
+
+
 def write_brief_event_bundle(result, daily, merged, *, state_path, merged_path, daily_path, now):
     """Archive is written first by the caller. State precedes its projection."""
     if result.next_state is not None:
         try:
             atomic_write_text(state_path, brief_events.canonical(result.next_state).decode("utf-8"))
         except OSError:
-            result = brief_events.unavailable(now, "state_write_failed")
+            result = brief_events.unavailable(now, BRIEF_STATE_WRITE_FAILED)
             apply_brief_event_result(result, daily, merged)
     atomic_write_text(merged_path, json.dumps(sanitize_public_payload(merged), ensure_ascii=False, separators=(",", ":")))
     atomic_write_text(daily_path, json.dumps(sanitize_public_payload(daily), ensure_ascii=False, indent=2))
@@ -6258,7 +6261,6 @@ def main() -> int:
             "metrics": {"clock": "monotonic_wall", "phases": phase_metrics,
                         "output_excludes": ["source_status_publication", "resolver_cleanup"]},
             "generated_at": generated_at,
-            "brief_selection": daily_brief_payload["selection_diagnostics"],
             "sites": statuses,
             "successful_sites": sum(1 for s in statuses if s["ok"]),
             "failed_sites": [s["site_id"] for s in statuses if not s["ok"]],
@@ -6311,7 +6313,6 @@ def main() -> int:
         latest_payload, latest_all_payload = build_latest_payloads(latest_payload)
         for public_payload in (latest_payload, latest_all_payload, llm_radar_payload):
             public_payload["publisher_governance_meta"] = daily_brief_payload["publisher_governance_meta"]
-        status_payload["brief_events"] = brief_result.diagnostics
 
     with record_generation_phase(phase_metrics, "output") as phase:
         atomic_write_text(
@@ -6323,6 +6324,7 @@ def main() -> int:
         brief_result = write_brief_event_bundle(brief_result, daily_brief_payload, stories_merged_payload,
             state_path=brief_event_state_path, merged_path=stories_merged_path, daily_path=daily_brief_path, now=now)
         status_payload["brief_events"] = brief_result.diagnostics
+        status_payload["brief_selection"] = daily_brief_payload["selection_diagnostics"]
         status_payload["news_quality"] = news_quality.build(list(archive.values()), latest_items_all_dedup,
             latest_items_ai_dedup, stories_merged_payload, status_payload, now=now,
             window_hours=args.window_hours, fetched_ids=fetched_ids, reader_exclusions=reader_exclusions)
@@ -6356,8 +6358,9 @@ def main() -> int:
 
     atomic_write_text(status_path, json.dumps(sanitize_public_payload(status_payload), ensure_ascii=False, indent=2))
 
-    # A later HTML/state/cache failure must not remove previous item links.
-    prune_item_outputs(output_dir, archive)
+    # The event state write can fail without aborting the public snapshot.
+    if BRIEF_STATE_WRITE_FAILED not in brief_result.diagnostics["errors"]:
+        prune_item_outputs(output_dir, archive)
 
     print(f"Wrote: {latest_path} ({latest_payload['total_items']} items)")
     print(f"Wrote: {latest_all_path} ({len(latest_items_all_dedup)} all-mode items)")

@@ -19,6 +19,8 @@ const state = {
   allDataLoaded: false,
   allDataUrl: "data/latest-24h-all.json",
   allDataPromise: null,
+  allModeRequestId: 0,
+  allModeError: null,
   siteFilter: "",
   query: "",
   mode: "selected",
@@ -2706,15 +2708,22 @@ function renderSiteGroups(items) {
 }
 
 function renderList() {
-  const filtered = getFilteredItems();
   renderModeSwitch();
+  newsListEl.innerHTML = "";
+  const token = ++_renderListToken;
+
+  if (state.mode === "all" && !state.allDataLoaded) {
+    const notice = document.createElement("div");
+    notice.className = "empty";
+    notice.textContent = state.allModeError || "正在載入全部收錄內容...";
+    newsListEl.appendChild(notice);
+    return;
+  }
+
+  const filtered = getFilteredItems();
   resultCountEl.textContent = `${fmtNumber(displayItemCount(filtered))} 篇`;
   renderSectionSummary(filtered);
   renderClearFiltersButton();
-
-  newsListEl.innerHTML = "";
-  _renderListToken += 1;           // invalidate any in-flight render
-  const token = _renderListToken;
 
   if (!filtered.length) {
     const empty = document.createElement("div");
@@ -3123,26 +3132,22 @@ modeAiBtnEl.addEventListener("click", () => {
 if (viewAllAiBtnEl) viewAllAiBtnEl.addEventListener("click", showAllAi);
 
 modeAllBtnEl.addEventListener("click", async () => {
-  const requestId = (state.allModeRequestId || 0) + 1;
-  state.allModeRequestId = requestId;
+  const requestId = ++state.allModeRequestId;
   state.mode = "all";
-  renderModeSwitch();
-  newsListEl.innerHTML = "";
-  const loading = document.createElement("div");
-  loading.className = "empty";
-  loading.textContent = "正在載入全部收錄內容...";
-  newsListEl.appendChild(loading);
+  state.allModeError = null;
+  if (state.allDataLoaded) {
+    rerenderCurrentView({ resetExpansion: false });
+    return;
+  }
+  renderList();
   try {
     await loadAllModeData();
     if (state.mode !== "all" || requestId !== state.allModeRequestId) return;
     rerenderCurrentView({ resetExpansion: false });
   } catch (err) {
     if (state.mode !== "all" || requestId !== state.allModeRequestId) return;
-    newsListEl.innerHTML = "";
-    const failed = document.createElement("div");
-    failed.className = "empty";
-    failed.textContent = err.message;
-    newsListEl.appendChild(failed);
+    state.allModeError = err.message;
+    renderList();
   }
 });
 

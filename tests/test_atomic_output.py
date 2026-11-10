@@ -204,6 +204,40 @@ def test_successful_main_prunes_both_expired_links_after_all_writes(offline_gene
     assert brief["selection_diagnostics"]["eligible_count"] >= brief["total_items"]
 
 
+def test_brief_state_write_failure_defers_cleanup_until_next_success(offline_generation, monkeypatch):
+    output = offline_generation
+    archive_path = output / "archive.json"
+    archive = json.loads(archive_path.read_text())
+    archive["generated_at"] = u.iso(NOW)
+    archive_path.write_text(json.dumps(archive))
+    expired_json = output / "items" / f"{EXPIRED_ID}.json"
+    expired_html = output.parent / "item" / EXPIRED_ID / "index.html"
+    old_json, old_html = expired_json.read_bytes(), expired_html.read_bytes()
+    replace = os.replace
+
+    def fail_event_state(source, destination):
+        if Path(destination) == output / "brief-event-state.json":
+            raise OSError("injected event history failure")
+        return replace(source, destination)
+
+    with monkeypatch.context() as failure:
+        failure.setattr(os, "replace", fail_event_state)
+        assert u.main() == 0
+
+    status = json.loads((output / "source-status.json").read_text())
+    daily = json.loads((output / "daily-brief.json").read_text())
+    assert status["brief_events"]["errors"] == ["state_write_failed"]
+    assert expired_json.read_bytes() == old_json
+    assert expired_html.read_bytes() == old_html
+    assert status["brief_selection"] == daily["selection_diagnostics"]
+    assert json.loads((output / "latest-24h.json").read_text())["items_ai"]
+
+    assert u.main() == 0
+    assert not expired_json.exists()
+    assert not expired_html.exists()
+    assert (output / "brief-event-state.json").is_file()
+
+
 def test_main_redacts_persistent_non_group_failure_in_all_public_outputs(offline_generation, monkeypatch, capsys):
     summary = offline_generation.parent / "summary.md"
     monkeypatch.setenv("GITHUB_STEP_SUMMARY", str(summary))

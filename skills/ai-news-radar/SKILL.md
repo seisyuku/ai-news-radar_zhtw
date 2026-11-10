@@ -13,6 +13,7 @@ Read only the routes that govern the requested change:
 - Resuming an active work stream or relying on a prior decision: `docs/HANDOVER.md`.
 - Adding, removing, evaluating, or rerouting sources: `docs/SOURCE_COVERAGE.md` and `references/source-intake.md`.
 - Actions, Pages, schedules, deployment, or incidents: `docs/OPERATIONS.md`.
+- State transitions, cross-run data, or recovery: `docs/STATE_MACHINES.md`.
 - Generation or fetch behavior: the relevant parts of `scripts/update_news.py` and its tests.
 - Reader UI: the affected parts of `assets/app.js`, `assets/styles.css`, or `index.html` and their tests.
 - Product or architecture method: `references/v2-method.md`.

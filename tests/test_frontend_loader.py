@@ -26,7 +26,10 @@ def test_auxiliary_rejection_does_not_hide_news(asset):
     assert result.returncode == 0, result.stderr
 
 
-@pytest.mark.parametrize("scenario", ["main-fail", "all-race", "all-error-race", "all-retry", "timeout-abort", "timeout-json", "stories-url"])
+@pytest.mark.parametrize("scenario", [
+    "main-fail", "all-race", "all-error-race", "all-retry", "all-pending-render",
+    "timeout-abort", "timeout-json", "stories-url",
+])
 def test_loader_scenarios(scenario):
     result = subprocess.run(["node", str(SCRIPT), scenario], capture_output=True, text=True, timeout=10)
     assert result.returncode == 0, result.stderr
