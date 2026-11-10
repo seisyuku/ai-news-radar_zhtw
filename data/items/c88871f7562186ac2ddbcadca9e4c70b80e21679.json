@@ -1,0 +1,61 @@
+{
+  "id": "c88871f7562186ac2ddbcadca9e4c70b80e21679",
+  "published_at": "2026-11-05T08:00:00Z",
+  "first_seen_at": "2026-11-10T01:35:31.514949Z",
+  "site_id": "curated_media",
+  "site_name": "精選媒體",
+  "source": "Epoch AI (Google News)",
+  "title": "SpireClimb - Epoch AI",
+  "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE1HWExkdEYxMEtLLXlTQWhTSm42OVYycDlocmVNVFJZZkItYjVUR1hYQjFEaTZENnlONGxSaGM0Q3VfTUJnam1fZFVycUNfQzg?oc=5",
+  "last_seen_at": "2026-11-10T01:35:31.514949Z",
+  "summary": "SpireClimb Epoch AI",
+  "publisher_links": [
+    "https://news.google.com/rss/articles/CBMiT0FVX3lxTE1HWExkdEYxMEtLLXlTQWhTSm42OVYycDlocmVNVFJZZkItYjVUR1hYQjFEaTZENnlONGxSaGM0Q3VfTUJnam1fZFVycUNfQzg?oc=5"
+  ],
+  "source_updated_at": "2026-11-05T08:00:00Z",
+  "ingress": {
+    "kind": "google_news",
+    "site_id": "curated_media",
+    "source_id": "epoch_ai_news",
+    "name": "Epoch AI (Google News)",
+    "feed_url": "https://news.google.com/rss/search?q=site%3Aepoch.ai+when%3A14d&hl=en-US&gl=US&ceid=US%3Aen"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "epoch",
+    "name": "Epoch AI",
+    "domain": "epoch.ai",
+    "status": "identified",
+    "basis": [
+      "google_rss_source",
+      "configured_bridge"
+    ],
+    "evidence": {
+      "rss_source_name": "Epoch AI",
+      "rss_source_url": "https://epoch.ai",
+      "article_url": null,
+      "article_host": "news.google.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "epoch",
+    "publisher_kind": "media",
+    "admission_status": "limited",
+    "source_tier": "ai_media",
+    "source_tier_label": "精選AI媒體",
+    "source_tier_rank": 2,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_bridge",
+      "limited_scope"
+    ]
+  }
+}
