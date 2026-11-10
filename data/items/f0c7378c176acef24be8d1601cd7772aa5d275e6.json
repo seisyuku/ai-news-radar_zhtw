@@ -1,14 +1,15 @@
 {
-  "id": "7107465ca0ade80e658ccb9679dfb66a8cf7d499",
-  "published_at": "2026-10-20T12:10:09Z",
-  "first_seen_at": "2026-10-20T06:05:26.569753Z",
+  "id": "f0c7378c176acef24be8d1601cd7772aa5d275e6",
+  "published_at": "2026-11-10T02:11:07Z",
+  "first_seen_at": "2026-11-10T06:05:36.678707Z",
   "site_id": "tw_media",
   "site_name": "TW Media",
   "source": "iThome",
-  "title": "Zeabur再遭駭宣布年底停運，逾321萬筆環境變數遭讀取，另發現8月事件後有部分憑證未完成輪替",
-  "url": "https://www.ithome.com.tw/news/179804",
-  "last_seen_at": "2026-10-20T06:05:26.569753Z",
-  "summary": "臺灣雲端部署平臺Zeabur於10月中旬再傳重大資安事件，影響範圍比8月底的事故更大。Zeabur於臺灣時間10月16日凌晨對外通報事故，創辦人林沅霖隔日說明事故始於14日（UTC），並宣布平臺將於年底停止營運。10月19日，該公司進一步公布初步調查結果，說明目前掌握的攻擊路徑、影響範圍、事件原因及已採取的補救措施，並揭露攻擊者透過兩條路徑入侵共享叢集及專用伺服器，進而讀取超過321萬筆環境變數及32萬筆帳號資料，也發現8月事件後仍有部分內部憑證未完成輪替。",
+  "title": "研究揭AI機器人感知安全風險，影像模糊或遭竄改恐影響危險操作判斷",
+  "url": "https://www.ithome.com.tw/news/180364",
+  "last_seen_at": "2026-11-10T06:05:36.678707Z",
+  "summary": "AI機器人獨立評測公司Robocurve於11月6日公布一項研究，發現當AI模型控制實體機器人執行任務時，攝影機影像若遭到模糊處理或刻意竄改，可能大幅影響其安全判斷。研究團隊在特定實驗條件下測試5款多模態AI模型，發現在原始影像下，模型嘗試執行危險任務的比例為27%，但畫面模糊後升至87.7%，若改以刻意竄改的影像測試，比例更達97%。",
+  "source_updated_at": "2026-11-10T02:11:07Z",
   "ingress": {
     "kind": "public_feed",
     "site_id": "tw_media",
@@ -28,12 +29,13 @@
     "evidence": {
       "rss_source_name": null,
       "rss_source_url": null,
-      "article_url": "https://www.ithome.com.tw/news/179804",
+      "article_url": "https://www.ithome.com.tw/news/180364",
       "article_host": "www.ithome.com.tw",
       "expected_publisher_id": null,
       "conflicts": []
     }
   },
+  "security_topic": false,
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
@@ -51,6 +53,5 @@
       "identified_host",
       "limited_scope"
     ]
-  },
-  "security_topic": true
+  }
 }
