@@ -75,7 +75,7 @@ jobs:
           (root / 'intent/intent.json').write_text(json.dumps(intent, ensure_ascii=False, indent=2) + '\n')
           PY
       - name: Persist one-time mail intent before using SMTP
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ${{ env.VERIFICATION_KEY }}-intent
           path: ~/Downloads/tw-source-smtp-check/intent/intent.json
@@ -111,7 +111,7 @@ jobs:
           PY
       - name: Preserve sanitized delivery evidence
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ${{ env.VERIFICATION_KEY }}-receipt
           path: ~/Downloads/tw-source-smtp-check/receipt/receipt.json

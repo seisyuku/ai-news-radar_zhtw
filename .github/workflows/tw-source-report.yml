@@ -70,7 +70,7 @@ jobs:
             --output-root "$HOME/Downloads/tw-source-report"
       - name: Preserve read-only reconciliation
         if: always() && steps.reconcile.outputs.reconciliation_ready == 'true'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: twso-reconcile-${{ github.run_id }}
           path: ~/Downloads/tw-source-report/reconciliation.json
@@ -79,7 +79,7 @@ jobs:
       - name: Preserve daily report before email
         id: report_upload
         if: steps.reconcile.outputs.report_bundle_ready == 'true'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ${{ steps.reconcile.outputs.report_artifact_name }}
           path: ${{ steps.reconcile.outputs.report_bundle_path }}
@@ -88,7 +88,7 @@ jobs:
       - name: Preserve final package before sending completion mail
         id: final_upload
         if: steps.reconcile.outputs.final_bundle_ready == 'true'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ${{ steps.reconcile.outputs.final_artifact_name }}
           path: ${{ steps.reconcile.outputs.final_bundle_path }}
@@ -100,7 +100,7 @@ jobs:
           steps.reconcile.outputs.mail_due == 'true' &&
           (steps.reconcile.outputs.report_bundle_ready != 'true' || steps.report_upload.outcome == 'success') &&
           (steps.reconcile.outputs.final_bundle_ready != 'true' || steps.final_upload.outcome == 'success')
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ${{ steps.reconcile.outputs.mail_intent_artifact_name }}
           path: ${{ steps.reconcile.outputs.mail_intent_path }}
@@ -123,7 +123,7 @@ jobs:
       - name: Persist acceptance, rejection or unknown-delivery receipt
         id: receipt_upload
         if: always() && steps.mail.outcome != 'skipped' && steps.reconcile.outputs.mail_due == 'true'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ${{ steps.reconcile.outputs.mail_receipt_artifact_name }}
           path: ${{ steps.reconcile.outputs.mail_receipt_path }}

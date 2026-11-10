@@ -64,7 +64,7 @@ jobs:
       - name: Persist sampling intent
         id: intent_upload
         if: steps.preflight.outputs.mode == 'collect'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ${{ steps.preflight.outputs.intent_artifact_name }}
           path: ${{ steps.preflight.outputs.intent_path }}
@@ -83,7 +83,7 @@ jobs:
       - name: Preserve this day's complete or partial evidence
         id: daily_upload
         if: always() && steps.preflight.outputs.mode == 'collect' && steps.intent_upload.outcome == 'success'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ${{ steps.preflight.outputs.daily_artifact_name }}
           path: ${{ steps.preflight.outputs.daily_bundle_path }}
