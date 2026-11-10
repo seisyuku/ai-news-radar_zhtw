@@ -1,17 +1,112 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-10T14:35:31.722372Z",
+  "generated_at": "2026-11-10T15:05:42.562286Z",
   "window_hours": 24,
-  "total_events": 0,
-  "events": [],
+  "total_events": 1,
+  "events": [
+    {
+      "id": "model_release::e3933d2a6f13168005ca2d5aff00791858b965e1",
+      "kind": "model_release",
+      "category": "model_release",
+      "verification_status": "reported",
+      "verification_label": "媒體報導",
+      "title": "Anthropic 推出 Claude Fable 5.2 與 Mythos 5.2：相同的模型，不同的防護措施",
+      "summary": "Anthropic 發布了 Claude Fable 5.2 與 Claude Mythos 5.2，這是一款具有兩種防護等級的模型。Fable 5.2 在 FrontierCode 2.0 上獲得 49.1% 的分數，每百萬個 Token 成本為 $8/$40，並提供 1M Token 的上下文視窗。",
+      "provider": "",
+      "product": "",
+      "detected_at": "2026-11-10T15:05:42.562286Z",
+      "effective_at": "2026-11-10T14:59:09Z",
+      "source_name": "MarkTechPost Research",
+      "source_url": "https://www.marktechpost.com/2026/11/10/anthropic-claude-fable-5-2-mythos-5-2-release",
+      "evidence_url": "https://www.marktechpost.com/2026/11/10/anthropic-claude-fable-5-2-mythos-5-2-release",
+      "ingress": {
+        "kind": "public_feed",
+        "site_id": "curated_media",
+        "source_id": "marktechpost",
+        "name": "MarkTechPost Research",
+        "feed_url": "https://www.marktechpost.com/feed/"
+      },
+      "publisher": {
+        "schema_version": 1,
+        "publisher_id": "marktechpost",
+        "name": "MarkTechPost",
+        "domain": "www.marktechpost.com",
+        "status": "identified",
+        "basis": [
+          "article_host"
+        ],
+        "evidence": {
+          "rss_source_name": null,
+          "rss_source_url": null,
+          "article_url": "https://www.marktechpost.com/2026/11/10/anthropic-claude-fable-5-2-mythos-5-2-release",
+          "article_host": "www.marktechpost.com",
+          "expected_publisher_id": null,
+          "conflicts": []
+        }
+      },
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+        "scope_id": "marktechpost",
+        "publisher_kind": "media",
+        "admission_status": "limited",
+        "source_tier": "ai_media",
+        "source_tier_label": "精選AI媒體",
+        "source_tier_rank": 2,
+        "allow_general": true,
+        "allow_featured": true,
+        "allow_radar": true,
+        "reason_codes": [
+          "identified_host",
+          "limited_scope"
+        ]
+      },
+      "source_material": {
+        "title_original": "",
+        "title": "Anthropic Launches Claude Fable 5.2 and Mythos 5.2: Same Model, Different Safeguards",
+        "summary": "Anthropic released Claude Fable 5.2 and Claude Mythos 5.2, one model with two safeguard levels. Fable 5.2 scores 49.1% on FrontierCode 2.0, costs $8/$40 per million tokens, and ships with a 1M-token context window. The post Anthropic Launches Claude Fable 5.2 and Mythos 5.2: Same Model, Different Safeguards appeared first on MarkTechPost ."
+      },
+      "qualification": {
+        "scope": "in_scope",
+        "core_evidence": [
+          {
+            "kind": "model_release",
+            "status": "supported",
+            "basis": "editorial_report",
+            "spans": [
+              {
+                "field": "title",
+                "start": 0,
+                "end": 84,
+                "text": "Anthropic Launches Claude Fable 5.2 and Mythos 5.2: Same Model, Different Safeguards"
+              },
+              {
+                "field": "summary",
+                "start": 0,
+                "end": 341,
+                "text": "Anthropic released Claude Fable 5.2 and Claude Mythos 5.2, one model with two safeguard levels. Fable 5.2 scores 49.1% on FrontierCode 2.0, costs $8/$40 per million tokens, and ships with a 1M-token context window. The post Anthropic Launches Claude Fable 5.2 and Mythos 5.2: Same Model, Different Safeguards appeared first on MarkTechPost ."
+              }
+            ],
+            "urls": [
+              "https://www.marktechpost.com/2026/11/10/anthropic-claude-fable-5-2-mythos-5-2-release",
+              "https://www.marktechpost.com/2026/11/10/anthropic-claude-fable-5-2-mythos-5-2-release/",
+              "https://www.marktechpost.com"
+            ]
+          }
+        ],
+        "reason_codes": []
+      }
+    }
+  ],
   "publisher_governance_meta": {
     "schema_version": 2,
     "policy_id": "publisher-governance-v1",
     "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
-    "generated_at": "2026-11-10T14:35:31.722372Z",
-    "brief_generation_id": "bg1_5bf78ee619a3690164e3b483",
-    "brief_state_revision": "45acbf45427774d7eb9ebfa07a3ba80ab373cff0001fceb7742d9514ec5dfc88",
-    "generation_id": "pg2_fb99843e55c66c00bd865d39",
+    "generated_at": "2026-11-10T15:05:42.562286Z",
+    "brief_generation_id": "bg1_9652e546c3e0aaab2bed5120",
+    "brief_state_revision": "eb6dd8563ae35d35eec8939231890049e86d668da7939318a589f9641f9af07f",
+    "generation_id": "pg2_502caaf2ffa7a42bbc05c185",
     "status": "ready",
     "selection_policy": "impact-v3-empty-fallback",
     "default_visible_limit": 5
