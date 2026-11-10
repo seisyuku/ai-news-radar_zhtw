@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon CloudFront 现提供查看器 ISP 和后量子 TLS 详细信息",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/cloudfront-viewer-isp-post-quantum-visbility",
-  "last_seen_at": "2026-11-10T07:05:28.426506Z",
+  "last_seen_at": "2026-11-10T07:35:28.363475Z",
   "summary": "Amazon CloudFront 现可将两个新的可选标头转发至您的源服务器。CloudFront-Viewer-ISP 标头包含查看器的互联网服务提供商（ISP）的名称，便于查看请求来自哪个网络。CloudFront-Viewer-TLS-Details 标头描述了每个查看器的 TLS 连接所使用的加密算法，便于查看该连接是否使用了后量子密码学（PQC）。 使用 Cloudfront-Viewer-ISP，您可以按网络细分流量和性能。您还可以隔离来自单个提供商的异常流量。CloudFront-Viewer-TLS-Details 包含每个连接的密钥交换、签名方案和签名公钥类型。您可以使用它来衡量实际与 PQC 建立连接的查看器比例，并识别尚未这样做的客户端。要将任一标头转发到您的源服务器，请将其添加到源请求策略中，并将该策略附加到您的分配中。 要开始使用，请参阅 Amazon CloudFront Developer Guide 中的 Adding CloudFront headers 和 Controlling origin requests with a policy",
   "publisher_links": [
     "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/adding-cloudfront-headers.html",

@@ -1,0 +1,59 @@
+{
+  "id": "96e97bc9c4509f44129202292d45b904e7cf54af",
+  "published_at": "2026-11-09T00:00:00Z",
+  "first_seen_at": "2026-11-10T07:35:28.363475Z",
+  "site_id": "llm_rumors",
+  "site_name": "LLM Rumors 模型分析",
+  "source": "LLM Rumors",
+  "title": "The KV Cache Is the Hidden Bill Behind Long-Context AI",
+  "url": "https://www.llmrumors.com/news/kv-cache-memory-concurrency-ai",
+  "last_seen_at": "2026-11-10T07:35:28.363475Z",
+  "summary": "Why fitting model weights is only the start: calculate per-session KV memory and understand GQA, paging, quantization and the cost of concurrency.",
+  "source_updated_at": "2026-11-09T00:00:00Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "llm_rumors",
+    "source_id": "llm_rumors",
+    "name": "LLM Rumors",
+    "feed_url": "https://www.llmrumors.com/news/rss.xml"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "llm_rumors",
+    "name": "LLM Rumors",
+    "domain": "www.llmrumors.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://www.llmrumors.com/news/kv-cache-memory-concurrency-ai",
+      "article_host": "www.llmrumors.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "llm_rumors",
+    "publisher_kind": "media",
+    "admission_status": "limited",
+    "source_tier": "watchlist",
+    "source_tier_label": "模型分析觀察源",
+    "source_tier_rank": 6,
+    "allow_general": true,
+    "allow_featured": false,
+    "allow_radar": false,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
+    ]
+  }
+}
