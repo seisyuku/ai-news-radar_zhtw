@@ -583,12 +583,12 @@ update-news.yml: freshness-check job
 
 ## 翻譯管線（title_zh / summary_zh 產生機制）
 
-英文標題的 zh-TW 顯示值（`title_zh`）與已有 RSS `summary`／`description`
+英文或可由假名辨識的日文標題，其 zh-TW 顯示值（`title_zh`）與已有 RSS `summary`／`description`
 的顯示翻譯（`summary_zh`）都由 `scripts/update_news.py` 的
 `add_bilingual_fields()` 產生。唯一 provider 是 Gemini Developer API 的
 `gemini-3.5-flash-lite`，透過單輪 `generateContent` endpoint 與 GitHub Actions
 的 `GEMINI_API_KEY` 使用；未設定
-時安全跳過，保留英文顯示，絕不讓翻譯失敗中斷快照更新。翻譯結果再經
+時安全跳過，保留來源語言，絕不讓翻譯失敗中斷快照更新。翻譯結果再經
 `CANONICAL_NAMES` 正典名稱表處理。`summary` 原文會保留作 AI 摘要的事實依據；
 前端優先顯示 `summary_zh`。沒有 RSS 摘要的條目會跳過此步驟，不新增抓取或猜測內容。完整規格與程式碼註解在
 `scripts/update_news.py` 內 `CANONICAL_NAMES` 定義上方，這裡只記操作面
@@ -603,12 +603,16 @@ update-news.yml: freshness-check job
 保持，首段不參與相關度、事件資格、選題或 Groq 摘要。健康另記
 `source-status.json.reader_excerpts`。其他來源仍不補讀文章。
 
+Hugging Face Blog 若同時收錄同一路徑的英文文章與帶 `-ja` 後綴、標題含假名的日文版，
+合併清單採英文原稿及其繁中顯示。關閉合併可看到兩個原始網址，封存也保留兩版。
+只收錄日文版時照常列出，進入 AI 閱讀池後才依既有額度翻譯標題與可用首段。
+
 ### Provider 與失效界線
 
 - 每輪最多處理 `--translate-max-new`（預設 80）個候選；每個請求最多 30
   段、4,800 字元，單次逾時 45 秒，整個翻譯階段最多 120 秒與 6 次請求。
   請求依序執行。429 只會在 `Retry-After` 落在剩餘預算內時重試，重試仍計入
-  六次上限；否則保留英文且不寫入六小時拒絕快取。Gemini endpoint 使用獨立的
+  六次上限；否則保留來源語言且不寫入六小時拒絕快取。Gemini endpoint 使用獨立的
   no-retry adapter，避免共用 feed session 把一次 POST transport timeout 暗中重試三次、
   吃完整輪預算；是否重試只由這裡的明確上限控制。
 - 失敗候選會寫入 `data/translation-state.json` 的短期拒絕快取：暫時性

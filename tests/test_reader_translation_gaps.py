@@ -1,4 +1,6 @@
 import copy
+import json
+import sys
 from datetime import datetime, timezone
 
 import pytest
@@ -9,6 +11,89 @@ from scripts.news_summaries import summarize_stories, story_source_context, buil
 
 LEAD = "Today we release a benchmark to evaluate whether language models can assess the novelty of scientific research ideas."
 URL = "https://huggingface.co/blog/allenai/novelty-bench"
+FINANCE_URL = "https://huggingface.co/blog/nvidia/nemotron-personas-finance-japan"
+FINANCE_TITLE = "Nemotron-Personas-Finance-Japan: A Synthetic Dataset Capturing Japan's Demographics and Financial Context"
+FINANCE_JA_TITLE = "Nemotron-Personas-Finance-Japan: 日本の人口分布と金融コンテキストを捉える合成ペルソナデータセット"
+FINANCE_ZH_TITLE = "Nemotron-Personas-Finance-Japan：捕捉日本人口統計與金融背景的合成資料集"
+
+
+def test_hugging_face_language_editions_merge_only_with_matching_english_article():
+    english = {"url": FINANCE_URL, "title": FINANCE_TITLE}
+    japanese = {"url": FINANCE_URL + "-ja", "title": FINANCE_JA_TITLE}
+    separate = {"url": FINANCE_URL + "-follow-up-ja", "title": FINANCE_JA_TITLE}
+    lookalike = {**japanese, "url": japanese["url"].replace("huggingface.co", "example.org")}
+    english_ja_slug = {**japanese, "title": "A different English article"}
+    assert u.dedupe_same_publisher_items([japanese, english]) == [english]
+    assert u.dedupe_same_publisher_items([japanese]) == [japanese]
+    assert u.dedupe_same_publisher_items([english, english_ja_slug]) == [english_ja_slug, english]
+    assert len(u.dedupe_same_publisher_items([english, separate, lookalike])) == 3
+
+
+@pytest.mark.parametrize("provider_result", ["translated", "missing", "still_japanese"])
+def test_japanese_reader_copy_is_never_labeled_as_chinese_without_translation(monkeypatch, provider_result):
+    title = "日本向けの合成データセットを公開"
+    lead = "金融業界での研究に向けて合成データを公開します。"
+    row = {"url": FINANCE_URL + "-ja", "title": title, "summary": "", "reader_summary": lead}
+    expected = {title: "公開面向日本的合成資料集", lead: "為金融產業研究公開合成資料。"}
+
+    def translate(_session, texts, _key, _timeout, **_kwargs):
+        assert texts[0] in expected
+        if provider_result == "still_japanese":
+            return [text + "です" for text in texts]
+        assert provider_result == "translated"
+        return [expected[text] for text in texts]
+
+    monkeypatch.setattr(u, "_translate_gemini_batch", translate)
+    ai, all_rows, cache = u.add_bilingual_fields([row], [row], None, {}, 10,
+        gemini_api_key="" if provider_result == "missing" else "test")
+    assert ai == all_rows
+    assert ai[0]["title_original"] == title and ai[0]["title_en"] is None
+    assert ai[0]["reader_summary"] == lead and ai[0]["summary"] == ""
+    if provider_result == "translated":
+        assert ai[0]["title_zh"] == expected[title]
+        assert ai[0]["summary_zh"] == expected[lead]
+        assert cache == {title: expected[title], f"summary::{lead}": expected[lead]}
+    else:
+        assert ai[0]["title_zh"] is None and "summary_zh" not in ai[0]
+        assert not cache
+
+
+def test_offline_generation_merges_hugging_face_editions_but_keeps_archive_and_raw_view(tmp_path, monkeypatch):
+    output = tmp_path / "data"
+    output.mkdir()
+    now = datetime(2026, 11, 10, 2, 16, tzinfo=timezone.utc)
+    rows = [
+        {"id": item_id * 40, "site_id": "official_ai", "site_name": "Official AI",
+         "source": "Hugging Face Blog", "url": url, "title": title, "summary": "",
+         "published_at": published, "first_seen_at": u.iso(now), "last_seen_at": u.iso(now)}
+        for item_id, url, title, published in [
+            ("a", FINANCE_URL, FINANCE_TITLE, "2026-11-09T15:05:57Z"),
+            ("b", FINANCE_URL + "-ja", FINANCE_JA_TITLE, "2026-11-09T15:04:52Z"),
+        ]
+    ]
+    (output / "archive.json").write_text(json.dumps({"generated_at": u.iso(now), "items": rows}))
+    (output / "title-zh-cache.json").write_text(json.dumps({FINANCE_TITLE: FINANCE_ZH_TITLE}))
+    (output / "reader-excerpt-cache.json").write_text(json.dumps({FINANCE_URL: LEAD}))
+    monkeypatch.setattr(u, "utc_now", lambda: now)
+    monkeypatch.setattr(u, "create_session", lambda: object())
+    monkeypatch.setattr(u, "collect_all", lambda *_: ([], []))
+    monkeypatch.setattr(u, "run_market_sensors", lambda *_: ({"generated_at": u.iso(now), "signals": []}, {}, []))
+    monkeypatch.setattr(r, "fetch_lead", lambda *_: pytest.fail("unexpected excerpt fetch"))
+    for key in ("GEMINI_API_KEY", "GROQ_API_KEY"):
+        monkeypatch.delenv(key, raising=False)
+    monkeypatch.setattr(sys, "argv", ["update_news.py", "--output-dir", str(output), "--translate-max-new", "0"])
+
+    assert u.main() == 0
+    latest = json.loads((output / "latest-24h.json").read_text())
+    all_rows = json.loads((output / "latest-24h-all.json").read_text())
+    stories = json.loads((output / "stories-merged.json").read_text())["stories"]
+    archive = json.loads((output / "archive.json").read_text())["items"]
+    for merged in (latest["items"], latest["items_ai"], all_rows["items_all"],
+                   [story["primary_item"] for story in stories]):
+        assert [(row["url"], row["title_zh"]) for row in merged] == [(FINANCE_URL, FINANCE_ZH_TITLE)]
+    assert {row["title"] for row in archive} == {FINANCE_TITLE, FINANCE_JA_TITLE}
+    raw_japanese = next(row for row in all_rows["items_all_raw"] if row["url"].endswith("-ja"))
+    assert raw_japanese["title_original"] == FINANCE_JA_TITLE and raw_japanese["title_zh"] is None
 
 
 def test_excerpt_extracts_only_first_substantive_paragraph():
