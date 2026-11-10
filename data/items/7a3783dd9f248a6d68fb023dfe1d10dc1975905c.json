@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "AWS Lambda 现已支持在自管理 Kafka 事件源中使用 Apache Kafka 队列",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/aws-lambda-queue-kafka-esm",
-  "last_seen_at": "2026-11-10T19:05:31.638284Z",
+  "last_seen_at": "2026-11-10T19:35:36.061875Z",
   "summary": "AWS Lambda 现已支持在 自管理 Kafka 事件源映射 （ESM）中使用 Apache Kafka 队列 ，此功能适用于客户自行运行的 Kafka 集群以及 Confluent Cloud 等托管服务。 客户现在可以将 Kafka 工作负载的处理能力扩展到主题的分区计数之外，从而在流量高峰期间提高吞吐量，并增强处理韧性。 客户在构建用于图像和视频编码、欺诈检测、通知传送以及遥测数据摄取等使用案例的事件驱动型 Kafka 工作负载时，会将每个事件视为一个独立的工作单元，此时处理速度比严格的顺序更重要。以前，Kafka ESM 采用的是 Kafka 消费者组协议，该协议会将每个分区分配给消费者组中的唯一一个消费者。需要更高并行性的客户不得不对主题进行过度分区，或者将流量转移到单独的队列系统，这不仅会增加需要运营的基础设施，还会增加需要维护的生产者代码。对自管理 Kafka ESM 的队列的支持基于 Kafka 共享组，该共享组已在 Apache Kafka 4.2 中全面推出。此次发布使多个事件轮询器能够同时从同一分区中读取数据，每个事件轮询器最多支持 10 个并发调用。这样可以将并行性与分区计数分开，而无需更改生产者、主题配置或函数代码。因此，在流量高峰期间，客户能够获得更高的吞吐量和更具韧性的处理能力，因为同一分区中，一个运行缓慢或发生故障的事件不再会阻碍其他事件的处理。队列模式不保留分区顺序，适用于不需要分区顺序的工作负载。 此功能需要启用了共享组的 Kafka 集群（例如 Apache Kafka 4.2 或更高版本），已在提供自管理 Kafka ESM 的所有 AWS 商业区域 推出。要开始使用，请通过 AWS 管理控制台、Lambda API、AWS CLI、AWS CloudFormation、AWS SAM 或 AWS CDK，创建一个自管理 Kafka ESM 并将 ConsumptionMode 设置为“队列”。按标准的 Lambda 定价收费。为自管理 Kafka ESM 配置 预置模式 的客户，还需要为事件轮询单元（EPU）的使用付费。要了解更多信息，请参阅 AWS Lambda Developer Guide 和 AWS Lambda 定价 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/lambda/latest/dg/with-kafka.html",
