@@ -1,5 +1,4 @@
 {
   "https://huggingface.co/blog/nvidia/nemotron-personas-finance-japan": "A compound AI approach to Japanese personas grounded in real-world distributions",
-  "https://huggingface.co/blog/nvidia/nemotron-personas-finance-japan-ja": "金融業界では、厳格なプライバシー保護や規制への準拠、高度なドメイン専門知識の要求から、実データの利活用に大きな制約が存在します。こうした背景から、金融領域でのエージェント型AIの開発には、実データ利用のリスクを回避しつつ、人口分布や世帯構成、資産状況を反映し、多様で現実的な金融シナリオを再現できる「合成データ」が不可欠です。",
   "https://huggingface.co/blog/amazon/higher-order-pruning-experts": "Mixture-of-Experts (MoE) models have enabled state-of-the-art LLMs to be scaled to hundreds of billions of parameters, but they come with a fundamental and costly caveat: every expert MLP must occupy memory at inference time, even though the vast majority are idle for any given token. For example, Qwen3.5-122B has 256 experts in each of its 48 MoE layers, and 95% of its ~250 GB parameter memory footprint is taken up entirely by these expert MLPs alone. However, for any given token, only 8 experts in each layer are actually used."
 }
