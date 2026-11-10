@@ -1,0 +1,61 @@
+{
+  "id": "ac2c5f9b448174cd39e0e560e66a35e6df6c0b22",
+  "published_at": "2026-11-10T03:20:00Z",
+  "first_seen_at": "2026-11-10T04:35:29.701485Z",
+  "site_id": "curated_media",
+  "site_name": "精選媒體",
+  "source": "The Information (Google News)",
+  "title": "There Are Likely More Spies at AI Companies, Says Security Executive Lisa Thiergart - The Information",
+  "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQRmlqWDBZM3F2TTBZZ1RGSGx1dkkydGE1NUc5UzhwV29odG1PX05fU0t2eTNIQ1pmc0xubDUybTh6VE40cER3dW92UVBFcmhmU25DbDhFSV9ZaW5KTmtsbkNhVDA4Tk1DS2ZYdFRfX0s1ck9VT1R3eXZjdkk3VFowZU94eVFYMk1lQjZ3Z3ZHMHJfcl9ReHRaMl9YYjFEb1NKa1ZtTTFnYw?oc=5",
+  "last_seen_at": "2026-11-10T04:35:29.701485Z",
+  "summary": "There Are Likely More Spies at AI Companies, Says Security Executive Lisa Thiergart The Information",
+  "publisher_links": [
+    "https://news.google.com/rss/articles/CBMipwFBVV95cUxQRmlqWDBZM3F2TTBZZ1RGSGx1dkkydGE1NUc5UzhwV29odG1PX05fU0t2eTNIQ1pmc0xubDUybTh6VE40cER3dW92UVBFcmhmU25DbDhFSV9ZaW5KTmtsbkNhVDA4Tk1DS2ZYdFRfX0s1ck9VT1R3eXZjdkk3VFowZU94eVFYMk1lQjZ3Z3ZHMHJfcl9ReHRaMl9YYjFEb1NKa1ZtTTFnYw?oc=5"
+  ],
+  "source_updated_at": "2026-11-10T03:20:00Z",
+  "ingress": {
+    "kind": "google_news",
+    "site_id": "curated_media",
+    "source_id": "the_information_news",
+    "name": "The Information (Google News)",
+    "feed_url": "https://news.google.com/rss/search?q=site%3Atheinformation.com+AI+when%3A7d&hl=en-US&gl=US&ceid=US%3Aen"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "the_information",
+    "name": "The Information",
+    "domain": "www.theinformation.com",
+    "status": "identified",
+    "basis": [
+      "google_rss_source",
+      "configured_bridge"
+    ],
+    "evidence": {
+      "rss_source_name": "The Information",
+      "rss_source_url": "https://www.theinformation.com",
+      "article_url": null,
+      "article_host": "news.google.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "the_information",
+    "publisher_kind": "media",
+    "admission_status": "limited",
+    "source_tier": "ai_media",
+    "source_tier_label": "精選AI媒體",
+    "source_tier_rank": 2,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_bridge",
+      "limited_scope"
+    ]
+  }
+}
