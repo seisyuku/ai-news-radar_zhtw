@@ -1,0 +1,77 @@
+{
+  "id": "eecc57cf89b0b62782ae76cc1da17b6cfcadf1b7",
+  "published_at": "2026-11-09T23:57:21Z",
+  "first_seen_at": "2026-11-10T00:05:33.235163Z",
+  "site_id": "opmlrss",
+  "site_name": "OPML RSS",
+  "source": "Simon Willison",
+  "title": "Locating the source of a mysterious beep with Claude",
+  "url": "https://simonwillison.net/2026/Nov/9/mysterious-beeps",
+  "last_seen_at": "2026-11-10T00:05:33.235163Z",
+  "summary": "Our house has a box room, full of boxes that we still haven't unpacked from our last move. A couple of weeks ago something in that room started intermittently beeping . The beeps were far enough apart that standing in the room and trying to determine the source of the noise was frustrating, and I really didn't want to dig through every one of those boxes. So I had Claude Code build Beep Locator , a software system for triangulating the source of a mysterious beep using multiple devices scattered around the room. Here's what Beep Locator looks like after it has been running for a while: You run Python web server to show the primary UI, and then use the QR code or URL to connect as many devices as you can spare to act as listeners - I was using two iPads, a phone, a MacBook Pro and a Surface Ultra. The devices then play noises to each other to help estimate their locations. This didn't work particularly well, so I added a \"Rough mode\" where you can drag their icons around in the space to provide rough locations which are then adjusted based on those sounds. Once that's set up, the devices all listen for the beep! I added a clapping mode too so I could test it by clapping my hands in different locations around the room - displayed as diamonds on the map. This helped me gain confidence that it was capable of locating a sound. Beeps show up on the map as an X, plus a line in the \"Sounds located\" log. You can replay these sounds (from each device in turn) to confirm they are the mysterious beep you are looking for, then click \"This is the mystery beep\" to mark them as such. Once",
+  "publisher_links": [
+    "https://github.com/simonw/beep-locator",
+    "https://github.com/simonw/beep-locator/blob/main/beep_locator/modules/listener/detector.js",
+    "https://claude.ai/code/cshk_016BvfqAWf7MeGZKeYCrUnN2MmRfCSAX9Gu8DiptXMuH9P",
+    "https://github.com/simonw/beep-locator/blob/main/problem.md",
+    "https://github.com/simonw/beep-locator/commits/e36ac93a81091a246403c074e34c0041c6972fac",
+    "https://www.anthropic.com/claude-fable-and-mythos-5-2",
+    "https://github.com/simonw/beep-locator/blob/44fea65c918fb31a7d2c0e17797ee1a106860e23/beep_locator/static/runtime.js#L710",
+    "https://github.com/martinwoodward",
+    "https://simonwillison.net/2026/Oct/27/game-boy-color-on-my-conference-badge/",
+    "https://simonwillison.net/tags/projects",
+    "https://simonwillison.net/tags/ai",
+    "https://simonwillison.net/tags/generative-ai",
+    "https://simonwillison.net/tags/llms",
+    "https://simonwillison.net/tags/claude",
+    "https://simonwillison.net/tags/coding-agents",
+    "https://simonwillison.net/tags/claude-code",
+    "https://simonwillison.net/tags/claude-mythos-fable"
+  ],
+  "source_updated_at": "2026-11-09T23:57:21Z",
+  "ingress": {
+    "kind": "private_opml",
+    "site_id": "opmlrss",
+    "source_id": null,
+    "name": "RSS/OPML",
+    "feed_url": null
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": null,
+    "name": null,
+    "domain": "simonwillison.net",
+    "status": "unknown",
+    "basis": [],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": null,
+      "article_host": "simonwillison.net",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "unreviewed",
+    "publisher_kind": "unknown",
+    "admission_status": "unreviewed",
+    "source_tier": "watchlist",
+    "source_tier_label": "未審來源",
+    "source_tier_rank": 6,
+    "allow_general": true,
+    "allow_featured": false,
+    "allow_radar": false,
+    "reason_codes": [
+      "missing_identity",
+      "scope_mismatch",
+      "unreviewed_publisher",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
+    ]
+  }
+}
