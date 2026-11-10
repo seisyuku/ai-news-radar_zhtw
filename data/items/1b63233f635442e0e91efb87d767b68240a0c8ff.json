@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon EKS 功能现在支持 Argo CD 通知",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/amazon-eks-argo-cd-notifications",
-  "last_seen_at": "2026-11-10T10:30:32.937577Z",
+  "last_seen_at": "2026-11-10T11:05:31.056408Z",
   "summary": "适用于 Argo CD 的 Amazon Elastic Kubernetes Service（Amazon EKS）功能现在支持 Argo CD 通知，可在应用程序同步、失败或运行状况改变时发送通知。您可以在集群中定义触发器和消息模板，并使用注释订阅各个应用程序，这与在上游 Argo CD 中的操作方式相同。 此次发布后，您可以向 16 种通知服务发送通知，包括 Slack、PagerDuty、Opsgenie、Amazon SQS 和 Amazon EventBridge。Amazon SQS 和 Amazon EventBridge 服务使用您的 IAM 功能角色进行身份验证，因此您可以将部署事件路由到您自己的事件驱动型工作流中，而无需在集群中存储凭证。对于需要第三方凭证（例如 Slack 令牌）的服务，您可以指定 AWS Secrets Manager ARN 来代替密钥，EKS 会自动代您使用该凭证。 通知功能已在提供适用于 Argo CD 的 EKS 功能的所有 AWS 区域推出，无需额外付费。对于通知所使用的服务相关的资源（例如 Amazon SQS 或 Amazon EventBridge），将按标准费率收费。要了解更多信息，请访问 Amazon EKS 并参阅 Amazon EKS User Guide 。",
   "publisher_links": [
     "https://aws.amazon.com/eks/features/",
