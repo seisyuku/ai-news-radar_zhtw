@@ -7,8 +7,8 @@
   "source": "MCP Blog",
   "title": "The Official Ruby SDK for MCP Reaches Tier 1",
   "url": "https://blog.modelcontextprotocol.io/posts/ruby-sdk-tier-1",
-  "last_seen_at": "2026-11-11T10:45:17.710038Z",
-  "summary": "The official Ruby SDK for the Model Context Protocol is now a Tier 1 SDK under the MCP SDK tiering system, with full support for the 2026-07-28 MCP specification and a 100% conformance pass rate across both scored spec versions.",
+  "last_seen_at": "2026-11-11T11:35:34.473237Z",
+  "summary": "The official Ruby SDK for Model Context Protocol is now a Tier 1 SDK, as defined in our SDK tiering system . Ruby is not alone here, and joins the company of our TypeScript, Python, C#, Go, and Rust SDKs. When an SDK becomes Tier 1-compliant, it means that it reached the top of the three tiers, reserved for SDKs with the highest level of feature support, responsiveness to bugs and security issues, and alignment with MCP ecosystem priorities. If you build MCP servers or clients in Ruby, you can now sleep well knowing that you will get full spec feature support, a 100% conformance pass rate, support for new spec versions by their release date, issue triage within two business days, and critical bug fixes within seven days. This is especially important for developers that are responsible for production-grade services and applications, where being on the bleeding edge of MCP development is critical for the business. Get the Ruby SDK → Read the documentation → Full support for the 2026-07-28 MCP spec # Starting with version 1.2.0 of the mcp gem , the Ruby SDK for MCP fully supports the 2026-07-28 MCP spec , which means that Ruby developers now get access to some highly-anticipated features and capabilities: The stateless lifecycle ( SEP-2575 ) is served alongside the classic session handshake, including server/discover and the subscriptions/listen notification stream Multi round-trip requests ( SEP-2322 ) work on both the server and the client, and a built-in shim lets handlers written in the new input_required style serve pre-2026 clients unchanged Cache hints ( SEP-2549 ) are",
   "ingress": {
     "kind": "public_feed",
     "site_id": "official_ai",
@@ -60,8 +60,40 @@
       "summary": "The official Ruby SDK for the Model Context Protocol is now a Tier 1 SDK under the MCP SDK tiering system, with full support for the 2026-07-28 specification revision and a 100% conformance pass rate across both scored spec revisions.",
       "published_at": "2026-09-29T09:00:00Z",
       "observed_at": "2026-11-03T00:35:30.934663Z"
+    },
+    {
+      "title": "The Official Ruby SDK for MCP Reaches Tier 1",
+      "summary": "The official Ruby SDK for the Model Context Protocol is now a Tier 1 SDK under the MCP SDK tiering system, with full support for the 2026-07-28 MCP specification and a 100% conformance pass rate across both scored spec versions.",
+      "published_at": "2026-10-30T09:00:00Z",
+      "observed_at": "2026-11-03T00:46:04.071716Z"
     }
   ],
   "article_history_truncated": false,
-  "content_observed_at": "2026-11-03T00:46:04.071716Z"
+  "content_observed_at": "2026-11-11T11:35:34.473237Z",
+  "publisher_links": [
+    "https://github.com/modelcontextprotocol/ruby-sdk",
+    "https://modelcontextprotocol.io/community/sdk-tiers",
+    "https://ruby.sdk.modelcontextprotocol.io",
+    "https://blog.modelcontextprotocol.io/posts/ruby-sdk-tier-1/#full-support-for-the-2026-07-28-mcp-spec",
+    "https://github.com/modelcontextprotocol/ruby-sdk/releases/tag/v1.2.0",
+    "https://rubygems.org/gems/mcp",
+    "https://blog.modelcontextprotocol.io/posts/2026-07-28/",
+    "https://modelcontextprotocol.io/seps/2575-stateless-mcp",
+    "https://modelcontextprotocol.io/seps/2322-MRTR",
+    "https://modelcontextprotocol.io/seps/2549-TTL-for-list-results",
+    "https://modelcontextprotocol.io/seps/2243-http-standardization",
+    "https://modelcontextprotocol.io/seps/2577-deprecate-roots-sampling-and-logging",
+    "https://ruby.sdk.modelcontextprotocol.io/protocol-versions/",
+    "https://github.com/modelcontextprotocol/ruby-sdk/blob/main/VERSIONING.md",
+    "https://github.com/modelcontextprotocol/ruby-sdk/blob/main/CHANGELOG.md",
+    "https://blog.modelcontextprotocol.io/posts/ruby-sdk-tier-1/#the-journey-to-tier-1",
+    "https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3127",
+    "https://github.com/modelcontextprotocol/ruby-sdk/releases/tag/v1.3.0",
+    "https://github.com/modelcontextprotocol/conformance",
+    "https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3247",
+    "https://modelcontextprotocol.io/seps/3398-release-cycle-updates",
+    "https://github.com/modelcontextprotocol/ruby-sdk/blob/main/ROADMAP.md",
+    "https://modelcontextprotocol.io/seps/2663-tasks-extension",
+    "https://github.com/modelcontextprotocol/modelcontextprotocol/issues/2340"
+  ]
 }
