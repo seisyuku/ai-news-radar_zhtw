@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "IAM Roles Anywhere 现在支持自动证书撤销检查",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/iam-roles-anywhere-cdp",
-  "last_seen_at": "2026-11-11T21:05:41.984750Z",
+  "last_seen_at": "2026-11-11T21:54:04.133482Z",
   "summary": "AWS Identity and Access Management（IAM）Roles Anywhere 现已支持使用证书撤销列表（CRL）分发点（CDP）进行自动撤销检查。这有助于使撤销检查与您的证书颁发机构（CA）保持同步，并有助于改善您的安全态势。在信任锚上启用此功能后，IAM Roles Anywhere 会读取身份验证证书中嵌入的 CDP URL，下载相应的 CRL，并拒绝使用已撤销证书的凭证请求。 此前，要检查撤销状态，您必须将 CRL 导入到 IAM Roles Anywhere，并在证书颁发机构每次发布更新时重新导入 CRL，这增加了运营开销。通过此次发布，IAM Roles Anywhere 会从您的 CDP 下载 CRL，并定期刷新这些 CRL，因此您无需再重新导入它们。您可以将此功能与 AWS 私有证书颁发机构 或您自己的公钥基础设施（PKI）结合使用，前提是您的证书包含满足 分发点要求 的可公开访问的 CDP URL。要在信任锚上启用此功能，请使用 IAM Roles Anywhere 控制台、AWS SDK 或 AWS CLI。 此功能已在所有 AWS 商业区域推出，不额外收费。要了解更多信息，请参阅《IAM Roles Anywhere User Guide》中的 Automatic revocation checking with CRL distribution points 。",
   "publisher_links": [
     "https://aws.amazon.com/iam/roles-anywhere",
