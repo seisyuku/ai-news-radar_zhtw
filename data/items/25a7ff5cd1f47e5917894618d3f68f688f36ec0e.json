@@ -1,0 +1,61 @@
+{
+  "id": "25a7ff5cd1f47e5917894618d3f68f688f36ec0e",
+  "published_at": "2026-11-10T19:16:00Z",
+  "first_seen_at": "2026-11-11T00:35:28.313588Z",
+  "site_id": "curated_media",
+  "site_name": "精選媒體",
+  "source": "The Information (Google News)",
+  "title": "Why HubSpot, Snowflake and Others Are Avoiding AI Spending Caps - The Information",
+  "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPNzQ5bXhhc3RtZE9iamxHZ1ZSWDVTaGQ3VU0tejJYdEt3eHNONk5QQUk3Wmgzcm9oUGNhUERGUVVvYjVxSldwcXN4Q1Fad0ExMUcwRVFPbmdnaHVpRUMxLTlfYVZRekowYU53WDU2bnhFMDk1bkJsVk9EV3FhU05NRFVJZ3JualhTODh4QUNmZEpYakpt?oc=5",
+  "last_seen_at": "2026-11-11T00:35:28.313588Z",
+  "summary": "Why HubSpot, Snowflake and Others Are Avoiding AI Spending Caps The Information",
+  "publisher_links": [
+    "https://news.google.com/rss/articles/CBMilAFBVV95cUxPNzQ5bXhhc3RtZE9iamxHZ1ZSWDVTaGQ3VU0tejJYdEt3eHNONk5QQUk3Wmgzcm9oUGNhUERGUVVvYjVxSldwcXN4Q1Fad0ExMUcwRVFPbmdnaHVpRUMxLTlfYVZRekowYU53WDU2bnhFMDk1bkJsVk9EV3FhU05NRFVJZ3JualhTODh4QUNmZEpYakpt?oc=5"
+  ],
+  "source_updated_at": "2026-11-10T19:16:00Z",
+  "ingress": {
+    "kind": "google_news",
+    "site_id": "curated_media",
+    "source_id": "the_information_news",
+    "name": "The Information (Google News)",
+    "feed_url": "https://news.google.com/rss/search?q=site%3Atheinformation.com+AI+when%3A7d&hl=en-US&gl=US&ceid=US%3Aen"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "the_information",
+    "name": "The Information",
+    "domain": "www.theinformation.com",
+    "status": "identified",
+    "basis": [
+      "google_rss_source",
+      "configured_bridge"
+    ],
+    "evidence": {
+      "rss_source_name": "The Information",
+      "rss_source_url": "https://www.theinformation.com",
+      "article_url": null,
+      "article_host": "news.google.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "the_information",
+    "publisher_kind": "media",
+    "admission_status": "limited",
+    "source_tier": "ai_media",
+    "source_tier_label": "精選AI媒體",
+    "source_tier_rank": 2,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_bridge",
+      "limited_scope"
+    ]
+  }
+}
