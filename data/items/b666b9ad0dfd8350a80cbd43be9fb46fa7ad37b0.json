@@ -1,0 +1,62 @@
+{
+  "id": "b666b9ad0dfd8350a80cbd43be9fb46fa7ad37b0",
+  "published_at": "2026-11-05T15:39:00Z",
+  "first_seen_at": "2026-11-11T05:05:37.309807Z",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "适用于 Lustre 的 Amazon FSx 在智能分层文件系统上提供的元数据 IOPS 提高了 16 倍",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/amazon-fsx-for-lustre-intelligent-tiering-16x-higher-metadata-iops",
+  "last_seen_at": "2026-11-11T05:05:37.309807Z",
+  "summary": "适用于 Lustre 的 Amazon FSx 现已在使用智能分层存储类别的文件系统上支持多达每秒 192,000 次的元数据 I/O 操作（IOPS），比之前的 12,000 次 IOPS 上限高出 16 倍。 适用于 Lustre 的 FSx 智能分层存储类别提供了云中成本最低且唯一具有完全弹性的 Lustre 文件存储。它针对混合了冷热数据且不需要持续 SSD 级别性能的工作负载进行了优化。文件系统的元数据 IOPS 决定了您每秒可以创建、列出、读取和删除的文件和目录的数量。今天的发布可让您扩展到更高的性能水平，缩短获得成效的时间，并优化元数据密集型机器学习研究和高性能计算（HPC）工作负载的存储成本。 在提供智能分层存储类别的所有 AWS 区域 中，更高的元数据 IOPS 已在新的适用于 Lustre 的 FSx 智能分层文件系统上推出。有关文件系统元数据性能的更多信息，请参阅适用于 Lustre 的 Amazon FSx 用户指南 。",
+  "publisher_links": [
+    "https://aws.amazon.com/fsx/lustre/",
+    "https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/",
+    "https://docs.aws.amazon.com/fsx/latest/LustreGuide/performance.html#dne-metadata-performance"
+  ],
+  "source_updated_at": "2026-11-05T15:39:00Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "aws_news",
+    "name": "AWS News",
+    "feed_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "amazon",
+    "name": "AWS",
+    "domain": "aws.amazon.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/amazon-fsx-for-lustre-intelligent-tiering-16x-higher-metadata-iops",
+      "article_host": "aws.amazon.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "amazon",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}

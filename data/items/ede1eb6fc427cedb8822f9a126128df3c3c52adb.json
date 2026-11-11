@@ -1,0 +1,62 @@
+{
+  "id": "ede1eb6fc427cedb8822f9a126128df3c3c52adb",
+  "published_at": "2026-11-05T08:00:00Z",
+  "first_seen_at": "2026-11-11T05:05:37.309807Z",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "AWS WAF AI 流量变现现已支持通过 Stripe 进行法定货币支付",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/aws-waf-stripe-fiat-payouts",
+  "last_seen_at": "2026-11-11T05:05:37.309807Z",
+  "summary": "AWS WAF AI 流量变现现已与 Stripe 集成。发布者、内容所有者和 API 提供商可以收取来自 AI 机器人和智能体的稳定币付款，并以当地货币直接结算到其 Stripe 余额。通过此次发布，客户无需持有稳定币或管理加密钱包即可将智能体访问变现。Stripe 现在可以作为一种新的支付方式与现有的稳定币支付一起使用。 要开始使用，请在 AWS WAF 控制台中通过 Stripe Connect 将您的 Stripe 账户连接到 AWS WAF。您现有的定价和智能体策略无需更改，照常生效。当智能体请求受保护的内容时，AWS WAF 会返回 HTTP 402 响应，其中包含 AWS WAF 接受的有效支付凭证类型。一旦智能体携带有效支付凭证返回并再次发出请求，内容就会不受限制地返回。来自所有支付提供商的收入都会显示在 AWS WAF 控制台收入分析中。 在 AWS WAF Web ACL 与 CloudFront 分配关联的所有边缘站点，Stripe 集成向使用 Amazon CloudFront 的所有 AWS WAF 客户提供且不额外收费。需支付标准 AWS WAF 和 Stripe 处理费用。有关详细信息，请参阅 AWS WAF 定价 。 要开始使用，请访问 AWS WAF 控制台 或浏览 AWS WAF Developer Guide 。",
+  "publisher_links": [
+    "https://aws.amazon.com/waf/pricing/",
+    "https://aws.amazon.com/console/",
+    "https://docs.aws.amazon.com/waf/latest/developerguide/waf-ai-traffic-monetization-getting-started.html"
+  ],
+  "source_updated_at": "2026-11-05T08:00:00Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "aws_news",
+    "name": "AWS News",
+    "feed_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "amazon",
+    "name": "AWS",
+    "domain": "aws.amazon.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/aws-waf-stripe-fiat-payouts",
+      "article_host": "aws.amazon.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "amazon",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}
