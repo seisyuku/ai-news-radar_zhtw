@@ -1,0 +1,71 @@
+{
+  "id": "f4dff48caf1dff3c9f73295d088c8293b4be6aee",
+  "published_at": "2026-11-11T22:03:25Z",
+  "first_seen_at": "2026-11-11T22:11:18.138969Z",
+  "site_id": "opmlrss",
+  "site_name": "OPML RSS",
+  "source": "Simon Willison",
+  "title": "Gemini Decisions API",
+  "url": "https://simonwillison.net/2026/Nov/11/gemini-decisions-api",
+  "last_seen_at": "2026-11-11T22:11:18.138969Z",
+  "summary": "Gemini Decisions API Google join Jev and OpenAI in the decision model category with \"Gemini Decision 1\". This new model API is almost identical to Jev: it supports the same three types of questions (yes/no, choice, and rubric-scoring) and even reuses Jev's term \"Noul\" for a yes/no question. It's priced the same as the GPT-6 Luna decision model: 10 cents per million input tokens, and output is free. Jev remains the cheapest of the three, at 4.2 cents per million. Jev is text (and JSON) only. OpenAI can handle text and images. Gemini Decision 1 is fully multi-model: it covers text, images, audio, video, and PDFs. I tested it against video by passing these questions to it along with my Yonkers stomping robot video file: Jev and OpenAI both return 1.0 or 0.0 for yes/no questions, but Gemini insists on being a little less confident than that: Via Hacker News Tags: ai , generative-ai , gemini , llm-release , jev , decision-models",
+  "publisher_links": [
+    "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/",
+    "https://simonwillison.net/2026/Sep/21/jev/",
+    "https://simonwillison.net/2026/Oct/6/llm-openai-decisions/",
+    "https://simonwillison.net/2026/Nov/10/yonkers-rises/",
+    "https://news.ycombinator.com/item?id=50456791",
+    "https://simonwillison.net/tags/ai",
+    "https://simonwillison.net/tags/generative-ai",
+    "https://simonwillison.net/tags/gemini",
+    "https://simonwillison.net/tags/llm-release",
+    "https://simonwillison.net/tags/jev",
+    "https://simonwillison.net/tags/decision-models"
+  ],
+  "source_updated_at": "2026-11-11T22:03:25Z",
+  "ingress": {
+    "kind": "private_opml",
+    "site_id": "opmlrss",
+    "source_id": null,
+    "name": "RSS/OPML",
+    "feed_url": null
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": null,
+    "name": null,
+    "domain": "simonwillison.net",
+    "status": "unknown",
+    "basis": [],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": null,
+      "article_host": "simonwillison.net",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": true,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "unreviewed",
+    "publisher_kind": "unknown",
+    "admission_status": "unreviewed",
+    "source_tier": "watchlist",
+    "source_tier_label": "未審來源",
+    "source_tier_rank": 6,
+    "allow_general": true,
+    "allow_featured": false,
+    "allow_radar": false,
+    "reason_codes": [
+      "missing_identity",
+      "scope_mismatch",
+      "unreviewed_publisher",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
+    ]
+  }
+}
