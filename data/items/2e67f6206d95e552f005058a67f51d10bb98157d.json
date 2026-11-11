@@ -1,0 +1,61 @@
+{
+  "id": "2e67f6206d95e552f005058a67f51d10bb98157d",
+  "published_at": "2026-11-04T17:00:00Z",
+  "first_seen_at": "2026-11-11T04:05:30.755267Z",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "AWS 宣布与 Equinix 联合推出 AWS 互连 – 最后一英里预览版",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/interconnect-last-mile-preview-equinix",
+  "last_seen_at": "2026-11-11T04:05:30.755267Z",
+  "summary": "与 Equinix 联合推出 AWS 互连 – 最后一英里预览版。您只需点击几下，即可通过 Equinix 遍布全球的 282 个数据中心所构成的全球网络将您的基础设施连接到 AWS。 互连 – 最后一英里为您提供了 AWS 托管私有弹性连接，使您无需订购交叉连接或配置路由器。要在 AWS 管理控制台中进行设置，请选择 AWS 区域、带宽速度、Direct Connect 网关和您的 Equinix Fabric One 项目 ID。AWS 会生成一个激活密钥，您需要在 Equinix Fabric One 门户中输入该密钥以完成设置。您也可以从 Equinix Fabric One 门户发起连接。AWS 和 Equinix 会预先跨两个位置和四条独立链路配置四重冗余容量，并为您配置 BGP 对等连接、VLAN 和 ASN。每个连接均为实现最大韧性而构建，并附带可用性为 99.99% 的 SLA。默认情况下，AWS 和 Equinix 边缘设备之间的流量通过 MACsec 进行加密。 在预览版期间，您可以免费订购 1 Gbps 的互连 – 最后一英里连接，分别经由圣何塞城域网接入美国西部（北加利福尼亚）区域，经由北弗吉尼亚城域网接入美国东部（弗吉尼亚州北部）区域。在与 Equinix 联合推出互连 – 最后一英里正式版后，您可在控制台中将带宽从 1 Gbps 扩展到 100 Gbps。您可以使用控制台、AWS CLI 或 API 创建连接。合作伙伴可以使用 GitHub 上的开放 API 包进行集成。要了解更多信息，请参阅 AWS Interconnect - last mile 文档 。",
+  "publisher_links": [
+    "https://github.com/aws/Interconnect",
+    "https://docs.aws.amazon.com/interconnect/"
+  ],
+  "source_updated_at": "2026-11-04T17:00:00Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "aws_news",
+    "name": "AWS News",
+    "feed_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "amazon",
+    "name": "AWS",
+    "domain": "aws.amazon.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/interconnect-last-mile-preview-equinix",
+      "article_host": "aws.amazon.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "amazon",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}

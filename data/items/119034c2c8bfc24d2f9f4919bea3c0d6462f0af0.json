@@ -1,0 +1,63 @@
+{
+  "id": "119034c2c8bfc24d2f9f4919bea3c0d6462f0af0",
+  "published_at": "2026-11-04T07:00:00Z",
+  "first_seen_at": "2026-11-11T04:05:30.755267Z",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "Amazon EC2 容量管理器的新功能",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/ec2-capacity-manager-supportability-and-fulfillment",
+  "last_seen_at": "2026-11-11T04:05:30.755267Z",
+  "summary": "Amazon EC2 容量管理器现已提供实时可支持性检查和容量满足指标。实时可支持性检查可以为每个实例类型和可用区对某一请求的支持程度打分，从而帮助客户在不启动或预留实例的情况下查找容量。容量满足指标显示相对于所请求数量，实际提供了多少容量。 在数百个账户中运行数千个工作负载的全球企业通常会将每个工作负载分散到多个实例类型和可用区中，这为 Amazon EC2 提供了更多选择来满足每个请求。即日起，客户可以使用容量管理器中的可支持性检查，了解哪些可用区和实例类型为他们提供了获得所需容量的最佳机会。该检查会为每个选择返回“高”、“中”或“低”评分，并给出一个总体评分。此外，借助满足指标，客户可以衡量其 AWS 组织、账户、区域和带标签工作负载的满足率，并按实例类型和可用区进行细分，以展示这些选择的效果。 这两项功能均包含在 AWS Unified Operations （针对运行任务关键型工作负载的全球企业的 AWS Support 计划）中，并且已在所有 AWS 商业区域推出。 要了解更多信息，请阅读 AWS 计算博客上的 Plan and measure EC2 flexibility with Amazon EC2 Capacity Manager 并参阅 Amazon EC2 容量管理器用户指南 。要开始使用，请访问 容量管理器控制台 。",
+  "publisher_links": [
+    "https://docs.aws.amazon.com/awssupport/latest/user/unified-operations-intro.html",
+    "https://aws.amazon.com/blogs/compute/plan-and-measure-ec2-flexibility-with-amazon-ec2-capacity-manager/",
+    "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/capacity-manager.html",
+    "https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#CapacityManagerHome"
+  ],
+  "source_updated_at": "2026-11-04T07:00:00Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "aws_news",
+    "name": "AWS News",
+    "feed_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "amazon",
+    "name": "AWS",
+    "domain": "aws.amazon.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/ec2-capacity-manager-supportability-and-fulfillment",
+      "article_host": "aws.amazon.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "amazon",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}
