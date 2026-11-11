@@ -1,0 +1,76 @@
+{
+  "id": "6c1a48a6616860be830c9e6fe9cdd7ae48c7e6cc",
+  "published_at": "2026-11-11T09:00:00Z",
+  "first_seen_at": "2026-11-11T19:35:33.287192Z",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "MCP Blog",
+  "title": "A More Predictable Release Cycle for MCP",
+  "url": "https://blog.modelcontextprotocol.io/posts/mcp-release-cycle",
+  "last_seen_at": "2026-11-11T19:35:33.287192Z",
+  "summary": "We’ve spent a lot of time over the past two years talking about ways to improve MCP, add new features and capabilities, and get on a more predictable release cadence. Clearly, there has been no shortage of ideas both from the maintainer and broader developer community. Getting those ideas reviewed, implemented, tested, and into a release is a whole other part of the job, and we want to make that specific part easier to follow for our community. For folks working on proposals, that means knowing when reviews will happen and how much time there is to make adjustments. SDK maintainers also need to know when the spec will stop changing - both client and server developers use our developer toolchain as a starting point to try new MCP capabilities out and share feedback. To make this process easier, we’re setting up a more consistent timeline for upcoming spec changes so that you don’t have to piece a schedule together from meeting notes and GitHub threads. The Core Maintainers worked through these questions together at MCPCon Europe, and Kurtis Van Gent recently wrote up the process in SEP-3398: Release Cycle Updates - this is our de facto release guidance moving forward. As a result of this work, we’re moving MCP specification releases to a regular six-month schedule. Two releases a year # We’ll generally publish specification releases on the last Tuesday of March and September . Alongside each release date, we’ll share the proposal deadlines and SDK beta dates, so you can work backward from them when planning your own implementation and testing. For the next release, we’re tar",
+  "publisher_links": [
+    "https://modelcontextprotocol.io/development/roadmap",
+    "https://github.com/kurtisvg",
+    "https://modelcontextprotocol.io/seps/3398-release-cycle-updates",
+    "https://blog.modelcontextprotocol.io/posts/mcp-release-cycle/#two-releases-a-year",
+    "https://blog.modelcontextprotocol.io/posts/mcp-release-cycle/#introducing-the-release-manager-role",
+    "https://github.com/LucaButBoring",
+    "https://modelcontextprotocol.io/seps/1686-tasks",
+    "https://modelcontextprotocol.io/seps/2663-tasks-extension",
+    "https://modelcontextprotocol.io/community/working-groups/tasks-events",
+    "https://modelcontextprotocol.io/community/interest-groups/agents",
+    "https://blog.modelcontextprotocol.io/posts/mcp-release-cycle/#what-happens-between-releases",
+    "https://modelcontextprotocol.io/community/sdk-tiers",
+    "https://blog.modelcontextprotocol.io/posts/mcp-release-cycle/#get-involved",
+    "https://modelcontextprotocol.io/community/working-interest-groups",
+    "https://voting.modelcontextprotocol.io/p/seps",
+    "https://modelcontextprotocol.io/community/contributing",
+    "https://modelcontextprotocol.io/community/communication"
+  ],
+  "source_updated_at": "2026-11-11T09:00:00Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "mcp_blog",
+    "name": "MCP Blog",
+    "feed_url": "https://blog.modelcontextprotocol.io/index.xml"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "mcp_blog",
+    "name": "MCP Blog",
+    "domain": "blog.modelcontextprotocol.io",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://blog.modelcontextprotocol.io/posts/mcp-release-cycle",
+      "article_host": "blog.modelcontextprotocol.io",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "mcp_blog",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}
