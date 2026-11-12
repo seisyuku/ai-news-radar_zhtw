@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "AWS WAF 宣布为 Amazon CloudFront 分配提供自动 SDK 集成",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/aws-waf-automatic-sdk-integration-amazon-cloudfront",
-  "last_seen_at": "2026-11-12T13:35:41.313350Z",
+  "last_seen_at": "2026-11-12T14:05:32.489375Z",
   "summary": "AWS WAF 宣布为 Amazon CloudFront 分配提供自动 SDK 集成。启用此功能后，CloudFront 会将 AWS WAF JavaScript SDK 的脚本标签添加到其提供的 HTML 中，而无需更改应用程序代码、构建流程或部署。该 SDK 提供三个 AWS WAF 托管规则组使用的客户端信号：目标检查级别的机器人控制功能、欺诈控制账户盗用防护（ATP）和欺诈控制账户创建欺诈预防（ACFP）。 以前，要提供这些信号，您需要在想要保护的每个应用程序的每个页面中添加一个脚本标签，并在每个版本中维护该标签。对于运行大量应用程序的团队，或者需要提供由其无法控制的系统生成的页面的团队而言，这会带来重复性工作，并成为配置错误的常见根源，即在 AWS WAF 中启用了保护功能，但却缺少了客户端集成。在保护您的 CloudFront 分配的 Web ACL 上启用自动 SDK 集成，即可消除针对每个应用程序的重复性工作。 自动 SDK 集成适用于与 Amazon CloudFront 配合使用且包含至少一个此类托管规则组的 Web ACL。您可以使用 AWS 管理控制台、CLI、SDK、CDK 或 CloudFormation 对其进行配置。在 AWS WAF 控制台中，该设置显示在托管规则组设置中，并且对于使用这些规则组之一创建的新 Web ACL，该设置默认处于启用状态。当您以编程方式创建 Web ACL 时，该设置在默认情况下处于关闭状态。在此次发布之前创建的 Web ACL 保持不变。 自动 SDK 集成不收取额外费用。有关要求、限制和内容安全策略指南，请参阅 AWS WAF Developer Guide 中的 Automatic SDK integration for CloudFront distributions 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/waf/latest/developerguide/waf-challenge-javascript-sdk-injection.html"
