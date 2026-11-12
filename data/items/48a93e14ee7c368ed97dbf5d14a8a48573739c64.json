@@ -1,0 +1,61 @@
+{
+  "id": "48a93e14ee7c368ed97dbf5d14a8a48573739c64",
+  "published_at": "2026-11-11T20:40:00Z",
+  "first_seen_at": "2026-11-12T00:51:05.497327Z",
+  "site_id": "curated_media",
+  "site_name": "精選媒體",
+  "source": "The Information (Google News)",
+  "title": "Meta’s Infrastructure Chief Is Leaving Amid Massive AI Buildout - The Information",
+  "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPWUY2MXRoNXBrQTBISnYtdkxELU5WM3lVMmpEbjhZQ2J0V0pLQUNoMEhzbkhKSFVnSDV2OEtOQmRxSVBLeXBvc3FyR0dDNW9FWHVFRWlxZi1JSlhRbF90TWdTaldzUjB0ZjdUWGd2blMtOFNybVpPaGt1NjVuZFBEcmVOMWo4dEd0ZzJWU2ZHQnBHU3ZFT2thME1vUzZHSFJ2c0E?oc=5",
+  "last_seen_at": "2026-11-12T00:51:05.497327Z",
+  "summary": "Meta’s Infrastructure Chief Is Leaving Amid Massive AI Buildout The Information",
+  "publisher_links": [
+    "https://news.google.com/rss/articles/CBMiogFBVV95cUxPWUY2MXRoNXBrQTBISnYtdkxELU5WM3lVMmpEbjhZQ2J0V0pLQUNoMEhzbkhKSFVnSDV2OEtOQmRxSVBLeXBvc3FyR0dDNW9FWHVFRWlxZi1JSlhRbF90TWdTaldzUjB0ZjdUWGd2blMtOFNybVpPaGt1NjVuZFBEcmVOMWo4dEd0ZzJWU2ZHQnBHU3ZFT2thME1vUzZHSFJ2c0E?oc=5"
+  ],
+  "source_updated_at": "2026-11-11T20:40:00Z",
+  "ingress": {
+    "kind": "google_news",
+    "site_id": "curated_media",
+    "source_id": "the_information_news",
+    "name": "The Information (Google News)",
+    "feed_url": "https://news.google.com/rss/search?q=site%3Atheinformation.com+AI+when%3A7d&hl=en-US&gl=US&ceid=US%3Aen"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "the_information",
+    "name": "The Information",
+    "domain": "www.theinformation.com",
+    "status": "identified",
+    "basis": [
+      "google_rss_source",
+      "configured_bridge"
+    ],
+    "evidence": {
+      "rss_source_name": "The Information",
+      "rss_source_url": "https://www.theinformation.com",
+      "article_url": null,
+      "article_host": "news.google.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "the_information",
+    "publisher_kind": "media",
+    "admission_status": "limited",
+    "source_tier": "ai_media",
+    "source_tier_label": "精選AI媒體",
+    "source_tier_rank": 2,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_bridge",
+      "limited_scope"
+    ]
+  }
+}
