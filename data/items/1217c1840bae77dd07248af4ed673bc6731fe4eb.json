@@ -1,0 +1,61 @@
+{
+  "id": "1217c1840bae77dd07248af4ed673bc6731fe4eb",
+  "published_at": "2026-11-05T08:00:00Z",
+  "first_seen_at": "2026-11-12T04:05:34.183088Z",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "AWS CodeConnections 现已在 AWS GovCloud（美国西部）区域推出",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/aws-codeconnections-govcloud-west",
+  "last_seen_at": "2026-11-12T04:05:34.183088Z",
+  "summary": "除 AWS GovCloud（美国东部）之外，AWS CodeConnections 现在还在 AWS GovCloud（美国西部）区域推出。CodeConnections 可让您将 AWS 服务（例如 AWS CodePipeline 和 AWS CodeBuild）连接到由第三方提供商（例如 Bitbucket）托管的源代码存储库。 此次发布之后，在 AWS GovCloud（美国西部）运行工作负载的客户可以在其管道所在的区域中建立与源代码存储库的连接。例如，团队可以配置一个连接，让对其存储库的提交自动在 AWS CodePipeline 中启动发布，而无需为每个集成管理提供商凭证。 要了解更多信息，请参阅 AWS CodeConnections User Guide 和 AWS GovCloud User Guide 。要开始使用，请访问 AWS GovCloud（美国）控制台。",
+  "publisher_links": [
+    "https://docs.aws.amazon.com/dtconsole/latest/userguide/welcome-connections.html",
+    "https://docs.aws.amazon.com/govcloud-us/latest/UserGuide/CodeStar-connections.html"
+  ],
+  "source_updated_at": "2026-11-05T08:00:00Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "aws_news",
+    "name": "AWS News",
+    "feed_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "amazon",
+    "name": "AWS",
+    "domain": "aws.amazon.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/aws-codeconnections-govcloud-west",
+      "article_host": "aws.amazon.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "amazon",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}

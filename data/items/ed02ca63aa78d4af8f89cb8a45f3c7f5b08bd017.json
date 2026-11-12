@@ -1,0 +1,61 @@
+{
+  "id": "ed02ca63aa78d4af8f89cb8a45f3c7f5b08bd017",
+  "published_at": "2026-11-06T00:30:00Z",
+  "first_seen_at": "2026-11-12T04:05:34.183088Z",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "AWS Security Hub 现可为计算资源提供 SBOM 清单",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/security-hub-sbom-inventory",
+  "last_seen_at": "2026-11-12T04:05:34.183088Z",
+  "summary": "今天，AWS 宣布 AWS Security Hub 现在提供的清单包括软件物料清单（SBOM），让中央安全团队能够持续获得整个组织中计算资源上所安装软件包和应用程序的最新视图。 Security Hub 根据 Amazon Inspector 为 Amazon EC2 实例、Amazon ECR 容器映像和 AWS Lambda 函数生成的 SBOM 构建该清单，无需额外配置。SBOM 页面会列出每个软件包及其版本、类型以及安装该软件包的资源数量。您可以按软件包属性、账户和区域对该列表进行筛选和分组。在资源详情页面上，“已安装的软件”选项卡会列出该资源上的每个软件包，便于您在研判任何调查发现时判断其功能与重要性。您还可以通过 Security Hub API 查询该清单。 SBOM 清单已包含在 Security Hub Essentials 中，无需额外付费。它无需任何新的启用操作，在启用了 Amazon Inspector 的地方会自动填充。它已在提供 Security Hub 的所有 AWS 区域推出。要了解更多信息，请参阅 AWS Security Hub User Guide 和 AWS Security Hub 产品页面 。",
+  "publisher_links": [
+    "https://docs.aws.amazon.com/securityhub/latest/userguide/",
+    "https://aws.amazon.com/security-hub/"
+  ],
+  "source_updated_at": "2026-11-06T00:30:00Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "aws_news",
+    "name": "AWS News",
+    "feed_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "amazon",
+    "name": "AWS",
+    "domain": "aws.amazon.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/security-hub-sbom-inventory",
+      "article_host": "aws.amazon.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "amazon",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}

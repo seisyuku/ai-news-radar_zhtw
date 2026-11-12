@@ -1,0 +1,61 @@
+{
+  "id": "1b5a69e3679ba551cc243177f20022ad1343a7a5",
+  "published_at": "2026-11-05T08:00:00Z",
+  "first_seen_at": "2026-11-12T04:05:34.183088Z",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "Amazon EC2 现已发布 ImdsV1Enabled CloudWatch 指标",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/ec2-imdsv1enabled-cloudwatch-metric",
+  "last_seen_at": "2026-11-12T04:05:34.183088Z",
+  "summary": "Amazon EC2 现在支持 ImdsV1Enabled CloudWatch 指标，让客户可以了解自己的哪些 EC2 实例仍启用了实例元数据服务版本 1（IMDSv1）。您可以使用该指标跨账户和区域大规模跟踪 IMDSv2 迁移。 借助 ImdsV1Enabled 指标，您可以配置 CloudWatch 控制面板和警报以跟踪仍允许 IMDSv1 的实例、识别迁移缺口和确定修复优先级，而无需自行构建工具来检查各账户和区域中实例的元数据选项。这为您提供了可靠、持续的信号，用于跟踪和完成 IMDSv2 迁移。 ImdsV1Enabled CloudWatch 指标已在所有 AWS 区域推出，无需额外付费。 要了解更多信息，请参阅 Amazon EC2 用户指南 中的 ImdsV1Enabled CloudWatch 指标。有关分步迁移说明，请参阅 Amazon EC2 用户指南中的“迁移到 IMDSv2” 。",
+  "publisher_links": [
+    "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/viewing_metrics_with_cloudwatch.html#ec2-cloudwatch-metrics",
+    "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-metadata-transition-to-version-2.html"
+  ],
+  "source_updated_at": "2026-11-05T08:00:00Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "aws_news",
+    "name": "AWS News",
+    "feed_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "amazon",
+    "name": "AWS",
+    "domain": "aws.amazon.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/ec2-imdsv1enabled-cloudwatch-metric",
+      "article_host": "aws.amazon.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "amazon",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}

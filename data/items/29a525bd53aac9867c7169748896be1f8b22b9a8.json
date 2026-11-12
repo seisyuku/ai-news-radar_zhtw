@@ -1,0 +1,61 @@
+{
+  "id": "29a525bd53aac9867c7169748896be1f8b22b9a8",
+  "published_at": "2026-11-06T14:00:00Z",
+  "first_seen_at": "2026-11-12T04:05:34.183088Z",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "容量预留资源组现已在 AWS GovCloud（美国）区域支持 Amazon EC2 容量块和可中断容量预留",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/capacity-reservation-resource-groups-support-in-aws-govcloud-regions",
+  "last_seen_at": "2026-11-12T04:05:34.183088Z",
+  "summary": "即日起，您可以在 AWS GovCloud（美国）区域将适用于 ML 的 Amazon EC2 容量块和可中断容量预留添加到容量预留资源组中。Amazon EC2 提供不同的预留服务，例如，按需容量预留（ODCR）、可中断容量预留和适用于 ML 的容量块。以前，容量预留资源组只能包含 ODCR。现在，您可以将任意类型的容量预留添加到容量预留资源组，从而更轻松地在整个预留容量组合中启动 EC2 实例。 要使用此功能，请创建一个容量预留资源组，向其添加任何容量预留，然后在启动请求中将该组设为目标。在使用 EC2 实例集和 EC2 自动扩缩组时，您还可以跨预留类型指定优先级首选项，并配置为在预留容量耗尽时自动回退至 EC2 按需型容量。 使用此功能不会产生额外费用。随着 AWS GovCloud（美国）区域的加入，此功能现已在支持适用于 ML 的容量块和可中断 ODCR 的所有 AWS 区域推出，但中国区域除外。要开始使用，请参阅 容量预留资源组 和 容量预留用户指南 。",
+  "publisher_links": [
+    "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-cr-group.html",
+    "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-capacity-reservations.html"
+  ],
+  "source_updated_at": "2026-11-06T14:00:00Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "aws_news",
+    "name": "AWS News",
+    "feed_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "amazon",
+    "name": "AWS",
+    "domain": "aws.amazon.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/capacity-reservation-resource-groups-support-in-aws-govcloud-regions",
+      "article_host": "aws.amazon.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "amazon",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}
