@@ -7,7 +7,7 @@
   "source": "Simon Willison",
   "title": "llm 0.37.2",
   "url": "https://simonwillison.net/2026/Nov/11/llm",
-  "last_seen_at": "2026-11-12T05:35:30.447310Z",
+  "last_seen_at": "2026-11-12T06:05:31.970699Z",
   "summary": "Release: llm 0.37.2 Fixes a security issue reported by Daniel de Araujo in GHSA-v9h7-jj4g-f862 and GHSA-r639-rr7r-x72w . LLM has a mechanism called extra-openai-models.yaml - now managed by the new-in-0.37 llm openai endpoint add command - for using LLM with OpenAI-compatible API endpoints from other providers. Daniel reported two ways this could accidentally send your configured OpenAI API key to one of those providers: if the key named by api_key_name had never been stored, or if a responses: true model was run with -o chat_completions 1 . Tags: projects , security , llm , releases",
   "publisher_links": [
     "https://github.com/simonw/llm/releases/tag/0.37.2",
