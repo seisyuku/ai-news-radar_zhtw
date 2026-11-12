@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon S3 表类数据存储服务现已提供一条简单且经济高效的路径来实现数据湖现代化",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/amazon-s3-tables-managed-migration-hive-to-iceberg",
-  "last_seen_at": "2026-11-12T14:05:32.489375Z",
+  "last_seen_at": "2026-11-12T14:35:32.108828Z",
   "summary": "Amazon S3 表类数据存储服务现已支持 Apache Hive 表到 Apache Iceberg 的托管式迁移。Iceberg 为数据湖增加了 ACID 事务、架构演进和时间旅行，但脱离 Hive 通常意味着要为每张表构建一个迁移管道，这可能会耗时数周。现在，您可以让 S3 表类数据存储服务管理您的迁移，从而生成可供查询且随数据增长持续优化的 Iceberg 表。 S3 表类数据存储服务会在生产工作负载持续运行的同时，对数据进行验证、转换和复制。要降低迁移风险，您可以审查每个步骤，按所需频率将目标表与源更改同步，或者回滚到源数据。您只需为作业复制的数据付费，Hive 到 Iceberg 的转换不收费，并且 S3 Intelligent-Tiering 中的源对象将保留在其当前访问层中。如果您的表使用了 Snappy 压缩，S3 表类数据存储服务会将其重新压缩为 Zstandard（ZSTD）并进行合并，从而减少存储占用和对象数量并提升查询性能。 要开始使用，请访问 AWS 管理控制台或使用 Amazon S3 表类数据存储服务迁移 API。Agent Toolkit for AWS 还提供了一项 迁移技能 ，可帮助智能体自主编排工作流。 发布时，S3 表类数据存储服务托管式迁移支持以 Parquet 格式存储在同一 AWS 账户和 AWS 区域中的 AWS Glue 注册 Hive 表。该功能已在以下 AWS 区域推出：美国东部（弗吉尼亚州北部、俄亥俄州）、美国西部（俄勒冈州）、亚太地区（孟买、新加坡、悉尼、东京）、欧洲地区（法兰克福、爱尔兰、斯德哥尔摩）。有关定价信息，请访问 Amazon S3 pricing 。要了解更多信息，请参阅 Amazon S3 表类数据存储服务 概览页面 、 文档 和 AWS 新闻博客 。",
   "publisher_links": [
     "https://github.com/aws/agent-toolkit-for-aws/tree/main/skills/specialized-skills/analytics-skills/migrating-hive-tables-to-s3-tables",
