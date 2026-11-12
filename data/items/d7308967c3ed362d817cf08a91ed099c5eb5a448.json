@@ -1,0 +1,65 @@
+{
+  "id": "d7308967c3ed362d817cf08a91ed099c5eb5a448",
+  "published_at": "2026-11-12T09:08:27Z",
+  "first_seen_at": "2026-11-12T09:31:08.913761Z",
+  "site_id": "curated_media",
+  "site_name": "精選媒體",
+  "source": "AIBASE",
+  "title": "微軟鬆口允許關閉必應 AI 答案，但開門要收\"過路費\"",
+  "url": "https://news.aibase.com/tw/news/32284",
+  "last_seen_at": "2026-11-12T09:31:08.913761Z",
+  "summary": "微軟11月11日博客承認，用戶想自主選擇搜索裏是否出現AI。爲此推出兩項功能：Bing AI Search Choice擴展已向Chrome、Edge開放預覽，用開關全局啓停必應AI答案；搜索詞末尾加“-ai”運算符可退回傳統結果，如“best laptops 2026 -ai”，但需每次手敲。文章還提到換默認引擎的隱形門票，真正彆扭之處待續。",
+  "ingress": {
+    "kind": "public_adapter",
+    "site_id": "curated_media",
+    "source_id": "aibase",
+    "name": "AIBASE",
+    "feed_url": null
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "aibase",
+    "name": "AIBASE",
+    "domain": "news.aibase.com",
+    "status": "identified",
+    "basis": [
+      "explicit_group"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://news.aibase.com/tw/news/32284",
+      "article_host": "news.aibase.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "aibase_article_id": "32284",
+  "field_languages": {
+    "title": "tw",
+    "url": "tw",
+    "summary": "tw"
+  },
+  "content_language": "tw",
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "aibase",
+    "publisher_kind": "aggregator",
+    "admission_status": "limited",
+    "source_tier": "advanced",
+    "source_tier_label": "次級AI媒體",
+    "source_tier_rank": 4,
+    "allow_general": true,
+    "allow_featured": false,
+    "allow_radar": false,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
+    ]
+  }
+}
