@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon Redshift 扩展了 SUPER 数据类型，使其可存储最大 1600 万字节的字符串",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/amazon-redshift-expands-super-to-16-million-bytes",
-  "last_seen_at": "2026-11-12T07:51:03.351049Z",
+  "last_seen_at": "2026-11-12T08:35:31.860035Z",
   "summary": "Amazon Redshift 现在支持 SUPER 数据类型 中最大 1600 万字节的单个字符串。通过数据库参数选择启用后，这一增强功能将在从 JSON、PARQUET、TEXT 和 CSV 源文件摄取结构化或半结构化数据时生效，以及在通过提取、加载和转换（ELT）流程转换数据时生效。以前，SUPER 数据类型中的单个字符串大小上限为 65535 字节。 在 SUPER 数据类型中存储大型单个字符串有助于省去将源数据存入 Amazon Redshift 所需的复杂预加载转换操作。现在，您可以直接摄取大于 65535 字节的大型单个字符串（例如条款与条件和合同等长篇文档），无需额外处理，并可使用 SQL 进行查询。数据进入 Amazon Redshift 后，您可以使用 PartiQL 语言灵活地探索和浏览数据，或使用字符串函数转换数据。 JSON_PARSE 、 CONCAT 和 LISTAGG 等函数现在可以接收输入字符串，并返回长度最大为 1600 万字节的输出字符串。 这一增强功能已在提供 Amazon Redshift 的所有 AWS 区域推出，包括 AWS GovCloud（美国）区域。有关更多详细信息，请参阅 AWS 区域表 。要了解更多信息，请访问我们的 文档 或 博客 。",
   "publisher_links": [
     "https://aws.amazon.com/redshift/",
