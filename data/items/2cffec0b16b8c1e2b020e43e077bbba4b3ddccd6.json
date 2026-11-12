@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon ECS Managed Daemons 现在可以从 Amazon ECS 托管实例上的应用程序容器收集 json-file 日志",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/amazon-ecs-managed-instances-json-file-log-driver",
-  "last_seen_at": "2026-11-12T05:05:33.066400Z",
+  "last_seen_at": "2026-11-12T05:35:30.447310Z",
   "summary": "Amazon Elastic Container Service （Amazon ECS）已推出针对 Amazon ECS 托管实例的 json-file 日志驱动程序支持，以及针对 Amazon ECS Managed Daemons 的日志驱动程序卷。通过结合使用这些功能，您可以使用自己选择的可观测性智能体收集应用程序日志，并将其转发到任意选定目标。 通过此次发布，ECS 托管实例上的应用程序容器可以将其日志以标准 Docker json-file 格式写入本地文件，大多数可观测性智能体都能原生读取这些文件。您的托管进程守护程序可以通过卷挂载直接读取这些文件，无需指定主机绑定挂载路径，也不需要根权限。因此，每个实例均有一个托管进程守护程序，可从每个使用 json-file 日志驱动程序的应用程序容器中收集日志。Amazon ECS 会将每个容器的日志保存在以容器 ID 命名的专用目录中，并一直保留这些日志直至容器被移除，因此您的托管进程守护程序可以使用原生基于文件的日志收集方式，并将每个日志追溯到生成该日志的容器。 要开始使用，请在应用程序任务定义的 logConfiguration 中，将日志驱动程序设置为 json-file。接下来，注册一个使用 logDriverVolumeConfiguration 来指定卷的进程守护程序任务定义，然后使用 mountPoints 将该卷挂载到您的进程守护程序容器中。您可以使用 AWS 管理控制台、AWS CLI、API、AWS SDK 或 AWS CloudFormation 进行此配置。此功能已在提供 Amazon ECS 托管实例和托管进程守护程序的所有 AWS 商业区域推出，不收取额外费用。要了解更多信息，请参阅我们的 文档 页面并访问 Amazon ECS 托管实例 。",
   "publisher_links": [
     "https://aws.amazon.com/ecs/",
