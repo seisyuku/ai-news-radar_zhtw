@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon CloudWatch 现已支持用于 OpenTelemetry 跟踪数据的 API 密钥",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/amazon-cloudwatch-api-keys-opentelemetry",
-  "last_seen_at": "2026-11-12T10:05:30.641181Z",
+  "last_seen_at": "2026-11-12T10:35:36.315228Z",
   "summary": "Amazon CloudWatch 现已支持使用 API 密钥（不记名令牌）进行不记名令牌身份验证，作为向 AWS X-Ray OpenTelemetry 协议（OTLP）跟踪端点发送 OpenTelemetry 跟踪数据的额外选择。现在，任何能设置授权标头的 OTLP/HTTP 客户端（包括 OpenTelemetry 收集器和 OpenTelemetry SDK 导出器）均可使用不记名令牌进行身份验证，而不必使用 AWS 签名版本 4（SigV4）对请求进行签名。这有助于团队从无法使用 AWS SDK 或短期凭证的工作负载（例如，在本地或其他云中运行的应用程序、CI/CD 管道以及仅支持静态授权标头的第三方工具）发送跟踪数据。 在向 CloudWatch 发送跟踪数据时，SigV4 仍是推荐的身份验证方式，适用于 OpenTelemetry 的 AWS Distro（ADOT）SDK 默认继续使用 SigV4，无需进行任何更改。采用任一方法发送的跟踪数据都可使用相同的 CloudWatch 功能，包括 Transaction Search、Amazon CloudWatch Application Signals 和 Amazon CloudWatch Omni。 用于跟踪数据的不记名令牌身份验证功能已在提供 AWS X-Ray OTLP 跟踪端点的所有 AWS 商业区域推出。 要了解更多信息，请参阅《AWS X-Ray Developer Guide》中的 Setting up bearer token authentication for traces 。",
   "publisher_links": [
     "https://aws.amazon.com/cloudwatch/",
