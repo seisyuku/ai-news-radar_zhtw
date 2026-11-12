@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "AWS Lambda 耐用函数增加了默认执行和 API 配额",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/lambda-durable-functions-default-quotas",
-  "last_seen_at": "2026-11-12T16:05:35.382342Z",
+  "last_seen_at": "2026-11-12T16:25:29.418786Z",
   "summary": "AWS Lambda 耐用函数已增加正在运行的执行和 API 请求速率的默认配额。以下新配额适用于所有 AWS 区域，但美国东部（弗吉尼亚州北部）、美国西部（俄勒冈州）和欧洲地区（爱尔兰）除外，这三个区域的配额为上述配额的两倍。 每个账户正在运行的持久执行数（100 万到 500 万） 用于启动持久执行的函数调用速率（每秒 300 到 3000 个请求） CheckpointDurableExecution 和 GetDurableExecutionState（每秒 1000 到 10000 个请求） SendDurableExecutionCallbackSuccess、SendDurableExecutionCallbackFailure 和 SendDurableExecutionCallbackHeartbeat（每秒 300 到 3000 个请求） GetDurableExecution 和 StopDurableExecution（每秒 30 到 300 个请求） GetDurableExecutionHistory 和 ListDurableExecutionsByFunction（每秒 15 到 150 个请求） AWS Lambda 耐用函数 可帮助您构建具有弹性的多步应用程序和 AI 工作流，这些应用程序和工作流的执行时长最长可达一年，并具备内置的检查点功能、自动重试以及可在不产生计算费用的情况下暂停执行的等待机制。随着此次配额提升，订单处理和文档管道等工作负载可以在不申请提高配额的情况下并行运行更多执行。当许多执行在等待外部工作（如支付确认或批处理作业）时，可以同时恢复更多执行。如果您使用自己的仪表板或脚本来监控和管理执行，这些工具现在检查状态、列出执行、读取历史记录和停止执行的频率至少可以提高到原来的十倍。 新配额适用于提供 AWS Lambda 耐用函数的所有 AWS 区域。要了解更多信息，请参阅《AWS Lambda Developer Guide》中的 Lambda quotas 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/lambda/latest/dg/durable-functions.html",
