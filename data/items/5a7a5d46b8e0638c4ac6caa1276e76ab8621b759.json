@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "AWS Systems Manager Parameter Store 现已支持使用内置数据类型进行组织和验证",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/aws-ssm-parameter-store-allows-organization-validation-with-new-data-types",
-  "last_seen_at": "2026-11-12T07:35:31.693522Z",
+  "last_seen_at": "2026-11-12T07:51:03.351049Z",
   "summary": "AWS Systems Manager Parameter Store 现已支持 13 种新的参数数据类型，这些数据类型可在您创建或更新参数时自动验证参数值。借助内置验证，您可以在应用程序读取格式错误的配置值（如无效的 IP 地址、AWS 账户 ID 或 JSON 文档）之前拦截这些值，而无需自行编写验证逻辑。 这些类型可让您更好地组织各个工作负载中的参数。您可以在调用 DescribeParameters API 时或者在 Parameter Store 控制台中浏览参数时按类型进行筛选。 以下数据类型可用于标准和高级参数：aws:region、aws:account:id、boolean、integer、float、binary、hostname、email、ipv4-address 和 ipv6-address。此外，url、json 和 jsonc 这三种数据类型也可用于高级参数。Parameter Store 会在您调用 PutParameter 时检查值，并且会拒绝任何与其数据类型不匹配的值。新数据类型适用于 String 和 SecureString 参数，其中部分类型还支持 StringList 参数，在这类参数中，列表中的每个项目都会接受验证。您可以将数据类型与 AllowedPattern 相结合以增加约束，还可以更改现有文本参数的数据类型。",
   "source_updated_at": "2026-11-05T05:00:00Z",
   "ingress": {
