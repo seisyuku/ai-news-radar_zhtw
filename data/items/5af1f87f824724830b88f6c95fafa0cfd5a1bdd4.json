@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "推出 Fluent Bit 4.1.1 的适用于 Fluent Bit 的 AWS 3.0.0",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2025/10/aws-fluent-bit-3-0-0-based-4-1-1",
-  "last_seen_at": "2026-11-13T20:35:37.306130Z",
+  "last_seen_at": "2026-11-13T21:05:33.773293Z",
   "summary": "适用于 Fluent Bit 的 AWS 推出 3.0.0 版本，该版本基于 Fluent Bit 版本 4.1.1 和 Amazon Linux 2023 构建。现在，对于 AWS 客户 [包括使用 Amazon Elastic Container Services （Amazon ECS）和 Amazon Elastic Kubernetes Service （Amazon EKS）的客户] 来说，使用适用于 Fluent Bit 的 AWS 进行容器日志记录的性能更高，功能也更丰富。 适用于 Fluent Bit 的 AWS 使 Amazon ECS 和 Amazon EKS 客户能够收集、处理容器日志并将其路由到包括 Amazon CloudWatch Logs、Amazon Data Firehose、Amazon Kinesis Data Streams 和 Amazon S3 在内的目标，而无需更改应用程序代码。适用于 Fluent Bit 的 AWS 3.0.0 将 Fluent Bit 版本升级到 4.1.1，并将基础映像升级到 Amazon Linux 2023。这些更新可以提供最新的 Fluent Bit 功能、显著提高性能并增强安全性。新功能包括原生 OpenTelemetry（OTel）支持，可通过 AWS SigV4 身份验证摄取和转发 OTLP 日志、指标和跟踪记录。性能改进包括更快的 JSON 解析、每个 vCPU 以更低的延迟处理更多日志。安全增强功能包括 TLS 最低版本和密码控制，它们会对适用于 Fluent Bit 的 AWS 的输出强制执行 TLS 策略，以增强协议安全态势。 您可以在 ECS 和 EKS 上使用适用于 Fluent Bit 的 AWS 3.0.0。在 ECS 上，将任务定义中的 FireLens 日志路由容器映像更新为 Amazon ECR 公开映像浏览馆中标签为 3.0.0 的版本。在 EKS 上，通过更新 Helm 版本或将 DaemonSet 映像设置为版本 3.0.0 进行升级。 适用于 Fluent Bit 镜像的 AWS 可在 Amazon ECR 公开映像库 和 Amazon ECR 存储库中找到。您也可以在 GitHub 上找到它以获取源代码和更多指导。 2025 年 10 月 29 日：本文已更新，以准确反映发布时的 Fluent Bit 版本。 2026 年 11 月 2 日：本文已更新，以阐明 OpenTelemetry 支持范围。",
   "publisher_links": [
     "https://github.com/aws/aws-for-fluent-bit/releases/tag/v3.0.0",
