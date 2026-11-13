@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v3",
   "entries": {
+    "d4553f2fe83e6ffbdade4449a5375ddd2f706d561b988e123cdf46f4974ac5a4": {
+      "summary": "三星電子傳出洽談收購美國散熱設備商Modine，Modine盤後股價暴漲近27%。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-13T06:35:31.650851Z"
+    },
     "b98a36e41706d80b8ac7f196ec8eb3c4880a8c105408b7d0d0d21daa97d58f82": {
       "summary": "西門子上季財報超乎預期，受惠AI資料中心基建需求，高層稱與輝達合作穩定。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-10-28T07:05:29.889839Z"
-    },
-    "f23c0e6c68b02f139e8073fc54eddbf27621e25d809b0174421562367196a875": {
-      "summary": "Cloudflare 調查指出，8 月 27 日至 9 月 9 日期間，Workers AI 的 GLM-5.3 模型有 155 次回應混入其他客戶資料。該問題已於 9 月 9 日修復，其他模型未受影響，且無證據顯示漏洞被蓄意利用。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-28T06:35:30.802205Z"
     }
   },
   "rejections": {
@@ -4899,6 +4899,10 @@
     "2cc0bf3ae60755b9bd06feb1121b7cf037a899d9ab513b994fbf163022991a74": {
       "reason": "validation_numeric_grounding",
       "created_at": "2026-11-13T02:53:07.684284Z"
+    },
+    "19e4b457228f9b30a53091823b502c227e0ce93a3b791c1761da0a88be5fe7fc": {
+      "reason": "validation_length",
+      "created_at": "2026-11-13T06:35:31.650851Z"
     }
   }
 }
