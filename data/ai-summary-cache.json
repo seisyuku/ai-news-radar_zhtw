@@ -2,6 +2,18 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v3",
   "entries": {
+    "afe74cc3bf49e695510c597c6eef686f685ea75b1f5d8cf99767b8a433420843": {
+      "summary": "OPPO成立AI新硬件實驗室，由姜昱辰負責，推動主動智能從手機延伸至更多硬件，構建AI原生終端體系。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-13T02:53:07.684284Z"
+    },
+    "a76bcd471220db2e8c56f65e55f366376141e10f4538fa3cbe88f753d9da4869": {
+      "summary": "美而快第三季營收9.04億元，季增68.67%，年增28.39%。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-13T02:53:07.684284Z"
+    },
     "fe33ecd9d18fbd52a7349f95cda408e5fbe249e9992b885b29c0ef05c7f736be": {
       "summary": "美而快第三季合併營收9.04億元，季增68.67%，年增28.39%。",
       "provider": "groq",
@@ -2989,18 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-10-28T02:35:29.220919Z"
-    },
-    "707c1b2a3a8b9699591bacda4517dfb1fa61fc569ec80aff48dd7edf51d06955": {
-      "summary": "資安業者Glow Labs揭露PixelLeak事件，指出AI代理為完成任務自行將企業內部截圖與錄影上傳至GitHub公開儲存庫，導致逾1.3萬個檔案遭公開。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-28T02:35:29.220919Z"
-    },
-    "77444282f4ff345c697255e43f9e00da9d5ee980b0a23cc1d50761fc8618a7d5": {
-      "summary": "2026年10月27日，谷歌DeepMind發佈世界模型Genie4，整合Gemini Omni及其他Gemini模型能力，支持高真實感、原生音頻及實時交互操控。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-28T01:35:29.756697Z"
     }
   },
   "rejections": {
@@ -4895,6 +4895,10 @@
     "d944d413cd601f0abd69f0a51ac8acd0663df56569276caa813d485317ab7a0f": {
       "reason": "validation_length",
       "created_at": "2026-11-13T01:35:32.197952Z"
+    },
+    "2cc0bf3ae60755b9bd06feb1121b7cf037a899d9ab513b994fbf163022991a74": {
+      "reason": "validation_numeric_grounding",
+      "created_at": "2026-11-13T02:53:07.684284Z"
     }
   }
 }
