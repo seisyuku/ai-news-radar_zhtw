@@ -1,0 +1,55 @@
+{
+  "id": "b80ce743f10ab78279c1bd7b669823e857a13d3a",
+  "published_at": "2026-10-12T00:00:00Z",
+  "first_seen_at": "2026-11-13T10:35:30.855503Z",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "Tencent Newsroom",
+  "title": "You Work Across Six Apps. Your AI Should Too",
+  "url": "https://www.tencent.com/you-work-across-six-apps-your-ai-should-too",
+  "last_seen_at": "2026-11-13T10:35:30.855503Z",
+  "ingress": {
+    "kind": "public_adapter",
+    "site_id": "official_ai",
+    "source_id": "tencent_newsroom",
+    "name": "Tencent Newsroom",
+    "feed_url": null
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "tencent",
+    "name": "Tencent",
+    "domain": "www.tencent.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://www.tencent.com/you-work-across-six-apps-your-ai-should-too",
+      "article_host": "www.tencent.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "tencent",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}
