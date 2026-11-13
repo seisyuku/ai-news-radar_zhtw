@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon RDS for Oracle 现已支持在跨区域快照复制期间复制选项组",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/amazon-rds-oracle-cross-region-snapshot-copy-option-group",
-  "last_seen_at": "2026-11-13T02:53:07.684284Z",
+  "last_seen_at": "2026-11-13T03:35:33.225271Z",
   "summary": "现在，当您将数据库快照复制到另一个 AWS 区域时，Amazon RDS for Oracle 可让您复制与该快照关联的选项组。 Amazon RDS for Oracle 使用选项组来启用和配置可简化数据库管理工作的功能。选项组特定于您在其中创建选项组的 AWS 区域。之前，如果客户要将具有选项组的 RDS 备份复制到其他 AWS 区域，则必须先复制不包含选项组的快照，然后在目标区域中重新创建选项组，之后才能还原快照。现在，您不再需要将这些步骤分隔开，而是可以发起快照复制操作，并在与快照复制相同的请求中指定选项组复制。 CopyDBSnapshot API 和 CLI 命令上的现有布尔参数 CopyOptionGroup 现在支持跨区域复制以及跨账户复制。现在，您可以通过将此参数设置为 true ，从源快照中将选项组复制到目标 AWS 区域中的目标快照。 此功能已在所有 AWS 商业区域和 AWS GovCloud（美国）区域的 Amazon RDS for Oracle 上推出。要了解更多信息，请查看 Amazon RDS API 文档 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CopyDBSnapshot.html"
