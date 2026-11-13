@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon DynamoDB 现已支持批量放置项目",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/amazon-dynamodb-now-supports-bulk-put-items",
-  "last_seen_at": "2026-11-13T09:35:42.853620Z",
+  "last_seen_at": "2026-11-13T10:05:35.820322Z",
   "summary": "今天，AWS 宣布正式推出 Amazon DynamoDB 的批量放置项目。这是一项完全托管式功能，可将 Amazon S3 中的数据写入您现有的 DynamoDB 表中。许多 DynamoDB 应用程序使用由其他系统生成并存储在 Amazon S3 中的数据。将这些数据写入现有的 DynamoDB 表中，通常意味着要构建自定义管道并管理表容量。利用批量放置项目，开发人员和数据工程师可以经济高效地写入这些数据，既不影响现有工作负载，也无需构建自定义摄取管道。 您只需将批量放置项目指向输入文件所在的 S3 位置，其余工作由 DynamoDB 完成。每个项目都支持自己的条件表达式，因此您可以强制执行仅插入或受版本保护的写入。标准套餐适用于大多数工作负载，升级套餐适用于对时间更敏感的工作负载。常见使用案例包括每日刷新、大型目录扩充、回填和迁移。 标准套餐的批量放置项目已在所有 AWS 商业区域和 AWS GovCloud（美国）区域推出；要查看提供了升级套餐的区域的列表，请参阅 区域可用性 。 要了解更多信息，请访问 Introducing bulk put items for Amazon DynamoDB 博客和 Amazon DynamoDB Developer Guide 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/BulkPutItems.Tiers.html#BulkPutItems.Tiers.Accelerated",
