@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon ECS Managed Instances 新增跨实例整合和竞价型整合",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/ecs-managed-instances-consolidation",
-  "last_seen_at": "2026-11-13T05:05:29.317413Z",
+  "last_seen_at": "2026-11-13T05:35:31.280800Z",
   "summary": "今天， Amazon Elastic Container Service（Amazon ECS）Managed Instances 推出了两项基础设施优化更新：跨实例整合和竞价型整合。跨实例整合评估在多个未充分利用的实例上运行的任务，将它们打包到更少的实例上，以提高利用率并降低成本。竞价型整合将此功能扩展到竞价型容量，在首次验证替代容量可用后整合未充分利用的竞价型实例。 Amazon ECS Managed Instances 为您的工作负载预置、配置和运行大小合适的 Amazon EC2 实例，在可用性和成本之间取得平衡。它的基础设施优化会持续监控您的实例集，回收闲置容量，并通过正常的“先启后停”任务替换来整合未充分利用的实例。到目前为止，优化是单独评估每个实例以进行替换的，当容量提供程序配置了不同的实例类型时，这种方法效果很好。但是，当容量提供程序配置的实例类型范围较窄时，整合多个未充分利用的实例的机会就会减少，因为没有单一的替代容量能够带来成本节约。通过跨实例整合，ECS 现在可以同时评估和重新打包多个实例上的任务。例如，在我们针对配置了 c9g 实例（最小规格为 4xlarge）的容量提供程序进行的测试中，运行 261 个任务（每个任务 1 个 vCPU、1.94 GiB），跨实例整合将实例集从 19 个（7 个 4xlarge、7 个 8xlarge、4 个 12xlarge 和 1 个 24xlarge）缩减至 13 个（8 个 4xlarge 和 5 个 8xlarge），同时将 CPU 利用率从 42% 提升至 91%，内存利用率从 41% 提升至 88%。竞价型整合对竞价型容量采用相同的方法，首先验证替代容量是否可用。通过这些增强功能，ECS Managed Instances 可为您的按需和竞价型工作负载提供更深入的成本优化。 跨实例整合和竞价型整合功能现已在所有 AWS 区域提供（不额外收费），并将自动应用于所有现有的和新的 ECS Managed Instances 容量提供程序。要了解更多信息，请参阅我们的 文档 。",
   "publisher_links": [
     "https://aws.amazon.com/ecs/managed-instances/",
