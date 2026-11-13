@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v3",
   "entries": {
+    "29e9edb05b3d32f972cb6ef07139cad3715e9891b832bbaddc30158d16cef531": {
+      "summary": "Google自報Gemini 4 Hydrogen有19%與24%數據，並提供百萬共用視窗。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-13T00:35:34.535778Z"
+    },
     "77467c64375b51a731d039356a48e8a95cd9fc4f11ded0839e63a89cefe8b5a8": {
       "summary": "Gondola營收翻倍，其團隊使用Codex使首席工程師產出提升50%。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-10-27T19:35:32.717588Z"
-    },
-    "de8041a344b66abd19e60d4008490bd80c0b54530db300586e23248fd0bb3f79": {
-      "summary": "Anthropic 即將 IPO，希望利用公開市場資金，同時堅持不犧牲其安全開發 AI 的核心使命。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-27T17:06:18.491819Z"
     }
   },
   "rejections": {
@@ -4887,6 +4887,10 @@
     "d944d413cd601f0abd69f0a51ac8acd0663df56569276caa813d485317ab7a0f": {
       "reason": "validation_length",
       "created_at": "2026-11-12T19:35:31.992333Z"
+    },
+    "03391b6fea4026239a9b3339235a84b25824a9d130d179bf533298c1e289596b": {
+      "reason": "validation_numeric_grounding",
+      "created_at": "2026-11-13T00:35:34.535778Z"
     }
   }
 }
