@@ -1,26 +1,25 @@
 {
-  "id": "e403851c39788b25d33193c78b15146edbe25fd8",
-  "published_at": "2026-09-08T11:30:00Z",
-  "first_seen_at": "2026-09-08T18:48:17.111023Z",
+  "id": "b69cd059323ffbb42bf1f0de6e8238dfcf636326",
+  "published_at": "2026-11-13T00:00:00Z",
+  "first_seen_at": "2026-11-13T11:35:31.409794Z",
   "site_id": "official_ai",
   "site_name": "Official AI Updates",
-  "source": "OpenAI News",
-  "title": "Introducing ChatGPT Images 2.5",
-  "url": "https://openai.com/index/introducing-chatgpt-images-2-5",
-  "last_seen_at": "2026-10-23T11:05:35.005872Z",
-  "summary": "ChatGPT Images 2.5 helps turn your ideas, sketches, and reference photos into more personalized, polished images that better reflect your ideas.",
+  "source": "Tencent Newsroom",
+  "title": "五个小妙招，轻松游深圳",
+  "url": "https://www.tencent.com/five-ways-to-make-your-shenzhen-stay-easier",
+  "last_seen_at": "2026-11-13T11:35:31.409794Z",
   "ingress": {
-    "kind": "public_feed",
+    "kind": "public_adapter",
     "site_id": "official_ai",
-    "source_id": "openai_news",
-    "name": "OpenAI News",
-    "feed_url": "https://openai.com/news/rss.xml"
+    "source_id": "tencent_newsroom",
+    "name": "Tencent Newsroom",
+    "feed_url": null
   },
   "publisher": {
     "schema_version": 1,
-    "publisher_id": "openai",
-    "name": "OpenAI",
-    "domain": "openai.com",
+    "publisher_id": "tencent",
+    "name": "Tencent",
+    "domain": "www.tencent.com",
     "status": "identified",
     "basis": [
       "article_host"
@@ -28,17 +27,18 @@
     "evidence": {
       "rss_source_name": null,
       "rss_source_url": null,
-      "article_url": "https://openai.com/index/introducing-chatgpt-images-2-5",
-      "article_host": "openai.com",
+      "article_url": "https://www.tencent.com/five-ways-to-make-your-shenzhen-stay-easier",
+      "article_host": "www.tencent.com",
       "expected_publisher_id": null,
       "conflicts": []
     }
   },
+  "security_topic": false,
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
     "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
-    "scope_id": "openai",
+    "scope_id": "tencent",
     "publisher_kind": "official",
     "admission_status": "limited",
     "source_tier": "official",
@@ -51,6 +51,5 @@
       "identified_host",
       "limited_scope"
     ]
-  },
-  "security_topic": false
+  }
 }
