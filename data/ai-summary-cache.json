@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v3",
   "entries": {
+    "c983555a5ae3c3ef40bf1745410de2db15a5dd3784b092f18746f377ed512c84": {
+      "summary": "TechCrunch AI 整理 Apple Siri AI 延遲及 OpenAI 超級 App 未達預期等 AI 專案失敗案例。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-14T17:35:37.430493Z"
+    },
     "ae11e9b29f361d78d66eca6b9eabd45c70ea38cde370b95f6a7178ce4e22f052": {
       "summary": "Gemini 4 Carbon 奪下 MathArena 榜首，但成本為 GPT-6.1 Sol 的 15 倍。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-10-29T00:35:27.303813Z"
-    },
-    "812911a86b5cce7618d2aa9c92689b91e63d7ba6062e88430187f20c802c63b0": {
-      "summary": "Nvidia 發布開源語音模型 Nemotron 3.5 Transcribe，支援轉錄、翻譯與講者識別，並提供逾 80 萬小時語音資料集。該模型在多個基準測試中領先，且活躍參數量僅為最強開源競爭對手六分之一。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-28T22:35:30.229353Z"
     }
   },
   "rejections": {
@@ -4900,10 +4900,6 @@
       "reason": "validation_length",
       "created_at": "2026-11-14T01:35:44.350536Z"
     },
-    "8dc38d2d0269293c14dbe8593a2bc84053e307b04f12c6be43d9d2c5cc8fca70": {
-      "reason": "validation_numeric_grounding",
-      "created_at": "2026-11-14T11:35:34.766780Z"
-    },
     "ccd49e164e81eee2c66602df8c6dc0a96a49ffbbf341c13d9b7b473e84dbfbcd": {
       "reason": "validation_numeric_grounding",
       "created_at": "2026-11-14T12:35:37.342767Z"
@@ -4923,6 +4919,10 @@
     "d2ecdc1d42ba4f05673e5f4c48e0bbd054dededba23cf6c0bd7f1070e837a5bd": {
       "reason": "validation_numeric_grounding",
       "created_at": "2026-11-14T16:05:29.456812Z"
+    },
+    "8dc38d2d0269293c14dbe8593a2bc84053e307b04f12c6be43d9d2c5cc8fca70": {
+      "reason": "validation_numeric_grounding",
+      "created_at": "2026-11-14T17:35:37.430493Z"
     }
   }
 }
