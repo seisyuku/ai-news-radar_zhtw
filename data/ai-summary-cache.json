@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v3",
   "entries": {
+    "6a802b1e105f55197fa7d3386e780ddefa32133a2ef0bf2a42d3d11370866190": {
+      "summary": "前Anthropic研究員Coxon指出，公司IPO簡報顯示演算法加速改進，現可用原所需算力的一小部分重訓Mythos模型。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-14T11:35:34.766780Z"
+    },
     "a6d44912bfaa34e55592bfc003403a3aab775342e720b7a9e02c788928a198ad": {
       "summary": "Runway 發布開源機器人模型 Praxis-1，採用 Apache 2.0 授權，在 Nvidia RoboLab-120 基準測試中領先。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-10-28T16:05:30.434936Z"
-    },
-    "64e6f72fddc2100ba8ef573928213f384db2e00c783a06ca8b2bde5d1745ee3c": {
-      "summary": "Artificial Analysis 重構其 Intelligence Index，導致 Kimi K3.1 Pro 在排名中下降五個名次。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-28T15:05:45.730958Z"
     }
   },
   "rejections": {
@@ -4900,10 +4900,6 @@
       "reason": "validation_length",
       "created_at": "2026-11-14T01:35:44.350536Z"
     },
-    "8dc38d2d0269293c14dbe8593a2bc84053e307b04f12c6be43d9d2c5cc8fca70": {
-      "reason": "validation_numeric_grounding",
-      "created_at": "2026-11-14T05:05:40.979454Z"
-    },
     "ccd49e164e81eee2c66602df8c6dc0a96a49ffbbf341c13d9b7b473e84dbfbcd": {
       "reason": "validation_numeric_grounding",
       "created_at": "2026-11-14T06:05:42.906865Z"
@@ -4915,6 +4911,10 @@
     "b0c0fb032b4730e74a7bf9fa9fd04e2eb3e72cfaf0cff80e24403b1704814fc0": {
       "reason": "validation_numeric_grounding",
       "created_at": "2026-11-14T08:05:34.089212Z"
+    },
+    "8dc38d2d0269293c14dbe8593a2bc84053e307b04f12c6be43d9d2c5cc8fca70": {
+      "reason": "validation_numeric_grounding",
+      "created_at": "2026-11-14T11:35:34.766780Z"
     }
   }
 }
