@@ -1,0 +1,57 @@
+{
+  "id": "2fac120c2484d333af629784dc1cc8ba91063b15",
+  "published_at": "2026-11-14T05:41:34Z",
+  "first_seen_at": "2026-11-14T06:35:32.401788Z",
+  "site_id": "runtimewire",
+  "site_name": "RuntimeWire AI媒體",
+  "source": "RuntimeWire",
+  "title": "Hugging Face TRL fix halves a Qwen3 H100 step in SDPA test",
+  "url": "https://runtimewire.com/article/hugging-face-trl-packed-batches-rows-h100-trainium",
+  "last_seen_at": "2026-11-14T06:35:32.401788Z",
+  "summary": "Hugging Face contributor tests report an H100 SDPA step falling from 2.06 to 1.02 seconds; on Trainium2, the revised code produced step timings where the previous path crashed.",
+  "source_updated_at": "2026-11-14T05:41:34Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "runtimewire",
+    "source_id": "runtimewire",
+    "name": "RuntimeWire",
+    "feed_url": "https://runtimewire.com/rss"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "runtimewire",
+    "name": "RuntimeWire",
+    "domain": "runtimewire.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://runtimewire.com/article/hugging-face-trl-packed-batches-rows-h100-trainium",
+      "article_host": "runtimewire.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "runtimewire",
+    "publisher_kind": "media",
+    "admission_status": "limited",
+    "source_tier": "advanced",
+    "source_tier_label": "次級AI媒體",
+    "source_tier_rank": 4,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}
