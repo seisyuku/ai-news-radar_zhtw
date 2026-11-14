@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "AWS Glue Data Catalog 现已在美国西部（北加利福尼亚）区域支持 Apache Iceberg 表优化",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/glue-data-catalog-optimizers-us-west-1",
-  "last_seen_at": "2026-11-14T02:35:36.354242Z",
+  "last_seen_at": "2026-11-14T03:05:35.686224Z",
   "summary": "AWS Glue Data Catalog 现已在美国西部（北加利福尼亚）区域支持 Apache Iceberg 表的自动表优化。Apache Iceberg 是一种开放表格式，可为数据湖中的大型表提供快速查询性能。此次发布后，您可以为 Data Catalog 中的单个表或所有表启用表优化功能。 Apache Iceberg 表在每次写入时都会累积小文件、快照和未引用的文件，随着时间的推移，这会减慢查询速度并增加存储成本。表优化功能会持续监控表，在后台对小文件进行压缩，删除已超过保留设置时限的快照，并删除不再需要的、未被引用的文件。您可以通过 AWS Glue 控制台、Amazon CloudWatch 指标和日志监控每次运行。 您可以使用 AWS Glue 控制台、AWS CLI 或 AWS SDK 启用表优化功能。有关支持表优化的区域的完整列表，请参阅 Supported Regions for table optimizers 。要了解更多信息，请参阅 AWS Glue Developer Guide 中的 Optimizing Iceberg tables 。要开始使用，请访问 AWS Glue 产品页面 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/glue/latest/dg/regions-optimizers.html",
