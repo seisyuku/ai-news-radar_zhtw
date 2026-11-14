@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon Bedrock 在 AWS GovCloud（美国）扩展了 API 支持，并引入了面向 OpenAI 模型的跨区域推理",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/bedrock-openai-runtime-govcloud",
-  "last_seen_at": "2026-11-14T05:35:39.798225Z",
+  "last_seen_at": "2026-11-14T06:05:42.906865Z",
   "summary": "Amazon Bedrock 现已在 AWS GovCloud（美国）的 bedrock-runtime 端点上支持 OpenAI GPT-5.6 模型（Terra 和 Luna），并支持 Responses API、Converse API 和 Chat Completions API。它还增加了对跨区域推理的支持，使客户能够在 AWS GovCloud（美国）区域内使用跨区域推理功能，来实现更高的吞吐量和更大的冗余度。 跨区域推理功能会自动跨两个 AWS GovCloud（美国）区域路由推理请求，从而为您提供更高的吞吐量，同时让您无需跨多个区域管理容量。AWS GovCloud（美国）中的跨区域推理功能会将请求路由至这两个区域，从而让您在保持美国数据主权的同时实现扩展，在需求激增时为您提供最广泛的 Bedrock 容量访问权限和最高的吞吐量。此次发布还扩展了 API 支持，您可以在 bedrock-runtime 端点上将 OpenAI GPT 模型与 Responses API、Chat Completions API 和 Converse API 结合使用。由于这些原生 OpenAI API 现已运行于 bedrock-runtime 上，这些模型将与您已在 Bedrock 上用于其他模型的相同账户级控制协同工作：使用情况会出现在 Bedrock 模型调用日志记录（可传输至 Amazon S3 或 Amazon CloudWatch Logs）以及涵盖调用计数、token 计数、延迟、限流和错误数的 Amazon CloudWatch 指标中，并在 AWS Cost Explorer 成本管理服务和 AWS 成本和使用情况报告中逐项列出，以便您按模型对支出进行归因。 针对 OpenAI 模型的跨区域推理功能已在提供 Amazon Bedrock 上的 OpenAI 模型的所有 AWS 区域推出。要开始使用，请查看 Amazon Bedrock 用户指南 中 GPT 5.6（Tera 和 Luna）的模型卡片。",
   "publisher_links": [
     "https://docs.aws.amazon.com/bedrock/"
