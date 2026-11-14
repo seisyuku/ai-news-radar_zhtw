@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon Redshift 宣布推出无需人工干预的自动跨区域备份功能",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/redshift-automated-cross-region-backups",
-  "last_seen_at": "2026-11-14T02:04:30.462481Z",
+  "last_seen_at": "2026-11-14T02:35:36.354242Z",
   "summary": "Amazon Redshift 宣布推出 Amazon Redshift 的自动跨区域快照复制功能。现在，您可以将您的 Amazon Redshift 预置集群或无服务器工作组自动备份到您选择的目标 AWS 区域。自动跨区域快照复制功能将始终自动复制最新快照，无需人工干预，以持续增量的方式进行，并确保您的集群已备份至目标区域，从而为您提供更多的业务连续性方案。 启用新的自动跨区域快照复制功能的好处在于，当发生计划外中断事件时，无需手动干预即可启动跨区域快照复制。此外，此功能会将系统上可用的最新快照复制到目标区域，因此您无需等待下一次快照的生成，这使得该功能不受本地集群快照计划的限制。要配置跨区域快照复制，您需要为每个集群启用自动跨区域快照复制功能，并配置用于复制快照的目标区域以及在目标区域中保留复制的自动快照的时长。您可以为目标区域的自动快照选择保留期。用户快照会一直保留，直到您明确将其删除。要在目标区域还原快照，请使用快照还原功能将其还原到新预置的集群或无服务器工作组中。使用自动跨区域快照复制功能复制的快照，在目标区域中的名称前缀为 `copy`。 此功能已在所有 AWS 商业区域和 GovCloud（美国）区域推出。 有关配置和使用的更多详细信息，请参阅 Amazon Redshift 文档中关于跨区域快照复制的部分： Amazon Redshift snapshots and backups 。有关通过快照还原集群的详细信息，请参阅关于 Restoring a cluster from a snapshot 的文档。有关定价信息，请查看 Amazon Redshift 定价页面 的“备份和存储”以及“数据传输”部分。",
   "publisher_links": [
     "https://aws.amazon.com/redshift/",
