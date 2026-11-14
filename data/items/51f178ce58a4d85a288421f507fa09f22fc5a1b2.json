@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "AWS Glue Data Catalog 现在支持通过 Apache Iceberg REST 目录联合身份验证获取目录发放的凭证",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/glue-catalog-vended-credentials-iceberg",
-  "last_seen_at": "2026-11-14T08:05:34.089212Z",
+  "last_seen_at": "2026-11-14T08:35:35.289765Z",
   "summary": "AWS Glue Data Catalog 现在支持在 Apache Iceberg REST 目录联合身份验证中获取外部目录发放的凭证。现在，您可以利用外部 Iceberg 目录中的粗粒度表授权从 Amazon Athena、Amazon EMR、Amazon Redshift 和 AWS Glue 读取外部 Iceberg 表。 Glue Data Catalog 此前已可通过您配置的具有 Amazon S3 存储桶访问权限的 AWS IAM 角色，通过联合身份访问外部 Iceberg REST 目录。Glue Data Catalog 的这一增强功能提供了另一种连接外部 Iceberg 目录的方式，且仅读取外部目录授权的表。它使用由外部 Iceberg 目录发放、权限范围限定于 Amazon S3 存储前缀的临时安全凭证。AWS Lake Formation 会在您使用任何 AWS 分析引擎查询外部表时管理访问控制，让您可以将访问权限管控进一步细化到特定的行和列，并在 AWS 账户之间共享外部 Iceberg 表。 此功能可通过 AWS Lake Formation 管理控制台、AWS CLI 以及 AWS Glue 和 Lake Formation SDK 使用。此功能现已在支持 Glue 和 Lake Formation 的所有 AWS 商业区域推出。要了解更多信息，请访问 文档 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/lake-formation/latest/dg/catalog-federation.html"
