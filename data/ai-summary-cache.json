@@ -2,6 +2,18 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v3",
   "entries": {
+    "27faec27a659ba23a5e3df863b517d1c7b164ae4d77544aa51d02d28431d8643": {
+      "summary": "Bland發布全雙工語音模型Tofu-1，現為企業研究預覽，未公佈基準測試、規模或定價。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-15T11:05:27.205934Z"
+    },
+    "06ff78fc4ae39d7605252cb68b444f7c79a0129bb5b10fe3258af91edd63f39b": {
+      "summary": "澳洲央行發現AI衝擊年輕初級工作者，軟體與客服領域就業下滑顯著。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-15T11:05:27.205934Z"
+    },
     "6f30b8b8ebd6bdc864a2eba2599ddad86a1a4318bafeb828003880429caa2911": {
       "summary": "Memories.ai 推打工平臺，付錢請人拍影片供機器人訓練。",
       "provider": "groq",
@@ -2989,18 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-10-29T22:05:28.179829Z"
-    },
-    "b350ef0e8f7abbb7a905cb6996cfd16b8af89b31e95b8faec5a26b119f67aedf": {
-      "summary": "報告指出，中國駭客在廣泛的全球網路攻擊中使用了 DeepSeek 及其他 AI 工具。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-29T22:05:28.179829Z"
-    },
-    "a2c21764618a09f1ad0b3ee0ebc00faa12ae9026e5cc9cd48126fe49578f363c": {
-      "summary": "Amazon 公佈第三季度財報，AWS 銷售額預計增長 38%，連續第五個季度實現營收擴張。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-29T20:35:30.612684Z"
     }
   },
   "rejections": {
@@ -4931,6 +4931,10 @@
     "593ddd16328823dd991f358c58fc2af14446b11c57f7c61b74b5a7eb6abf955a": {
       "reason": "validation_numeric_grounding",
       "created_at": "2026-11-15T10:35:28.940429Z"
+    },
+    "38f718b44f5904769e1b7f8b9ba65029f042aafa70b793a1fc8d61d65b3bebc8": {
+      "reason": "validation_length",
+      "created_at": "2026-11-15T11:05:27.205934Z"
     }
   }
 }
