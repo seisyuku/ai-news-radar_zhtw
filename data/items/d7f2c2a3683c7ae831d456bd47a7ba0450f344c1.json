@@ -1,0 +1,72 @@
+{
+  "id": "d7f2c2a3683c7ae831d456bd47a7ba0450f344c1",
+  "published_at": "2026-11-14T23:59:28Z",
+  "first_seen_at": "2026-11-15T01:05:40.872162Z",
+  "site_id": "opmlrss",
+  "site_name": "OPML RSS",
+  "source": "Simon Willison",
+  "title": "datasette-llm 0.1a11",
+  "url": "https://simonwillison.net/2026/Nov/14/datasette-llm",
+  "last_seen_at": "2026-11-15T01:05:40.872162Z",
+  "summary": "Release: datasette-llm 0.1a11 datasette-llm is the intermediate plugin for Datasette that supports configuring LLMs for use with other Datasette plugins. This release adds support for OpenAI-compatible endpoints, so you can configure Datasette to use an LLM hosted anywhere that talks the OpenAI pseudo-standard web protocol. This means that if you're running local models with LM Studio or Ollama or llama.cpp (which just hit v1.0.0 ) you can run Datasette via uvx like this: And you'll get a local server running a Datasette Agent instance powered by your local model! Tags: uv , datasette-agent , llm , datasette , llms , ai , generative-ai",
+  "publisher_links": [
+    "https://github.com/datasette/datasette-llm/releases/tag/0.1a11",
+    "https://lmstudio.ai",
+    "https://ollama.com",
+    "https://github.com/ggml-org/llama.cpp",
+    "https://huggingface.co/blog/ggml-org/llama-cpp-v1",
+    "https://simonwillison.net/tags/uv",
+    "https://simonwillison.net/tags/datasette-agent",
+    "https://simonwillison.net/tags/llm",
+    "https://simonwillison.net/tags/datasette",
+    "https://simonwillison.net/tags/llms",
+    "https://simonwillison.net/tags/ai",
+    "https://simonwillison.net/tags/generative-ai"
+  ],
+  "source_updated_at": "2026-11-14T23:59:28Z",
+  "ingress": {
+    "kind": "private_opml",
+    "site_id": "opmlrss",
+    "source_id": null,
+    "name": "RSS/OPML",
+    "feed_url": null
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": null,
+    "name": null,
+    "domain": "simonwillison.net",
+    "status": "unknown",
+    "basis": [],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": null,
+      "article_host": "simonwillison.net",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "unreviewed",
+    "publisher_kind": "unknown",
+    "admission_status": "unreviewed",
+    "source_tier": "watchlist",
+    "source_tier_label": "未審來源",
+    "source_tier_rank": 6,
+    "allow_general": true,
+    "allow_featured": false,
+    "allow_radar": false,
+    "reason_codes": [
+      "missing_identity",
+      "scope_mismatch",
+      "unreviewed_publisher",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
+    ]
+  }
+}
