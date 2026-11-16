@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v3",
   "entries": {
+    "8c9e7cd026d6ef98a0dc5760e6705958103b2f38d23eee5dbc576ab9f06ed086": {
+      "summary": "NVIDIA營運長Deb Shoquist領導供應鏈與製造團隊，透過全球製造夥伴網絡，支持NVIDIA全年推出領先的AI平臺技術。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-16T20:35:49.132275Z"
+    },
     "2367a1af3a1714b9caa8807b71abc57370a00c05bd2262efa428c162bf528e1f": {
       "summary": "Google威脅情報組首次發現攻擊者利用AI框架exploit_agent，在無人為介入下自動發現漏洞並建立利用程式。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-10-31T18:05:24.644968Z"
-    },
-    "f9858b3e51331c98d28fdc2c699815ab2443f5e8757c97f68c1b0be4f17712f9": {
-      "summary": "據報導，OpenAI 最新融資輪次未達預期，據稱已降低新融資目標。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-10-31T16:35:28.935267Z"
     }
   },
   "rejections": {
@@ -4943,6 +4943,10 @@
     "ba1d5cd925ea66ea18614fbee8a1f7985ab559d3069b4d6ff226d1b430e09022": {
       "reason": "insufficient_context",
       "created_at": "2026-11-16T14:05:51.077318Z"
+    },
+    "34e7fe977a6f8694c9c0b3f9d4c8d753789469c918744066f337b7b5095d1177": {
+      "reason": "validation_numeric_grounding",
+      "created_at": "2026-11-16T20:35:49.132275Z"
     }
   }
 }
