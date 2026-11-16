@@ -1,17 +1,20 @@
 {
-  "id": "e8f3938c234a24b1728678df25b782563054e8c2",
-  "published_at": "2026-10-23T11:15:00Z",
-  "first_seen_at": "2026-10-23T03:35:27.361917Z",
+  "id": "f277c9ef8416bd7d54d0f285672869bb13056ce3",
+  "published_at": "2026-11-15T23:18:17Z",
+  "first_seen_at": "2026-11-16T00:20:11.079923Z",
   "site_id": "opmlrss",
   "site_name": "OPML RSS",
-  "source": "InfoQ CN",
-  "title": "Foresight AI 正式可用，Gremlin 将智能体引入可靠性工程",
-  "url": "https://www.infoq.cn/article/2bKQkdiAcGEycHJLYPv5",
-  "last_seen_at": "2026-10-26T00:12:23.273917Z",
-  "summary": "点击查看原文>",
+  "source": "Simon Willison",
+  "title": "datasette 0.65.6",
+  "url": "https://simonwillison.net/2026/Nov/15/datasette-2",
+  "last_seen_at": "2026-11-16T00:20:11.079923Z",
+  "summary": "Release: datasette 0.65.6 I backported a minor security fix from 1.0a43: Fixed a security issue where a database registered using add_database(db, name=..., route=...) with a route that differs from its name could be downloaded from /<route>.db by actors who were denied access to it. [...] Tags: security , datasette",
   "publisher_links": [
-    "https://www.infoq.cn/article/2bKQkdiAcGEycHJLYPv5?utm_source=rss&utm_medium=article"
+    "https://github.com/simonw/datasette/releases/tag/0.65.6",
+    "https://simonwillison.net/tags/security",
+    "https://simonwillison.net/tags/datasette"
   ],
+  "source_updated_at": "2026-11-15T23:18:17Z",
   "ingress": {
     "kind": "private_opml",
     "site_id": "opmlrss",
@@ -23,18 +26,19 @@
     "schema_version": 1,
     "publisher_id": null,
     "name": null,
-    "domain": "www.infoq.cn",
+    "domain": "simonwillison.net",
     "status": "unknown",
     "basis": [],
     "evidence": {
       "rss_source_name": null,
       "rss_source_url": null,
       "article_url": null,
-      "article_host": "www.infoq.cn",
+      "article_host": "simonwillison.net",
       "expected_publisher_id": null,
       "conflicts": []
     }
   },
+  "security_topic": false,
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
@@ -55,6 +59,5 @@
       "not_permitted_for_featured",
       "not_permitted_for_radar"
     ]
-  },
-  "security_topic": false
+  }
 }
