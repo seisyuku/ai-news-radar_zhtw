@@ -1,0 +1,82 @@
+{
+  "id": "606bf3601234c11a99e51989a31dee4eb36ed13a",
+  "published_at": "2026-11-15T23:20:27Z",
+  "first_seen_at": "2026-11-16T01:05:34.096435Z",
+  "site_id": "opmlrss",
+  "site_name": "OPML RSS",
+  "source": "Simon Willison",
+  "title": "datasette 1.0a43",
+  "url": "https://simonwillison.net/2026/Nov/15/datasette",
+  "last_seen_at": "2026-11-16T01:05:34.096435Z",
+  "summary": "Release: datasette 1.0a43 I've been leaning hard into Claude Fable 5.2 to help knock things off the 1.0 milestone , which is now 53% complete. The biggest 1.0 item in this release is streaming support for output renderers - the built-in TSV and CSV export mechanisms now use this as well, and plugins can register themselves as capable of streaming every row in a table in one go via the new Response.stream() method. There are a couple of security fixes, one of which I deemed deserving of a GitHub advisory : private stored queries could be exposed, granting access to the title and SQL of the query (but not allowing that query to be executed). There are dozens of smaller improvements. The row page JSON representation finally has a design suitable for 1.0 . A new <datasette-copy-button> Web Component provides copy-schema in various places. JSON in columns on the row page can be pretty-printed. There's a new DatasetteModal.confirm() JavaScript utility method. Plus dozens of bug fixes, including contributions by Zihan Dai , Peter Olkhovets , Ilya Khalafi , and Ankita Advitot . The feature I'm most excited about is a pretty tiny one: I've added CSS multi-page view transitions to Datasette! Here's the commit - key CSS is as follows: With that in place, navigations within Datasette - still staunchly a multi-page application - feel more like an SPA. This works on Safari and Chrome at the moment and I believe supports for Firefox is duplicated to land in Firefox 162 on December 8th 2026 (seeing as they are no longer feature-flagged in Firefox Nightly.) Tags: security , datasette , css",
+  "publisher_links": [
+    "https://github.com/simonw/datasette/releases/tag/1.0a43",
+    "https://github.com/simonw/datasette/milestone/37",
+    "https://docs.datasette.io/en/latest/plugin_hooks.html#plugin-register-output-renderer-streaming",
+    "https://docs.datasette.io/en/latest/internals.html#internals-response-stream",
+    "https://github.com/simonw/datasette/security/advisories/GHSA-mw6v-83vp-7c4c",
+    "https://docs.datasette.io/en/latest/json_api.html#json-api-row",
+    "https://docs.datasette.io/en/latest/javascript_plugins.html#javascript-plugins-modal-confirm",
+    "https://github.com/PDGGK",
+    "https://github.com/peterolkhov",
+    "https://github.com/IlyaKhalafi",
+    "https://github.com/AnkitaAdvitot",
+    "https://github.com/simonw/datasette/commit/7da8a85ea77786edef975a4066bbadfab0966a0c",
+    "https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/162#changes_for_web_developers",
+    "https://simonwillison.net/tags/security",
+    "https://simonwillison.net/tags/datasette",
+    "https://simonwillison.net/tags/css",
+    "https://simonwillison.net/tags/browsers",
+    "https://simonwillison.net/tags/annotated-release-notes",
+    "https://simonwillison.net/tags/firefox",
+    "https://simonwillison.net/tags/javascript",
+    "https://simonwillison.net/tags/safari",
+    "https://simonwillison.net/tags/chrome"
+  ],
+  "source_updated_at": "2026-11-15T23:20:27Z",
+  "ingress": {
+    "kind": "private_opml",
+    "site_id": "opmlrss",
+    "source_id": null,
+    "name": "RSS/OPML",
+    "feed_url": null
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": null,
+    "name": null,
+    "domain": "simonwillison.net",
+    "status": "unknown",
+    "basis": [],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": null,
+      "article_host": "simonwillison.net",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "unreviewed",
+    "publisher_kind": "unknown",
+    "admission_status": "unreviewed",
+    "source_tier": "watchlist",
+    "source_tier_label": "未審來源",
+    "source_tier_rank": 6,
+    "allow_general": true,
+    "allow_featured": false,
+    "allow_radar": false,
+    "reason_codes": [
+      "missing_identity",
+      "scope_mismatch",
+      "unreviewed_publisher",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
+    ]
+  }
+}
