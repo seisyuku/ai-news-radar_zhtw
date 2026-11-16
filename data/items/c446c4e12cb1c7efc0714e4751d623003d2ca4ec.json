@@ -1,0 +1,65 @@
+{
+  "id": "c446c4e12cb1c7efc0714e4751d623003d2ca4ec",
+  "published_at": "2026-11-16T02:53:52Z",
+  "first_seen_at": "2026-11-16T03:05:32.341890Z",
+  "site_id": "curated_media",
+  "site_name": "精選媒體",
+  "source": "AIBASE",
+  "title": "阿里千問發佈 Qwen4-Max: 以架構升級壓低 token 消耗，單任務費用降58%",
+  "url": "https://news.aibase.com/tw/news/32332",
+  "last_seen_at": "2026-11-16T03:05:32.341890Z",
+  "summary": "阿里千問11月16日發佈Qwen4-Max，定位全天候AI協作夥伴。基於Qwen4新架構，總參數2.4T、每token激活71B，另有328B N-gram Embedding參數，具備原生視覺能力，支持百萬token上下文。已上線千問AI平臺提供API服務，緩存命中每百萬Tokens低至0.5元，也可經阿里Token Plan調用或在千問辦公、Qoder等應用體驗。官方全面下調API定價，Qwen4系列中小尺寸模型將陸續開源。",
+  "ingress": {
+    "kind": "public_adapter",
+    "site_id": "curated_media",
+    "source_id": "aibase",
+    "name": "AIBASE",
+    "feed_url": null
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "aibase",
+    "name": "AIBASE",
+    "domain": "news.aibase.com",
+    "status": "identified",
+    "basis": [
+      "explicit_group"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://news.aibase.com/tw/news/32332",
+      "article_host": "news.aibase.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "aibase_article_id": "32332",
+  "field_languages": {
+    "title": "tw",
+    "url": "tw",
+    "summary": "tw"
+  },
+  "content_language": "tw",
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "aibase",
+    "publisher_kind": "aggregator",
+    "admission_status": "limited",
+    "source_tier": "advanced",
+    "source_tier_label": "次級AI媒體",
+    "source_tier_rank": 4,
+    "allow_general": true,
+    "allow_featured": false,
+    "allow_radar": false,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
+    ]
+  }
+}
