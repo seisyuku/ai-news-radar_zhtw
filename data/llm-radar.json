@@ -1,17 +1,192 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-17T19:35:32.119934Z",
+  "generated_at": "2026-11-17T20:05:35.864958Z",
   "window_hours": 24,
-  "total_events": 0,
-  "events": [],
+  "total_events": 2,
+  "events": [
+    {
+      "id": "model_release::gpt-6.2-astra",
+      "kind": "model_release",
+      "category": "model_release",
+      "verification_status": "tracked",
+      "verification_label": "模型追蹤",
+      "title": "OpenAI 發布 GPT-6.2 Astra 模型",
+      "summary": "",
+      "provider": "OpenAI",
+      "product": "GPT-6.2 Astra",
+      "detected_at": "2026-11-17T20:05:35.864958Z",
+      "effective_at": "2026-11-17T00:00:00Z",
+      "source_name": "LLM Stats Model Releases",
+      "source_url": "https://llm-stats.com/models/gpt-6.2-astra",
+      "evidence_url": "https://llm-stats.com/models/gpt-6.2-astra",
+      "ingress": {
+        "kind": "public_adapter",
+        "site_id": "llm_stats_models",
+        "source_id": "llm_stats_models",
+        "name": "LLM Stats Model Releases",
+        "feed_url": null
+      },
+      "publisher": {
+        "schema_version": 1,
+        "publisher_id": "llm_stats",
+        "name": "LLM Stats",
+        "domain": "llm-stats.com",
+        "status": "identified",
+        "basis": [
+          "article_host"
+        ],
+        "evidence": {
+          "rss_source_name": null,
+          "rss_source_url": null,
+          "article_url": "https://llm-stats.com/models/gpt-6.2-astra",
+          "article_host": "llm-stats.com",
+          "expected_publisher_id": null,
+          "conflicts": []
+        }
+      },
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+        "scope_id": "llm_stats",
+        "publisher_kind": "aggregator",
+        "admission_status": "limited",
+        "source_tier": "watchlist",
+        "source_tier_label": "模型查漏源",
+        "source_tier_rank": 6,
+        "allow_general": true,
+        "allow_featured": false,
+        "allow_radar": true,
+        "reason_codes": [
+          "identified_host",
+          "limited_scope",
+          "not_permitted_for_featured"
+        ]
+      },
+      "source_material": {
+        "title_original": "",
+        "title": "OpenAI 發布 GPT-6.2 Astra 模型",
+        "summary": ""
+      },
+      "qualification": {
+        "scope": "in_scope",
+        "core_evidence": [
+          {
+            "kind": "model_release",
+            "status": "supported",
+            "basis": "editorial_report",
+            "spans": [
+              {
+                "field": "title",
+                "start": 0,
+                "end": 26,
+                "text": "OpenAI 發布 GPT-6.2 Astra 模型"
+              }
+            ],
+            "urls": [
+              "https://llm-stats.com/models/gpt-6.2-astra"
+            ]
+          }
+        ],
+        "reason_codes": []
+      }
+    },
+    {
+      "id": "model_release::gpt-6.2-sol",
+      "kind": "model_release",
+      "category": "model_release",
+      "verification_status": "tracked",
+      "verification_label": "模型追蹤",
+      "title": "OpenAI 發布 GPT-6.2 Sol 模型",
+      "summary": "",
+      "provider": "OpenAI",
+      "product": "GPT-6.2 Sol",
+      "detected_at": "2026-11-17T20:05:35.864958Z",
+      "effective_at": "2026-11-17T00:00:00Z",
+      "source_name": "LLM Stats Model Releases",
+      "source_url": "https://llm-stats.com/models/gpt-6.2-sol",
+      "evidence_url": "https://llm-stats.com/models/gpt-6.2-sol",
+      "ingress": {
+        "kind": "public_adapter",
+        "site_id": "llm_stats_models",
+        "source_id": "llm_stats_models",
+        "name": "LLM Stats Model Releases",
+        "feed_url": null
+      },
+      "publisher": {
+        "schema_version": 1,
+        "publisher_id": "llm_stats",
+        "name": "LLM Stats",
+        "domain": "llm-stats.com",
+        "status": "identified",
+        "basis": [
+          "article_host"
+        ],
+        "evidence": {
+          "rss_source_name": null,
+          "rss_source_url": null,
+          "article_url": "https://llm-stats.com/models/gpt-6.2-sol",
+          "article_host": "llm-stats.com",
+          "expected_publisher_id": null,
+          "conflicts": []
+        }
+      },
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+        "scope_id": "llm_stats",
+        "publisher_kind": "aggregator",
+        "admission_status": "limited",
+        "source_tier": "watchlist",
+        "source_tier_label": "模型查漏源",
+        "source_tier_rank": 6,
+        "allow_general": true,
+        "allow_featured": false,
+        "allow_radar": true,
+        "reason_codes": [
+          "identified_host",
+          "limited_scope",
+          "not_permitted_for_featured"
+        ]
+      },
+      "source_material": {
+        "title_original": "",
+        "title": "OpenAI 發布 GPT-6.2 Sol 模型",
+        "summary": ""
+      },
+      "qualification": {
+        "scope": "in_scope",
+        "core_evidence": [
+          {
+            "kind": "model_release",
+            "status": "supported",
+            "basis": "editorial_report",
+            "spans": [
+              {
+                "field": "title",
+                "start": 0,
+                "end": 24,
+                "text": "OpenAI 發布 GPT-6.2 Sol 模型"
+              }
+            ],
+            "urls": [
+              "https://llm-stats.com/models/gpt-6.2-sol"
+            ]
+          }
+        ],
+        "reason_codes": []
+      }
+    }
+  ],
   "publisher_governance_meta": {
     "schema_version": 2,
     "policy_id": "publisher-governance-v1",
     "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
-    "generated_at": "2026-11-17T19:35:32.119934Z",
-    "brief_generation_id": "bg1_15d66316637df09cba6f4e68",
-    "brief_state_revision": "f8b01d6ef07cdbeb7bb30c1af618033d05c0060e8164b18b35a57d6519674e4d",
-    "generation_id": "pg2_fc22d421c72a26833419d942",
+    "generated_at": "2026-11-17T20:05:35.864958Z",
+    "brief_generation_id": "bg1_7beec6f4969395381a24d86a",
+    "brief_state_revision": "d352fe9a1a82d15d360bd2930d70671b726a73ecd7eaa972abee602496427f6d",
+    "generation_id": "pg2_3a13d031d74aeadabd0ba933",
     "status": "ready",
     "selection_policy": "impact-v3-empty-fallback",
     "default_visible_limit": 5
