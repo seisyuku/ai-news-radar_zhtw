@@ -1,0 +1,78 @@
+{
+  "id": "15ca10fb7962fedcc071aeb57ae56c3a6d6be632",
+  "published_at": "2026-11-17T22:52:29Z",
+  "first_seen_at": "2026-11-17T23:05:42.500184Z",
+  "site_id": "opmlrss",
+  "site_name": "OPML RSS",
+  "source": "Simon Willison",
+  "title": "External sandboxes for coding agents",
+  "url": "https://simonwillison.net/2026/Nov/17/external-sandboxes-for-coding-agents",
+  "last_seen_at": "2026-11-17T23:05:42.500184Z",
+  "summary": "External sandboxes for coding agents I've been exploring new ways to sandbox code that is executed by agents, with a focus on making it safer to try out local models without worrying that a mistake or prompt injection attack might cause them to take damaging actions on a machine. I worked on this project with Prime Radiant , the AI research lab behind Superpowers and other projects . My post on the Prime Radiant blog introduces the external sandbox pattern, where code executed by the agent runs inside a dedicated sandbox while the agent itself lives outside of that sandbox. To demonstrate this pattern we've released three sandbox server implementations: external-sandbox-v86 runs a Node.js server which then uses v86 to run Alpine Linux inside WebAssembly. external-sandbox-container is a Python web server which runs the sandbox in Alpine Linux inside an Apple Containers instance. external-sandbox-quicksand is another Python web server, this time using Microsoft's Quicksand sandboxing library, which bundles QEMU and Alpine Linux in a Python package! Each of these implementations offers the same localhost API. You can then configure Pi, Claude Code, or Codex to send API calls to that sandbox any time they want to execute code. The sandboxes also include an optional HTTP/HTTPS allow-list proxy, so you can control exactly which hosts your agent's code is allowed to communicate with - plus a credential replacement mechanism to make authenticated API calls without sharing a secret with the agent. Here's the UI you can use to reconfigure that proxy while the sandbox is still running",
+  "publisher_links": [
+    "https://blog.primeradiant.com/external-sandboxes-for-coding-agents/",
+    "https://primeradiant.com",
+    "https://github.com/orgs/prime-radiant-inc/repositories",
+    "https://github.com/prime-radiant-inc/external-sandbox-v86",
+    "https://github.com/copy/v86",
+    "https://github.com/prime-radiant-inc/external-sandbox-container",
+    "https://github.com/prime-radiant-inc/external-sandbox-quicksand",
+    "https://github.com/microsoft/quicksand",
+    "https://simonwillison.net/tags/sandboxing",
+    "https://simonwillison.net/tags/security",
+    "https://simonwillison.net/tags/ai",
+    "https://simonwillison.net/tags/webassembly",
+    "https://simonwillison.net/tags/generative-ai",
+    "https://simonwillison.net/tags/llms",
+    "https://simonwillison.net/tags/coding-agents",
+    "https://simonwillison.net/tags/claude-code",
+    "https://simonwillison.net/tags/codex",
+    "https://simonwillison.net/tags/pi"
+  ],
+  "source_updated_at": "2026-11-17T22:52:29Z",
+  "ingress": {
+    "kind": "private_opml",
+    "site_id": "opmlrss",
+    "source_id": null,
+    "name": "RSS/OPML",
+    "feed_url": null
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": null,
+    "name": null,
+    "domain": "simonwillison.net",
+    "status": "unknown",
+    "basis": [],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": null,
+      "article_host": "simonwillison.net",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": true,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "unreviewed",
+    "publisher_kind": "unknown",
+    "admission_status": "unreviewed",
+    "source_tier": "watchlist",
+    "source_tier_label": "未審來源",
+    "source_tier_rank": 6,
+    "allow_general": true,
+    "allow_featured": false,
+    "allow_radar": false,
+    "reason_codes": [
+      "missing_identity",
+      "scope_mismatch",
+      "unreviewed_publisher",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
+    ]
+  }
+}

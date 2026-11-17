@@ -4,45 +4,45 @@
     "phases": {
       "inputs": {
         "state": "completed",
-        "duration_ms": 657
+        "duration_ms": 550
       },
       "collect": {
         "state": "completed",
-        "duration_ms": 24563
+        "duration_ms": 21754
       },
       "sensors": {
         "state": "completed",
-        "duration_ms": 51
+        "duration_ms": 33
       },
       "opml": {
         "state": "completed",
-        "duration_ms": 1413
+        "duration_ms": 1171
       },
       "preparation": {
         "state": "completed",
-        "duration_ms": 2834
+        "duration_ms": 2124
       },
       "translations": {
         "state": "completed",
         "provider_request_count": 1,
-        "duration_ms": 8052
+        "duration_ms": 2669
       },
       "aggregation": {
         "state": "completed",
-        "duration_ms": 1766
+        "duration_ms": 1376
       },
       "summaries": {
         "state": "completed",
         "provider_enabled": true,
-        "duration_ms": 7096
+        "duration_ms": 5958
       },
       "payloads": {
         "state": "completed",
-        "duration_ms": 13015
+        "duration_ms": 9825
       },
       "output": {
         "state": "completed",
-        "duration_ms": 23666
+        "duration_ms": 12515
       }
     },
     "output_excludes": [
@@ -50,14 +50,14 @@
       "resolver_cleanup"
     ]
   },
-  "generated_at": "2026-11-17T22:35:35.148396Z",
+  "generated_at": "2026-11-17T23:05:42.500184Z",
   "sites": [
     {
       "site_id": "official_ai",
       "site_name": "官方更新",
       "ok": true,
       "item_count": 428,
-      "duration_ms": 9200,
+      "duration_ms": 4517,
       "error": null,
       "degraded": true,
       "degraded_reason": "partial_subsource_failure",
@@ -65,16 +65,16 @@
         {
           "source_id": "openai_news",
           "ok": true,
-          "item_count": 132,
+          "item_count": 133,
           "error": null,
-          "duration_ms": 792,
+          "duration_ms": 549,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-11-17T22:35:35.148396Z",
+          "last_success_at": "2026-11-17T23:05:42.500184Z",
           "persistent_failure": false
         },
         {
@@ -82,14 +82,14 @@
           "ok": true,
           "item_count": 18,
           "error": null,
-          "duration_ms": 297,
+          "duration_ms": 182,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-11-17T22:35:35.148396Z",
+          "last_success_at": "2026-11-17T23:05:42.500184Z",
           "persistent_failure": false
         },
         {
@@ -97,14 +97,14 @@
           "ok": true,
           "item_count": 15,
           "error": null,
-          "duration_ms": 354,
+          "duration_ms": 315,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-11-17T22:35:35.148396Z",
+          "last_success_at": "2026-11-17T23:05:42.500184Z",
           "persistent_failure": false
         },
         {
@@ -112,95 +112,35 @@
           "ok": true,
           "item_count": 20,
           "error": null,
-          "duration_ms": 101,
+          "duration_ms": 80,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-11-17T22:35:35.148396Z",
+          "last_success_at": "2026-11-17T23:05:42.500184Z",
           "persistent_failure": false
         },
         {
           "source_id": "hugging_face_blog",
           "ok": true,
-          "item_count": 38,
+          "item_count": 37,
           "error": null,
-          "duration_ms": 394,
+          "duration_ms": 320,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-10-14T04:44:41.283260Z",
-          "last_success_at": "2026-11-17T22:35:35.148396Z",
+          "last_success_at": "2026-11-17T23:05:42.500184Z",
           "persistent_failure": false
         },
         {
           "source_id": "github_ai_ml",
           "ok": true,
           "item_count": 8,
-          "error": null,
-          "duration_ms": 318,
-          "skipped": false,
-          "attempted": true,
-          "last_attempt_ok": true,
-          "consecutive_failures": 0,
-          "first_failure_at": null,
-          "last_failure_at": null,
-          "last_success_at": "2026-11-17T22:35:35.148396Z",
-          "persistent_failure": false
-        },
-        {
-          "source_id": "github_changelog",
-          "ok": true,
-          "item_count": 10,
-          "error": null,
-          "duration_ms": 43,
-          "skipped": false,
-          "attempted": true,
-          "last_attempt_ok": true,
-          "consecutive_failures": 0,
-          "first_failure_at": null,
-          "last_failure_at": null,
-          "last_success_at": "2026-11-17T22:35:35.148396Z",
-          "persistent_failure": false
-        },
-        {
-          "source_id": "openai_skills",
-          "ok": true,
-          "item_count": 0,
-          "error": null,
-          "duration_ms": 2819,
-          "skipped": false,
-          "attempted": true,
-          "last_attempt_ok": true,
-          "consecutive_failures": 0,
-          "first_failure_at": null,
-          "last_failure_at": "2026-11-09T06:05:29.515215Z",
-          "last_success_at": "2026-11-17T22:35:35.148396Z",
-          "persistent_failure": false
-        },
-        {
-          "source_id": "thinking_machines_lab",
-          "ok": false,
-          "item_count": 0,
-          "error": "fetch_failed",
-          "duration_ms": 276,
-          "skipped": false,
-          "attempted": true,
-          "last_attempt_ok": false,
-          "consecutive_failures": 209,
-          "first_failure_at": "2026-11-13T15:35:32.961573Z",
-          "last_failure_at": "2026-11-17T22:35:35.148396Z",
-          "last_success_at": "2026-11-13T15:05:32.646436Z",
-          "persistent_failure": true
-        },
-        {
-          "source_id": "nvidia_blog",
-          "ok": true,
-          "item_count": 18,
           "error": null,
           "duration_ms": 218,
           "skipped": false,
@@ -209,7 +149,67 @@
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-11-17T22:35:35.148396Z",
+          "last_success_at": "2026-11-17T23:05:42.500184Z",
+          "persistent_failure": false
+        },
+        {
+          "source_id": "github_changelog",
+          "ok": true,
+          "item_count": 10,
+          "error": null,
+          "duration_ms": 32,
+          "skipped": false,
+          "attempted": true,
+          "last_attempt_ok": true,
+          "consecutive_failures": 0,
+          "first_failure_at": null,
+          "last_failure_at": null,
+          "last_success_at": "2026-11-17T23:05:42.500184Z",
+          "persistent_failure": false
+        },
+        {
+          "source_id": "openai_skills",
+          "ok": true,
+          "item_count": 0,
+          "error": null,
+          "duration_ms": 247,
+          "skipped": false,
+          "attempted": true,
+          "last_attempt_ok": true,
+          "consecutive_failures": 0,
+          "first_failure_at": null,
+          "last_failure_at": "2026-11-09T06:05:29.515215Z",
+          "last_success_at": "2026-11-17T23:05:42.500184Z",
+          "persistent_failure": false
+        },
+        {
+          "source_id": "thinking_machines_lab",
+          "ok": false,
+          "item_count": 0,
+          "error": "fetch_failed",
+          "duration_ms": 145,
+          "skipped": false,
+          "attempted": true,
+          "last_attempt_ok": false,
+          "consecutive_failures": 210,
+          "first_failure_at": "2026-11-13T15:35:32.961573Z",
+          "last_failure_at": "2026-11-17T23:05:42.500184Z",
+          "last_success_at": "2026-11-13T15:05:32.646436Z",
+          "persistent_failure": true
+        },
+        {
+          "source_id": "nvidia_blog",
+          "ok": true,
+          "item_count": 18,
+          "error": null,
+          "duration_ms": 127,
+          "skipped": false,
+          "attempted": true,
+          "last_attempt_ok": true,
+          "consecutive_failures": 0,
+          "first_failure_at": null,
+          "last_failure_at": null,
+          "last_success_at": "2026-11-17T23:05:42.500184Z",
           "persistent_failure": false
         },
         {
@@ -217,14 +217,14 @@
           "ok": true,
           "item_count": 9,
           "error": null,
-          "duration_ms": 201,
+          "duration_ms": 92,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-11-17T22:35:35.148396Z",
+          "last_success_at": "2026-11-17T23:05:42.500184Z",
           "persistent_failure": false
         },
         {
@@ -232,14 +232,14 @@
           "ok": true,
           "item_count": 100,
           "error": null,
-          "duration_ms": 339,
+          "duration_ms": 213,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-11-17T22:35:35.148396Z",
+          "last_success_at": "2026-11-17T23:05:42.500184Z",
           "persistent_failure": false
         },
         {
@@ -247,14 +247,14 @@
           "ok": true,
           "item_count": 10,
           "error": null,
-          "duration_ms": 314,
+          "duration_ms": 231,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-11-16T20:05:40.979559Z",
-          "last_success_at": "2026-11-17T22:35:35.148396Z",
+          "last_success_at": "2026-11-17T23:05:42.500184Z",
           "persistent_failure": false
         },
         {
@@ -262,14 +262,14 @@
           "ok": true,
           "item_count": 2,
           "error": null,
-          "duration_ms": 447,
+          "duration_ms": 282,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-10-27T18:05:39.870087Z",
-          "last_success_at": "2026-11-17T22:35:35.148396Z",
+          "last_success_at": "2026-11-17T23:05:42.500184Z",
           "persistent_failure": false
         },
         {
@@ -277,14 +277,14 @@
           "ok": true,
           "item_count": 13,
           "error": null,
-          "duration_ms": 879,
+          "duration_ms": 530,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-11-07T13:05:35.748058Z",
-          "last_success_at": "2026-11-17T22:35:35.148396Z",
+          "last_success_at": "2026-11-17T23:05:42.500184Z",
           "persistent_failure": false
         },
         {
@@ -292,14 +292,14 @@
           "ok": true,
           "item_count": 35,
           "error": null,
-          "duration_ms": 1326,
+          "duration_ms": 907,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-11-17T22:35:35.148396Z",
+          "last_success_at": "2026-11-17T23:05:42.500184Z",
           "persistent_failure": false
         },
         {
@@ -307,13 +307,13 @@
           "ok": false,
           "item_count": 0,
           "error": "invalid_source",
-          "duration_ms": 83,
+          "duration_ms": 48,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": false,
-          "consecutive_failures": 591,
+          "consecutive_failures": 592,
           "first_failure_at": "2026-11-05T19:35:34.697509Z",
-          "last_failure_at": "2026-11-17T22:35:35.148396Z",
+          "last_failure_at": "2026-11-17T23:05:42.500184Z",
           "last_success_at": "2026-11-05T19:03:56.963166Z",
           "persistent_failure": true
         }
@@ -322,7 +322,7 @@
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": null,
-      "last_success_at": "2026-11-17T22:35:35.148396Z",
+      "last_success_at": "2026-11-17T23:05:42.500184Z",
       "persistent_failure": false
     },
     {
@@ -330,13 +330,13 @@
       "site_name": "Mistral News",
       "ok": true,
       "item_count": 6,
-      "duration_ms": 180,
+      "duration_ms": 131,
       "error": null,
       "last_attempt_ok": true,
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": null,
-      "last_success_at": "2026-11-17T22:35:35.148396Z",
+      "last_success_at": "2026-11-17T23:05:42.500184Z",
       "persistent_failure": false
     },
     {
@@ -344,13 +344,13 @@
       "site_name": "MCP Blog",
       "ok": true,
       "item_count": 2,
-      "duration_ms": 457,
+      "duration_ms": 357,
       "error": null,
       "last_attempt_ok": true,
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": null,
-      "last_success_at": "2026-11-17T22:35:35.148396Z",
+      "last_success_at": "2026-11-17T23:05:42.500184Z",
       "persistent_failure": false
     },
     {
@@ -358,38 +358,38 @@
       "site_name": "ARC Prize",
       "ok": true,
       "item_count": 0,
-      "duration_ms": 210,
+      "duration_ms": 158,
       "error": null,
       "last_attempt_ok": true,
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": null,
-      "last_success_at": "2026-11-17T22:35:35.148396Z",
+      "last_success_at": "2026-11-17T23:05:42.500184Z",
       "persistent_failure": false
     },
     {
       "site_id": "curated_media",
       "site_name": "精選媒體",
       "ok": true,
-      "item_count": 77,
-      "duration_ms": 4171,
+      "item_count": 83,
+      "duration_ms": 3459,
       "error": null,
-      "degraded": true,
-      "degraded_reason": "partial_subsource_failure",
+      "degraded": false,
+      "degraded_reason": null,
       "subsources": [
         {
           "source_id": "the_decoder",
           "ok": true,
           "item_count": 10,
           "error": null,
-          "duration_ms": 1261,
+          "duration_ms": 1236,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-10-20T11:05:28.474205Z",
-          "last_success_at": "2026-11-17T22:35:35.148396Z",
+          "last_success_at": "2026-11-17T23:05:42.500184Z",
           "persistent_failure": false
         },
         {
@@ -397,14 +397,14 @@
           "ok": true,
           "item_count": 8,
           "error": null,
-          "duration_ms": 126,
+          "duration_ms": 50,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-11-17T22:35:35.148396Z",
+          "last_success_at": "2026-11-17T23:05:42.500184Z",
           "persistent_failure": false
         },
         {
@@ -412,29 +412,29 @@
           "ok": true,
           "item_count": 1,
           "error": null,
-          "duration_ms": 117,
+          "duration_ms": 42,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-11-17T22:35:35.148396Z",
+          "last_success_at": "2026-11-17T23:05:42.500184Z",
           "persistent_failure": false
         },
         {
           "source_id": "marktechpost",
-          "ok": false,
-          "item_count": 0,
-          "error": "fetch_failed",
-          "duration_ms": 472,
+          "ok": true,
+          "item_count": 6,
+          "error": null,
+          "duration_ms": 125,
           "skipped": false,
           "attempted": true,
-          "last_attempt_ok": false,
-          "consecutive_failures": 1,
-          "first_failure_at": "2026-11-17T22:35:35.148396Z",
+          "last_attempt_ok": true,
+          "consecutive_failures": 0,
+          "first_failure_at": null,
           "last_failure_at": "2026-11-17T22:35:35.148396Z",
-          "last_success_at": "2026-11-17T22:05:31.546319Z",
+          "last_success_at": "2026-11-17T23:05:42.500184Z",
           "persistent_failure": false
         },
         {
@@ -442,14 +442,14 @@
           "ok": true,
           "item_count": 6,
           "error": null,
-          "duration_ms": 70,
+          "duration_ms": 111,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-11-17T22:35:35.148396Z",
+          "last_success_at": "2026-11-17T23:05:42.500184Z",
           "persistent_failure": false
         },
         {
@@ -457,14 +457,14 @@
           "ok": true,
           "item_count": 10,
           "error": null,
-          "duration_ms": 531,
+          "duration_ms": 443,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-11-16T20:05:40.979559Z",
-          "last_success_at": "2026-11-17T22:35:35.148396Z",
+          "last_success_at": "2026-11-17T23:05:42.500184Z",
           "persistent_failure": false
         },
         {
@@ -472,14 +472,14 @@
           "ok": true,
           "item_count": 10,
           "error": null,
-          "duration_ms": 345,
+          "duration_ms": 342,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-11-16T20:05:40.979559Z",
-          "last_success_at": "2026-11-17T22:35:35.148396Z",
+          "last_success_at": "2026-11-17T23:05:42.500184Z",
           "persistent_failure": false
         },
         {
@@ -487,18 +487,48 @@
           "ok": true,
           "item_count": 8,
           "error": null,
-          "duration_ms": 366,
+          "duration_ms": 324,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-11-16T20:05:40.979559Z",
-          "last_success_at": "2026-11-17T22:35:35.148396Z",
+          "last_success_at": "2026-11-17T23:05:42.500184Z",
           "persistent_failure": false
         },
         {
           "source_id": "deepseek_news",
+          "ok": true,
+          "item_count": 8,
+          "error": null,
+          "duration_ms": 230,
+          "skipped": false,
+          "attempted": true,
+          "last_attempt_ok": true,
+          "consecutive_failures": 0,
+          "first_failure_at": null,
+          "last_failure_at": "2026-11-16T20:05:40.979559Z",
+          "last_success_at": "2026-11-17T23:05:42.500184Z",
+          "persistent_failure": false
+        },
+        {
+          "source_id": "xai_grok_news",
+          "ok": true,
+          "item_count": 8,
+          "error": null,
+          "duration_ms": 283,
+          "skipped": false,
+          "attempted": true,
+          "last_attempt_ok": true,
+          "consecutive_failures": 0,
+          "first_failure_at": null,
+          "last_failure_at": "2026-11-17T06:35:34.212359Z",
+          "last_success_at": "2026-11-17T23:05:42.500184Z",
+          "persistent_failure": false
+        },
+        {
+          "source_id": "epoch_ai_news",
           "ok": true,
           "item_count": 8,
           "error": null,
@@ -509,37 +539,7 @@
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-11-16T20:05:40.979559Z",
-          "last_success_at": "2026-11-17T22:35:35.148396Z",
-          "persistent_failure": false
-        },
-        {
-          "source_id": "xai_grok_news",
-          "ok": true,
-          "item_count": 8,
-          "error": null,
-          "duration_ms": 339,
-          "skipped": false,
-          "attempted": true,
-          "last_attempt_ok": true,
-          "consecutive_failures": 0,
-          "first_failure_at": null,
-          "last_failure_at": "2026-11-17T06:35:34.212359Z",
-          "last_success_at": "2026-11-17T22:35:35.148396Z",
-          "persistent_failure": false
-        },
-        {
-          "source_id": "epoch_ai_news",
-          "ok": true,
-          "item_count": 8,
-          "error": null,
-          "duration_ms": 271,
-          "skipped": false,
-          "attempted": true,
-          "last_attempt_ok": true,
-          "consecutive_failures": 0,
-          "first_failure_at": null,
-          "last_failure_at": "2026-11-16T20:05:40.979559Z",
-          "last_success_at": "2026-11-17T22:35:35.148396Z",
+          "last_success_at": "2026-11-17T23:05:42.500184Z",
           "persistent_failure": false
         }
       ],
@@ -547,7 +547,7 @@
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": null,
-      "last_success_at": "2026-11-17T22:35:35.148396Z",
+      "last_success_at": "2026-11-17T23:05:42.500184Z",
       "persistent_failure": false
     },
     {
@@ -555,13 +555,13 @@
       "site_name": "LLM Stats 模型查漏",
       "ok": true,
       "item_count": 5,
-      "duration_ms": 1570,
+      "duration_ms": 5275,
       "error": null,
       "last_attempt_ok": true,
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": "2026-11-14T17:35:37.430493Z",
-      "last_success_at": "2026-11-17T22:35:35.148396Z",
+      "last_success_at": "2026-11-17T23:05:42.500184Z",
       "persistent_failure": false
     },
     {
@@ -569,13 +569,13 @@
       "site_name": "LLM Rumors 模型分析",
       "ok": true,
       "item_count": 6,
-      "duration_ms": 902,
+      "duration_ms": 129,
       "error": null,
       "last_attempt_ok": true,
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": null,
-      "last_success_at": "2026-11-17T22:35:35.148396Z",
+      "last_success_at": "2026-11-17T23:05:42.500184Z",
       "persistent_failure": false
     },
     {
@@ -583,13 +583,13 @@
       "site_name": "RuntimeWire AI媒體",
       "ok": true,
       "item_count": 6,
-      "duration_ms": 287,
+      "duration_ms": 789,
       "error": null,
       "last_attempt_ok": true,
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": "2026-11-14T06:05:42.906865Z",
-      "last_success_at": "2026-11-17T22:35:35.148396Z",
+      "last_success_at": "2026-11-17T23:05:42.500184Z",
       "persistent_failure": false
     },
     {
@@ -597,7 +597,7 @@
       "site_name": "AIBASE",
       "ok": true,
       "item_count": 22,
-      "duration_ms": 2727,
+      "duration_ms": 2498,
       "error": null,
       "language_status": {
         "tw": {
@@ -619,7 +619,7 @@
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": "2026-11-02T05:35:38.072013Z",
-      "last_success_at": "2026-11-17T22:35:35.148396Z",
+      "last_success_at": "2026-11-17T23:05:42.500184Z",
       "persistent_failure": false
     },
     {
@@ -627,7 +627,7 @@
       "site_name": "台灣媒體",
       "ok": true,
       "item_count": 53,
-      "duration_ms": 3977,
+      "duration_ms": 3770,
       "error": null,
       "degraded": false,
       "degraded_reason": null,
@@ -637,14 +637,14 @@
           "ok": true,
           "item_count": 8,
           "error": null,
-          "duration_ms": 368,
+          "duration_ms": 148,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-11-17T22:35:35.148396Z",
+          "last_success_at": "2026-11-17T23:05:42.500184Z",
           "persistent_failure": false
         },
         {
@@ -652,14 +652,14 @@
           "ok": true,
           "item_count": 7,
           "error": null,
-          "duration_ms": 251,
+          "duration_ms": 148,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-11-17T22:35:35.148396Z",
+          "last_success_at": "2026-11-17T23:05:42.500184Z",
           "persistent_failure": false
         },
         {
@@ -667,14 +667,14 @@
           "ok": true,
           "item_count": 8,
           "error": null,
-          "duration_ms": 807,
+          "duration_ms": 593,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-11-17T22:35:35.148396Z",
+          "last_success_at": "2026-11-17T23:05:42.500184Z",
           "persistent_failure": false
         },
         {
@@ -682,14 +682,14 @@
           "ok": true,
           "item_count": 8,
           "error": null,
-          "duration_ms": 472,
+          "duration_ms": 689,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-11-17T16:05:33.598722Z",
-          "last_success_at": "2026-11-17T22:35:35.148396Z",
+          "last_success_at": "2026-11-17T23:05:42.500184Z",
           "persistent_failure": false
         },
         {
@@ -697,14 +697,14 @@
           "ok": true,
           "item_count": 8,
           "error": null,
-          "duration_ms": 417,
+          "duration_ms": 365,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-11-16T20:05:40.979559Z",
-          "last_success_at": "2026-11-17T22:35:35.148396Z",
+          "last_success_at": "2026-11-17T23:05:42.500184Z",
           "persistent_failure": false
         },
         {
@@ -712,14 +712,14 @@
           "ok": true,
           "item_count": 8,
           "error": null,
-          "duration_ms": 650,
+          "duration_ms": 1020,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-11-17T22:35:35.148396Z",
+          "last_success_at": "2026-11-17T23:05:42.500184Z",
           "persistent_failure": false
         },
         {
@@ -727,14 +727,14 @@
           "ok": true,
           "item_count": 6,
           "error": null,
-          "duration_ms": 1013,
+          "duration_ms": 806,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-11-17T00:31:00.045000Z",
-          "last_success_at": "2026-11-17T22:35:35.148396Z",
+          "last_success_at": "2026-11-17T23:05:42.500184Z",
           "persistent_failure": false
         }
       ],
@@ -742,7 +742,7 @@
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": null,
-      "last_success_at": "2026-11-17T22:35:35.148396Z",
+      "last_success_at": "2026-11-17T23:05:42.500184Z",
       "persistent_failure": false
     },
     {
@@ -750,7 +750,7 @@
       "site_name": "36Kr AI (Watchlist)",
       "ok": true,
       "item_count": 5,
-      "duration_ms": 444,
+      "duration_ms": 363,
       "error": null,
       "fetch_path": "google_news",
       "degraded": false,
@@ -758,7 +758,7 @@
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": "2026-11-17T03:05:39.414512Z",
-      "last_success_at": "2026-11-17T22:35:35.148396Z",
+      "last_success_at": "2026-11-17T23:05:42.500184Z",
       "persistent_failure": false
     },
     {
@@ -766,13 +766,13 @@
       "site_name": "橘鴉AI早報 (Watchlist)",
       "ok": true,
       "item_count": 5,
-      "duration_ms": 433,
+      "duration_ms": 303,
       "error": null,
       "last_attempt_ok": true,
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": "2026-10-14T16:05:44.503854Z",
-      "last_success_at": "2026-11-17T22:35:35.148396Z",
+      "last_success_at": "2026-11-17T23:05:42.500184Z",
       "persistent_failure": false
     },
     {
@@ -781,13 +781,13 @@
       "ok": true,
       "item_count": 64,
       "signal_count": 0,
-      "duration_ms": 50,
+      "duration_ms": 32,
       "error": null,
       "last_attempt_ok": true,
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": "2026-10-15T06:35:47.527651Z",
-      "last_success_at": "2026-11-17T22:35:35.148396Z",
+      "last_success_at": "2026-11-17T23:05:42.500184Z",
       "persistent_failure": false
     },
     {
@@ -795,8 +795,8 @@
       "site_name": "OPML",
       "ok": true,
       "partial_failures": 0,
-      "item_count": 2653,
-      "duration_ms": 7073,
+      "item_count": 2654,
+      "duration_ms": 4378,
       "error": null,
       "feed_count": 10,
       "effective_feed_count": 10,
@@ -808,15 +808,14 @@
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": null,
-      "last_success_at": "2026-11-17T22:35:35.148396Z",
+      "last_success_at": "2026-11-17T23:05:42.500184Z",
       "persistent_failure": false
     }
   ],
   "successful_sites": 14,
   "failed_sites": [],
   "degraded_sites": [
-    "official_ai",
-    "curated_media"
+    "official_ai"
   ],
   "persistent_failure_threshold": 3,
   "persistent_failures": [
@@ -824,9 +823,9 @@
       "site_id": "official_ai",
       "site_name": "官方更新",
       "source_id": "thinking_machines_lab",
-      "consecutive_failures": 209,
+      "consecutive_failures": 210,
       "first_failure_at": "2026-11-13T15:35:32.961573Z",
-      "last_failure_at": "2026-11-17T22:35:35.148396Z",
+      "last_failure_at": "2026-11-17T23:05:42.500184Z",
       "last_success_at": "2026-11-13T15:05:32.646436Z",
       "error": "fetch_failed"
     },
@@ -834,9 +833,9 @@
       "site_id": "official_ai",
       "site_name": "官方更新",
       "source_id": "claude_product_announcements",
-      "consecutive_failures": 591,
+      "consecutive_failures": 592,
       "first_failure_at": "2026-11-05T19:35:34.697509Z",
-      "last_failure_at": "2026-11-17T22:35:35.148396Z",
+      "last_failure_at": "2026-11-17T23:05:42.500184Z",
       "last_success_at": "2026-11-05T19:03:56.963166Z",
       "error": "invalid_source"
     }
@@ -844,23 +843,23 @@
   "zero_item_sites": [
     "arc_prize"
   ],
-  "fetched_raw_items": 3268,
-  "items_before_topic_filter": 259,
-  "items_in_24h": 206,
+  "fetched_raw_items": 3275,
+  "items_before_topic_filter": 268,
+  "items_in_24h": 214,
   "translations": {
     "enabled": true,
     "primary_provider": "gemini",
     "model": "gemini-3.5-flash-lite",
-    "candidate_count": 4,
+    "candidate_count": 12,
     "request_count": 1,
-    "translated_count": 4,
-    "failed_count": 0,
+    "translated_count": 0,
+    "failed_count": 12,
     "negative_cache_hits": 1,
     "request_timeout_seconds": 45,
     "total_budget_seconds": 120,
     "max_requests": 6,
-    "provider_used": "gemini",
-    "cache_hits": 188,
+    "last_error_type": "http_error",
+    "cache_hits": 190,
     "candidate_limit": 80
   },
   "rss_opml": {
@@ -882,7 +881,7 @@
         "effective_feed_url": "https://blog.google/technology/ai/rss/",
         "ok": true,
         "item_count": 20,
-        "duration_ms": 335,
+        "duration_ms": 215,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -897,7 +896,7 @@
         "effective_feed_url": "https://deepmind.google/blog/rss.xml",
         "ok": true,
         "item_count": 100,
-        "duration_ms": 149,
+        "duration_ms": 93,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -912,7 +911,7 @@
         "effective_feed_url": "https://huggingface.co/blog/feed.xml",
         "ok": true,
         "item_count": 908,
-        "duration_ms": 784,
+        "duration_ms": 423,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -927,7 +926,7 @@
         "effective_feed_url": "https://www.infoq.cn/feed",
         "ok": true,
         "item_count": 20,
-        "duration_ms": 1403,
+        "duration_ms": 1164,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -942,7 +941,7 @@
         "effective_feed_url": "https://news.microsoft.com/source/topics/ai/feed/",
         "ok": true,
         "item_count": 10,
-        "duration_ms": 341,
+        "duration_ms": 115,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -957,7 +956,7 @@
         "effective_feed_url": "https://developer.nvidia.com/blog/category/generative-ai/feed/",
         "ok": true,
         "item_count": 100,
-        "duration_ms": 792,
+        "duration_ms": 536,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -971,8 +970,8 @@
         "feed_url": "https://openai.com/news/rss.xml",
         "effective_feed_url": "https://openai.com/news/rss.xml",
         "ok": true,
-        "item_count": 1405,
-        "duration_ms": 1392,
+        "item_count": 1406,
+        "duration_ms": 982,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -987,7 +986,7 @@
         "effective_feed_url": "https://simonwillison.net/atom/everything/",
         "ok": true,
         "item_count": 30,
-        "duration_ms": 648,
+        "duration_ms": 197,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -1002,7 +1001,7 @@
         "effective_feed_url": "https://www.wired.com/feed/tag/ai/latest/rss",
         "ok": true,
         "item_count": 10,
-        "duration_ms": 156,
+        "duration_ms": 97,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -1017,7 +1016,7 @@
         "effective_feed_url": "https://baoyu.io/feed.xml",
         "ok": true,
         "item_count": 50,
-        "duration_ms": 1073,
+        "duration_ms": 556,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -1031,11 +1030,13 @@
     "model": "qwen/qwen3.8-27b",
     "enabled": true,
     "cache_hits": 25,
-    "generated": 0,
-    "failed": 0,
-    "rejection_cache_hits": 1,
+    "generated": 1,
+    "failed": 2,
+    "rejection_cache_hits": 0,
     "ineligible": 36,
-    "max_new": 6
+    "max_new": 6,
+    "last_error_type": "ValueError",
+    "last_error_detail": "validation_numeric_grounding"
   },
   "reader_excerpts": {
     "attempted": 0,
@@ -1050,7 +1051,7 @@
     "already_archived": 0,
     "failed": 0,
     "reason_counts": {},
-    "generated_at": "2026-11-17T22:35:35.148396Z"
+    "generated_at": "2026-11-17T23:05:42.500184Z"
   },
   "evidence_policy": {
     "version": "official-text-v1",
@@ -1065,21 +1066,21 @@
   "brief_events": {
     "recovery_mode": "none",
     "errors": [],
-    "candidate_article_count": 209,
-    "root_count": 207,
+    "candidate_article_count": 217,
+    "root_count": 215,
     "expired_count": 5,
     "context_attachment_count": 0,
-    "unresolved_count": 7992,
-    "state_bytes": 3393423,
+    "unresolved_count": 8001,
+    "state_bytes": 3400981,
     "capacity_warning": false
   },
   "brief_selection": {
-    "candidate_count": 207,
+    "candidate_count": 215,
     "eligible_count": 4,
     "selected_count": 4,
-    "below_gate_count": 203,
+    "below_gate_count": 211,
     "diversity_or_limit_count": 0,
-    "max_score": 0.7363,
+    "max_score": 0.7297,
     "max_source_count": 1,
     "score_gate": null,
     "empty_reason": null,
@@ -1090,31 +1091,31 @@
   },
   "news_quality": {
     "schema_version": 1,
-    "generated_at": "2026-11-17T22:35:35.148396Z",
+    "generated_at": "2026-11-17T23:05:42.500184Z",
     "counts": {
-      "fetched_raw_records": 3268,
-      "window_raw_records": 279,
-      "current_records": 262,
-      "unique_articles": 256,
-      "public_raw_pool_articles": 240,
-      "ai_pool_articles": 206,
-      "events": 207,
+      "fetched_raw_records": 3275,
+      "window_raw_records": 288,
+      "current_records": 271,
+      "unique_articles": 264,
+      "public_raw_pool_articles": 248,
+      "ai_pool_articles": 214,
+      "events": 215,
       "selected_events": 4,
-      "same_url_version_groups": 17,
+      "same_url_version_groups": 18,
       "superseded_records": 17,
       "summary_missing": 3,
       "summary_stale_preview": 0,
       "summary_stale_preview_visible": 0,
       "summary_placeholder": 0,
-      "events_single_publisher": 177,
-      "events_without_identified_publisher": 29,
+      "events_single_publisher": 180,
+      "events_without_identified_publisher": 34,
       "duplicate_event_id_count": 0,
       "articles_in_multiple_active_events": 0,
-      "high_impact_review_leads": 20
+      "high_impact_review_leads": 21
     },
     "event_generation_status": "ready",
     "source_health": {
-      "generated_at": "2026-11-17T22:35:35.148396Z",
+      "generated_at": "2026-11-17T23:05:42.500184Z",
       "scope": "top_level_source_groups",
       "success_rate": 1.0,
       "sources": [
@@ -1124,7 +1125,7 @@
           "item_count": 428,
           "error": null,
           "latest_published_at": "2026-11-17T21:00:00Z",
-          "latest_observed_at": "2026-11-17T22:35:35.148396Z",
+          "latest_observed_at": "2026-11-17T23:05:42.500184Z",
           "observation_age_seconds": 0
         },
         {
@@ -1157,10 +1158,10 @@
         {
           "site_id": "curated_media",
           "ok": true,
-          "item_count": 77,
+          "item_count": 83,
           "error": null,
-          "latest_published_at": "2026-11-17T22:29:05Z",
-          "latest_observed_at": "2026-11-17T22:35:35.148396Z",
+          "latest_published_at": "2026-11-17T23:04:35Z",
+          "latest_observed_at": "2026-11-17T23:05:42.500184Z",
           "observation_age_seconds": 0
         },
         {
@@ -1169,7 +1170,7 @@
           "item_count": 5,
           "error": null,
           "latest_published_at": "2026-11-17T00:00:00Z",
-          "latest_observed_at": "2026-11-17T22:35:35.148396Z",
+          "latest_observed_at": "2026-11-17T23:05:42.500184Z",
           "observation_age_seconds": 0
         },
         {
@@ -1178,7 +1179,7 @@
           "item_count": 6,
           "error": null,
           "latest_published_at": "2026-11-09T00:00:00Z",
-          "latest_observed_at": "2026-11-17T22:35:35.148396Z",
+          "latest_observed_at": "2026-11-17T23:05:42.500184Z",
           "observation_age_seconds": 0
         },
         {
@@ -1187,7 +1188,7 @@
           "item_count": 6,
           "error": null,
           "latest_published_at": "2026-11-17T21:29:56Z",
-          "latest_observed_at": "2026-11-17T22:35:35.148396Z",
+          "latest_observed_at": "2026-11-17T23:05:42.500184Z",
           "observation_age_seconds": 0
         },
         {
@@ -1204,8 +1205,8 @@
           "ok": true,
           "item_count": 53,
           "error": null,
-          "latest_published_at": "2026-11-17T22:20:58Z",
-          "latest_observed_at": "2026-11-17T22:35:35.148396Z",
+          "latest_published_at": "2026-11-17T22:50:03Z",
+          "latest_observed_at": "2026-11-17T23:05:42.500184Z",
           "observation_age_seconds": 0
         },
         {
@@ -1214,7 +1215,7 @@
           "item_count": 5,
           "error": null,
           "latest_published_at": "2026-11-17T13:38:01Z",
-          "latest_observed_at": "2026-11-17T22:35:35.148396Z",
+          "latest_observed_at": "2026-11-17T23:05:42.500184Z",
           "observation_age_seconds": 0
         },
         {
@@ -1223,7 +1224,7 @@
           "item_count": 5,
           "error": null,
           "latest_published_at": "2026-11-17T00:47:27Z",
-          "latest_observed_at": "2026-11-17T22:35:35.148396Z",
+          "latest_observed_at": "2026-11-17T23:05:42.500184Z",
           "observation_age_seconds": 0
         },
         {
@@ -1238,41 +1239,22 @@
         {
           "site_id": "opmlrss",
           "ok": true,
-          "item_count": 2653,
+          "item_count": 2654,
           "error": null,
-          "latest_published_at": "2026-11-17T22:19:19Z",
-          "latest_observed_at": "2026-11-17T22:35:35.148396Z",
+          "latest_published_at": "2026-11-17T22:52:29Z",
+          "latest_observed_at": "2026-11-17T23:05:42.500184Z",
           "observation_age_seconds": 0
         }
       ]
     },
     "articles": [
       {
-        "article_id": "419923a5f64cd0ec7c65273350c08853b0820182",
-        "url": "https://blogs.nvidia.com/blog/dgx-spark-hpc-developer-kit-sc26",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-16T23:35:34.983450Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": false,
-        "superseded_by": null,
-        "event_ids": [],
-        "aggregation_status": "not_in_event_projection",
-        "reason_codes": [
-          "ai_relevance_below_floor",
-          "missing_meaningful_ai_signal",
-          "no_core_event"
-        ]
-      },
-      {
         "article_id": "50a7b121b6371f04ef56e9b818409ef403bdbb40",
         "url": "https://simonwillison.net/2026/Nov/16/llm",
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T00:31:00.045000Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1291,7 +1273,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T01:05:45.163462Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1310,7 +1292,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T01:05:45.163462Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1329,7 +1311,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T01:05:45.163462Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1348,7 +1330,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T01:05:45.163462Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": false,
         "in_ai_pool": false,
@@ -1371,7 +1353,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T01:35:39.951175Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1391,7 +1373,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T01:35:39.951175Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1410,7 +1392,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T01:35:39.951175Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1429,7 +1411,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T02:05:48.334959Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1448,7 +1430,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T02:05:48.334959Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": false,
@@ -1467,7 +1449,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T02:35:48.671851Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1486,7 +1468,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T02:35:48.671851Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1505,7 +1487,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T02:35:48.671851Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1524,7 +1506,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T02:35:48.671851Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1543,7 +1525,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T02:35:48.671851Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1562,7 +1544,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T03:05:39.414512Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1581,7 +1563,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T03:05:39.414512Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1600,7 +1582,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T03:05:39.414512Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": false,
@@ -1619,7 +1601,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T03:05:39.414512Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": false,
@@ -1638,7 +1620,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T03:32:05.375528Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1657,7 +1639,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T03:32:05.375528Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1676,7 +1658,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T03:32:05.375528Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1695,7 +1677,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T03:32:05.375528Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1714,7 +1696,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T04:05:39.662380Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1733,7 +1715,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T04:05:39.662380Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1752,7 +1734,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T04:05:39.662380Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1771,7 +1753,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T04:05:39.662380Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": false,
@@ -1790,7 +1772,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T04:35:41.980289Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1809,7 +1791,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T04:35:41.980289Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1828,7 +1810,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T05:05:40.266328Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": false,
@@ -1847,7 +1829,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T05:05:40.266328Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1866,7 +1848,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T05:35:33.079116Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1885,7 +1867,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T06:05:37.510881Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1904,7 +1886,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T06:05:37.510881Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1923,7 +1905,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T06:35:34.212359Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1942,7 +1924,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T06:35:34.212359Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1961,7 +1943,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T06:35:34.212359Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": false,
@@ -1980,7 +1962,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T07:05:30.285219Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1999,7 +1981,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T07:05:30.285219Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2018,7 +2000,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T07:05:30.285219Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": false,
@@ -2037,7 +2019,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T07:35:41.026289Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2056,7 +2038,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T07:35:41.026289Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2075,7 +2057,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T07:35:41.026289Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2094,7 +2076,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T07:35:41.026289Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2113,7 +2095,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T07:35:41.026289Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": false,
         "in_ai_pool": false,
@@ -2133,7 +2115,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T07:35:41.026289Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2152,7 +2134,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T08:05:46.689685Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2171,7 +2153,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T08:05:46.689685Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2190,7 +2172,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T08:05:46.689685Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2209,7 +2191,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T08:05:46.689685Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2228,7 +2210,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T08:05:46.689685Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": false,
@@ -2247,7 +2229,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T09:05:49.822318Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2266,7 +2248,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T09:05:49.822318Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2285,7 +2267,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T09:05:49.822318Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2304,7 +2286,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T09:05:49.822318Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2323,7 +2305,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T09:05:49.822318Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2342,7 +2324,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T09:35:50.939727Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": false,
@@ -2355,31 +2337,12 @@
         ]
       },
       {
-        "article_id": "50f05dbe83e377cb433fcc5d95fb674f3c66fb7e",
-        "url": "https://www.marktechpost.com/2026/11/17/liquid-ai-d1-2-omnimodal-decision-models",
-        "fetch_observed": false,
-        "archived": true,
-        "first_seen_at": "2026-11-17T09:35:50.939727Z",
-        "last_seen_at": "2026-11-17T22:05:31.546319Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_38bd5eab70243b4d1a9d602c"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
         "article_id": "0d284116abf92b3b06fa7a1ae4834832ff9946e8",
         "url": "https://www.ithome.com.tw/news/180567",
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T09:35:50.939727Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2398,7 +2361,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T09:35:50.939727Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2412,31 +2375,12 @@
         ]
       },
       {
-        "article_id": "32fadb138b6560c9f58563d52f3e104adf86e7b9",
-        "url": "https://www.marktechpost.com/2026/11/17/sarvam-token-factory-india-inference-platform",
-        "fetch_observed": false,
-        "archived": true,
-        "first_seen_at": "2026-11-17T10:05:43.967029Z",
-        "last_seen_at": "2026-11-17T22:05:31.546319Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_ef668f779a8f828faef954ba"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "insufficient_evidence"
-        ]
-      },
-      {
         "article_id": "257c2278f486d859007f6670390f43564a2807bf",
         "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOS0wwd1hrZzVDQzBrY1U3RmtldGU1VnZ4SFItdTc4V3dNZFZud2V3RURfZ2M3MlczakxBX2Rxd3FhdUt0X1BjMmoxX0pacDJTOFpFR2lxby1lS2dKSWI0NXV1VnlCVWJPM2ZEdWR0RjNrbldGUzNJNTFoRUJCN1VYQlNWMHg4T0N2QVN4YUliMXp0Q1lRQzZ3RXJtclEwdk5MejEzdk5QT1FUbE01WEZ6eXpMYkJacUwtWlhXYzRB?oc=5",
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T10:05:43.967029Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2455,7 +2399,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T10:05:43.967029Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2469,31 +2413,12 @@
         ]
       },
       {
-        "article_id": "b7fd9277110426226a64b8ee224aed6636ae467e",
-        "url": "https://www.marktechpost.com/2026/11/17/nvidia-nvke-nvkr-managed-kubernetes-gpu",
-        "fetch_observed": false,
-        "archived": true,
-        "first_seen_at": "2026-11-17T11:05:32.632504Z",
-        "last_seen_at": "2026-11-17T22:05:31.546319Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_3024c9bd8ce4ed9e8b83addf"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
         "article_id": "22faaf61c4493d2e564166582c8991c78d4b32b6",
         "url": "https://www.blocktempo.com/windows-11-telemetry-records-coding-agents-claude-codex-cursor-usage",
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T11:05:32.632504Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2512,7 +2437,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T11:05:32.632504Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2531,7 +2456,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T11:05:32.632504Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2550,7 +2475,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T11:05:32.632504Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2569,7 +2494,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T11:05:32.632504Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2588,7 +2513,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T11:05:32.632504Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2607,7 +2532,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T11:05:32.632504Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2626,7 +2551,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T11:05:32.632504Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2645,7 +2570,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T11:05:32.632504Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2664,7 +2589,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T11:05:32.632504Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": false,
         "in_ai_pool": false,
@@ -2683,7 +2608,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T11:05:32.632504Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2702,7 +2627,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T11:35:39.375332Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": false,
@@ -2723,7 +2648,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T11:35:39.375332Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2739,7 +2664,7 @@
       {
         "article_id": "3742f5a74fcbcef58fe579f9efb9e00f014cae61",
         "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNTkRSdklpUUw5TWMwRC1JeG1YVHFnY0RXSTZwQmQ1MlJQRUhBb05zV2JUSUtiZnJKMktZRHJvdnNMT0l4NDFUaFBTUW1rZmp3ZVhHTkMwWnZNdDJURnpQZ1h1dEU0QkQ0enNEblk0Sjc2T3VXTWJlOW01SXdQY2RwMk5UTTd1RHcwVHlfdDVqd0ptVEdqSUl5ejVvbTZzcU9aUVhVR2FEU21DYWZTZGFzMlNQU1QyeldHTWc?oc=5",
-        "fetch_observed": true,
+        "fetch_observed": false,
         "archived": true,
         "first_seen_at": "2026-11-17T12:05:28.517466Z",
         "last_seen_at": "2026-11-17T22:35:35.148396Z",
@@ -2761,7 +2686,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T12:35:29.159867Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2780,7 +2705,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T12:55:14.869372Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2799,7 +2724,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T14:05:28.231086Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2818,7 +2743,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T14:05:28.231086Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2837,7 +2762,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T14:05:28.231086Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": false,
         "in_ai_pool": false,
@@ -2857,7 +2782,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T14:35:30.802777Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2876,7 +2801,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T14:35:30.802777Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2895,7 +2820,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T14:35:30.802777Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2914,7 +2839,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T15:05:33.484280Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2933,7 +2858,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T15:05:33.484280Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2952,7 +2877,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T15:05:33.484280Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2971,7 +2896,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T15:05:33.484280Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2990,7 +2915,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T15:05:33.484280Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -3009,7 +2934,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-09T13:35:27.889839Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -3028,7 +2953,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T09:05:49.822318Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -3044,7 +2969,7 @@
       {
         "article_id": "810d9f62c9b6ea9c2b6533c6218bcfeaad556fed",
         "url": "https://technews.tw/2026/11/17/55-inch-color-epaper-signage-rolled-out-at-nlpi",
-        "fetch_observed": true,
+        "fetch_observed": false,
         "archived": true,
         "first_seen_at": "2026-11-17T09:05:49.822318Z",
         "last_seen_at": "2026-11-17T22:35:35.148396Z",
@@ -3054,6 +2979,1238 @@
         "superseded_by": null,
         "event_ids": [
           "be1_3d06f37742eba094f4acfe24"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "5aafc09c88a1f5c573d7c704145ae25536cff205",
+        "url": "https://technews.tw/2026/11/17/teco-targets-european-ai-data-center-market-hulk-modular-solution-fastest-9-month-delivery",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T10:05:43.967029Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_a1c8b87dd110187985f03654"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "37841b29e2e2e18d62fb8853774d1404e4be3ef4",
+        "url": "https://finance.technews.tw/2026/11/17/us-ai-chip-export-rules-prevent-transshipment-quanta-wistron-no-impact",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T10:05:43.967029Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_6f467ec0e3f1767d8da58414"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "0dd9068450581e69af410eb42367dee418252e17",
+        "url": "https://finance.technews.tw/2026/11/17/yunova",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T10:05:43.967029Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_f6cf053fd1b0c7a49433aba6"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "ef2bd888476cd8baa88e86f24bf2c4ce3e67637f",
+        "url": "https://technews.tw/2026/11/17/single-atom-glass-revolutionizes-chip-cooling",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T10:05:43.967029Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": false,
+        "superseded_by": null,
+        "event_ids": [],
+        "aggregation_status": "not_in_event_projection",
+        "reason_codes": [
+          "ai_relevance_below_floor",
+          "missing_meaningful_ai_signal",
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "83ca673950cb2de40dbecb72642bf5e19d87fd7b",
+        "url": "https://finance.technews.tw/2026/11/17/us-tightens-control-advanced-ai-chip-exports-orders-delayed",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T10:35:39.038670Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_e9beb717a9365b8da34ce20a"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "38db06a5a9cf12d8bbb5a3b25d74e26c8a27d58a",
+        "url": "https://blogs.nvidia.com/blog/ian-buck-sc26",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T16:35:30.619549Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": false,
+        "superseded_by": null,
+        "event_ids": [],
+        "aggregation_status": "not_in_event_projection",
+        "reason_codes": [
+          "ai_relevance_below_floor",
+          "missing_meaningful_ai_signal",
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "165c7a0789315b5f30f117530694338fc76baf3d",
+        "url": "https://www.cnbc.com/2026/11/17/nvidia-jensen-huang-statement.html",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T16:35:30.619549Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": false,
+        "superseded_by": null,
+        "event_ids": [],
+        "aggregation_status": "not_in_event_projection",
+        "reason_codes": [
+          "ai_relevance_below_floor",
+          "curated_media_requires_ai_title_or_trusted_ai_feed",
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "4a378f6b72054358b31864e91b25bbacf73993e1",
+        "url": "https://blog.google/innovation-and-ai/products/gemini-app/tasks-in-gemini-free-new-features",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T17:05:37.435630Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": false,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_a963ed9b65df5774de2d4fcb"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "a1954b7d729539cc4c58f6df89a58919eaa20a93",
+        "url": "https://blog.google/innovation-and-ai/products/gemini-app/tasks-in-gemini-free-new-features",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T17:05:37.435630Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": false,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_a963ed9b65df5774de2d4fcb"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "ai_pool_title_url_duplicate",
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "f6d9356327899408aaf8a37b2db415c6dee693d5",
+        "url": "https://the-decoder.com/ai-agents-are-starting-to-fill-out-medical-forms-and-file-insurance-requests-in-place-of-human-staff",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T17:05:37.435630Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_320fddce3a6fb7eefd717746"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "699cdfbdaa614355f86041a81e7e6f861770626d",
+        "url": "https://the-decoder.com/the-us-wants-to-block-china-from-renting-ai-power-abroad-but-china-already-built-a-parallel-supply-chain-from-us-ai-output",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T17:05:37.435630Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_8df5ccb17a3fee4bd0cc0f97"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "f035dbad4028f76a1f3caf22fc9ea90dbfc3ce03",
+        "url": "https://blog.google/innovation-and-ai/products/gemini-app/tasks-in-gemini-free-new-features",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T17:05:37.435630Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": false,
+        "in_ai_pool": false,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_a963ed9b65df5774de2d4fcb"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "ai_pool_title_url_duplicate",
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "b7321762188068bd0040726f2118bd6de3bfe07b",
+        "url": "https://simonwillison.net/2026/Nov/17/datasette-lite",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T17:05:37.435630Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": false,
+        "superseded_by": null,
+        "event_ids": [],
+        "aggregation_status": "not_in_event_projection",
+        "reason_codes": [
+          "ai_relevance_below_floor",
+          "missing_meaningful_ai_signal",
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "662e55e4cc7fa970805d02d129c9a60403310406",
+        "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPWm82VUZCTzN1LVBkN1VMQ3lHMzNrd000QVZMQWN2MmtZNkY3MGZ2d2JoQUFzZ0MzWmpzWU1JV2J5T1Bxc0tld01lUnJtaHdjbFZoQ00xUmtGQ2lHMk5QSi1QOTAzSk1xTWlla181QmFReG9EakZxQVZacnAxXzZXWWhn?oc=5",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T14:35:30.802777Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_49c1101386faa48a74b95b7e"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "18658226dee20dff60c3a5a6f32dc99d5c480470",
+        "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOcmpONUtPN0dvenNhaEJjRnJJMXBhNU9KSWFnejRkVGNCWV8zMzdSRG9JT3NPT1I5ekN2R0NpNEV3ZjRvMURTM3hwN040TGhOYTJYWnhkdTRTVmUzVm02NHNaNWlpWmFVbnFEUFBkeDJjN1lmcGZtdzdWTWhmSjFOXzMzdGtBYjRHeks4REx1LXBCaDhMWFNvclhGRHkyRmI4MUxtMmVuZkZkaFIwa1BFQUpISWJ6THBLVVE?oc=5",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T17:35:31.275494Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_8078accfda9510da32f50fce"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "75c1bc9a725e6473e39c610404c8b46c1bab6991",
+        "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNRzR5X05qSEx5T0JaQUhWZlJsLUtmbkxuSDFFTDVrenhlRWtZSF9sVmlvaHA5NnVBTm9rSFhOaVFXU0YtdTRtNEoxNl9pLVZLRFZXQVoxR0VVdkF2eUNNUVRJcHEzWTRobUFRSUU5OFdIM1dTbFZoZ1c2VzBmeHVESGdjclBhdEhSQnc5ZHdQZERRU2RlbGU5eEFUQ2RleU9ROFIwOV94MUhoMVZZVmp5TldpSW4wTUNlbUNCelVTVGNWaUhZ?oc=5",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T09:05:49.822318Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_bec001c29a99981a0cab871d"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "e418ba2efc5e25ff8725d0edf8dbae88e7be58ed",
+        "url": "https://developer.nvidia.com/blog/integrating-qpus-into-supercomputing-centers-using-slurm-hres-plugins",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T17:05:37.435630Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_c0fab173d7856459059505af"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "738ec26a13b71b2ee98a6c4a3e530750589fcd43",
+        "url": "https://developers.openai.com/codex/changelog",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T17:50:57.436443Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_510dd0670850bf51944221b7"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "4511e4bc1de15d4ce92435774889eb8e61dbfc8c",
+        "url": "https://developer.nvidia.com/blog/co-designing-sparse-attention-for-efficient-long-context-inference",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T17:50:57.436443Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_3bbf02326a1a0406c3234912"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "4f7164559ca979667b0041db879eb508af07704a",
+        "url": "https://openai.com/index/introducing-gpt-6-2-astra-sol",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T18:35:30.740418Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": false,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_4b682474d13cd6f124fcaab9"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "f2a1eadcc911775f79c34d8de1d82fa6a7990abe",
+        "url": "https://openai.com/index/astra-law-6-2",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T18:35:30.740418Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_73b94e30a07575dae6b5af2d"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "453b2d6668ba6762987f5639da7187dd21951be4",
+        "url": "https://techcrunch.com/2026/11/17/pedestal-ai-raises-4-7-million-to-agentify-the-supply-chain",
+        "fetch_observed": false,
+        "archived": true,
+        "first_seen_at": "2026-11-17T18:35:30.740418Z",
+        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_e9b2cb4b28d32e565259fbc8"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "c467cebeae8955b16eae255839083a353098a153",
+        "url": "https://runtimewire.com/article/runtimewire-confirms-gpt-6-2-astra-and-sol-have-launched",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T18:35:30.740418Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_4b682474d13cd6f124fcaab9"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": []
+      },
+      {
+        "article_id": "7269059ff81752ef33d2e32ba52f747636ece987",
+        "url": "https://news.microsoft.com/source/2026/11/17/microsoft-and-salesforce-announce-copilotforce-bringing-trusted-customer-context-and-action-into-microsoft-ai-experiences",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T18:35:30.740418Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_e4df9066b0d8081113d6d4c0"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "5f960337f3bad76e36c9245b98ae88eb6d2cef76",
+        "url": "https://openai.com/index/introducing-gpt-6-2-astra-sol",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T18:35:30.740418Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": false,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_4b682474d13cd6f124fcaab9"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "ai_pool_title_url_duplicate",
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "028d564120ee959a0dfc47952a5458fe97eb03f0",
+        "url": "https://openai.com/index/astra-law-6-2",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T18:35:30.740418Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": false,
+        "in_ai_pool": false,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_73b94e30a07575dae6b5af2d"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "ai_pool_title_url_duplicate",
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "01ccc05b66d68a23d4e4e3a73e3bb947e358ed30",
+        "url": "https://github.blog/changelog/2026-11-17-github-copilot-fusion-updates-more-availability-benchmarks-and-models",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T19:05:31.660228Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_c76bf62cdef973bc8e10a0d5"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "insufficient_evidence"
+        ]
+      },
+      {
+        "article_id": "5ec5aefa235f8c35a0a08eb9a2397ebbdca960e5",
+        "url": "https://github.blog/changelog/2026-11-17-github-copilot-app-microsoft-ignite-releases",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T19:05:31.660228Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_42b4f9fd3e6f859e92fef13e"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "b62d1f82e8a2fb03cf839ed4289ca6912491a30a",
+        "url": "https://github.blog/changelog/2026-11-17-copilot-code-review-adaptive-effort-secret-detection-and-more",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T19:05:31.660228Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_3156b775bb51b218d665e538"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "85137ffb3ccc2dc1577bf90253abaebf8c8ea79d",
+        "url": "https://github.blog/changelog/2026-11-17-mai-code-2-and-mai-code-2-flash-in-github-copilot",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T19:05:31.660228Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_6b7412cb2b29dc57356b1476"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "b96d68062b3485356fcf5c9aba549b8618cefde4",
+        "url": "https://github.blog/changelog/2026-11-17-github-copilot-in-jetbrains-ignite-releases",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T19:05:31.660228Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_cc8687564634ec5f16297861"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "ca54700843ef108233ec9969a0891238ab62892a",
+        "url": "https://github.blog/changelog/2026-11-17-monitor-github-copilot-activity-through-microsoft-agent-365",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T19:05:31.660228Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_b8a54af7f0acc808f6e15ba5"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "ffc8e8511c050da245e1102932a23a84290281e0",
+        "url": "https://github.blog/changelog/2026-11-17-github-copilot-cli-adds-microsoft-entra-sign-in-as-a-preview",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T19:05:31.660228Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_357a2068b60dea7db4e9bb6a"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "877b5c8a4e26cc0b06a41f8c57e6295f1c931c62",
+        "url": "https://github.blog/changelog/2026-11-17-track-copilot-code-review-outcomes-in-repository-insights",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T19:05:31.660228Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_baf786b3846e44eb64f727b3"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "9f412733ebf487a4121637d33d78eb49846db776",
+        "url": "https://github.blog/changelog/2026-11-17-github-copilot-evals-is-now-in-public-preview",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T19:05:31.660228Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_a80ceea01e2938b5939651f6"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "1d3cb2afb5bf0fb7124ae85982fc57a2a6eefd17",
+        "url": "https://blogs.microsoft.com/blog/2026/11/17/ignite-2026-building-the-frontier-ecosystem",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T19:05:31.660228Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": false,
+        "superseded_by": null,
+        "event_ids": [],
+        "aggregation_status": "not_in_event_projection",
+        "reason_codes": [
+          "ai_relevance_below_floor",
+          "missing_meaningful_ai_signal",
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "11aa21697d024ddd857764f0165a9b8ee14ab229",
+        "url": "https://techcrunch.com/2026/11/17/google-expands-access-to-gemini-tasks-which-can-help-with-calls-purchases",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T19:05:31.660228Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_e6833d44dd1a77fce4a47250"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "5e726db8f7d7498078894af57546bacc28475ba1",
+        "url": "https://techcrunch.com/2026/11/17/google-to-keep-gemini-chats-for-two-months-up-from-72-hours-even-with-history-off",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T19:05:31.660228Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_fdcf2ae372af080f1af0994a"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "f3a5ad9dc67cb53e7651941c864ba49c53afc13c",
+        "url": "https://techcrunch.com/2026/11/17/as-decision-model-use-skyrockets-is-customization-is-the-next-frontier",
+        "fetch_observed": false,
+        "archived": true,
+        "first_seen_at": "2026-11-17T19:05:31.660228Z",
+        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_e16c755bcc91cb81316653bd"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "a94ac6822f57466c8720d73550291534dac1b01a",
+        "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQZjRINzd4SlNjVkhxdXgwLWhrTHQwalRnMDM4ZUhrOUl0bXoxdWtNZW42dWVUelpqdmg2SWdfZDNLS2ljUkRhNGxZMWRqOFRUT0xpRGFDREkwR1FDNnhCLTVxeElTTDVrN2stbTVDMnlscE1GMjJYLTJUOGFKbm1YLUdOc0d1ci1OcFJUS0cxZi11ak1PWk5qbVQ0NHU5enI3?oc=5",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T19:05:31.660228Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_d6519e6e39de40a570e91089"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "da7d70f158d77bb28d66f300e9a8b37ccd81833c",
+        "url": "https://runtimewire.com/article/nvidia-s-opt-in-mxfp8-kernel-hits-2-5x-in-a-kimi-k3-microbenchmark-on-one-vr200",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T19:05:31.660228Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_dfb6da7202dc701c0c93faa3"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "5ada6ea55c1a739f42b8e9d64b430501b584e0fc",
+        "url": "https://techcrunch.com/2026/11/17/model-ml-raises-250m-to-automate-investment-banking-grunt-work",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T19:35:32.119934Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_b2ab127c10fd64476509fd1d"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "67832615676aefb17ec58b75b74821fdcaeb8804",
+        "url": "https://www.blocktempo.com/south-korea-tax-exam-ai-cheating-national-qualification-review",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T19:35:32.119934Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_66af34ed2feb52c7e33d2c68"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "f29a6fec56998abbad036e45da0b14ccc260e1a4",
+        "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxPQ05INXRWaGd0ZFhsSkZWMjBZeFNJYU1JOEhkRG9PT1V5SUl6YTNNMzFWblJXZVdjVHJzZW5raFlUbzlHMTNHemFUVWZab28xS0M3RzkyN2c2Ukl6VUR4SUF6RFRpVjRieGRFUWJGZUNsMzkyR1B0bnlxSFFQMHpFT2JCQ09KM0FMcUZWXzlZaEVmanRiMmtuOGxGQnNKbDZkM0hJVGpwNURRN0daX29GX2tHZ0pIU3NrRk5JbVVpZ1d1WGN0cHc?oc=5",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T20:05:35.864958Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_9828b84dcabe5b148e000e12"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "70771d9fc1286a7afb8d487966fa6bd5c70dea22",
+        "url": "https://llm-stats.com/models/gpt-6.2-astra",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T20:05:35.864958Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_3bc7ddbcf5cdd40d2d2fccb5"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": []
+      },
+      {
+        "article_id": "af29f1985d0dc66484b280692d4237af8da60746",
+        "url": "https://llm-stats.com/models/gpt-6.2-sol",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T20:05:35.864958Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_d1f6b0ceafd12d96946e159b"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": []
+      },
+      {
+        "article_id": "4cd8f73ffada6dc7b2aa1b05e69ec73237a8fe8e",
+        "url": "https://runtimewire.com/article/theo-browne-says-he-hates-gpt-6-2-astra",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T20:05:35.864958Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_5e43eb0bbee573456895e154"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "556d9db311c2f0edde271f585beaca03dc2882a1",
+        "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE1WNjg2R2d3N1FqeFd1bG44LVl4ZFFZQ004aUc4Q2pMNXI2cEJPMEh4RnJQVmc1QWMxSW9OY3ZJd0ZEclRsNHZXV1NTcVFlSWR4Q0lJdnRwOGtTSmF0R3c?oc=5",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T02:35:48.671851Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_fd7622a254d1880dcb7a7e46"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "50d7e6c83fd7541de1f8fce40cbf3c9c81ba100a",
+        "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5mcmYyOFRUTXYxQ2hwNHFEc0FxUnRRT1BXUmJDakI1cXJWeTR0eElmNUZNS3EyMVE3ZVNXZ1ZxLWpIcG9PSUw2U0ZlazVFQmN0Tkh1d0owWDk4UUV0eTZIWi16R2dEazdEUDI1dTh1MG5mbWZSNEI0?oc=5",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T10:05:43.967029Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_1107bb738f3cc0f9d4900e09"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "financial_metric_value_missing",
+          "insufficient_evidence"
+        ]
+      },
+      {
+        "article_id": "6fd9ba54c35b66e2ba074579e26e7ce7ed553a73",
+        "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTFB1Sl9ib2ZPOEFra3hyQUFWR0pYUWN0NllMY2lZWVhZQmZkY29ZZUJUOWtxQzE4MGRDRHNXdnZ1aXZVWksxQmRUcXBNT2E2WmhvZG1pMDhwdWY?oc=5",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T02:05:48.334959Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_c16247be34f3cb4e3668c4ff"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "0ad6af5604b93c525219fd000498dfefa38664da",
+        "url": "https://github.blog/changelog/2026-11-17-openais-gpt-6-2-astra-and-gpt-6-2-sol-now-available",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T20:35:43.238618Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_00dcc27a44c3edfeb049ed8d"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": []
+      },
+      {
+        "article_id": "2d6d7e8a79aac696f7eaede7a8f24888226ef1c3",
+        "url": "https://the-decoder.com/openai-launches-gpt-6-2-astra-and-sol-with-lower-api-prices-and-some-benchmark-gains",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T20:35:43.238618Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_4b682474d13cd6f124fcaab9"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": []
+      },
+      {
+        "article_id": "721193eb237e2c7d0421a4b7063b002f7068b904",
+        "url": "https://www.theverge.com/news/1035957/meta-alexandr-wang-sam-altman-instagram-ai-deepfake",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T21:05:37.694415Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_7c85eaa53e1c6f56b81ab28d"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "5b218caf262a29fce343c4cb13badcb2c4fbb574",
+        "url": "https://www.cnbc.com/2026/11/17/nvidia-stock-earnings-jensen-huang-resignation.html",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T21:05:37.694415Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": false,
+        "superseded_by": null,
+        "event_ids": [],
+        "aggregation_status": "not_in_event_projection",
+        "reason_codes": [
+          "ai_relevance_below_floor",
+          "curated_media_requires_ai_title_or_trusted_ai_feed",
+          "financial_metric_value_missing",
+          "financial_period_missing",
+          "financial_results_not_yet_asserted",
+          "insufficient_evidence"
+        ]
+      },
+      {
+        "article_id": "2f4c3b7f2fbe1afb30a3e234fd8709fa0bed6377",
+        "url": "https://blog.google/products-and-platforms/products/gemini/gemini-4-carbon-builders",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T21:35:31.957934Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_a65fb6981d3c025ff99d962a"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "e8cc1e0e78d279a87e21d615b05e6f1079334a58",
+        "url": "https://techcrunch.com/2026/11/17/google-joins-the-tech-outage-trend-by-announcing-its-not-having-one",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T21:35:31.957934Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_aff9cf8945cdf38b0d9986ff"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "1090723fa7f6ce673603e41970f5d2255ec542d8",
+        "url": "https://runtimewire.com/article/gemini-4-carbon-says-it-decoded-an-unread-1466-sforza-cipher-in-under-an-hour",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T21:35:31.957934Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_a6e322db7239912ebc9cff43"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "23b0a7cb733372155114339619b89ca8850d3551",
+        "url": "https://runtimewire.com/article/reuters-finds-alibaba-used-gpt-4-and-gpt-4o-outputs-to-train-qwen-models",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T21:35:31.957934Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_605124c160368095fdd83108"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "b1200e87991d1b1ebf41f48fabca430f64713966",
+        "url": "https://techcrunch.com/2026/11/17/sec-reportedly-investigating-nvidia-amid-huang-exit",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T22:05:31.546319Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_0e2a7137db56417b101f77a1"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "29540629042781ba1ba4844ee60368dd78bb56f7",
+        "url": "https://techcrunch.com/2026/11/17/amazon-and-google-will-together-own-nearly-30-of-anthropic-after-its-ipo",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_bb521d8698fdbb14dfd79d34"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "insufficient_evidence"
+        ]
+      },
+      {
+        "article_id": "24387a72649fe58ff431bbdad68499942b0c8f4d",
+        "url": "https://finance.technews.tw/2026/11/18/nvidias-third-quarter-revenue-increased-by-103-year-on-year-exceeding-expectations",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": false,
+        "superseded_by": null,
+        "event_ids": [],
+        "aggregation_status": "not_in_event_projection",
+        "reason_codes": [
+          "ai_relevance_below_floor",
+          "missing_meaningful_ai_signal"
+        ]
+      },
+      {
+        "article_id": "cd27430a42f0a98ffcfc61d2a397fe2df13f722b",
+        "url": "https://www.wired.com/story/nvidias-board-has-no-plans-to-reinstate-jensen-huang",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T22:35:35.148396Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_192dc3ed32e682be7d6b4bfd"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "50f05dbe83e377cb433fcc5d95fb674f3c66fb7e",
+        "url": "https://www.marktechpost.com/2026/11/17/liquid-ai-d1-2-omnimodal-decision-models",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T09:35:50.939727Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_38bd5eab70243b4d1a9d602c"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "32fadb138b6560c9f58563d52f3e104adf86e7b9",
+        "url": "https://www.marktechpost.com/2026/11/17/sarvam-token-factory-india-inference-platform",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T10:05:43.967029Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_ef668f779a8f828faef954ba"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "insufficient_evidence"
+        ]
+      },
+      {
+        "article_id": "b7fd9277110426226a64b8ee224aed6636ae467e",
+        "url": "https://www.marktechpost.com/2026/11/17/nvidia-nvke-nvkr-managed-kubernetes-gpu",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T11:05:32.632504Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_3024c9bd8ce4ed9e8b83addf"
         ],
         "aggregation_status": "aggregated",
         "reason_codes": [
@@ -3080,293 +4237,6 @@
         ]
       },
       {
-        "article_id": "5aafc09c88a1f5c573d7c704145ae25536cff205",
-        "url": "https://technews.tw/2026/11/17/teco-targets-european-ai-data-center-market-hulk-modular-solution-fastest-9-month-delivery",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T10:05:43.967029Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_a1c8b87dd110187985f03654"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "37841b29e2e2e18d62fb8853774d1404e4be3ef4",
-        "url": "https://finance.technews.tw/2026/11/17/us-ai-chip-export-rules-prevent-transshipment-quanta-wistron-no-impact",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T10:05:43.967029Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_6f467ec0e3f1767d8da58414"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "0dd9068450581e69af410eb42367dee418252e17",
-        "url": "https://finance.technews.tw/2026/11/17/yunova",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T10:05:43.967029Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_f6cf053fd1b0c7a49433aba6"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "ef2bd888476cd8baa88e86f24bf2c4ce3e67637f",
-        "url": "https://technews.tw/2026/11/17/single-atom-glass-revolutionizes-chip-cooling",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T10:05:43.967029Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": false,
-        "superseded_by": null,
-        "event_ids": [],
-        "aggregation_status": "not_in_event_projection",
-        "reason_codes": [
-          "ai_relevance_below_floor",
-          "missing_meaningful_ai_signal",
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "83ca673950cb2de40dbecb72642bf5e19d87fd7b",
-        "url": "https://finance.technews.tw/2026/11/17/us-tightens-control-advanced-ai-chip-exports-orders-delayed",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T10:35:39.038670Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_e9beb717a9365b8da34ce20a"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "38db06a5a9cf12d8bbb5a3b25d74e26c8a27d58a",
-        "url": "https://blogs.nvidia.com/blog/ian-buck-sc26",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T16:35:30.619549Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": false,
-        "superseded_by": null,
-        "event_ids": [],
-        "aggregation_status": "not_in_event_projection",
-        "reason_codes": [
-          "ai_relevance_below_floor",
-          "missing_meaningful_ai_signal",
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "165c7a0789315b5f30f117530694338fc76baf3d",
-        "url": "https://www.cnbc.com/2026/11/17/nvidia-jensen-huang-statement.html",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T16:35:30.619549Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": false,
-        "superseded_by": null,
-        "event_ids": [],
-        "aggregation_status": "not_in_event_projection",
-        "reason_codes": [
-          "ai_relevance_below_floor",
-          "curated_media_requires_ai_title_or_trusted_ai_feed",
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "4a378f6b72054358b31864e91b25bbacf73993e1",
-        "url": "https://blog.google/innovation-and-ai/products/gemini-app/tasks-in-gemini-free-new-features",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T17:05:37.435630Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_a963ed9b65df5774de2d4fcb"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "a1954b7d729539cc4c58f6df89a58919eaa20a93",
-        "url": "https://blog.google/innovation-and-ai/products/gemini-app/tasks-in-gemini-free-new-features",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T17:05:37.435630Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": false,
-        "in_ai_pool": false,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_a963ed9b65df5774de2d4fcb"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "ai_pool_title_url_duplicate",
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "f6d9356327899408aaf8a37b2db415c6dee693d5",
-        "url": "https://the-decoder.com/ai-agents-are-starting-to-fill-out-medical-forms-and-file-insurance-requests-in-place-of-human-staff",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T17:05:37.435630Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_320fddce3a6fb7eefd717746"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "699cdfbdaa614355f86041a81e7e6f861770626d",
-        "url": "https://the-decoder.com/the-us-wants-to-block-china-from-renting-ai-power-abroad-but-china-already-built-a-parallel-supply-chain-from-us-ai-output",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T17:05:37.435630Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_8df5ccb17a3fee4bd0cc0f97"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "f035dbad4028f76a1f3caf22fc9ea90dbfc3ce03",
-        "url": "https://blog.google/innovation-and-ai/products/gemini-app/tasks-in-gemini-free-new-features",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T17:05:37.435630Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": false,
-        "in_ai_pool": false,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_a963ed9b65df5774de2d4fcb"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "ai_pool_title_url_duplicate",
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "b7321762188068bd0040726f2118bd6de3bfe07b",
-        "url": "https://simonwillison.net/2026/Nov/17/datasette-lite",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T17:05:37.435630Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": false,
-        "superseded_by": null,
-        "event_ids": [],
-        "aggregation_status": "not_in_event_projection",
-        "reason_codes": [
-          "ai_relevance_below_floor",
-          "missing_meaningful_ai_signal",
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "662e55e4cc7fa970805d02d129c9a60403310406",
-        "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPWm82VUZCTzN1LVBkN1VMQ3lHMzNrd000QVZMQWN2MmtZNkY3MGZ2d2JoQUFzZ0MzWmpzWU1JV2J5T1Bxc0tld01lUnJtaHdjbFZoQ00xUmtGQ2lHMk5QSi1QOTAzSk1xTWlla181QmFReG9EakZxQVZacnAxXzZXWWhn?oc=5",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T14:35:30.802777Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_49c1101386faa48a74b95b7e"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "18658226dee20dff60c3a5a6f32dc99d5c480470",
-        "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOcmpONUtPN0dvenNhaEJjRnJJMXBhNU9KSWFnejRkVGNCWV8zMzdSRG9JT3NPT1I5ekN2R0NpNEV3ZjRvMURTM3hwN040TGhOYTJYWnhkdTRTVmUzVm02NHNaNWlpWmFVbnFEUFBkeDJjN1lmcGZtdzdWTWhmSjFOXzMzdGtBYjRHeks4REx1LXBCaDhMWFNvclhGRHkyRmI4MUxtMmVuZkZkaFIwa1BFQUpISWJ6THBLVVE?oc=5",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T17:35:31.275494Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_8078accfda9510da32f50fce"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
         "article_id": "6f3e7f4cbea99a9db8e6f3e1516b3bf19de2806b",
         "url": "https://techcrunch.com/2026/11/17/protons-lumo-a-privacy-focused-alternative-to-chatgpt-and-claude-arrives-on-desktop",
         "fetch_observed": false,
@@ -3386,850 +4256,18 @@
         ]
       },
       {
-        "article_id": "75c1bc9a725e6473e39c610404c8b46c1bab6991",
-        "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNRzR5X05qSEx5T0JaQUhWZlJsLUtmbkxuSDFFTDVrenhlRWtZSF9sVmlvaHA5NnVBTm9rSFhOaVFXU0YtdTRtNEoxNl9pLVZLRFZXQVoxR0VVdkF2eUNNUVRJcHEzWTRobUFRSUU5OFdIM1dTbFZoZ1c2VzBmeHVESGdjclBhdEhSQnc5ZHdQZERRU2RlbGU5eEFUQ2RleU9ROFIwOV94MUhoMVZZVmp5TldpSW4wTUNlbUNCelVTVGNWaUhZ?oc=5",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T09:05:49.822318Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_bec001c29a99981a0cab871d"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "e418ba2efc5e25ff8725d0edf8dbae88e7be58ed",
-        "url": "https://developer.nvidia.com/blog/integrating-qpus-into-supercomputing-centers-using-slurm-hres-plugins",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T17:05:37.435630Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_c0fab173d7856459059505af"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "738ec26a13b71b2ee98a6c4a3e530750589fcd43",
-        "url": "https://developers.openai.com/codex/changelog",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T17:50:57.436443Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_510dd0670850bf51944221b7"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
         "article_id": "4214775d9276a2f2c5ffc7d5356e57000e33b05b",
         "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNSS1jZVhGcHo5bUV2U1RFTmhhaVpURXhZSXVwcFUxYkpLcHAzUG1yclpmNmxkQVR3SS1ndWprbGdZYThiRm12b2lMWmkzaUliVWRCSUs0QkVpZGFUUVQtUm9MUzg5QkhQaDlEcmVfakwzUE5yY0xNdUZOZkVxYTltMXRWbXBCb1pjZ0V2cll3bmtYRE1HQVZzbno0UWd1Q0tkd2hYWkFhSERSUGZjaldCdldaa2FsX2gyYmFIQzFkUQ?oc=5",
-        "fetch_observed": false,
+        "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-17T17:50:57.436443Z",
-        "last_seen_at": "2026-11-17T22:05:31.546319Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
         "superseded_by": null,
         "event_ids": [
           "be1_3acff3ef844a39a49481c414"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "4511e4bc1de15d4ce92435774889eb8e61dbfc8c",
-        "url": "https://developer.nvidia.com/blog/co-designing-sparse-attention-for-efficient-long-context-inference",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T17:50:57.436443Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_3bbf02326a1a0406c3234912"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "4f7164559ca979667b0041db879eb508af07704a",
-        "url": "https://openai.com/index/introducing-gpt-6-2-astra-sol",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T18:35:30.740418Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_4b682474d13cd6f124fcaab9"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "f2a1eadcc911775f79c34d8de1d82fa6a7990abe",
-        "url": "https://openai.com/index/astra-law-6-2",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T18:35:30.740418Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_73b94e30a07575dae6b5af2d"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "453b2d6668ba6762987f5639da7187dd21951be4",
-        "url": "https://techcrunch.com/2026/11/17/pedestal-ai-raises-4-7-million-to-agentify-the-supply-chain",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T18:35:30.740418Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_e9b2cb4b28d32e565259fbc8"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "c467cebeae8955b16eae255839083a353098a153",
-        "url": "https://runtimewire.com/article/runtimewire-confirms-gpt-6-2-astra-and-sol-have-launched",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T18:35:30.740418Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_4b682474d13cd6f124fcaab9"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": []
-      },
-      {
-        "article_id": "7269059ff81752ef33d2e32ba52f747636ece987",
-        "url": "https://news.microsoft.com/source/2026/11/17/microsoft-and-salesforce-announce-copilotforce-bringing-trusted-customer-context-and-action-into-microsoft-ai-experiences",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T18:35:30.740418Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_e4df9066b0d8081113d6d4c0"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "5f960337f3bad76e36c9245b98ae88eb6d2cef76",
-        "url": "https://openai.com/index/introducing-gpt-6-2-astra-sol",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T18:35:30.740418Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": false,
-        "in_ai_pool": false,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_4b682474d13cd6f124fcaab9"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "ai_pool_title_url_duplicate",
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "028d564120ee959a0dfc47952a5458fe97eb03f0",
-        "url": "https://openai.com/index/astra-law-6-2",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T18:35:30.740418Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": false,
-        "in_ai_pool": false,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_73b94e30a07575dae6b5af2d"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "ai_pool_title_url_duplicate",
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "01ccc05b66d68a23d4e4e3a73e3bb947e358ed30",
-        "url": "https://github.blog/changelog/2026-11-17-github-copilot-fusion-updates-more-availability-benchmarks-and-models",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T19:05:31.660228Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_c76bf62cdef973bc8e10a0d5"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "insufficient_evidence"
-        ]
-      },
-      {
-        "article_id": "5ec5aefa235f8c35a0a08eb9a2397ebbdca960e5",
-        "url": "https://github.blog/changelog/2026-11-17-github-copilot-app-microsoft-ignite-releases",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T19:05:31.660228Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_42b4f9fd3e6f859e92fef13e"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "b62d1f82e8a2fb03cf839ed4289ca6912491a30a",
-        "url": "https://github.blog/changelog/2026-11-17-copilot-code-review-adaptive-effort-secret-detection-and-more",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T19:05:31.660228Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_3156b775bb51b218d665e538"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "85137ffb3ccc2dc1577bf90253abaebf8c8ea79d",
-        "url": "https://github.blog/changelog/2026-11-17-mai-code-2-and-mai-code-2-flash-in-github-copilot",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T19:05:31.660228Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_6b7412cb2b29dc57356b1476"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "b96d68062b3485356fcf5c9aba549b8618cefde4",
-        "url": "https://github.blog/changelog/2026-11-17-github-copilot-in-jetbrains-ignite-releases",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T19:05:31.660228Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_cc8687564634ec5f16297861"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "ca54700843ef108233ec9969a0891238ab62892a",
-        "url": "https://github.blog/changelog/2026-11-17-monitor-github-copilot-activity-through-microsoft-agent-365",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T19:05:31.660228Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_b8a54af7f0acc808f6e15ba5"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "ffc8e8511c050da245e1102932a23a84290281e0",
-        "url": "https://github.blog/changelog/2026-11-17-github-copilot-cli-adds-microsoft-entra-sign-in-as-a-preview",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T19:05:31.660228Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_357a2068b60dea7db4e9bb6a"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "877b5c8a4e26cc0b06a41f8c57e6295f1c931c62",
-        "url": "https://github.blog/changelog/2026-11-17-track-copilot-code-review-outcomes-in-repository-insights",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T19:05:31.660228Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_baf786b3846e44eb64f727b3"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "9f412733ebf487a4121637d33d78eb49846db776",
-        "url": "https://github.blog/changelog/2026-11-17-github-copilot-evals-is-now-in-public-preview",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T19:05:31.660228Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_a80ceea01e2938b5939651f6"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "1d3cb2afb5bf0fb7124ae85982fc57a2a6eefd17",
-        "url": "https://blogs.microsoft.com/blog/2026/11/17/ignite-2026-building-the-frontier-ecosystem",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T19:05:31.660228Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": false,
-        "superseded_by": null,
-        "event_ids": [],
-        "aggregation_status": "not_in_event_projection",
-        "reason_codes": [
-          "ai_relevance_below_floor",
-          "missing_meaningful_ai_signal",
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "11aa21697d024ddd857764f0165a9b8ee14ab229",
-        "url": "https://techcrunch.com/2026/11/17/google-expands-access-to-gemini-tasks-which-can-help-with-calls-purchases",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T19:05:31.660228Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_e6833d44dd1a77fce4a47250"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "5e726db8f7d7498078894af57546bacc28475ba1",
-        "url": "https://techcrunch.com/2026/11/17/google-to-keep-gemini-chats-for-two-months-up-from-72-hours-even-with-history-off",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T19:05:31.660228Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_fdcf2ae372af080f1af0994a"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "f3a5ad9dc67cb53e7651941c864ba49c53afc13c",
-        "url": "https://techcrunch.com/2026/11/17/as-decision-model-use-skyrockets-is-customization-is-the-next-frontier",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T19:05:31.660228Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_e16c755bcc91cb81316653bd"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "a94ac6822f57466c8720d73550291534dac1b01a",
-        "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQZjRINzd4SlNjVkhxdXgwLWhrTHQwalRnMDM4ZUhrOUl0bXoxdWtNZW42dWVUelpqdmg2SWdfZDNLS2ljUkRhNGxZMWRqOFRUT0xpRGFDREkwR1FDNnhCLTVxeElTTDVrN2stbTVDMnlscE1GMjJYLTJUOGFKbm1YLUdOc0d1ci1OcFJUS0cxZi11ak1PWk5qbVQ0NHU5enI3?oc=5",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T19:05:31.660228Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_d6519e6e39de40a570e91089"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "da7d70f158d77bb28d66f300e9a8b37ccd81833c",
-        "url": "https://runtimewire.com/article/nvidia-s-opt-in-mxfp8-kernel-hits-2-5x-in-a-kimi-k3-microbenchmark-on-one-vr200",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T19:05:31.660228Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_dfb6da7202dc701c0c93faa3"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "5ada6ea55c1a739f42b8e9d64b430501b584e0fc",
-        "url": "https://techcrunch.com/2026/11/17/model-ml-raises-250m-to-automate-investment-banking-grunt-work",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T19:35:32.119934Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_b2ab127c10fd64476509fd1d"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "67832615676aefb17ec58b75b74821fdcaeb8804",
-        "url": "https://www.blocktempo.com/south-korea-tax-exam-ai-cheating-national-qualification-review",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T19:35:32.119934Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_66af34ed2feb52c7e33d2c68"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "f29a6fec56998abbad036e45da0b14ccc260e1a4",
-        "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxPQ05INXRWaGd0ZFhsSkZWMjBZeFNJYU1JOEhkRG9PT1V5SUl6YTNNMzFWblJXZVdjVHJzZW5raFlUbzlHMTNHemFUVWZab28xS0M3RzkyN2c2Ukl6VUR4SUF6RFRpVjRieGRFUWJGZUNsMzkyR1B0bnlxSFFQMHpFT2JCQ09KM0FMcUZWXzlZaEVmanRiMmtuOGxGQnNKbDZkM0hJVGpwNURRN0daX29GX2tHZ0pIU3NrRk5JbVVpZ1d1WGN0cHc?oc=5",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T20:05:35.864958Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_9828b84dcabe5b148e000e12"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "70771d9fc1286a7afb8d487966fa6bd5c70dea22",
-        "url": "https://llm-stats.com/models/gpt-6.2-astra",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T20:05:35.864958Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_3bc7ddbcf5cdd40d2d2fccb5"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": []
-      },
-      {
-        "article_id": "af29f1985d0dc66484b280692d4237af8da60746",
-        "url": "https://llm-stats.com/models/gpt-6.2-sol",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T20:05:35.864958Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_d1f6b0ceafd12d96946e159b"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": []
-      },
-      {
-        "article_id": "4cd8f73ffada6dc7b2aa1b05e69ec73237a8fe8e",
-        "url": "https://runtimewire.com/article/theo-browne-says-he-hates-gpt-6-2-astra",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T20:05:35.864958Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_5e43eb0bbee573456895e154"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "556d9db311c2f0edde271f585beaca03dc2882a1",
-        "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE1WNjg2R2d3N1FqeFd1bG44LVl4ZFFZQ004aUc4Q2pMNXI2cEJPMEh4RnJQVmc1QWMxSW9OY3ZJd0ZEclRsNHZXV1NTcVFlSWR4Q0lJdnRwOGtTSmF0R3c?oc=5",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T02:35:48.671851Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_fd7622a254d1880dcb7a7e46"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "50d7e6c83fd7541de1f8fce40cbf3c9c81ba100a",
-        "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5mcmYyOFRUTXYxQ2hwNHFEc0FxUnRRT1BXUmJDakI1cXJWeTR0eElmNUZNS3EyMVE3ZVNXZ1ZxLWpIcG9PSUw2U0ZlazVFQmN0Tkh1d0owWDk4UUV0eTZIWi16R2dEazdEUDI1dTh1MG5mbWZSNEI0?oc=5",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T10:05:43.967029Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_1107bb738f3cc0f9d4900e09"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "financial_metric_value_missing",
-          "insufficient_evidence"
-        ]
-      },
-      {
-        "article_id": "6fd9ba54c35b66e2ba074579e26e7ce7ed553a73",
-        "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTFB1Sl9ib2ZPOEFra3hyQUFWR0pYUWN0NllMY2lZWVhZQmZkY29ZZUJUOWtxQzE4MGRDRHNXdnZ1aXZVWksxQmRUcXBNT2E2WmhvZG1pMDhwdWY?oc=5",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T02:05:48.334959Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_c16247be34f3cb4e3668c4ff"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "0ad6af5604b93c525219fd000498dfefa38664da",
-        "url": "https://github.blog/changelog/2026-11-17-openais-gpt-6-2-astra-and-gpt-6-2-sol-now-available",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T20:35:43.238618Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_00dcc27a44c3edfeb049ed8d"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": []
-      },
-      {
-        "article_id": "2d6d7e8a79aac696f7eaede7a8f24888226ef1c3",
-        "url": "https://the-decoder.com/openai-launches-gpt-6-2-astra-and-sol-with-lower-api-prices-and-some-benchmark-gains",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T20:35:43.238618Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_4b682474d13cd6f124fcaab9"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": []
-      },
-      {
-        "article_id": "721193eb237e2c7d0421a4b7063b002f7068b904",
-        "url": "https://www.theverge.com/news/1035957/meta-alexandr-wang-sam-altman-instagram-ai-deepfake",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T21:05:37.694415Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_7c85eaa53e1c6f56b81ab28d"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "5b218caf262a29fce343c4cb13badcb2c4fbb574",
-        "url": "https://www.cnbc.com/2026/11/17/nvidia-stock-earnings-jensen-huang-resignation.html",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T21:05:37.694415Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": false,
-        "superseded_by": null,
-        "event_ids": [],
-        "aggregation_status": "not_in_event_projection",
-        "reason_codes": [
-          "ai_relevance_below_floor",
-          "curated_media_requires_ai_title_or_trusted_ai_feed",
-          "financial_metric_value_missing",
-          "financial_period_missing",
-          "financial_results_not_yet_asserted",
-          "insufficient_evidence"
-        ]
-      },
-      {
-        "article_id": "2f4c3b7f2fbe1afb30a3e234fd8709fa0bed6377",
-        "url": "https://blog.google/products-and-platforms/products/gemini/gemini-4-carbon-builders",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T21:35:31.957934Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_a65fb6981d3c025ff99d962a"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "e8cc1e0e78d279a87e21d615b05e6f1079334a58",
-        "url": "https://techcrunch.com/2026/11/17/google-joins-the-tech-outage-trend-by-announcing-its-not-having-one",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T21:35:31.957934Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_aff9cf8945cdf38b0d9986ff"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "1090723fa7f6ce673603e41970f5d2255ec542d8",
-        "url": "https://runtimewire.com/article/gemini-4-carbon-says-it-decoded-an-unread-1466-sforza-cipher-in-under-an-hour",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T21:35:31.957934Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_a6e322db7239912ebc9cff43"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "23b0a7cb733372155114339619b89ca8850d3551",
-        "url": "https://runtimewire.com/article/reuters-finds-alibaba-used-gpt-4-and-gpt-4o-outputs-to-train-qwen-models",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T21:35:31.957934Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_605124c160368095fdd83108"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "b1200e87991d1b1ebf41f48fabca430f64713966",
-        "url": "https://techcrunch.com/2026/11/17/sec-reportedly-investigating-nvidia-amid-huang-exit",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-17T22:05:31.546319Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_0e2a7137db56417b101f77a1"
         ],
         "aggregation_status": "aggregated",
         "reason_codes": [
@@ -4703,10 +4741,10 @@
       {
         "article_id": "22f8e3dcc0c5db6d7613497b04d054aee85a0b71",
         "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOZEJobHpHMl90WUdVbnpzSGxLb1l3bi1BczhrN29iVW9rUzBtQWE4aFNuM2ZGS1RIQThLdEZPWmZjeExVaHhRaXBubkdqR3R3TXJYTlRqUmRYcXZxYS1pV1lyRlExUDdEUWJ3cTg4aktJVWcxbkg5UW9oeVRXLXhCZjdRQmFNeFJlLXhpWTRMM1lEUVlodGwxVHNCSE9ONTlnem0yekw1dDNraElYZGc?oc=5",
-        "fetch_observed": false,
+        "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-16T23:05:37.409007Z",
-        "last_seen_at": "2026-11-17T17:05:37.435630Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -4881,25 +4919,6 @@
           "financial_results_not_yet_asserted",
           "insufficient_evidence",
           "superseded_article_version"
-        ]
-      },
-      {
-        "article_id": "f215dfd4176c76d965b391273d98e7bfa58af134",
-        "url": "https://www.cnbc.com/2026/11/16/situational-awareness-aschenbrenner-new-ai-bets.html",
-        "fetch_observed": false,
-        "archived": true,
-        "first_seen_at": "2026-11-16T23:35:34.983450Z",
-        "last_seen_at": "2026-11-17T14:05:28.231086Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_e7623b4f148265b16c4ee633"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
         ]
       },
       {
@@ -6528,31 +6547,88 @@
         ]
       },
       {
-        "article_id": "29540629042781ba1ba4844ee60368dd78bb56f7",
-        "url": "https://techcrunch.com/2026/11/17/amazon-and-google-will-together-own-nearly-30-of-anthropic-after-its-ipo",
+        "article_id": "d1e6370b23b24cbc4cffc01b82f4787a8ecbf5c4",
+        "url": "https://openai.com/index/introducing-chatgpt-for-sales",
         "fetch_observed": true,
         "archived": true,
-        "first_seen_at": "2026-11-17T22:35:35.148396Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "first_seen_at": "2026-11-17T23:05:42.500184Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
         "superseded_by": null,
         "event_ids": [
-          "be1_bb521d8698fdbb14dfd79d34"
+          "be1_408aa50872e2a7ff7c4fa6a6"
         ],
         "aggregation_status": "aggregated",
         "reason_codes": [
-          "insufficient_evidence"
+          "no_core_event"
         ]
       },
       {
-        "article_id": "24387a72649fe58ff431bbdad68499942b0c8f4d",
-        "url": "https://finance.technews.tw/2026/11/18/nvidias-third-quarter-revenue-increased-by-103-year-on-year-exceeding-expectations",
+        "article_id": "a9fe12fd266d4de56a90f098dc8b12facb979239",
+        "url": "https://techcrunch.com/2026/11/17/nvidia-says-its-open-source-ai-strategy-remains-intact-after-jensen-huangs-exit",
         "fetch_observed": true,
         "archived": true,
-        "first_seen_at": "2026-11-17T22:35:35.148396Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "first_seen_at": "2026-11-17T23:05:42.500184Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_dfb4869f465223b476385213"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "f385878f877bc692425680f4b5f9f4b7633b72e0",
+        "url": "https://techcrunch.com/2026/11/17/nvidia-says-it-doesnt-plan-to-reappoint-jensen-huang-as-ceo",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T23:05:42.500184Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_139a42f09c1479f27b4d1794"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "1130bd83a873a2862f8127d696585bab69b4b580",
+        "url": "https://www.marktechpost.com/2026/11/17/perplexity-computer-multiagent-effort-level",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T23:05:42.500184Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_a42b7a98dcc3f034bdd72a5d"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "d69a432ac1d6cfaa37060e12421963489810e646",
+        "url": "https://finance.technews.tw/2026/11/18/nvidia-emphasized-that-its-current-business-and-supply-chain-are-unaffected",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T23:05:42.500184Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": false,
@@ -6561,25 +6637,123 @@
         "aggregation_status": "not_in_event_projection",
         "reason_codes": [
           "ai_relevance_below_floor",
+          "financial_metric_value_missing",
+          "insufficient_evidence",
           "missing_meaningful_ai_signal"
         ]
       },
       {
-        "article_id": "cd27430a42f0a98ffcfc61d2a397fe2df13f722b",
-        "url": "https://www.wired.com/story/nvidias-board-has-no-plans-to-reinstate-jensen-huang",
+        "article_id": "65f9b393063c163ae722ecbd0bfc2f8277781379",
+        "url": "https://www.alphalab.site/hugging-face-openrouter-routing-keys-billing",
         "fetch_observed": true,
         "archived": true,
-        "first_seen_at": "2026-11-17T22:35:35.148396Z",
-        "last_seen_at": "2026-11-17T22:35:35.148396Z",
+        "first_seen_at": "2026-11-17T23:05:42.500184Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
         "superseded_by": null,
         "event_ids": [
-          "be1_192dc3ed32e682be7d6b4bfd"
+          "be1_2ac5a6c804b01fdcf4e0f380"
         ],
         "aggregation_status": "aggregated",
         "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "5845e800a0b16d35324d7c4a8bada66600218aed",
+        "url": "https://www.alphalab.site/gpt-62-astra-sol-coding-cost-evidence",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T23:05:42.500184Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_07e5fde8f16bc96f944c6dfe"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "insufficient_evidence"
+        ]
+      },
+      {
+        "article_id": "d39902a0d1b389f06513895a4aa9ca19321d8257",
+        "url": "https://www.alphalab.site/california-openai-agent-cyber-lawsuit-accountability",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T23:05:42.500184Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_3799ab624c5130859ec4081a"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "15ca10fb7962fedcc071aeb57ae56c3a6d6be632",
+        "url": "https://simonwillison.net/2026/Nov/17/external-sandboxes-for-coding-agents",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T23:05:42.500184Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_8ef8507c04af347595fb8a79"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "c62bc897b354d23bd626b54d986a830d3624ea6d",
+        "url": "https://simonwillison.net/2026/Nov/17/gpt62-astra-and-sol",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T23:05:42.500184Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_a98deffd96ae798b2f8285e6"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "insufficient_evidence"
+        ]
+      },
+      {
+        "article_id": "51e77c13a1ac17c0e00d6a410755157fb84bebaa",
+        "url": "https://openai.com/index/introducing-chatgpt-for-sales",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-17T23:05:42.500184Z",
+        "last_seen_at": "2026-11-17T23:05:42.500184Z",
+        "in_window": true,
+        "in_raw_pool": false,
+        "in_ai_pool": false,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_408aa50872e2a7ff7c4fa6a6"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "ai_pool_title_url_duplicate",
           "no_core_event"
         ]
       }
@@ -6593,7 +6767,7 @@
         "eligible": true,
         "selected": false,
         "selection_class": "core",
-        "featured_score": 0.5682,
+        "featured_score": 0.5592,
         "effective_at": "2026-11-17T20:20:29Z",
         "expires_at": "2026-11-18T20:20:29Z",
         "reason_codes": [
@@ -6715,6 +6889,33 @@
         "raw_record_count": 1,
         "article_count": 1,
         "independent_publisher_count": 1,
+        "qualified_publisher_count": 0,
+        "supplement_impact": null
+      },
+      {
+        "event_id": "be1_07e5fde8f16bc96f944c6dfe",
+        "article_ids": [
+          "5845e800a0b16d35324d7c4a8bada66600218aed"
+        ],
+        "eligible": false,
+        "selected": false,
+        "selection_class": null,
+        "featured_score": null,
+        "effective_at": "2026-11-17T22:15:43Z",
+        "expires_at": "2026-11-18T22:15:43Z",
+        "reason_codes": [
+          "no_current_qualified_article"
+        ],
+        "article_reasons": {
+          "5845e800a0b16d35324d7c4a8bada66600218aed": [
+            "insufficient_evidence",
+            "publisher_identity_not_countable",
+            "not_permitted_for_featured"
+          ]
+        },
+        "raw_record_count": 1,
+        "article_count": 1,
+        "independent_publisher_count": 0,
         "qualified_publisher_count": 0,
         "supplement_impact": null
       },
@@ -6865,6 +7066,31 @@
           "ade60dcdff34770116b267dc2d88cb73d245c7a6": [
             "no_core_event",
             "not_permitted_for_featured"
+          ]
+        },
+        "raw_record_count": 1,
+        "article_count": 1,
+        "independent_publisher_count": 1,
+        "qualified_publisher_count": 0,
+        "supplement_impact": null
+      },
+      {
+        "event_id": "be1_139a42f09c1479f27b4d1794",
+        "article_ids": [
+          "f385878f877bc692425680f4b5f9f4b7633b72e0"
+        ],
+        "eligible": false,
+        "selected": false,
+        "selection_class": null,
+        "featured_score": null,
+        "effective_at": "2026-11-17T22:42:27Z",
+        "expires_at": "2026-11-18T22:42:27Z",
+        "reason_codes": [
+          "no_current_qualified_article"
+        ],
+        "article_reasons": {
+          "f385878f877bc692425680f4b5f9f4b7633b72e0": [
+            "no_core_event"
           ]
         },
         "raw_record_count": 1,
@@ -7222,6 +7448,33 @@
         "supplement_impact": null
       },
       {
+        "event_id": "be1_2ac5a6c804b01fdcf4e0f380",
+        "article_ids": [
+          "65f9b393063c163ae722ecbd0bfc2f8277781379"
+        ],
+        "eligible": false,
+        "selected": false,
+        "selection_class": null,
+        "featured_score": null,
+        "effective_at": "2026-11-17T22:15:49Z",
+        "expires_at": "2026-11-18T22:15:49Z",
+        "reason_codes": [
+          "no_current_qualified_article"
+        ],
+        "article_reasons": {
+          "65f9b393063c163ae722ecbd0bfc2f8277781379": [
+            "no_core_event",
+            "publisher_identity_not_countable",
+            "not_permitted_for_featured"
+          ]
+        },
+        "raw_record_count": 1,
+        "article_count": 1,
+        "independent_publisher_count": 0,
+        "qualified_publisher_count": 0,
+        "supplement_impact": null
+      },
+      {
         "event_id": "be1_2ee6a0b7d1dff312713bf2a1",
         "article_ids": [
           "5842e7eeb792f64fd9861b8c81525a3366f7090a"
@@ -7423,6 +7676,33 @@
         "raw_record_count": 2,
         "article_count": 1,
         "independent_publisher_count": 1,
+        "qualified_publisher_count": 0,
+        "supplement_impact": null
+      },
+      {
+        "event_id": "be1_3799ab624c5130859ec4081a",
+        "article_ids": [
+          "d39902a0d1b389f06513895a4aa9ca19321d8257"
+        ],
+        "eligible": false,
+        "selected": false,
+        "selection_class": null,
+        "featured_score": null,
+        "effective_at": "2026-11-17T22:15:03Z",
+        "expires_at": "2026-11-18T22:15:03Z",
+        "reason_codes": [
+          "no_current_qualified_article"
+        ],
+        "article_reasons": {
+          "d39902a0d1b389f06513895a4aa9ca19321d8257": [
+            "no_core_event",
+            "publisher_identity_not_countable",
+            "not_permitted_for_featured"
+          ]
+        },
+        "raw_record_count": 1,
+        "article_count": 1,
+        "independent_publisher_count": 0,
         "qualified_publisher_count": 0,
         "supplement_impact": null
       },
@@ -7859,6 +8139,37 @@
         "supplement_impact": null
       },
       {
+        "event_id": "be1_408aa50872e2a7ff7c4fa6a6",
+        "article_ids": [
+          "51e77c13a1ac17c0e00d6a410755157fb84bebaa",
+          "d1e6370b23b24cbc4cffc01b82f4787a8ecbf5c4"
+        ],
+        "eligible": false,
+        "selected": false,
+        "selection_class": null,
+        "featured_score": null,
+        "effective_at": "2026-11-17T08:00:00Z",
+        "expires_at": "2026-11-18T08:00:00Z",
+        "reason_codes": [
+          "no_current_qualified_article"
+        ],
+        "article_reasons": {
+          "d1e6370b23b24cbc4cffc01b82f4787a8ecbf5c4": [
+            "no_core_event"
+          ],
+          "51e77c13a1ac17c0e00d6a410755157fb84bebaa": [
+            "ai_pool_title_url_duplicate",
+            "no_core_event",
+            "not_current_active_phase"
+          ]
+        },
+        "raw_record_count": 2,
+        "article_count": 1,
+        "independent_publisher_count": 1,
+        "qualified_publisher_count": 0,
+        "supplement_impact": null
+      },
+      {
         "event_id": "be1_4109ea2e86389cf237a3724a",
         "article_ids": [
           "195cd3a8e833a417e6ab96e9cfb282f16ce186dc"
@@ -7917,7 +8228,7 @@
         "eligible": true,
         "selected": false,
         "selection_class": "supplement",
-        "featured_score": 0.4316,
+        "featured_score": 0.4266,
         "effective_at": "2026-11-17T18:03:42Z",
         "expires_at": "2026-11-18T18:03:42Z",
         "reason_codes": [
@@ -8135,7 +8446,7 @@
         "eligible": true,
         "selected": false,
         "selection_class": "core",
-        "featured_score": 0.5297,
+        "featured_score": 0.5239,
         "effective_at": "2026-11-17T17:45:00Z",
         "expires_at": "2026-11-18T17:45:00Z",
         "reason_codes": [
@@ -8982,7 +9293,7 @@
         "eligible": true,
         "selected": true,
         "selection_class": "supplement",
-        "featured_score": 0.7363,
+        "featured_score": 0.7297,
         "effective_at": "2026-11-17T14:57:02Z",
         "expires_at": "2026-11-18T14:57:02Z",
         "reason_codes": [
@@ -9279,7 +9590,7 @@
         "eligible": true,
         "selected": false,
         "selection_class": "supplement",
-        "featured_score": 0.3469,
+        "featured_score": 0.3449,
         "effective_at": "2026-11-17T04:01:00Z",
         "expires_at": "2026-11-18T04:01:00Z",
         "reason_codes": [
@@ -9368,7 +9679,7 @@
         "eligible": true,
         "selected": false,
         "selection_class": "supplement",
-        "featured_score": 0.3568,
+        "featured_score": 0.3546,
         "effective_at": "2026-11-17T06:20:48Z",
         "expires_at": "2026-11-18T06:20:48Z",
         "reason_codes": [
@@ -9678,6 +9989,33 @@
         "raw_record_count": 1,
         "article_count": 1,
         "independent_publisher_count": 1,
+        "qualified_publisher_count": 0,
+        "supplement_impact": null
+      },
+      {
+        "event_id": "be1_8ef8507c04af347595fb8a79",
+        "article_ids": [
+          "15ca10fb7962fedcc071aeb57ae56c3a6d6be632"
+        ],
+        "eligible": false,
+        "selected": false,
+        "selection_class": null,
+        "featured_score": null,
+        "effective_at": "2026-11-17T22:52:29Z",
+        "expires_at": "2026-11-18T22:52:29Z",
+        "reason_codes": [
+          "no_current_qualified_article"
+        ],
+        "article_reasons": {
+          "15ca10fb7962fedcc071aeb57ae56c3a6d6be632": [
+            "no_core_event",
+            "publisher_identity_not_countable",
+            "not_permitted_for_featured"
+          ]
+        },
+        "raw_record_count": 1,
+        "article_count": 1,
+        "independent_publisher_count": 0,
         "qualified_publisher_count": 0,
         "supplement_impact": null
       },
@@ -10004,7 +10342,7 @@
         "eligible": true,
         "selected": true,
         "selection_class": "supplement",
-        "featured_score": 0.7237,
+        "featured_score": 0.7176,
         "effective_at": "2026-11-17T13:58:07Z",
         "expires_at": "2026-11-18T13:58:07Z",
         "reason_codes": [
@@ -10122,6 +10460,31 @@
           "7e99f131f250a3313d0660fa89de686e1f1fd41e": [
             "insufficient_evidence",
             "not_permitted_for_featured"
+          ]
+        },
+        "raw_record_count": 1,
+        "article_count": 1,
+        "independent_publisher_count": 1,
+        "qualified_publisher_count": 0,
+        "supplement_impact": null
+      },
+      {
+        "event_id": "be1_a42b7a98dcc3f034bdd72a5d",
+        "article_ids": [
+          "1130bd83a873a2862f8127d696585bab69b4b580"
+        ],
+        "eligible": false,
+        "selected": false,
+        "selection_class": null,
+        "featured_score": null,
+        "effective_at": "2026-11-17T22:52:04Z",
+        "expires_at": "2026-11-18T22:52:04Z",
+        "reason_codes": [
+          "no_current_qualified_article"
+        ],
+        "article_reasons": {
+          "1130bd83a873a2862f8127d696585bab69b4b580": [
+            "no_core_event"
           ]
         },
         "raw_record_count": 1,
@@ -10324,6 +10687,33 @@
         "supplement_impact": null
       },
       {
+        "event_id": "be1_a98deffd96ae798b2f8285e6",
+        "article_ids": [
+          "c62bc897b354d23bd626b54d986a830d3624ea6d"
+        ],
+        "eligible": false,
+        "selected": false,
+        "selection_class": null,
+        "featured_score": null,
+        "effective_at": "2026-11-17T22:38:52Z",
+        "expires_at": "2026-11-18T22:38:52Z",
+        "reason_codes": [
+          "no_current_qualified_article"
+        ],
+        "article_reasons": {
+          "c62bc897b354d23bd626b54d986a830d3624ea6d": [
+            "insufficient_evidence",
+            "publisher_identity_not_countable",
+            "not_permitted_for_featured"
+          ]
+        },
+        "raw_record_count": 1,
+        "article_count": 1,
+        "independent_publisher_count": 0,
+        "qualified_publisher_count": 0,
+        "supplement_impact": null
+      },
+      {
         "event_id": "be1_ab812cc394f2746272fa49fe",
         "article_ids": [
           "790ad93203132d431956a71b8a8fd7fbfbc54949"
@@ -10510,7 +10900,7 @@
         "eligible": true,
         "selected": true,
         "selection_class": "supplement",
-        "featured_score": 0.7336,
+        "featured_score": 0.7235,
         "effective_at": "2026-11-17T19:32:11Z",
         "expires_at": "2026-11-18T19:32:11Z",
         "reason_codes": [
@@ -10882,7 +11272,7 @@
         "eligible": true,
         "selected": false,
         "selection_class": "supplement",
-        "featured_score": 0.479,
+        "featured_score": 0.4747,
         "effective_at": "2026-11-17T15:00:00Z",
         "expires_at": "2026-11-18T15:00:00Z",
         "reason_codes": [
@@ -11042,7 +11432,7 @@
         "eligible": true,
         "selected": false,
         "selection_class": "supplement",
-        "featured_score": 0.5095,
+        "featured_score": 0.5037,
         "effective_at": "2026-11-17T18:00:59Z",
         "expires_at": "2026-11-18T18:00:59Z",
         "reason_codes": [
@@ -11510,6 +11900,31 @@
         "supplement_impact": null
       },
       {
+        "event_id": "be1_dfb4869f465223b476385213",
+        "article_ids": [
+          "a9fe12fd266d4de56a90f098dc8b12facb979239"
+        ],
+        "eligible": false,
+        "selected": false,
+        "selection_class": null,
+        "featured_score": null,
+        "effective_at": "2026-11-17T23:04:35Z",
+        "expires_at": "2026-11-18T23:04:35Z",
+        "reason_codes": [
+          "no_current_qualified_article"
+        ],
+        "article_reasons": {
+          "a9fe12fd266d4de56a90f098dc8b12facb979239": [
+            "no_core_event"
+          ]
+        },
+        "raw_record_count": 1,
+        "article_count": 1,
+        "independent_publisher_count": 1,
+        "qualified_publisher_count": 0,
+        "supplement_impact": null
+      },
+      {
         "event_id": "be1_dfb6da7202dc701c0c93faa3",
         "article_ids": [
           "da7d70f158d77bb28d66f300e9a8b37ccd81833c"
@@ -11695,31 +12110,6 @@
         "supplement_impact": null
       },
       {
-        "event_id": "be1_e7623b4f148265b16c4ee633",
-        "article_ids": [
-          "f215dfd4176c76d965b391273d98e7bfa58af134"
-        ],
-        "eligible": false,
-        "selected": false,
-        "selection_class": null,
-        "featured_score": null,
-        "effective_at": "2026-11-16T23:05:12Z",
-        "expires_at": "2026-11-17T23:05:12Z",
-        "reason_codes": [
-          "no_current_qualified_article"
-        ],
-        "article_reasons": {
-          "f215dfd4176c76d965b391273d98e7bfa58af134": [
-            "no_core_event"
-          ]
-        },
-        "raw_record_count": 1,
-        "article_count": 1,
-        "independent_publisher_count": 1,
-        "qualified_publisher_count": 0,
-        "supplement_impact": null
-      },
-      {
         "event_id": "be1_e91fb5045b4ef5188cac8ebf",
         "article_ids": [
           "0ef74886d5eb135471db16b0c5ddb15eed90ebc5"
@@ -11754,7 +12144,7 @@
         "eligible": true,
         "selected": true,
         "selection_class": "supplement",
-        "featured_score": 0.5886,
+        "featured_score": 0.5819,
         "effective_at": "2026-11-17T18:04:16Z",
         "expires_at": "2026-11-18T18:04:16Z",
         "reason_codes": [
@@ -12391,6 +12781,17 @@
         ]
       },
       {
+        "article_id": "24387a72649fe58ff431bbdad68499942b0c8f4d",
+        "signal": "輝達第三季營收年增達 103% ，獲利年增翻倍超乎預期，Vera Rubin 已出貨貢獻單季營收",
+        "evidence_status": "needs_primary_source",
+        "search_query": "輝達第三季營收年增達 103% ，獲利年增翻倍超乎預期，Vera Rubin 已出貨貢獻單季營收",
+        "publisher_links": [],
+        "reason_codes": [
+          "ai_relevance_below_floor",
+          "missing_meaningful_ai_signal"
+        ]
+      },
+      {
         "article_id": "981059c99fd1fd7955b88cfcb350379cd781cf66",
         "signal": "Nvidia stock falls ahead of earnings as company reels from Huang resignation",
         "evidence_status": "needs_primary_source",
@@ -12555,13 +12956,15 @@
         ]
       },
       {
-        "article_id": "24387a72649fe58ff431bbdad68499942b0c8f4d",
-        "signal": "輝達第三季營收年增達 103% ，獲利年增翻倍超乎預期，Vera Rubin 已出貨貢獻單季營收",
+        "article_id": "d69a432ac1d6cfaa37060e12421963489810e646",
+        "signal": "在輝達（NVIDIA）第三季財報電話會議上，公司的領導層過渡與競爭定位成為法人關注焦點。美銀證券（Bank o […]",
         "evidence_status": "needs_primary_source",
-        "search_query": "輝達第三季營收年增達 103% ，獲利年增翻倍超乎預期，Vera Rubin 已出貨貢獻單季營收",
+        "search_query": "在輝達（NVIDIA）第三季財報電話會議上，公司的領導層過渡與競爭定位成為法人關注焦點。美銀證券（Bank o […]",
         "publisher_links": [],
         "reason_codes": [
           "ai_relevance_below_floor",
+          "financial_metric_value_missing",
+          "insufficient_evidence",
           "missing_meaningful_ai_signal"
         ]
       }
