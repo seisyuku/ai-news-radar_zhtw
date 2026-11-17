@@ -1,0 +1,57 @@
+{
+  "id": "1a63ce620984cbd79b55759d0a79188ff50f75c7",
+  "published_at": "2026-11-17T04:01:00Z",
+  "first_seen_at": "2026-11-17T04:05:39.662380Z",
+  "site_id": "tw_media",
+  "site_name": "TW Media",
+  "source": "INSIDE",
+  "title": "AnyInsight Edge 正式推出：私有 AI 不再是孤島，企業同時擁有地端 LLM 的自主掌控與 AI Agent 的生產力",
+  "url": "https://www.inside.com.tw/article/42930-Agentic%20Security",
+  "last_seen_at": "2026-11-17T04:05:39.662380Z",
+  "summary": "AnyInsight Edge 藉由單一控制平面，將一致的生成式 AI 政策與治理，從雲端延伸至企業地端環境。此地端政策執行點（PEP）為 AI 伺服器提供零信任防火牆，統一管理私有與雲端模型，並記錄所有互動以供稽核。",
+  "source_updated_at": "2026-11-17T04:01:00Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "tw_media",
+    "source_id": "inside",
+    "name": "INSIDE",
+    "feed_url": "https://www.inside.com.tw/feed/rss"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "inside",
+    "name": "INSIDE",
+    "domain": "www.inside.com.tw",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://www.inside.com.tw/article/42930-Agentic%20Security",
+      "article_host": "www.inside.com.tw",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "inside",
+    "publisher_kind": "media",
+    "admission_status": "limited",
+    "source_tier": "tw_media",
+    "source_tier_label": "台灣繁中媒體",
+    "source_tier_rank": 2,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}
