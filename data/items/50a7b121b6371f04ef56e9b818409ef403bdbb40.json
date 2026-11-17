@@ -1,0 +1,73 @@
+{
+  "id": "50a7b121b6371f04ef56e9b818409ef403bdbb40",
+  "published_at": "2026-11-16T23:57:26Z",
+  "first_seen_at": "2026-11-17T00:31:00.045000Z",
+  "site_id": "opmlrss",
+  "site_name": "OPML RSS",
+  "source": "Simon Willison",
+  "title": "llm 0.37.3",
+  "url": "https://simonwillison.net/2026/Nov/16/llm",
+  "last_seen_at": "2026-11-17T00:31:00.045000Z",
+  "summary": "Release: llm 0.37.3 A bug fix release for LLM , mainly to cover a problem with the most recent Homebrew package of the software. Homebrew now ships the latest SQLite, 3.54.1 , which includes a fix that broke LLM's logging code . Short version: in SQLite 3.54.0 the following SQL: Returns this: But in 3.54.1 the same query returns this: According to D. Richard Hipp : That was a bug fix. Per the documentation, (SELECT json_array(...)) returns SQL text, not JSON. Hence the 3.54.1 behavior is correct and 3.54.0 was a bug. The workaround looks like this: Tags: llm , webassembly , sqlite , generative-ai , ai , llms , d-richard-hipp",
+  "publisher_links": [
+    "https://github.com/simonw/llm/releases/tag/0.37.3",
+    "https://llm.datasette.io",
+    "https://www.sqlite.org/releaselog/3_54_1.html",
+    "https://sqlite.org/bugs/info/2026-10-12T13:52:22Z",
+    "https://github.com/simonw/llm/issues/1879",
+    "https://sqlite.org/forum/forumpost/dff1a343157e422f",
+    "https://simonwillison.net/tags/llm",
+    "https://simonwillison.net/tags/webassembly",
+    "https://simonwillison.net/tags/sqlite",
+    "https://simonwillison.net/tags/generative-ai",
+    "https://simonwillison.net/tags/ai",
+    "https://simonwillison.net/tags/llms",
+    "https://simonwillison.net/tags/d-richard-hipp"
+  ],
+  "source_updated_at": "2026-11-16T23:57:26Z",
+  "ingress": {
+    "kind": "private_opml",
+    "site_id": "opmlrss",
+    "source_id": null,
+    "name": "RSS/OPML",
+    "feed_url": null
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": null,
+    "name": null,
+    "domain": "simonwillison.net",
+    "status": "unknown",
+    "basis": [],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": null,
+      "article_host": "simonwillison.net",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "unreviewed",
+    "publisher_kind": "unknown",
+    "admission_status": "unreviewed",
+    "source_tier": "watchlist",
+    "source_tier_label": "未審來源",
+    "source_tier_rank": 6,
+    "allow_general": true,
+    "allow_featured": false,
+    "allow_radar": false,
+    "reason_codes": [
+      "missing_identity",
+      "scope_mismatch",
+      "unreviewed_publisher",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
+    ]
+  }
+}
