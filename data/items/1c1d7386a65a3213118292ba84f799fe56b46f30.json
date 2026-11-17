@@ -1,0 +1,57 @@
+{
+  "id": "1c1d7386a65a3213118292ba84f799fe56b46f30",
+  "published_at": "2026-11-17T12:11:39Z",
+  "first_seen_at": "2026-11-17T04:35:41.980289Z",
+  "site_id": "tw_media",
+  "site_name": "TW Media",
+  "source": "iThome",
+  "title": "Shadowserver觀測到公開網路上存在逾3,800個AI攻擊框架執行個體，臺灣也有20個",
+  "url": "https://www.ithome.com.tw/news/180560",
+  "last_seen_at": "2026-11-17T04:35:41.980289Z",
+  "summary": "美國聯邦調查局（FBI）11月13日發布警示，指出駭客至少從今年8月起，已利用開源AI自主滲透測試框架ARTEX發動攻擊，大幅加快入侵速度。",
+  "source_updated_at": "2026-11-17T12:11:39Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "tw_media",
+    "source_id": "ithome",
+    "name": "iThome",
+    "feed_url": "https://www.ithome.com.tw/rss"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "ithome",
+    "name": "iThome",
+    "domain": "www.ithome.com.tw",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://www.ithome.com.tw/news/180560",
+      "article_host": "www.ithome.com.tw",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": true,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "ithome",
+    "publisher_kind": "media",
+    "admission_status": "limited",
+    "source_tier": "professional_media",
+    "source_tier_label": "專業科技媒體",
+    "source_tier_rank": 1,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}
