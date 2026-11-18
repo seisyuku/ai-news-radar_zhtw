@@ -4,6 +4,8 @@
 
 ## 目前待辦
 
+Claude 官方公告入口已在本機修復，待發布後由正常刷新確認正式健康。
+
 11/18 融資過度入選、動區一般收錄與 Pulse 來源邊界、人事異動已合為一份本機修改。兩輪正式快照離線驗證與七天回放通過，完整測試 2,328 項通過。整合版進入正式發布驗收。 [交接摘要](HANDOVER.md)
 
 ## 例行維護與可選整理
@@ -19,6 +21,8 @@
 
 | 完成日期 | 工作 | 結果／依據 |
 | --- | --- | --- |
+| 11/18 | vLLM、LiberAI、Thinking Machines Lab 收錄取消 | 三案依維護者裁決結案，停止追蹤。Thinking Machines Lab 官方 Feed 已從本機收件設定移除。[來源覆蓋](SOURCE_COVERAGE.md) |
+| 11/18 | Claude Product Announcements 入口修復 | 收件器改讀官方 Product updates，沿用既有子來源 ID。本機已修改，待發布。[來源覆蓋](SOURCE_COVERAGE.md) |
 | 11/18 | 全站收錄、分類與排序分工 | 一般排序以可追溯原始文章為來源條件。例行刷新停止追索對照源的引用，讀者主題使用原始標題，優先閱讀分採來源政策對應的權重。事實查核由自媒體編輯助理處理。詳見[產品規則](../README.md#資訊來源與可信度)。 |
 | 11/18 | BlockTempo 提前驗收及 Pulse 來源查核邊界 | 試接封存 78 篇。維護者依顯示價值裁決保留一般收錄，適用全站分類與評級。Pulse 檢查原始來源是否可取得，自媒體編輯助理負責事實查核。詳見[來源覆蓋](SOURCE_COVERAGE.md#提前驗收結論)。 |
 | 11/10 | Hugging Face 語言版本合併與 Actions Node.js 24 | `19d145b0ab08`、`461919eedee4` 已推送 master，2,302 項本機測試及 [GitHub 離線 CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/42746198196) 通過。臺北 10:57:52 快照 `e3e94f7e2674` 與正式站五檔一致，合併列表一張繁中卡片，未合併資料保留兩版。[資料部署](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/42746390542) 成功，GitHub 自管 Pages 建置仍回報其內部 `upload-artifact@v4` 的 Node 20 警告。 |

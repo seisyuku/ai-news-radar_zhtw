@@ -67,6 +67,21 @@ def test_new_child_keeps_working_when_old_anthropic_endpoint_fails(monkeypatch):
     assert next(s for s in details["subsources"] if s["source_id"] == SOURCE_ID)["ok"]
 
 
+def test_retired_thinking_machines_feed_has_no_active_health_streak():
+    retired_id = "thinking_machines_lab"
+    assert all(feed["source_id"] != retired_id for feed in u.OFFICIAL_AI_FEEDS)
+    previous = {"sites": [{"site_id": "official_ai", "subsources": [
+        {"source_id": retired_id, "ok": False, "consecutive_failures": 220},
+        {"source_id": SOURCE_ID, "ok": False, "consecutive_failures": 602},
+    ]}]}
+    current = [{"site_id": "official_ai", **u.source_health.summarize_subsources([
+        {"source_id": SOURCE_ID, "ok": True, "item_count": 1, "error": None},
+    ])}]
+    assert u.apply_source_health_history(current, previous, NOW) == []
+    assert [r["source_id"] for r in current[0]["subsources"]] == [SOURCE_ID]
+    assert current[0]["subsources"][0]["consecutive_failures"] == 0
+
+
 @pytest.mark.parametrize("rows", [
     [], [dict(ROW, date="2021-01-01")], [dict(ROW, date="2026-11-03")],
     [dict(ROW, _type="video")], [dict(ROW, externalUrl="https://www.anthropic.com/news/example")],

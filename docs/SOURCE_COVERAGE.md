@@ -1,5 +1,13 @@
 # Source Coverage
 
+## 2026-11-18 官方來源裁決與 Claude 入口修復
+
+- vLLM、LiberAI 的收錄評估依維護者裁決取消並結案。兩者均未接入例行收件，停止後續評估與人工追蹤。
+- Thinking Machines Lab 的官方 Feed 依裁決退出 `official_ai`，收錄案結案。最近檢查的正式快照中，舊 `index.xml` 已連續 220 次 `fetch_failed`。新收件設定移除該子來源，既存封存和其他媒體的相關報導仍沿用一般規則。
+- Claude 舊入口 `/resources/product-announcements` 回 HTTP 308，轉到 [Claude 官方 Product updates](https://claude.com/resources/product-updates)。新頁內嵌的分類為 `product-updates`，舊檢查因此回報 `invalid_source`。收件器改為直接讀取新頁，沿用既有子來源 ID、本站文章範圍與僅有日期的時間精度。兩次公開 HTTP 回應皆可取得結構化索引，未找到官方 RSS。
+
+兩次實網收件各取得相同 12 篇。以臺北 11/18 11:24:08 正式快照 `30621f390007` 隔離生成，封存 8,152→8,160 篇，新增 8 個文章網址，近七天占 4 個。一般 AI 208 篇、全部 248 篇及重點 2 則的 ID 和順序相同。回放中 Claude 的連續失敗 602→0，Thinking Machines Lab 退出來源健康與持續失敗清單。完整 2,330 項測試與讀者端資料檢查通過。修正已在本機驗證，待發布後查核正式刷新。
+
 ## BlockTempo AI 一般來源（2026-11-18 提前驗收）
 
 維護者同意研究判斷並授權執行待辦。已接入`tw_media/blocktempo_ai`，以[原站公開分類JSON](https://www.blocktempo.com/wp-json/wp/v2/posts?categories=309&per_page=30&_fields=id,date_gmt,link,title,excerpt,categories)取代本輪確認落後的RSS路線。這是未審一般候選試接，不認定B級品質；沿用既有刷新與健康，不重啟七日觀察／報告／SMTP流程。
@@ -24,6 +32,8 @@
 正式發布：收件程式[1e81a325cc0c](https://github.com/seisyuku/ai-news-radar_zhtw/commit/1e81a325cc0cab647f4f1ff71940b23531c11f7f)及一般排序補正[5ee10deee385](https://github.com/seisyuku/ai-news-radar_zhtw/commit/5ee10deee385770c3f2bfcc8a7328fad027a47e2)均已保留並行快照整合master；[最終CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41982133775)、[程式Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41982132138)、[正常刷新](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41982156290)及資料4f267b443b95的[Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41982361632)均成功。臺北11/5 14:42:18快照收件8篇／一般AI7篇，全站AI195篇／重點4則，來源失敗／降級0；26份正式HTTP與生成提交bytes一致，8份resolver等於Archive，Python及讀者JS治理valid／meta／resolve通過。實際BlockTempo一般故事的來源分數均為0.3，公開政策rank6且無重點／雷達權限。
 
 ## 2026-11-03 Claude Product announcements與漏報流程（已發布並驗收）
+
+此節記錄首次上線。現行入口與分類值見11/18修復紀錄。
 
 維護者核准以官方Product announcements補足Anthropic News之外的公告路徑。已正式接入`official_ai/claude_product_announcements`，限定`claude.com/resources/articles/`沿用官方逐篇用途與Anthropic同發布者一票；其他Claude頁面、子網域與仿冒host不取得官方用途權限。來源範圍限RSS／Feed與HTTP可取得的結構化文字。此入口只解析`https://claude.com/resources/product-announcements`的內嵌JSON，不執行腳本、不讀非結構化正文、不補抓文章／附件／圖片／影音，沒有新增站外搜尋或服務。
 

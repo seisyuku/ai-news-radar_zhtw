@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "policy_id": "publisher-governance-v1",
-  "revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+  "revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
   "default": {
     "publisher_kind": "unknown",
     "admission_status": "unreviewed",
@@ -186,7 +186,7 @@
       "allow_general": true,
       "allow_featured": true,
       "allow_radar": true,
-      "notes": "Existing Anthropic scope plus claude.com/resources/articles/; the Claude collector accepts only structured Product announcements. Same Anthropic publisher vote; no arbitrary subdomains or whole-site permission.",
+      "notes": "Existing Anthropic scope plus claude.com/resources/articles/; the Claude collector accepts the official Product updates index. Same Anthropic publisher vote; no arbitrary subdomains or whole-site permission.",
       "authority": [
         "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md",
         "docs/SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md"
@@ -1267,9 +1267,7 @@
         "docs/PUBLISHER_GOVERNANCE_PG01_CONTRACT_20261023.md",
         "docs/SOURCE_GOVERNANCE_A03_DECISIONS_20261022.md"
       ],
-      "retained_source_keys": [
-        "official_ai/thinking_machines_lab"
-      ]
+      "retained_source_keys": []
     },
     {
       "scope_id": "wccftech",
@@ -1502,7 +1500,7 @@
     {
       "source_key": "official_ai/thinking_machines_lab",
       "publisher_id": "thinkingmachines",
-      "action": "retain"
+      "action": "remove"
     },
     {
       "source_key": "opml_pool",

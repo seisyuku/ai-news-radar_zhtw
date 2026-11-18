@@ -228,16 +228,6 @@ OFFICIAL_AI_FEEDS: tuple[dict[str, str], ...] = (
         "include_keywords": "hatch,pet,migrate-to-codex",
     },
     {
-        # feature/model-release-badge: probed 2026-07 - no /feed, /rss.xml or
-        # /atom.xml, but thinkingmachines.ai is a Hugo site and exposes the
-        # standard Hugo RSS output at /index.xml (verified: valid RSS 2.0,
-        # "Thinking Machines Lab" channel, includes the Inkling launch post).
-        "source_id": "thinking_machines_lab",
-        "title": "Thinking Machines Lab",
-        "xml_url": "https://thinkingmachines.ai/index.xml",
-        "html_url": "https://thinkingmachines.ai/blog/",
-    },
-    {
         # Official NVIDIA blog RSS (nvidianews.nvidia.com does not expose a
         # working /rss feed; this is NVIDIA's actual public feed and mixes
         # GeForce/gaming posts with AI posts, so it relies on the shared
@@ -1775,7 +1765,8 @@ def extract_balanced_json(decoded: str, key: str) -> Any:
     return json.loads(snippet)
 
 
-CLAUDE_PRODUCT_ANNOUNCEMENTS_URL = "https://claude.com/resources/product-announcements"
+CLAUDE_PRODUCT_UPDATES_CATEGORY = "product-updates"
+CLAUDE_PRODUCT_ANNOUNCEMENTS_URL = f"https://claude.com/resources/{CLAUDE_PRODUCT_UPDATES_CATEGORY}"
 CLAUDE_PRODUCT_ANNOUNCEMENTS_MAX_BYTES = 2 * 1024 * 1024
 CLAUDE_PRODUCT_ANNOUNCEMENTS_MAX_ITEMS = 20
 
@@ -1810,7 +1801,8 @@ def _claude_product_announcement_rows(page_html: str) -> list[dict[str, Any]]:
             continue
         props = record[3]
         scope = props.get("scope")
-        if isinstance(scope, dict) and scope.get("kind") == "category" and scope.get("value") == "product-announcements":
+        if (isinstance(scope, dict) and scope.get("kind") == "category"
+                and scope.get("value") == CLAUDE_PRODUCT_UPDATES_CATEGORY):
             payloads.append(props)
     if len(payloads) != 1:
         raise ValueError("invalid_claude_index_scope")
@@ -1843,12 +1835,12 @@ def parse_claude_product_announcements_items(
         # Malformed routing fields still reach validation below so an unusable
         # article payload cannot silently masquerade as a healthy empty page.
         if ((isinstance(row.get("_type"), str) and row["_type"] != "blogPost")
-                or (isinstance(categories, list) and "product-announcements" not in categories)
+                or (isinstance(categories, list) and CLAUDE_PRODUCT_UPDATES_CATEGORY not in categories)
                 or (isinstance(row.get("externalUrl"), str) and row["externalUrl"])):
             continue
         candidate_source_entries += 1
         if (row.get("_type") != "blogPost" or not isinstance(categories, list)
-                or "product-announcements" not in categories or row.get("externalUrl") not in (None, "")):
+                or CLAUDE_PRODUCT_UPDATES_CATEGORY not in categories or row.get("externalUrl") not in (None, "")):
             continue
         slug, title, day, summary = (row.get(key) for key in ("slug", "title", "date", "excerpt"))
         if (not isinstance(slug, str) or not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", slug)

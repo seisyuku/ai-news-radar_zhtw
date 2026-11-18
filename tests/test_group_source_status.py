@@ -74,7 +74,7 @@ def test_group_reports_each_subsource_without_losing_items(monkeypatch, group, f
             "https://developers.openai.com/codex/changelog": b'<li id="old"><h3>Old AI news</h3><time datetime="2021-01-01"></time></li>',
             update_news.CLAUDE_PRODUCT_ANNOUNCEMENTS_URL: (
                 b'<script>self.__next_f.push([1,"42:[\\"$\\",\\"$L44\\",null,{\\"scope\\":{\\"kind\\":\\"category\\",'
-                b'\\"value\\":\\"product-announcements\\"},\\"curated\\":{\\"items\\":[],\\"total\\":0}}]\\n"])</script>'
+                b'\\"value\\":\\"product-updates\\"},\\"curated\\":{\\"items\\":[],\\"total\\":0}}]\\n"])</script>'
             ),
         })
         if scenario == "all_failed":

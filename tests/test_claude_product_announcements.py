@@ -1,4 +1,4 @@
-"""Structured official index only; fixed sample trimmed from 2026-11-03 HTTP data."""
+"""Structured official Product updates index; fixed sample trimmed from 2026-11-18 HTTP data."""
 import copy
 import json
 from pathlib import Path
@@ -45,7 +45,7 @@ def test_official_message_threads_sample_keeps_utf8_and_date_precision(split):
 
 
 @pytest.mark.parametrize("field,value", [
-    ("categorySlugs", "product-announcements"),
+    ("categorySlugs", "product-updates"),
     ("slug", "../message-threads"), ("slug", "https://example.com/a"), ("slug", "message-threads.pdf"),
     ("slug", "message-threads?format=pdf"), ("slug", "message%2fthreads"), ("slug", ""),
     ("title", ""), ("title", {"text": "Invented"}), ("date", "2026-02-30"), ("date", "November 2"),
@@ -98,7 +98,8 @@ def test_future_day_inside_shared_clock_tolerance_still_stays_out():
 
 
 @pytest.mark.parametrize("props", [
-    {"scope": {"kind": "type", "value": "product-announcements"}, "curated": {"items": [ROW], "total": 1}},
+    {"scope": {"kind": "type", "value": "product-updates"}, "curated": {"items": [ROW], "total": 1}},
+    {"scope": {"kind": "category", "value": "product-announcements"}, "curated": {"items": [ROW], "total": 1}},
     {"scope": {"kind": "category", "value": "best-practices"}, "curated": {"items": [ROW], "total": 1}},
     {**PAYLOAD, "curated": {"items": [], "total": 162}},
     {**PAYLOAD, "curated": {"items": [ROW], "total": True}},
@@ -165,7 +166,7 @@ def test_fetch_uses_only_fixed_index_and_preserves_same_id_across_repeated_reads
     response = Response()
     session = Session(response)
     items = u.fetch_claude_product_announcements(session, NOW)
-    assert session.calls == [(u.CLAUDE_PRODUCT_ANNOUNCEMENTS_URL,
+    assert session.calls == [("https://claude.com/resources/product-updates",
                               {"timeout": 20, "stream": True, "allow_redirects": False})]
     assert response.closed and len(items) == 1
     archive = {}

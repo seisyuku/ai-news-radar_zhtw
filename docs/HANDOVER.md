@@ -2,6 +2,12 @@
 
 更新：2026-11-18（臺北）。本頁僅保留目前有效狀態與2026-11-09起的交接紀錄；超過十天的項目與歷程已從本頁移除。任務清單以[TASK_LEDGER](TASK_LEDGER.md)為準，產品／來源／操作細節分別依README、SOURCE_COVERAGE與OPERATIONS。
 
+## 11/18 官方來源裁決與 Claude 入口修復
+
+vLLM、LiberAI、Thinking Machines Lab 的收錄案依維護者裁決取消並結案，停止後續追蹤。Thinking Machines Lab 的官方 Feed 已從本機收件設定移除。
+
+Claude 公告收件器已改讀官方 Product updates，並使用新頁的 `product-updates` 分類。沿用 `official_ai/claude_product_announcements` 識別與既有官方用途。兩次實網各收 12 篇，隔離回放補入封存 8 篇，Claude 連續失敗歸零。完整 2,330 項測試通過，待發布後驗收正式刷新。詳見[來源覆蓋](SOURCE_COVERAGE.md)。
+
 ## 11/18 融資、動區 AI 與人事異動整合（本機完成）
 
 三則對話合為同一份本機變更。共用前端資產為 `20261118-integrated1`，重點資料政策為 `impact-v4-personnel-capital`。融資公告仍進一般排序，原文只交代融資時重點影響分最多 15、事件實質性最多 10。同公司、同美元金額且輪次相容的報導合併。模型發布原文含明確上線渠道或有名稱的評測排名時，可支持材料完整度。動區依一般來源規則處理，Pulse 採原始公告或原始報導，人事異動按職責分級。
