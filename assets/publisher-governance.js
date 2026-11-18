@@ -5,6 +5,7 @@
 })(typeof globalThis !== "undefined" ? globalThis : this, function () {
   "use strict";
   const POLICY = "publisher-governance-v1";
+  const CURRENT_POLICY = "impact-v4-personnel-capital";
   const kinds = ["earnings", "market", "security", "pricing", "benchmark", "model_release"];
   const ordered = (x) => Array.isArray(x) ? x.map(ordered) : x && typeof x === "object"
     ? Object.fromEntries(Object.keys(x).sort().map((k) => [k, ordered(x[k])])) : x;
@@ -39,7 +40,7 @@
     return compact(ref.source_material?.title_original || ref.source_material?.title || "").includes(compact(subject.split(":").slice(1).join(":")));
   }
 
-  function validMaterial(a, ref) {
+  function validMaterial(a, ref, selectionPolicy) {
     if (!a || typeof a.id !== "string" || !a.id || a.id.length > 256 || !a.ingress || !a.publisher || !a.source_policy
       || !a.qualification || !["in_scope", "out_of_scope", "unknown"].includes(a.qualification.scope)
       || !Array.isArray(a.qualification.core_evidence) || a.qualification.core_evidence.length > 6) return false;
@@ -57,6 +58,8 @@
       || !unique(s.qualifiers) || !subset(s.qualifiers, ["provider_claim", "unreleased"])
       || !validSpans(s, ref) || !Array.isArray(ref.source_links) || ref.source_links.length > 24
       || ref.source_links.some((u) => !safeUrl(u)) || typeof ref.source_site_name !== "string") return false;
+    if (Object.hasOwn(s, "personnel_impact") && (selectionPolicy !== CURRENT_POLICY
+      || s.kind !== "industry_news" || ![15, 20, 30].includes(s.personnel_impact))) return false;
     if (s.kind === null) return !s.spans.length && !s.urls.length && !s.qualifiers.length;
     if (a.qualification.scope !== "in_scope" || !s.spans.length || a.qualification.core_evidence.some((e) => e.status === "conflict")) return false;
     const field = ref.source_material.title_original ? "title_original" : "title";
@@ -93,7 +96,7 @@
     return ref.corroboration_key === (["aibase", "kr36", "juya"].includes(pid) ? "cn_aggregator" : `publisher:${pid}`);
   }
 
-  function impactScore(native, basis) {
+  function impactScore(native, basis, personnelImpact, modelRelease = false, current = true) {
     const bounded = (s) => Array.from(String(s || "").split(/延伸閱讀|延伸阅读|相關文章|相关文章|read more|related articles/i)[0]).slice(0, 1600).join("");
     const title = bounded(native?.title_original || native?.title), summary = bounded(native?.summary);
     if (!title) return { i: 0, p: 0, e: 0, c: 0, total: 0, passes: false };
@@ -128,12 +131,40 @@
       : deployment || unitCost || (finance && amount > 0) ? 15 : product ? 5 : 0;
     if (/revenue|earnings|operating costs?|market share|營收|营收|營運成本|市佔|市占/i.test(text) && (/\d+(?:\.\d+)?\s*%/.test(text) || dollars(text) > 0)) i = Math.max(30, i);
     if (basis === "supported_core") i = Math.max(15, i);
-    const p = basis === "supported_core" || supplyHarm || (finance && amount > 0) || product || deployment ? 20 : unitCost ? 10 : 0;
+    let p = basis === "supported_core" || supplyHarm || (finance && amount > 0) || product || deployment ? 20 : unitCost ? 10 : 0;
     const titleWords = new Set((title.toLowerCase().match(/[a-z0-9]+/g) || []));
     const newWords = new Set((summary.toLowerCase().match(/[a-z0-9]+/g) || []).filter((w) => w.length > 3 && !titleWords.has(w)));
     const cjkDetail = /[\u3400-\u9fff]/.test(summary) && Array.from(summary).length >= Array.from(title).length + 20 && !summary.includes(title);
     const detail = /\b(?:because|after|using|uses?|found|affect\w*|caus\w*|result\w*|includ\w*|add\w*|built?|deplo\w*|test\w*|quality|sav\w*|customer\w*|closed|expand\w*|leaked|entered|scor\w*)\b|引入|功能|發現|发现|影響|影响|造成|結果|结果|採用|采用|測試|测试|節省|节省|外洩|外泄|憑證|凭证|渠道/i.test(summary);
-    const e = (newWords.size >= 5 || cjkDetail) && detail && !content ? 20 : 10;
+    const financing = current && title.match(/\b(?:fundrais\w*|funding round|financing round|stock offering|stock sale)\b|\b(?:announc\w*|clos\w*|secur\w*|rais\w*|receiv\w*|obtain\w*)\b.{0,36}\b(?:funding|financing|bank loans?|credit facilit(?:y|ies))\b|\b(?:raises?|raised|secures?|secured)\s+(?:(?:an?|another|additional|fresh)\s+)*(?:US\s*)?\$\s*\d|融資|融资|募資|募资|募得|股票發行|股票发行|銀行授信|银行授信/i);
+    const funding = financing && !/\b(?:IPO|initial public offering)\b|首次公開募股|首次公开募股/i.test(title)
+      && !/\b(?:acquires|acquired|merges|merged)\b|(?:正式|已)?(?:收購|收购|併購|并购)/i.test(title.slice(0, financing.index));
+    const hedge = /\b(?:plans?|intends?|aims?|hopes?|would|could|might|not|if|expects?|projected|will)\b|計劃|计划|擬|拟|可能|預計|预计|尚未|並未|并未/i;
+    const clauses = summary.split(/[。;；\n]|(?<=[a-z])\.\s+/);
+    let actualChange = false;
+    if (funding) {
+      const actor = title.split(/\b(?:has |just )?(?:raises?|raised|secures?|secured|closes?|closed|launches?)\b|(?:完成|獲得|获得|募資|募资|融資|融资)/i, 1)[0].trim().toLowerCase();
+      actualChange = clauses.some((clause, index) =>
+        /\b(?:now generally available|now available|went live|entered general availability|has deployed|has opened|has shipped|began serving|started serving|now operates|now serves|now runs)\b|已(?:上[線线]|投入運作|投入运作|正式開放|正式开放|部署|開始提供|开始提供)/i.test(clause)
+        && /\b(?:API|GPUs?|capacity|inference|clusters?|platform|models?|customers?|users?)\b|算力|叢集|集群|推理|使用者|用戶|用户|客戶|客户|模型/i.test(clause)
+        && !hedge.test(clause) && ((index === 0 && /^\s*(?:(?:the|its)\s+(?:company|startup|developer|team)|it)\s+/i.test(clause))
+          || (actor && clause.trimStart().toLowerCase().startsWith(actor + " "))));
+      i = actualChange ? 15 : Math.min(i, 15);
+      p = actualChange ? 20 : Math.min(p, 10);
+    }
+    const modelIds = (s) => [...s.matchAll(/\b(?:GPT|Claude|Gemini|Grok|Qwen|DeepSeek|Llama|Mistral|Voxtral|GLM|Kimi)[\s\-‐‑–]*(?:(?:Opus|Sonnet|Haiku)\s+)?[vVkK]?\d+(?:\.\d+)*(?:[\s\-‐‑–]+(?:Astra|Sol|Luna|Pro|Max|Mini|Nano|Flash|Lite|Preview)\b)*/gi)]
+      .map(m => m[0].toLowerCase().replace(/[^a-z0-9.]/g, ""));
+    const titleModels = current && modelRelease ? modelIds(title) : [];
+    const sameModel = (text) => modelIds(text).some(id => titleModels.includes(id));
+    const releaseDetail = titleModels.length && !hedge.test(summary)
+      && (clauses.some(clause => sameModel(clause)
+        && /\b(?:now (?:generally )?available|generally available|available now)\b.{0,90}\b(?:API|Copilot|ChatGPT|Codex|Bedrock|Vertex AI|AI Studio|Azure)\b|(?:正式|現已|现已).{0,14}(?:開放|开放|上[線线]).{0,50}(?:API|Copilot|ChatGPT|Codex|Bedrock|Vertex AI)/i.test(clause))
+        || (sameModel(summary) && /\b(?:benchmark|index|leaderboard)\b.{0,90}\b(?:ranks?|placed|ranked)\s+(?:first|second|third|fourth|fifth|#?\d+)(?![A-Za-z0-9])/i.test(summary)));
+    const e = ((newWords.size >= 5 || cjkDetail) && detail || releaseDetail || actualChange) && !content ? 20 : 10;
+    if (basis === "industry_news" && [15, 20, 30].includes(personnelImpact)) {
+      const total = personnelImpact + 20 + e + 20;
+      return { i: personnelImpact, p: 20, e, c: 20, total, passes: total >= 70 };
+    }
     const c = content ? 0 : /\b(?:refinery|oil|bank|hospital|factory|manufacturer)\b|煉油廠|銀行|醫院|製造/i.test(industryTitle) && deployment || capital && /(?:AI|OpenAI|Anthropic)[ -]backed|(?:AI|人工智慧).{0,6}(?:支持|支援|投資)/i.test(title) && !/\b(?:model|LLM|inference)\b|模型|推理/i.test(title) ? 10
       : basis === "capability_disclosure" || /(?<![A-Za-z])(?:AI|LLM|GPT|Claude|Copilot|LiteLLM|OpenAI|Anthropic|Nvidia|Meta|Qwen)(?![A-Za-z])|\bmodel\b|人工智慧|模型|機器學習/i.test(text) ? 20 : 0;
     if (c < 20) i = Math.min(15, i);
@@ -177,7 +208,7 @@
     try {
       const g = parent?.publisher_governance, p = parent?.brief_events;
       if (!g || !p || g.record_type !== "publisher_governance_projection" || g.schema_version !== 2
-        || g.selection_policy !== "impact-v3-empty-fallback" || g.default_visible_limit !== 5
+        || !["impact-v3-empty-fallback", CURRENT_POLICY].includes(g.selection_policy) || g.default_visible_limit !== 5
         || g.policy_id !== POLICY || g.status !== "ready" || !/^[0-9a-f]{64}$/.test(g.registry_revision || "")
         || !/^pg2_[0-9a-f]{24}$/.test(g.generation_id || "") || !/^bg1_[0-9a-f]{24}$/.test(p.generation_id || "")
         || !/^[0-9a-f]{64}$/.test(p.state_revision || "") || !["ready", "recovered"].includes(p.status)
@@ -209,7 +240,7 @@
         for (const [rid, ref] of refs) {
           const a = articles.get(rid), sp = a?.source_policy;
           refIds.add(rid);
-          if (!validMaterial(a, ref) || sp.schema_version !== 1 || sp.policy_id !== POLICY || sp.registry_revision !== g.registry_revision
+          if (!validMaterial(a, ref, g.selection_policy) || sp.schema_version !== 1 || sp.policy_id !== POLICY || sp.registry_revision !== g.registry_revision
             || !["approved", "limited", "unreviewed", "excluded"].includes(sp.admission_status)
             || !Number.isSafeInteger(sp.source_tier_rank) || sp.source_tier_rank < 0 || sp.source_tier_rank > 9
             || ["allow_general", "allow_featured", "allow_radar"].some((k) => typeof sp[k] !== "boolean")
@@ -258,11 +289,15 @@
             || articles.get(a).source_policy.source_tier_rank - articles.get(b).source_policy.source_tier_rank || compareIds(a, b));
           const s = articles.get(rid).supplement_evidence;
           const impact = d.supplement_impact;
-          if (!same(impact, impactScore(primary.source_material, d.eligibility_basis))
+          const current = g.selection_policy === CURRENT_POLICY;
+          if (!same(impact, impactScore(primary.source_material, d.eligibility_basis, s.personnel_impact,
+            core.length > 0 && allowedKinds(event, articles.get(rid)).includes("model_release"), current))
             || d.selection_tier !== selectionTier(impact)) return false;
           for (const id of expectedSupport) {
-            const basis = core.length ? "supported_core" : articles.get(id).supplement_evidence.kind;
-            const expectedScore = rank(impactScore(refs.get(id).source_material, basis), d.selection_class, event.effective_at, Date.parse(g.generated_at));
+            const evidence = articles.get(id).supplement_evidence;
+            const basis = core.length ? "supported_core" : evidence.kind;
+            const modelRelease = core.length > 0 && allowedKinds(event, articles.get(id)).includes("model_release");
+            const expectedScore = rank(impactScore(refs.get(id).source_material, basis, evidence.personnel_impact, modelRelease, current), d.selection_class, event.effective_at, Date.parse(g.generated_at));
             if (scores.get(id) !== expectedScore) return false;
           }
           if (ranked[0] !== rid || d.featured_score !== scores.get(rid)

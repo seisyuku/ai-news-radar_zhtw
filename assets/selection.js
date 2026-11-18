@@ -7,15 +7,9 @@
   "use strict";
 
   function itemHaystack(item) {
+    const native = item.source_material;
     return [
-      item.title,
-      item.title_zh,
-      item.title_en,
-      item.title_original,
-      item.source,
-      item.site_name,
-      item.site_id,
-      item.ai_label,
+      native?.title_original || native?.title || item.title_original || item.title_en || item.title || item.title_zh,
       ...(Array.isArray(item.ai_signals) ? item.ai_signals : []),
     ].filter(Boolean).join(" ").toLowerCase();
   }
@@ -26,19 +20,9 @@
 
   function itemSections(item) {
     const hay = itemHaystack(item);
-    const contentHay = [
-      item.title,
-      item.title_zh,
-      item.title_en,
-      item.title_original,
-      item.source,
-      item.site_name,
-      item.site_id,
-      ...(Array.isArray(item.ai_signals) ? item.ai_signals : []),
-    ].filter(Boolean).join(" ").toLowerCase();
     const sections = new Set();
     const label = item.ai_label || "";
-    const hasExplicitModelTerm = matchesAny(contentHay, [
+    const hasExplicitModelTerm = matchesAny(hay, [
       /gpt[-\s]?\d|claude|gemini|grok|llama|qwen|deepseek|mistral|kimi\s?k\d|glm|gemma|模型|model|weights|权重|權重|多模态|多模態|视频生成|影片生成|diffusion|sora|seedance|llm|大模型/,
     ]);
     const looksLikeToolOrProduct = matchesAny(hay, [
@@ -47,6 +31,7 @@
 
     if (
       hasExplicitModelTerm ||
+      (Array.isArray(item.business_events) && item.business_events.includes("model_release")) ||
       (label === "model_release" && !looksLikeToolOrProduct)
     ) sections.add("models");
 

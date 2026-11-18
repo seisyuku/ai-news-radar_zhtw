@@ -21,7 +21,7 @@ def record(item_id=ACTIVE_ID, last_seen="2026-09-28T00:00:00Z"):
     return {
         "id": item_id, "site_id": "official_ai", "site_name": "Official AI",
         "source": "Example", "title": "OpenAI releases an AI model",
-        "url": "https://example.invalid/news", "published_at": last_seen,
+        "url": "https://example.com/news", "published_at": last_seen,
         "first_seen_at": last_seen, "last_seen_at": last_seen,
     }
 

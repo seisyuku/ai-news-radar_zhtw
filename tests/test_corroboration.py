@@ -126,3 +126,15 @@ console.log(JSON.stringify({keys:[...keys],matches:rows.map(item => itemMatchesS
     html = (Path(__file__).resolve().parents[1] / "index.html").read_text()
     assert '<option value="multi">多方報導</option>' in html
     assert "多源驗證" not in html
+
+
+def test_same_model_name_does_not_turn_separate_actions_into_multiple_reports():
+    code = extract_declarations("eventKey", "multiSourceEventKeys")
+    result = run_js(code + """
+const reports = [
+  {title_original:"GPT-5.7 launches", title_zh:"新模型發布", corroboration_key:"publisher:openai"},
+  {title_original:"GPT-5.7 changes API pricing", title_zh:"新模型發布", corroboration_key:"publisher:reuters"},
+];
+console.log(JSON.stringify([...multiSourceEventKeys(reports)]));
+""")
+    assert result == []

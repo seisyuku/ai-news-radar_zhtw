@@ -18,7 +18,7 @@ def fallback_row(n=0):
 
 def primary_row(n=0):
     return article(f"primary-{n}", title=f"FundingFirm{n} AI raises $500 million funding",
-        summary="The AI company closed the funding round and expands inference infrastructure for enterprise customers.",
+        summary=f"FundingFirm{n} AI now operates 2,000 additional inference GPUs for enterprise customers.",
         url=f"https://the-decoder.com/primary-{n}", source="The Decoder AI News", site_id="curated_media")
 
 

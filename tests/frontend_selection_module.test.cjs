@@ -36,6 +36,18 @@ test("classification reads publisher/signals fields and does not mutate inputs",
   assert.equal(JSON.stringify(item), before);
 });
 
+test("native titles and event tags set topics without translation or publisher names", () => {
+  const item = {
+    source_material: { title: "Acme launches a workspace" },
+    title_zh: "模型評測研究",
+    source: "GitHub Research",
+  };
+  assert.equal(selection.itemMatchesSection(item, "models"), false);
+  assert.equal(selection.itemMatchesSection(item, "research"), false);
+  assert.equal(selection.itemMatchesSection(item, "devtools"), false);
+  assert.equal(selection.itemMatchesSection({ ...item, business_events: ["model_release"] }, "models"), true);
+});
+
 test("classic browser export works without app, DOM, network or state", () => {
   const context = {};
   vm.createContext(context);

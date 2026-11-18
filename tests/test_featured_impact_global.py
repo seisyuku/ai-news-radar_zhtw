@@ -65,11 +65,28 @@ def test_browser_view_does_not_reuse_old_importance_breakdown():
 
 def test_real_browser_selector_and_producer_mix_high_impact_news_before_core():
     from tests.js_bridge import extract_declarations
-    rows=[article(summary='The AI model adds tool calling and supports enterprise customers using longer context windows.'),
+    rows=[article(summary='The AI model adds tool calling and supports enterprise customers using longer context windows.',
+                  published_at='2026-10-22T13:00:00Z'),
           article('funded',title='Cedar AI secures $800 million funding',
-                  summary='Cedar AI closed the round and expands inference infrastructure for its enterprise customers.',
+                  summary='Cedar AI now operates 2,000 additional inference GPUs for enterprise customers.',
                   url='https://the-decoder.com/round',source='The Decoder AI News',site_id='curated_media')]
     parent,daily,_=bundle(rows)
     code=extract_declarations('dplusStories')+"const AiRadarGovernance=require('./assets/publisher-governance.js');const parent="+json.dumps(parent)+"; Date.now=()=>Date.parse(parent.generated_at); const state={storiesMerged:parent,generatedAt:parent.generated_at,latestGovernanceMeta:parent.publisher_governance}; const pool=AiRadarGovernance.resolve(state).projection.events;console.log(JSON.stringify(dplusStories(pool,'hot',10).map(x=>x.brief_event_id)));"
     assert [x['selection_class'] for x in daily['items']]==['supplement','core']
     assert run_js(code)==[x['brief_event_id'] for x in daily['items']]
+
+
+@pytest.mark.parametrize('summary,expected', [
+    ('GPT-6.2 Astra is now generally available in GitHub Copilot.', 20),
+    ('GPT-6.2 Sol is now generally available in GitHub Copilot.', 10),
+    ('GPT-6.2 Astra will be generally available in GitHub Copilot.', 10),
+    ('GPT-6.2 Astra arrives. Astra ranks second in synthetic trials.', 10),
+    ('GPT-6.2 Astra arrives. In the Artificial Analysis Intelligence Index, Astra ranks second.', 20),
+])
+def test_concrete_model_release_detail_stays_bound_to_native_material(summary, expected):
+    native = {'title': 'OpenAI launches GPT-6.2 Astra', 'summary': summary}
+    result = impact.score(native, 'supported_core', model_release=True)
+    assert result['e'] == expected
+    code = ("const G=require('./assets/publisher-governance.js');"
+            "console.log(JSON.stringify(G.impactScore(" + json.dumps(native) + ",'supported_core',null,true)));")
+    assert run_js(code) == result

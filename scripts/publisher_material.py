@@ -262,6 +262,37 @@ def investment_signature(title):
     return (actors[0].text.casefold(), recipients[0].text.casefold(), format(amount.normalize(), "f"))
 
 
+_FUNDING_USD = re.compile(r"(?:US\$|(?<![A-Z])\$)\s*(\d+(?:\.\d+)?)\s*(billion|million|bn|[bm])(?![a-z])", re.I)
+_RAISE = re.compile(r"\b(?:raises?|raised|secures?|secured|closes?|closed)\b|完成|獲得|获得|募得|融資|融资|募資|募资", re.I)
+_ROUND = re.compile(r"\b(?:series\s+([a-z](?:[-+]\d+)?)(?![a-z0-9])|(pre[- ]seed|seed|debt|bridge)\s+(?:funding|financing|round|facility))\b", re.I)
+
+
+def fundraising_round(title, summary):
+    """Return the named recipient, exact headline amount and explicit round if present."""
+    if re.search(r"\b(?:valuation|valued at|rumou?rs?|reportedly|looking to|seeks?|in talks|plans? to|last round)\b|傳聞|传闻|估值", title, re.I):
+        return None
+    action = _RAISE.search(title)
+    amount = _FUNDING_USD.search(title, action.end()) if action else None
+    if not amount or predicate_unasserted(title, action) or len(_FUNDING_USD.findall(title)) != 1:
+        return None
+    if not re.fullmatch(r"\s*(?:(?:a|an|its|new|fresh|another|additional)\s+)*", title[action.end():amount.start()], re.I):
+        return None
+    subject = re.sub(r"\s+(?:has|have|just|officially)\s*$|(?:完成|宣布|宣佈|已)\s*$", "", title[:action.start()].strip(), flags=re.I)
+    if re.search(r"['’](?:s\s+|\s+)(?:AI |drug discovery |tech )?company$", subject, re.I):
+        # A possessive headline may name the founder in place of the company.
+        # Only recover a grammatical company subject from its own RSS lead.
+        lead = CLAUSES.split(summary[:240], maxsplit=1)[0].lstrip()
+        entity = re.match(r"(.{2,70}?)\s+(?:is|has|raises?|raised|closed|secured|announced)\b", lead, re.I)
+        subject = entity[1].strip() if entity else ""
+    if not subject or not (NAME.fullmatch(subject) or CJK_NAME.fullmatch(subject)):
+        return None
+    round_label = _ROUND.search(title)
+    scale = 1_000_000_000 if amount[2].lower() in {"billion", "bn", "b"} else 1_000_000
+    usd = Decimal(amount[1]) * scale
+    return (re.sub(r"[^a-z0-9\u3400-\u9fff]", "", subject.casefold()),
+            format(usd.normalize(), "f"), (round_label[1] or round_label[2]).lower() if round_label else "")
+
+
 def focused_text(title, summary, known_models, products, companies):
     """Keep native clauses about one headline subject; never borrow a rival's data."""
     combined = title + "\n" + summary

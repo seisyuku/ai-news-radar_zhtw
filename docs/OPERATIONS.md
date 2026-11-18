@@ -1,10 +1,10 @@
 # Operations Notes
 
-## 11/5 BlockTempo一般候選試接
+## BlockTempo 一般來源
 
 `tw_media/blocktempo_ai`使用固定原站WordPress AI分類JSON（分類309），不在每次刷新重試已確認落後的RSS，也不以靜默RSS回退掩蓋JSON失效。單次最多2MB／30筆、每輪最多8篇；只收原生標題／GMT發布時間／短摘要，不補抓正文、附件或引用。來源空值與失敗沿用既有子來源健康；有效但無近期候選可成功回零，結構或必要欄位失效則報錯。
 
-沿用未審rank6、僅一般收錄，一般排序也使用watchlist來源分數0.3；不改registry、全域評分、排程、provider或讀者窗口。正式首次成功健康時間為14日觀察D0，D14按[SOURCE_COVERAGE](SOURCE_COVERAGE.md)的事件增益條件人工驗收，不自動升級，也不恢復已停用的來源觀察／報告／SMTP流程。本次已發布並驗收，D0為臺北11/5 14:35:12、D14為11/19 14:35:12；發布證據見HANDOVER。
+11/18 提前驗收結案，保留未審 rank 6、一般排序來源分數 0.3。文章套用全站分類、評分與去重，來源健康由既有公開刷新記錄。裁決與發布證據見 [來源覆蓋](SOURCE_COVERAGE.md#提前驗收結論)。
 
 ## 11/3 AIBase用途裁決正式發布
 
@@ -159,7 +159,7 @@ Radar的update-news、watchdog、外部heartbeat、Pages及公開daily-brief持�
 5. **查事件與重點。** 由文章的`event_ids`，或`stories-merged.json.brief_events.events`的`member_article_ids`／`history_article_ids`追到事件；再查`publisher_governance.articles`的來源政策／材料資格、`publisher_governance.events`的`featured_eligible`／`reason_codes`／影響評分，以及`daily_selected_event_ids`和同版`daily-brief.json`。先區分來源用途、材料不足、事件合併、到期、分數與名額，再判斷「一般池有，但重點未選」。沿用當時selection policy；現行規則重跑只算反事實測試。
 6. **關閉回饋。** 回報「未涵蓋入口／抓取或解析失敗／時間窗排除／內容或用途排除／事件合併／已保留但重點未選／證據不足」中有證據支持的狀態，附快照時間、SHA、文章／事件ID、判定依據與缺口。只有取得下游選稿紀錄時，才可歸為Social Editor未選；不以Pulse未入選代替下游根因。需要修正時只處理已證實層級，固定樣本回歸、Downloads隔離生成與來源狀態檢查完成後再驗收。
 
-維護者結案紀錄至少包括：回報／資料時間、快照SHA、來源入口、文章／事件ID、原始池／AI池／重點各層結果、根因的證據與限制、變更與測試、尚未提交或部署的狀態。`review_leads`只是查漏線索，不是獨立證據或自動新增來源的授權。2026-11-03兩則歷史案例的核對結果保存在`HANDOVER.md`當期紀錄；本流程沿用既有Issue及診斷資料，沒有新增診斷CLI、前端或排程。
+維護者結案記錄回報與資料時間、快照 SHA、來源入口、文章或事件 ID、各閱讀層級結果、根因與證據限制、變更、測試及發布狀態。`review_leads` 供人工檢視來源缺口，例行刷新只使用已設定入口提供的材料。
 
 ## Pre-push source boundary fixes (2026-10-03)
 

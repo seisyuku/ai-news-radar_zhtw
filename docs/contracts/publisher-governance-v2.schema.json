@@ -33,6 +33,9 @@
           "maxItems": 24,
           "uniqueItems": true
         },
+        "personnel_impact": {
+          "enum": [15, 20, 30]
+        },
         "qualifiers": {
           "type": "array",
           "items": {
@@ -52,6 +55,9 @@
         "qualifiers"
       ],
       "additionalProperties": false,
+      "dependentSchemas": {
+        "personnel_impact": {"properties": {"kind": {"const": "industry_news"}}}
+      },
       "allOf": [
         {
           "if": {
@@ -522,7 +528,7 @@
           "const": "publisher-governance-v1"
         },
         "selection_policy": {
-          "const": "impact-v3-empty-fallback"
+          "enum": ["impact-v3-empty-fallback", "impact-v4-personnel-capital"]
         },
         "default_visible_limit": {
           "const": 5

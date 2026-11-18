@@ -31,7 +31,7 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
 try:
-    from scripts import archive_output, source_health, corroboration, brief_events, publisher_identity, publisher_policy, publisher_governance, signal_selection, reader_excerpts, article_versions, news_quality, primary_evidence, evidence_policy, security_topics, blocktempo_source
+    from scripts import archive_output, source_health, corroboration, brief_events, publisher_identity, publisher_policy, publisher_governance, signal_selection, reader_excerpts, article_versions, news_quality, evidence_policy, security_topics, blocktempo_source
 except ModuleNotFoundError:  # pragma: no cover - direct script invocation
     import archive_output
     import source_health
@@ -44,7 +44,6 @@ except ModuleNotFoundError:  # pragma: no cover - direct script invocation
     import reader_excerpts
     import article_versions
     import news_quality
-    import primary_evidence
     import evidence_policy
     import security_topics
     import blocktempo_source
@@ -86,12 +85,12 @@ except ModuleNotFoundError:  # pragma: no cover - direct script invocation
     from aibase_source import aibase_article_key, fetch_aibase_payload
 
 try:
-    from scripts.ai_relevance import add_ai_relevance_fields, score_ai_relevance
+    from scripts.ai_relevance import add_ai_relevance_fields, personnel_change, score_ai_relevance
     from scripts.source_scope import platform_event_decision, runtimewire_article_allowed
     from scripts.summary_facts import money_supported
     from scripts.summary_text import strip_summary_attribution
 except ModuleNotFoundError:  # pragma: no cover - direct `python scripts/update_news.py`
-    from ai_relevance import add_ai_relevance_fields, score_ai_relevance
+    from ai_relevance import add_ai_relevance_fields, personnel_change, score_ai_relevance
     from source_scope import platform_event_decision, runtimewire_article_allowed
     from summary_facts import money_supported
     from summary_text import strip_summary_attribution
@@ -1692,6 +1691,7 @@ def add_general_reader_fields(record, archive):
     material = sanitize_public_value(publisher_governance.source_material(raw)) if raw else {"title_original": "", "title": "", "summary": ""}
     out["source_material"] = material
     out["qualification"] = publisher_governance.qualify(out, material)
+    out["source_tier_weight"] = SOURCE_TIER_IMPORTANCE.get(out["source_tier"], SOURCE_TIER_IMPORTANCE["other"])
     return out
 
 
@@ -2253,7 +2253,9 @@ def parse_curated_ai_media_feed_items(
             continue
         if published < now - timedelta(days=CURATED_AI_MEDIA_MAX_AGE_DAYS):
             continue
-        if not curated_feed_entry_allowed(feed, title, link):
+        evidence = feed_entry_evidence(entry)
+        if (not curated_feed_entry_allowed(feed, title, link)
+                and (feed.get("research_only") or not personnel_change(title, evidence.get("summary") or ""))):
             continue
         normalized_url = normalize_url(link)
         if normalized_url in seen_urls:
@@ -2273,7 +2275,7 @@ def parse_curated_ai_media_feed_items(
                     "research_only": bool(feed.get("research_only")),
                     "strict_title_filter": bool(feed.get("strict_title_filter")),
                     "rss_source": publisher_identity.feed_source(entry),
-                    **feed_entry_evidence(entry),
+                    **evidence,
                 },
             )
         )
@@ -2655,7 +2657,8 @@ def fetch_tw_media_with_status(
                 policy = platform_event_decision(record)
                 if policy.applies and not policy.admitted:
                     continue
-                if not curated_feed_entry_allowed(feed, title, link) and not policy.admitted:
+                if (not curated_feed_entry_allowed(feed, title, link) and not policy.admitted
+                        and not personnel_change(title, evidence.get("summary") or "")):
                     continue
                 if policy.admitted and not score_ai_relevance(record)["is_ai_related"]:
                     continue
@@ -5706,11 +5709,14 @@ def build_brief_event_payloads(stories, archive_records, previous_state, now, wi
                 "importance_label": importance_label(category), "reasons": story_reasons(scored, score, count)}
 
     archive_records = [add_publisher_identity_fields(record) for record in article_versions.project(archive_records)
-                       if record.get("source_material_status") != "superseded_unverified"
+                       if publisher_identity.public_url(record.get("url"))[0]
+                       and record.get("source_material_status") != "superseded_unverified"
                        and not evidence_policy.exclusion_reason(record)]
     result = brief_events.build_brief_events(stories=stories, archive_records=archive_records,
         archive_meta=archive_meta, previous_state=previous_state, now=now,
-        window_hours=window_hours, record_builder=build, ranker=rank)
+        window_hours=window_hours, record_builder=build, ranker=rank,
+        personnel_anchor_allowed=(lambda row: publisher_governance.admitted(
+            add_reader_source_policy_fields(row), "featured")) if governance_version == 2 else None)
     # Checksums describe the bytes the public reader actually receives, after
     # the existing redaction policy, not private/pre-sanitization source text.
     if result.next_state is not None:
@@ -6070,8 +6076,6 @@ def main() -> int:
             phase["state"] = "failed"
 
     with record_generation_phase(phase_metrics, "preparation") as phase:
-        recovered_items, primary_evidence_status = primary_evidence.recover(session, raw_items, archive, now)
-        raw_items.extend(recovered_items)
         incoming_format_holds = {}
         for raw in raw_items:
             reason = evidence_policy.exclusion_reason({**(raw.meta or {}), "url": raw.url, "source": raw.source})
@@ -6086,8 +6090,12 @@ def main() -> int:
 
         # 24h view
         latest_items_all: list[dict[str, Any]] = []
+        reader_exclusions = {}
         reader_archive = {r["id"]: r for r in article_versions.project(archive.values())}
         for record in reader_archive.values():
+            if not publisher_identity.public_url(record.get("url"))[0]:
+                reader_exclusions[record["id"]] = ["original_source_link_missing"]
+                continue
             if record.get("source_material_status") == "superseded_unverified" or evidence_policy.exclusion_reason(record):
                 continue
             if record.get("duplicate_of"):
@@ -6112,7 +6120,6 @@ def main() -> int:
         latest_items_all.sort(key=lambda x: event_time(x) or datetime.min.replace(tzinfo=UTC), reverse=True)
         latest_items = [record for record in latest_items_all if record.get("ai_is_related", is_ai_related_record(record))]
         latest_items_ai_raw_count = len(latest_items)
-        reader_exclusions = {}
         def filter_pool(rows, fn, reason):
             kept = fn(rows)
             kept_ids = {r['id'] for r in kept}
@@ -6334,7 +6341,6 @@ def main() -> int:
             "reader_excerpts": reader_excerpt_status,
         }
 
-        status_payload["primary_evidence"] = primary_evidence_status
         status_payload["evidence_policy"] = {"version": evidence_policy.VERSION,
             "allowed_primary_formats": sorted(evidence_policy.TEXT_FORMATS),
             "archive_hold_counts": text_evidence_holds, "incoming_hold_counts": incoming_format_holds}

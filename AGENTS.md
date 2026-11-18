@@ -16,6 +16,7 @@ GitHub Actions refresh jobs, and GitHub Pages publishing.
 - Do not commit `feeds/follow.opml`; use `feeds/follow.example.opml` as the public template.
 - Prefer stable public RSS/Atom/OPML sources before adding custom scrapers.
 - Keep the reader-facing product simple: default to a curated AI-focused view, hide noisy or advanced source details behind existing filters/docs.
+- A traceable original announcement or report is enough for the source requirement of general ranking. Use existing scope, source-use, and recency rules. Keep citations as references and leave factual verification to the social media editorial assistant. Routine refresh uses configured source material and does not follow citations to extend an article or its ranking eligibility.
 
 ## Release shorthand
 
@@ -46,14 +47,16 @@ GitHub Actions refresh jobs, and GitHub Pages publishing.
 
   | 題目 | 內容 | 證據 | 判定理由／缺口 |
   |---|---|---|---|
-  | Linked topic title | Full / Brief / Drop | Ready / Hold | Value rationale, defensible claim, and specific evidence gap or limitation |
+  | Linked topic title | Full / Brief / Drop | Ready / Hold | Value rationale, original source link or access gap, and relevant limits |
 
 - Content value (Full / Brief / Drop) and evidence readiness (Ready / Hold)
   are independent judgments. Full may be Hold; Brief does not imply weak
   evidence. Do not replace these axes with priority or backup labels.
-- Ready applies only to the stated defensible claim. For Hold, name the
-  specific missing evidence. Mark old events or items outside the window
-  explicitly; do not treat timing as an evidence or content grade.
+- Ready means the original release or reporting for the item is accessible
+  in a supported format. Cite it. For Hold, name the missing original source
+  or access issue. The social media editorial assistant handles verification
+  of factual claims before publication. Mark old events or out-of-window
+  items separately.
 - Before delivering a candidate list, check that every row has both judgments
   and a reason or evidence boundary. Put supporting source links in the table
   or directly below it so a separate file is not needed.

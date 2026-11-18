@@ -233,6 +233,7 @@ def supplement(row, material, qualification):
     relevance = ai_relevance.score_ai_relevance({**row, **material})
     if not relevance["is_ai_related"] or relevance["score"] < ai_relevance.AI_RELEVANCE_THRESHOLD:
         return result
+    personnel = ai_relevance.personnel_change(title, summary)
     # A "says" headline is not automatically opinion. Retained test/method,
     # evaluator and measured results must accompany the attributed model claim.
     measured_test = any(TEST_METHOD.search(clause) and QUANTIFIED.search(clause)
@@ -241,7 +242,9 @@ def supplement(row, material, qualification):
     disclosure = (legacy.COMPANY.search(title) and ATTRIBUTION.search(title)
         and MODEL_CONTEXT.search(title) and ASSESSMENT.search(title)
         and measured_test)
-    if disclosure:
+    if personnel and not qualification["core_evidence"]:
+        result.update(kind="industry_news", personnel_impact=personnel.impact)
+    elif disclosure:
         result.update(kind="capability_disclosure", qualifiers=["provider_claim"])
         if UNRELEASED.search(text):
             result["qualifiers"].append("unreleased")

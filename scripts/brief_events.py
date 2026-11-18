@@ -19,11 +19,12 @@ from typing import Any, Callable
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 try:
-    from scripts import corroboration, publisher_material, article_versions
+    from scripts import corroboration, publisher_material, article_versions, personnel_changes
 except ModuleNotFoundError:  # direct generator invocation
     import corroboration
     import publisher_material
     import article_versions
+    import personnel_changes
 
 UTC = timezone.utc
 VERSION = "brief-event-v1"
@@ -455,12 +456,72 @@ def _phase_key(key: str, kind: str, facts: tuple[str, ...]) -> str:
     return digest({"root": key, "kind": kind, "facts": list(facts)})
 
 
+def _personnel_article_anchors(claims: list[Claim], allowed: Callable[[dict[str, Any]], bool]) -> dict[str, Claim]:
+    """Keep the earliest report of a matching move as the article root."""
+    by_person, by_ceo_departure = defaultdict(list), defaultdict(list)
+    groups = []
+    for claim in sorted(claims, key=lambda c: (c.effective, str(c.row["id"]))):
+        row = claim.row
+        title = str(row.get("title_original") or row.get("title") or "")
+        change = personnel_changes.detect(title, str(row.get("summary") or ""))
+        if not change or not change.transitions or not allowed(row):
+            continue
+        matches = []
+        for group in by_person[change.person]:
+            anchor, transitions, _ = group
+            if claim.effective - anchor.effective > timedelta(days=7) or not transitions & change.transitions:
+                continue
+            combined = transitions | change.transitions
+            if len(combined) == len({direction for direction, _ in combined}):
+                matches.append(group)
+        bridge = len(matches) == 2 and len(change.transitions) == 2
+        if change.ceo_departure:
+            # Occupants can be named in different scripts. Require a direct
+            # non-interim CEO departure, the same company and a short window.
+            ceo_matches = [group for group in by_ceo_departure[change.ceo_departure]
+                           if claim.effective - group[0].effective <= timedelta(hours=36)]
+            if len(ceo_matches) == 1:
+                if not matches:
+                    matches = ceo_matches
+                elif len(matches) == 1 and ceo_matches[0] is not matches[0]:
+                    if matches[0][1] == ceo_matches[0][1] == change.transitions:
+                        matches.extend(ceo_matches)
+                        bridge = True
+        if bridge:
+            # Native material can link two previously separate article roots.
+            first, second = sorted(matches, key=lambda group: (group[0].effective, str(group[0].row["id"])))
+            first[1].update(second[1])
+            first[2].extend(second[2])
+            groups.remove(second)
+            for index in (by_person, by_ceo_departure):
+                for indexed_groups in index.values():
+                    if second in indexed_groups:
+                        indexed_groups.remove(second)
+                        if first not in indexed_groups:
+                            indexed_groups.append(first)
+            matches = [first]
+        # Ambiguous transitions cannot absorb a second, potentially different move.
+        if len(matches) != 1:
+            group = (claim, set(change.transitions), [claim])
+            groups.append(group)
+        else:
+            group = matches[0]
+            group[1].update(change.transitions)
+            group[2].append(claim)
+        if group not in by_person[change.person]:
+            by_person[change.person].append(group)
+        if change.ceo_departure and group not in by_ceo_departure[change.ceo_departure]:
+            by_ceo_departure[change.ceo_departure].append(group)
+    return {str(copy.row["id"]): anchor for anchor, _, copies in groups for copy in copies}
+
+
 def build_brief_events(*, stories: list[dict[str, Any]], archive_records: list[dict[str, Any]],
                        archive_meta: ArchiveMeta | dict[str, Any],
                        previous_state: StateInput | dict[str, Any], now: datetime,
                        window_hours: int = 24,
                        record_builder: Callable[..., dict[str, Any]] | None = None,
-                       ranker: Callable[[dict[str, Any]], Any] | None = None) -> BriefEventResult:
+                       ranker: Callable[[dict[str, Any]], Any] | None = None,
+                       personnel_anchor_allowed: Callable[[dict[str, Any]], bool] | None = None) -> BriefEventResult:
     """Project one card per concrete event, preserving bounded previous history.
 
     record_builder/ranker are pure application adapters: existing importance
@@ -600,32 +661,48 @@ def build_brief_events(*, stories: list[dict[str, Any]], archive_records: list[d
     # Keep typed events separate; a story can contain distinct real updates.
     article_claims = {str(c.row["id"]): c for c in claims
                       if str(c.row["id"]) not in attached and c.action == "article"}
-    article_anchor = {}
+    article_anchor = (_personnel_article_anchors(list(article_claims.values()), personnel_anchor_allowed)
+                      if personnel_anchor_allowed else {})
     # Initial IPO filing reports can have entirely different titles. Only an
     # asserted filing by the same named company joins this bounded group;
     # detector/wealth side stories, amendments, pricing and listing do not.
     # Investment reports additionally need exact actors, currency and amount.
     bounded_reports: dict[tuple, list[Claim]] = defaultdict(list)
+    round_labels: dict[str, str] = {}
     for claim in article_claims.values():
         title = str(claim.row.get("title_original") or claim.row.get("title") or "")
+        summary = str(claim.row.get("summary") or "")
         entity = publisher_material.ipo_filing_entity(
-            title, str(claim.row.get("summary") or ""))
+            title, summary)
         if entity:
             bounded_reports[("ipo_initial_filing", entity)].append(claim)
+        elif (funding := publisher_material.fundraising_round(title, summary)):
+            bounded_reports[("funding_round", *funding[:2])].append(claim)
+            round_labels[str(claim.row["id"])] = funding[2]
         else:
             investment = publisher_material.investment_signature(title)
             if investment:
                 bounded_reports[("investment", *investment)].append(claim)
             elif (earnings := article_versions.earnings_signature(claim.row)):
                 bounded_reports[("earnings_results", *earnings)].append(claim)
-    for members in bounded_reports.values():
-        anchors = []
-        for claim in sorted(members, key=lambda c: (c.effective, str(c.row["id"]))):
-            anchor = next((a for a in anchors if claim.effective - a.effective <= timedelta(hours=36)), None)
-            if anchor is None:
-                anchors.append(claim)
-                anchor = claim
-            article_anchor[str(claim.row["id"])] = anchor
+    for group_key, members in bounded_reports.items():
+        if group_key[0] == "funding_round" and len({round_labels[str(c.row["id"])] for c in members} - {""}) > 1:
+            # Generic reports cannot connect two explicitly different rounds.
+            subgroup = defaultdict(list)
+            for member in members:
+                label = round_labels[str(member.row["id"])] or str(member.row["id"])
+                subgroup[label].append(member)
+            funding_groups = list(subgroup.values())
+        else:
+            funding_groups = [members]
+        for subgroup_members in funding_groups:
+            anchors = []
+            for claim in sorted(subgroup_members, key=lambda c: (c.effective, str(c.row["id"]))):
+                anchor = next((a for a in anchors if claim.effective - a.effective <= timedelta(hours=36)), None)
+                if anchor is None:
+                    anchors.append(claim)
+                    anchor = claim
+                article_anchor.setdefault(str(claim.row["id"]), anchor)
     for story in stories:
         sid = str(story["story_id"])
         publisher_names = {normalized(name).strip() for ref in story.get("sources", [])

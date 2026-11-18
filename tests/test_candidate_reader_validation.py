@@ -59,3 +59,21 @@ def test_candidate_sources_follow_sitewide_24_hour_reader_window():
         assert update_news.is_within_reader_window(record, now, 24)
         record["published_at"] = (now - timedelta(hours=24, seconds=1)).isoformat()
         assert not update_news.is_within_reader_window(record, now, 24)
+
+
+def test_reader_uses_projected_tier_weight_and_only_official_policy_gets_official_selection():
+    declarations = extract_declarations(
+        "scorePercent", "sourceTierPercent", "editorialPercent", "freshnessPercent",
+        "itemPriorityScore", "timelineIso", "timelineMs", "highPriorityScore", "isHighPriorityItem",
+    )
+    result = run_js(declarations + """
+const state = {generatedAt: '2026-11-18T00:00:00Z'};
+Date.now = () => Date.parse(state.generatedAt);
+const watchlist = {site_id: 'official_ai', ai_score: 0.65,
+  source_tier_weight: 0.3, source_policy: {source_tier: 'watchlist', source_tier_rank: 6}};
+const official = {...watchlist, source_tier_weight: 1};
+console.log(JSON.stringify([watchlist, official].map(item => ({
+  weight: sourceTierPercent(item), selected: isHighPriorityItem(item),
+}))));
+""")
+    assert result == [{"weight": 30, "selected": False}, {"weight": 100, "selected": True}]

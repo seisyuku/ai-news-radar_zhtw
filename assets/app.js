@@ -643,10 +643,14 @@ function highPriorityScore(item) {
 }
 
 function isHighPriorityItem(item) {
-  return highPriorityScore(item) >= 75 || itemPriorityScore(item) >= 82 || item.site_id === "official_ai";
+  return highPriorityScore(item) >= 75 || itemPriorityScore(item) >= 82 || sourceTierPercent(item) === 100;
 }
 
 function isCuratedItem(item) {
+  if (item.source_policy) {
+    return ["official", "benchmark", "ai_vertical", "professional_media", "ai_media", "tw_media", "curated"]
+      .includes(item.source_policy.source_tier);
+  }
   const siteId = readerSiteId(item);
   return siteId === "official_ai" || siteId === "curated_media" || item.source_tier === "official" || item.source_tier === "benchmark" || item.source_tier === "curated";
 }
@@ -1039,14 +1043,18 @@ function setSourceBadge(el, label, tone = "default", title = "") {
 }
 
 function sourceTierPercent(item) {
-  if (item.site_id === "official_ai") return 100;
-  const rank = Number(item.source_tier_rank);
+  if (Number.isFinite(item.source_tier_weight) && item.source_tier_weight >= 0 && item.source_tier_weight <= 1) {
+    return item.source_tier_weight * 100;
+  }
+  const policy = item.source_policy;
+  if (policy ? policy.source_tier === "official" : item.site_id === "official_ai") return 100;
+  const rank = Number(policy?.source_tier_rank ?? item.source_tier_rank);
   if (!Number.isFinite(rank)) return 38;
   return Math.max(28, Math.min(86, 86 - rank * 9));
 }
 
 function editorialPercent(item) {
-  if (item.site_id === "official_ai") return 90;
+  if (sourceTierPercent(item) === 100) return 90;
   const internal = scorePercent(item);
   return internal ? Math.max(45, Math.round(internal * 0.72)) : 36;
 }
@@ -1070,7 +1078,7 @@ function itemPriorityScore(item) {
 function labelText(item) {
   const labels = {
     ai_general: "AI 新聞",
-    model_release: "模型發布",
+    model_release: itemHasModelRelease(item) ? "模型發布" : "模型相關",
     agent_workflow: "Agent工作流",
     ai_product_update: "產品更新",
     developer_tooling: "開發工具",
@@ -1127,15 +1135,10 @@ function normalizedEventText(text) {
 }
 
 function eventKey(item) {
-  const raw = itemTitleText(item);
-  const bracket = raw.match(/《([^》]{4,40})》/);
-  if (bracket) return `book:${normalizedEventText(bracket[1]).slice(0, 36)}`;
-
-  const normalized = normalizedEventText(raw);
-  const model = normalized.match(/(bitcpmcann|deepseekv\d+(?:pro)?|grokv\d+(?:medium)?|gemini\d+(?:\.\d+)?(?:flash|pro)?|gpt\d+(?:\.\d+)?|llama\d+)/);
-  if (model) return `entity:${model[1]}`;
-
-  return `title:${normalized.slice(0, 34)}`;
+  const native = item.source_material;
+  const title = native?.title_original || native?.title || item.title_original || item.title_en || item.title;
+  const key = String(title || "").trim().toLowerCase().replace(/\s+/g, " ");
+  return key ? `title:${key}` : `article:${item.id || item.url || ""}`;
 }
 
 function itemIdentityKeys(item) {
@@ -1732,7 +1735,8 @@ function resolveBriefProjection() {
 
 function briefEventMatchesFilters(story) {
   if (state.signalLevelFilter === "multi" && storySourceCount(story) < 2) return false;
-  if (state.signalLevelFilter === "high" && !isHighPriorityItem({ ...story.primary_item, score: story.score })) return false;
+  if (state.signalLevelFilter === "high"
+    && !state.itemsAi?.some(item => item.id === story.primary_item?.id && isHighPriorityItem(item))) return false;
   if (state.businessEventFilter && ![story.business_events, story.primary_item?.business_events]
     .some((events) => Array.isArray(events) && events.includes(state.businessEventFilter))) return false;
   const q = state.query.trim().toLowerCase();
@@ -2099,7 +2103,7 @@ function itemTagLabels(item, row = null) {
   if (state.activeSection !== "hot" && !onModelsTab) tags.push(sectionBadgeLabel(state.activeSection));
   if (sections.has("security")) tags.push("資安");
   if (row && rowSourceCount(row) > 1) tags.push("多方報導");
-  if (item.site_id === "official_ai") tags.push("官方");
+  if (item.source_policy ? item.source_policy.source_tier === "official" : item.site_id === "official_ai") tags.push("官方");
   if (sections.has("models")) tags.push("模型");
   if (sections.has("devtools")) tags.push("開發者");
   if (sections.has("research")) tags.push("研究");

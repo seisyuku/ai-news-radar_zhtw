@@ -4,6 +4,7 @@ These are known cases, not a held-out estimate of editorial precision.
 """
 import copy
 import json
+import sys
 from datetime import timedelta
 from pathlib import Path
 
@@ -123,6 +124,36 @@ def raw_roundup():
     r = row(JUYA)
     return u.RawItem(site_id=r['site_id'],site_name=r['site_name'],source=r['source'],title=r['title'],
         url=r['url'],published_at=u.parse_iso(r['published_at']),meta={'summary':r['summary']})
+
+
+def test_public_refresh_ranks_original_reporting_without_following_its_citations(tmp_path, monkeypatch):
+    current = row(NEW)
+    summary = "Alphabet published its quarterly results after the market closed."
+    report = u.RawItem(
+        site_id=current["site_id"], site_name=current["site_name"], source=current["source"],
+        title=current["title"], url=current["url"], published_at=u.parse_iso(current["published_at"]),
+        meta={"summary": summary, "publisher_links": [POLICY_URL]},
+    )
+    output = tmp_path / "data"
+    output.mkdir()
+    bad_link = dict(current, id="a" * 40, url="https://unavailable.invalid/no-original")
+    (output / "archive.json").write_text(json.dumps({"generated_at": u.iso(NOW), "items": [bad_link]}))
+    monkeypatch.setattr(u, "utc_now", lambda: NOW)
+    monkeypatch.setattr(u, "collect_all", lambda *_: ([report, raw_roundup()], []))
+    monkeypatch.setattr(u, "run_market_sensors", lambda *_: ({"signals": []}, {}, []))
+    monkeypatch.setattr(p, "recover", lambda *_: pytest.fail("public refresh must not chase roundup links"))
+    monkeypatch.setattr("requests.sessions.Session.request", lambda *_a, **_kw: pytest.fail("unexpected HTTP request"))
+    monkeypatch.delenv("GEMINI_API_KEY", raising=False)
+    monkeypatch.delenv("GROQ_API_KEY", raising=False)
+    monkeypatch.setattr(sys, "argv", ["update_news.py", "--output-dir", str(output), "--translate-max-new", "0"])
+
+    assert u.main() == 0
+    latest = json.loads((output / "latest-24h.json").read_text())
+    assert [item["url"] for item in latest["items_ai"]] == [current["url"]]
+    assert latest["items_ai"][0]["source_material"]["summary"] == summary
+    assert latest["items_ai"][0]["qualification"]["core_evidence"][0]["status"] == "insufficient"
+    assert not json.loads((output / "daily-brief.json").read_text())["items"]
+    assert (output / "items" / f'{bad_link["id"]}.json').exists()
 
 
 def test_roundup_recovery_uses_separate_official_material_and_never_duplicates_digest_votes():

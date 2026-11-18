@@ -51,7 +51,7 @@ def supported(q, kind="model_release"):
 def test_default_backend_uses_v2_and_daily_is_a_bound_adapter():
     parent, daily, result = bundle()
     overlay = parent["publisher_governance"]
-    assert overlay["schema_version"] == 2 and overlay["selection_policy"] == "impact-v3-empty-fallback"
+    assert overlay["schema_version"] == 2 and overlay["selection_policy"] == "impact-v4-personnel-capital"
     assert s.validate(overlay, parent["brief_events"])
     schema_validator().validate(overlay)
     assert daily["publisher_governance_meta"] == s.metadata(overlay)
@@ -61,6 +61,95 @@ def test_default_backend_uses_v2_and_daily_is_a_bound_adapter():
     assert daily["selection_diagnostics"]["score_gate"] is None
     assert daily["selection_diagnostics"]["core_count"] == 1
     assert b.validate_state(result.next_state)
+
+
+def test_personnel_uses_native_role_and_keeps_one_cross_language_ceo_departure():
+    rows = [
+        article("early", url="https://www.cnbc.com/2026/10/23/early.html", source="CNBC Technology",
+                site_id="curated_media", title="Nvidia CEO Jane Doe Resigns",
+                summary="", business_events=[]),
+        article("late", url="https://technews.tw/2026/10/23/board-update/", source="TechNews 科技新報",
+                site_id="tw_media", title="輝達執行長王小明辭去職務，財務長暫代",
+                summary="", business_events=[], published_at="2026-10-23T03:15:00Z"),
+        article("unreviewed", url="https://news.aibase.com/tw/news/1234",
+                source="AIBASE", site_id="aibase", title="Nvidia CEO Jane Doe steps down",
+                summary="", business_events=[], published_at="2026-10-22T10:00:00Z"),
+    ]
+    parent, daily, _ = bundle(rows)
+    overlay = parent["publisher_governance"]
+    assert s.validate(overlay, parent["brief_events"])
+    schema_validator().validate(overlay)
+    assert len(daily["items"]) == 1
+    item = daily["items"][0]
+    assert item["selection_class"] == "supplement" and not item["business_events"]
+    assert item["effective_at"] == rows[0]["published_at"]
+    assert item["supplement_impact"] == {"i": 30, "p": 20, "e": 10, "c": 20, "total": 80, "passes": True}
+    assert set(item["member_article_ids"]) == {"early", "late"}
+    assert run_js("const G=require('./assets/publisher-governance.js');"
+        + "const data=" + json.dumps(parent) + ";console.log(JSON.stringify(G.valid(data)));") is True
+
+
+def test_personnel_competes_for_the_existing_five_seats():
+    from scripts import supplement_impact
+
+    native = {"title": "OpenAI appoints Jane Doe as CTO", "summary": ""}
+    impact = supplement_impact.score(native, "industry_news", 30)
+    person_rank = supplement_impact.rank(impact, "supplement", NOW, NOW)
+
+    def decision(event, rank, event_impact):
+        return {"brief_event_id": event, "featured_eligible": True, "supplement_impact": event_impact,
+                "featured_score": rank, "featured_primary_item": {"corroboration_key": event}}
+
+    old = [decision(str(i), rank, {"passes": True}) for i, rank in enumerate([.95, .9, .85, .8, .7])]
+    updated = old + [decision("personnel", person_rank, impact)]
+    assert s.select(old) == ["0", "1", "2", "3", "4"]
+    assert s.select(updated) == ["0", "1", "2", "3", "personnel"]
+    assert run_js("const G=require('./assets/publisher-governance.js');"
+        + "console.log(JSON.stringify(G.selectIds(" + json.dumps(updated) + ")));") == s.select(updated)
+
+
+def test_funding_round_groups_named_recipient_without_mixing_explicit_rounds():
+    rows = [
+        article("named", title="Cedar AI raises $5 billion in its second funding round",
+                summary="Cedar AI aims to expand its inference capacity.", business_events=[]),
+        article("owner", title="Jane Doe’s AI company raises $5B for new research",
+                summary="Cedar AI is looking to expand its inference capacity.", business_events=[],
+                url="https://www.cnbc.com/2026/10/23/cedar-funding.html", source="CNBC Technology",
+                site_id="curated_media"),
+        article("other", title="Willow AI raises $5 billion for research", summary="",
+                url="https://openai.com/news/distinct-round", business_events=[]),
+    ]
+    rows[0]["url"] = "https://openai.com/news/cedar-round"
+    parent, daily, _ = bundle(rows)
+    memberships = {frozenset(e["member_article_ids"]) for e in parent["brief_events"]["events"]}
+    assert memberships == {frozenset({"named", "owner"}), frozenset({"other"})}
+    assert not daily["items"]
+    rows[0]["title"] = "Cedar AI raises $5 billion in Series B"
+    rows[1]["title"] = "Jane Doe’s AI company raises $5B in Series C"
+    parent, _, _ = bundle(rows)
+    assert len(parent["brief_events"]["events"]) == 3
+
+
+@pytest.mark.parametrize(("title", "summary", "expected"), [
+    ("Jane Doe resigns", "Jane Doe led the flagship AI product at OpenAI.", 20),
+    ("OpenAI appoints Jane Doe as Senior Counselor", "", 15),
+    ("Jane Doe joins OpenAI as Chief Technology Officer", "", 30),
+    ("NVIDIA announces CEO transition",
+     "Nvidia's board announced Jane Doe has resigned as President, Chief Executive Officer and a director.", 30),
+    ("Jane Doe joins OpenAI where CEO John Smith is leading the team", "", None),
+    ("OpenAI CEO says Jane Doe joins a bank as CFO", "", None),
+    ("Jane Doe will join OpenAI as CTO", "", None),
+    ("OpenAI denies Jane Doe resigns as CTO", "", None),
+    ("Hugging Face CEO responds after Jane Doe’s exit", "", None),
+    ("Google joins the AI research discussion", "", None),
+    ("Jane Doe resigns", "John Smith led the flagship AI product at OpenAI.", None),
+])
+def test_personnel_requires_an_asserted_action_and_linked_duty(title, summary, expected):
+    change = m.ai_relevance.personnel_change(title, summary)
+    assert (change.impact if change else None) == expected
+    if expected is not None:
+        relevance = m.ai_relevance.score_ai_relevance({"title": title, "summary": summary})
+        assert relevance["is_ai_related"] and relevance["label"] == "industry_business"
 
 
 def test_explicit_legacy_fixture_validates_only_in_legacy_backend_and_browser_accepts_dplus():

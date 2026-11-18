@@ -60,6 +60,18 @@ not “how do I use AI to write code?”.
 
 ## Source governance
 
+An original announcement or report with a traceable article link can enter the
+general ranking when it meets the existing source, scope, and recency rules.
+One such source is sufficient. Pulse preserves attribution and the material
+supplied by configured sources. The social media editorial assistant verifies
+factual claims before publication.
+
+Topics use the original title and the producer's source-based labels. Featured
+news and the model radar apply their own published use and event requirements.
+Featured-news material completeness is scored from the collected title and
+summary. Citations, translations, reader excerpts, and generated summaries are
+for reading.
+
 First-party evidence is limited to native text in official RSS/Atom feeds and
 readable prose on official web pages. Existing media reporting keeps its current
 source and use rules. Headlines, short excerpts and attachment notices support
@@ -74,8 +86,8 @@ site reflects that tier. See [Source Coverage](docs/SOURCE_COVERAGE.md) for the
 current source policy and [Operations](docs/OPERATIONS.md) for deployment and
 monitoring procedures.
 
-CyberQ and AlphaLab use their public RSS feeds, while BlockTempo is being
-trialed through its public AI-category JSON as an unreviewed general-news
+CyberQ and AlphaLab use their public RSS feeds, while BlockTempo uses
+its public AI-category JSON as an unreviewed general-news
 source. Their items start collapsed and may enter the lower Selected list by
 article score; they receive no primary-signal or model-radar grant. The sitewide
 reader window remains 24 hours.

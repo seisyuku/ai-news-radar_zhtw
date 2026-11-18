@@ -1,6 +1,6 @@
 # Source Coverage
 
-## 2026-11-05 BlockTempo AI一般候選試接（已發布，14日觀察中）
+## BlockTempo AI 一般來源（2026-11-18 提前驗收）
 
 維護者同意研究判斷並授權執行待辦。已接入`tw_media/blocktempo_ai`，以[原站公開分類JSON](https://www.blocktempo.com/wp-json/wp/v2/posts?categories=309&per_page=30&_fields=id,date_gmt,link,title,excerpt,categories)取代本輪確認落後的RSS路線。這是未審一般候選試接，不認定B級品質；沿用既有刷新與健康，不重啟七日觀察／報告／SMTP流程。
 
@@ -15,15 +15,13 @@
 
 試接前研究以同一14:05:30快照7681筆Archive為基準，七日窗口10/29 14:05:30～11/5 14:05:30，六頁RSS樣本54筆對1442筆同窗封存（排除13筆未來日期）機械hard 0／possible 4。RSS首頁10篇至少5個已有事件，Postman的AlphaLab首次收錄比動區發稿早約12小時；Google學校搜尋稿則可能有提早發現價值。未匹配不等於新增事件，也不以後來抓到的Feed倒推當時可見性。研究原始證據在Downloads的`ai-news-blocktempo-20261105/`。
 
-### 14日觀察與結案條件
+### 提前驗收結論
 
-正式D0為臺北**2026-11-05 14:35:12**，D14驗收為**2026-11-19 14:35:12**；以首次正式成功健康及8篇文章的first_seen為據，本機回放不計入觀察時間。期間沿用既有刷新、子來源健康及21日Archive，不新增排程、提醒、寄信或自動升級。
-
-D14人工核對來源／事件／首次收錄時間，分開計算「新事件補漏」「提早發現」「已有但未入選」「跨站重報」與「範圍外內容」。建議保留門檻為至少3個重要、可由原生官方文字或原始媒體核實、既有入口未先捕捉的新增事件；提早發現另記，不能把網址或機械未匹配數當事件增益。尚未核實的Revolut／Northflank線索不預算入達標。若不足，評估維持低頻補充或停止入口；到期不自動給B級、提高權重或開重點／雷達。
+臺北 11/5 14:35:12 至 11/18 09:35:29 正式封存共有 78 篇，含上線首輪回補 8 篇。維護者依標題評估，多數文章具顯示價值，裁決保留一般收錄並提前結案。文章使用全站既有分類、評分與去重規則，來源維持未審 rank 6、一般排序來源分數 0.3，適用一般收錄權限。此裁決取代原定 11/19 到期及三則新增事件的試接驗收條件。
 
 本機試接與配對證據保存於`/Users/lordmi/Downloads/ai-news-blocktempo-implementation-20261105/`，含單一公開提交基準與雜湊、原始API、before／after完整生成、配對驗證及隔離來源健康；保存供重查，主要結果直接在對話回報。正式D0與最終發布證據亦保存於該目錄的`release/`及`final-release/verification.json`。
 
-正式發布：收件程式[1e81a325cc0c](https://github.com/seisyuku/ai-news-radar_zhtw/commit/1e81a325cc0cab647f4f1ff71940b23531c11f7f)及一般排序補正[5ee10deee385](https://github.com/seisyuku/ai-news-radar_zhtw/commit/5ee10deee385770c3f2bfcc8a7328fad027a47e2)均已保留並行快照整合master；[最終CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41982133775)、[程式Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41982132138)、[正常刷新](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41982156290)及資料4f267b443b95的[Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41982361632)均成功。臺北11/5 14:42:18快照收件8篇／一般AI7篇，全站AI195篇／重點4則，來源失敗／降級0；26份正式HTTP與生成提交bytes一致，8份resolver等於Archive，Python及讀者JS治理valid／meta／resolve通過。實際BlockTempo一般故事的來源分數均為0.3，公開政策rank6且無重點／雷達權限。14日觀察仍在進行，不能將這次成功刷新當作長期穩定或3則補漏達標。
+正式發布：收件程式[1e81a325cc0c](https://github.com/seisyuku/ai-news-radar_zhtw/commit/1e81a325cc0cab647f4f1ff71940b23531c11f7f)及一般排序補正[5ee10deee385](https://github.com/seisyuku/ai-news-radar_zhtw/commit/5ee10deee385770c3f2bfcc8a7328fad027a47e2)均已保留並行快照整合master；[最終CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41982133775)、[程式Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41982132138)、[正常刷新](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41982156290)及資料4f267b443b95的[Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41982361632)均成功。臺北11/5 14:42:18快照收件8篇／一般AI7篇，全站AI195篇／重點4則，來源失敗／降級0；26份正式HTTP與生成提交bytes一致，8份resolver等於Archive，Python及讀者JS治理valid／meta／resolve通過。實際BlockTempo一般故事的來源分數均為0.3，公開政策rank6且無重點／雷達權限。
 
 ## 2026-11-03 Claude Product announcements與漏報流程（已發布並驗收）
 
@@ -58,6 +56,10 @@ D14人工核對來源／事件／首次收錄時間，分開計算「新事件�
 私人早報整組移除與PDF／多媒體附件不作證據的裁決保持。實作已落於正式專案工作目錄，完整1913項回歸通過；固定輸入與候選結果一致，原始7489筆新聞內容保留，官方文字查漏與Hugging Face首段回放通過。沒有commit、push、部署或改線上設定。完整交接：/Users/lordmi/Downloads/ai-news-quality-integration-20261030/HANDOFF.md。
 
 ## 官方文字來源與格式邊界
+
+Pulse 按設定入口取得原始公告或原始報導並保留出處與歸因。一次可靠歸因足以滿足一般排序的來源條件，內容範圍、來源用途與時間窗依全站共用規則。原始媒體報導可獨立進入一般排序。收件提供的文章連結是來源依據，收錄後的即時存取狀態由需要引用該來源的編輯核對。文章事實查核由自媒體編輯助理在撰稿前處理。
+
+對照源的引用供人工查閱。橘鴉早報曾用於自動追連結補收官方材料，現行例行刷新只保留對照源；已保存的頁面仍可離線回放。重點新聞只按已收錄的原始標題、摘要及來源用途評估資格與材料完整度。
 
 一手材料限官方RSS／Atom的實際文字與官方可讀正文；現有媒體新聞按既有規則收錄。附件、圖片與影音不作證據，不開發文件解析、OCR或轉錄。正文不足就保留缺口。
 

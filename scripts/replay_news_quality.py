@@ -31,6 +31,15 @@ def replay(baseline, output, *, evidence_pages=None, evidence_saved_at=None):
         for r in candidates:
             raw.append(u.RawItem(site_id=r['site_id'], site_name=r['site_name'], source=r['source'],
                 title=r['title'], url=r['url'], published_at=u.parse_iso(r['published_at']), meta={'summary': r.get('summary','')}))
+        recovered, _ = primary_evidence.recover(
+            None, raw, {row['id']: row for row in archive['items']}, now,
+            fetcher=evidence_pages.__getitem__,
+        )
+        for record in recovered:
+            provenance = record.meta['primary_provenance']
+            provenance['retrieved_at'] = (evidence_saved_at or {}).get(record.url)
+            provenance['replay_time_basis'] = 'counterfactual_at_snapshot_cutoff'
+        raw.extend(recovered)
     argv = ['update_news.py', '--output-dir', str(output), '--translate-max-new', '0']
     with ExitStack() as stack:
         stack.callback(random.setstate, random.getstate())
@@ -39,22 +48,10 @@ def replay(baseline, output, *, evidence_pages=None, evidence_saved_at=None):
         stack.enter_context(patch.object(u, 'utc_now', lambda: now))
         stack.enter_context(patch.object(u, 'collect_all', lambda *_: (raw, status['sites'])))
         stack.enter_context(patch.object(u, 'run_market_sensors', lambda *_: ({'generated_at':u.iso(now),'signals':[]}, {}, [])))
-        for name in ('maybe_fetch_x_api_updates','maybe_fetch_socialdata_updates','maybe_fetch_tikhub_updates'):
-            stack.enter_context(patch.object(u, name, lambda *_: ([], {'enabled':False})))
         stack.enter_context(patch.dict(os.environ, {k:'' for k in ('GEMINI_API_KEY','GROQ_API_KEY','GITHUB_STEP_SUMMARY','GOOGLE_TRANSLATE_API_KEY')}))
         stack.enter_context(patch('requests.sessions.Session.request', side_effect=AssertionError('offline_replay_network_forbidden')))
-        if evidence_pages:
-            stack.enter_context(patch.object(primary_evidence, 'fetch_page', lambda session,url: evidence_pages[url]))
-            recover = primary_evidence.recover
-            def replay_recovery(*args, **kwargs):
-                records, health = recover(*args, **kwargs)
-                for record in records:
-                    provenance = record.meta['primary_provenance']
-                    provenance['retrieved_at'] = (evidence_saved_at or {}).get(record.url)
-                    provenance['replay_time_basis'] = 'counterfactual_at_snapshot_cutoff'
-                return records, health
-            stack.enter_context(patch.object(primary_evidence, 'recover', replay_recovery))
-        u.main()
+        if u.main() != 0:
+            raise RuntimeError('offline_replay_failed')
     meta = {'snapshot_time': u.iso(now), 'mode': 'counterfactual_primary_recovery' if evidence_pages else 'same_input_repair',
             'live_fetch_performed': False, 'random_seed': 0, 'baseline': str(baseline),
             'limitation': 'Supplementary primary material was retrieved after the cutoff; this is a counterfactual ingestion test, not historical evidence of presence.'}

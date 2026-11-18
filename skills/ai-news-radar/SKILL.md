@@ -69,6 +69,12 @@ For non-trivial work:
 
 ## Source Intake
 
+For general ranking, use the original announcement or original reporting from
+configured sources, with its article link and attribution. Apply the existing
+scope, source-use, and time-window rules. Keep cited links as references. Use
+collected native material for topic and featured decisions, and leave factual
+verification to the social media editorial assistant.
+
 First-party evidence is restricted to actual text in official RSS/Atom feeds and
 readable official webpage prose. Existing media-news admission remains unchanged.
 Apply `scripts/evidence_policy.py` to reject unsupported material formats. Do not fetch or

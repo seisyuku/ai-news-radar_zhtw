@@ -19,7 +19,7 @@ except ModuleNotFoundError:
     import supplement_impact
 
 b, policy, corroboration = legacy.b, legacy.policy, legacy.corroboration
-SCHEMA_VERSION, SELECTION_POLICY, DEFAULT_VISIBLE_LIMIT = 2, "impact-v3-empty-fallback", 5
+SCHEMA_VERSION, SELECTION_POLICY, DEFAULT_VISIBLE_LIMIT = 2, "impact-v4-personnel-capital", 5
 MAX_BYTES, MAX_EVENTS, MAX_ARTICLES = legacy.MAX_BYTES, legacy.MAX_EVENTS, legacy.MAX_ARTICLES
 BASES = {"supported_core", "industry_news", "capability_disclosure"}
 REASONS = legacy.REASONS | BASES
@@ -65,10 +65,12 @@ def decide(event, annotations, rows, now, scorer):
         return result
     keys = sorted({ref["corroboration_key"] for ref, _ in candidates})
     selection_class = "core" if core else "supplement"
-    def impact_for(ref):
-        basis = "supported_core" if core else annotations[ref["id"]]["supplement_evidence"]["kind"]
-        return supplement_impact.score(ref["source_material"], basis)
-    scored = [(supplement_impact.rank(impact_for(ref), selection_class, b.parse(event["effective_at"]), now), ref, kinds)
+    def impact_for(ref, kinds):
+        evidence = annotations[ref["id"]]["supplement_evidence"]
+        basis = "supported_core" if core else evidence["kind"]
+        return supplement_impact.score(ref["source_material"], basis, evidence.get("personnel_impact"),
+                                       model_release="model_release" in kinds)
+    scored = [(supplement_impact.rank(impact_for(ref, kinds), selection_class, b.parse(event["effective_at"]), now), ref, kinds)
               for ref, kinds in candidates]
     if any(type(score) not in (int, float) or not math.isfinite(score) or not 0 <= score <= 1
            for score, _, _ in scored):
@@ -86,7 +88,7 @@ def decide(event, annotations, rows, now, scorer):
         featured_primary_item=copy.deepcopy(primary), featured_score=score,
         featured_business_events=kinds, disclosure_flags=[] if core else supplement_evidence["qualifiers"])
     result["featured_primary_item"]["business_events"] = kinds
-    result["supplement_impact"] = impact_for(primary)
+    result["supplement_impact"] = impact_for(primary, kinds)
     result["selection_tier"] = selection_tier(result["supplement_impact"])
     summary = event.get("news_summary")
     if isinstance(summary, str) and summary:

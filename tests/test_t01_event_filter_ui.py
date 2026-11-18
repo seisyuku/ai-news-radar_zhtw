@@ -60,6 +60,21 @@ console.log(JSON.stringify({story:briefEventMatchesFilters({...base,business_eve
     assert result == {"story": True, "primary": True, "absent": False}
 
 
+def test_selected_filter_uses_the_original_article_grade_for_featured_cards():
+    result = run_js(extract_declarations("briefEventMatchesFilters") + """
+const state = {signalLevelFilter:'high', activeSection:'hot', query:'',
+  itemsAi:[{id:'article', ai_score:0.70}]};
+const isHighPriorityItem = item => item.ai_score >= 0.75 || item.score >= 0.75;
+const generalReaderSource = () => ({level:'media'});
+const story = {score:0.96, primary_item:{id:'article'}, sources:[]};
+const before = briefEventMatchesFilters(story);
+state.itemsAi[0].ai_score = 0.79;
+story.score = 0.65;
+console.log(JSON.stringify([before, briefEventMatchesFilters(story)]));
+""")
+    assert result == [False, True]
+
+
 def test_ordinary_card_shows_event_badge_without_repeated_model_tag_and_keeps_link():
     code = extract_declarations("BUSINESS_EVENT_LABELS", "TAG_SYNONYM_SUPPRESS",
                                 "businessEventBadges", "businessEventChip")

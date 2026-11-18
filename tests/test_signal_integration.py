@@ -18,7 +18,7 @@ def generation(tmp_path, monkeypatch):
     stamp = u.iso(NOW)
     rows = [article("core", title="OpenAI releases GPT-6.1 Sol model for developers", summary="The AI model adds tool calling and supports enterprise customers using longer context windows."), article("supplement",
         title="Cedar AI secures $150 million funding for inference infrastructure",
-        summary="Cedar AI closed the funding round and plans to expand its inference infrastructure for customers.",
+        summary="Cedar AI now operates 2,000 additional inference GPUs for enterprise customers.",
         site_id="curated_media", source="The Decoder AI News", url="https://the-decoder.com/synthetic-workspace")]
     for row in rows:
         row.update(id=hashlib.sha1(row["id"].encode()).hexdigest(), site_name="Synthetic integration",

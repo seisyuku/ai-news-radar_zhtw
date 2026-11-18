@@ -20,7 +20,7 @@
 
 | 狀態與負責模組 | 轉移、保留與恢復 | 驗收 |
 | --- | --- | --- |
-| **新聞封存** · `archive.json` · [生成器](../scripts/update_news.py) | 首見建立 ID 與初見時間，再見更新最後見到時間。預設依最後見到時間保留 21 天。舊不合格證據可留存但退出閱讀投影。官方文件補收成功後，archive URL 使後續輪次跳過已收錄文件。 | [封存與清理](../tests/test_atomic_output.py) |
+| **新聞封存** · `archive.json` · [生成器](../scripts/update_news.py) | 首見建立 ID 與初見時間，再見更新最後見到時間。預設依最後見到時間保留 21 天。例行刷新依已設定入口收件。缺可用公開文章網址、格式不合或已被取代的紀錄保留於封存，閱讀投影使用可追溯的原始資料。 | [封存與清理](../tests/test_atomic_output.py) |
 | **文章版本與 AIBASE** · archive 紀錄 · [版本模組](../scripts/article_versions.py)、[AIBASE](../scripts/aibase_source.py) | 同 ID 內容修訂保留最多 16 份舊內容。符合修訂條件的同 URL 文章在投影中指向新版，舊 ID 仍可解析。AIBASE 沿用既有 Radar ID，英文只補未取得繁中的欄位。 | [AIBASE 封存](../tests/test_aibase_archive.py) |
 | **事件身分、階段與恢復** · `brief-event-state.json` · [事件模組](../scripts/brief_events.py) | 新證據可補入既有事件、合併別名或形成新階段。重述同一階段不延後其有效時間；實質新階段才可能重開 24 小時讀者窗口。歷史保留 21 天。有效狀態續用，缺失或損壞且 archive 具足夠證據才重建；不支援版本、未來異常、容量或證據不足時輸出不可用。 | [事件回歸](../tests/test_brief_events.py) |
 | **來源健康** · `source-status.json` · [健康模組](../scripts/source_health.py) | 依來源及其子來源身分延續。成功清零，失敗累加，預設第 3 次進入持續故障；跳過保留最後實際結果與連敗，不重發故障紀錄。舊格式只用既有連敗、成功時間或 `ok` 補足上次結果。 | [健康契約](SOURCE_HEALTH.md) · [跳過回歸](../tests/test_source_health_skips.py) |

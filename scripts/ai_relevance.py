@@ -9,8 +9,10 @@ from urllib.parse import urlparse
 
 try:
     from .publisher_material import event_promotion
+    from .personnel_changes import detect as personnel_change
 except ImportError:
     from publisher_material import event_promotion
+    from personnel_changes import detect as personnel_change
 
 try:
     from .source_scope import platform_event_decision, runtimewire_article_allowed
@@ -561,6 +563,15 @@ def score_ai_relevance(record: dict[str, Any]) -> dict[str, Any]:
         return _result(is_ai_related=True, score=max(AI_RELEVANCE_THRESHOLD, base["score"]),
                        label="industry_business", reason=policy.reason,
                        signals=base["signals"], noise=base["noise"])
+    if base["reason"] in {
+            "matched_ai_signal", "matched_broad_ai_plus_tech_signal", "missing_meaningful_ai_signal",
+            "curated_media_source_filter", "curated_media_requires_ai_title_or_trusted_ai_feed"}:
+        title = str(record.get("title_original") or record.get("title") or "")
+        summary = str(record.get("summary") or "")
+        if personnel_change(title, summary):
+            return _result(is_ai_related=True, score=max(AI_RELEVANCE_THRESHOLD, base["score"]),
+                           label="industry_business", reason="named_ai_personnel_change",
+                           signals=base["signals"], noise=base["noise"])
     return base
 
 

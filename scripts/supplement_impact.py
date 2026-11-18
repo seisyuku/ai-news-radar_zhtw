@@ -29,6 +29,27 @@ AI_DIRECT = re.compile(r"(?<![A-Za-z])(?:AI|LLM|GPT|Claude|Copilot|LiteLLM|OpenA
 OTHER_INDUSTRY = re.compile(r"\b(?:refinery|oil|bank|hospital|factory|manufacturer)\b|煉油廠|銀行|醫院|製造", re.I)
 CONTENT_ONLY = re.compile(r"\b(?:clip|trailer|video generated|film|Odyssey)\b|影片片段|電影預告", re.I)
 E_DETAIL = re.compile(r"\b(?:because|after|using|uses?|found|affect\w*|caus\w*|result\w*|includ\w*|add\w*|built?|deplo\w*|test\w*|quality|sav\w*|customer\w*|closed|expand\w*|leaked|entered|scor\w*)\b|引入|功能|發現|发现|影響|影响|造成|結果|结果|採用|采用|測試|测试|節省|节省|外洩|外泄|憑證|凭证|渠道", re.I)
+FUNDRAISE = re.compile(r"\b(?:fundrais\w*|funding round|financing round|stock offering|stock sale)\b|"
+    r"\b(?:announc\w*|clos\w*|secur\w*|rais\w*|receiv\w*|obtain\w*)\b.{0,36}"
+    r"\b(?:funding|financing|bank loans?|credit facilit(?:y|ies))\b|\b(?:raises?|raised|secures?|secured)\s+"
+    r"(?:(?:an?|another|additional|fresh)\s+)*(?:US\s*)?\$\s*\d|"
+    r"融資|融资|募資|募资|募得|股票發行|股票发行|銀行授信|银行授信", re.I)
+ACQUISITION_ACTION = re.compile(r"\b(?:acquires|acquired|merges|merged)\b|(?:正式|已)?(?:收購|收购|併購|并购)", re.I)
+LIVE_CHANGE = re.compile(
+    r"\b(?:now generally available|now available|went live|entered general availability|"
+    r"has deployed|has opened|has shipped|began serving|started serving|now operates|"
+    r"now serves|now runs)\b|已(?:上[線线]|投入運作|投入运作|正式開放|正式开放|部署|開始提供|开始提供)", re.I)
+LIVE_OBJECT = re.compile(r"\b(?:API|GPUs?|capacity|inference|clusters?|platform|models?|customers?|users?)\b|算力|叢集|集群|推理|使用者|用戶|用户|客戶|客户|模型", re.I)
+LIVE_HEDGE = re.compile(r"\b(?:plans?|intends?|aims?|hopes?|would|could|might|not|if|expects?|projected|will)\b|計劃|计划|擬|拟|可能|預計|预计|尚未|並未|并未", re.I)
+EXPLICIT_SUBJECT = re.compile(r"^\s*(?:(?:the|its)\s+(?:company|startup|developer|team)|it)\s+", re.I)
+MODEL_ID = re.compile(r"\b(?:GPT|Claude|Gemini|Grok|Qwen|DeepSeek|Llama|Mistral|Voxtral|GLM|Kimi)"
+    r"[\s\-‐‑–]*(?:(?:Opus|Sonnet|Haiku)\s+)?[vVkK]?\d+(?:\.\d+)*"
+    r"(?:[\s\-‐‑–]+(?:Astra|Sol|Luna|Pro|Max|Mini|Nano|Flash|Lite|Preview)\b)*", re.I)
+MODEL_ACCESS = re.compile(r"\b(?:now (?:generally )?available|generally available|available now)\b"
+    r".{0,90}\b(?:API|Copilot|ChatGPT|Codex|Bedrock|Vertex AI|AI Studio|Azure)\b|"
+    r"(?:正式|現已|现已).{0,14}(?:開放|开放|上[線线]).{0,50}(?:API|Copilot|ChatGPT|Codex|Bedrock|Vertex AI)", re.I)
+MODEL_RANK = re.compile(r"\b(?:benchmark|index|leaderboard)\b.{0,90}\b(?:ranks?|placed|ranked)\s+"
+    r"(?:first|second|third|fourth|fifth|#?\d+)(?![A-Za-z0-9])", re.I)
 
 
 FACTORY_BRAND = re.compile(r"\bFactory(?:['’]s)?(?=\s+(?:Droid\b|(?:releases?|released|launches?|launched|introduces?|introduced)\s+Droid\b))", re.ASCII)
@@ -43,7 +64,11 @@ def _dollars(text):
     return max(amounts, default=0)
 
 
-def score(native, basis):
+def _model_ids(text):
+    return {re.sub(r"[^a-z0-9.]", "", match[0].lower()) for match in MODEL_ID.finditer(text)}
+
+
+def score(native, basis, personnel_impact=None, *, model_release=False):
     """Return I/P/E/C; conservative when native material lacks commercial scale."""
     _, title, summary = signal_material.native(native)
     text = title + "\n" + summary
@@ -94,8 +119,33 @@ def score(native, basis):
     new_words = {w for w in re.findall(r"[a-z0-9]+", summary.lower()) if len(w) > 3} - title_words
     cjk_detail = bool(re.search(r"[\u3400-\u9fff]", summary) and len(summary) >= len(title) + 20
                       and title not in summary)
-    detailed = (len(new_words) >= 5 or cjk_detail) and E_DETAIL.search(summary) and not CONTENT_ONLY.search(title)
+    financing = FUNDRAISE.search(title)
+    funding = bool(financing and not ACQUISITION_ACTION.search(title, 0, financing.start())
+                   and not re.search(r"\b(?:IPO|initial public offering)\b|首次公開募股|首次公开募股", title, re.I))
+    actual_change = False
+    if funding:
+        actor = re.split(r"\b(?:has |just )?(?:raises?|raised|secures?|secured|closes?|closed|launches?)\b|"
+                         r"(?:完成|獲得|获得|募資|募资|融資|融资)", title, maxsplit=1, flags=re.I)[0].strip()
+        actual_change = any(LIVE_CHANGE.search(clause) and LIVE_OBJECT.search(clause)
+            and not LIVE_HEDGE.search(clause)
+            and (index == 0 and EXPLICIT_SUBJECT.search(clause)
+                 or actor and clause.lstrip().lower().startswith(actor.lower() + " "))
+            for index, clause in enumerate(signal_material.cues.CLAUSES.split(summary)))
+        impact = 15 if actual_change else min(impact, 15)
+        proximity = 20 if actual_change else min(proximity, 10)
+    model_ids = _model_ids(title) if model_release else set()
+    release_detail = bool(model_ids and not LIVE_HEDGE.search(summary)
+        and (any(model_ids & _model_ids(clause) and MODEL_ACCESS.search(clause)
+                 for clause in signal_material.cues.CLAUSES.split(summary))
+             or model_ids & _model_ids(summary) and MODEL_RANK.search(summary)))
+    detailed = ((len(new_words) >= 5 or cjk_detail) and E_DETAIL.search(summary) or release_detail or actual_change
+                ) and not CONTENT_ONLY.search(title)
     evidence = 20 if detailed else 10 if title else 0
+
+    if basis == "industry_news" and personnel_impact in (15, 20, 30):
+        total = personnel_impact + 20 + evidence + 20
+        return {"i": personnel_impact, "p": 20, "e": evidence, "c": 20,
+                "total": total, "passes": total >= 70}
 
     if CONTENT_ONLY.search(title):
         centrality = 0
