@@ -1,0 +1,65 @@
+{
+  "id": "fd988014d53047296dfa50cc61d3821cc4e98161",
+  "published_at": "2026-11-18T01:53:26Z",
+  "first_seen_at": "2026-11-18T02:05:35.211945Z",
+  "site_id": "curated_media",
+  "site_name": "精選媒體",
+  "source": "AIBASE",
+  "title": "微軟給 AI 裝上“決策腦”：Decision-1.1 跑贏 GPT-6 Luna，拿不準還能棄權",
+  "url": "https://news.aibase.com/tw/news/32369",
+  "last_seen_at": "2026-11-18T02:05:35.211945Z",
+  "summary": "微軟17日推出決策模型Microsoft-Decision-1.1，已登陸Microsoft Foundry、OpenRouter和Vercel。它不閒聊，專攻企業軟件高頻決策：路由、分類、內容覈驗與工作流控制。模型只在開發者規則內從允許操作中選答案，並輸出校準置信度；信息不足時棄權或提示人工介入，避免關鍵業務風險。評測得分68，超一衆對手，速度比上代快兩倍。",
+  "ingress": {
+    "kind": "public_adapter",
+    "site_id": "curated_media",
+    "source_id": "aibase",
+    "name": "AIBASE",
+    "feed_url": null
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "aibase",
+    "name": "AIBASE",
+    "domain": "news.aibase.com",
+    "status": "identified",
+    "basis": [
+      "explicit_group"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://news.aibase.com/tw/news/32369",
+      "article_host": "news.aibase.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "aibase_article_id": "32369",
+  "field_languages": {
+    "title": "tw",
+    "url": "tw",
+    "summary": "tw"
+  },
+  "content_language": "tw",
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "c8484c3bb9fd3de075b75cf96a9a2469efe41120789b8aa743c24293397a19c7",
+    "scope_id": "aibase",
+    "publisher_kind": "aggregator",
+    "admission_status": "limited",
+    "source_tier": "advanced",
+    "source_tier_label": "次級AI媒體",
+    "source_tier_rank": 4,
+    "allow_general": true,
+    "allow_featured": false,
+    "allow_radar": false,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
+    ]
+  }
+}

@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v3",
   "entries": {
+    "e70b9119bc8a83a19688555c3f4457b8c47525ebc74119d0989224e804875531": {
+      "summary": "Anthropic 傳 19 日登陸那斯達克，最終定價高於 80 美元。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-18T02:05:35.211945Z"
+    },
     "f82d408fcdaf9603a0a4eaa71e3509efade4ee50792a600252bc4e8c2a1c15bf": {
       "summary": "Anthropic稱Claude Mythos 3天完成AMD MI355X近100%底層程式碼，將適配週期壓縮至72小時。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-11-02T00:35:32.099810Z"
-    },
-    "ce74bc2bbec0504e46003715e102bf4c5bbe1a4d562fbb2e7b113f5a6928e8fe": {
-      "summary": "Palantir前高層創立Dream，獲a16z領投1,700萬美元種子輪，以AI世界模型自動設計建築。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-11-02T00:35:32.099810Z"
     }
   },
   "rejections": {
@@ -4963,6 +4963,10 @@
     "f2037f7fab09d8fe18c65f30c0af69abf959c08c915845d137467ecc8548eb11": {
       "reason": "validation_numeric_grounding",
       "created_at": "2026-11-18T00:35:33.637431Z"
+    },
+    "d054e4902d59ea5b9eef92a134789f85c101f7541f4d6a327b250758f90ce1ec": {
+      "reason": "validation_required_name",
+      "created_at": "2026-11-18T02:05:35.211945Z"
     }
   }
 }
