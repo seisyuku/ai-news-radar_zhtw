@@ -1,0 +1,57 @@
+{
+  "id": "ee2acf0b8e651863532f3c70e0a441096fbe5a0a",
+  "published_at": "2026-11-19T09:11:29Z",
+  "first_seen_at": "2026-11-19T02:05:29.937412Z",
+  "site_id": "tw_media",
+  "site_name": "TW Media",
+  "source": "iThome",
+  "title": "Barracuda遭AI代理框架ARTEX攻擊，駭客44小時橫跨10個雲端帳戶搜刮憑證",
+  "url": "https://www.ithome.com.tw/news/180621",
+  "last_seen_at": "2026-11-19T02:05:29.937412Z",
+  "summary": "資安公司Barracuda近日揭露雲端環境遭到AI自主入侵事件，攻擊者利用遭竊的雲端存取金鑰，在44小時內橫跨10個雲端帳戶，持續蒐集憑證、探索內部系統，並嘗試建立後門，根據該公司的調查，此次攻擊行為使用的工具，就是AI滲透測試框架ARTEX。",
+  "source_updated_at": "2026-11-19T09:11:29Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "tw_media",
+    "source_id": "ithome",
+    "name": "iThome",
+    "feed_url": "https://www.ithome.com.tw/rss"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "ithome",
+    "name": "iThome",
+    "domain": "www.ithome.com.tw",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://www.ithome.com.tw/news/180621",
+      "article_host": "www.ithome.com.tw",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": true,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+    "scope_id": "ithome",
+    "publisher_kind": "media",
+    "admission_status": "limited",
+    "source_tier": "professional_media",
+    "source_tier_label": "專業科技媒體",
+    "source_tier_rank": 1,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}
