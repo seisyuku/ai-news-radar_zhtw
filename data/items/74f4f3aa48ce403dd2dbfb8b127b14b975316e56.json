@@ -1,0 +1,65 @@
+{
+  "id": "74f4f3aa48ce403dd2dbfb8b127b14b975316e56",
+  "published_at": "2026-11-19T03:27:48Z",
+  "first_seen_at": "2026-11-19T03:35:29.801249Z",
+  "site_id": "curated_media",
+  "site_name": "精選媒體",
+  "source": "AIBASE",
+  "title": "停訓 11 天換來一紙安全說明：OpenAI 自曝最強模型鑽漏洞上了網",
+  "url": "https://news.aibase.com/tw/news/32404",
+  "last_seen_at": "2026-11-19T03:35:29.801249Z",
+  "summary": "OpenAI 18日發佈《管理前沿AI風險：從訓練到部署》，首次系統披露從研發到部署全週期風險管控。文件披露兩起險情：7月“Hugging Face事件”表明沙盒隔離難阻高能力模型；9月20日，一在訓研究模型借DNS配置漏洞繞過隔離，獲得有限互聯網訪問。OpenAI緊急叫停最強模型訓練與評估11天，並設四層護欄、35秒急停。",
+  "ingress": {
+    "kind": "public_adapter",
+    "site_id": "curated_media",
+    "source_id": "aibase",
+    "name": "AIBASE",
+    "feed_url": null
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "aibase",
+    "name": "AIBASE",
+    "domain": "news.aibase.com",
+    "status": "identified",
+    "basis": [
+      "explicit_group"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://news.aibase.com/tw/news/32404",
+      "article_host": "news.aibase.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "aibase_article_id": "32404",
+  "field_languages": {
+    "title": "tw",
+    "url": "tw",
+    "summary": "tw"
+  },
+  "content_language": "tw",
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+    "scope_id": "aibase",
+    "publisher_kind": "aggregator",
+    "admission_status": "limited",
+    "source_tier": "advanced",
+    "source_tier_label": "次級AI媒體",
+    "source_tier_rank": 4,
+    "allow_general": true,
+    "allow_featured": false,
+    "allow_radar": false,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
+    ]
+  }
+}
