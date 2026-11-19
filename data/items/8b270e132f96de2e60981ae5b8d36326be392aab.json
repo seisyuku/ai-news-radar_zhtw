@@ -1,0 +1,61 @@
+{
+  "id": "8b270e132f96de2e60981ae5b8d36326be392aab",
+  "published_at": "2026-11-18T21:41:16Z",
+  "first_seen_at": "2026-11-19T06:05:29.848270Z",
+  "site_id": "curated_media",
+  "site_name": "精選媒體",
+  "source": "Epoch AI (Google News)",
+  "title": "Anthropic’s compute spending is increasing by 4x per year - Epoch AI",
+  "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE11ZDkteWJ2MnU3VmZGZjNFdkk4OVJqY1R3czhaQ1lZcUxLVE5CR1EwTnJtRFpoa1NoRUt0WVY1Q2ZlYUlVTVN3M3ZrYjFXcHk1UG9Bb1p1dkV6WTA0SHhpWGxiLWxUNkpaNEVEb1NrZWlYazhSbllB?oc=5",
+  "last_seen_at": "2026-11-19T06:05:29.848270Z",
+  "summary": "Anthropic’s compute spending is increasing by 4x per year Epoch AI",
+  "publisher_links": [
+    "https://news.google.com/rss/articles/CBMid0FVX3lxTE11ZDkteWJ2MnU3VmZGZjNFdkk4OVJqY1R3czhaQ1lZcUxLVE5CR1EwTnJtRFpoa1NoRUt0WVY1Q2ZlYUlVTVN3M3ZrYjFXcHk1UG9Bb1p1dkV6WTA0SHhpWGxiLWxUNkpaNEVEb1NrZWlYazhSbllB?oc=5"
+  ],
+  "source_updated_at": "2026-11-18T21:41:16Z",
+  "ingress": {
+    "kind": "google_news",
+    "site_id": "curated_media",
+    "source_id": "epoch_ai_news",
+    "name": "Epoch AI (Google News)",
+    "feed_url": "https://news.google.com/rss/search?q=site%3Aepoch.ai+when%3A14d&hl=en-US&gl=US&ceid=US%3Aen"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "epoch",
+    "name": "Epoch AI",
+    "domain": "epoch.ai",
+    "status": "identified",
+    "basis": [
+      "google_rss_source",
+      "configured_bridge"
+    ],
+    "evidence": {
+      "rss_source_name": "Epoch AI",
+      "rss_source_url": "https://epoch.ai",
+      "article_url": null,
+      "article_host": "news.google.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+    "scope_id": "epoch",
+    "publisher_kind": "media",
+    "admission_status": "limited",
+    "source_tier": "ai_media",
+    "source_tier_label": "精選AI媒體",
+    "source_tier_rank": 2,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_bridge",
+      "limited_scope"
+    ]
+  }
+}
