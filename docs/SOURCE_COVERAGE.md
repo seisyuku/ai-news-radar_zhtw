@@ -1,5 +1,13 @@
 # Source Coverage
 
+## 2026-11-20 Anthropic News 列表修復與模型公告收錄
+
+Anthropic Newsroom 改用 `data-listing-row` 標記新聞列。原解析器只讀到 2 篇舊置頂卡片，健康仍顯示成功。新版按同一列的標題網址與唯一日期配對，且在日期窗口與網址去重之前檢查列表是否可解析。有符合範圍的候選、但整個列表無有效日期時，該子來源回報 `invalid_source`。
+
+原 `/news/` 範圍另納入 Newsroom 列出的同站、帶版本號的 Claude Opus、Sonnet、Haiku、Fable、Mythos 及 Fable／Mythos 聯合發布根路徑。沿用 Anthropic 發布者身分。依維護者裁決，Claude Desktop 更新頻道與 Help Center 版本說明不接入。
+
+兩次實網解析結果相同，各 18 篇。以臺北 11/20 10:41:11 正式快照 `6c9416941a22` 隔離生成，封存 8,204→8,220。其中 IPO 定價、路演、Fable／Mythos 5.2 及 Haiku 5.5 均以原發布日期入庫，文章解析資料與封存一致。一般 AI 194 篇、全部 225 篇、重點 0 則的 ID 及順序與對照組相同。完整 Python 測試 2,336 項通過。本機驗收完成，正式刷新與 Pages 驗收待發布。
+
 ## 2026-11-18 官方來源裁決與 Claude 入口修復
 
 - vLLM、LiberAI 的收錄評估依維護者裁決取消並結案。兩者均未接入例行收件，停止後續評估與人工追蹤。

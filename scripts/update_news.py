@@ -1897,17 +1897,24 @@ def fetch_claude_product_announcements(session: requests.Session, now: datetime)
         response.close()
 
 
+ANTHROPIC_MODEL_RELEASE_PATH = re.compile(
+    r"/claude-(?:fable-and-mythos|opus|sonnet|haiku|fable|mythos)-[0-9]+(?:-[0-9]+)*/?"
+)
+
+
 def parse_anthropic_news_items(page_html: str, now: datetime, *, require_valid: bool = False) -> list[RawItem]:
     site_id = "official_ai"
     site_name = "Official AI Updates"
     soup = BeautifulSoup(page_html, "html.parser")
     out: list[RawItem] = []
     seen: set[str] = set()
-    valid_source_entries = 0
+    listing_has_candidates = False
+    listing_has_valid_date = False
 
-    for a in soup.select('a[href^="/news/"]'):
+    for a in soup.select("a[href]"):
         href = str(a.get("href") or "").strip()
-        if not href or href == "/news/" or href == "/news":
+        is_news_path = href.startswith("/news/") and href != "/news/"
+        if not is_news_path and not ANTHROPIC_MODEL_RELEASE_PATH.fullmatch(href):
             continue
 
         title_tag = a.select_one("h1, h2, h3, h4")
@@ -1916,35 +1923,43 @@ def parse_anthropic_news_items(page_html: str, now: datetime, *, require_valid: 
         if not title or title.lower() == "news":
             continue
 
-        url = urljoin("https://www.anthropic.com", href)
-        if url in seen:
-            continue
-
-        time_tag = a.select_one("time")
-        if time_tag is None:
-            # Newsroom cards and table rows put the date beside the title link.
-            # Stay within one article; never borrow a date from the page/list.
+        row = a.find_parent("li", attrs={"data-listing-row": True})
+        in_listing = row is not None or a.find_parent(attrs={"data-listing-rows": True}) is not None
+        container = row
+        time_tag = None
+        if in_listing:
+            listing_has_candidates = True
+        else:
+            time_tag = a.select_one("time")
             container = a.find_parent(lambda node: node.name == "article" or (
                 node.name == "div" and any(
                     css.startswith("TableView-") and css.endswith("__summary")
                     for css in node.get("class", [])
                 )
             ))
-            if container is not None:
-                dates = container.select("time")
-                article_hrefs = {
-                    link.get("href") for link in container.select('a[href^="/news/"]')
-                    if link.select_one("h1, h2, h3, h4")
-                }
-                if len(dates) == 1 and article_hrefs == {href}:
-                    time_tag = dates[0]
+
+        if time_tag is None and container is not None:
+            # The same URL may appear in both the summary and the expanded row.
+            # Only use a date when the container identifies one article.
+            dates = container.select("time")
+            article_hrefs = {
+                str(link.get("href") or "").strip() for link in container.select("a[href]")
+                if link.select_one("h1, h2, h3, h4")
+            }
+            if len(dates) == 1 and article_hrefs == {href}:
+                time_tag = dates[0]
+
         published = None
         if time_tag:
             published = parse_date_any(time_tag.get("datetime") or time_tag.get_text(" ", strip=True), now)
         if not published:
             continue
+        if in_listing:
+            listing_has_valid_date = True
+        url = urljoin("https://www.anthropic.com", href)
+        if url in seen:
+            continue
         seen.add(url)
-        valid_source_entries += 1
         if now and published < now - timedelta(days=OFFICIAL_AI_MAX_AGE_DAYS):
             continue
 
@@ -1960,7 +1975,7 @@ def parse_anthropic_news_items(page_html: str, now: datetime, *, require_valid: 
             )
         )
 
-    if require_valid and not valid_source_entries:
+    if require_valid and (not seen or (listing_has_candidates and not listing_has_valid_date)):
         raise ValueError("invalid_page_fields")
     return out
 
