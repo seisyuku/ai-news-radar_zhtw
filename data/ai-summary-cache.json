@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v3",
   "entries": {
+    "eecac1579f8bfec33e407da3bdfe2f1e42f527ce7d9977d9a10d35cf6705c6c7": {
+      "summary": "Anthropic IPO募資813億美元，上市前夜近90位大獎得主聯署公開信質疑其安全人設。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-20T07:05:38.257080Z"
+    },
     "1856c06cb298e721bf5a1dcbf11cfe4badb6117d6ed82ec8629bdf0296d8b314": {
       "summary": "Anthropic於那斯達克掛牌，成為全球首家上市前沿AI公司，首日收盤上漲17%。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-11-03T20:35:45.456769Z"
-    },
-    "a5fc10d244cb88bed027900e92818b696274d171e2894836797d08066c5fe590": {
-      "summary": "Binance co-CEO Richard Teng 稱駭客利用假面試與 AI 工具竊取 63 億美元加密貨幣。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-11-03T17:05:33.906619Z"
     }
   },
   "rejections": {
@@ -4979,6 +4979,10 @@
     "edc1a4638784529f6e8feb74d6f59086bb4f5bd938b3ab6bb31e7de82bf2dcd4": {
       "reason": "validation_length",
       "created_at": "2026-11-20T03:35:36.869738Z"
+    },
+    "7cde2dba4dc4519d2994657cc301263c6181c415dd2ce72073685c5f15e253a8": {
+      "reason": "validation_numeric_grounding",
+      "created_at": "2026-11-20T07:05:38.257080Z"
     }
   }
 }
