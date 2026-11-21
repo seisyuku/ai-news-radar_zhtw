@@ -1,0 +1,63 @@
+{
+  "id": "76620ae55cd0caf95ac975f0bb14a344f964911f",
+  "published_at": "2026-11-04T19:00:00Z",
+  "first_seen_at": "2026-11-21T22:55:37.715735Z",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "AWS 登录现已支持 OAuth 2.0 令牌交换",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/aws-signin-token-exchange",
+  "last_seen_at": "2026-11-21T22:55:37.715735Z",
+  "summary": "AWS 登录现已支持 OAuth 2.0 令牌交换（RFC 8693），使应用程序能够将第三方 OpenID Connect（OIDC）令牌交换为短期的、限定 AWS 服务范围的 OAuth 访问令牌。这样一来，客户便能将第三方应用程序与受支持的 AWS 服务安全集成，而无需共享 AWS 凭证，同时通过 AWS Identity and Access Management（IAM）保持访问控制。 此功能适用于受支持的 使用 AWS 登录的 AWS 服务 ，使客户能够使用现有身份提供商来安全访问 AWS 服务，而无需管理其他凭证。 要了解更多信息 ，请参阅 AWS 登录用户指南 、 AWS MCP 服务器用户指南 和 AWS Glue 发布公告 。",
+  "publisher_links": [
+    "https://docs.aws.amazon.com/signin/latest/userguide/oauth-services-supporting.html",
+    "https://docs.aws.amazon.com/signin/latest/userguide/oauth-sign-in-overview.html#oauth-sign-in-authorization-models",
+    "https://docs.aws.amazon.com/signin/latest/userguide/aws-mcp-server.html#aws-mcp-server-auth-models",
+    "https://aws.amazon.com/about-aws/whats-new/2026/10/glue-catalog-oauth-iceberg-rest/"
+  ],
+  "source_updated_at": "2026-11-04T19:00:00Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "aws_news",
+    "name": "AWS News",
+    "feed_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "amazon",
+    "name": "AWS",
+    "domain": "aws.amazon.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/aws-signin-token-exchange",
+      "article_host": "aws.amazon.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+    "scope_id": "amazon",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}

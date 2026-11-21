@@ -1,0 +1,62 @@
+{
+  "id": "a6b2a34d73b94fa79c2217a3d35173e77d257a4e",
+  "published_at": "2026-11-06T18:00:00Z",
+  "first_seen_at": "2026-11-21T22:55:37.715735Z",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "Amazon MWAA 无服务器支持 Apache Airflow 连接和变量",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/mwaa-serverless-connections-variables",
+  "last_seen_at": "2026-11-21T22:55:37.715735Z",
+  "summary": "Amazon Managed Workflows for Apache Airflow（Amazon MWAA）无服务器现已支持 Apache Airflow 连接和变量，可让您的工作流访问数据库、API 和其他外部系统。您可以在工作流代码之外管理凭证和配置。 您可以将敏感连接和变量存储在选定的密钥后端（例如 AWS Secrets Manager、AWS Systems Manager Parameter Store 或您自己的自定义后端），在工作流中对其进行配置，并向工作流执行角色授予访问权限。任务会在运行时通过标准 Apache Airflow 方法检索这些项目。您可以将非密钥值定义为工作流中的环境变量。 此功能已在提供 Amazon MWAA 无服务器的所有 AWS 区域推出。有关更多信息，请参阅 Amazon MWAA 无服务器区域 。 要了解更多信息，请参阅《Amazon MWAA 无服务器用户指南》中的 管理连接和变量 和 在 Amazon MWAA 无服务器工作流中使用环境变量 。",
+  "publisher_links": [
+    "https://docs.aws.amazon.com/mwaa/latest/mwaa-serverless-userguide/what-is-mwaa-serverless.html#regions",
+    "https://docs.aws.amazon.com/mwaa/latest/mwaa-serverless-userguide/connections.html",
+    "https://docs.aws.amazon.com/mwaa/latest/mwaa-serverless-userguide/workflows-environment-variables.html"
+  ],
+  "source_updated_at": "2026-11-06T18:00:00Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "aws_news",
+    "name": "AWS News",
+    "feed_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "amazon",
+    "name": "AWS",
+    "domain": "aws.amazon.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/mwaa-serverless-connections-variables",
+      "article_host": "aws.amazon.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+    "scope_id": "amazon",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}
