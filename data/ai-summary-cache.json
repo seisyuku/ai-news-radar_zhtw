@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v3",
   "entries": {
+    "1f4a552f489bc7ebc8c222d931b5a4fba1e22befd3c3a6b0d9b077f623eec86f": {
+      "summary": "Anthropic數學家與Claude宣稱破解167年黎曼猜想，人類數學家亦提出證明。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-21T08:05:36.793947Z"
+    },
     "ec926da50d1e284a0d5f8ebf51bb60da541e435f6f66e7a43846bfd8e7b6b407": {
       "summary": "Anthropic 於 11 月 19 日在納斯達克掛牌上市，創全球資本市場史上最大規模 IPO 紀錄。",
       "provider": "groq",
@@ -2995,12 +3001,6 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-11-04T15:35:35.340946Z"
-    },
-    "8c22ce1ad35c6467d36229da24e554a4384c2d548c9e51ca339ee7f82e086d81": {
-      "summary": "Alphabet第三季搜尋營收年增12%，低於上季約17%。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-11-04T12:05:31.749279Z"
     }
   },
   "rejections": {
@@ -4980,10 +4980,6 @@
       "reason": "validation_numeric_grounding",
       "created_at": "2026-11-21T01:35:44.535368Z"
     },
-    "8f9d1601b046451cef4cd993c2f8054026eaae4d21cc7e04baee064cc821b82a": {
-      "reason": "validation_numeric_grounding",
-      "created_at": "2026-11-21T01:35:44.535368Z"
-    },
     "ee523d4ee5d35c8276f15cd57fc6d1c68592ccd49469158ea0a0729ccd88fa67": {
       "reason": "validation_length",
       "created_at": "2026-11-21T02:35:32.616821Z"
@@ -4991,6 +4987,10 @@
     "8850d6a54b0c781a4b1c636d1c295d476a7b805f5d2e46c1030d4fd0695f72e0": {
       "reason": "validation_length",
       "created_at": "2026-11-21T03:05:34.542564Z"
+    },
+    "8f9d1601b046451cef4cd993c2f8054026eaae4d21cc7e04baee064cc821b82a": {
+      "reason": "validation_numeric_grounding",
+      "created_at": "2026-11-21T08:05:36.793947Z"
     }
   }
 }
