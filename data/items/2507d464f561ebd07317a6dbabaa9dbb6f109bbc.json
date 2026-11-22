@@ -1,17 +1,15 @@
 {
-  "id": "0b770fd1f85ba177ee74cef01a4cfeca6ead845a",
-  "published_at": "2026-10-30T13:00:00Z",
-  "first_seen_at": "2026-10-30T05:03:24.820298Z",
+  "id": "2507d464f561ebd07317a6dbabaa9dbb6f109bbc",
+  "published_at": "2026-11-22T11:00:00Z",
+  "first_seen_at": "2026-11-22T11:35:34.126299Z",
   "site_id": "opmlrss",
   "site_name": "OPML RSS",
-  "source": "InfoQ CN",
-  "title": "NestJS 12：ESM 包、标准模式验证和原生可观测性",
-  "url": "https://www.infoq.cn/article/cyfZ34rycDPzIrzohosZ",
-  "last_seen_at": "2026-11-01T11:05:26.233852Z",
-  "summary": "点击查看原文>",
-  "publisher_links": [
-    "https://www.infoq.cn/article/cyfZ34rycDPzIrzohosZ?utm_source=rss&utm_medium=article"
-  ],
+  "source": "Wired AI",
+  "title": "Banks Have Had It Up to Here With Your AI Agent",
+  "url": "https://www.wired.com/story/banks-are-cracking-down-on-ai-agents",
+  "last_seen_at": "2026-11-22T11:35:34.126299Z",
+  "summary": "Major US financial institutions are banning third-party bots from logging into your accounts—and warning that any costly bot mistakes are strictly your problem.",
+  "source_updated_at": "2026-11-22T11:00:00Z",
   "ingress": {
     "kind": "private_opml",
     "site_id": "opmlrss",
@@ -21,20 +19,23 @@
   },
   "publisher": {
     "schema_version": 1,
-    "publisher_id": null,
-    "name": null,
-    "domain": "www.infoq.cn",
-    "status": "unknown",
-    "basis": [],
+    "publisher_id": "wired",
+    "name": "Wired",
+    "domain": "www.wired.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
     "evidence": {
       "rss_source_name": null,
       "rss_source_url": null,
-      "article_url": null,
-      "article_host": "www.infoq.cn",
+      "article_url": "https://www.wired.com/story/banks-are-cracking-down-on-ai-agents",
+      "article_host": "www.wired.com",
       "expected_publisher_id": null,
       "conflicts": []
     }
   },
+  "security_topic": false,
   "source_policy": {
     "schema_version": 1,
     "policy_id": "publisher-governance-v1",
@@ -49,13 +50,11 @@
     "allow_featured": false,
     "allow_radar": false,
     "reason_codes": [
-      "missing_identity",
+      "legacy_identity",
       "scope_mismatch",
       "unreviewed_publisher",
       "not_permitted_for_featured",
       "not_permitted_for_radar"
     ]
-  },
-  "source_updated_at": "2026-10-30T13:00:00Z",
-  "security_topic": false
+  }
 }
