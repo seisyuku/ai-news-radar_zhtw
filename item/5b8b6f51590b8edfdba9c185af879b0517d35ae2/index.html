@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <title>AI News Radar Pulse｜新聞資訊</title>
+</head>
+<body>
+  <main>
+    <h1>AI News Radar Pulse｜新聞資訊</h1>
+    <dl>
+    <dt>新聞編號</dt>
+    <dd>5b8b6f51590b8edfdba9c185af879b0517d35ae2</dd>
+    <dt>發布者</dt>
+    <dd>AWS</dd>
+    <dt>發布者辨識狀態</dt>
+    <dd>已辨識</dd>
+    <dt>來源收錄狀態</dt>
+    <dd>限制收錄</dd>
+    <dt>新聞標題（原文）</dt>
+    <dd>Amazon Redshift 现在支持 Apache Iceberg 的多语句事务、冲突解决和时间旅行</dd>
+    <dt>收錄來源</dt>
+    <dd>AWS News</dd>
+    <dt>發布時間（來源提供）</dt>
+    <dd>2026-11-16T20:30:00Z</dd>
+    <dt>來源摘要（原文）</dt>
+    <dd>Amazon Redshift 现在支持 Apache Iceberg 表的多语句事务、自动写入冲突解决和时间旅行。您可以直接在 Iceberg 表上运行多步并发转换管道，并使用您期望从数据仓库中获得的事务语义对结果进行审计。这可以帮助任何人以生产规模写入 Iceberg 表。批处理作业可跨多个步骤进行全有或全无的提交。流式处理和计划作业可以同时写入相同的表。分析师、审计师和 AI 智能体可以查询任何时间点存在的表。 在多语句事务中，您可以将多个语句分组到一个 BEGIN...COMMIT 语句中，并将其作为一个原子 Iceberg 快照发布。这意味着，像先执行 MERGE 后执行 DELETE 这样的多步骤加载，可以作为一个原子操作一起提交，绝不会在半应用状态下被查询到，并且在发生故障时能够干净地回滚。自动冲突解决允许并发写入（例如在计划删除的同时进行流式插入）、写入同一个表，并在更改不重叠时一起提交，而不是失败并重试。时间旅行允许您使用 AS OF TIMESTAMP 查询过去时间点存在的表。您可以使用它来重现报告、审计更改或从错误写入中恢复，而无需保留额外的副本。这些功能现已在所有 AWS 商业区域推出，适用于正在写入或查询 Iceberg 表的 Amazon Redshift 预置 RG 或无服务器集群。开始使用之前，请参阅以下资源列表： 1/ 使用 Amazon Redshift 解决 Apache Iceberg 表的并发写入问题 2/ Amazon Redshift 中 Apache Iceberg 表的多语句事务 3/ Apache Iceberg 的时空旅行支持</dd>
+    <dt>原文連結</dt>
+    <dd><a href="https://aws.amazon.com/cn/about-aws/whats-new/2026/11/redshift-time-travel-multi-statement">https://aws.amazon.com/cn/about-aws/whats-new/2026/11/redshift-time-travel-multi-statement</a></dd>
+    </dl>
+  </main>
+</body>
+</html>
