@@ -1,21 +1,21 @@
 {
-  "generated_at": "2026-11-22T12:05:28.461867Z",
+  "generated_at": "2026-11-22T12:35:34.718262Z",
   "window_hours": 24,
-  "total_items": 40,
-  "total_items_ai_raw": 40,
-  "total_items_raw": 44,
-  "total_items_all_mode": 44,
+  "total_items": 42,
+  "total_items_ai_raw": 42,
+  "total_items_raw": 46,
+  "total_items_all_mode": 46,
   "topic_filter": "ai_relevance_scoring_v0_4",
   "ai_relevance_threshold": 0.65,
-  "archive_total": 8216,
+  "archive_total": 8211,
   "site_count": 14,
   "source_count": 15,
   "site_stats": [
     {
       "site_id": "curated_media",
       "site_name": "精選媒體",
-      "count": 18,
-      "raw_count": 18
+      "count": 20,
+      "raw_count": 20
     },
     {
       "site_id": "tw_media",
@@ -98,6 +98,110 @@
   ],
   "items": [
     {
+      "id": "0a410ef0dddf080962277550cf006f440041fcc3",
+      "published_at": "2026-11-22T12:07:56Z",
+      "first_seen_at": "2026-11-22T12:35:34.718262Z",
+      "site_id": "curated_media",
+      "site_name": "精選媒體",
+      "source": "The Decoder AI News",
+      "title": "Security researchers show how cheap AI inference providers steal keys and snoop on users",
+      "url": "https://the-decoder.com/security-researchers-show-how-cheap-ai-inference-providers-steal-keys-and-snoop-on-users",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
+      "summary": "Security researchers at Dragos used two million fake AI requests to uncover serious vulnerabilities in the AI supply chain, finding at least three compromised providers, hundreds of stolen AWS keys, and marketplace resellers who were simply reading customer requests. OpenRouter responded by removing three providers and 125 endpoints. The article Security researchers show how cheap AI inference providers steal keys and snoop on users appeared first on The Decoder .",
+      "publisher_links": [
+        "https://the-decoder.com/security-researchers-show-how-cheap-ai-inference-providers-steal-keys-and-snoop-on-users/",
+        "https://the-decoder.com"
+      ],
+      "source_updated_at": "2026-11-22T12:07:56Z",
+      "ingress": {
+        "kind": "public_feed",
+        "site_id": "curated_media",
+        "source_id": "the_decoder",
+        "name": "The Decoder AI News",
+        "feed_url": "https://the-decoder.com/feed/"
+      },
+      "publisher": {
+        "schema_version": 1,
+        "publisher_id": "the_decoder",
+        "name": "The Decoder",
+        "domain": "the-decoder.com",
+        "status": "identified",
+        "basis": [
+          "article_host"
+        ],
+        "evidence": {
+          "rss_source_name": null,
+          "rss_source_url": null,
+          "article_url": "https://the-decoder.com/security-researchers-show-how-cheap-ai-inference-providers-steal-keys-and-snoop-on-users",
+          "article_host": "the-decoder.com",
+          "expected_publisher_id": null,
+          "conflicts": []
+        }
+      },
+      "article_key": "https://the-decoder.com/security-researchers-show-how-cheap-ai-inference-providers-steal-keys-and-snoop-on-users",
+      "security_topic": true,
+      "business_events": [
+        "security"
+      ],
+      "ai_is_related": true,
+      "ai_score": 0.76,
+      "ai_label": "research_paper",
+      "ai_relevance_reason": "curated_media_source_filter",
+      "ai_signals": [
+        "the decoder ai news"
+      ],
+      "ai_noise": [],
+      "source_tier": "ai_vertical",
+      "source_tier_label": "AI垂直專業媒體",
+      "source_tier_rank": 1,
+      "summary_zh": "Dragos的資安研究人員利用200萬個虛假的AI請求，揭露了AI供應鏈中的嚴重漏洞，發現至少3家遭到入侵的供應商、數百個被竊取的AWS金鑰，以及只是在讀取客戶請求的市集轉售商。OpenRouter隨後移除了3家供應商與125個端點。",
+      "title_original": "Security researchers show how cheap AI inference providers steal keys and snoop on users",
+      "title_en": "Security researchers show how cheap AI inference providers steal keys and snoop on users",
+      "title_zh": "資安研究人員展示廉價AI推論供應商如何竊取金鑰並窺探使用者",
+      "title_bilingual": "資安研究人員展示廉價AI推論供應商如何竊取金鑰並窺探使用者 / Security researchers show how cheap AI inference providers steal keys and snoop on users",
+      "corroboration_key": "publisher:the_decoder",
+      "corroboration_status": "identified",
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+        "scope_id": "the_decoder",
+        "publisher_kind": "media",
+        "admission_status": "limited",
+        "source_tier": "ai_vertical",
+        "source_tier_label": "AI垂直專業媒體",
+        "source_tier_rank": 1,
+        "allow_general": true,
+        "allow_featured": true,
+        "allow_radar": true,
+        "reason_codes": [
+          "identified_host",
+          "limited_scope"
+        ]
+      },
+      "source_material": {
+        "title_original": "",
+        "title": "Security researchers show how cheap AI inference providers steal keys and snoop on users",
+        "summary": "Security researchers at Dragos used two million fake AI requests to uncover serious vulnerabilities in the AI supply chain, finding at least three compromised providers, hundreds of stolen AWS keys, and marketplace resellers who were simply reading customer requests. OpenRouter responded by removing three providers and 125 endpoints. The article Security researchers show how cheap AI inference providers steal keys and snoop on users appeared first on The Decoder ."
+      },
+      "qualification": {
+        "scope": "in_scope",
+        "core_evidence": [
+          {
+            "kind": "security",
+            "status": "insufficient",
+            "basis": "insufficient",
+            "spans": [],
+            "urls": []
+          }
+        ],
+        "reason_codes": [
+          "insufficient_evidence"
+        ]
+      },
+      "source_tier_weight": 0.78
+    },
+    {
       "id": "f80acd48059b7b93b9e6b4799a644d23c366e6ec",
       "published_at": "2026-11-22T11:08:31Z",
       "first_seen_at": "2026-11-22T11:35:34.126299Z",
@@ -106,7 +210,7 @@
       "source": "The Decoder AI News",
       "title": "Lean and Mathlib community officially confirms Levent Alpöge's proof of the Riemann hypothesis is correct",
       "url": "https://the-decoder.com/lean-and-mathlib-community-officially-confirms-levent-alpoges-proof-of-the-riemann-hypothesis-is-correct",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "The Lean and Mathlib community has officially confirmed Levent Alpöge's proof of the Riemann hypothesis as correct. Dozens of independent verifiers checked the 17 million lines of computer code. The solution arrived years earlier than expected: Terence Tao had predicted it wouldn't happen until around 2050 and didn't expect AI to solve it alone. The article Lean and Mathlib community officially confirms Levent Alpöge's proof of the Riemann hypothesis is correct appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/lean-and-mathlib-community-officially-confirms-levent-alpoges-proof-of-the-riemann-hypothesis-is-correct/",
@@ -170,10 +274,11 @@
       "source_tier": "ai_vertical",
       "source_tier_label": "AI垂直專業媒體",
       "source_tier_rank": 1,
+      "summary_zh": "Lean與Mathlib社群已正式確認Levent Alpöge對黎曼猜想的證明是正確的。數十位獨立驗證者檢查了這1,700萬行的電腦程式碼。該解答的出現比預期早了好幾年：陶哲軒曾預測這要到2050年左右才會發生，且沒預料到AI能單獨解決它。",
       "title_original": "Lean and Mathlib community officially confirms Levent Alpöge's proof of the Riemann hypothesis is correct",
       "title_en": "Lean and Mathlib community officially confirms Levent Alpöge's proof of the Riemann hypothesis is correct",
-      "title_zh": null,
-      "title_bilingual": "Lean and Mathlib community officially confirms Levent Alpöge's proof of the Riemann hypothesis is correct",
+      "title_zh": "Lean與Mathlib社群正式確認Levent Alpöge對黎曼猜想的證明正確無誤",
+      "title_bilingual": "Lean與Mathlib社群正式確認Levent Alpöge對黎曼猜想的證明正確無誤 / Lean and Mathlib community officially confirms Levent Alpöge's proof of the Riemann hypothesis is correct",
       "corroboration_key": "publisher:the_decoder",
       "corroboration_status": "identified",
       "source_material": {
@@ -199,7 +304,7 @@
       "source": "The Decoder AI News",
       "title": "GPT-6.2 Astra and Sol get to the point faster but score lower on transparency than Claude",
       "url": "https://the-decoder.com/gpt-6-2-astra-and-sol-get-to-the-point-faster-but-score-lower-on-transparency-than-claude",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "OpenAI's GPT-6.2 Astra and Sol give much shorter, more direct answers than their predecessors, but they are also less willing to admit uncertainty. Anthropic's Claude models score well ahead on transparency. The article GPT-6.2 Astra and Sol get to the point faster but score lower on transparency than Claude appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/gpt-6-2-astra-and-sol-get-to-the-point-faster-but-score-lower-on-transparency-than-claude/",
@@ -294,7 +399,7 @@
       "source": "The Decoder AI News",
       "title": "Nvidia researchers argue huge AI context windows are a dead end",
       "url": "https://the-decoder.com/nvidia-researchers-argue-huge-ai-context-windows-are-a-dead-end",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "Nvidia researchers argue that language models often don't need their full context windows—which are slow, expensive, and prone to errors—and propose an alternative. In tests, periodic summaries and targeted keyword search usually matched full-context results at a fraction of the cost. The team even proposes a new class of models that works with short notes instead of long context. The article Nvidia researchers argue huge AI context windows are a dead end appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/nvidia-researchers-argue-huge-ai-context-windows-are-a-dead-end/",
@@ -388,7 +493,7 @@
       "source": "The Decoder AI News",
       "title": "Silicon Valley's growing obsession with AI doomsday is turning parts of the tech industry toward cult-like devotion",
       "url": "https://the-decoder.com/silicon-valleys-growing-obsession-with-ai-doomsday-is-turning-parts-of-the-tech-industry-toward-cult-like-devotion",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "A Buddhist monastery in Vermont called Maple wants to establish itself as Silicon Valley's spiritual authority while creating its own AI god. According to a New Yorker report, leader Soryu Forall's group records every breath its members take to train an AI in his image. Former members report manipulation and psychological breakdowns. The article Silicon Valley's growing obsession with AI doomsday is turning parts of the tech industry toward cult-like devotion appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/silicon-valleys-growing-obsession-with-ai-doomsday-is-turning-parts-of-the-tech-industry-toward-cult-like-devotion/",
@@ -482,7 +587,7 @@
       "source": "MarkTechPost Research",
       "title": "Best Personal AI Agents in 2026: OpenClaw, Hermes Agent, Gemini Spark and More, Compared on Memory, Security and Cost",
       "url": "https://www.marktechpost.com/2026/11/22/best-personal-ai-agents-2026",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "Hermes Agent, OpenClaw, Gemini Spark, OpenAI dots, Meta Muse and Perplexity Personal Computer ranked on memory, security defaults and real cost. The post Best Personal AI Agents in 2026: OpenClaw, Hermes Agent, Gemini Spark and More, Compared on Memory, Security and Cost appeared first on MarkTechPost .",
       "publisher_links": [
         "https://www.marktechpost.com/2026/11/22/best-personal-ai-agents-2026/",
@@ -576,7 +681,7 @@
       "source": "TechNews 科技新報",
       "title": "AI 顛覆航空收益管理，「訂票後最佳化」啟動營收與滿意度三贏革命",
       "url": "https://technews.tw/2026/11/22/ai-boosts-post-booking-optimization-aviation-industry",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "人工智慧（AI）正為航空業的收益管理帶來顛覆性的動態變革！最新產業分析指出，航空公司的營運焦點已不再侷限於「訂 […]",
       "source_updated_at": "2026-11-22T08:30:47Z",
       "ingress": {
@@ -666,6 +771,102 @@
       "source_tier_weight": 0.56
     },
     {
+      "id": "08a1924a048b386facbcaae493ae53e55b21a9b9",
+      "published_at": "2026-11-22T07:59:24Z",
+      "first_seen_at": "2026-11-22T12:35:34.718262Z",
+      "site_id": "curated_media",
+      "site_name": "精選媒體",
+      "source": "DeepSeek (Google News)",
+      "title": "Open Weight vs Open Source AI: 4 Models, 4 Licenses - shattered.io",
+      "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQOFpEbl9nS2VrdFRVYmxrTXlpelFIY2RTcGpiSDB0OWxLSkJNaFBfWHhieFR5M21oaUhJcERENWN0ZTN3Ni00ME1HZEwzUE81MFozQTVrRDY4NU9nbE5rSExiSTh4a2ozcUNsVzZnMmtNdTlTTlhWa2RmcHFXLWVNQm9FWXJtemR0RVQ2RzlkQ3JKTHY1cFZjNVpwWHVnTEhJbF8ydm1B?oc=5",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
+      "summary": "Open Weight vs Open Source AI: 4 Models, 4 Licenses shattered.io",
+      "publisher_links": [
+        "https://news.google.com/rss/articles/CBMipgFBVV95cUxQOFpEbl9nS2VrdFRVYmxrTXlpelFIY2RTcGpiSDB0OWxLSkJNaFBfWHhieFR5M21oaUhJcERENWN0ZTN3Ni00ME1HZEwzUE81MFozQTVrRDY4NU9nbE5rSExiSTh4a2ozcUNsVzZnMmtNdTlTTlhWa2RmcHFXLWVNQm9FWXJtemR0RVQ2RzlkQ3JKTHY1cFZjNVpwWHVnTEhJbF8ydm1B?oc=5"
+      ],
+      "source_updated_at": "2026-11-22T07:59:24Z",
+      "ingress": {
+        "kind": "google_news",
+        "site_id": "curated_media",
+        "source_id": "deepseek_news",
+        "name": "DeepSeek (Google News)",
+        "feed_url": "https://news.google.com/rss/search?q=DeepSeek+AI+model+when%3A3d&hl=en-US&gl=US&ceid=US%3Aen"
+      },
+      "publisher": {
+        "schema_version": 1,
+        "publisher_id": null,
+        "name": "shattered.io",
+        "domain": "shattered.io",
+        "status": "reported",
+        "basis": [
+          "google_rss_source"
+        ],
+        "evidence": {
+          "rss_source_name": "shattered.io",
+          "rss_source_url": "https://shattered.io",
+          "article_url": null,
+          "article_host": "news.google.com",
+          "expected_publisher_id": null,
+          "conflicts": []
+        }
+      },
+      "article_key": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQOFpEbl9nS2VrdFRVYmxrTXlpelFIY2RTcGpiSDB0OWxLSkJNaFBfWHhieFR5M21oaUhJcERENWN0ZTN3Ni00ME1HZEwzUE81MFozQTVrRDY4NU9nbE5rSExiSTh4a2ozcUNsVzZnMmtNdTlTTlhWa2RmcHFXLWVNQm9FWXJtemR0RVQ2RzlkQ3JKTHY1cFZjNVpwWHVnTEhJbF8ydm1B?oc=5",
+      "security_topic": false,
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.71,
+      "ai_label": "research_paper",
+      "ai_relevance_reason": "curated_media_source_filter",
+      "ai_signals": [
+        "deepseek"
+      ],
+      "ai_noise": [],
+      "source_tier": "watchlist",
+      "source_tier_label": "未審來源",
+      "source_tier_rank": 6,
+      "summary_zh": "開放權重與開源AI：4個模型、4個授權條款 shattered.io",
+      "title_original": "Open Weight vs Open Source AI: 4 Models, 4 Licenses - shattered.io",
+      "title_en": "Open Weight vs Open Source AI: 4 Models, 4 Licenses - shattered.io",
+      "title_zh": "開放權重與開源AI：4個模型、4個授權條款 - shattered.io",
+      "title_bilingual": "開放權重與開源AI：4個模型、4個授權條款 - shattered.io / Open Weight vs Open Source AI: 4 Models, 4 Licenses - shattered.io",
+      "corroboration_key": null,
+      "corroboration_status": "unknown",
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+        "scope_id": "unreviewed",
+        "publisher_kind": "unknown",
+        "admission_status": "unreviewed",
+        "source_tier": "watchlist",
+        "source_tier_label": "未審來源",
+        "source_tier_rank": 6,
+        "allow_general": true,
+        "allow_featured": false,
+        "allow_radar": false,
+        "reason_codes": [
+          "reported_rss_source",
+          "scope_mismatch",
+          "unreviewed_publisher",
+          "not_permitted_for_featured",
+          "not_permitted_for_radar"
+        ]
+      },
+      "source_material": {
+        "title_original": "",
+        "title": "Open Weight vs Open Source AI: 4 Models, 4 Licenses - shattered.io",
+        "summary": "Open Weight vs Open Source AI: 4 Models, 4 Licenses shattered.io"
+      },
+      "qualification": {
+        "scope": "in_scope",
+        "core_evidence": [],
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      "source_tier_weight": 0.3
+    },
+    {
       "id": "b21ff161d545ffd22c7fdf47c8c6b1dea22c36f9",
       "published_at": "2026-11-22T07:30:52Z",
       "first_seen_at": "2026-11-22T07:35:29.074043Z",
@@ -674,7 +875,7 @@
       "source": "TechNews 科技新報",
       "title": "AI 文字偵測器學會邊用邊調整，識破偽裝文字準確率逾九成",
       "url": "https://technews.tw/2026/11/22/helping-ai-text-detectors-keep-up-with-changing-conditions",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "麻省理工學院（MIT）與康乃爾大學用「測試時調適」（test-time adaptation，TTA）技術，讓 […]",
       "source_updated_at": "2026-11-22T07:30:52Z",
       "ingress": {
@@ -762,7 +963,7 @@
       "source": "TechNews 科技新報",
       "title": "KAIST 讀唇 AI 先抓最清楚的嘴型，無聲辨識詞錯誤率降至 19.4%",
       "url": "https://technews.tw/2026/11/22/scientists-taught-ai-to-read-lips-in-total-silence-and-the-results-are-pretty-impressive",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "韓國科學技術院（KAIST）教授 Yong Man Ro 團隊開發讀唇人工智慧系統 DLLM-VSR，不需要任 […]",
       "source_updated_at": "2026-11-22T06:30:55Z",
       "ingress": {
@@ -850,7 +1051,7 @@
       "source": "DeepSeek (Google News)",
       "title": "China’s open-weight AI models are coming for America’s market - Asia Times",
       "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPaFFzWWZEcm1aRGpHRDRxRDBUbTBQVkFDRDZxOW91MDB4U3RNTGJrVkZhcElVWHJhR096Z0JvdmpZMjBkV215T2JtZzY5ZjREeXZfUDIteV9KcnRCZ2NrQllNdzJ0ODFFaGtNUkRDbzU1R2l3VDFpSW0xTDB2MEcxekEzT0E3TjdnZms0aTFNU1dsUEhv?oc=5",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "China’s open-weight AI models are coming for America’s market Asia Times",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMilAFBVV95cUxPaFFzWWZEcm1aRGpHRDRxRDBUbTBQVkFDRDZxOW91MDB4U3RNTGJrVkZhcElVWHJhR096Z0JvdmpZMjBkV215T2JtZzY5ZjREeXZfUDIteV9KcnRCZ2NrQllNdzJ0ODFFaGtNUkRDbzU1R2l3VDFpSW0xTDB2MEcxekEzT0E3TjdnZms0aTFNU1dsUEhv?oc=5"
@@ -946,7 +1147,7 @@
       "source": "TechNews 科技新報",
       "title": "玩美移動為何告別美股？訊連揭 4 大原因：市值太小、AI 衝擊 SaaS 估值",
       "url": "https://finance.technews.tw/2026/11/22/perfect-corp-delists-us-stocks-cyberlink-reveals-4-reasons-small-market-cap-ai-saas-valuation-impact",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "訊連旗下美妝 AI 公司玩美移動（Perfect Corp.）10 月 23 日完成私有化，正式從紐約證券交易 […]",
       "source_updated_at": "2026-11-22T03:00:23Z",
       "ingress": {
@@ -1039,7 +1240,7 @@
       "source": "TechNews 科技新報",
       "title": "Anthropic 史上最大 IPO 難救市！美股 AI 蒸發 4 兆美元背後投資人恐慌",
       "url": "https://finance.technews.tw/2026/11/22/can-ai-deliver-returns",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "自 2022 年 ChatGPT 問世，並開啟新一輪改變全球技術與資本市場的新週期以來，投資者首次展現出強烈的 […]",
       "source_updated_at": "2026-11-22T02:56:53Z",
       "ingress": {
@@ -1140,7 +1341,7 @@
       "source": "TechNews 科技新報",
       "title": "美國 AI 大管制時代來臨！黃仁勳下臺效應：打擊中國算力還是逼出紅色自主供應鏈？",
       "url": "https://finance.technews.tw/2026/11/22/without-jensen-usa-ai-is-slower",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "黃仁勳一宣佈請辭，最先跳起來的不只輝達股東，還有中國的 AI 公司。路透 11 月 12 日引述知情人士報導， […]",
       "source_updated_at": "2026-11-22T02:00:36Z",
       "ingress": {
@@ -1235,7 +1436,7 @@
       "source": "MarkTechPost Research",
       "title": "A Team of Researchers from Columbia and CertiK Introduce TensorLean for Formal Verification of GPU Kernels",
       "url": "https://www.marktechpost.com/2026/11/21/columbia-certik-tensorlean-formal-verification-gpu-kernels",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "TensorLean, from Columbia University and CertiK, formally verifies production GPU kernels at the PTX level using Lean. It checked 149 kernel instances, proved 83 correct, and found 38 bugs in FlashAttention, DeepGEMM and more. The post A Team of Researchers from Columbia and CertiK Introduce TensorLean for Formal Verification of GPU Kernels appeared first on MarkTechPost .",
       "publisher_links": [
         "https://www.marktechpost.com/2026/11/21/columbia-certik-tensorlean-formal-verification-gpu-kernels/",
@@ -1329,7 +1530,7 @@
       "source": "CyberQ 賽博客",
       "title": "GRH 兩份證明進展分歧：Lean 版獲社群背書，人工版遭 AI 揪出問題、進入大幅修訂",
       "url": "https://cyberq.tw/2026/11/22/follow-up-to-the-two-grh-certifications",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "Alpöge 與 Claude 的 Lean 版黎曼猜想證明獲 Lean 與 Mathlib 社群聯合宣告「完全有信心」，多項獨立核心檢查透過，但 lake comparator 端到端評判與官方核心整份重播仍在執行；Masullo 的 940 頁人工版則有多人藉助 AI 回報問題，審閱人 Conrad 說正在大幅修訂。本文依一手資料整理驗證進度、證明範圍與驗證流程的資安細節。",
       "ingress": {
         "kind": "public_feed",
@@ -1416,7 +1617,7 @@
       "source": "DeepSeek (Google News)",
       "title": "Unsloth revises DeepSeek GGUF benchmarks with longer contexts and more runs - Digg",
       "url": "https://news.google.com/rss/articles/CBMiQkFVX3lxTE9OcUVlTm5FNjB4LU1kSllkXzdqWUJFVkNLLUczcVNReUpYQVI5cmFXdHlGWTlKLUtyY1paMWlha1lGQQ?oc=5",
-      "last_seen_at": "2026-11-22T07:05:31.400830Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "Unsloth revises DeepSeek GGUF benchmarks with longer contexts and more runs Digg",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiQkFVX3lxTE9OcUVlTm5FNjB4LU1kSllkXzdqWUJFVkNLLUczcVNReUpYQVI5cmFXdHlGWTlKLUtyY1paMWlha1lGQQ?oc=5"
@@ -1556,7 +1757,7 @@
       "source": "TechNews 科技新報",
       "title": "AI 加速科學研究，資料品質與驗證機製成新瓶頸",
       "url": "https://technews.tw/2026/11/22/ai-raises-the-stakes-for-discovery-data",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "人工智慧正快速改變科學研究的運作方式，也讓研究資料的價值與審視標準同步升高。最新觀點指出，AI 已從單純的分析 […]",
       "source_updated_at": "2026-11-22T00:30:25Z",
       "ingress": {
@@ -1644,7 +1845,7 @@
       "source": "AlphaLab",
       "title": "AI 自我改寫權重：27B 模型多答對 6.6 個百分點，離遞迴進化還多遠？（2026）",
       "url": "https://www.alphalab.site/self-rewriting-model-weights-evidence",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "模型能把修正寫進參數，卻不等於已經無限自我進化。拆開 6.6 個百分點、每場重設的八次實驗與損壞副本修復，判斷證據支持到哪裡。",
       "ingress": {
         "kind": "public_feed",
@@ -1731,7 +1932,7 @@
       "source": "AlphaLab",
       "title": "Claude 黎曼猜想證明：Lean 社群確認了什麼，AI 研究能力又該怎麼看？（2026）",
       "url": "https://www.alphalab.site/claude-riemann-hypothesis-lean-verification",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "Alpöge 公開與 Claude 協作的黎曼猜想證明後，Lean 與 Mathlib 社群發布正面驗證宣告。拆開命題比對、獨立檢查器、Dirichlet GRH 範圍與 AI 貢獻歸因，理解這項成果的證據與下一步。",
       "ingress": {
         "kind": "public_feed",
@@ -1820,7 +2021,7 @@
       "source": "AlphaLab",
       "title": "Signal AI 讀屏防護：聊天加密之後，誰能看見螢幕？（2026）",
       "url": "https://www.alphalab.site/signal-ai-screen-capture-privacy",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "Signal 對手機 AI 助理啟用讀屏防護，代價是限制截圖。拆開 iPhone、Android、Gemini 與 Recall 的資料流程，看懂加密通訊與終端授權的邊界。",
       "ingress": {
         "kind": "public_feed",
@@ -1907,7 +2108,7 @@
       "source": "AlphaLab",
       "title": "Gemini Mac 電腦操作：背景代勞之後，誰替結果把關？（2026）",
       "url": "https://www.alphalab.site/gemini-mac-background-computer-use-permissions",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "Google 讓 Gemini 在背景操作 Mac，滑鼠留給你，權限與驗收卻仍要分開看。對照官方支援文件，拆開開放條件、持續允許與暫存備份的邊界。",
       "ingress": {
         "kind": "public_feed",
@@ -1996,7 +2197,7 @@
       "source": "TechCrunch AI",
       "title": "Signal restricts mobile screenshots as it confronts ‘existential threat’ of AI surveillance",
       "url": "https://techcrunch.com/2026/11/21/signal-restricts-mobile-screenshots-as-it-confronts-existential-threat-of-ai-surveillance",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "Signal is limiting users' ability to take screenshots in both its Android and iOS apps.",
       "source_updated_at": "2026-11-21T21:37:10Z",
       "ingress": {
@@ -2086,7 +2287,7 @@
       "source": "DeepSeek (Google News)",
       "title": "Hackers swapped a hosted DeepSeek model for 53 hours and stripped away its safety protections - CryptoSlate",
       "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNazZ3M05BODZVdGhSSTBXcjZ4YmV4LUpxYzZmazJyRkFncU9KSGlMSV9kaFVyMGJqd0VER2k0c2xBcDlyZmwxWE5SeThIWkF1N1JKd0xXTVFENVBKaFRPeC1JMUJSaEpwSEJBV2lCNDJTTDJTYnd0ZDdSZkFlN2RjMjZXM2ZYc1d5TnJTdTZRS05XbjdTWm9kYWNuaXRoNVdFWFo4cTFxZWRkM0JScVVESklrbnZfQ1lqQnc?oc=5",
-      "last_seen_at": "2026-11-22T07:05:31.400830Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "Hackers swapped a hosted DeepSeek model for 53 hours and stripped away its safety protections CryptoSlate",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiugFBVV95cUxNazZ3M05BODZVdGhSSTBXcjZ4YmV4LUpxYzZmazJyRkFncU9KSGlMSV9kaFVyMGJqd0VER2k0c2xBcDlyZmwxWE5SeThIWkF1N1JKd0xXTVFENVBKaFRPeC1JMUJSaEpwSEJBV2lCNDJTTDJTYnd0ZDdSZkFlN2RjMjZXM2ZYc1d5TnJTdTZRS05XbjdTWm9kYWNuaXRoNVdFWFo4cTFxZWRkM0JScVVESklrbnZfQ1lqQnc?oc=5"
@@ -2182,7 +2383,7 @@
       "url": "https://news.google.com/rss/articles/CBMiPkFVX3lxTFBuTkRiRVB4TlhwNTlaX2pzWnFyYmxNdjZMSkRFOGVIUzItaFpJTEN6dFdkY3hFWENCdW1meHBB?oc=5",
       "published_at": "2026-11-21T21:08:37Z",
       "first_seen_at": "2026-08-20T18:22:30.667030Z",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "Cyber vulnerabilities Epoch AI",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiPkFVX3lxTFBuTkRiRVB4TlhwNTlaX2pzWnFyYmxNdjZMSkRFOGVIUzItaFpJTEN6dFdkY3hFWENCdW1meHBB?oc=5"
@@ -2376,7 +2577,7 @@
       "source": "TechCrunch AI",
       "title": "A tale of two Nvidias",
       "url": "https://techcrunch.com/2026/11/21/a-tale-of-two-nvidias",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "We got two very different pictures of Nvidia — the company’s latest earnings report vs. the tech executives loudly calling for Jensen Huang’s return.",
       "source_updated_at": "2026-11-21T21:07:42Z",
       "ingress": {
@@ -2573,7 +2774,7 @@
       "source": "DeepSeek (Google News)",
       "title": "CertiK and Columbia University Researchers Formally Verify Production AI Kernels From DeepSeek and FlashAttention - CoinDesk",
       "url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxQYXR0OUhCeUx3ZURTeWN4VUJ5QTJZcEt4U0lWZ090dUptMEZIcl9yV2I3VDU5QWwyUVRxZzlEbHI2VjZOUDQyNk5FTXF1QUNJUi1fX3BEQjBCbE5pTGdUaVRfV3ZyaER1X1did09yMFdzV0hnT0ZMV3JKUldrbkkwdmZzd0J4ZDFic293TkdzZFdWMVBkdjJTRDc5eGxoZVZpZWVpMTZiZzF6M2JOUExTUmlBZUlhMlRONWFrMVRqX1NvUVBmOFdFblc5Vm9uOWRMNUc4aE5Bc1owT3ltQVBqX2lqVnRlM29Bc0xFSGNad1FEM1JjR3c?oc=5",
-      "last_seen_at": "2026-11-22T07:05:31.400830Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "CertiK and Columbia University Researchers Formally Verify Production AI Kernels From DeepSeek and FlashAttention CoinDesk",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMi9gFBVV95cUxQYXR0OUhCeUx3ZURTeWN4VUJ5QTJZcEt4U0lWZ090dUptMEZIcl9yV2I3VDU5QWwyUVRxZzlEbHI2VjZOUDQyNk5FTXF1QUNJUi1fX3BEQjBCbE5pTGdUaVRfV3ZyaER1X1did09yMFdzV0hnT0ZMV3JKUldrbkkwdmZzd0J4ZDFic293TkdzZFdWMVBkdjJTRDc5eGxoZVZpZWVpMTZiZzF6M2JOUExTUmlBZUlhMlRONWFrMVRqX1NvUVBmOFdFblc5Vm9uOWRMNUc4aE5Bc1owT3ltQVBqX2lqVnRlM29Bc0xFSGNad1FEM1JjR3c?oc=5"
@@ -2670,7 +2871,7 @@
       "source": "TechCrunch AI",
       "title": "Here are the top AI agents that can live in your text messages",
       "url": "https://techcrunch.com/2026/11/21/all-the-ai-agents-that-can-live-in-your-text-messages",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "We created a list of the most notable AI agents that can live in your text messages, from general assistants to agents designed for families, travel, and work.",
       "source_updated_at": "2026-11-21T17:00:00Z",
       "ingress": {
@@ -2760,7 +2961,7 @@
       "source": "CNBC Technology",
       "title": "Anthropic’s record IPO collides with tech’s worst week on Wall Street since 2020",
       "url": "https://www.cnbc.com/2026/11/21/anthropic-ipo-tech-selloff.html",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "Anthropic held its historic Nasdaq debut a day before Nvidia's stock closed out its longest weekly losing streak since 2008.",
       "source_updated_at": "2026-11-21T16:40:05Z",
       "ingress": {
@@ -2868,7 +3069,7 @@
       "source": "TechCrunch AI",
       "title": "Is selling an AI version of your face to this microdrama startup the future of Hollywood?",
       "url": "https://techcrunch.com/2026/11/21/is-selling-an-ai-version-of-your-face-to-this-microdrama-startup-the-future-of-hollywood",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "An actor has licensed his face to a microdrama startup — in a trend that's already popular in China. Experts question the long-term consequences if this becomes a trend in Hollywood, too.",
       "source_updated_at": "2026-11-21T16:00:00Z",
       "ingress": {
@@ -2958,7 +3159,7 @@
       "source": "The Verge",
       "title": "Can Anthropic afford to put safety first?",
       "url": "https://www.theverge.com/podcast/1038701/anthropic-ipo-ai-safety-openai-nvidia-structure",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "Today, I’m talking with Hayden Field, The Verge’s senior AI reporter, about the Anthropic IPO for the third and final episode in our series about AI in real life. The AI lab behind Claude went public on the Nasdaq last Thursday. The numbers are gigantic, but not really that important for this conversation, except to […]",
       "source_updated_at": "2026-11-21T13:29:45Z",
       "ingress": {
@@ -3056,7 +3257,7 @@
       "source": "InfoQ CN",
       "title": "財務團隊的 AI 藍圖",
       "url": "https://www.infoq.cn/video/UUqekkOQ8haEXZ792UjU",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/video/UUqekkOQ8haEXZ792UjU?utm_source=rss&utm_medium=article"
@@ -3148,7 +3349,7 @@
       "source": "InfoQ CN",
       "title": "打造 AI 優先的銷售與營銷運營體系",
       "url": "https://www.infoq.cn/video/mihBFvImttvJlSFUqC49",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/video/mihBFvImttvJlSFUqC49?utm_source=rss&utm_medium=article"
@@ -3240,7 +3441,7 @@
       "source": "InfoQ CN",
       "title": "智慧體企業新前沿：驅動高效智慧",
       "url": "https://www.infoq.cn/video/Ly5HbhY4pNMCF04abkFo",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/video/Ly5HbhY4pNMCF04abkFo?utm_source=rss&utm_medium=article"
@@ -3334,7 +3535,7 @@
       "source": "Wired AI",
       "title": "Banks Have Had It Up to Here With Your AI Agent",
       "url": "https://www.wired.com/story/banks-are-cracking-down-on-ai-agents",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "Major US financial institutions are banning third-party bots from logging into your accounts—and warning that any costly bot mistakes are strictly your problem.",
       "source_updated_at": "2026-11-22T11:00:00Z",
       "ingress": {
@@ -3395,10 +3596,11 @@
       "source_tier": "watchlist",
       "source_tier_label": "未審來源",
       "source_tier_rank": 6,
+      "summary_zh": "美國主要金融機構正在禁止第三方機器人登入您的帳戶，並警告任何代價高昂的機器人錯誤完全是您自己的問題。",
       "title_original": "Banks Have Had It Up to Here With Your AI Agent",
       "title_en": "Banks Have Had It Up to Here With Your AI Agent",
-      "title_zh": null,
-      "title_bilingual": "Banks Have Had It Up to Here With Your AI Agent",
+      "title_zh": "銀行對您的AI代理已經忍無可忍",
+      "title_bilingual": "銀行對您的AI代理已經忍無可忍 / Banks Have Had It Up to Here With Your AI Agent",
       "corroboration_key": "publisher:wired",
       "corroboration_status": "identified",
       "source_material": {
@@ -3424,7 +3626,7 @@
       "source": "InfoQ CN",
       "title": "智慧體身份國際標準化：體系佈局與研製實踐｜AICon北京",
       "url": "https://www.infoq.cn/article/721YPdyIZ1D8xz20D22C",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/721YPdyIZ1D8xz20D22C?utm_source=rss&utm_medium=article"
@@ -3518,7 +3720,7 @@
       "source": "Wired AI",
       "title": "The Outages Are Just Getting Started",
       "url": "https://www.wired.com/story/brace-yourself-for-years-of-outage-chaos",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "AI is forcing companies to patch their systems faster as attackers race to exploit newly discovered vulnerabilities. Welcome to internet outage hell.",
       "source_updated_at": "2026-11-21T13:00:00Z",
       "ingress": {
@@ -3619,7 +3821,7 @@
       "source": "RuntimeWire",
       "title": "Gemini 4 Neon wrote AMD kernels that nearly doubled Inkling 2 Mini decode speed in 4.3 hours",
       "url": "https://runtimewire.com/article/gemini-4-neon-wrote-amd-kernels-that-nearly-doubled-inkling-2-mini-decode-speed",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "The agent-built Loom package also hit 5.9x llama.cpp prefill at an 18k-token prompt, against day-one support the AMD engineer called super nascent.",
       "source_updated_at": "2026-11-22T01:50:37Z",
       "ingress": {
@@ -3803,7 +4005,7 @@
       "source": "36Kr",
       "title": "8個AI 新術語，看懂領先90%的人 - 36氪",
       "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE1jck91RGFLU2V5OThob19PSUs3Q2IxSzEwblROZUEtWDhXbDZrajhlclEyN3RTckhKNHZkZmJyNFdKNURReGJMUmtSMEEwQQ?oc=5",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "8個AI 新術語，看懂領先90%的人 36氪",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiTkFVX3lxTE1jck91RGFLU2V5OThob19PSUs3Q2IxSzEwblROZUEtWDhXbDZrajhlclEyN3RTckhKNHZkZmJyNFdKNURReGJMUmtSMEEwQQ?oc=5"
@@ -3897,7 +4099,7 @@
       "source": "36Kr",
       "title": "澳大利亞情報主管警示資料中心與AI潛藏風險-36氪 - 36kr",
       "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE1nZWk1LTR5b0phVkFpdG8xQWdBYS1PYWdQOWFOQkczZURjNzN5enppNzZQYk9rc0NzM0JPZ0RTb1NiOFJVeEFmc2dRc0JDTXp3MTBFWWFydk8?oc=5",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "澳大利亞情報主管警示資料中心與AI潛藏風險-36氪 36kr",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiWEFVX3lxTE1nZWk1LTR5b0phVkFpdG8xQWdBYS1PYWdQOWFOQkczZURjNzN5enppNzZQYk9rc0NzM0JPZ0RTb1NiOFJVeEFmc2dRc0JDTXp3MTBFWWFydk8?oc=5"
@@ -3985,6 +4187,110 @@
   ],
   "items_ai": [
     {
+      "id": "0a410ef0dddf080962277550cf006f440041fcc3",
+      "published_at": "2026-11-22T12:07:56Z",
+      "first_seen_at": "2026-11-22T12:35:34.718262Z",
+      "site_id": "curated_media",
+      "site_name": "精選媒體",
+      "source": "The Decoder AI News",
+      "title": "Security researchers show how cheap AI inference providers steal keys and snoop on users",
+      "url": "https://the-decoder.com/security-researchers-show-how-cheap-ai-inference-providers-steal-keys-and-snoop-on-users",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
+      "summary": "Security researchers at Dragos used two million fake AI requests to uncover serious vulnerabilities in the AI supply chain, finding at least three compromised providers, hundreds of stolen AWS keys, and marketplace resellers who were simply reading customer requests. OpenRouter responded by removing three providers and 125 endpoints. The article Security researchers show how cheap AI inference providers steal keys and snoop on users appeared first on The Decoder .",
+      "publisher_links": [
+        "https://the-decoder.com/security-researchers-show-how-cheap-ai-inference-providers-steal-keys-and-snoop-on-users/",
+        "https://the-decoder.com"
+      ],
+      "source_updated_at": "2026-11-22T12:07:56Z",
+      "ingress": {
+        "kind": "public_feed",
+        "site_id": "curated_media",
+        "source_id": "the_decoder",
+        "name": "The Decoder AI News",
+        "feed_url": "https://the-decoder.com/feed/"
+      },
+      "publisher": {
+        "schema_version": 1,
+        "publisher_id": "the_decoder",
+        "name": "The Decoder",
+        "domain": "the-decoder.com",
+        "status": "identified",
+        "basis": [
+          "article_host"
+        ],
+        "evidence": {
+          "rss_source_name": null,
+          "rss_source_url": null,
+          "article_url": "https://the-decoder.com/security-researchers-show-how-cheap-ai-inference-providers-steal-keys-and-snoop-on-users",
+          "article_host": "the-decoder.com",
+          "expected_publisher_id": null,
+          "conflicts": []
+        }
+      },
+      "article_key": "https://the-decoder.com/security-researchers-show-how-cheap-ai-inference-providers-steal-keys-and-snoop-on-users",
+      "security_topic": true,
+      "business_events": [
+        "security"
+      ],
+      "ai_is_related": true,
+      "ai_score": 0.76,
+      "ai_label": "research_paper",
+      "ai_relevance_reason": "curated_media_source_filter",
+      "ai_signals": [
+        "the decoder ai news"
+      ],
+      "ai_noise": [],
+      "source_tier": "ai_vertical",
+      "source_tier_label": "AI垂直專業媒體",
+      "source_tier_rank": 1,
+      "summary_zh": "Dragos的資安研究人員利用200萬個虛假的AI請求，揭露了AI供應鏈中的嚴重漏洞，發現至少3家遭到入侵的供應商、數百個被竊取的AWS金鑰，以及只是在讀取客戶請求的市集轉售商。OpenRouter隨後移除了3家供應商與125個端點。",
+      "title_original": "Security researchers show how cheap AI inference providers steal keys and snoop on users",
+      "title_en": "Security researchers show how cheap AI inference providers steal keys and snoop on users",
+      "title_zh": "資安研究人員展示廉價AI推論供應商如何竊取金鑰並窺探使用者",
+      "title_bilingual": "資安研究人員展示廉價AI推論供應商如何竊取金鑰並窺探使用者 / Security researchers show how cheap AI inference providers steal keys and snoop on users",
+      "corroboration_key": "publisher:the_decoder",
+      "corroboration_status": "identified",
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+        "scope_id": "the_decoder",
+        "publisher_kind": "media",
+        "admission_status": "limited",
+        "source_tier": "ai_vertical",
+        "source_tier_label": "AI垂直專業媒體",
+        "source_tier_rank": 1,
+        "allow_general": true,
+        "allow_featured": true,
+        "allow_radar": true,
+        "reason_codes": [
+          "identified_host",
+          "limited_scope"
+        ]
+      },
+      "source_material": {
+        "title_original": "",
+        "title": "Security researchers show how cheap AI inference providers steal keys and snoop on users",
+        "summary": "Security researchers at Dragos used two million fake AI requests to uncover serious vulnerabilities in the AI supply chain, finding at least three compromised providers, hundreds of stolen AWS keys, and marketplace resellers who were simply reading customer requests. OpenRouter responded by removing three providers and 125 endpoints. The article Security researchers show how cheap AI inference providers steal keys and snoop on users appeared first on The Decoder ."
+      },
+      "qualification": {
+        "scope": "in_scope",
+        "core_evidence": [
+          {
+            "kind": "security",
+            "status": "insufficient",
+            "basis": "insufficient",
+            "spans": [],
+            "urls": []
+          }
+        ],
+        "reason_codes": [
+          "insufficient_evidence"
+        ]
+      },
+      "source_tier_weight": 0.78
+    },
+    {
       "id": "f80acd48059b7b93b9e6b4799a644d23c366e6ec",
       "published_at": "2026-11-22T11:08:31Z",
       "first_seen_at": "2026-11-22T11:35:34.126299Z",
@@ -3993,7 +4299,7 @@
       "source": "The Decoder AI News",
       "title": "Lean and Mathlib community officially confirms Levent Alpöge's proof of the Riemann hypothesis is correct",
       "url": "https://the-decoder.com/lean-and-mathlib-community-officially-confirms-levent-alpoges-proof-of-the-riemann-hypothesis-is-correct",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "The Lean and Mathlib community has officially confirmed Levent Alpöge's proof of the Riemann hypothesis as correct. Dozens of independent verifiers checked the 17 million lines of computer code. The solution arrived years earlier than expected: Terence Tao had predicted it wouldn't happen until around 2050 and didn't expect AI to solve it alone. The article Lean and Mathlib community officially confirms Levent Alpöge's proof of the Riemann hypothesis is correct appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/lean-and-mathlib-community-officially-confirms-levent-alpoges-proof-of-the-riemann-hypothesis-is-correct/",
@@ -4057,10 +4363,11 @@
       "source_tier": "ai_vertical",
       "source_tier_label": "AI垂直專業媒體",
       "source_tier_rank": 1,
+      "summary_zh": "Lean與Mathlib社群已正式確認Levent Alpöge對黎曼猜想的證明是正確的。數十位獨立驗證者檢查了這1,700萬行的電腦程式碼。該解答的出現比預期早了好幾年：陶哲軒曾預測這要到2050年左右才會發生，且沒預料到AI能單獨解決它。",
       "title_original": "Lean and Mathlib community officially confirms Levent Alpöge's proof of the Riemann hypothesis is correct",
       "title_en": "Lean and Mathlib community officially confirms Levent Alpöge's proof of the Riemann hypothesis is correct",
-      "title_zh": null,
-      "title_bilingual": "Lean and Mathlib community officially confirms Levent Alpöge's proof of the Riemann hypothesis is correct",
+      "title_zh": "Lean與Mathlib社群正式確認Levent Alpöge對黎曼猜想的證明正確無誤",
+      "title_bilingual": "Lean與Mathlib社群正式確認Levent Alpöge對黎曼猜想的證明正確無誤 / Lean and Mathlib community officially confirms Levent Alpöge's proof of the Riemann hypothesis is correct",
       "corroboration_key": "publisher:the_decoder",
       "corroboration_status": "identified",
       "source_material": {
@@ -4086,7 +4393,7 @@
       "source": "The Decoder AI News",
       "title": "GPT-6.2 Astra and Sol get to the point faster but score lower on transparency than Claude",
       "url": "https://the-decoder.com/gpt-6-2-astra-and-sol-get-to-the-point-faster-but-score-lower-on-transparency-than-claude",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "OpenAI's GPT-6.2 Astra and Sol give much shorter, more direct answers than their predecessors, but they are also less willing to admit uncertainty. Anthropic's Claude models score well ahead on transparency. The article GPT-6.2 Astra and Sol get to the point faster but score lower on transparency than Claude appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/gpt-6-2-astra-and-sol-get-to-the-point-faster-but-score-lower-on-transparency-than-claude/",
@@ -4181,7 +4488,7 @@
       "source": "The Decoder AI News",
       "title": "Nvidia researchers argue huge AI context windows are a dead end",
       "url": "https://the-decoder.com/nvidia-researchers-argue-huge-ai-context-windows-are-a-dead-end",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "Nvidia researchers argue that language models often don't need their full context windows—which are slow, expensive, and prone to errors—and propose an alternative. In tests, periodic summaries and targeted keyword search usually matched full-context results at a fraction of the cost. The team even proposes a new class of models that works with short notes instead of long context. The article Nvidia researchers argue huge AI context windows are a dead end appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/nvidia-researchers-argue-huge-ai-context-windows-are-a-dead-end/",
@@ -4275,7 +4582,7 @@
       "source": "The Decoder AI News",
       "title": "Silicon Valley's growing obsession with AI doomsday is turning parts of the tech industry toward cult-like devotion",
       "url": "https://the-decoder.com/silicon-valleys-growing-obsession-with-ai-doomsday-is-turning-parts-of-the-tech-industry-toward-cult-like-devotion",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "A Buddhist monastery in Vermont called Maple wants to establish itself as Silicon Valley's spiritual authority while creating its own AI god. According to a New Yorker report, leader Soryu Forall's group records every breath its members take to train an AI in his image. Former members report manipulation and psychological breakdowns. The article Silicon Valley's growing obsession with AI doomsday is turning parts of the tech industry toward cult-like devotion appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/silicon-valleys-growing-obsession-with-ai-doomsday-is-turning-parts-of-the-tech-industry-toward-cult-like-devotion/",
@@ -4369,7 +4676,7 @@
       "source": "MarkTechPost Research",
       "title": "Best Personal AI Agents in 2026: OpenClaw, Hermes Agent, Gemini Spark and More, Compared on Memory, Security and Cost",
       "url": "https://www.marktechpost.com/2026/11/22/best-personal-ai-agents-2026",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "Hermes Agent, OpenClaw, Gemini Spark, OpenAI dots, Meta Muse and Perplexity Personal Computer ranked on memory, security defaults and real cost. The post Best Personal AI Agents in 2026: OpenClaw, Hermes Agent, Gemini Spark and More, Compared on Memory, Security and Cost appeared first on MarkTechPost .",
       "publisher_links": [
         "https://www.marktechpost.com/2026/11/22/best-personal-ai-agents-2026/",
@@ -4463,7 +4770,7 @@
       "source": "TechNews 科技新報",
       "title": "AI 顛覆航空收益管理，「訂票後最佳化」啟動營收與滿意度三贏革命",
       "url": "https://technews.tw/2026/11/22/ai-boosts-post-booking-optimization-aviation-industry",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "人工智慧（AI）正為航空業的收益管理帶來顛覆性的動態變革！最新產業分析指出，航空公司的營運焦點已不再侷限於「訂 […]",
       "source_updated_at": "2026-11-22T08:30:47Z",
       "ingress": {
@@ -4553,6 +4860,102 @@
       "source_tier_weight": 0.56
     },
     {
+      "id": "08a1924a048b386facbcaae493ae53e55b21a9b9",
+      "published_at": "2026-11-22T07:59:24Z",
+      "first_seen_at": "2026-11-22T12:35:34.718262Z",
+      "site_id": "curated_media",
+      "site_name": "精選媒體",
+      "source": "DeepSeek (Google News)",
+      "title": "Open Weight vs Open Source AI: 4 Models, 4 Licenses - shattered.io",
+      "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQOFpEbl9nS2VrdFRVYmxrTXlpelFIY2RTcGpiSDB0OWxLSkJNaFBfWHhieFR5M21oaUhJcERENWN0ZTN3Ni00ME1HZEwzUE81MFozQTVrRDY4NU9nbE5rSExiSTh4a2ozcUNsVzZnMmtNdTlTTlhWa2RmcHFXLWVNQm9FWXJtemR0RVQ2RzlkQ3JKTHY1cFZjNVpwWHVnTEhJbF8ydm1B?oc=5",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
+      "summary": "Open Weight vs Open Source AI: 4 Models, 4 Licenses shattered.io",
+      "publisher_links": [
+        "https://news.google.com/rss/articles/CBMipgFBVV95cUxQOFpEbl9nS2VrdFRVYmxrTXlpelFIY2RTcGpiSDB0OWxLSkJNaFBfWHhieFR5M21oaUhJcERENWN0ZTN3Ni00ME1HZEwzUE81MFozQTVrRDY4NU9nbE5rSExiSTh4a2ozcUNsVzZnMmtNdTlTTlhWa2RmcHFXLWVNQm9FWXJtemR0RVQ2RzlkQ3JKTHY1cFZjNVpwWHVnTEhJbF8ydm1B?oc=5"
+      ],
+      "source_updated_at": "2026-11-22T07:59:24Z",
+      "ingress": {
+        "kind": "google_news",
+        "site_id": "curated_media",
+        "source_id": "deepseek_news",
+        "name": "DeepSeek (Google News)",
+        "feed_url": "https://news.google.com/rss/search?q=DeepSeek+AI+model+when%3A3d&hl=en-US&gl=US&ceid=US%3Aen"
+      },
+      "publisher": {
+        "schema_version": 1,
+        "publisher_id": null,
+        "name": "shattered.io",
+        "domain": "shattered.io",
+        "status": "reported",
+        "basis": [
+          "google_rss_source"
+        ],
+        "evidence": {
+          "rss_source_name": "shattered.io",
+          "rss_source_url": "https://shattered.io",
+          "article_url": null,
+          "article_host": "news.google.com",
+          "expected_publisher_id": null,
+          "conflicts": []
+        }
+      },
+      "article_key": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQOFpEbl9nS2VrdFRVYmxrTXlpelFIY2RTcGpiSDB0OWxLSkJNaFBfWHhieFR5M21oaUhJcERENWN0ZTN3Ni00ME1HZEwzUE81MFozQTVrRDY4NU9nbE5rSExiSTh4a2ozcUNsVzZnMmtNdTlTTlhWa2RmcHFXLWVNQm9FWXJtemR0RVQ2RzlkQ3JKTHY1cFZjNVpwWHVnTEhJbF8ydm1B?oc=5",
+      "security_topic": false,
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.71,
+      "ai_label": "research_paper",
+      "ai_relevance_reason": "curated_media_source_filter",
+      "ai_signals": [
+        "deepseek"
+      ],
+      "ai_noise": [],
+      "source_tier": "watchlist",
+      "source_tier_label": "未審來源",
+      "source_tier_rank": 6,
+      "summary_zh": "開放權重與開源AI：4個模型、4個授權條款 shattered.io",
+      "title_original": "Open Weight vs Open Source AI: 4 Models, 4 Licenses - shattered.io",
+      "title_en": "Open Weight vs Open Source AI: 4 Models, 4 Licenses - shattered.io",
+      "title_zh": "開放權重與開源AI：4個模型、4個授權條款 - shattered.io",
+      "title_bilingual": "開放權重與開源AI：4個模型、4個授權條款 - shattered.io / Open Weight vs Open Source AI: 4 Models, 4 Licenses - shattered.io",
+      "corroboration_key": null,
+      "corroboration_status": "unknown",
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+        "scope_id": "unreviewed",
+        "publisher_kind": "unknown",
+        "admission_status": "unreviewed",
+        "source_tier": "watchlist",
+        "source_tier_label": "未審來源",
+        "source_tier_rank": 6,
+        "allow_general": true,
+        "allow_featured": false,
+        "allow_radar": false,
+        "reason_codes": [
+          "reported_rss_source",
+          "scope_mismatch",
+          "unreviewed_publisher",
+          "not_permitted_for_featured",
+          "not_permitted_for_radar"
+        ]
+      },
+      "source_material": {
+        "title_original": "",
+        "title": "Open Weight vs Open Source AI: 4 Models, 4 Licenses - shattered.io",
+        "summary": "Open Weight vs Open Source AI: 4 Models, 4 Licenses shattered.io"
+      },
+      "qualification": {
+        "scope": "in_scope",
+        "core_evidence": [],
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      "source_tier_weight": 0.3
+    },
+    {
       "id": "b21ff161d545ffd22c7fdf47c8c6b1dea22c36f9",
       "published_at": "2026-11-22T07:30:52Z",
       "first_seen_at": "2026-11-22T07:35:29.074043Z",
@@ -4561,7 +4964,7 @@
       "source": "TechNews 科技新報",
       "title": "AI 文字偵測器學會邊用邊調整，識破偽裝文字準確率逾九成",
       "url": "https://technews.tw/2026/11/22/helping-ai-text-detectors-keep-up-with-changing-conditions",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "麻省理工學院（MIT）與康乃爾大學用「測試時調適」（test-time adaptation，TTA）技術，讓 […]",
       "source_updated_at": "2026-11-22T07:30:52Z",
       "ingress": {
@@ -4649,7 +5052,7 @@
       "source": "TechNews 科技新報",
       "title": "KAIST 讀唇 AI 先抓最清楚的嘴型，無聲辨識詞錯誤率降至 19.4%",
       "url": "https://technews.tw/2026/11/22/scientists-taught-ai-to-read-lips-in-total-silence-and-the-results-are-pretty-impressive",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "韓國科學技術院（KAIST）教授 Yong Man Ro 團隊開發讀唇人工智慧系統 DLLM-VSR，不需要任 […]",
       "source_updated_at": "2026-11-22T06:30:55Z",
       "ingress": {
@@ -4737,7 +5140,7 @@
       "source": "DeepSeek (Google News)",
       "title": "China’s open-weight AI models are coming for America’s market - Asia Times",
       "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPaFFzWWZEcm1aRGpHRDRxRDBUbTBQVkFDRDZxOW91MDB4U3RNTGJrVkZhcElVWHJhR096Z0JvdmpZMjBkV215T2JtZzY5ZjREeXZfUDIteV9KcnRCZ2NrQllNdzJ0ODFFaGtNUkRDbzU1R2l3VDFpSW0xTDB2MEcxekEzT0E3TjdnZms0aTFNU1dsUEhv?oc=5",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "China’s open-weight AI models are coming for America’s market Asia Times",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMilAFBVV95cUxPaFFzWWZEcm1aRGpHRDRxRDBUbTBQVkFDRDZxOW91MDB4U3RNTGJrVkZhcElVWHJhR096Z0JvdmpZMjBkV215T2JtZzY5ZjREeXZfUDIteV9KcnRCZ2NrQllNdzJ0ODFFaGtNUkRDbzU1R2l3VDFpSW0xTDB2MEcxekEzT0E3TjdnZms0aTFNU1dsUEhv?oc=5"
@@ -4833,7 +5236,7 @@
       "source": "TechNews 科技新報",
       "title": "玩美移動為何告別美股？訊連揭 4 大原因：市值太小、AI 衝擊 SaaS 估值",
       "url": "https://finance.technews.tw/2026/11/22/perfect-corp-delists-us-stocks-cyberlink-reveals-4-reasons-small-market-cap-ai-saas-valuation-impact",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "訊連旗下美妝 AI 公司玩美移動（Perfect Corp.）10 月 23 日完成私有化，正式從紐約證券交易 […]",
       "source_updated_at": "2026-11-22T03:00:23Z",
       "ingress": {
@@ -4926,7 +5329,7 @@
       "source": "TechNews 科技新報",
       "title": "Anthropic 史上最大 IPO 難救市！美股 AI 蒸發 4 兆美元背後投資人恐慌",
       "url": "https://finance.technews.tw/2026/11/22/can-ai-deliver-returns",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "自 2022 年 ChatGPT 問世，並開啟新一輪改變全球技術與資本市場的新週期以來，投資者首次展現出強烈的 […]",
       "source_updated_at": "2026-11-22T02:56:53Z",
       "ingress": {
@@ -5027,7 +5430,7 @@
       "source": "TechNews 科技新報",
       "title": "美國 AI 大管制時代來臨！黃仁勳下臺效應：打擊中國算力還是逼出紅色自主供應鏈？",
       "url": "https://finance.technews.tw/2026/11/22/without-jensen-usa-ai-is-slower",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "黃仁勳一宣佈請辭，最先跳起來的不只輝達股東，還有中國的 AI 公司。路透 11 月 12 日引述知情人士報導， […]",
       "source_updated_at": "2026-11-22T02:00:36Z",
       "ingress": {
@@ -5122,7 +5525,7 @@
       "source": "MarkTechPost Research",
       "title": "A Team of Researchers from Columbia and CertiK Introduce TensorLean for Formal Verification of GPU Kernels",
       "url": "https://www.marktechpost.com/2026/11/21/columbia-certik-tensorlean-formal-verification-gpu-kernels",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "TensorLean, from Columbia University and CertiK, formally verifies production GPU kernels at the PTX level using Lean. It checked 149 kernel instances, proved 83 correct, and found 38 bugs in FlashAttention, DeepGEMM and more. The post A Team of Researchers from Columbia and CertiK Introduce TensorLean for Formal Verification of GPU Kernels appeared first on MarkTechPost .",
       "publisher_links": [
         "https://www.marktechpost.com/2026/11/21/columbia-certik-tensorlean-formal-verification-gpu-kernels/",
@@ -5216,7 +5619,7 @@
       "source": "CyberQ 賽博客",
       "title": "GRH 兩份證明進展分歧：Lean 版獲社群背書，人工版遭 AI 揪出問題、進入大幅修訂",
       "url": "https://cyberq.tw/2026/11/22/follow-up-to-the-two-grh-certifications",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "Alpöge 與 Claude 的 Lean 版黎曼猜想證明獲 Lean 與 Mathlib 社群聯合宣告「完全有信心」，多項獨立核心檢查透過，但 lake comparator 端到端評判與官方核心整份重播仍在執行；Masullo 的 940 頁人工版則有多人藉助 AI 回報問題，審閱人 Conrad 說正在大幅修訂。本文依一手資料整理驗證進度、證明範圍與驗證流程的資安細節。",
       "ingress": {
         "kind": "public_feed",
@@ -5303,7 +5706,7 @@
       "source": "DeepSeek (Google News)",
       "title": "Unsloth revises DeepSeek GGUF benchmarks with longer contexts and more runs - Digg",
       "url": "https://news.google.com/rss/articles/CBMiQkFVX3lxTE9OcUVlTm5FNjB4LU1kSllkXzdqWUJFVkNLLUczcVNReUpYQVI5cmFXdHlGWTlKLUtyY1paMWlha1lGQQ?oc=5",
-      "last_seen_at": "2026-11-22T07:05:31.400830Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "Unsloth revises DeepSeek GGUF benchmarks with longer contexts and more runs Digg",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiQkFVX3lxTE9OcUVlTm5FNjB4LU1kSllkXzdqWUJFVkNLLUczcVNReUpYQVI5cmFXdHlGWTlKLUtyY1paMWlha1lGQQ?oc=5"
@@ -5443,7 +5846,7 @@
       "source": "TechNews 科技新報",
       "title": "AI 加速科學研究，資料品質與驗證機製成新瓶頸",
       "url": "https://technews.tw/2026/11/22/ai-raises-the-stakes-for-discovery-data",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "人工智慧正快速改變科學研究的運作方式，也讓研究資料的價值與審視標準同步升高。最新觀點指出，AI 已從單純的分析 […]",
       "source_updated_at": "2026-11-22T00:30:25Z",
       "ingress": {
@@ -5531,7 +5934,7 @@
       "source": "AlphaLab",
       "title": "AI 自我改寫權重：27B 模型多答對 6.6 個百分點，離遞迴進化還多遠？（2026）",
       "url": "https://www.alphalab.site/self-rewriting-model-weights-evidence",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "模型能把修正寫進參數，卻不等於已經無限自我進化。拆開 6.6 個百分點、每場重設的八次實驗與損壞副本修復，判斷證據支持到哪裡。",
       "ingress": {
         "kind": "public_feed",
@@ -5618,7 +6021,7 @@
       "source": "AlphaLab",
       "title": "Claude 黎曼猜想證明：Lean 社群確認了什麼，AI 研究能力又該怎麼看？（2026）",
       "url": "https://www.alphalab.site/claude-riemann-hypothesis-lean-verification",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "Alpöge 公開與 Claude 協作的黎曼猜想證明後，Lean 與 Mathlib 社群發布正面驗證宣告。拆開命題比對、獨立檢查器、Dirichlet GRH 範圍與 AI 貢獻歸因，理解這項成果的證據與下一步。",
       "ingress": {
         "kind": "public_feed",
@@ -5707,7 +6110,7 @@
       "source": "AlphaLab",
       "title": "Signal AI 讀屏防護：聊天加密之後，誰能看見螢幕？（2026）",
       "url": "https://www.alphalab.site/signal-ai-screen-capture-privacy",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "Signal 對手機 AI 助理啟用讀屏防護，代價是限制截圖。拆開 iPhone、Android、Gemini 與 Recall 的資料流程，看懂加密通訊與終端授權的邊界。",
       "ingress": {
         "kind": "public_feed",
@@ -5794,7 +6197,7 @@
       "source": "AlphaLab",
       "title": "Gemini Mac 電腦操作：背景代勞之後，誰替結果把關？（2026）",
       "url": "https://www.alphalab.site/gemini-mac-background-computer-use-permissions",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "Google 讓 Gemini 在背景操作 Mac，滑鼠留給你，權限與驗收卻仍要分開看。對照官方支援文件，拆開開放條件、持續允許與暫存備份的邊界。",
       "ingress": {
         "kind": "public_feed",
@@ -5883,7 +6286,7 @@
       "source": "TechCrunch AI",
       "title": "Signal restricts mobile screenshots as it confronts ‘existential threat’ of AI surveillance",
       "url": "https://techcrunch.com/2026/11/21/signal-restricts-mobile-screenshots-as-it-confronts-existential-threat-of-ai-surveillance",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "Signal is limiting users' ability to take screenshots in both its Android and iOS apps.",
       "source_updated_at": "2026-11-21T21:37:10Z",
       "ingress": {
@@ -5973,7 +6376,7 @@
       "source": "DeepSeek (Google News)",
       "title": "Hackers swapped a hosted DeepSeek model for 53 hours and stripped away its safety protections - CryptoSlate",
       "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNazZ3M05BODZVdGhSSTBXcjZ4YmV4LUpxYzZmazJyRkFncU9KSGlMSV9kaFVyMGJqd0VER2k0c2xBcDlyZmwxWE5SeThIWkF1N1JKd0xXTVFENVBKaFRPeC1JMUJSaEpwSEJBV2lCNDJTTDJTYnd0ZDdSZkFlN2RjMjZXM2ZYc1d5TnJTdTZRS05XbjdTWm9kYWNuaXRoNVdFWFo4cTFxZWRkM0JScVVESklrbnZfQ1lqQnc?oc=5",
-      "last_seen_at": "2026-11-22T07:05:31.400830Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "Hackers swapped a hosted DeepSeek model for 53 hours and stripped away its safety protections CryptoSlate",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiugFBVV95cUxNazZ3M05BODZVdGhSSTBXcjZ4YmV4LUpxYzZmazJyRkFncU9KSGlMSV9kaFVyMGJqd0VER2k0c2xBcDlyZmwxWE5SeThIWkF1N1JKd0xXTVFENVBKaFRPeC1JMUJSaEpwSEJBV2lCNDJTTDJTYnd0ZDdSZkFlN2RjMjZXM2ZYc1d5TnJTdTZRS05XbjdTWm9kYWNuaXRoNVdFWFo4cTFxZWRkM0JScVVESklrbnZfQ1lqQnc?oc=5"
@@ -6069,7 +6472,7 @@
       "url": "https://news.google.com/rss/articles/CBMiPkFVX3lxTFBuTkRiRVB4TlhwNTlaX2pzWnFyYmxNdjZMSkRFOGVIUzItaFpJTEN6dFdkY3hFWENCdW1meHBB?oc=5",
       "published_at": "2026-11-21T21:08:37Z",
       "first_seen_at": "2026-08-20T18:22:30.667030Z",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "Cyber vulnerabilities Epoch AI",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiPkFVX3lxTFBuTkRiRVB4TlhwNTlaX2pzWnFyYmxNdjZMSkRFOGVIUzItaFpJTEN6dFdkY3hFWENCdW1meHBB?oc=5"
@@ -6263,7 +6666,7 @@
       "source": "TechCrunch AI",
       "title": "A tale of two Nvidias",
       "url": "https://techcrunch.com/2026/11/21/a-tale-of-two-nvidias",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "We got two very different pictures of Nvidia — the company’s latest earnings report vs. the tech executives loudly calling for Jensen Huang’s return.",
       "source_updated_at": "2026-11-21T21:07:42Z",
       "ingress": {
@@ -6460,7 +6863,7 @@
       "source": "DeepSeek (Google News)",
       "title": "CertiK and Columbia University Researchers Formally Verify Production AI Kernels From DeepSeek and FlashAttention - CoinDesk",
       "url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxQYXR0OUhCeUx3ZURTeWN4VUJ5QTJZcEt4U0lWZ090dUptMEZIcl9yV2I3VDU5QWwyUVRxZzlEbHI2VjZOUDQyNk5FTXF1QUNJUi1fX3BEQjBCbE5pTGdUaVRfV3ZyaER1X1did09yMFdzV0hnT0ZMV3JKUldrbkkwdmZzd0J4ZDFic293TkdzZFdWMVBkdjJTRDc5eGxoZVZpZWVpMTZiZzF6M2JOUExTUmlBZUlhMlRONWFrMVRqX1NvUVBmOFdFblc5Vm9uOWRMNUc4aE5Bc1owT3ltQVBqX2lqVnRlM29Bc0xFSGNad1FEM1JjR3c?oc=5",
-      "last_seen_at": "2026-11-22T07:05:31.400830Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "CertiK and Columbia University Researchers Formally Verify Production AI Kernels From DeepSeek and FlashAttention CoinDesk",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMi9gFBVV95cUxQYXR0OUhCeUx3ZURTeWN4VUJ5QTJZcEt4U0lWZ090dUptMEZIcl9yV2I3VDU5QWwyUVRxZzlEbHI2VjZOUDQyNk5FTXF1QUNJUi1fX3BEQjBCbE5pTGdUaVRfV3ZyaER1X1did09yMFdzV0hnT0ZMV3JKUldrbkkwdmZzd0J4ZDFic293TkdzZFdWMVBkdjJTRDc5eGxoZVZpZWVpMTZiZzF6M2JOUExTUmlBZUlhMlRONWFrMVRqX1NvUVBmOFdFblc5Vm9uOWRMNUc4aE5Bc1owT3ltQVBqX2lqVnRlM29Bc0xFSGNad1FEM1JjR3c?oc=5"
@@ -6557,7 +6960,7 @@
       "source": "TechCrunch AI",
       "title": "Here are the top AI agents that can live in your text messages",
       "url": "https://techcrunch.com/2026/11/21/all-the-ai-agents-that-can-live-in-your-text-messages",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "We created a list of the most notable AI agents that can live in your text messages, from general assistants to agents designed for families, travel, and work.",
       "source_updated_at": "2026-11-21T17:00:00Z",
       "ingress": {
@@ -6647,7 +7050,7 @@
       "source": "CNBC Technology",
       "title": "Anthropic’s record IPO collides with tech’s worst week on Wall Street since 2020",
       "url": "https://www.cnbc.com/2026/11/21/anthropic-ipo-tech-selloff.html",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "Anthropic held its historic Nasdaq debut a day before Nvidia's stock closed out its longest weekly losing streak since 2008.",
       "source_updated_at": "2026-11-21T16:40:05Z",
       "ingress": {
@@ -6755,7 +7158,7 @@
       "source": "TechCrunch AI",
       "title": "Is selling an AI version of your face to this microdrama startup the future of Hollywood?",
       "url": "https://techcrunch.com/2026/11/21/is-selling-an-ai-version-of-your-face-to-this-microdrama-startup-the-future-of-hollywood",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "An actor has licensed his face to a microdrama startup — in a trend that's already popular in China. Experts question the long-term consequences if this becomes a trend in Hollywood, too.",
       "source_updated_at": "2026-11-21T16:00:00Z",
       "ingress": {
@@ -6845,7 +7248,7 @@
       "source": "The Verge",
       "title": "Can Anthropic afford to put safety first?",
       "url": "https://www.theverge.com/podcast/1038701/anthropic-ipo-ai-safety-openai-nvidia-structure",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "Today, I’m talking with Hayden Field, The Verge’s senior AI reporter, about the Anthropic IPO for the third and final episode in our series about AI in real life. The AI lab behind Claude went public on the Nasdaq last Thursday. The numbers are gigantic, but not really that important for this conversation, except to […]",
       "source_updated_at": "2026-11-21T13:29:45Z",
       "ingress": {
@@ -6943,7 +7346,7 @@
       "source": "InfoQ CN",
       "title": "財務團隊的 AI 藍圖",
       "url": "https://www.infoq.cn/video/UUqekkOQ8haEXZ792UjU",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/video/UUqekkOQ8haEXZ792UjU?utm_source=rss&utm_medium=article"
@@ -7035,7 +7438,7 @@
       "source": "InfoQ CN",
       "title": "打造 AI 優先的銷售與營銷運營體系",
       "url": "https://www.infoq.cn/video/mihBFvImttvJlSFUqC49",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/video/mihBFvImttvJlSFUqC49?utm_source=rss&utm_medium=article"
@@ -7127,7 +7530,7 @@
       "source": "InfoQ CN",
       "title": "智慧體企業新前沿：驅動高效智慧",
       "url": "https://www.infoq.cn/video/Ly5HbhY4pNMCF04abkFo",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/video/Ly5HbhY4pNMCF04abkFo?utm_source=rss&utm_medium=article"
@@ -7221,7 +7624,7 @@
       "source": "Wired AI",
       "title": "Banks Have Had It Up to Here With Your AI Agent",
       "url": "https://www.wired.com/story/banks-are-cracking-down-on-ai-agents",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "Major US financial institutions are banning third-party bots from logging into your accounts—and warning that any costly bot mistakes are strictly your problem.",
       "source_updated_at": "2026-11-22T11:00:00Z",
       "ingress": {
@@ -7282,10 +7685,11 @@
       "source_tier": "watchlist",
       "source_tier_label": "未審來源",
       "source_tier_rank": 6,
+      "summary_zh": "美國主要金融機構正在禁止第三方機器人登入您的帳戶，並警告任何代價高昂的機器人錯誤完全是您自己的問題。",
       "title_original": "Banks Have Had It Up to Here With Your AI Agent",
       "title_en": "Banks Have Had It Up to Here With Your AI Agent",
-      "title_zh": null,
-      "title_bilingual": "Banks Have Had It Up to Here With Your AI Agent",
+      "title_zh": "銀行對您的AI代理已經忍無可忍",
+      "title_bilingual": "銀行對您的AI代理已經忍無可忍 / Banks Have Had It Up to Here With Your AI Agent",
       "corroboration_key": "publisher:wired",
       "corroboration_status": "identified",
       "source_material": {
@@ -7311,7 +7715,7 @@
       "source": "InfoQ CN",
       "title": "智慧體身份國際標準化：體系佈局與研製實踐｜AICon北京",
       "url": "https://www.infoq.cn/article/721YPdyIZ1D8xz20D22C",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/721YPdyIZ1D8xz20D22C?utm_source=rss&utm_medium=article"
@@ -7405,7 +7809,7 @@
       "source": "Wired AI",
       "title": "The Outages Are Just Getting Started",
       "url": "https://www.wired.com/story/brace-yourself-for-years-of-outage-chaos",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "AI is forcing companies to patch their systems faster as attackers race to exploit newly discovered vulnerabilities. Welcome to internet outage hell.",
       "source_updated_at": "2026-11-21T13:00:00Z",
       "ingress": {
@@ -7506,7 +7910,7 @@
       "source": "RuntimeWire",
       "title": "Gemini 4 Neon wrote AMD kernels that nearly doubled Inkling 2 Mini decode speed in 4.3 hours",
       "url": "https://runtimewire.com/article/gemini-4-neon-wrote-amd-kernels-that-nearly-doubled-inkling-2-mini-decode-speed",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "The agent-built Loom package also hit 5.9x llama.cpp prefill at an 18k-token prompt, against day-one support the AMD engineer called super nascent.",
       "source_updated_at": "2026-11-22T01:50:37Z",
       "ingress": {
@@ -7690,7 +8094,7 @@
       "source": "36Kr",
       "title": "8個AI 新術語，看懂領先90%的人 - 36氪",
       "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE1jck91RGFLU2V5OThob19PSUs3Q2IxSzEwblROZUEtWDhXbDZrajhlclEyN3RTckhKNHZkZmJyNFdKNURReGJMUmtSMEEwQQ?oc=5",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "8個AI 新術語，看懂領先90%的人 36氪",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiTkFVX3lxTE1jck91RGFLU2V5OThob19PSUs3Q2IxSzEwblROZUEtWDhXbDZrajhlclEyN3RTckhKNHZkZmJyNFdKNURReGJMUmtSMEEwQQ?oc=5"
@@ -7784,7 +8188,7 @@
       "source": "36Kr",
       "title": "澳大利亞情報主管警示資料中心與AI潛藏風險-36氪 - 36kr",
       "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE1nZWk1LTR5b0phVkFpdG8xQWdBYS1PYWdQOWFOQkczZURjNzN5enppNzZQYk9rc0NzM0JPZ0RTb1NiOFJVeEFmc2dRc0JDTXp3MTBFWWFydk8?oc=5",
-      "last_seen_at": "2026-11-22T12:05:28.461867Z",
+      "last_seen_at": "2026-11-22T12:35:34.718262Z",
       "summary": "澳大利亞情報主管警示資料中心與AI潛藏風險-36氪 36kr",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiWEFVX3lxTE1nZWk1LTR5b0phVkFpdG8xQWdBYS1PYWdQOWFOQkczZURjNzN5enppNzZQYk9rc0NzM0JPZ0RTb1NiOFJVeEFmc2dRc0JDTXp3MTBFWWFydk8?oc=5"
@@ -7878,10 +8282,10 @@
     "schema_version": 2,
     "policy_id": "publisher-governance-v1",
     "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
-    "generated_at": "2026-11-22T12:05:28.461867Z",
-    "brief_generation_id": "bg1_19fbe4029b4667e394fe38d2",
-    "brief_state_revision": "5189f0910a2d496ee7f3f2190c0a68212e6aef02a8f7198b6f077fbaeee85f7a",
-    "generation_id": "pg2_31c94eeb35209a1f6df9dab4",
+    "generated_at": "2026-11-22T12:35:34.718262Z",
+    "brief_generation_id": "bg1_b4f06d14bb6e689f7d49d8e3",
+    "brief_state_revision": "53b95a753176e846b9407d6b64d53b25952a36b8850ef9cb55d4424ec921149c",
+    "generation_id": "pg2_383fc8aed0d9e64e719b6d58",
     "status": "ready",
     "selection_policy": "impact-v4-personnel-capital",
     "default_visible_limit": 5
