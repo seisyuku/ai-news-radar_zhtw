@@ -1,0 +1,62 @@
+{
+  "id": "38e6e59945363f7c1ed23844233a8287e81a0207",
+  "published_at": "2026-11-13T13:13:00Z",
+  "first_seen_at": "2026-11-22T21:05:30.206063Z",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "Grok 4.7 现已在 AWS GovCloud（美国）区域的 Kiro 中推出",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/kiro-grok-4-7-aws-govcloud-us",
+  "last_seen_at": "2026-11-22T21:05:30.206063Z",
+  "summary": "一款新的模型现已在 AWS GovCloud（美国）区域的 Kiro IDE 和 CLI 中推出。 Grok 4.7 是 SpaceXSI 面向编码和知识工作推出的能力最强的模型。它专为持续数小时的艰巨任务而设计，能够始终保持专注，并在继续下一步前检查自己的工作。与 Grok 4.6 相比，它在存储库规模编码工作中的规划和错误恢复能力更加可靠。Grok 4.7 提供了实验性支持和 500K 上下文窗口。不超过 20 万 Token 的请求按 2.7 倍积分系数计费，超过 20 万 Token 的请求按 5.4 倍计费。 Kiro 管理员可控制向用户开放哪些模型，使组织能够根据内部策略管理模型访问权限。 确保您的 IDE 或 CLI 已更新到最新版本，然后重新启动它以从模型选择器访问新模型。如需了解更多详情，请访问 GovCloud 文档 、 监控和跟踪指南 ，或联系您的 AWS 账户团队。要了解有关 Kiro 的更多信息，请参阅 Kiro 产品页面 。",
+  "publisher_links": [
+    "https://docs.aws.amazon.com/govcloud-us/latest/UserGuide/govcloud-kiro.html",
+    "https://kiro.dev/docs/enterprise/monitor-and-track/",
+    "https://kiro.dev/"
+  ],
+  "source_updated_at": "2026-11-13T13:13:00Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "aws_news",
+    "name": "AWS News",
+    "feed_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "amazon",
+    "name": "AWS",
+    "domain": "aws.amazon.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/kiro-grok-4-7-aws-govcloud-us",
+      "article_host": "aws.amazon.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+    "scope_id": "amazon",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}

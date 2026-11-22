@@ -1,0 +1,61 @@
+{
+  "id": "9a9b2fcd9af4eafda08bbe4f4c284850d2712d31",
+  "published_at": "2026-11-12T08:00:00Z",
+  "first_seen_at": "2026-11-22T21:05:30.206063Z",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "AWS Backup 现已支持用于 Amazon EKS 还原的资源修改器",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/aws-backup-resource-modifiers-eks",
+  "last_seen_at": "2026-11-22T21:05:30.206063Z",
+  "summary": "今天，AWS Backup 宣布在还原 Amazon Elastic Kubernetes Service（Amazon EKS）备份时支持资源修改器。利用资源修改器，您可以在还原过程中转换 Kubernetes 资源，以便让还原后的集群适配目标环境。 当您还原已跨账户或 AWS 区域复制的 EKS 备份时，还原后的集群可能带有与源环境相关的引用，例如 IAM 角色、数据库端点和 Amazon ECR 注册表 URI。以前，每次还原后，您都必须手动查找和更新这些引用，这既耗时又容易出错。利用资源修改器，您只需通过 YAML 文件定义一次转换规则，AWS Backup 便会在还原过程中自动应用该规则，从而提升跨账户与跨区域灾难恢复工作流的可靠性。 AWS Backup 对 Amazon EKS 备份资源修改器的支持，已在所有 AWS 商业区域和 AWS GovCloud（美国）区域推出。要开始使用，请参阅 AWS Backup 文档 和 发布博客 。",
+  "publisher_links": [
+    "https://docs.aws.amazon.com/aws-backup/latest/devguide/restoring-eks.html",
+    "https://aws.amazon.com/blogs/storage/remap-amazon-eks-namespaces-on-restore-with-aws-backup-resource-modifiers/"
+  ],
+  "source_updated_at": "2026-11-12T08:00:00Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "aws_news",
+    "name": "AWS News",
+    "feed_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "amazon",
+    "name": "AWS",
+    "domain": "aws.amazon.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/aws-backup-resource-modifiers-eks",
+      "article_host": "aws.amazon.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+    "scope_id": "amazon",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}

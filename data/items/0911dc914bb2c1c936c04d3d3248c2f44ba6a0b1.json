@@ -1,0 +1,65 @@
+{
+  "id": "0911dc914bb2c1c936c04d3d3248c2f44ba6a0b1",
+  "published_at": "2026-11-12T19:02:00Z",
+  "first_seen_at": "2026-11-22T21:05:30.206063Z",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "Amazon Aurora 和 RDS 现已支持基于 Graviton5 的 R9g 数据库实例",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/amazon-aurora-rds-postgresql-mysql-mariadb-r9g-instances",
+  "last_seen_at": "2026-11-22T21:05:30.206063Z",
+  "summary": "基于 AWS Graviton5 的 R9g 数据库实例现已正式推出，适用于兼容 PostgreSQL 与 MySQL 的 Amazon Aurora，以及 Amazon RDS for PostgreSQL、MySQL 和 MariaDB。 在 Amazon Aurora 上，与同等大小、基于 Graviton4 的实例相比，基于 Graviton5 的 R9g 实例在按需定价下性能最高可提升 30%，性价比最高可提升 22%，具体取决于数据库引擎、版本和工作负载。R9g 实例基于 AWS Nitro System 而构建，提供九种大小，从 large 到 48xlarge 不等。它们提供的 vCPU 数量最高可达 192 个、内存与 vCPU 的配比为 8:1、网络带宽最高可达 100 Gbps，Amazon Elastic Block Store（Amazon EBS）带宽最高可达 72 Gbps。 您可以通过 Amazon RDS 管理控制台 或使用 AWS 命令行界面 （CLI）开始使用 R9g 数据库实例。这些实例已在美国东部（弗吉尼亚州北部、俄亥俄州）、美国西部（俄勒冈州）和欧洲地区（法兰克福）区域推出。有关支持这些实例类别的具体引擎版本，请参阅 Aurora 和 RDS 文档。有关定价，请参阅 Amazon Aurora 定价 和 Amazon RDS 定价 。",
+  "publisher_links": [
+    "https://console.aws.amazon.com/rds/home?refid=35100cff-4aaa-46ac-bc1d-71576bef47be",
+    "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.CreateInstance.html?refid=35100cff-4aaa-46ac-bc1d-71576bef47be#Aurora.CreateInstance.Creating",
+    "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Concepts.DBInstanceClass.SupportAurora.html?refid=35100cff-4aaa-46ac-bc1d-71576bef47be",
+    "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.Support.html?refid=35100cff-4aaa-46ac-bc1d-71576bef47be",
+    "https://aws.amazon.com/rds/aurora/pricing/",
+    "https://aws.amazon.com/rds/pricing/"
+  ],
+  "source_updated_at": "2026-11-12T19:02:00Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "aws_news",
+    "name": "AWS News",
+    "feed_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "amazon",
+    "name": "AWS",
+    "domain": "aws.amazon.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/amazon-aurora-rds-postgresql-mysql-mariadb-r9g-instances",
+      "article_host": "aws.amazon.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+    "scope_id": "amazon",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}

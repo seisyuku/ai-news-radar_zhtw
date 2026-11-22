@@ -1,0 +1,61 @@
+{
+  "id": "e79335d0ed211b0821b763236edcdfd22b1b1fd9",
+  "published_at": "2026-11-13T16:00:00Z",
+  "first_seen_at": "2026-11-22T21:05:30.206063Z",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "CloudFormation 现在支持采用快速配置的 Aurora PostgreSQL",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/aurora-postgresql-cloudformation",
+  "last_seen_at": "2026-11-22T21:05:30.206063Z",
+  "summary": "Aurora PostgreSQL 现在支持在 AWS CloudFormation 中使用快速配置，以实现基础设施即代码部署。此次发布使您能够通过 CloudFormation 模板自动部署 Aurora 集群的基础设施，同时享受快速配置带来的速度优势。 使用快速配置创建的 Aurora PostgreSQL 集群可让您在几秒钟内创建并查询 Aurora 无服务器数据库。AWS::RDS::DBCluster 资源新增的 withExpressConfiguration createOnly 属性只需一项属性声明即可创建集群及其主数据库实例。您无需在 CloudFormation 模板中单独为实例建模或管理实例。这简化了模板，使您能够更轻松地通过基础设施即代码管理采用快速配置的 Aurora 集群。 CloudFormation 支持已在提供采用快速配置的 Aurora PostgreSQL 的所有 AWS 区域推出。要了解更多信息，请参阅 Aurora 用户指南 以及 AWS CloudFormation 文档 中的 AWS::RDS::DBCluster 资源参考。",
+  "publisher_links": [
+    "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_GettingStartedAurora.AuroraPostgreSQL.ExpressConfig.html",
+    "https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-rds-dbcluster.html"
+  ],
+  "source_updated_at": "2026-11-13T16:00:00Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "aws_news",
+    "name": "AWS News",
+    "feed_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "amazon",
+    "name": "AWS",
+    "domain": "aws.amazon.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/aurora-postgresql-cloudformation",
+      "article_host": "aws.amazon.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+    "scope_id": "amazon",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}
