@@ -1,0 +1,63 @@
+{
+  "id": "f65907c10143ee5da589df104fa2c1f7c2525656",
+  "published_at": "2026-11-10T19:00:00Z",
+  "first_seen_at": "2026-11-22T02:05:40.153849Z",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "Amazon OpenSearch Service 宣布推出托管式跨区域灾难恢复功能",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/amazon-opensearch-service-managed-cross-region-disaster-recovery",
+  "last_seen_at": "2026-11-22T02:05:40.153849Z",
+  "summary": "Amazon OpenSearch Service 现在提供托管式跨区域灾难恢复功能，因此您无需自行构建或维护复制机制，即可满足关键任务型搜索、人工智能和分析工作负载的严格可用性和业务连续性要求。在两个区域创建域后，您可以在 AWS 管理控制台中通过一个 API 调用或几个步骤将它们配对。 托管式灾难恢复提供不到 1 分钟的恢复点目标（RPO）和不到 20 分钟的恢复时间目标（RTO）。辅助域与主域持续保持同步。对于维护或区域轮换等计划内事件，切换操作会在不丢失任何数据的情况下，交换两个域的角色。如果主域不可用，则会触发失效转移，将辅助域提升为主域，此时数据丢失仅限于复制延迟的范围。失效转移后，您可以通过将新的主域与辅助域配对来恢复保护。您可以使用 Amazon CloudWatch 指标监控复制运行状况和延迟。 托管式灾难恢复需要 OpenSearch 3.7 或更高版本，并支持同一 AWS 账户中的域，包括使用客户管理的 AWS Key Management Service（AWS KMS）密钥加密的域。使用 UltraWarm 存储空间或 OpenSearch 优化实例（OR1 或 OR2）的域不受支持。如果您使用的是较早的版本， 基于克隆的升级 允许您针对工作负载测试 OpenSearch 3.7，在准备就绪时切换，并在需要时回滚。 托管式灾难恢复功能不收取额外费用。您需要按标准费率支付辅助域和跨区域数据传输费用。有关定价，请参阅 Amazon OpenSearch Service pricing 。 托管式灾难恢复现已在提供 Amazon OpenSearch Service 的所有商业 AWS 区域推出（ 区域列表 ）。要开始使用，请参阅 灾难恢复文档 。",
+  "publisher_links": [
+    "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/version-migration.html",
+    "https://aws.amazon.com/opensearch-service/pricing/",
+    "https://docs.aws.amazon.com/general/latest/gr/opensearch-service.html",
+    "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/disaster-recovery.html"
+  ],
+  "source_updated_at": "2026-11-10T19:00:00Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "aws_news",
+    "name": "AWS News",
+    "feed_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "amazon",
+    "name": "AWS",
+    "domain": "aws.amazon.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/amazon-opensearch-service-managed-cross-region-disaster-recovery",
+      "article_host": "aws.amazon.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+    "scope_id": "amazon",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}

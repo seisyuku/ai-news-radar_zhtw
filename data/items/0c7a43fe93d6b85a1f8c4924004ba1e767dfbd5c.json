@@ -1,0 +1,61 @@
+{
+  "id": "0c7a43fe93d6b85a1f8c4924004ba1e767dfbd5c",
+  "published_at": "2026-10-30T22:50:00Z",
+  "first_seen_at": "2026-11-22T02:05:40.153849Z",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "在 AWS GovCloud（美国）区域，AWS Compute Optimizer 现在支持更多 Amazon EC2 实例类型",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/aws-compute-optimizer-amazon-ec2",
+  "last_seen_at": "2026-11-22T02:05:40.153849Z",
+  "summary": "AWS Compute Optimizer 现在为 AWS GovCloud（美国西部）区域中的另外 389 种 Amazon Elastic Compute Cloud（Amazon EC2）实例类型和 AWS GovCloud（美国东部）区域中的 276 种实例类型提供调整建议。运行受监管工作负载和政府工作负载的客户，无需手动分析，即可在当前一代实例类型上获得相同的成本和性能优势。 Compute Optimizer 已扩展支持范围，涵盖了每个工作负载类别中的最新一代处理器系列。新增支持范围涵盖计算优化型实例（C7i、C7i-flex、C8g、C8gn）、通用型实例（M7i、M7i-flex、m8g、m8gd、M8i、M8i-flex）、内存优化型实例（R7i、R8g、R8i、R8i-flex）、内存密集型实例（X2iedn、X8i）和存储优化型实例（i7i、i7Ie、i8G、i8GE）。通过此次扩展，Compute Optimizer 现已在 AWS GovCloud（美国西部）区域支持 102 个系列中的 724 种实例类型，并在 AWS GovCloud（美国东部）区域支持 69 个系列中的 542 种实例类型，涵盖 EC2 实例和 EC2 Auto Scaling 组的推荐方案。 如今，这种扩展支持范围适用于 AWS GovCloud（美国西部）和 AWS GovCloud（美国东部）区域，没有额外费用。您可以通过 AWS 管理控制台、AWS CLI 或 AWS SDK 开始使用 Compute Optimizer。要了解更多信息，请参阅 AWS Compute Optimizer 产品页面 和“AWS GovCloud (US) User Guide”中的 AWS Compute Optimizer 。",
+  "publisher_links": [
+    "https://aws.amazon.com/compute-optimizer/",
+    "https://docs.aws.amazon.com/govcloud-us/latest/UserGuide/govcloud-compute-optimizer.html"
+  ],
+  "source_updated_at": "2026-10-30T22:50:00Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "aws_news",
+    "name": "AWS News",
+    "feed_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "amazon",
+    "name": "AWS",
+    "domain": "aws.amazon.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/10/aws-compute-optimizer-amazon-ec2",
+      "article_host": "aws.amazon.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+    "scope_id": "amazon",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "id": "9c186485e89de0bca681667e3a3dee0c63c662f1",
+  "published_at": "2026-11-10T03:00:00Z",
+  "first_seen_at": "2026-11-22T02:05:40.153849Z",
+  "site_id": "official_ai",
+  "site_name": "Official AI Updates",
+  "source": "AWS News",
+  "title": "CloudWatch PromQL 警报现在支持 EC2 和 Application Auto Scaling",
+  "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/amazon-cloudwatch-alarms-autoscaling-group-actions",
+  "last_seen_at": "2026-11-22T02:05:40.153849Z",
+  "summary": "使用 Prometheus Query Language（PromQL）的 Amazon CloudWatch 警报现在可以触发 Amazon EC2 和 Application Auto Scaling 分步以及简单扩展策略。您可以使用与仪表板和警报相同的 PromQL 查询，基于 CloudWatch OpenTelemetry 指标扩展您的 EC2 Auto Scaling 组。 在此次发布中，PromQL 警报还支持 EC2 Auto Scaling 简单和分步扩展策略。PromQL 警报目前不支持目标跟踪策略类型。迁移到 OpenTelemetry 的团队可以根据与其他监控相同的指标来扩展容量，而不必单独保留经典指标警报以进行扩展。对于分步扩展，PromQL 查询中该数值超出阈值的程度将决定应用哪个分步。查询必须返回单个序列并将其与阈值进行比较。 您可以在创建或编辑警报时在 CloudWatch 控制台中添加 EC2 Auto Scaling 和 Application Auto Scaling 操作，也可以使用 PutMetricAlarm API、AWS CLI、 AWS SDK 或 AWS CloudFormation 进行添加。您还可以使用 PutMetricAlarm API、AWS CLI、 AWS SDK 或 AWS CloudFormation。 此功能适用于所有提供 CloudWatch PromQL 警报的 AWS 区域。标准的 CloudWatch 警报定价将适用。要开始使用，请参阅“Amazon CloudWatch User Guide”中的 Using PromQL in alarms 和 Alarm actions 。",
+  "publisher_links": [
+    "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-PromQL-Alarms.html",
+    "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/alarm-actions.html"
+  ],
+  "source_updated_at": "2026-11-10T03:00:00Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "official_ai",
+    "source_id": "aws_news",
+    "name": "AWS News",
+    "feed_url": "https://aws.amazon.com/about-aws/whats-new/recent/feed/"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "amazon",
+    "name": "AWS",
+    "domain": "aws.amazon.com",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/amazon-cloudwatch-alarms-autoscaling-group-actions",
+      "article_host": "aws.amazon.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+    "scope_id": "amazon",
+    "publisher_kind": "official",
+    "admission_status": "limited",
+    "source_tier": "official",
+    "source_tier_label": "官方一手源",
+    "source_tier_rank": 0,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}
