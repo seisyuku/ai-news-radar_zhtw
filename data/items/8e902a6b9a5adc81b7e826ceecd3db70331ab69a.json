@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Ornith-1.0-9B 和 Ornith-1.0-35B 模型现已在 Amazon SageMaker JumpStart 中提供",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/01/ornith-1-0-9b-ornith-1-0-35b-on-sagemaker-jumpstart",
-  "last_seen_at": "2026-11-23T07:05:46.261598Z",
+  "last_seen_at": "2026-11-23T07:35:33.106886Z",
   "summary": "DeepReinforce AI 的 Ornith-1.0-9B 和 Ornith-1.0-35B 模型现已在 Amazon SageMaker JumpStart 中提供，进一步扩充了 AWS 客户可用的基础模型组合。这两款模型属于 Ornith 1.0 系列，是在 MIT 许可证下发布的、可自主生成脚手架的智能体编程开源模型，在 Terminal-Bench 2.1、SWE-Bench、NL2Repo 和 OpenClaw 等编程基准测试中，于同规模开源模型里达到业界顶尖水平。 这些模型利用专业功能应对不同的智能体编程挑战： Ornith-1.0-9B 是一款轻量级 9B 参数的稠密模型，基于 Qwen 3.5 9B 进行后训练，面向单 GPU 高效部署而设计。它拥有 256K token 上下文窗口和 32 个解码器层，非常适合在单 GPU（包括搭载消费级硬件的笔记本电脑）上运行智能体编码工作流的个人开发人员和小型团队。该模型的自我改进式训练框架利用强化学习来联合优化脚手架生成和解决方案滚动推演轨迹，这使其能够发现更优的搜索轨迹，并生成质量更高的代码解决方案。 Ornith-1.0-35B 是一款 35B 参数级混合专家（MoE）模型，基于 Qwen 3.5 进行后训练，可实现更强的智能体编程性能，同时仍可在单张 24 GB 消费级 GPU 上部署。与其较小的同系列模型一样，该模型采用强化学习来联合优化驱动编码任务的脚手架及其生成的解决方案滚动推演轨迹，从而发现更优的代码执行轨迹。其 MoE 架构仅在每个 token 上激活部分参数，帮助生产级智能体编码工作负载实现质量与效率之间的出色平衡。 借助 SageMaker JumpStart，客户只需点击几下即可部署这些模型中的任何一个，以解决其特定的人工智能使用案例。 要开始使用这些模型，请导航到 SageMaker 控制台中的 SageMaker JumpStart 模型目录，或使用 SageMaker Python SDK 将模型部署到您的 AWS 账户。有关在 SageMaker JumpStart 中部署和使用基础模型的更多信息，请参阅 Amazon SageMaker JumpStart 文档 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/sagemaker/latest/dg/studio-jumpstart.html"
