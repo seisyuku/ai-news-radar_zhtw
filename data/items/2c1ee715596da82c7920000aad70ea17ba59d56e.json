@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon RDS for Oracle 缩短了自动次要版本升级和计划维护的停机时间",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/rds-oracle-reduces-maintenance-downtime-for-amvu-scheduled-upgrades",
-  "last_seen_at": "2026-11-23T10:05:37.179457Z",
+  "last_seen_at": "2026-11-23T10:35:38.106865Z",
   "summary": "Amazon Relational Database Service（Amazon RDS）for Oracle 现已缩短自动次要版本升级以及计划在维护时段进行的次要版本升级和操作系统更新的停机时间。维护时间缩短后，您可以更轻松地跟进最新的 Oracle 次要版本和操作系统更新，同时减少对应用程序的干扰。如果您已启用自动次要版本升级，您的数据库实例将自动受益。 要应用这些升级和更新，RDS 必须在维护过程中设置新资源。以前，RDS 在维护开始后才设置这些资源，这会延长停机时间。现在，RDS 会在维护时段前最多 30 分钟准备资源，而数据库实例在此期间可以继续为工作负载服务。维护时段开始时，数据库实例的离线时间更短，因为维护所需的资源已准备就绪。这适用于企业版和标准版 2 数据库实例。 准备过程绝不会妨碍或延误您自己的操作，数据库实例在 RDS 准备期间仍然可用。如果您所做的更改与准备工作冲突，RDS 会回滚已暂存的资源，确保您的更改继续执行。如果准备工作无法完成，RDS 仍会在您的维护时段内执行维护，只是不使用预先准备的资源。新增的 RDS 事件会告知您准备何时开始、何时完成，以及何时无法完成。 RDS for Oracle 将继续推出改进，进一步缩短维护停机时间。 此功能已在提供 Amazon RDS for Oracle 的所有 AWS 商业区域和 AWS GovCloud（美国）区域推出，无需额外付费。要了解更多信息，请参阅《Amazon RDS 用户指南》中的 维护准备 、 Amazon RDS 事件类别和事件消息 以及 维护数据库实例 。",
   "publisher_links": [
     "https://aws.amazon.com/rds/oracle/",
