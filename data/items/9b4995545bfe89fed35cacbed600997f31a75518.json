@@ -1,0 +1,65 @@
+{
+  "id": "9b4995545bfe89fed35cacbed600997f31a75518",
+  "published_at": "2026-11-23T08:26:17Z",
+  "first_seen_at": "2026-11-23T08:35:33.108918Z",
+  "site_id": "curated_media",
+  "site_name": "精選媒體",
+  "source": "AIBASE",
+  "title": "Mira Murati 團隊把模型“想三遍再說話”開源了：26.4B 循環 Transformer 登頂 Hugging Face，筆記本就能跑",
+  "url": "https://news.aibase.com/tw/news/32475",
+  "last_seen_at": "2026-11-23T08:35:33.108918Z",
+  "summary": "Mira Murati 的 Thinking Machines Lab 發佈開源權重模型 Inkling2Mini，採用循環 Transformer：24層中，中間12層對每個 token 循環三次，首尾各六層只跑一次。該設計讓模型不生成更多文本也能延長“內部思考”，用更少 token 想清答案，即“多想少說”。此前同系列 Inkling2Small 因 594B 參數被嫌太大。",
+  "ingress": {
+    "kind": "public_adapter",
+    "site_id": "curated_media",
+    "source_id": "aibase",
+    "name": "AIBASE",
+    "feed_url": null
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "aibase",
+    "name": "AIBASE",
+    "domain": "news.aibase.com",
+    "status": "identified",
+    "basis": [
+      "explicit_group"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://news.aibase.com/tw/news/32475",
+      "article_host": "news.aibase.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "aibase_article_id": "32475",
+  "field_languages": {
+    "title": "tw",
+    "url": "tw",
+    "summary": "tw"
+  },
+  "content_language": "tw",
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+    "scope_id": "aibase",
+    "publisher_kind": "aggregator",
+    "admission_status": "limited",
+    "source_tier": "advanced",
+    "source_tier_label": "次級AI媒體",
+    "source_tier_rank": 4,
+    "allow_general": true,
+    "allow_featured": false,
+    "allow_radar": false,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
+    ]
+  }
+}
