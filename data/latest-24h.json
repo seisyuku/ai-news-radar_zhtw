@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-11-23T02:05:34.638356Z",
+  "generated_at": "2026-11-23T02:35:37.930217Z",
   "window_hours": 24,
-  "total_items": 66,
-  "total_items_ai_raw": 72,
-  "total_items_raw": 79,
-  "total_items_all_mode": 75,
+  "total_items": 73,
+  "total_items_ai_raw": 80,
+  "total_items_raw": 88,
+  "total_items_all_mode": 83,
   "topic_filter": "ai_relevance_scoring_v0_4",
   "ai_relevance_threshold": 0.65,
-  "archive_total": 8249,
+  "archive_total": 8245,
   "site_count": 14,
-  "source_count": 16,
+  "source_count": 18,
   "site_stats": [
     {
       "site_id": "curated_media",
       "site_name": "精選媒體",
-      "count": 33,
-      "raw_count": 35
+      "count": 37,
+      "raw_count": 39
     },
     {
       "site_id": "tw_media",
       "site_name": "台灣媒體",
-      "count": 22,
-      "raw_count": 26
+      "count": 25,
+      "raw_count": 30
     },
     {
       "site_id": "opmlrss",
@@ -33,7 +33,7 @@
       "site_id": "kr36_ai",
       "site_name": "36Kr AI (Watchlist)",
       "count": 5,
-      "raw_count": 9
+      "raw_count": 10
     },
     {
       "site_id": "runtimewire",
@@ -98,6 +98,106 @@
   ],
   "items": [
     {
+      "id": "f7d1b9d316781e11232bf693ed8e96c89be7b7aa",
+      "published_at": "2026-11-23T08:11:00Z",
+      "first_seen_at": "2026-11-23T00:35:29.144445Z",
+      "site_id": "tw_media",
+      "site_name": "台灣媒體",
+      "source": "iThome",
+      "title": "微軟揭露GitHub Copilot CLI釣魚攻擊風險，駭客恐藉合法登入程序操控AI代理",
+      "url": "https://www.ithome.com.tw/news/180676",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
+      "summary": "駭客不必竊取帳號密碼，也可能利用合法的裝置驗證碼登入機制，誘騙開發者核准登入要求，藉此取得OAuth存取權杖。微軟研究發現，這類釣魚攻擊不只可能造成開發資料外洩，在特定條件下，還可能讓攻擊者遠端操控AI代理，在使用者電腦上執行命令。",
+      "source_updated_at": "2026-11-23T08:11:00Z",
+      "ingress": {
+        "kind": "public_feed",
+        "site_id": "tw_media",
+        "source_id": "ithome",
+        "name": "iThome",
+        "feed_url": "https://www.ithome.com.tw/rss"
+      },
+      "publisher": {
+        "schema_version": 1,
+        "publisher_id": "ithome",
+        "name": "iThome",
+        "domain": "www.ithome.com.tw",
+        "status": "identified",
+        "basis": [
+          "article_host"
+        ],
+        "evidence": {
+          "rss_source_name": null,
+          "rss_source_url": null,
+          "article_url": "https://www.ithome.com.tw/news/180676",
+          "article_host": "www.ithome.com.tw",
+          "expected_publisher_id": null,
+          "conflicts": []
+        }
+      },
+      "security_topic": true,
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+        "scope_id": "ithome",
+        "publisher_kind": "media",
+        "admission_status": "limited",
+        "source_tier": "professional_media",
+        "source_tier_label": "專業科技媒體",
+        "source_tier_rank": 1,
+        "allow_general": true,
+        "allow_featured": true,
+        "allow_radar": true,
+        "reason_codes": [
+          "identified_host",
+          "limited_scope"
+        ]
+      },
+      "article_key": "https://www.ithome.com.tw/news/180676",
+      "business_events": [
+        "security"
+      ],
+      "ai_is_related": true,
+      "ai_score": 0.71,
+      "ai_label": "developer_tool",
+      "ai_relevance_reason": "matched_ai_signal",
+      "ai_signals": [
+        "copilot"
+      ],
+      "ai_noise": [],
+      "source_tier": "professional_media",
+      "source_tier_label": "專業科技媒體",
+      "source_tier_rank": 1,
+      "summary_zh": "駭客不必竊取帳號密碼，也可能利用合法的裝置驗證碼登入機制，誘騙開發者核准登入要求，藉此取得OAuth存取權杖。微軟研究發現，這類釣魚攻擊不只可能造成開發資料外洩，在特定條件下，還可能讓攻擊者遠端操控AI代理，在使用者電腦上執行命令。",
+      "title_original": "微軟揭露GitHub Copilot CLI釣魚攻擊風險，駭客恐藉合法登入程序操控AI代理",
+      "title_en": null,
+      "title_zh": "微軟揭露GitHub Copilot CLI釣魚攻擊風險，駭客恐藉合法登入程序操控AI代理",
+      "title_bilingual": "微軟揭露GitHub Copilot CLI釣魚攻擊風險，駭客恐藉合法登入程序操控AI代理",
+      "corroboration_key": "publisher:ithome",
+      "corroboration_status": "identified",
+      "source_material": {
+        "title_original": "",
+        "title": "微軟揭露GitHub Copilot CLI釣魚攻擊風險，駭客恐藉合法登入程序操控AI代理",
+        "summary": "駭客不必竊取帳號密碼，也可能利用合法的裝置驗證碼登入機制，誘騙開發者核准登入要求，藉此取得OAuth存取權杖。微軟研究發現，這類釣魚攻擊不只可能造成開發資料外洩，在特定條件下，還可能讓攻擊者遠端操控AI代理，在使用者電腦上執行命令。"
+      },
+      "qualification": {
+        "scope": "in_scope",
+        "core_evidence": [
+          {
+            "kind": "security",
+            "status": "insufficient",
+            "basis": "insufficient",
+            "spans": [],
+            "urls": []
+          }
+        ],
+        "reason_codes": [
+          "insufficient_evidence"
+        ]
+      },
+      "source_tier_weight": 0.7
+    },
+    {
       "id": "a5407c14b8beaad9fca5d7b7d929f8a8e0d89345",
       "published_at": "2026-11-22T15:15:48Z",
       "first_seen_at": "2026-11-22T15:35:39.827765Z",
@@ -106,7 +206,7 @@
       "source": "The Decoder AI News",
       "title": "AI coding agents ace isolated tests but complete fewer than one in ten tasks in a simulated workplace",
       "url": "https://the-decoder.com/ai-coding-agents-ace-isolated-tests-but-complete-fewer-than-one-in-ten-tasks-in-a-simulated-workplace",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "A new real-world test puts AI coding agents in a simulated developer job with colleagues, project boards, and incomplete handoffs, where they have to keep developing software on their own and reliably close open tickets in a messy daily workflow. Even Opus 5.5 and Astra fall far short, solving fewer than one in ten tasks completely. The models finish clear, standalone assignments quickly, but they lose track as autonomous developers. The article AI coding agents ace isolated tests but complete fewer than one in ten tasks in a simulated workplace appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/ai-coding-agents-ace-isolated-tests-but-complete-fewer-than-one-in-ten-tasks-in-a-simulated-workplace/",
@@ -200,7 +300,7 @@
       "source": "The Decoder AI News",
       "title": "Perplexity's new Monitor API turns web search from a one-off query into a nonstop watchdog",
       "url": "https://the-decoder.com/perplexitys-new-monitor-api-turns-web-search-from-a-one-off-query-into-a-nonstop-watchdog",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "Perplexity is launching a Monitor API that searches the web on a schedule and alerts agents via webhook only when relevant changes occur. Its own decision model filters out unimportant results. For Perplexity, the API is part of a broader strategy to stand out from an increasingly interchangeable chatbot business through developer tools. The article Perplexity's new Monitor API turns web search from a one-off query into a nonstop watchdog appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/perplexitys-new-monitor-api-turns-web-search-from-a-one-off-query-into-a-nonstop-watchdog/",
@@ -294,7 +394,7 @@
       "source": "The Decoder AI News",
       "title": "AI is getting better faster than experts can reliably test whether new systems are safe, METR warns",
       "url": "https://the-decoder.com/ai-is-getting-better-faster-than-experts-can-reliably-test-whether-new-systems-are-safe-metr-warns",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "METR reports that leading AI models like Opus 5.5 and GPT-6 Astra are improving rapidly at research tasks but getting harder to measure. Current data can't rule out a dangerous acceleration in AI development, the organization warns, though it also says common tests may overestimate what the models can actually do. The article AI is getting better faster than experts can reliably test whether new systems are safe, METR warns appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/ai-is-getting-better-faster-than-experts-can-reliably-test-whether-new-systems-are-safe-metr-warns/",
@@ -388,7 +488,7 @@
       "source": "The Decoder AI News",
       "title": "Security researchers show how cheap AI inference providers steal keys and snoop on users",
       "url": "https://the-decoder.com/security-researchers-show-how-cheap-ai-inference-providers-steal-keys-and-snoop-on-users",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "Security researchers at Dragos used two million fake AI requests to uncover serious vulnerabilities in the AI supply chain, finding at least three compromised providers, hundreds of stolen AWS keys, and marketplace resellers who were simply reading customer requests. OpenRouter responded by removing three providers and 125 endpoints. The article Security researchers show how cheap AI inference providers steal keys and snoop on users appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/security-researchers-show-how-cheap-ai-inference-providers-steal-keys-and-snoop-on-users/",
@@ -492,7 +592,7 @@
       "source": "The Decoder AI News",
       "title": "Lean and Mathlib community officially confirms Levent Alpöge's proof of the Riemann hypothesis is correct",
       "url": "https://the-decoder.com/lean-and-mathlib-community-officially-confirms-levent-alpoges-proof-of-the-riemann-hypothesis-is-correct",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "The Lean and Mathlib community has officially confirmed Levent Alpöge's proof of the Riemann hypothesis as correct. Dozens of independent verifiers checked the 17 million lines of computer code. The solution arrived years earlier than expected: Terence Tao had predicted it wouldn't happen until around 2050 and didn't expect AI to solve it alone. The article Lean and Mathlib community officially confirms Levent Alpöge's proof of the Riemann hypothesis is correct appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/lean-and-mathlib-community-officially-confirms-levent-alpoges-proof-of-the-riemann-hypothesis-is-correct/",
@@ -586,7 +686,7 @@
       "source": "The Decoder AI News",
       "title": "GPT-6.2 Astra and Sol get to the point faster but score lower on transparency than Claude",
       "url": "https://the-decoder.com/gpt-6-2-astra-and-sol-get-to-the-point-faster-but-score-lower-on-transparency-than-claude",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "OpenAI's GPT-6.2 Astra and Sol give much shorter, more direct answers than their predecessors, but they are also less willing to admit uncertainty. Anthropic's Claude models score well ahead on transparency. The article GPT-6.2 Astra and Sol get to the point faster but score lower on transparency than Claude appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/gpt-6-2-astra-and-sol-get-to-the-point-faster-but-score-lower-on-transparency-than-claude/",
@@ -673,6 +773,386 @@
       "source_tier_weight": 0.78
     },
     {
+      "id": "ae3cdf6fb22f6789f40dd2e1e0868db36eb81eea",
+      "published_at": "2026-11-23T02:25:56Z",
+      "first_seen_at": "2026-11-23T02:35:37.930217Z",
+      "site_id": "tw_media",
+      "site_name": "台灣媒體",
+      "source": "TechNews 科技新報",
+      "title": "Anthropic 模型移植 AMD 晶片只要 3 天，輝達 CUDA 護城河受考驗",
+      "url": "https://technews.tw/2026/11/23/how-much-of-a-threat-is-anthropics-multi-chip-strategy-to-nvidia",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
+      "summary": "Anthropic 的多晶片策略正成為市場檢視輝達（Nvidia）競爭優勢的新焦點。根據最新討論，Anthro […]",
+      "source_updated_at": "2026-11-23T02:25:56Z",
+      "ingress": {
+        "kind": "public_feed",
+        "site_id": "tw_media",
+        "source_id": "technews_tw",
+        "name": "TechNews 科技新報",
+        "feed_url": "https://technews.tw/feed/"
+      },
+      "publisher": {
+        "schema_version": 1,
+        "publisher_id": "technews",
+        "name": "TechNews 科技新報",
+        "domain": "technews.tw",
+        "status": "identified",
+        "basis": [
+          "article_host"
+        ],
+        "evidence": {
+          "rss_source_name": null,
+          "rss_source_url": null,
+          "article_url": "https://technews.tw/2026/11/23/how-much-of-a-threat-is-anthropics-multi-chip-strategy-to-nvidia",
+          "article_host": "technews.tw",
+          "expected_publisher_id": null,
+          "conflicts": []
+        }
+      },
+      "article_key": "https://technews.tw/2026/11/23/how-much-of-a-threat-is-anthropics-multi-chip-strategy-to-nvidia",
+      "security_topic": false,
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.77,
+      "ai_label": "model_release",
+      "ai_relevance_reason": "matched_ai_signal",
+      "ai_signals": [
+        "anthropic",
+        "cuda",
+        "晶片"
+      ],
+      "ai_noise": [],
+      "source_tier": "tw_media",
+      "source_tier_label": "台灣繁中媒體",
+      "source_tier_rank": 2,
+      "summary_zh": "Anthropic 的多晶片策略正成為市場檢視輝達（Nvidia）競爭優勢的新焦點。根據最新討論，Anthro […]",
+      "title_original": "Anthropic 模型移植 AMD 晶片只要 3 天，輝達 CUDA 護城河受考驗",
+      "title_en": null,
+      "title_zh": "Anthropic 模型移植 AMD 晶片只要 3 天，輝達 CUDA 護城河受考驗",
+      "title_bilingual": "Anthropic 模型移植 AMD 晶片只要 3 天，輝達 CUDA 護城河受考驗",
+      "corroboration_key": "publisher:technews",
+      "corroboration_status": "identified",
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+        "scope_id": "technews",
+        "publisher_kind": "media",
+        "admission_status": "limited",
+        "source_tier": "tw_media",
+        "source_tier_label": "台灣繁中媒體",
+        "source_tier_rank": 2,
+        "allow_general": true,
+        "allow_featured": true,
+        "allow_radar": true,
+        "reason_codes": [
+          "identified_host",
+          "limited_scope"
+        ]
+      },
+      "source_material": {
+        "title_original": "",
+        "title": "Anthropic 模型移植 AMD 晶片只要 3 天，輝達 CUDA 護城河受考驗",
+        "summary": "Anthropic 的多晶片策略正成為市場檢視輝達（Nvidia）競爭優勢的新焦點。根據最新討論，Anthro […]"
+      },
+      "qualification": {
+        "scope": "in_scope",
+        "core_evidence": [],
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      "source_tier_weight": 0.56
+    },
+    {
+      "id": "d03e35a06cb656b06b2f4b835069da3b65f4f385",
+      "published_at": "2026-11-23T02:20:14Z",
+      "first_seen_at": "2026-11-23T02:35:37.930217Z",
+      "site_id": "tw_media",
+      "site_name": "台灣媒體",
+      "source": "TechNews 科技新報",
+      "title": "OpenAI 科學家建議以困惑度為指標，訂定 AI 發展業界門檻",
+      "url": "https://technews.tw/2026/11/23/openai-scientists-suggest-perplexity-metric-set-ai-development-industry-thresholds",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
+      "summary": "OpenAI 首席科學家帕霍基今天建議，AI 開發業者應設下共同限制，並以困惑度（perplexity）做為衡 […]",
+      "source_updated_at": "2026-11-23T02:20:14Z",
+      "ingress": {
+        "kind": "public_feed",
+        "site_id": "tw_media",
+        "source_id": "technews_tw",
+        "name": "TechNews 科技新報",
+        "feed_url": "https://technews.tw/feed/"
+      },
+      "publisher": {
+        "schema_version": 1,
+        "publisher_id": "technews",
+        "name": "TechNews 科技新報",
+        "domain": "technews.tw",
+        "status": "identified",
+        "basis": [
+          "article_host"
+        ],
+        "evidence": {
+          "rss_source_name": null,
+          "rss_source_url": null,
+          "article_url": "https://technews.tw/2026/11/23/openai-scientists-suggest-perplexity-metric-set-ai-development-industry-thresholds",
+          "article_host": "technews.tw",
+          "expected_publisher_id": null,
+          "conflicts": []
+        }
+      },
+      "article_key": "https://technews.tw/2026/11/23/openai-scientists-suggest-perplexity-metric-set-ai-development-industry-thresholds",
+      "security_topic": false,
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.71,
+      "ai_label": "ai_product_update",
+      "ai_relevance_reason": "matched_ai_signal",
+      "ai_signals": [
+        "openai"
+      ],
+      "ai_noise": [],
+      "source_tier": "tw_media",
+      "source_tier_label": "台灣繁中媒體",
+      "source_tier_rank": 2,
+      "summary_zh": "OpenAI 首席科學家帕霍基今天建議，AI 開發業者應設下共同限制，並以困惑度（perplexity）做為衡 […]",
+      "title_original": "OpenAI 科學家建議以困惑度為指標，訂定 AI 發展業界門檻",
+      "title_en": null,
+      "title_zh": "OpenAI 科學家建議以困惑度為指標，訂定 AI 發展業界門檻",
+      "title_bilingual": "OpenAI 科學家建議以困惑度為指標，訂定 AI 發展業界門檻",
+      "corroboration_key": "publisher:technews",
+      "corroboration_status": "identified",
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+        "scope_id": "technews",
+        "publisher_kind": "media",
+        "admission_status": "limited",
+        "source_tier": "tw_media",
+        "source_tier_label": "台灣繁中媒體",
+        "source_tier_rank": 2,
+        "allow_general": true,
+        "allow_featured": true,
+        "allow_radar": true,
+        "reason_codes": [
+          "identified_host",
+          "limited_scope"
+        ]
+      },
+      "source_material": {
+        "title_original": "",
+        "title": "OpenAI 科學家建議以困惑度為指標，訂定 AI 發展業界門檻",
+        "summary": "OpenAI 首席科學家帕霍基今天建議，AI 開發業者應設下共同限制，並以困惑度（perplexity）做為衡 […]"
+      },
+      "qualification": {
+        "scope": "in_scope",
+        "core_evidence": [],
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      "source_tier_weight": 0.56
+    },
+    {
+      "id": "ab012c6868536e36d3a9f91c8ab4b7403bb90dfc",
+      "published_at": "2026-11-23T02:19:42Z",
+      "first_seen_at": "2026-11-23T02:35:37.930217Z",
+      "site_id": "curated_media",
+      "site_name": "精選媒體",
+      "source": "AIBASE",
+      "title": "AI 賬號互相捧場刷屏評論區：B 站發問卷，給“大肥魚”們立規矩",
+      "url": "https://news.aibase.com/tw/news/32462",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
+      "summary": "B站評論區湧現大量AI智慧體賬號，如“大肥魚”“小飛鯨”，刷屏導致真人成少數。11月20日，B站官方賬號“嗶哩嗶哩社群小管家”釋出《關於AI“大肥魚”你怎麼看？》調查問卷，向全體使用者徵集治理意見，並稱將據此推進後續治理。該玩法源自一個AI運營賬號，起點是愛好者建立的“Claude 大小……”智慧體。",
+      "ingress": {
+        "kind": "public_adapter",
+        "site_id": "curated_media",
+        "source_id": "aibase",
+        "name": "AIBASE",
+        "feed_url": null
+      },
+      "publisher": {
+        "schema_version": 1,
+        "publisher_id": "aibase",
+        "name": "AIBASE",
+        "domain": "news.aibase.com",
+        "status": "identified",
+        "basis": [
+          "explicit_group"
+        ],
+        "evidence": {
+          "rss_source_name": null,
+          "rss_source_url": null,
+          "article_url": "https://news.aibase.com/tw/news/32462",
+          "article_host": "news.aibase.com",
+          "expected_publisher_id": null,
+          "conflicts": []
+        }
+      },
+      "aibase_article_id": "32462",
+      "field_languages": {
+        "title": "tw",
+        "url": "tw",
+        "summary": "tw"
+      },
+      "content_language": "tw",
+      "article_key": "https://news.aibase.com/tw/news/32462",
+      "security_topic": false,
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.76,
+      "ai_label": "ai_general",
+      "ai_relevance_reason": "curated_media_source_filter",
+      "ai_signals": [
+        "aibase"
+      ],
+      "ai_noise": [],
+      "source_tier": "advanced",
+      "source_tier_label": "次級AI媒體",
+      "source_tier_rank": 4,
+      "summary_zh": "B站評論區湧現大量AI智慧體賬號，如“大肥魚”“小飛鯨”，刷屏導致真人成少數。11月20日，B站官方賬號“嗶哩嗶哩社群小管家”釋出《關於AI“大肥魚”你怎麼看？》調查問卷，向全體使用者徵集治理意見，並稱將據此推進後續治理。該玩法源自一個AI運營賬號，起點是愛好者建立的“Claude 大小……”智慧體。",
+      "title_original": "AI 賬號互相捧場刷屏評論區：B 站發問卷，給“大肥魚”們立規矩",
+      "title_en": null,
+      "title_zh": "AI 賬號互相捧場刷屏評論區：B 站發問卷，給“大肥魚”們立規矩",
+      "title_bilingual": "AI 賬號互相捧場刷屏評論區：B 站發問卷，給“大肥魚”們立規矩",
+      "corroboration_key": "cn_aggregator",
+      "corroboration_status": "identified",
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+        "scope_id": "aibase",
+        "publisher_kind": "aggregator",
+        "admission_status": "limited",
+        "source_tier": "advanced",
+        "source_tier_label": "次級AI媒體",
+        "source_tier_rank": 4,
+        "allow_general": true,
+        "allow_featured": false,
+        "allow_radar": false,
+        "reason_codes": [
+          "identified_host",
+          "limited_scope",
+          "not_permitted_for_featured",
+          "not_permitted_for_radar"
+        ]
+      },
+      "source_material": {
+        "title_original": "",
+        "title": "AI 賬號互相捧場刷屏評論區：B 站發問卷，給“大肥魚”們立規矩",
+        "summary": "B站評論區涌現大量AI智能體賬號，如“大肥魚”“小飛鯨”，刷屏導致真人成少數。11月20日，B站官方賬號“嗶哩嗶哩社區小管家”發佈《關於AI“大肥魚”你怎麼看？》調查問卷，向全體用戶徵集治理意見，並稱將據此推進後續治理。該玩法源自一個AI運營賬號，起點是愛好者創建的“Claude 大小……”智能體。"
+      },
+      "qualification": {
+        "scope": "in_scope",
+        "core_evidence": [],
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      "source_tier_weight": 0.45
+    },
+    {
+      "id": "913de56a36ad4f698a80aaa79a0300b63444ea5e",
+      "published_at": "2026-11-23T02:05:12Z",
+      "first_seen_at": "2026-11-23T02:35:37.930217Z",
+      "site_id": "curated_media",
+      "site_name": "精選媒體",
+      "source": "AIBASE",
+      "title": "靠 Kimi K2.5 起家的 Cursor 向國會表態：有意逐步淘汰中國大模型",
+      "url": "https://news.aibase.com/tw/news/32461",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
+      "summary": "Cursor開發商Anysphere向美國國會報告，有意研究逐步放棄中國公司的開源AI大模型，但尚無明確全面停用時間表。此前中國開源大模型曾助Cursor發家。美國官方正調查美企使用中國開源大模型情況，Cursor此時率先表態迎合國會要求，時機耐人尋味。",
+      "ingress": {
+        "kind": "public_adapter",
+        "site_id": "curated_media",
+        "source_id": "aibase",
+        "name": "AIBASE",
+        "feed_url": null
+      },
+      "publisher": {
+        "schema_version": 1,
+        "publisher_id": "aibase",
+        "name": "AIBASE",
+        "domain": "news.aibase.com",
+        "status": "identified",
+        "basis": [
+          "explicit_group"
+        ],
+        "evidence": {
+          "rss_source_name": null,
+          "rss_source_url": null,
+          "article_url": "https://news.aibase.com/tw/news/32461",
+          "article_host": "news.aibase.com",
+          "expected_publisher_id": null,
+          "conflicts": []
+        }
+      },
+      "aibase_article_id": "32461",
+      "field_languages": {
+        "title": "tw",
+        "url": "tw",
+        "summary": "tw"
+      },
+      "content_language": "tw",
+      "article_key": "https://news.aibase.com/tw/news/32461",
+      "security_topic": false,
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.85,
+      "ai_label": "model_release",
+      "ai_relevance_reason": "curated_media_source_filter",
+      "ai_signals": [
+        "cursor",
+        "kimi",
+        "大模型"
+      ],
+      "ai_noise": [],
+      "source_tier": "advanced",
+      "source_tier_label": "次級AI媒體",
+      "source_tier_rank": 4,
+      "summary_zh": "Cursor開發商Anysphere向美國國會報告，有意研究逐步放棄中國公司的開源AI大模型，但尚無明確全面停用時間表。此前中國開源大模型曾助Cursor發家。美國官方正調查美企使用中國開源大模型情況，Cursor此時率先表態迎合國會要求，時機耐人尋味。",
+      "title_original": "靠 Kimi K2.5 起家的 Cursor 向國會表態：有意逐步淘汰中國大模型",
+      "title_en": null,
+      "title_zh": "靠 Kimi K2.5 起家的 Cursor 向國會表態：有意逐步淘汰中國大模型",
+      "title_bilingual": "靠 Kimi K2.5 起家的 Cursor 向國會表態：有意逐步淘汰中國大模型",
+      "corroboration_key": "cn_aggregator",
+      "corroboration_status": "identified",
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+        "scope_id": "aibase",
+        "publisher_kind": "aggregator",
+        "admission_status": "limited",
+        "source_tier": "advanced",
+        "source_tier_label": "次級AI媒體",
+        "source_tier_rank": 4,
+        "allow_general": true,
+        "allow_featured": false,
+        "allow_radar": false,
+        "reason_codes": [
+          "identified_host",
+          "limited_scope",
+          "not_permitted_for_featured",
+          "not_permitted_for_radar"
+        ]
+      },
+      "source_material": {
+        "title_original": "",
+        "title": "靠 Kimi K2.5 起家的 Cursor 向國會表態：有意逐步淘汰中國大模型",
+        "summary": "Cursor開發商Anysphere向美國國會報告，有意研究逐步放棄中國公司的開源AI大模型，但尚無明確全面停用時間表。此前中國開源大模型曾助Cursor發家。美國官方正調查美企使用中國開源大模型情況，Cursor此時率先表態迎合國會要求，時機耐人尋味。"
+      },
+      "qualification": {
+        "scope": "in_scope",
+        "core_evidence": [],
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      "source_tier_weight": 0.45
+    },
+    {
       "id": "3befc8297ee0ae3cc1df18c19072e965dadec680",
       "published_at": "2026-11-23T02:05:03Z",
       "first_seen_at": "2026-11-23T02:05:34.638356Z",
@@ -681,7 +1161,7 @@
       "source": "TechNews 科技新報",
       "title": "川普政府擬推 AI 模型發布前審查，美國 AI 政策從「放手」轉向「把關」",
       "url": "https://technews.tw/2026/11/23/america-hits-the-brakes-on-ai",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "美國對人工智慧的政策立場正出現明顯轉折。根據最新消息，川普政府正在考慮建立一套機制，要求 AI 模型在對外發布 […]",
       "source_updated_at": "2026-11-23T02:05:03Z",
       "ingress": {
@@ -709,25 +1189,7 @@
           "conflicts": []
         }
       },
-      "article_key": "https://technews.tw/2026/11/23/america-hits-the-brakes-on-ai",
       "security_topic": false,
-      "business_events": [],
-      "ai_is_related": true,
-      "ai_score": 0.67,
-      "ai_label": "model_release",
-      "ai_relevance_reason": "matched_ai_signal",
-      "ai_signals": [],
-      "ai_noise": [],
-      "source_tier": "tw_media",
-      "source_tier_label": "台灣繁中媒體",
-      "source_tier_rank": 2,
-      "summary_zh": "美國對人工智慧的政策立場正出現明顯轉折。根據最新消息，川普政府正在考慮建立一套機制，要求 AI 模型在對外發布 […]",
-      "title_original": "川普政府擬推 AI 模型發布前審查，美國 AI 政策從「放手」轉向「把關」",
-      "title_en": null,
-      "title_zh": "川普政府擬推 AI 模型發布前審查，美國 AI 政策從「放手」轉向「把關」",
-      "title_bilingual": "川普政府擬推 AI 模型發布前審查，美國 AI 政策從「放手」轉向「把關」",
-      "corroboration_key": "publisher:technews",
-      "corroboration_status": "identified",
       "source_policy": {
         "schema_version": 1,
         "policy_id": "publisher-governance-v1",
@@ -746,6 +1208,24 @@
           "limited_scope"
         ]
       },
+      "article_key": "https://technews.tw/2026/11/23/america-hits-the-brakes-on-ai",
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.67,
+      "ai_label": "model_release",
+      "ai_relevance_reason": "matched_ai_signal",
+      "ai_signals": [],
+      "ai_noise": [],
+      "source_tier": "tw_media",
+      "source_tier_label": "台灣繁中媒體",
+      "source_tier_rank": 2,
+      "summary_zh": "美國對人工智慧的政策立場正出現明顯轉折。根據最新消息，川普政府正在考慮建立一套機制，要求 AI 模型在對外發布 […]",
+      "title_original": "川普政府擬推 AI 模型發布前審查，美國 AI 政策從「放手」轉向「把關」",
+      "title_en": null,
+      "title_zh": "川普政府擬推 AI 模型發布前審查，美國 AI 政策從「放手」轉向「把關」",
+      "title_bilingual": "川普政府擬推 AI 模型發布前審查，美國 AI 政策從「放手」轉向「把關」",
+      "corroboration_key": "publisher:technews",
+      "corroboration_status": "identified",
       "source_material": {
         "title_original": "",
         "title": "川普政府擬推 AI 模型發布前審查，美國 AI 政策從「放手」轉向「把關」",
@@ -761,6 +1241,104 @@
       "source_tier_weight": 0.56
     },
     {
+      "id": "389274cdb54345dd6deda37e9b786ffc21ad7d28",
+      "published_at": "2026-11-23T02:03:34Z",
+      "first_seen_at": "2026-11-23T02:35:37.930217Z",
+      "site_id": "curated_media",
+      "site_name": "精選媒體",
+      "source": "AIBASE",
+      "title": "騰訊混元團隊 Reddit 答問 120 分鐘：不刻意刷榜，下一代模型規模將“顯著擴大”",
+      "url": "https://news.aibase.com/tw/news/32460",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
+      "summary": "騰訊11月推出Hy4與Hy4flash後，爲迴應“AI慢了”質疑，於11月21日凌晨在Reddit舉行120分鐘AMA。首席AI科學家、混元負責人姚順雨帶團隊回答近百個問題，公開研發方向與底牌。參數規模成焦點：字節、Kimi向萬億參數推進，混元爲何仍停在7000億？",
+      "ingress": {
+        "kind": "public_adapter",
+        "site_id": "curated_media",
+        "source_id": "aibase",
+        "name": "AIBASE",
+        "feed_url": null
+      },
+      "publisher": {
+        "schema_version": 1,
+        "publisher_id": "aibase",
+        "name": "AIBASE",
+        "domain": "news.aibase.com",
+        "status": "identified",
+        "basis": [
+          "explicit_group"
+        ],
+        "evidence": {
+          "rss_source_name": null,
+          "rss_source_url": null,
+          "article_url": "https://news.aibase.com/tw/news/32460",
+          "article_host": "news.aibase.com",
+          "expected_publisher_id": null,
+          "conflicts": []
+        }
+      },
+      "aibase_article_id": "32460",
+      "field_languages": {
+        "title": "tw",
+        "url": "tw",
+        "summary": "tw"
+      },
+      "content_language": "tw",
+      "article_key": "https://news.aibase.com/tw/news/32460",
+      "security_topic": false,
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.76,
+      "ai_label": "model_release",
+      "ai_relevance_reason": "curated_media_source_filter",
+      "ai_signals": [
+        "aibase"
+      ],
+      "ai_noise": [],
+      "source_tier": "advanced",
+      "source_tier_label": "次級AI媒體",
+      "source_tier_rank": 4,
+      "summary_zh": "騰訊11月推出Hy4與Hy4flash後，爲迴應“AI慢了”質疑，於11月21日凌晨在Reddit舉行120分鐘AMA。首席AI科學家、混元負責人姚順雨帶團隊回答近百個問題，公開研發方向與底牌。參數規模成焦點：字節、Kimi向萬億參數推進，混元爲何仍停在7000億？",
+      "title_original": "騰訊混元團隊 Reddit 答問 120 分鐘：不刻意刷榜，下一代模型規模將“顯著擴大”",
+      "title_en": null,
+      "title_zh": "騰訊混元團隊 Reddit 答問 120 分鐘：不刻意刷榜，下一代模型規模將“顯著擴大”",
+      "title_bilingual": "騰訊混元團隊 Reddit 答問 120 分鐘：不刻意刷榜，下一代模型規模將“顯著擴大”",
+      "corroboration_key": "cn_aggregator",
+      "corroboration_status": "identified",
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+        "scope_id": "aibase",
+        "publisher_kind": "aggregator",
+        "admission_status": "limited",
+        "source_tier": "advanced",
+        "source_tier_label": "次級AI媒體",
+        "source_tier_rank": 4,
+        "allow_general": true,
+        "allow_featured": false,
+        "allow_radar": false,
+        "reason_codes": [
+          "identified_host",
+          "limited_scope",
+          "not_permitted_for_featured",
+          "not_permitted_for_radar"
+        ]
+      },
+      "source_material": {
+        "title_original": "",
+        "title": "騰訊混元團隊 Reddit 答問 120 分鐘：不刻意刷榜，下一代模型規模將“顯著擴大”",
+        "summary": "騰訊11月推出Hy4與Hy4flash後，爲迴應“AI慢了”質疑，於11月21日凌晨在Reddit舉行120分鐘AMA。首席AI科學家、混元負責人姚順雨帶團隊回答近百個問題，公開研發方向與底牌。參數規模成焦點：字節、Kimi向萬億參數推進，混元爲何仍停在7000億？"
+      },
+      "qualification": {
+        "scope": "in_scope",
+        "core_evidence": [],
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      "source_tier_weight": 0.45
+    },
+    {
       "id": "6b3b7ee63ad1326df43db301b9aa19280bccc22e",
       "published_at": "2026-11-23T02:00:14Z",
       "first_seen_at": "2026-11-23T02:05:34.638356Z",
@@ -769,7 +1347,7 @@
       "source": "TechNews 科技新報",
       "title": "中國股市 AI 熱潮逆轉上演大逃亡，科技類指數市值蒸發 56 兆",
       "url": "https://finance.technews.tw/2026/11/23/china-stock-market-ai-frenzy-mass-exodus-tech-indices-56-trillion-market-value-evaporation",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "中國科技業巨擘競相追趕美國人工智慧（AI）發展，一度讓當地概念股成熱門標的。如今隨著全球 AI 熱潮減弱，類股 […]",
       "source_updated_at": "2026-11-23T02:00:14Z",
       "ingress": {
@@ -797,27 +1375,7 @@
           "conflicts": []
         }
       },
-      "article_key": "https://finance.technews.tw/2026/11/23/china-stock-market-ai-frenzy-mass-exodus-tech-indices-56-trillion-market-value-evaporation",
       "security_topic": false,
-      "business_events": [
-        "earnings"
-      ],
-      "ai_is_related": true,
-      "ai_score": 0.67,
-      "ai_label": "ai_general",
-      "ai_relevance_reason": "matched_ai_signal",
-      "ai_signals": [],
-      "ai_noise": [],
-      "source_tier": "watchlist",
-      "source_tier_label": "未審來源",
-      "source_tier_rank": 6,
-      "summary_zh": "中國科技業巨擘競相追趕美國人工智慧（AI）發展，一度讓當地概念股成熱門標的。如今隨著全球 AI 熱潮減弱，類股 […]",
-      "title_original": "中國股市 AI 熱潮逆轉上演大逃亡，科技類指數市值蒸發 56 兆",
-      "title_en": null,
-      "title_zh": "中國股市 AI 熱潮逆轉上演大逃亡，科技類指數市值蒸發 56 兆",
-      "title_bilingual": "中國股市 AI 熱潮逆轉上演大逃亡，科技類指數市值蒸發 56 兆",
-      "corroboration_key": "publisher:technews",
-      "corroboration_status": "identified",
       "source_policy": {
         "schema_version": 1,
         "policy_id": "publisher-governance-v1",
@@ -839,6 +1397,26 @@
           "not_permitted_for_radar"
         ]
       },
+      "article_key": "https://finance.technews.tw/2026/11/23/china-stock-market-ai-frenzy-mass-exodus-tech-indices-56-trillion-market-value-evaporation",
+      "business_events": [
+        "earnings"
+      ],
+      "ai_is_related": true,
+      "ai_score": 0.67,
+      "ai_label": "ai_general",
+      "ai_relevance_reason": "matched_ai_signal",
+      "ai_signals": [],
+      "ai_noise": [],
+      "source_tier": "watchlist",
+      "source_tier_label": "未審來源",
+      "source_tier_rank": 6,
+      "summary_zh": "中國科技業巨擘競相追趕美國人工智慧（AI）發展，一度讓當地概念股成熱門標的。如今隨著全球 AI 熱潮減弱，類股 […]",
+      "title_original": "中國股市 AI 熱潮逆轉上演大逃亡，科技類指數市值蒸發 56 兆",
+      "title_en": null,
+      "title_zh": "中國股市 AI 熱潮逆轉上演大逃亡，科技類指數市值蒸發 56 兆",
+      "title_bilingual": "中國股市 AI 熱潮逆轉上演大逃亡，科技類指數市值蒸發 56 兆",
+      "corroboration_key": "publisher:technews",
+      "corroboration_status": "identified",
       "source_material": {
         "title_original": "",
         "title": "中國股市 AI 熱潮逆轉上演大逃亡，科技類指數市值蒸發 56 兆",
@@ -862,7 +1440,7 @@
       "source": "AIBASE",
       "title": "38 萬參數的 Transformer 塞進一張軟盤：三十年前的 486 老電腦，如今也能“跑 AI”",
       "url": "https://news.aibase.com/tw/news/32459",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "開發者WollyMonjac打造復古項目Tiny2.1，把微型問答Transformer塞進軟盤，讓運行DOS的486DX和Pentium老電腦也能用AI。該軟件用Turbo C 2.0編寫，雖非大型語言模型，卻與當今大模型架構同源，只是被極度壓縮。文中還提到，壓縮難點源於軟盤極其有限的容量。",
       "ingress": {
         "kind": "public_adapter",
@@ -896,27 +1474,7 @@
         "summary": "tw"
       },
       "content_language": "tw",
-      "article_key": "https://news.aibase.com/tw/news/32459",
       "security_topic": false,
-      "business_events": [],
-      "ai_is_related": true,
-      "ai_score": 0.79,
-      "ai_label": "research_paper",
-      "ai_relevance_reason": "curated_media_source_filter",
-      "ai_signals": [
-        "transformer"
-      ],
-      "ai_noise": [],
-      "source_tier": "advanced",
-      "source_tier_label": "次級AI媒體",
-      "source_tier_rank": 4,
-      "summary_zh": "開發者WollyMonjac打造復古項目Tiny2.1，把微型問答Transformer塞進軟盤，讓運行DOS的486DX和Pentium老電腦也能用AI。該軟件用Turbo C 2.0編寫，雖非大型語言模型，卻與當今大模型架構同源，只是被極度壓縮。文中還提到，壓縮難點源於軟盤極其有限的容量。",
-      "title_original": "38 萬參數的 Transformer 塞進一張軟盤：三十年前的 486 老電腦，如今也能“跑 AI”",
-      "title_en": null,
-      "title_zh": "38 萬參數的 Transformer 塞進一張軟盤：三十年前的 486 老電腦，如今也能“跑 AI”",
-      "title_bilingual": "38 萬參數的 Transformer 塞進一張軟盤：三十年前的 486 老電腦，如今也能“跑 AI”",
-      "corroboration_key": "cn_aggregator",
-      "corroboration_status": "identified",
       "source_policy": {
         "schema_version": 1,
         "policy_id": "publisher-governance-v1",
@@ -937,6 +1495,26 @@
           "not_permitted_for_radar"
         ]
       },
+      "article_key": "https://news.aibase.com/tw/news/32459",
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.79,
+      "ai_label": "research_paper",
+      "ai_relevance_reason": "curated_media_source_filter",
+      "ai_signals": [
+        "transformer"
+      ],
+      "ai_noise": [],
+      "source_tier": "advanced",
+      "source_tier_label": "次級AI媒體",
+      "source_tier_rank": 4,
+      "summary_zh": "開發者WollyMonjac打造復古項目Tiny2.1，把微型問答Transformer塞進軟盤，讓運行DOS的486DX和Pentium老電腦也能用AI。該軟件用Turbo C 2.0編寫，雖非大型語言模型，卻與當今大模型架構同源，只是被極度壓縮。文中還提到，壓縮難點源於軟盤極其有限的容量。",
+      "title_original": "38 萬參數的 Transformer 塞進一張軟盤：三十年前的 486 老電腦，如今也能“跑 AI”",
+      "title_en": null,
+      "title_zh": "38 萬參數的 Transformer 塞進一張軟盤：三十年前的 486 老電腦，如今也能“跑 AI”",
+      "title_bilingual": "38 萬參數的 Transformer 塞進一張軟盤：三十年前的 486 老電腦，如今也能“跑 AI”",
+      "corroboration_key": "cn_aggregator",
+      "corroboration_status": "identified",
       "source_material": {
         "title_original": "",
         "title": "38 萬參數的 Transformer 塞進一張軟盤：三十年前的 486 老電腦，如今也能“跑 AI”",
@@ -960,7 +1538,7 @@
       "source": "AIBASE",
       "title": "沉寂百日後先上前菜：智譜下週發 GLM-5.4，3 萬億旗艦 12 月見",
       "url": "https://news.aibase.com/tw/news/32458",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "國產大模型沉寂三個多月後，智譜被指下週發佈GLM-5.4。據大摩研報，該模型爲輕量級新一代，參數7000多億，Preview版已小範圍測試；更強旗艦GLM-5.5參數超3萬億，或12月登場。美國御三家近兩月密集出招、谷歌狀態尤佳，國產陣營下一張牌引發關注。",
       "ingress": {
         "kind": "public_adapter",
@@ -994,27 +1572,7 @@
         "summary": "tw"
       },
       "content_language": "tw",
-      "article_key": "https://news.aibase.com/tw/news/32458",
       "security_topic": false,
-      "business_events": [],
-      "ai_is_related": true,
-      "ai_score": 0.79,
-      "ai_label": "ai_general",
-      "ai_relevance_reason": "curated_media_source_filter",
-      "ai_signals": [
-        "glm"
-      ],
-      "ai_noise": [],
-      "source_tier": "advanced",
-      "source_tier_label": "次級AI媒體",
-      "source_tier_rank": 4,
-      "summary_zh": "國產大模型沉寂三個多月後，智譜被指下週發佈GLM-5.4。據大摩研報，該模型爲輕量級新一代，參數7000多億，Preview版已小範圍測試；更強旗艦GLM-5.5參數超3萬億，或12月登場。美國御三家近兩月密集出招、Google狀態尤佳，國產陣營下一張牌引發關注。",
-      "title_original": "沉寂百日後先上前菜：智譜下週發 GLM-5.4，3 萬億旗艦 12 月見",
-      "title_en": null,
-      "title_zh": "沉寂百日後先上前菜：智譜下週發 GLM-5.4，3 萬億旗艦 12 月見",
-      "title_bilingual": "沉寂百日後先上前菜：智譜下週發 GLM-5.4，3 萬億旗艦 12 月見",
-      "corroboration_key": "cn_aggregator",
-      "corroboration_status": "identified",
       "source_policy": {
         "schema_version": 1,
         "policy_id": "publisher-governance-v1",
@@ -1035,6 +1593,26 @@
           "not_permitted_for_radar"
         ]
       },
+      "article_key": "https://news.aibase.com/tw/news/32458",
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.79,
+      "ai_label": "ai_general",
+      "ai_relevance_reason": "curated_media_source_filter",
+      "ai_signals": [
+        "glm"
+      ],
+      "ai_noise": [],
+      "source_tier": "advanced",
+      "source_tier_label": "次級AI媒體",
+      "source_tier_rank": 4,
+      "summary_zh": "國產大模型沉寂三個多月後，智譜被指下週發佈GLM-5.4。據大摩研報，該模型爲輕量級新一代，參數7000多億，Preview版已小範圍測試；更強旗艦GLM-5.5參數超3萬億，或12月登場。美國御三家近兩月密集出招、Google狀態尤佳，國產陣營下一張牌引發關注。",
+      "title_original": "沉寂百日後先上前菜：智譜下週發 GLM-5.4，3 萬億旗艦 12 月見",
+      "title_en": null,
+      "title_zh": "沉寂百日後先上前菜：智譜下週發 GLM-5.4，3 萬億旗艦 12 月見",
+      "title_bilingual": "沉寂百日後先上前菜：智譜下週發 GLM-5.4，3 萬億旗艦 12 月見",
+      "corroboration_key": "cn_aggregator",
+      "corroboration_status": "identified",
       "source_material": {
         "title_original": "",
         "title": "沉寂百日後先上前菜：智譜下週發 GLM-5.4，3 萬億旗艦 12 月見",
@@ -1079,7 +1657,7 @@
       "source": "AIBASE",
       "title": "爲 OpenAI 的鉅額訂單備好錢：甲骨文稱融資已就位",
       "url": "https://news.aibase.com/tw/news/32457",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "甲骨文11月20日稱，本月初已籌集到履行與OpenAI合同全部所需資金，以向市場證明自己“不缺錢”；與供應商進一步私下洽談只是錦上添花，並非必要。同時，得州Abilene園區作爲雙方AI基礎設施合作旗艦項目，已在訓練GPT-6 Astra，工程進度也被擺上檯面，證明交易正實實在在推進。",
       "ingress": {
         "kind": "public_adapter",
@@ -1113,27 +1691,7 @@
         "summary": "tw"
       },
       "content_language": "tw",
-      "article_key": "https://news.aibase.com/tw/news/32457",
       "security_topic": false,
-      "business_events": [],
-      "ai_is_related": true,
-      "ai_score": 0.79,
-      "ai_label": "ai_product_update",
-      "ai_relevance_reason": "curated_media_source_filter",
-      "ai_signals": [
-        "openai"
-      ],
-      "ai_noise": [],
-      "source_tier": "advanced",
-      "source_tier_label": "次級AI媒體",
-      "source_tier_rank": 4,
-      "summary_zh": "甲骨文11月20日稱，本月初已籌集到履行與OpenAI合同全部所需資金，以向市場證明自己“不缺錢”；與供應商進一步私下洽談只是錦上添花，並非必要。同時，得州Abilene園區作爲雙方AI基礎設施合作旗艦項目，已在訓練GPT-6 Astra，工程進度也被擺上檯面，證明交易正實實在在推進。",
-      "title_original": "爲 OpenAI 的鉅額訂單備好錢：甲骨文稱融資已就位",
-      "title_en": null,
-      "title_zh": "爲 OpenAI 的鉅額訂單備好錢：甲骨文稱融資已就位",
-      "title_bilingual": "爲 OpenAI 的鉅額訂單備好錢：甲骨文稱融資已就位",
-      "corroboration_key": "cn_aggregator",
-      "corroboration_status": "identified",
       "source_policy": {
         "schema_version": 1,
         "policy_id": "publisher-governance-v1",
@@ -1154,6 +1712,26 @@
           "not_permitted_for_radar"
         ]
       },
+      "article_key": "https://news.aibase.com/tw/news/32457",
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.79,
+      "ai_label": "ai_product_update",
+      "ai_relevance_reason": "curated_media_source_filter",
+      "ai_signals": [
+        "openai"
+      ],
+      "ai_noise": [],
+      "source_tier": "advanced",
+      "source_tier_label": "次級AI媒體",
+      "source_tier_rank": 4,
+      "summary_zh": "甲骨文11月20日稱，本月初已籌集到履行與OpenAI合同全部所需資金，以向市場證明自己“不缺錢”；與供應商進一步私下洽談只是錦上添花，並非必要。同時，得州Abilene園區作爲雙方AI基礎設施合作旗艦項目，已在訓練GPT-6 Astra，工程進度也被擺上檯面，證明交易正實實在在推進。",
+      "title_original": "爲 OpenAI 的鉅額訂單備好錢：甲骨文稱融資已就位",
+      "title_en": null,
+      "title_zh": "爲 OpenAI 的鉅額訂單備好錢：甲骨文稱融資已就位",
+      "title_bilingual": "爲 OpenAI 的鉅額訂單備好錢：甲骨文稱融資已就位",
+      "corroboration_key": "cn_aggregator",
+      "corroboration_status": "identified",
       "source_material": {
         "title_original": "",
         "title": "爲 OpenAI 的鉅額訂單備好錢：甲骨文稱融資已就位",
@@ -1177,7 +1755,7 @@
       "source": "AIBASE",
       "title": "MiniMax 拿內部模型開刀密碼學：把紙面攻擊變成秒級實戰，NIST 競賽算法首次被真攻破",
       "url": "https://news.aibase.com/tw/news/32456",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "MiniMax研究團隊用最新內部模型，對密碼學前沿方案開展系統性自動化密碼分析。模型發現一批此前未公開的算法構造弱點，並將原本停留在論文理論層面的攻擊方式，推進到秒級或分鐘級即可真實執行。這意味着過去需耗費大量人力時間、未必跑得通的攻擊，正被AI自動化顯著加速，密碼學安全評估面臨新變量。",
       "ingress": {
         "kind": "public_adapter",
@@ -1211,27 +1789,7 @@
         "summary": "tw"
       },
       "content_language": "tw",
-      "article_key": "https://news.aibase.com/tw/news/32456",
       "security_topic": false,
-      "business_events": [],
-      "ai_is_related": true,
-      "ai_score": 0.76,
-      "ai_label": "model_release",
-      "ai_relevance_reason": "curated_media_source_filter",
-      "ai_signals": [
-        "aibase"
-      ],
-      "ai_noise": [],
-      "source_tier": "advanced",
-      "source_tier_label": "次級AI媒體",
-      "source_tier_rank": 4,
-      "summary_zh": "MiniMax研究團隊用最新內部模型，對密碼學前沿方案開展系統性自動化密碼分析。模型發現一批此前未公開的算法構造弱點，並將原本停留在論文理論層面的攻擊方式，推進到秒級或分鐘級即可真實執行。這意味着過去需耗費大量人力時間、未必跑得通的攻擊，正被AI自動化顯著加速，密碼學安全評估面臨新變量。",
-      "title_original": "MiniMax 拿內部模型開刀密碼學：把紙面攻擊變成秒級實戰，NIST 競賽算法首次被真攻破",
-      "title_en": null,
-      "title_zh": "MiniMax 拿內部模型開刀密碼學：把紙面攻擊變成秒級實戰，NIST 競賽算法首次被真攻破",
-      "title_bilingual": "MiniMax 拿內部模型開刀密碼學：把紙面攻擊變成秒級實戰，NIST 競賽算法首次被真攻破",
-      "corroboration_key": "cn_aggregator",
-      "corroboration_status": "identified",
       "source_policy": {
         "schema_version": 1,
         "policy_id": "publisher-governance-v1",
@@ -1252,6 +1810,26 @@
           "not_permitted_for_radar"
         ]
       },
+      "article_key": "https://news.aibase.com/tw/news/32456",
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.76,
+      "ai_label": "model_release",
+      "ai_relevance_reason": "curated_media_source_filter",
+      "ai_signals": [
+        "aibase"
+      ],
+      "ai_noise": [],
+      "source_tier": "advanced",
+      "source_tier_label": "次級AI媒體",
+      "source_tier_rank": 4,
+      "summary_zh": "MiniMax研究團隊用最新內部模型，對密碼學前沿方案開展系統性自動化密碼分析。模型發現一批此前未公開的算法構造弱點，並將原本停留在論文理論層面的攻擊方式，推進到秒級或分鐘級即可真實執行。這意味着過去需耗費大量人力時間、未必跑得通的攻擊，正被AI自動化顯著加速，密碼學安全評估面臨新變量。",
+      "title_original": "MiniMax 拿內部模型開刀密碼學：把紙面攻擊變成秒級實戰，NIST 競賽算法首次被真攻破",
+      "title_en": null,
+      "title_zh": "MiniMax 拿內部模型開刀密碼學：把紙面攻擊變成秒級實戰，NIST 競賽算法首次被真攻破",
+      "title_bilingual": "MiniMax 拿內部模型開刀密碼學：把紙面攻擊變成秒級實戰，NIST 競賽算法首次被真攻破",
+      "corroboration_key": "cn_aggregator",
+      "corroboration_status": "identified",
       "source_material": {
         "title_original": "",
         "title": "MiniMax 拿內部模型開刀密碼學：把紙面攻擊變成秒級實戰，NIST 競賽算法首次被真攻破",
@@ -1275,7 +1853,7 @@
       "source": "TechNews 科技新報",
       "title": "義媒：Anthropic 執行長購南義莊園，擬長住投資",
       "url": "https://finance.technews.tw/2026/11/23/anthropic-ceo-buys-southern-italy-estate-long-term-investment",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "義大利媒體披露，美國 AI 巨頭 Anthropic 執行長阿莫戴（Dario Amodei）近日低調飛抵南義 […]",
       "source_updated_at": "2026-11-23T01:40:31Z",
       "ingress": {
@@ -1303,27 +1881,7 @@
           "conflicts": []
         }
       },
-      "article_key": "https://finance.technews.tw/2026/11/23/anthropic-ceo-buys-southern-italy-estate-long-term-investment",
       "security_topic": false,
-      "business_events": [],
-      "ai_is_related": true,
-      "ai_score": 0.71,
-      "ai_label": "ai_product_update",
-      "ai_relevance_reason": "matched_ai_signal",
-      "ai_signals": [
-        "anthropic"
-      ],
-      "ai_noise": [],
-      "source_tier": "watchlist",
-      "source_tier_label": "未審來源",
-      "source_tier_rank": 6,
-      "summary_zh": "義大利媒體披露，美國 AI 巨頭 Anthropic 執行長阿莫戴（Dario Amodei）近日低調飛抵南義 […]",
-      "title_original": "義媒：Anthropic 執行長購南義莊園，擬長住投資",
-      "title_en": null,
-      "title_zh": "義媒：Anthropic 執行長購南義莊園，擬長住投資",
-      "title_bilingual": "義媒：Anthropic 執行長購南義莊園，擬長住投資",
-      "corroboration_key": "publisher:technews",
-      "corroboration_status": "identified",
       "source_policy": {
         "schema_version": 1,
         "policy_id": "publisher-governance-v1",
@@ -1345,6 +1903,26 @@
           "not_permitted_for_radar"
         ]
       },
+      "article_key": "https://finance.technews.tw/2026/11/23/anthropic-ceo-buys-southern-italy-estate-long-term-investment",
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.71,
+      "ai_label": "ai_product_update",
+      "ai_relevance_reason": "matched_ai_signal",
+      "ai_signals": [
+        "anthropic"
+      ],
+      "ai_noise": [],
+      "source_tier": "watchlist",
+      "source_tier_label": "未審來源",
+      "source_tier_rank": 6,
+      "summary_zh": "義大利媒體披露，美國 AI 巨頭 Anthropic 執行長阿莫戴（Dario Amodei）近日低調飛抵南義 […]",
+      "title_original": "義媒：Anthropic 執行長購南義莊園，擬長住投資",
+      "title_en": null,
+      "title_zh": "義媒：Anthropic 執行長購南義莊園，擬長住投資",
+      "title_bilingual": "義媒：Anthropic 執行長購南義莊園，擬長住投資",
+      "corroboration_key": "publisher:technews",
+      "corroboration_status": "identified",
       "source_material": {
         "title_original": "",
         "title": "義媒：Anthropic 執行長購南義莊園，擬長住投資",
@@ -1368,7 +1946,7 @@
       "source": "TechCrunch AI",
       "title": "How Notable Capital, GIC, and Baillie Gifford bet big on Anthropic before its IPO",
       "url": "https://techcrunch.com/2026/11/22/how-notable-capital-gic-and-baillie-gifford-bet-big-on-anthropic-before-its-ipo",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "Three significant backers share what gave them conviction to bet billions on Anthropic.",
       "source_updated_at": "2026-11-23T01:25:53Z",
       "ingress": {
@@ -1465,7 +2043,7 @@
       "source": "AIBASE",
       "title": "給 AI 發展劃一條“困惑度”紅線：OpenAI 首席科學家提議設行業門檻",
       "url": "https://news.aibase.com/tw/news/32455",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "OpenAI首席科學家帕霍茨基提議，全行業共建AI開發標準，設置硬性安全門檻，企業須承諾滿足安全要求前不越線。方案以“困惑度”等技術指標劃定共同限制，用模型預測下一段文本的能力當安全考卷，防止能力逼近自我加速臨界點。彭博社11月23日報道。",
       "ingress": {
         "kind": "public_adapter",
@@ -1563,7 +2141,7 @@
       "source": "AIBASE",
       "title": "OpenAI 首席科學家提議給全行業模型開發“畫線”：能力漲到哪兒算停，先得看人類能不能看住它",
       "url": "https://news.aibase.com/tw/news/32454",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "OpenAI首席科學家帕喬茨基發文，提議AI公司應對日益強大的模型設限，直到研究人員能更好理解、監控模型行爲。他設想建立全行業標準：各公司共同承諾，在滿足特定安全要求前，不越過約定的能力紅線。他還就如何劃定這條線提出具體方案。此舉被視爲AI最前沿“領跑者先喊慢一點”，凸顯安全治理緊迫性。",
       "ingress": {
         "kind": "public_adapter",
@@ -1661,7 +2239,7 @@
       "source": "AIBASE",
       "title": "宣傳先行、功能遲到：蘋果 2.5 億美元和解 Siri 訴訟",
       "url": "https://news.aibase.com/tw/news/32453",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "蘋果因發佈會演示的Siri新功能遲遲未落地，遭消費者訴訟並達成和解。法庭文件顯示，2.5億美元和解池中，符合條件的iPhone用戶每臺預計至少獲賠61美元，上限95美元。糾紛源於2024年6月蘋果展示Siri理解個人上下文等新能力，但功能延期未兌現，最終以賠償解決。",
       "ingress": {
         "kind": "public_adapter",
@@ -1759,7 +2337,7 @@
       "source": "AIBASE",
       "title": "微軟 AI 掌門人罕見“交底”：公開 MAI-2 模型關鍵指標，響應 OpenAI 透明度倡議",
       "url": "https://news.aibase.com/tw/news/32452",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "11月22日，AI巨頭罕見相互“交底”。微軟AI CEO蘇萊曼轉發OpenAI首席科學家帕喬茨基文章，明確微軟完全支持OpenAI提高透明度倡議，雙方將共同分享預訓練進展。預訓練數據、方法和進展向來是大模型公司捂得最嚴實的家底，如今被擺上共同公開的桌面，蘇萊曼也順勢作出進一步表態。",
       "ingress": {
         "kind": "public_adapter",
@@ -1857,7 +2435,7 @@
       "source": "AIBASE",
       "title": "寫代碼從輸入變輸出：納德拉承認 VS Code 半年內被改寫地位",
       "url": "https://news.aibase.com/tw/news/32451",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "微軟CEO納德拉坦言，Anthropic推出Claude Code後，傳統代碼編輯器和IDE約六個月便失去存在感，微軟未能立即應對。VS Code經十餘年打磨，憑免費開源、跨平臺、語法高亮、智能補全、調試、Git集成及擴展生態成爲開發者默認工作臺，如今卻因AI編程工具崛起遭遇“十年經營、半年失守”的衝擊。",
       "ingress": {
         "kind": "public_adapter",
@@ -1955,7 +2533,7 @@
       "source": "AIBASE",
       "title": "AI 與人各交一份千禧難題答卷：一邊靠 Claude 寫完 79 頁證明，一邊掏出 12 年手寫的 940 頁草稿",
       "url": "https://news.aibase.com/tw/news/32450",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "數學界同一天擺出兩份“答卷”：34歲數學家 Levent Alpöge 聯合紐約大學教授發佈79頁論文，聲稱證明懸置百年的千禧難題——三維無外力 Navier–Stokes 方程存在有限時間爆破，即流體運動或突然失控、解飆至無窮大。更引人注目的是，該工作全程與 Claude 合作完成。",
       "ingress": {
         "kind": "public_adapter",
@@ -2229,7 +2807,7 @@
       "source": "CyberQ 賽博客",
       "title": "OpenAI 首席科學家公開內部困惑度數據，提議以它為 AI 發展設共同上限",
       "url": "https://cyberq.tw/2026/11/23/openai-discusses-confusion",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "OpenAI 首席科學家 Jakub Pachocki 公開自 GPT-3.5 以來的內部困惑度數字，主張以困惑度作為各家 AI 實驗室共同的進度指標，並提議在監控 AI 行為的能力達標之前，設定各家都不越過的發展上限。數字來自 OpenAI 內部程式碼庫，外界目前無法驗證。",
       "ingress": {
         "kind": "public_feed",
@@ -2408,7 +2986,7 @@
       "source": "CyberQ 賽博客",
       "title": "反駁率高的 AI 比較誠實嗎？拆解 BullshitBench 排行榜，與三個不能忽略的校正（附 RTX 5060 Ti 實測）",
       "url": "https://cyberq.tw/2026/11/23/are-ais-with-high-rebuttal-rates-more",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "本次實測這份BullshitBench 排行榜是真的，資料也確實存在，但「反駁率越高等於越能提供真實資料」這句 […]",
       "ingress": {
         "kind": "public_feed",
@@ -2497,7 +3075,7 @@
       "source": "CyberQ 賽博客",
       "title": "Qsirch 8.1 實測：沒有獨立顯示卡也能開 AI 模式，逐字稿可下載 SRT",
       "url": "https://cyberq.tw/2026/11/23/qsirch-81-real-world-testing-ai-mode-can",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "QNAP 在日前發布 Qsirch 8.1.0.2。發行說明列出的新功能與修正如下： 筆者的測試機 TVS-h […]",
       "ingress": {
         "kind": "public_feed",
@@ -2765,7 +3343,7 @@
       "source": "Reuters AI (Google News)",
       "title": "US futures bounce while Asia markets brace for AI wipeout - Reuters",
       "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNR2c4ZVNmcHBzVFctOTBkRUd2d0VHTklseUhCcEtZT2VHbU1WbWprMUk2aDZSQ2tkZHNYVE9EWUgyaEkxeWtyN0M2V2NzR2ZCTHFmMEhvbHFDeExTNUdTeDF3WkxJZ2RSdmZ2cHBxWlFjTXdoa1hXdlZQRWtyTFFKVlJjMA?oc=5",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "US futures bounce while Asia markets brace for AI wipeout Reuters",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMigwFBVV95cUxNR2c4ZVNmcHBzVFctOTBkRUd2d0VHTklseUhCcEtZT2VHbU1WbWprMUk2aDZSQ2tkZHNYVE9EWUgyaEkxeWtyN0M2V2NzR2ZCTHFmMEhvbHFDeExTNUdTeDF3WkxJZ2RSdmZ2cHBxWlFjTXdoa1hXdlZQRWtyTFFKVlJjMA?oc=5"
@@ -2948,7 +3526,7 @@
       "source": "INSIDE",
       "title": "Google 宣佈智慧音箱與螢幕的語音助理 8 月全面更新為 Gemini for Home",
       "url": "https://www.inside.com.tw/article/42978-google-retires-nest-app-jan-2027-assistant-speakers-displays-aug-2027-gemini-for-home",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "智慧助理改朝換代！Google 宣佈 Nest app 將於 2027 年 1 月 25 日停用，裝置改由 Google Home app 管理，智慧音箱與智慧螢幕上的 Google Assistant 則在 2027 年 8 月 2 日由 Gemini for Home 取代，現有 Nest 硬體不必換新。",
       "source_updated_at": "2026-11-22T23:38:00Z",
       "ingress": {
@@ -3212,19 +3790,19 @@
     },
     {
       "id": "27f82088c7cef1d5ad963db257ee04a0ea0d4a3a",
-      "published_at": "2026-11-22T23:09:59Z",
+      "published_at": "2026-11-22T23:09:00Z",
       "first_seen_at": "2026-11-23T01:05:34.801826Z",
       "site_id": "curated_media",
       "site_name": "精選媒體",
       "source": "Reuters AI (Google News)",
       "title": "OpenAI scientist proposes industry AI limits tied to model intelligence metric - Reuters",
       "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPa0ZQb0xtalJ5djRmZmkwQnhmdDBlMEtncDUtUEJsUFBtWmptbkdVQ3c5QjY2TzhKN0NFT2ZzYnZmenQxY1lrUWFFYjJsdS1KazdRUkJINEJRemQ1alh6TGtnNW1nRE92bTF3RW9FMTIyODB3UmpBaW5oSzFDWDFVT3FXdjZDVzQ0TVNVd29nQzZvY3ByWVpBLUlhRVg0bFZiRHUxVjhqclptLUMycDJlYVBsQXQ4a28tRnFnbQ?oc=5",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "OpenAI scientist proposes industry AI limits tied to model intelligence metric Reuters",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMivAFBVV95cUxPa0ZQb0xtalJ5djRmZmkwQnhmdDBlMEtncDUtUEJsUFBtWmptbkdVQ3c5QjY2TzhKN0NFT2ZzYnZmenQxY1lrUWFFYjJsdS1KazdRUkJINEJRemQ1alh6TGtnNW1nRE92bTF3RW9FMTIyODB3UmpBaW5oSzFDWDFVT3FXdjZDVzQ0TVNVd29nQzZvY3ByWVpBLUlhRVg0bFZiRHUxVjhqclptLUMycDJlYVBsQXQ4a28tRnFnbQ?oc=5"
       ],
-      "source_updated_at": "2026-11-22T23:09:59Z",
+      "source_updated_at": "2026-11-22T23:09:00Z",
       "ingress": {
         "kind": "google_news",
         "site_id": "curated_media",
@@ -3270,6 +3848,16 @@
           "limited_scope"
         ]
       },
+      "article_history": [
+        {
+          "title": "OpenAI scientist proposes industry AI limits tied to model intelligence metric - Reuters",
+          "summary": "OpenAI scientist proposes industry AI limits tied to model intelligence metric Reuters",
+          "published_at": "2026-11-22T23:09:59Z",
+          "observed_at": "2026-11-23T02:05:34.638356Z"
+        }
+      ],
+      "article_history_truncated": false,
+      "content_observed_at": "2026-11-23T02:35:37.930217Z",
       "article_key": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPa0ZQb0xtalJ5djRmZmkwQnhmdDBlMEtncDUtUEJsUFBtWmptbkdVQ3c5QjY2TzhKN0NFT2ZzYnZmenQxY1lrUWFFYjJsdS1KazdRUkJINEJRemQ1alh6TGtnNW1nRE92bTF3RW9FMTIyODB3UmpBaW5oSzFDWDFVT3FXdjZDVzQ0TVNVd29nQzZvY3ByWVpBLUlhRVg0bFZiRHUxVjhqclptLUMycDJlYVBsQXQ4a28tRnFnbQ?oc=5",
       "business_events": [],
       "ai_is_related": true,
@@ -3305,6 +3893,98 @@
       "source_tier_weight": 0.58
     },
     {
+      "id": "24c78c3a6ac5573e3d316b6b887291716b7a24fb",
+      "published_at": "2026-11-22T23:01:00Z",
+      "first_seen_at": "2026-11-23T02:35:37.930217Z",
+      "site_id": "curated_media",
+      "site_name": "精選媒體",
+      "source": "The Information (Google News)",
+      "title": "AI Bubble Deflating? Dell, Workday on Deck - The Information",
+      "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQWTYtVmlPWmlDUGJ4Zi1CVFFMeXdURFg3bE9lUUpqMUt4U3Zxc2hkZy1iNHgwaVNadERpbTROSWRBbGJsUjJDSkFNcmduZ0V2T1liblBBeXlZTklKSHNQYm5mTDhZNnJrOXFFQlNBMlRsMi1vVXhpRTVoTHRvVVFKdEIzdjJBRjI2RFowRVJ6SjlReU93VzZ2UQ?oc=5",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
+      "summary": "AI Bubble Deflating? Dell, Workday on Deck The Information",
+      "publisher_links": [
+        "https://news.google.com/rss/articles/CBMimAFBVV95cUxQWTYtVmlPWmlDUGJ4Zi1CVFFMeXdURFg3bE9lUUpqMUt4U3Zxc2hkZy1iNHgwaVNadERpbTROSWRBbGJsUjJDSkFNcmduZ0V2T1liblBBeXlZTklKSHNQYm5mTDhZNnJrOXFFQlNBMlRsMi1vVXhpRTVoTHRvVVFKdEIzdjJBRjI2RFowRVJ6SjlReU93VzZ2UQ?oc=5"
+      ],
+      "source_updated_at": "2026-11-22T23:01:00Z",
+      "ingress": {
+        "kind": "google_news",
+        "site_id": "curated_media",
+        "source_id": "the_information_news",
+        "name": "The Information (Google News)",
+        "feed_url": "https://news.google.com/rss/search?q=site%3Atheinformation.com+AI+when%3A7d&hl=en-US&gl=US&ceid=US%3Aen"
+      },
+      "publisher": {
+        "schema_version": 1,
+        "publisher_id": "the_information",
+        "name": "The Information",
+        "domain": "www.theinformation.com",
+        "status": "identified",
+        "basis": [
+          "google_rss_source",
+          "configured_bridge"
+        ],
+        "evidence": {
+          "rss_source_name": "The Information",
+          "rss_source_url": "https://www.theinformation.com",
+          "article_url": null,
+          "article_host": "news.google.com",
+          "expected_publisher_id": null,
+          "conflicts": []
+        }
+      },
+      "article_key": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQWTYtVmlPWmlDUGJ4Zi1CVFFMeXdURFg3bE9lUUpqMUt4U3Zxc2hkZy1iNHgwaVNadERpbTROSWRBbGJsUjJDSkFNcmduZ0V2T1liblBBeXlZTklKSHNQYm5mTDhZNnJrOXFFQlNBMlRsMi1vVXhpRTVoTHRvVVFKdEIzdjJBRjI2RFowRVJ6SjlReU93VzZ2UQ?oc=5",
+      "security_topic": false,
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.68,
+      "ai_label": "ai_product_update",
+      "ai_relevance_reason": "curated_media_source_filter",
+      "ai_signals": [],
+      "ai_noise": [],
+      "source_tier": "ai_media",
+      "source_tier_label": "精選AI媒體",
+      "source_tier_rank": 2,
+      "summary_zh": "AI泡沫正在消退？戴爾、Workday蓄勢待發 The Information",
+      "title_original": "AI Bubble Deflating? Dell, Workday on Deck - The Information",
+      "title_en": "AI Bubble Deflating? Dell, Workday on Deck - The Information",
+      "title_zh": "AI泡沫正在消退？戴爾、Workday蓄勢待發 - The Information",
+      "title_bilingual": "AI泡沫正在消退？戴爾、Workday蓄勢待發 - The Information / AI Bubble Deflating? Dell, Workday on Deck - The Information",
+      "corroboration_key": "publisher:the_information",
+      "corroboration_status": "identified",
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+        "scope_id": "the_information",
+        "publisher_kind": "media",
+        "admission_status": "limited",
+        "source_tier": "ai_media",
+        "source_tier_label": "精選AI媒體",
+        "source_tier_rank": 2,
+        "allow_general": true,
+        "allow_featured": true,
+        "allow_radar": true,
+        "reason_codes": [
+          "identified_bridge",
+          "limited_scope"
+        ]
+      },
+      "source_material": {
+        "title_original": "",
+        "title": "AI Bubble Deflating? Dell, Workday on Deck - The Information",
+        "summary": "AI Bubble Deflating? Dell, Workday on Deck The Information"
+      },
+      "qualification": {
+        "scope": "in_scope",
+        "core_evidence": [],
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      "source_tier_weight": 0.58
+    },
+    {
       "id": "624192ed2f573b2fb602b95dc3288586d4d1571c",
       "published_at": "2026-11-22T22:50:02Z",
       "first_seen_at": "2026-11-05T13:35:35.623112Z",
@@ -3313,7 +3993,7 @@
       "source": "DeepSeek (Google News)",
       "title": "Is DeepSeek Free? Why There Is No Paid Plan to Upgrade To - Fello AI",
       "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTFAwOVByNGcwbWZkZVZqSFk5LUFnV3J1Y1lLdmtYd2hZYXpNaHE5QkliUlNfZnVBRW05V0lHak9NaHphMl9seTlfTkZfNlY2QQ?oc=5",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "Is DeepSeek Free? Why There Is No Paid Plan to Upgrade To Fello AI",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiTkFVX3lxTFAwOVByNGcwbWZkZVZqSFk5LUFnV3J1Y1lLdmtYd2hZYXpNaHE5QkliUlNfZnVBRW05V0lHak9NaHphMl9seTlfTkZfNlY2QQ?oc=5"
@@ -3419,7 +4099,7 @@
       "source": "DeepSeek (Google News)",
       "title": "LingSante-3.1-flash vs DeepSeek V4.1 Flash: Who Wins? - OrcaRouter",
       "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTFBmaTI4NUswcXItdEdOYzA2bzZwdE5KZDZlUmtfdzI3Y2lBdWFIR09YQlRsZndzR0VGTTZXLUkzZmZnQUp1YVZraWpBMWJnbFNDY2phZm9wMFdtTkZVYzMzRng1QVM5MXB5WDJvSS1GSlZHRUlMNF94RXROdjYtQQ?oc=5",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "LingSante-3.1-flash vs DeepSeek V4.1 Flash: Who Wins? OrcaRouter",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMifkFVX3lxTFBmaTI4NUswcXItdEdOYzA2bzZwdE5KZDZlUmtfdzI3Y2lBdWFIR09YQlRsZndzR0VGTTZXLUkzZmZnQUp1YVZraWpBMWJnbFNDY2phZm9wMFdtTkZVYzMzRng1QVM5MXB5WDJvSS1GSlZHRUlMNF94RXROdjYtQQ?oc=5"
@@ -3515,7 +4195,7 @@
       "source": "MarkTechPost Research",
       "title": "NVIDIA Releases Alpamayo 2 Edge: A 2B Reasoning VLA for DRIVE Thor",
       "url": "https://www.marktechpost.com/2026/11/22/nvidia-alpamayo-2-edge-2b-reasoning-vla-drive-thor",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "NVIDIA released Alpamayo 2 Edge, a 2B-class reasoning vision-language-action model that plans driving trajectories and explains them on DRIVE AGX Thor, at 160 to 190 ms pixel-to-trajectory latency. The post NVIDIA Releases Alpamayo 2 Edge: A 2B Reasoning VLA for DRIVE Thor appeared first on MarkTechPost .",
       "publisher_links": [
         "https://www.marktechpost.com/2026/11/22/nvidia-alpamayo-2-edge-2b-reasoning-vla-drive-thor/",
@@ -3607,7 +4287,7 @@
       "source": "TechCrunch AI",
       "title": "Why data centers are at the center of the Big Tech backlash",
       "url": "https://techcrunch.com/2026/11/22/why-data-centers-are-at-the-center-of-the-big-tech-backlash",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "Journalist Paris Marx unpacks his new book \"Hyperscale.\"",
       "source_updated_at": "2026-11-22T18:08:43Z",
       "ingress": {
@@ -3697,7 +4377,7 @@
       "source": "DeepSeek (Google News)",
       "title": "Best Free AI Models 2026: What's Free and Where to Use It - Fello AI",
       "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE5FSGoyTkZPOWtOb0xLUld6QTBoamp3MGg0b2pjcURBaXk2dllWN3B6SlNvYUMxZzdIUnM2UG5JRlVvcDhoY1QxcVlBVQ?oc=5",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "Best Free AI Models 2026: What's Free and Where to Use It Fello AI",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiS0FVX3lxTE5FSGoyTkZPOWtOb0xLUld6QTBoamp3MGg0b2pjcURBaXk2dllWN3B6SlNvYUMxZzdIUnM2UG5JRlVvcDhoY1QxcVlBVQ?oc=5"
@@ -3809,7 +4489,7 @@
       "source": "The Verge",
       "title": "Binding of Isaac developer removes AI music from Repentance Plus",
       "url": "https://www.theverge.com/games/1039770/binding-of-isaac-ai-music",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "The Binding of Isaac: Repentance Plus has spent the last few days getting review-bombed on Steam after it was discovered that a particular segment of the game used AI music. Reddit user ShweetsStuff discovered the songs used during a Grand Theft Auto-themed section. They found several audio files with Suno metadata that pointed back to […]",
       "source_updated_at": "2026-11-22T17:25:20Z",
       "ingress": {
@@ -3899,7 +4579,7 @@
       "source": "Reuters AI (Google News)",
       "title": "German army starts testing kamikaze drones and AI targeting tool in Lithuania - Reuters",
       "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOaEZNb1cwZkRsWmFUN0Nkc0dfTGt4SUVDaXNCSHphV2VrQTBXYnQzTWN2Z0tkOEdiUnRyRnJqX2NST1pmYXJrYVFUQ204QllMNFRtelc0cEtUZy1MWlFMeXRfemNPS0pGQU1veHZyMU1XTWdJNE5pcWstLXUtZ0d4QXRMVzAzZFJKNzlteEZlWUVRbHpIeTJyanFWSlJVMlY4R0NOODNIN1RSLWJDdnQyM25KcDNNbDRvMHZkT1Nfenl6SUl2YUoxalBLT1RqQQ?oc=5",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "German army starts testing kamikaze drones and AI targeting tool in Lithuania Reuters",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMizgFBVV95cUxOaEZNb1cwZkRsWmFUN0Nkc0dfTGt4SUVDaXNCSHphV2VrQTBXYnQzTWN2Z0tkOEdiUnRyRnJqX2NST1pmYXJrYVFUQ204QllMNFRtelc0cEtUZy1MWlFMeXRfemNPS0pGQU1veHZyMU1XTWdJNE5pcWstLXUtZ0d4QXRMVzAzZFJKNzlteEZlWUVRbHpIeTJyanFWSlJVMlY4R0NOODNIN1RSLWJDdnQyM25KcDNNbDRvMHZkT1Nfenl6SUl2YUoxalBLT1RqQQ?oc=5"
@@ -3991,7 +4671,7 @@
       "source": "xAI / Grok (Google News)",
       "title": "Elon Musk’s Grok AI Predicts Best and Worst Crypto in 2027: Who Are They? - TradingView",
       "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxOVUVUOFlDUnhUbVZrak0xMndSSHpQay00WWRfWl9SSDZDS2FBdDJMX21CYTZlOFhabXctS0F3RnNlSXlKVks4dzBtS1NScl9pZW43VzJVVlNybkpRSENtVXNodS1kTmFYTHNGajd0NGR2Z2Z6cWloUjZVTGNjN1I1N0Vwajctc3hyTXFUQ0FuMEtDQ2VxQUc1YUdMZnlMVEVwSlU3bnBsZWRkSDJNU3M4eUluM19xUFBwWmdVOFhzSjQ4M3E4Qmg2LXdOeFk?oc=5",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "Elon Musk’s Grok AI Predicts Best and Worst Crypto in 2027: Who Are They? TradingView",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMizAFBVV95cUxOVUVUOFlDUnhUbVZrak0xMndSSHpQay00WWRfWl9SSDZDS2FBdDJMX21CYTZlOFhabXctS0F3RnNlSXlKVks4dzBtS1NScl9pZW43VzJVVlNybkpRSENtVXNodS1kTmFYTHNGajd0NGR2Z2Z6cWloUjZVTGNjN1I1N0Vwajctc3hyTXFUQ0FuMEtDQ2VxQUc1YUdMZnlMVEVwSlU3bnBsZWRkSDJNU3M4eUluM19xUFBwWmdVOFhzSjQ4M3E4Qmg2LXdOeFk?oc=5"
@@ -4293,7 +4973,7 @@
       "source": "MarkTechPost Research",
       "title": "Best Personal AI Agents in 2026: OpenClaw, Hermes Agent, Gemini Spark and More, Compared on Memory, Security and Cost",
       "url": "https://www.marktechpost.com/2026/11/22/best-personal-ai-agents-2026",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "Hermes Agent, OpenClaw, Gemini Spark, OpenAI dots, Meta Muse and Perplexity Personal Computer ranked on memory, security defaults and real cost. The post Best Personal AI Agents in 2026: OpenClaw, Hermes Agent, Gemini Spark and More, Compared on Memory, Security and Cost appeared first on MarkTechPost .",
       "publisher_links": [
         "https://www.marktechpost.com/2026/11/22/best-personal-ai-agents-2026/",
@@ -4581,7 +5261,7 @@
       "source": "DeepSeek (Google News)",
       "title": "Open Weight vs Open Source AI: 4 Models, 4 Licenses - shattered.io",
       "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQOFpEbl9nS2VrdFRVYmxrTXlpelFIY2RTcGpiSDB0OWxLSkJNaFBfWHhieFR5M21oaUhJcERENWN0ZTN3Ni00ME1HZEwzUE81MFozQTVrRDY4NU9nbE5rSExiSTh4a2ozcUNsVzZnMmtNdTlTTlhWa2RmcHFXLWVNQm9FWXJtemR0RVQ2RzlkQ3JKTHY1cFZjNVpwWHVnTEhJbF8ydm1B?oc=5",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "Open Weight vs Open Source AI: 4 Models, 4 Licenses shattered.io",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMipgFBVV95cUxQOFpEbl9nS2VrdFRVYmxrTXlpelFIY2RTcGpiSDB0OWxLSkJNaFBfWHhieFR5M21oaUhJcERENWN0ZTN3Ni00ME1HZEwzUE81MFozQTVrRDY4NU9nbE5rSExiSTh4a2ozcUNsVzZnMmtNdTlTTlhWa2RmcHFXLWVNQm9FWXJtemR0RVQ2RzlkQ3JKTHY1cFZjNVpwWHVnTEhJbF8ydm1B?oc=5"
@@ -5148,7 +5828,7 @@
       "source": "InfoQ CN",
       "title": "財務團隊的 AI 藍圖",
       "url": "https://www.infoq.cn/video/UUqekkOQ8haEXZ792UjU",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/video/UUqekkOQ8haEXZ792UjU?utm_source=rss&utm_medium=article"
@@ -5240,7 +5920,7 @@
       "source": "InfoQ CN",
       "title": "打造 AI 優先的銷售與營銷運營體系",
       "url": "https://www.infoq.cn/video/mihBFvImttvJlSFUqC49",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/video/mihBFvImttvJlSFUqC49?utm_source=rss&utm_medium=article"
@@ -5332,7 +6012,7 @@
       "source": "InfoQ CN",
       "title": "智慧體企業新前沿：驅動高效智慧",
       "url": "https://www.infoq.cn/video/Ly5HbhY4pNMCF04abkFo",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/video/Ly5HbhY4pNMCF04abkFo?utm_source=rss&utm_medium=article"
@@ -5426,7 +6106,7 @@
       "source": "Wired AI",
       "title": "Banks Have Had It Up to Here With Your AI Agent",
       "url": "https://www.wired.com/story/banks-are-cracking-down-on-ai-agents",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "Major US financial institutions are banning third-party bots from logging into your accounts—and warning that any costly bot mistakes are strictly your problem.",
       "source_updated_at": "2026-11-22T11:00:00Z",
       "ingress": {
@@ -5517,7 +6197,7 @@
       "source": "InfoQ CN",
       "title": "智慧體身份國際標準化：體系佈局與研製實踐｜AICon北京",
       "url": "https://www.infoq.cn/article/721YPdyIZ1D8xz20D22C",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/721YPdyIZ1D8xz20D22C?utm_source=rss&utm_medium=article"
@@ -5611,7 +6291,7 @@
       "source": "RuntimeWire",
       "title": "Qwen3.5 27B model rewrote its own weights and gained 6.6 points on unseen math",
       "url": "https://runtimewire.com/article/a-27b-model-rewrote-its-own-weights-and-gained-6-6-points-on-unseen-math",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "Researchers at the University of Illinois Urbana-Champaign, Carnegie Mellon University, Rutgers University, Princeton University, Stanford University and Yale University report Qwen3.5-27B edited its own parameters with no gradient training, lifting held-out accuracy from 57.2% to 63.8% in one accepted session.",
       "source_updated_at": "2026-11-22T21:43:49Z",
       "ingress": {
@@ -5701,6 +6381,102 @@
         ]
       },
       "source_tier_weight": 0.45
+    },
+    {
+      "id": "65027def35ad532980534e508036f33fbe4d74ff",
+      "published_at": "2026-11-23T02:22:38Z",
+      "first_seen_at": "2026-11-23T02:35:37.930217Z",
+      "site_id": "kr36_ai",
+      "site_name": "36Kr AI (Watchlist)",
+      "source": "36Kr",
+      "title": "Anthropic：躲不開 “腦力通縮”，終局是 “AI 版” 谷歌還是 AT&T? - 36氪",
+      "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTFBYeU1ZOTlDMVpvZ1FHSzZESUdxRjhpbnEwVHdVUXBILWc0YlE4bWRhOGVDRmdSVVRnRXdmMEYyWUxDQXJNYlFCLWFzMmJDUQ?oc=5",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
+      "summary": "Anthropic：躲不開 “腦力通縮”，終局是 “AI 版” 谷歌還是 AT&T? 36氪",
+      "publisher_links": [
+        "https://news.google.com/rss/articles/CBMiTkFVX3lxTFBYeU1ZOTlDMVpvZ1FHSzZESUdxRjhpbnEwVHdVUXBILWc0YlE4bWRhOGVDRmdSVVRnRXdmMEYyWUxDQXJNYlFCLWFzMmJDUQ?oc=5"
+      ],
+      "source_updated_at": "2026-11-23T02:22:38Z",
+      "ingress": {
+        "kind": "public_adapter",
+        "site_id": "kr36_ai",
+        "source_id": "kr36_ai",
+        "name": "36Kr",
+        "feed_url": null
+      },
+      "publisher": {
+        "schema_version": 1,
+        "publisher_id": "kr36",
+        "name": "36Kr",
+        "domain": null,
+        "status": "identified",
+        "basis": [
+          "explicit_group"
+        ],
+        "evidence": {
+          "rss_source_name": null,
+          "rss_source_url": null,
+          "article_url": null,
+          "article_host": "news.google.com",
+          "expected_publisher_id": null,
+          "conflicts": []
+        }
+      },
+      "article_key": "https://news.google.com/rss/articles/CBMiTkFVX3lxTFBYeU1ZOTlDMVpvZ1FHSzZESUdxRjhpbnEwVHdVUXBILWc0YlE4bWRhOGVDRmdSVVRnRXdmMEYyWUxDQXJNYlFCLWFzMmJDUQ?oc=5",
+      "security_topic": false,
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.66,
+      "ai_label": "ai_product_update",
+      "ai_relevance_reason": "matched_ai_signal",
+      "ai_signals": [
+        "anthropic"
+      ],
+      "ai_noise": [],
+      "source_tier": "watchlist",
+      "source_tier_label": "未審來源",
+      "source_tier_rank": 6,
+      "summary_zh": "Anthropic：躲不開 “腦力通縮”，終局是 “AI 版” Google還是 AT&T? 36氪",
+      "title_original": "Anthropic：躲不開 “腦力通縮”，終局是 “AI 版” 谷歌還是 AT&T? - 36氪",
+      "title_en": null,
+      "title_zh": "Anthropic：躲不開 “腦力通縮”，終局是 “AI 版” Google還是 AT&T? - 36氪",
+      "title_bilingual": "Anthropic：躲不開 “腦力通縮”，終局是 “AI 版” 谷歌還是 AT&T? - 36氪",
+      "corroboration_key": "cn_aggregator",
+      "corroboration_status": "identified",
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+        "scope_id": "unreviewed",
+        "publisher_kind": "unknown",
+        "admission_status": "unreviewed",
+        "source_tier": "watchlist",
+        "source_tier_label": "未審來源",
+        "source_tier_rank": 6,
+        "allow_general": true,
+        "allow_featured": false,
+        "allow_radar": false,
+        "reason_codes": [
+          "legacy_identity",
+          "scope_unknown",
+          "unreviewed_publisher",
+          "not_permitted_for_featured",
+          "not_permitted_for_radar"
+        ]
+      },
+      "source_material": {
+        "title_original": "",
+        "title": "Anthropic：躲不开 “脑力通缩”，终局是 “AI 版” 谷歌还是 AT&T? - 36氪",
+        "summary": "Anthropic：躲不开 “脑力通缩”，终局是 “AI 版” 谷歌还是 AT&T? 36氪"
+      },
+      "qualification": {
+        "scope": "in_scope",
+        "core_evidence": [],
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      "source_tier_weight": 0.3
     },
     {
       "id": "45b4f5e228989ad9defd54425313f68f8efeb94c",
@@ -5807,7 +6583,7 @@
       "source": "36Kr",
       "title": "AI遊戲冰火兩重天：有人三天賣出10萬份，有人上線一個月無人問津 - 36氪",
       "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE54dy1BSDRMOC1ZUHQwWlJSVFRVMkprOWlLdlFYS2V5VjIyV05aYTVKWVlGelhWVU45NDE2dXlNeW9ONmVXLWRUZmpxaHRyUQ?oc=5",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "AI遊戲冰火兩重天：有人三天賣出10萬份，有人上線一個月無人問津 36氪",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiTkFVX3lxTE54dy1BSDRMOC1ZUHQwWlJSVFRVMkprOWlLdlFYS2V5VjIyV05aYTVKWVlGelhWVU45NDE2dXlNeW9ONmVXLWRUZmpxaHRyUQ?oc=5"
@@ -5995,7 +6771,7 @@
       "source": "36Kr",
       "title": "AI應用月活裝置達8.35億臺，使用時長與頻次卻雙雙回落 - 36氪",
       "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE9uVXBPeDlVS2lTVVFNbmtjTjNvMlV0TUlXb3VQYXhYWTJ5UjZxT204OGlRT3l3SU5MaU9weUR3N0tCdEpSZ1ZnREFqVlNiZw?oc=5",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "AI應用月活裝置達8.35億臺，使用時長與頻次卻雙雙回落 36氪",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiTkFVX3lxTE9uVXBPeDlVS2lTVVFNbmtjTjNvMlV0TUlXb3VQYXhYWTJ5UjZxT204OGlRT3l3SU5MaU9weUR3N0tCdEpSZ1ZnREFqVlNiZw?oc=5"
@@ -6089,7 +6865,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "OpenAI 慘了？GPT-6.2 惡評、Google 新模型超車、募資縮水",
       "url": "https://www.blocktempo.com/openai-funding-cut-cash-runway-myth-anthropic-revenue-lead-ipo",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "X 上一篇唱衰貼文稱這是 OpenAI 史上最慘的一週。面臨募資縮水與季度虧損，但是否真的「被 Google […]",
       "ingress": {
         "kind": "public_json",
@@ -6182,7 +6958,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "馬斯克警告：AI 產業明年恐嚴重資金短缺，需數千億美元額外投入",
       "url": "https://www.blocktempo.com/elon-musk-warns-ai-industry-severe-cash-shortage-2026",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "馬斯克（Elon Musk）回應 Keras 創辦人的貼文時警告，AI 產業明年恐面臨嚴重的資金短缺；若從支付 […]",
       "ingress": {
         "kind": "public_json",
@@ -6251,100 +7027,6 @@
         "title_original": "",
         "title": "馬斯克警告：AI 產業明年恐嚴重資金短缺，需數千億美元額外投入",
         "summary": "馬斯克（Elon Musk）回應 Keras 創辦人的貼文時警告，AI 產業明年恐面臨嚴重的資金短缺；若從支付 […]"
-      },
-      "qualification": {
-        "scope": "in_scope",
-        "core_evidence": [],
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      "source_tier_weight": 0.3
-    },
-    {
-      "id": "5ec9f61ef7d69410de535423b110345e1a3e77a5",
-      "published_at": "2026-11-22T08:14:52Z",
-      "first_seen_at": "2026-11-22T08:35:39.880694Z",
-      "site_id": "kr36_ai",
-      "site_name": "36Kr AI (Watchlist)",
-      "source": "36Kr",
-      "title": "8個AI 新術語，看懂領先90%的人-36氪 - 36kr",
-      "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFB1UEltSEVVVjdXaTY2R3JSZzJWTzFCQ1dUSGpsUEFjV1UxX3k4YXU4RjJlNERCX19KWFBXVjM1dFowS2NVMmg0emlBeUdNT0sx?oc=5",
-      "last_seen_at": "2026-11-22T08:35:39.880694Z",
-      "summary": "8個AI 新術語，看懂領先90%的人-36氪 36kr",
-      "publisher_links": [
-        "https://news.google.com/rss/articles/CBMiUEFVX3lxTFB1UEltSEVVVjdXaTY2R3JSZzJWTzFCQ1dUSGpsUEFjV1UxX3k4YXU4RjJlNERCX19KWFBXVjM1dFowS2NVMmg0emlBeUdNT0sx?oc=5"
-      ],
-      "source_updated_at": "2026-11-22T08:14:52Z",
-      "ingress": {
-        "kind": "public_adapter",
-        "site_id": "kr36_ai",
-        "source_id": "kr36_ai",
-        "name": "36Kr",
-        "feed_url": null
-      },
-      "publisher": {
-        "schema_version": 1,
-        "publisher_id": "kr36",
-        "name": "36Kr",
-        "domain": null,
-        "status": "identified",
-        "basis": [
-          "explicit_group"
-        ],
-        "evidence": {
-          "rss_source_name": null,
-          "rss_source_url": null,
-          "article_url": null,
-          "article_host": "news.google.com",
-          "expected_publisher_id": null,
-          "conflicts": []
-        }
-      },
-      "security_topic": false,
-      "source_policy": {
-        "schema_version": 1,
-        "policy_id": "publisher-governance-v1",
-        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
-        "scope_id": "unreviewed",
-        "publisher_kind": "unknown",
-        "admission_status": "unreviewed",
-        "source_tier": "watchlist",
-        "source_tier_label": "未審來源",
-        "source_tier_rank": 6,
-        "allow_general": true,
-        "allow_featured": false,
-        "allow_radar": false,
-        "reason_codes": [
-          "legacy_identity",
-          "scope_unknown",
-          "unreviewed_publisher",
-          "not_permitted_for_featured",
-          "not_permitted_for_radar"
-        ]
-      },
-      "article_key": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFB1UEltSEVVVjdXaTY2R3JSZzJWTzFCQ1dUSGpsUEFjV1UxX3k4YXU4RjJlNERCX19KWFBXVjM1dFowS2NVMmg0emlBeUdNT0sx?oc=5",
-      "business_events": [],
-      "ai_is_related": true,
-      "ai_score": 0.65,
-      "ai_label": "ai_product_update",
-      "ai_relevance_reason": "matched_ai_signal",
-      "ai_signals": [],
-      "ai_noise": [],
-      "source_tier": "watchlist",
-      "source_tier_label": "未審來源",
-      "source_tier_rank": 6,
-      "summary_zh": "8個AI 新術語，看懂領先90%的人-36氪 36kr",
-      "title_original": "8個AI 新術語，看懂領先90%的人-36氪 - 36kr",
-      "title_en": null,
-      "title_zh": "8個AI 新術語，看懂領先90%的人-36氪 - 36kr",
-      "title_bilingual": "8個AI 新術語，看懂領先90%的人-36氪 - 36kr",
-      "corroboration_key": "cn_aggregator",
-      "corroboration_status": "identified",
-      "source_material": {
-        "title_original": "",
-        "title": "8个AI 新术语，看懂领先90%的人-36氪 - 36kr",
-        "summary": "8个AI 新术语，看懂领先90%的人-36氪 36kr"
       },
       "qualification": {
         "scope": "in_scope",
@@ -6358,6 +7040,106 @@
   ],
   "items_ai": [
     {
+      "id": "f7d1b9d316781e11232bf693ed8e96c89be7b7aa",
+      "published_at": "2026-11-23T08:11:00Z",
+      "first_seen_at": "2026-11-23T00:35:29.144445Z",
+      "site_id": "tw_media",
+      "site_name": "台灣媒體",
+      "source": "iThome",
+      "title": "微軟揭露GitHub Copilot CLI釣魚攻擊風險，駭客恐藉合法登入程序操控AI代理",
+      "url": "https://www.ithome.com.tw/news/180676",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
+      "summary": "駭客不必竊取帳號密碼，也可能利用合法的裝置驗證碼登入機制，誘騙開發者核准登入要求，藉此取得OAuth存取權杖。微軟研究發現，這類釣魚攻擊不只可能造成開發資料外洩，在特定條件下，還可能讓攻擊者遠端操控AI代理，在使用者電腦上執行命令。",
+      "source_updated_at": "2026-11-23T08:11:00Z",
+      "ingress": {
+        "kind": "public_feed",
+        "site_id": "tw_media",
+        "source_id": "ithome",
+        "name": "iThome",
+        "feed_url": "https://www.ithome.com.tw/rss"
+      },
+      "publisher": {
+        "schema_version": 1,
+        "publisher_id": "ithome",
+        "name": "iThome",
+        "domain": "www.ithome.com.tw",
+        "status": "identified",
+        "basis": [
+          "article_host"
+        ],
+        "evidence": {
+          "rss_source_name": null,
+          "rss_source_url": null,
+          "article_url": "https://www.ithome.com.tw/news/180676",
+          "article_host": "www.ithome.com.tw",
+          "expected_publisher_id": null,
+          "conflicts": []
+        }
+      },
+      "security_topic": true,
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+        "scope_id": "ithome",
+        "publisher_kind": "media",
+        "admission_status": "limited",
+        "source_tier": "professional_media",
+        "source_tier_label": "專業科技媒體",
+        "source_tier_rank": 1,
+        "allow_general": true,
+        "allow_featured": true,
+        "allow_radar": true,
+        "reason_codes": [
+          "identified_host",
+          "limited_scope"
+        ]
+      },
+      "article_key": "https://www.ithome.com.tw/news/180676",
+      "business_events": [
+        "security"
+      ],
+      "ai_is_related": true,
+      "ai_score": 0.71,
+      "ai_label": "developer_tool",
+      "ai_relevance_reason": "matched_ai_signal",
+      "ai_signals": [
+        "copilot"
+      ],
+      "ai_noise": [],
+      "source_tier": "professional_media",
+      "source_tier_label": "專業科技媒體",
+      "source_tier_rank": 1,
+      "summary_zh": "駭客不必竊取帳號密碼，也可能利用合法的裝置驗證碼登入機制，誘騙開發者核准登入要求，藉此取得OAuth存取權杖。微軟研究發現，這類釣魚攻擊不只可能造成開發資料外洩，在特定條件下，還可能讓攻擊者遠端操控AI代理，在使用者電腦上執行命令。",
+      "title_original": "微軟揭露GitHub Copilot CLI釣魚攻擊風險，駭客恐藉合法登入程序操控AI代理",
+      "title_en": null,
+      "title_zh": "微軟揭露GitHub Copilot CLI釣魚攻擊風險，駭客恐藉合法登入程序操控AI代理",
+      "title_bilingual": "微軟揭露GitHub Copilot CLI釣魚攻擊風險，駭客恐藉合法登入程序操控AI代理",
+      "corroboration_key": "publisher:ithome",
+      "corroboration_status": "identified",
+      "source_material": {
+        "title_original": "",
+        "title": "微軟揭露GitHub Copilot CLI釣魚攻擊風險，駭客恐藉合法登入程序操控AI代理",
+        "summary": "駭客不必竊取帳號密碼，也可能利用合法的裝置驗證碼登入機制，誘騙開發者核准登入要求，藉此取得OAuth存取權杖。微軟研究發現，這類釣魚攻擊不只可能造成開發資料外洩，在特定條件下，還可能讓攻擊者遠端操控AI代理，在使用者電腦上執行命令。"
+      },
+      "qualification": {
+        "scope": "in_scope",
+        "core_evidence": [
+          {
+            "kind": "security",
+            "status": "insufficient",
+            "basis": "insufficient",
+            "spans": [],
+            "urls": []
+          }
+        ],
+        "reason_codes": [
+          "insufficient_evidence"
+        ]
+      },
+      "source_tier_weight": 0.7
+    },
+    {
       "id": "a5407c14b8beaad9fca5d7b7d929f8a8e0d89345",
       "published_at": "2026-11-22T15:15:48Z",
       "first_seen_at": "2026-11-22T15:35:39.827765Z",
@@ -6366,7 +7148,7 @@
       "source": "The Decoder AI News",
       "title": "AI coding agents ace isolated tests but complete fewer than one in ten tasks in a simulated workplace",
       "url": "https://the-decoder.com/ai-coding-agents-ace-isolated-tests-but-complete-fewer-than-one-in-ten-tasks-in-a-simulated-workplace",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "A new real-world test puts AI coding agents in a simulated developer job with colleagues, project boards, and incomplete handoffs, where they have to keep developing software on their own and reliably close open tickets in a messy daily workflow. Even Opus 5.5 and Astra fall far short, solving fewer than one in ten tasks completely. The models finish clear, standalone assignments quickly, but they lose track as autonomous developers. The article AI coding agents ace isolated tests but complete fewer than one in ten tasks in a simulated workplace appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/ai-coding-agents-ace-isolated-tests-but-complete-fewer-than-one-in-ten-tasks-in-a-simulated-workplace/",
@@ -6460,7 +7242,7 @@
       "source": "The Decoder AI News",
       "title": "Perplexity's new Monitor API turns web search from a one-off query into a nonstop watchdog",
       "url": "https://the-decoder.com/perplexitys-new-monitor-api-turns-web-search-from-a-one-off-query-into-a-nonstop-watchdog",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "Perplexity is launching a Monitor API that searches the web on a schedule and alerts agents via webhook only when relevant changes occur. Its own decision model filters out unimportant results. For Perplexity, the API is part of a broader strategy to stand out from an increasingly interchangeable chatbot business through developer tools. The article Perplexity's new Monitor API turns web search from a one-off query into a nonstop watchdog appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/perplexitys-new-monitor-api-turns-web-search-from-a-one-off-query-into-a-nonstop-watchdog/",
@@ -6554,7 +7336,7 @@
       "source": "The Decoder AI News",
       "title": "AI is getting better faster than experts can reliably test whether new systems are safe, METR warns",
       "url": "https://the-decoder.com/ai-is-getting-better-faster-than-experts-can-reliably-test-whether-new-systems-are-safe-metr-warns",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "METR reports that leading AI models like Opus 5.5 and GPT-6 Astra are improving rapidly at research tasks but getting harder to measure. Current data can't rule out a dangerous acceleration in AI development, the organization warns, though it also says common tests may overestimate what the models can actually do. The article AI is getting better faster than experts can reliably test whether new systems are safe, METR warns appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/ai-is-getting-better-faster-than-experts-can-reliably-test-whether-new-systems-are-safe-metr-warns/",
@@ -6648,7 +7430,7 @@
       "source": "The Decoder AI News",
       "title": "Security researchers show how cheap AI inference providers steal keys and snoop on users",
       "url": "https://the-decoder.com/security-researchers-show-how-cheap-ai-inference-providers-steal-keys-and-snoop-on-users",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "Security researchers at Dragos used two million fake AI requests to uncover serious vulnerabilities in the AI supply chain, finding at least three compromised providers, hundreds of stolen AWS keys, and marketplace resellers who were simply reading customer requests. OpenRouter responded by removing three providers and 125 endpoints. The article Security researchers show how cheap AI inference providers steal keys and snoop on users appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/security-researchers-show-how-cheap-ai-inference-providers-steal-keys-and-snoop-on-users/",
@@ -6752,7 +7534,7 @@
       "source": "The Decoder AI News",
       "title": "Lean and Mathlib community officially confirms Levent Alpöge's proof of the Riemann hypothesis is correct",
       "url": "https://the-decoder.com/lean-and-mathlib-community-officially-confirms-levent-alpoges-proof-of-the-riemann-hypothesis-is-correct",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "The Lean and Mathlib community has officially confirmed Levent Alpöge's proof of the Riemann hypothesis as correct. Dozens of independent verifiers checked the 17 million lines of computer code. The solution arrived years earlier than expected: Terence Tao had predicted it wouldn't happen until around 2050 and didn't expect AI to solve it alone. The article Lean and Mathlib community officially confirms Levent Alpöge's proof of the Riemann hypothesis is correct appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/lean-and-mathlib-community-officially-confirms-levent-alpoges-proof-of-the-riemann-hypothesis-is-correct/",
@@ -6846,7 +7628,7 @@
       "source": "The Decoder AI News",
       "title": "GPT-6.2 Astra and Sol get to the point faster but score lower on transparency than Claude",
       "url": "https://the-decoder.com/gpt-6-2-astra-and-sol-get-to-the-point-faster-but-score-lower-on-transparency-than-claude",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "OpenAI's GPT-6.2 Astra and Sol give much shorter, more direct answers than their predecessors, but they are also less willing to admit uncertainty. Anthropic's Claude models score well ahead on transparency. The article GPT-6.2 Astra and Sol get to the point faster but score lower on transparency than Claude appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/gpt-6-2-astra-and-sol-get-to-the-point-faster-but-score-lower-on-transparency-than-claude/",
@@ -6933,6 +7715,386 @@
       "source_tier_weight": 0.78
     },
     {
+      "id": "ae3cdf6fb22f6789f40dd2e1e0868db36eb81eea",
+      "published_at": "2026-11-23T02:25:56Z",
+      "first_seen_at": "2026-11-23T02:35:37.930217Z",
+      "site_id": "tw_media",
+      "site_name": "台灣媒體",
+      "source": "TechNews 科技新報",
+      "title": "Anthropic 模型移植 AMD 晶片只要 3 天，輝達 CUDA 護城河受考驗",
+      "url": "https://technews.tw/2026/11/23/how-much-of-a-threat-is-anthropics-multi-chip-strategy-to-nvidia",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
+      "summary": "Anthropic 的多晶片策略正成為市場檢視輝達（Nvidia）競爭優勢的新焦點。根據最新討論，Anthro […]",
+      "source_updated_at": "2026-11-23T02:25:56Z",
+      "ingress": {
+        "kind": "public_feed",
+        "site_id": "tw_media",
+        "source_id": "technews_tw",
+        "name": "TechNews 科技新報",
+        "feed_url": "https://technews.tw/feed/"
+      },
+      "publisher": {
+        "schema_version": 1,
+        "publisher_id": "technews",
+        "name": "TechNews 科技新報",
+        "domain": "technews.tw",
+        "status": "identified",
+        "basis": [
+          "article_host"
+        ],
+        "evidence": {
+          "rss_source_name": null,
+          "rss_source_url": null,
+          "article_url": "https://technews.tw/2026/11/23/how-much-of-a-threat-is-anthropics-multi-chip-strategy-to-nvidia",
+          "article_host": "technews.tw",
+          "expected_publisher_id": null,
+          "conflicts": []
+        }
+      },
+      "article_key": "https://technews.tw/2026/11/23/how-much-of-a-threat-is-anthropics-multi-chip-strategy-to-nvidia",
+      "security_topic": false,
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.77,
+      "ai_label": "model_release",
+      "ai_relevance_reason": "matched_ai_signal",
+      "ai_signals": [
+        "anthropic",
+        "cuda",
+        "晶片"
+      ],
+      "ai_noise": [],
+      "source_tier": "tw_media",
+      "source_tier_label": "台灣繁中媒體",
+      "source_tier_rank": 2,
+      "summary_zh": "Anthropic 的多晶片策略正成為市場檢視輝達（Nvidia）競爭優勢的新焦點。根據最新討論，Anthro […]",
+      "title_original": "Anthropic 模型移植 AMD 晶片只要 3 天，輝達 CUDA 護城河受考驗",
+      "title_en": null,
+      "title_zh": "Anthropic 模型移植 AMD 晶片只要 3 天，輝達 CUDA 護城河受考驗",
+      "title_bilingual": "Anthropic 模型移植 AMD 晶片只要 3 天，輝達 CUDA 護城河受考驗",
+      "corroboration_key": "publisher:technews",
+      "corroboration_status": "identified",
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+        "scope_id": "technews",
+        "publisher_kind": "media",
+        "admission_status": "limited",
+        "source_tier": "tw_media",
+        "source_tier_label": "台灣繁中媒體",
+        "source_tier_rank": 2,
+        "allow_general": true,
+        "allow_featured": true,
+        "allow_radar": true,
+        "reason_codes": [
+          "identified_host",
+          "limited_scope"
+        ]
+      },
+      "source_material": {
+        "title_original": "",
+        "title": "Anthropic 模型移植 AMD 晶片只要 3 天，輝達 CUDA 護城河受考驗",
+        "summary": "Anthropic 的多晶片策略正成為市場檢視輝達（Nvidia）競爭優勢的新焦點。根據最新討論，Anthro […]"
+      },
+      "qualification": {
+        "scope": "in_scope",
+        "core_evidence": [],
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      "source_tier_weight": 0.56
+    },
+    {
+      "id": "d03e35a06cb656b06b2f4b835069da3b65f4f385",
+      "published_at": "2026-11-23T02:20:14Z",
+      "first_seen_at": "2026-11-23T02:35:37.930217Z",
+      "site_id": "tw_media",
+      "site_name": "台灣媒體",
+      "source": "TechNews 科技新報",
+      "title": "OpenAI 科學家建議以困惑度為指標，訂定 AI 發展業界門檻",
+      "url": "https://technews.tw/2026/11/23/openai-scientists-suggest-perplexity-metric-set-ai-development-industry-thresholds",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
+      "summary": "OpenAI 首席科學家帕霍基今天建議，AI 開發業者應設下共同限制，並以困惑度（perplexity）做為衡 […]",
+      "source_updated_at": "2026-11-23T02:20:14Z",
+      "ingress": {
+        "kind": "public_feed",
+        "site_id": "tw_media",
+        "source_id": "technews_tw",
+        "name": "TechNews 科技新報",
+        "feed_url": "https://technews.tw/feed/"
+      },
+      "publisher": {
+        "schema_version": 1,
+        "publisher_id": "technews",
+        "name": "TechNews 科技新報",
+        "domain": "technews.tw",
+        "status": "identified",
+        "basis": [
+          "article_host"
+        ],
+        "evidence": {
+          "rss_source_name": null,
+          "rss_source_url": null,
+          "article_url": "https://technews.tw/2026/11/23/openai-scientists-suggest-perplexity-metric-set-ai-development-industry-thresholds",
+          "article_host": "technews.tw",
+          "expected_publisher_id": null,
+          "conflicts": []
+        }
+      },
+      "article_key": "https://technews.tw/2026/11/23/openai-scientists-suggest-perplexity-metric-set-ai-development-industry-thresholds",
+      "security_topic": false,
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.71,
+      "ai_label": "ai_product_update",
+      "ai_relevance_reason": "matched_ai_signal",
+      "ai_signals": [
+        "openai"
+      ],
+      "ai_noise": [],
+      "source_tier": "tw_media",
+      "source_tier_label": "台灣繁中媒體",
+      "source_tier_rank": 2,
+      "summary_zh": "OpenAI 首席科學家帕霍基今天建議，AI 開發業者應設下共同限制，並以困惑度（perplexity）做為衡 […]",
+      "title_original": "OpenAI 科學家建議以困惑度為指標，訂定 AI 發展業界門檻",
+      "title_en": null,
+      "title_zh": "OpenAI 科學家建議以困惑度為指標，訂定 AI 發展業界門檻",
+      "title_bilingual": "OpenAI 科學家建議以困惑度為指標，訂定 AI 發展業界門檻",
+      "corroboration_key": "publisher:technews",
+      "corroboration_status": "identified",
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+        "scope_id": "technews",
+        "publisher_kind": "media",
+        "admission_status": "limited",
+        "source_tier": "tw_media",
+        "source_tier_label": "台灣繁中媒體",
+        "source_tier_rank": 2,
+        "allow_general": true,
+        "allow_featured": true,
+        "allow_radar": true,
+        "reason_codes": [
+          "identified_host",
+          "limited_scope"
+        ]
+      },
+      "source_material": {
+        "title_original": "",
+        "title": "OpenAI 科學家建議以困惑度為指標，訂定 AI 發展業界門檻",
+        "summary": "OpenAI 首席科學家帕霍基今天建議，AI 開發業者應設下共同限制，並以困惑度（perplexity）做為衡 […]"
+      },
+      "qualification": {
+        "scope": "in_scope",
+        "core_evidence": [],
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      "source_tier_weight": 0.56
+    },
+    {
+      "id": "ab012c6868536e36d3a9f91c8ab4b7403bb90dfc",
+      "published_at": "2026-11-23T02:19:42Z",
+      "first_seen_at": "2026-11-23T02:35:37.930217Z",
+      "site_id": "curated_media",
+      "site_name": "精選媒體",
+      "source": "AIBASE",
+      "title": "AI 賬號互相捧場刷屏評論區：B 站發問卷，給“大肥魚”們立規矩",
+      "url": "https://news.aibase.com/tw/news/32462",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
+      "summary": "B站評論區湧現大量AI智慧體賬號，如“大肥魚”“小飛鯨”，刷屏導致真人成少數。11月20日，B站官方賬號“嗶哩嗶哩社群小管家”釋出《關於AI“大肥魚”你怎麼看？》調查問卷，向全體使用者徵集治理意見，並稱將據此推進後續治理。該玩法源自一個AI運營賬號，起點是愛好者建立的“Claude 大小……”智慧體。",
+      "ingress": {
+        "kind": "public_adapter",
+        "site_id": "curated_media",
+        "source_id": "aibase",
+        "name": "AIBASE",
+        "feed_url": null
+      },
+      "publisher": {
+        "schema_version": 1,
+        "publisher_id": "aibase",
+        "name": "AIBASE",
+        "domain": "news.aibase.com",
+        "status": "identified",
+        "basis": [
+          "explicit_group"
+        ],
+        "evidence": {
+          "rss_source_name": null,
+          "rss_source_url": null,
+          "article_url": "https://news.aibase.com/tw/news/32462",
+          "article_host": "news.aibase.com",
+          "expected_publisher_id": null,
+          "conflicts": []
+        }
+      },
+      "aibase_article_id": "32462",
+      "field_languages": {
+        "title": "tw",
+        "url": "tw",
+        "summary": "tw"
+      },
+      "content_language": "tw",
+      "article_key": "https://news.aibase.com/tw/news/32462",
+      "security_topic": false,
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.76,
+      "ai_label": "ai_general",
+      "ai_relevance_reason": "curated_media_source_filter",
+      "ai_signals": [
+        "aibase"
+      ],
+      "ai_noise": [],
+      "source_tier": "advanced",
+      "source_tier_label": "次級AI媒體",
+      "source_tier_rank": 4,
+      "summary_zh": "B站評論區湧現大量AI智慧體賬號，如“大肥魚”“小飛鯨”，刷屏導致真人成少數。11月20日，B站官方賬號“嗶哩嗶哩社群小管家”釋出《關於AI“大肥魚”你怎麼看？》調查問卷，向全體使用者徵集治理意見，並稱將據此推進後續治理。該玩法源自一個AI運營賬號，起點是愛好者建立的“Claude 大小……”智慧體。",
+      "title_original": "AI 賬號互相捧場刷屏評論區：B 站發問卷，給“大肥魚”們立規矩",
+      "title_en": null,
+      "title_zh": "AI 賬號互相捧場刷屏評論區：B 站發問卷，給“大肥魚”們立規矩",
+      "title_bilingual": "AI 賬號互相捧場刷屏評論區：B 站發問卷，給“大肥魚”們立規矩",
+      "corroboration_key": "cn_aggregator",
+      "corroboration_status": "identified",
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+        "scope_id": "aibase",
+        "publisher_kind": "aggregator",
+        "admission_status": "limited",
+        "source_tier": "advanced",
+        "source_tier_label": "次級AI媒體",
+        "source_tier_rank": 4,
+        "allow_general": true,
+        "allow_featured": false,
+        "allow_radar": false,
+        "reason_codes": [
+          "identified_host",
+          "limited_scope",
+          "not_permitted_for_featured",
+          "not_permitted_for_radar"
+        ]
+      },
+      "source_material": {
+        "title_original": "",
+        "title": "AI 賬號互相捧場刷屏評論區：B 站發問卷，給“大肥魚”們立規矩",
+        "summary": "B站評論區涌現大量AI智能體賬號，如“大肥魚”“小飛鯨”，刷屏導致真人成少數。11月20日，B站官方賬號“嗶哩嗶哩社區小管家”發佈《關於AI“大肥魚”你怎麼看？》調查問卷，向全體用戶徵集治理意見，並稱將據此推進後續治理。該玩法源自一個AI運營賬號，起點是愛好者創建的“Claude 大小……”智能體。"
+      },
+      "qualification": {
+        "scope": "in_scope",
+        "core_evidence": [],
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      "source_tier_weight": 0.45
+    },
+    {
+      "id": "913de56a36ad4f698a80aaa79a0300b63444ea5e",
+      "published_at": "2026-11-23T02:05:12Z",
+      "first_seen_at": "2026-11-23T02:35:37.930217Z",
+      "site_id": "curated_media",
+      "site_name": "精選媒體",
+      "source": "AIBASE",
+      "title": "靠 Kimi K2.5 起家的 Cursor 向國會表態：有意逐步淘汰中國大模型",
+      "url": "https://news.aibase.com/tw/news/32461",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
+      "summary": "Cursor開發商Anysphere向美國國會報告，有意研究逐步放棄中國公司的開源AI大模型，但尚無明確全面停用時間表。此前中國開源大模型曾助Cursor發家。美國官方正調查美企使用中國開源大模型情況，Cursor此時率先表態迎合國會要求，時機耐人尋味。",
+      "ingress": {
+        "kind": "public_adapter",
+        "site_id": "curated_media",
+        "source_id": "aibase",
+        "name": "AIBASE",
+        "feed_url": null
+      },
+      "publisher": {
+        "schema_version": 1,
+        "publisher_id": "aibase",
+        "name": "AIBASE",
+        "domain": "news.aibase.com",
+        "status": "identified",
+        "basis": [
+          "explicit_group"
+        ],
+        "evidence": {
+          "rss_source_name": null,
+          "rss_source_url": null,
+          "article_url": "https://news.aibase.com/tw/news/32461",
+          "article_host": "news.aibase.com",
+          "expected_publisher_id": null,
+          "conflicts": []
+        }
+      },
+      "aibase_article_id": "32461",
+      "field_languages": {
+        "title": "tw",
+        "url": "tw",
+        "summary": "tw"
+      },
+      "content_language": "tw",
+      "article_key": "https://news.aibase.com/tw/news/32461",
+      "security_topic": false,
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.85,
+      "ai_label": "model_release",
+      "ai_relevance_reason": "curated_media_source_filter",
+      "ai_signals": [
+        "cursor",
+        "kimi",
+        "大模型"
+      ],
+      "ai_noise": [],
+      "source_tier": "advanced",
+      "source_tier_label": "次級AI媒體",
+      "source_tier_rank": 4,
+      "summary_zh": "Cursor開發商Anysphere向美國國會報告，有意研究逐步放棄中國公司的開源AI大模型，但尚無明確全面停用時間表。此前中國開源大模型曾助Cursor發家。美國官方正調查美企使用中國開源大模型情況，Cursor此時率先表態迎合國會要求，時機耐人尋味。",
+      "title_original": "靠 Kimi K2.5 起家的 Cursor 向國會表態：有意逐步淘汰中國大模型",
+      "title_en": null,
+      "title_zh": "靠 Kimi K2.5 起家的 Cursor 向國會表態：有意逐步淘汰中國大模型",
+      "title_bilingual": "靠 Kimi K2.5 起家的 Cursor 向國會表態：有意逐步淘汰中國大模型",
+      "corroboration_key": "cn_aggregator",
+      "corroboration_status": "identified",
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+        "scope_id": "aibase",
+        "publisher_kind": "aggregator",
+        "admission_status": "limited",
+        "source_tier": "advanced",
+        "source_tier_label": "次級AI媒體",
+        "source_tier_rank": 4,
+        "allow_general": true,
+        "allow_featured": false,
+        "allow_radar": false,
+        "reason_codes": [
+          "identified_host",
+          "limited_scope",
+          "not_permitted_for_featured",
+          "not_permitted_for_radar"
+        ]
+      },
+      "source_material": {
+        "title_original": "",
+        "title": "靠 Kimi K2.5 起家的 Cursor 向國會表態：有意逐步淘汰中國大模型",
+        "summary": "Cursor開發商Anysphere向美國國會報告，有意研究逐步放棄中國公司的開源AI大模型，但尚無明確全面停用時間表。此前中國開源大模型曾助Cursor發家。美國官方正調查美企使用中國開源大模型情況，Cursor此時率先表態迎合國會要求，時機耐人尋味。"
+      },
+      "qualification": {
+        "scope": "in_scope",
+        "core_evidence": [],
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      "source_tier_weight": 0.45
+    },
+    {
       "id": "3befc8297ee0ae3cc1df18c19072e965dadec680",
       "published_at": "2026-11-23T02:05:03Z",
       "first_seen_at": "2026-11-23T02:05:34.638356Z",
@@ -6941,7 +8103,7 @@
       "source": "TechNews 科技新報",
       "title": "川普政府擬推 AI 模型發布前審查，美國 AI 政策從「放手」轉向「把關」",
       "url": "https://technews.tw/2026/11/23/america-hits-the-brakes-on-ai",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "美國對人工智慧的政策立場正出現明顯轉折。根據最新消息，川普政府正在考慮建立一套機制，要求 AI 模型在對外發布 […]",
       "source_updated_at": "2026-11-23T02:05:03Z",
       "ingress": {
@@ -6969,25 +8131,7 @@
           "conflicts": []
         }
       },
-      "article_key": "https://technews.tw/2026/11/23/america-hits-the-brakes-on-ai",
       "security_topic": false,
-      "business_events": [],
-      "ai_is_related": true,
-      "ai_score": 0.67,
-      "ai_label": "model_release",
-      "ai_relevance_reason": "matched_ai_signal",
-      "ai_signals": [],
-      "ai_noise": [],
-      "source_tier": "tw_media",
-      "source_tier_label": "台灣繁中媒體",
-      "source_tier_rank": 2,
-      "summary_zh": "美國對人工智慧的政策立場正出現明顯轉折。根據最新消息，川普政府正在考慮建立一套機制，要求 AI 模型在對外發布 […]",
-      "title_original": "川普政府擬推 AI 模型發布前審查，美國 AI 政策從「放手」轉向「把關」",
-      "title_en": null,
-      "title_zh": "川普政府擬推 AI 模型發布前審查，美國 AI 政策從「放手」轉向「把關」",
-      "title_bilingual": "川普政府擬推 AI 模型發布前審查，美國 AI 政策從「放手」轉向「把關」",
-      "corroboration_key": "publisher:technews",
-      "corroboration_status": "identified",
       "source_policy": {
         "schema_version": 1,
         "policy_id": "publisher-governance-v1",
@@ -7006,6 +8150,24 @@
           "limited_scope"
         ]
       },
+      "article_key": "https://technews.tw/2026/11/23/america-hits-the-brakes-on-ai",
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.67,
+      "ai_label": "model_release",
+      "ai_relevance_reason": "matched_ai_signal",
+      "ai_signals": [],
+      "ai_noise": [],
+      "source_tier": "tw_media",
+      "source_tier_label": "台灣繁中媒體",
+      "source_tier_rank": 2,
+      "summary_zh": "美國對人工智慧的政策立場正出現明顯轉折。根據最新消息，川普政府正在考慮建立一套機制，要求 AI 模型在對外發布 […]",
+      "title_original": "川普政府擬推 AI 模型發布前審查，美國 AI 政策從「放手」轉向「把關」",
+      "title_en": null,
+      "title_zh": "川普政府擬推 AI 模型發布前審查，美國 AI 政策從「放手」轉向「把關」",
+      "title_bilingual": "川普政府擬推 AI 模型發布前審查，美國 AI 政策從「放手」轉向「把關」",
+      "corroboration_key": "publisher:technews",
+      "corroboration_status": "identified",
       "source_material": {
         "title_original": "",
         "title": "川普政府擬推 AI 模型發布前審查，美國 AI 政策從「放手」轉向「把關」",
@@ -7021,6 +8183,104 @@
       "source_tier_weight": 0.56
     },
     {
+      "id": "389274cdb54345dd6deda37e9b786ffc21ad7d28",
+      "published_at": "2026-11-23T02:03:34Z",
+      "first_seen_at": "2026-11-23T02:35:37.930217Z",
+      "site_id": "curated_media",
+      "site_name": "精選媒體",
+      "source": "AIBASE",
+      "title": "騰訊混元團隊 Reddit 答問 120 分鐘：不刻意刷榜，下一代模型規模將“顯著擴大”",
+      "url": "https://news.aibase.com/tw/news/32460",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
+      "summary": "騰訊11月推出Hy4與Hy4flash後，爲迴應“AI慢了”質疑，於11月21日凌晨在Reddit舉行120分鐘AMA。首席AI科學家、混元負責人姚順雨帶團隊回答近百個問題，公開研發方向與底牌。參數規模成焦點：字節、Kimi向萬億參數推進，混元爲何仍停在7000億？",
+      "ingress": {
+        "kind": "public_adapter",
+        "site_id": "curated_media",
+        "source_id": "aibase",
+        "name": "AIBASE",
+        "feed_url": null
+      },
+      "publisher": {
+        "schema_version": 1,
+        "publisher_id": "aibase",
+        "name": "AIBASE",
+        "domain": "news.aibase.com",
+        "status": "identified",
+        "basis": [
+          "explicit_group"
+        ],
+        "evidence": {
+          "rss_source_name": null,
+          "rss_source_url": null,
+          "article_url": "https://news.aibase.com/tw/news/32460",
+          "article_host": "news.aibase.com",
+          "expected_publisher_id": null,
+          "conflicts": []
+        }
+      },
+      "aibase_article_id": "32460",
+      "field_languages": {
+        "title": "tw",
+        "url": "tw",
+        "summary": "tw"
+      },
+      "content_language": "tw",
+      "article_key": "https://news.aibase.com/tw/news/32460",
+      "security_topic": false,
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.76,
+      "ai_label": "model_release",
+      "ai_relevance_reason": "curated_media_source_filter",
+      "ai_signals": [
+        "aibase"
+      ],
+      "ai_noise": [],
+      "source_tier": "advanced",
+      "source_tier_label": "次級AI媒體",
+      "source_tier_rank": 4,
+      "summary_zh": "騰訊11月推出Hy4與Hy4flash後，爲迴應“AI慢了”質疑，於11月21日凌晨在Reddit舉行120分鐘AMA。首席AI科學家、混元負責人姚順雨帶團隊回答近百個問題，公開研發方向與底牌。參數規模成焦點：字節、Kimi向萬億參數推進，混元爲何仍停在7000億？",
+      "title_original": "騰訊混元團隊 Reddit 答問 120 分鐘：不刻意刷榜，下一代模型規模將“顯著擴大”",
+      "title_en": null,
+      "title_zh": "騰訊混元團隊 Reddit 答問 120 分鐘：不刻意刷榜，下一代模型規模將“顯著擴大”",
+      "title_bilingual": "騰訊混元團隊 Reddit 答問 120 分鐘：不刻意刷榜，下一代模型規模將“顯著擴大”",
+      "corroboration_key": "cn_aggregator",
+      "corroboration_status": "identified",
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+        "scope_id": "aibase",
+        "publisher_kind": "aggregator",
+        "admission_status": "limited",
+        "source_tier": "advanced",
+        "source_tier_label": "次級AI媒體",
+        "source_tier_rank": 4,
+        "allow_general": true,
+        "allow_featured": false,
+        "allow_radar": false,
+        "reason_codes": [
+          "identified_host",
+          "limited_scope",
+          "not_permitted_for_featured",
+          "not_permitted_for_radar"
+        ]
+      },
+      "source_material": {
+        "title_original": "",
+        "title": "騰訊混元團隊 Reddit 答問 120 分鐘：不刻意刷榜，下一代模型規模將“顯著擴大”",
+        "summary": "騰訊11月推出Hy4與Hy4flash後，爲迴應“AI慢了”質疑，於11月21日凌晨在Reddit舉行120分鐘AMA。首席AI科學家、混元負責人姚順雨帶團隊回答近百個問題，公開研發方向與底牌。參數規模成焦點：字節、Kimi向萬億參數推進，混元爲何仍停在7000億？"
+      },
+      "qualification": {
+        "scope": "in_scope",
+        "core_evidence": [],
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      "source_tier_weight": 0.45
+    },
+    {
       "id": "6b3b7ee63ad1326df43db301b9aa19280bccc22e",
       "published_at": "2026-11-23T02:00:14Z",
       "first_seen_at": "2026-11-23T02:05:34.638356Z",
@@ -7029,7 +8289,7 @@
       "source": "TechNews 科技新報",
       "title": "中國股市 AI 熱潮逆轉上演大逃亡，科技類指數市值蒸發 56 兆",
       "url": "https://finance.technews.tw/2026/11/23/china-stock-market-ai-frenzy-mass-exodus-tech-indices-56-trillion-market-value-evaporation",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "中國科技業巨擘競相追趕美國人工智慧（AI）發展，一度讓當地概念股成熱門標的。如今隨著全球 AI 熱潮減弱，類股 […]",
       "source_updated_at": "2026-11-23T02:00:14Z",
       "ingress": {
@@ -7057,27 +8317,7 @@
           "conflicts": []
         }
       },
-      "article_key": "https://finance.technews.tw/2026/11/23/china-stock-market-ai-frenzy-mass-exodus-tech-indices-56-trillion-market-value-evaporation",
       "security_topic": false,
-      "business_events": [
-        "earnings"
-      ],
-      "ai_is_related": true,
-      "ai_score": 0.67,
-      "ai_label": "ai_general",
-      "ai_relevance_reason": "matched_ai_signal",
-      "ai_signals": [],
-      "ai_noise": [],
-      "source_tier": "watchlist",
-      "source_tier_label": "未審來源",
-      "source_tier_rank": 6,
-      "summary_zh": "中國科技業巨擘競相追趕美國人工智慧（AI）發展，一度讓當地概念股成熱門標的。如今隨著全球 AI 熱潮減弱，類股 […]",
-      "title_original": "中國股市 AI 熱潮逆轉上演大逃亡，科技類指數市值蒸發 56 兆",
-      "title_en": null,
-      "title_zh": "中國股市 AI 熱潮逆轉上演大逃亡，科技類指數市值蒸發 56 兆",
-      "title_bilingual": "中國股市 AI 熱潮逆轉上演大逃亡，科技類指數市值蒸發 56 兆",
-      "corroboration_key": "publisher:technews",
-      "corroboration_status": "identified",
       "source_policy": {
         "schema_version": 1,
         "policy_id": "publisher-governance-v1",
@@ -7099,6 +8339,26 @@
           "not_permitted_for_radar"
         ]
       },
+      "article_key": "https://finance.technews.tw/2026/11/23/china-stock-market-ai-frenzy-mass-exodus-tech-indices-56-trillion-market-value-evaporation",
+      "business_events": [
+        "earnings"
+      ],
+      "ai_is_related": true,
+      "ai_score": 0.67,
+      "ai_label": "ai_general",
+      "ai_relevance_reason": "matched_ai_signal",
+      "ai_signals": [],
+      "ai_noise": [],
+      "source_tier": "watchlist",
+      "source_tier_label": "未審來源",
+      "source_tier_rank": 6,
+      "summary_zh": "中國科技業巨擘競相追趕美國人工智慧（AI）發展，一度讓當地概念股成熱門標的。如今隨著全球 AI 熱潮減弱，類股 […]",
+      "title_original": "中國股市 AI 熱潮逆轉上演大逃亡，科技類指數市值蒸發 56 兆",
+      "title_en": null,
+      "title_zh": "中國股市 AI 熱潮逆轉上演大逃亡，科技類指數市值蒸發 56 兆",
+      "title_bilingual": "中國股市 AI 熱潮逆轉上演大逃亡，科技類指數市值蒸發 56 兆",
+      "corroboration_key": "publisher:technews",
+      "corroboration_status": "identified",
       "source_material": {
         "title_original": "",
         "title": "中國股市 AI 熱潮逆轉上演大逃亡，科技類指數市值蒸發 56 兆",
@@ -7122,7 +8382,7 @@
       "source": "AIBASE",
       "title": "38 萬參數的 Transformer 塞進一張軟盤：三十年前的 486 老電腦，如今也能“跑 AI”",
       "url": "https://news.aibase.com/tw/news/32459",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "開發者WollyMonjac打造復古項目Tiny2.1，把微型問答Transformer塞進軟盤，讓運行DOS的486DX和Pentium老電腦也能用AI。該軟件用Turbo C 2.0編寫，雖非大型語言模型，卻與當今大模型架構同源，只是被極度壓縮。文中還提到，壓縮難點源於軟盤極其有限的容量。",
       "ingress": {
         "kind": "public_adapter",
@@ -7156,27 +8416,7 @@
         "summary": "tw"
       },
       "content_language": "tw",
-      "article_key": "https://news.aibase.com/tw/news/32459",
       "security_topic": false,
-      "business_events": [],
-      "ai_is_related": true,
-      "ai_score": 0.79,
-      "ai_label": "research_paper",
-      "ai_relevance_reason": "curated_media_source_filter",
-      "ai_signals": [
-        "transformer"
-      ],
-      "ai_noise": [],
-      "source_tier": "advanced",
-      "source_tier_label": "次級AI媒體",
-      "source_tier_rank": 4,
-      "summary_zh": "開發者WollyMonjac打造復古項目Tiny2.1，把微型問答Transformer塞進軟盤，讓運行DOS的486DX和Pentium老電腦也能用AI。該軟件用Turbo C 2.0編寫，雖非大型語言模型，卻與當今大模型架構同源，只是被極度壓縮。文中還提到，壓縮難點源於軟盤極其有限的容量。",
-      "title_original": "38 萬參數的 Transformer 塞進一張軟盤：三十年前的 486 老電腦，如今也能“跑 AI”",
-      "title_en": null,
-      "title_zh": "38 萬參數的 Transformer 塞進一張軟盤：三十年前的 486 老電腦，如今也能“跑 AI”",
-      "title_bilingual": "38 萬參數的 Transformer 塞進一張軟盤：三十年前的 486 老電腦，如今也能“跑 AI”",
-      "corroboration_key": "cn_aggregator",
-      "corroboration_status": "identified",
       "source_policy": {
         "schema_version": 1,
         "policy_id": "publisher-governance-v1",
@@ -7197,6 +8437,26 @@
           "not_permitted_for_radar"
         ]
       },
+      "article_key": "https://news.aibase.com/tw/news/32459",
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.79,
+      "ai_label": "research_paper",
+      "ai_relevance_reason": "curated_media_source_filter",
+      "ai_signals": [
+        "transformer"
+      ],
+      "ai_noise": [],
+      "source_tier": "advanced",
+      "source_tier_label": "次級AI媒體",
+      "source_tier_rank": 4,
+      "summary_zh": "開發者WollyMonjac打造復古項目Tiny2.1，把微型問答Transformer塞進軟盤，讓運行DOS的486DX和Pentium老電腦也能用AI。該軟件用Turbo C 2.0編寫，雖非大型語言模型，卻與當今大模型架構同源，只是被極度壓縮。文中還提到，壓縮難點源於軟盤極其有限的容量。",
+      "title_original": "38 萬參數的 Transformer 塞進一張軟盤：三十年前的 486 老電腦，如今也能“跑 AI”",
+      "title_en": null,
+      "title_zh": "38 萬參數的 Transformer 塞進一張軟盤：三十年前的 486 老電腦，如今也能“跑 AI”",
+      "title_bilingual": "38 萬參數的 Transformer 塞進一張軟盤：三十年前的 486 老電腦，如今也能“跑 AI”",
+      "corroboration_key": "cn_aggregator",
+      "corroboration_status": "identified",
       "source_material": {
         "title_original": "",
         "title": "38 萬參數的 Transformer 塞進一張軟盤：三十年前的 486 老電腦，如今也能“跑 AI”",
@@ -7220,7 +8480,7 @@
       "source": "AIBASE",
       "title": "沉寂百日後先上前菜：智譜下週發 GLM-5.4，3 萬億旗艦 12 月見",
       "url": "https://news.aibase.com/tw/news/32458",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "國產大模型沉寂三個多月後，智譜被指下週發佈GLM-5.4。據大摩研報，該模型爲輕量級新一代，參數7000多億，Preview版已小範圍測試；更強旗艦GLM-5.5參數超3萬億，或12月登場。美國御三家近兩月密集出招、谷歌狀態尤佳，國產陣營下一張牌引發關注。",
       "ingress": {
         "kind": "public_adapter",
@@ -7254,27 +8514,7 @@
         "summary": "tw"
       },
       "content_language": "tw",
-      "article_key": "https://news.aibase.com/tw/news/32458",
       "security_topic": false,
-      "business_events": [],
-      "ai_is_related": true,
-      "ai_score": 0.79,
-      "ai_label": "ai_general",
-      "ai_relevance_reason": "curated_media_source_filter",
-      "ai_signals": [
-        "glm"
-      ],
-      "ai_noise": [],
-      "source_tier": "advanced",
-      "source_tier_label": "次級AI媒體",
-      "source_tier_rank": 4,
-      "summary_zh": "國產大模型沉寂三個多月後，智譜被指下週發佈GLM-5.4。據大摩研報，該模型爲輕量級新一代，參數7000多億，Preview版已小範圍測試；更強旗艦GLM-5.5參數超3萬億，或12月登場。美國御三家近兩月密集出招、Google狀態尤佳，國產陣營下一張牌引發關注。",
-      "title_original": "沉寂百日後先上前菜：智譜下週發 GLM-5.4，3 萬億旗艦 12 月見",
-      "title_en": null,
-      "title_zh": "沉寂百日後先上前菜：智譜下週發 GLM-5.4，3 萬億旗艦 12 月見",
-      "title_bilingual": "沉寂百日後先上前菜：智譜下週發 GLM-5.4，3 萬億旗艦 12 月見",
-      "corroboration_key": "cn_aggregator",
-      "corroboration_status": "identified",
       "source_policy": {
         "schema_version": 1,
         "policy_id": "publisher-governance-v1",
@@ -7295,6 +8535,26 @@
           "not_permitted_for_radar"
         ]
       },
+      "article_key": "https://news.aibase.com/tw/news/32458",
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.79,
+      "ai_label": "ai_general",
+      "ai_relevance_reason": "curated_media_source_filter",
+      "ai_signals": [
+        "glm"
+      ],
+      "ai_noise": [],
+      "source_tier": "advanced",
+      "source_tier_label": "次級AI媒體",
+      "source_tier_rank": 4,
+      "summary_zh": "國產大模型沉寂三個多月後，智譜被指下週發佈GLM-5.4。據大摩研報，該模型爲輕量級新一代，參數7000多億，Preview版已小範圍測試；更強旗艦GLM-5.5參數超3萬億，或12月登場。美國御三家近兩月密集出招、Google狀態尤佳，國產陣營下一張牌引發關注。",
+      "title_original": "沉寂百日後先上前菜：智譜下週發 GLM-5.4，3 萬億旗艦 12 月見",
+      "title_en": null,
+      "title_zh": "沉寂百日後先上前菜：智譜下週發 GLM-5.4，3 萬億旗艦 12 月見",
+      "title_bilingual": "沉寂百日後先上前菜：智譜下週發 GLM-5.4，3 萬億旗艦 12 月見",
+      "corroboration_key": "cn_aggregator",
+      "corroboration_status": "identified",
       "source_material": {
         "title_original": "",
         "title": "沉寂百日後先上前菜：智譜下週發 GLM-5.4，3 萬億旗艦 12 月見",
@@ -7339,7 +8599,7 @@
       "source": "AIBASE",
       "title": "爲 OpenAI 的鉅額訂單備好錢：甲骨文稱融資已就位",
       "url": "https://news.aibase.com/tw/news/32457",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "甲骨文11月20日稱，本月初已籌集到履行與OpenAI合同全部所需資金，以向市場證明自己“不缺錢”；與供應商進一步私下洽談只是錦上添花，並非必要。同時，得州Abilene園區作爲雙方AI基礎設施合作旗艦項目，已在訓練GPT-6 Astra，工程進度也被擺上檯面，證明交易正實實在在推進。",
       "ingress": {
         "kind": "public_adapter",
@@ -7373,27 +8633,7 @@
         "summary": "tw"
       },
       "content_language": "tw",
-      "article_key": "https://news.aibase.com/tw/news/32457",
       "security_topic": false,
-      "business_events": [],
-      "ai_is_related": true,
-      "ai_score": 0.79,
-      "ai_label": "ai_product_update",
-      "ai_relevance_reason": "curated_media_source_filter",
-      "ai_signals": [
-        "openai"
-      ],
-      "ai_noise": [],
-      "source_tier": "advanced",
-      "source_tier_label": "次級AI媒體",
-      "source_tier_rank": 4,
-      "summary_zh": "甲骨文11月20日稱，本月初已籌集到履行與OpenAI合同全部所需資金，以向市場證明自己“不缺錢”；與供應商進一步私下洽談只是錦上添花，並非必要。同時，得州Abilene園區作爲雙方AI基礎設施合作旗艦項目，已在訓練GPT-6 Astra，工程進度也被擺上檯面，證明交易正實實在在推進。",
-      "title_original": "爲 OpenAI 的鉅額訂單備好錢：甲骨文稱融資已就位",
-      "title_en": null,
-      "title_zh": "爲 OpenAI 的鉅額訂單備好錢：甲骨文稱融資已就位",
-      "title_bilingual": "爲 OpenAI 的鉅額訂單備好錢：甲骨文稱融資已就位",
-      "corroboration_key": "cn_aggregator",
-      "corroboration_status": "identified",
       "source_policy": {
         "schema_version": 1,
         "policy_id": "publisher-governance-v1",
@@ -7414,6 +8654,26 @@
           "not_permitted_for_radar"
         ]
       },
+      "article_key": "https://news.aibase.com/tw/news/32457",
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.79,
+      "ai_label": "ai_product_update",
+      "ai_relevance_reason": "curated_media_source_filter",
+      "ai_signals": [
+        "openai"
+      ],
+      "ai_noise": [],
+      "source_tier": "advanced",
+      "source_tier_label": "次級AI媒體",
+      "source_tier_rank": 4,
+      "summary_zh": "甲骨文11月20日稱，本月初已籌集到履行與OpenAI合同全部所需資金，以向市場證明自己“不缺錢”；與供應商進一步私下洽談只是錦上添花，並非必要。同時，得州Abilene園區作爲雙方AI基礎設施合作旗艦項目，已在訓練GPT-6 Astra，工程進度也被擺上檯面，證明交易正實實在在推進。",
+      "title_original": "爲 OpenAI 的鉅額訂單備好錢：甲骨文稱融資已就位",
+      "title_en": null,
+      "title_zh": "爲 OpenAI 的鉅額訂單備好錢：甲骨文稱融資已就位",
+      "title_bilingual": "爲 OpenAI 的鉅額訂單備好錢：甲骨文稱融資已就位",
+      "corroboration_key": "cn_aggregator",
+      "corroboration_status": "identified",
       "source_material": {
         "title_original": "",
         "title": "爲 OpenAI 的鉅額訂單備好錢：甲骨文稱融資已就位",
@@ -7437,7 +8697,7 @@
       "source": "AIBASE",
       "title": "MiniMax 拿內部模型開刀密碼學：把紙面攻擊變成秒級實戰，NIST 競賽算法首次被真攻破",
       "url": "https://news.aibase.com/tw/news/32456",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "MiniMax研究團隊用最新內部模型，對密碼學前沿方案開展系統性自動化密碼分析。模型發現一批此前未公開的算法構造弱點，並將原本停留在論文理論層面的攻擊方式，推進到秒級或分鐘級即可真實執行。這意味着過去需耗費大量人力時間、未必跑得通的攻擊，正被AI自動化顯著加速，密碼學安全評估面臨新變量。",
       "ingress": {
         "kind": "public_adapter",
@@ -7471,27 +8731,7 @@
         "summary": "tw"
       },
       "content_language": "tw",
-      "article_key": "https://news.aibase.com/tw/news/32456",
       "security_topic": false,
-      "business_events": [],
-      "ai_is_related": true,
-      "ai_score": 0.76,
-      "ai_label": "model_release",
-      "ai_relevance_reason": "curated_media_source_filter",
-      "ai_signals": [
-        "aibase"
-      ],
-      "ai_noise": [],
-      "source_tier": "advanced",
-      "source_tier_label": "次級AI媒體",
-      "source_tier_rank": 4,
-      "summary_zh": "MiniMax研究團隊用最新內部模型，對密碼學前沿方案開展系統性自動化密碼分析。模型發現一批此前未公開的算法構造弱點，並將原本停留在論文理論層面的攻擊方式，推進到秒級或分鐘級即可真實執行。這意味着過去需耗費大量人力時間、未必跑得通的攻擊，正被AI自動化顯著加速，密碼學安全評估面臨新變量。",
-      "title_original": "MiniMax 拿內部模型開刀密碼學：把紙面攻擊變成秒級實戰，NIST 競賽算法首次被真攻破",
-      "title_en": null,
-      "title_zh": "MiniMax 拿內部模型開刀密碼學：把紙面攻擊變成秒級實戰，NIST 競賽算法首次被真攻破",
-      "title_bilingual": "MiniMax 拿內部模型開刀密碼學：把紙面攻擊變成秒級實戰，NIST 競賽算法首次被真攻破",
-      "corroboration_key": "cn_aggregator",
-      "corroboration_status": "identified",
       "source_policy": {
         "schema_version": 1,
         "policy_id": "publisher-governance-v1",
@@ -7512,6 +8752,26 @@
           "not_permitted_for_radar"
         ]
       },
+      "article_key": "https://news.aibase.com/tw/news/32456",
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.76,
+      "ai_label": "model_release",
+      "ai_relevance_reason": "curated_media_source_filter",
+      "ai_signals": [
+        "aibase"
+      ],
+      "ai_noise": [],
+      "source_tier": "advanced",
+      "source_tier_label": "次級AI媒體",
+      "source_tier_rank": 4,
+      "summary_zh": "MiniMax研究團隊用最新內部模型，對密碼學前沿方案開展系統性自動化密碼分析。模型發現一批此前未公開的算法構造弱點，並將原本停留在論文理論層面的攻擊方式，推進到秒級或分鐘級即可真實執行。這意味着過去需耗費大量人力時間、未必跑得通的攻擊，正被AI自動化顯著加速，密碼學安全評估面臨新變量。",
+      "title_original": "MiniMax 拿內部模型開刀密碼學：把紙面攻擊變成秒級實戰，NIST 競賽算法首次被真攻破",
+      "title_en": null,
+      "title_zh": "MiniMax 拿內部模型開刀密碼學：把紙面攻擊變成秒級實戰，NIST 競賽算法首次被真攻破",
+      "title_bilingual": "MiniMax 拿內部模型開刀密碼學：把紙面攻擊變成秒級實戰，NIST 競賽算法首次被真攻破",
+      "corroboration_key": "cn_aggregator",
+      "corroboration_status": "identified",
       "source_material": {
         "title_original": "",
         "title": "MiniMax 拿內部模型開刀密碼學：把紙面攻擊變成秒級實戰，NIST 競賽算法首次被真攻破",
@@ -7535,7 +8795,7 @@
       "source": "TechNews 科技新報",
       "title": "義媒：Anthropic 執行長購南義莊園，擬長住投資",
       "url": "https://finance.technews.tw/2026/11/23/anthropic-ceo-buys-southern-italy-estate-long-term-investment",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "義大利媒體披露，美國 AI 巨頭 Anthropic 執行長阿莫戴（Dario Amodei）近日低調飛抵南義 […]",
       "source_updated_at": "2026-11-23T01:40:31Z",
       "ingress": {
@@ -7563,27 +8823,7 @@
           "conflicts": []
         }
       },
-      "article_key": "https://finance.technews.tw/2026/11/23/anthropic-ceo-buys-southern-italy-estate-long-term-investment",
       "security_topic": false,
-      "business_events": [],
-      "ai_is_related": true,
-      "ai_score": 0.71,
-      "ai_label": "ai_product_update",
-      "ai_relevance_reason": "matched_ai_signal",
-      "ai_signals": [
-        "anthropic"
-      ],
-      "ai_noise": [],
-      "source_tier": "watchlist",
-      "source_tier_label": "未審來源",
-      "source_tier_rank": 6,
-      "summary_zh": "義大利媒體披露，美國 AI 巨頭 Anthropic 執行長阿莫戴（Dario Amodei）近日低調飛抵南義 […]",
-      "title_original": "義媒：Anthropic 執行長購南義莊園，擬長住投資",
-      "title_en": null,
-      "title_zh": "義媒：Anthropic 執行長購南義莊園，擬長住投資",
-      "title_bilingual": "義媒：Anthropic 執行長購南義莊園，擬長住投資",
-      "corroboration_key": "publisher:technews",
-      "corroboration_status": "identified",
       "source_policy": {
         "schema_version": 1,
         "policy_id": "publisher-governance-v1",
@@ -7605,6 +8845,26 @@
           "not_permitted_for_radar"
         ]
       },
+      "article_key": "https://finance.technews.tw/2026/11/23/anthropic-ceo-buys-southern-italy-estate-long-term-investment",
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.71,
+      "ai_label": "ai_product_update",
+      "ai_relevance_reason": "matched_ai_signal",
+      "ai_signals": [
+        "anthropic"
+      ],
+      "ai_noise": [],
+      "source_tier": "watchlist",
+      "source_tier_label": "未審來源",
+      "source_tier_rank": 6,
+      "summary_zh": "義大利媒體披露，美國 AI 巨頭 Anthropic 執行長阿莫戴（Dario Amodei）近日低調飛抵南義 […]",
+      "title_original": "義媒：Anthropic 執行長購南義莊園，擬長住投資",
+      "title_en": null,
+      "title_zh": "義媒：Anthropic 執行長購南義莊園，擬長住投資",
+      "title_bilingual": "義媒：Anthropic 執行長購南義莊園，擬長住投資",
+      "corroboration_key": "publisher:technews",
+      "corroboration_status": "identified",
       "source_material": {
         "title_original": "",
         "title": "義媒：Anthropic 執行長購南義莊園，擬長住投資",
@@ -7628,7 +8888,7 @@
       "source": "TechCrunch AI",
       "title": "How Notable Capital, GIC, and Baillie Gifford bet big on Anthropic before its IPO",
       "url": "https://techcrunch.com/2026/11/22/how-notable-capital-gic-and-baillie-gifford-bet-big-on-anthropic-before-its-ipo",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "Three significant backers share what gave them conviction to bet billions on Anthropic.",
       "source_updated_at": "2026-11-23T01:25:53Z",
       "ingress": {
@@ -7725,7 +8985,7 @@
       "source": "AIBASE",
       "title": "給 AI 發展劃一條“困惑度”紅線：OpenAI 首席科學家提議設行業門檻",
       "url": "https://news.aibase.com/tw/news/32455",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "OpenAI首席科學家帕霍茨基提議，全行業共建AI開發標準，設置硬性安全門檻，企業須承諾滿足安全要求前不越線。方案以“困惑度”等技術指標劃定共同限制，用模型預測下一段文本的能力當安全考卷，防止能力逼近自我加速臨界點。彭博社11月23日報道。",
       "ingress": {
         "kind": "public_adapter",
@@ -7823,7 +9083,7 @@
       "source": "AIBASE",
       "title": "OpenAI 首席科學家提議給全行業模型開發“畫線”：能力漲到哪兒算停，先得看人類能不能看住它",
       "url": "https://news.aibase.com/tw/news/32454",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "OpenAI首席科學家帕喬茨基發文，提議AI公司應對日益強大的模型設限，直到研究人員能更好理解、監控模型行爲。他設想建立全行業標準：各公司共同承諾，在滿足特定安全要求前，不越過約定的能力紅線。他還就如何劃定這條線提出具體方案。此舉被視爲AI最前沿“領跑者先喊慢一點”，凸顯安全治理緊迫性。",
       "ingress": {
         "kind": "public_adapter",
@@ -7921,7 +9181,7 @@
       "source": "AIBASE",
       "title": "宣傳先行、功能遲到：蘋果 2.5 億美元和解 Siri 訴訟",
       "url": "https://news.aibase.com/tw/news/32453",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "蘋果因發佈會演示的Siri新功能遲遲未落地，遭消費者訴訟並達成和解。法庭文件顯示，2.5億美元和解池中，符合條件的iPhone用戶每臺預計至少獲賠61美元，上限95美元。糾紛源於2024年6月蘋果展示Siri理解個人上下文等新能力，但功能延期未兌現，最終以賠償解決。",
       "ingress": {
         "kind": "public_adapter",
@@ -8019,7 +9279,7 @@
       "source": "AIBASE",
       "title": "微軟 AI 掌門人罕見“交底”：公開 MAI-2 模型關鍵指標，響應 OpenAI 透明度倡議",
       "url": "https://news.aibase.com/tw/news/32452",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "11月22日，AI巨頭罕見相互“交底”。微軟AI CEO蘇萊曼轉發OpenAI首席科學家帕喬茨基文章，明確微軟完全支持OpenAI提高透明度倡議，雙方將共同分享預訓練進展。預訓練數據、方法和進展向來是大模型公司捂得最嚴實的家底，如今被擺上共同公開的桌面，蘇萊曼也順勢作出進一步表態。",
       "ingress": {
         "kind": "public_adapter",
@@ -8117,7 +9377,7 @@
       "source": "AIBASE",
       "title": "寫代碼從輸入變輸出：納德拉承認 VS Code 半年內被改寫地位",
       "url": "https://news.aibase.com/tw/news/32451",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "微軟CEO納德拉坦言，Anthropic推出Claude Code後，傳統代碼編輯器和IDE約六個月便失去存在感，微軟未能立即應對。VS Code經十餘年打磨，憑免費開源、跨平臺、語法高亮、智能補全、調試、Git集成及擴展生態成爲開發者默認工作臺，如今卻因AI編程工具崛起遭遇“十年經營、半年失守”的衝擊。",
       "ingress": {
         "kind": "public_adapter",
@@ -8215,7 +9475,7 @@
       "source": "AIBASE",
       "title": "AI 與人各交一份千禧難題答卷：一邊靠 Claude 寫完 79 頁證明，一邊掏出 12 年手寫的 940 頁草稿",
       "url": "https://news.aibase.com/tw/news/32450",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "數學界同一天擺出兩份“答卷”：34歲數學家 Levent Alpöge 聯合紐約大學教授發佈79頁論文，聲稱證明懸置百年的千禧難題——三維無外力 Navier–Stokes 方程存在有限時間爆破，即流體運動或突然失控、解飆至無窮大。更引人注目的是，該工作全程與 Claude 合作完成。",
       "ingress": {
         "kind": "public_adapter",
@@ -8489,7 +9749,7 @@
       "source": "CyberQ 賽博客",
       "title": "OpenAI 首席科學家公開內部困惑度數據，提議以它為 AI 發展設共同上限",
       "url": "https://cyberq.tw/2026/11/23/openai-discusses-confusion",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "OpenAI 首席科學家 Jakub Pachocki 公開自 GPT-3.5 以來的內部困惑度數字，主張以困惑度作為各家 AI 實驗室共同的進度指標，並提議在監控 AI 行為的能力達標之前，設定各家都不越過的發展上限。數字來自 OpenAI 內部程式碼庫，外界目前無法驗證。",
       "ingress": {
         "kind": "public_feed",
@@ -8668,7 +9928,7 @@
       "source": "CyberQ 賽博客",
       "title": "反駁率高的 AI 比較誠實嗎？拆解 BullshitBench 排行榜，與三個不能忽略的校正（附 RTX 5060 Ti 實測）",
       "url": "https://cyberq.tw/2026/11/23/are-ais-with-high-rebuttal-rates-more",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "本次實測這份BullshitBench 排行榜是真的，資料也確實存在，但「反駁率越高等於越能提供真實資料」這句 […]",
       "ingress": {
         "kind": "public_feed",
@@ -8757,7 +10017,7 @@
       "source": "CyberQ 賽博客",
       "title": "Qsirch 8.1 實測：沒有獨立顯示卡也能開 AI 模式，逐字稿可下載 SRT",
       "url": "https://cyberq.tw/2026/11/23/qsirch-81-real-world-testing-ai-mode-can",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "QNAP 在日前發布 Qsirch 8.1.0.2。發行說明列出的新功能與修正如下： 筆者的測試機 TVS-h […]",
       "ingress": {
         "kind": "public_feed",
@@ -9025,7 +10285,7 @@
       "source": "Reuters AI (Google News)",
       "title": "US futures bounce while Asia markets brace for AI wipeout - Reuters",
       "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNR2c4ZVNmcHBzVFctOTBkRUd2d0VHTklseUhCcEtZT2VHbU1WbWprMUk2aDZSQ2tkZHNYVE9EWUgyaEkxeWtyN0M2V2NzR2ZCTHFmMEhvbHFDeExTNUdTeDF3WkxJZ2RSdmZ2cHBxWlFjTXdoa1hXdlZQRWtyTFFKVlJjMA?oc=5",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "US futures bounce while Asia markets brace for AI wipeout Reuters",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMigwFBVV95cUxNR2c4ZVNmcHBzVFctOTBkRUd2d0VHTklseUhCcEtZT2VHbU1WbWprMUk2aDZSQ2tkZHNYVE9EWUgyaEkxeWtyN0M2V2NzR2ZCTHFmMEhvbHFDeExTNUdTeDF3WkxJZ2RSdmZ2cHBxWlFjTXdoa1hXdlZQRWtyTFFKVlJjMA?oc=5"
@@ -9208,7 +10468,7 @@
       "source": "INSIDE",
       "title": "Google 宣佈智慧音箱與螢幕的語音助理 8 月全面更新為 Gemini for Home",
       "url": "https://www.inside.com.tw/article/42978-google-retires-nest-app-jan-2027-assistant-speakers-displays-aug-2027-gemini-for-home",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "智慧助理改朝換代！Google 宣佈 Nest app 將於 2027 年 1 月 25 日停用，裝置改由 Google Home app 管理，智慧音箱與智慧螢幕上的 Google Assistant 則在 2027 年 8 月 2 日由 Gemini for Home 取代，現有 Nest 硬體不必換新。",
       "source_updated_at": "2026-11-22T23:38:00Z",
       "ingress": {
@@ -9472,19 +10732,19 @@
     },
     {
       "id": "27f82088c7cef1d5ad963db257ee04a0ea0d4a3a",
-      "published_at": "2026-11-22T23:09:59Z",
+      "published_at": "2026-11-22T23:09:00Z",
       "first_seen_at": "2026-11-23T01:05:34.801826Z",
       "site_id": "curated_media",
       "site_name": "精選媒體",
       "source": "Reuters AI (Google News)",
       "title": "OpenAI scientist proposes industry AI limits tied to model intelligence metric - Reuters",
       "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPa0ZQb0xtalJ5djRmZmkwQnhmdDBlMEtncDUtUEJsUFBtWmptbkdVQ3c5QjY2TzhKN0NFT2ZzYnZmenQxY1lrUWFFYjJsdS1KazdRUkJINEJRemQ1alh6TGtnNW1nRE92bTF3RW9FMTIyODB3UmpBaW5oSzFDWDFVT3FXdjZDVzQ0TVNVd29nQzZvY3ByWVpBLUlhRVg0bFZiRHUxVjhqclptLUMycDJlYVBsQXQ4a28tRnFnbQ?oc=5",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "OpenAI scientist proposes industry AI limits tied to model intelligence metric Reuters",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMivAFBVV95cUxPa0ZQb0xtalJ5djRmZmkwQnhmdDBlMEtncDUtUEJsUFBtWmptbkdVQ3c5QjY2TzhKN0NFT2ZzYnZmenQxY1lrUWFFYjJsdS1KazdRUkJINEJRemQ1alh6TGtnNW1nRE92bTF3RW9FMTIyODB3UmpBaW5oSzFDWDFVT3FXdjZDVzQ0TVNVd29nQzZvY3ByWVpBLUlhRVg0bFZiRHUxVjhqclptLUMycDJlYVBsQXQ4a28tRnFnbQ?oc=5"
       ],
-      "source_updated_at": "2026-11-22T23:09:59Z",
+      "source_updated_at": "2026-11-22T23:09:00Z",
       "ingress": {
         "kind": "google_news",
         "site_id": "curated_media",
@@ -9530,6 +10790,16 @@
           "limited_scope"
         ]
       },
+      "article_history": [
+        {
+          "title": "OpenAI scientist proposes industry AI limits tied to model intelligence metric - Reuters",
+          "summary": "OpenAI scientist proposes industry AI limits tied to model intelligence metric Reuters",
+          "published_at": "2026-11-22T23:09:59Z",
+          "observed_at": "2026-11-23T02:05:34.638356Z"
+        }
+      ],
+      "article_history_truncated": false,
+      "content_observed_at": "2026-11-23T02:35:37.930217Z",
       "article_key": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPa0ZQb0xtalJ5djRmZmkwQnhmdDBlMEtncDUtUEJsUFBtWmptbkdVQ3c5QjY2TzhKN0NFT2ZzYnZmenQxY1lrUWFFYjJsdS1KazdRUkJINEJRemQ1alh6TGtnNW1nRE92bTF3RW9FMTIyODB3UmpBaW5oSzFDWDFVT3FXdjZDVzQ0TVNVd29nQzZvY3ByWVpBLUlhRVg0bFZiRHUxVjhqclptLUMycDJlYVBsQXQ4a28tRnFnbQ?oc=5",
       "business_events": [],
       "ai_is_related": true,
@@ -9565,6 +10835,98 @@
       "source_tier_weight": 0.58
     },
     {
+      "id": "24c78c3a6ac5573e3d316b6b887291716b7a24fb",
+      "published_at": "2026-11-22T23:01:00Z",
+      "first_seen_at": "2026-11-23T02:35:37.930217Z",
+      "site_id": "curated_media",
+      "site_name": "精選媒體",
+      "source": "The Information (Google News)",
+      "title": "AI Bubble Deflating? Dell, Workday on Deck - The Information",
+      "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQWTYtVmlPWmlDUGJ4Zi1CVFFMeXdURFg3bE9lUUpqMUt4U3Zxc2hkZy1iNHgwaVNadERpbTROSWRBbGJsUjJDSkFNcmduZ0V2T1liblBBeXlZTklKSHNQYm5mTDhZNnJrOXFFQlNBMlRsMi1vVXhpRTVoTHRvVVFKdEIzdjJBRjI2RFowRVJ6SjlReU93VzZ2UQ?oc=5",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
+      "summary": "AI Bubble Deflating? Dell, Workday on Deck The Information",
+      "publisher_links": [
+        "https://news.google.com/rss/articles/CBMimAFBVV95cUxQWTYtVmlPWmlDUGJ4Zi1CVFFMeXdURFg3bE9lUUpqMUt4U3Zxc2hkZy1iNHgwaVNadERpbTROSWRBbGJsUjJDSkFNcmduZ0V2T1liblBBeXlZTklKSHNQYm5mTDhZNnJrOXFFQlNBMlRsMi1vVXhpRTVoTHRvVVFKdEIzdjJBRjI2RFowRVJ6SjlReU93VzZ2UQ?oc=5"
+      ],
+      "source_updated_at": "2026-11-22T23:01:00Z",
+      "ingress": {
+        "kind": "google_news",
+        "site_id": "curated_media",
+        "source_id": "the_information_news",
+        "name": "The Information (Google News)",
+        "feed_url": "https://news.google.com/rss/search?q=site%3Atheinformation.com+AI+when%3A7d&hl=en-US&gl=US&ceid=US%3Aen"
+      },
+      "publisher": {
+        "schema_version": 1,
+        "publisher_id": "the_information",
+        "name": "The Information",
+        "domain": "www.theinformation.com",
+        "status": "identified",
+        "basis": [
+          "google_rss_source",
+          "configured_bridge"
+        ],
+        "evidence": {
+          "rss_source_name": "The Information",
+          "rss_source_url": "https://www.theinformation.com",
+          "article_url": null,
+          "article_host": "news.google.com",
+          "expected_publisher_id": null,
+          "conflicts": []
+        }
+      },
+      "article_key": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQWTYtVmlPWmlDUGJ4Zi1CVFFMeXdURFg3bE9lUUpqMUt4U3Zxc2hkZy1iNHgwaVNadERpbTROSWRBbGJsUjJDSkFNcmduZ0V2T1liblBBeXlZTklKSHNQYm5mTDhZNnJrOXFFQlNBMlRsMi1vVXhpRTVoTHRvVVFKdEIzdjJBRjI2RFowRVJ6SjlReU93VzZ2UQ?oc=5",
+      "security_topic": false,
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.68,
+      "ai_label": "ai_product_update",
+      "ai_relevance_reason": "curated_media_source_filter",
+      "ai_signals": [],
+      "ai_noise": [],
+      "source_tier": "ai_media",
+      "source_tier_label": "精選AI媒體",
+      "source_tier_rank": 2,
+      "summary_zh": "AI泡沫正在消退？戴爾、Workday蓄勢待發 The Information",
+      "title_original": "AI Bubble Deflating? Dell, Workday on Deck - The Information",
+      "title_en": "AI Bubble Deflating? Dell, Workday on Deck - The Information",
+      "title_zh": "AI泡沫正在消退？戴爾、Workday蓄勢待發 - The Information",
+      "title_bilingual": "AI泡沫正在消退？戴爾、Workday蓄勢待發 - The Information / AI Bubble Deflating? Dell, Workday on Deck - The Information",
+      "corroboration_key": "publisher:the_information",
+      "corroboration_status": "identified",
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+        "scope_id": "the_information",
+        "publisher_kind": "media",
+        "admission_status": "limited",
+        "source_tier": "ai_media",
+        "source_tier_label": "精選AI媒體",
+        "source_tier_rank": 2,
+        "allow_general": true,
+        "allow_featured": true,
+        "allow_radar": true,
+        "reason_codes": [
+          "identified_bridge",
+          "limited_scope"
+        ]
+      },
+      "source_material": {
+        "title_original": "",
+        "title": "AI Bubble Deflating? Dell, Workday on Deck - The Information",
+        "summary": "AI Bubble Deflating? Dell, Workday on Deck The Information"
+      },
+      "qualification": {
+        "scope": "in_scope",
+        "core_evidence": [],
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      "source_tier_weight": 0.58
+    },
+    {
       "id": "624192ed2f573b2fb602b95dc3288586d4d1571c",
       "published_at": "2026-11-22T22:50:02Z",
       "first_seen_at": "2026-11-05T13:35:35.623112Z",
@@ -9573,7 +10935,7 @@
       "source": "DeepSeek (Google News)",
       "title": "Is DeepSeek Free? Why There Is No Paid Plan to Upgrade To - Fello AI",
       "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTFAwOVByNGcwbWZkZVZqSFk5LUFnV3J1Y1lLdmtYd2hZYXpNaHE5QkliUlNfZnVBRW05V0lHak9NaHphMl9seTlfTkZfNlY2QQ?oc=5",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "Is DeepSeek Free? Why There Is No Paid Plan to Upgrade To Fello AI",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiTkFVX3lxTFAwOVByNGcwbWZkZVZqSFk5LUFnV3J1Y1lLdmtYd2hZYXpNaHE5QkliUlNfZnVBRW05V0lHak9NaHphMl9seTlfTkZfNlY2QQ?oc=5"
@@ -9679,7 +11041,7 @@
       "source": "DeepSeek (Google News)",
       "title": "LingSante-3.1-flash vs DeepSeek V4.1 Flash: Who Wins? - OrcaRouter",
       "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTFBmaTI4NUswcXItdEdOYzA2bzZwdE5KZDZlUmtfdzI3Y2lBdWFIR09YQlRsZndzR0VGTTZXLUkzZmZnQUp1YVZraWpBMWJnbFNDY2phZm9wMFdtTkZVYzMzRng1QVM5MXB5WDJvSS1GSlZHRUlMNF94RXROdjYtQQ?oc=5",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "LingSante-3.1-flash vs DeepSeek V4.1 Flash: Who Wins? OrcaRouter",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMifkFVX3lxTFBmaTI4NUswcXItdEdOYzA2bzZwdE5KZDZlUmtfdzI3Y2lBdWFIR09YQlRsZndzR0VGTTZXLUkzZmZnQUp1YVZraWpBMWJnbFNDY2phZm9wMFdtTkZVYzMzRng1QVM5MXB5WDJvSS1GSlZHRUlMNF94RXROdjYtQQ?oc=5"
@@ -9775,7 +11137,7 @@
       "source": "MarkTechPost Research",
       "title": "NVIDIA Releases Alpamayo 2 Edge: A 2B Reasoning VLA for DRIVE Thor",
       "url": "https://www.marktechpost.com/2026/11/22/nvidia-alpamayo-2-edge-2b-reasoning-vla-drive-thor",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "NVIDIA released Alpamayo 2 Edge, a 2B-class reasoning vision-language-action model that plans driving trajectories and explains them on DRIVE AGX Thor, at 160 to 190 ms pixel-to-trajectory latency. The post NVIDIA Releases Alpamayo 2 Edge: A 2B Reasoning VLA for DRIVE Thor appeared first on MarkTechPost .",
       "publisher_links": [
         "https://www.marktechpost.com/2026/11/22/nvidia-alpamayo-2-edge-2b-reasoning-vla-drive-thor/",
@@ -9867,7 +11229,7 @@
       "source": "TechCrunch AI",
       "title": "Why data centers are at the center of the Big Tech backlash",
       "url": "https://techcrunch.com/2026/11/22/why-data-centers-are-at-the-center-of-the-big-tech-backlash",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "Journalist Paris Marx unpacks his new book \"Hyperscale.\"",
       "source_updated_at": "2026-11-22T18:08:43Z",
       "ingress": {
@@ -9957,7 +11319,7 @@
       "source": "DeepSeek (Google News)",
       "title": "Best Free AI Models 2026: What's Free and Where to Use It - Fello AI",
       "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE5FSGoyTkZPOWtOb0xLUld6QTBoamp3MGg0b2pjcURBaXk2dllWN3B6SlNvYUMxZzdIUnM2UG5JRlVvcDhoY1QxcVlBVQ?oc=5",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "Best Free AI Models 2026: What's Free and Where to Use It Fello AI",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiS0FVX3lxTE5FSGoyTkZPOWtOb0xLUld6QTBoamp3MGg0b2pjcURBaXk2dllWN3B6SlNvYUMxZzdIUnM2UG5JRlVvcDhoY1QxcVlBVQ?oc=5"
@@ -10069,7 +11431,7 @@
       "source": "The Verge",
       "title": "Binding of Isaac developer removes AI music from Repentance Plus",
       "url": "https://www.theverge.com/games/1039770/binding-of-isaac-ai-music",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "The Binding of Isaac: Repentance Plus has spent the last few days getting review-bombed on Steam after it was discovered that a particular segment of the game used AI music. Reddit user ShweetsStuff discovered the songs used during a Grand Theft Auto-themed section. They found several audio files with Suno metadata that pointed back to […]",
       "source_updated_at": "2026-11-22T17:25:20Z",
       "ingress": {
@@ -10159,7 +11521,7 @@
       "source": "Reuters AI (Google News)",
       "title": "German army starts testing kamikaze drones and AI targeting tool in Lithuania - Reuters",
       "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOaEZNb1cwZkRsWmFUN0Nkc0dfTGt4SUVDaXNCSHphV2VrQTBXYnQzTWN2Z0tkOEdiUnRyRnJqX2NST1pmYXJrYVFUQ204QllMNFRtelc0cEtUZy1MWlFMeXRfemNPS0pGQU1veHZyMU1XTWdJNE5pcWstLXUtZ0d4QXRMVzAzZFJKNzlteEZlWUVRbHpIeTJyanFWSlJVMlY4R0NOODNIN1RSLWJDdnQyM25KcDNNbDRvMHZkT1Nfenl6SUl2YUoxalBLT1RqQQ?oc=5",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "German army starts testing kamikaze drones and AI targeting tool in Lithuania Reuters",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMizgFBVV95cUxOaEZNb1cwZkRsWmFUN0Nkc0dfTGt4SUVDaXNCSHphV2VrQTBXYnQzTWN2Z0tkOEdiUnRyRnJqX2NST1pmYXJrYVFUQ204QllMNFRtelc0cEtUZy1MWlFMeXRfemNPS0pGQU1veHZyMU1XTWdJNE5pcWstLXUtZ0d4QXRMVzAzZFJKNzlteEZlWUVRbHpIeTJyanFWSlJVMlY4R0NOODNIN1RSLWJDdnQyM25KcDNNbDRvMHZkT1Nfenl6SUl2YUoxalBLT1RqQQ?oc=5"
@@ -10251,7 +11613,7 @@
       "source": "xAI / Grok (Google News)",
       "title": "Elon Musk’s Grok AI Predicts Best and Worst Crypto in 2027: Who Are They? - TradingView",
       "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxOVUVUOFlDUnhUbVZrak0xMndSSHpQay00WWRfWl9SSDZDS2FBdDJMX21CYTZlOFhabXctS0F3RnNlSXlKVks4dzBtS1NScl9pZW43VzJVVlNybkpRSENtVXNodS1kTmFYTHNGajd0NGR2Z2Z6cWloUjZVTGNjN1I1N0Vwajctc3hyTXFUQ0FuMEtDQ2VxQUc1YUdMZnlMVEVwSlU3bnBsZWRkSDJNU3M4eUluM19xUFBwWmdVOFhzSjQ4M3E4Qmg2LXdOeFk?oc=5",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "Elon Musk’s Grok AI Predicts Best and Worst Crypto in 2027: Who Are They? TradingView",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMizAFBVV95cUxOVUVUOFlDUnhUbVZrak0xMndSSHpQay00WWRfWl9SSDZDS2FBdDJMX21CYTZlOFhabXctS0F3RnNlSXlKVks4dzBtS1NScl9pZW43VzJVVlNybkpRSENtVXNodS1kTmFYTHNGajd0NGR2Z2Z6cWloUjZVTGNjN1I1N0Vwajctc3hyTXFUQ0FuMEtDQ2VxQUc1YUdMZnlMVEVwSlU3bnBsZWRkSDJNU3M4eUluM19xUFBwWmdVOFhzSjQ4M3E4Qmg2LXdOeFk?oc=5"
@@ -10553,7 +11915,7 @@
       "source": "MarkTechPost Research",
       "title": "Best Personal AI Agents in 2026: OpenClaw, Hermes Agent, Gemini Spark and More, Compared on Memory, Security and Cost",
       "url": "https://www.marktechpost.com/2026/11/22/best-personal-ai-agents-2026",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "Hermes Agent, OpenClaw, Gemini Spark, OpenAI dots, Meta Muse and Perplexity Personal Computer ranked on memory, security defaults and real cost. The post Best Personal AI Agents in 2026: OpenClaw, Hermes Agent, Gemini Spark and More, Compared on Memory, Security and Cost appeared first on MarkTechPost .",
       "publisher_links": [
         "https://www.marktechpost.com/2026/11/22/best-personal-ai-agents-2026/",
@@ -10841,7 +12203,7 @@
       "source": "DeepSeek (Google News)",
       "title": "Open Weight vs Open Source AI: 4 Models, 4 Licenses - shattered.io",
       "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQOFpEbl9nS2VrdFRVYmxrTXlpelFIY2RTcGpiSDB0OWxLSkJNaFBfWHhieFR5M21oaUhJcERENWN0ZTN3Ni00ME1HZEwzUE81MFozQTVrRDY4NU9nbE5rSExiSTh4a2ozcUNsVzZnMmtNdTlTTlhWa2RmcHFXLWVNQm9FWXJtemR0RVQ2RzlkQ3JKTHY1cFZjNVpwWHVnTEhJbF8ydm1B?oc=5",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "Open Weight vs Open Source AI: 4 Models, 4 Licenses shattered.io",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMipgFBVV95cUxQOFpEbl9nS2VrdFRVYmxrTXlpelFIY2RTcGpiSDB0OWxLSkJNaFBfWHhieFR5M21oaUhJcERENWN0ZTN3Ni00ME1HZEwzUE81MFozQTVrRDY4NU9nbE5rSExiSTh4a2ozcUNsVzZnMmtNdTlTTlhWa2RmcHFXLWVNQm9FWXJtemR0RVQ2RzlkQ3JKTHY1cFZjNVpwWHVnTEhJbF8ydm1B?oc=5"
@@ -11408,7 +12770,7 @@
       "source": "InfoQ CN",
       "title": "財務團隊的 AI 藍圖",
       "url": "https://www.infoq.cn/video/UUqekkOQ8haEXZ792UjU",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/video/UUqekkOQ8haEXZ792UjU?utm_source=rss&utm_medium=article"
@@ -11500,7 +12862,7 @@
       "source": "InfoQ CN",
       "title": "打造 AI 優先的銷售與營銷運營體系",
       "url": "https://www.infoq.cn/video/mihBFvImttvJlSFUqC49",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/video/mihBFvImttvJlSFUqC49?utm_source=rss&utm_medium=article"
@@ -11592,7 +12954,7 @@
       "source": "InfoQ CN",
       "title": "智慧體企業新前沿：驅動高效智慧",
       "url": "https://www.infoq.cn/video/Ly5HbhY4pNMCF04abkFo",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/video/Ly5HbhY4pNMCF04abkFo?utm_source=rss&utm_medium=article"
@@ -11686,7 +13048,7 @@
       "source": "Wired AI",
       "title": "Banks Have Had It Up to Here With Your AI Agent",
       "url": "https://www.wired.com/story/banks-are-cracking-down-on-ai-agents",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "Major US financial institutions are banning third-party bots from logging into your accounts—and warning that any costly bot mistakes are strictly your problem.",
       "source_updated_at": "2026-11-22T11:00:00Z",
       "ingress": {
@@ -11777,7 +13139,7 @@
       "source": "InfoQ CN",
       "title": "智慧體身份國際標準化：體系佈局與研製實踐｜AICon北京",
       "url": "https://www.infoq.cn/article/721YPdyIZ1D8xz20D22C",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/721YPdyIZ1D8xz20D22C?utm_source=rss&utm_medium=article"
@@ -11871,7 +13233,7 @@
       "source": "RuntimeWire",
       "title": "Qwen3.5 27B model rewrote its own weights and gained 6.6 points on unseen math",
       "url": "https://runtimewire.com/article/a-27b-model-rewrote-its-own-weights-and-gained-6-6-points-on-unseen-math",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "Researchers at the University of Illinois Urbana-Champaign, Carnegie Mellon University, Rutgers University, Princeton University, Stanford University and Yale University report Qwen3.5-27B edited its own parameters with no gradient training, lifting held-out accuracy from 57.2% to 63.8% in one accepted session.",
       "source_updated_at": "2026-11-22T21:43:49Z",
       "ingress": {
@@ -11961,6 +13323,102 @@
         ]
       },
       "source_tier_weight": 0.45
+    },
+    {
+      "id": "65027def35ad532980534e508036f33fbe4d74ff",
+      "published_at": "2026-11-23T02:22:38Z",
+      "first_seen_at": "2026-11-23T02:35:37.930217Z",
+      "site_id": "kr36_ai",
+      "site_name": "36Kr AI (Watchlist)",
+      "source": "36Kr",
+      "title": "Anthropic：躲不開 “腦力通縮”，終局是 “AI 版” 谷歌還是 AT&T? - 36氪",
+      "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTFBYeU1ZOTlDMVpvZ1FHSzZESUdxRjhpbnEwVHdVUXBILWc0YlE4bWRhOGVDRmdSVVRnRXdmMEYyWUxDQXJNYlFCLWFzMmJDUQ?oc=5",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
+      "summary": "Anthropic：躲不開 “腦力通縮”，終局是 “AI 版” 谷歌還是 AT&T? 36氪",
+      "publisher_links": [
+        "https://news.google.com/rss/articles/CBMiTkFVX3lxTFBYeU1ZOTlDMVpvZ1FHSzZESUdxRjhpbnEwVHdVUXBILWc0YlE4bWRhOGVDRmdSVVRnRXdmMEYyWUxDQXJNYlFCLWFzMmJDUQ?oc=5"
+      ],
+      "source_updated_at": "2026-11-23T02:22:38Z",
+      "ingress": {
+        "kind": "public_adapter",
+        "site_id": "kr36_ai",
+        "source_id": "kr36_ai",
+        "name": "36Kr",
+        "feed_url": null
+      },
+      "publisher": {
+        "schema_version": 1,
+        "publisher_id": "kr36",
+        "name": "36Kr",
+        "domain": null,
+        "status": "identified",
+        "basis": [
+          "explicit_group"
+        ],
+        "evidence": {
+          "rss_source_name": null,
+          "rss_source_url": null,
+          "article_url": null,
+          "article_host": "news.google.com",
+          "expected_publisher_id": null,
+          "conflicts": []
+        }
+      },
+      "article_key": "https://news.google.com/rss/articles/CBMiTkFVX3lxTFBYeU1ZOTlDMVpvZ1FHSzZESUdxRjhpbnEwVHdVUXBILWc0YlE4bWRhOGVDRmdSVVRnRXdmMEYyWUxDQXJNYlFCLWFzMmJDUQ?oc=5",
+      "security_topic": false,
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.66,
+      "ai_label": "ai_product_update",
+      "ai_relevance_reason": "matched_ai_signal",
+      "ai_signals": [
+        "anthropic"
+      ],
+      "ai_noise": [],
+      "source_tier": "watchlist",
+      "source_tier_label": "未審來源",
+      "source_tier_rank": 6,
+      "summary_zh": "Anthropic：躲不開 “腦力通縮”，終局是 “AI 版” Google還是 AT&T? 36氪",
+      "title_original": "Anthropic：躲不開 “腦力通縮”，終局是 “AI 版” 谷歌還是 AT&T? - 36氪",
+      "title_en": null,
+      "title_zh": "Anthropic：躲不開 “腦力通縮”，終局是 “AI 版” Google還是 AT&T? - 36氪",
+      "title_bilingual": "Anthropic：躲不開 “腦力通縮”，終局是 “AI 版” 谷歌還是 AT&T? - 36氪",
+      "corroboration_key": "cn_aggregator",
+      "corroboration_status": "identified",
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+        "scope_id": "unreviewed",
+        "publisher_kind": "unknown",
+        "admission_status": "unreviewed",
+        "source_tier": "watchlist",
+        "source_tier_label": "未審來源",
+        "source_tier_rank": 6,
+        "allow_general": true,
+        "allow_featured": false,
+        "allow_radar": false,
+        "reason_codes": [
+          "legacy_identity",
+          "scope_unknown",
+          "unreviewed_publisher",
+          "not_permitted_for_featured",
+          "not_permitted_for_radar"
+        ]
+      },
+      "source_material": {
+        "title_original": "",
+        "title": "Anthropic：躲不开 “脑力通缩”，终局是 “AI 版” 谷歌还是 AT&T? - 36氪",
+        "summary": "Anthropic：躲不开 “脑力通缩”，终局是 “AI 版” 谷歌还是 AT&T? 36氪"
+      },
+      "qualification": {
+        "scope": "in_scope",
+        "core_evidence": [],
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      "source_tier_weight": 0.3
     },
     {
       "id": "45b4f5e228989ad9defd54425313f68f8efeb94c",
@@ -12067,7 +13525,7 @@
       "source": "36Kr",
       "title": "AI遊戲冰火兩重天：有人三天賣出10萬份，有人上線一個月無人問津 - 36氪",
       "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE54dy1BSDRMOC1ZUHQwWlJSVFRVMkprOWlLdlFYS2V5VjIyV05aYTVKWVlGelhWVU45NDE2dXlNeW9ONmVXLWRUZmpxaHRyUQ?oc=5",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "AI遊戲冰火兩重天：有人三天賣出10萬份，有人上線一個月無人問津 36氪",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiTkFVX3lxTE54dy1BSDRMOC1ZUHQwWlJSVFRVMkprOWlLdlFYS2V5VjIyV05aYTVKWVlGelhWVU45NDE2dXlNeW9ONmVXLWRUZmpxaHRyUQ?oc=5"
@@ -12255,7 +13713,7 @@
       "source": "36Kr",
       "title": "AI應用月活裝置達8.35億臺，使用時長與頻次卻雙雙回落 - 36氪",
       "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE9uVXBPeDlVS2lTVVFNbmtjTjNvMlV0TUlXb3VQYXhYWTJ5UjZxT204OGlRT3l3SU5MaU9weUR3N0tCdEpSZ1ZnREFqVlNiZw?oc=5",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "AI應用月活裝置達8.35億臺，使用時長與頻次卻雙雙回落 36氪",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiTkFVX3lxTE9uVXBPeDlVS2lTVVFNbmtjTjNvMlV0TUlXb3VQYXhYWTJ5UjZxT204OGlRT3l3SU5MaU9weUR3N0tCdEpSZ1ZnREFqVlNiZw?oc=5"
@@ -12349,7 +13807,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "OpenAI 慘了？GPT-6.2 惡評、Google 新模型超車、募資縮水",
       "url": "https://www.blocktempo.com/openai-funding-cut-cash-runway-myth-anthropic-revenue-lead-ipo",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "X 上一篇唱衰貼文稱這是 OpenAI 史上最慘的一週。面臨募資縮水與季度虧損，但是否真的「被 Google […]",
       "ingress": {
         "kind": "public_json",
@@ -12442,7 +13900,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "馬斯克警告：AI 產業明年恐嚴重資金短缺，需數千億美元額外投入",
       "url": "https://www.blocktempo.com/elon-musk-warns-ai-industry-severe-cash-shortage-2026",
-      "last_seen_at": "2026-11-23T02:05:34.638356Z",
+      "last_seen_at": "2026-11-23T02:35:37.930217Z",
       "summary": "馬斯克（Elon Musk）回應 Keras 創辦人的貼文時警告，AI 產業明年恐面臨嚴重的資金短缺；若從支付 […]",
       "ingress": {
         "kind": "public_json",
@@ -12511,100 +13969,6 @@
         "title_original": "",
         "title": "馬斯克警告：AI 產業明年恐嚴重資金短缺，需數千億美元額外投入",
         "summary": "馬斯克（Elon Musk）回應 Keras 創辦人的貼文時警告，AI 產業明年恐面臨嚴重的資金短缺；若從支付 […]"
-      },
-      "qualification": {
-        "scope": "in_scope",
-        "core_evidence": [],
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      "source_tier_weight": 0.3
-    },
-    {
-      "id": "5ec9f61ef7d69410de535423b110345e1a3e77a5",
-      "published_at": "2026-11-22T08:14:52Z",
-      "first_seen_at": "2026-11-22T08:35:39.880694Z",
-      "site_id": "kr36_ai",
-      "site_name": "36Kr AI (Watchlist)",
-      "source": "36Kr",
-      "title": "8個AI 新術語，看懂領先90%的人-36氪 - 36kr",
-      "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFB1UEltSEVVVjdXaTY2R3JSZzJWTzFCQ1dUSGpsUEFjV1UxX3k4YXU4RjJlNERCX19KWFBXVjM1dFowS2NVMmg0emlBeUdNT0sx?oc=5",
-      "last_seen_at": "2026-11-22T08:35:39.880694Z",
-      "summary": "8個AI 新術語，看懂領先90%的人-36氪 36kr",
-      "publisher_links": [
-        "https://news.google.com/rss/articles/CBMiUEFVX3lxTFB1UEltSEVVVjdXaTY2R3JSZzJWTzFCQ1dUSGpsUEFjV1UxX3k4YXU4RjJlNERCX19KWFBXVjM1dFowS2NVMmg0emlBeUdNT0sx?oc=5"
-      ],
-      "source_updated_at": "2026-11-22T08:14:52Z",
-      "ingress": {
-        "kind": "public_adapter",
-        "site_id": "kr36_ai",
-        "source_id": "kr36_ai",
-        "name": "36Kr",
-        "feed_url": null
-      },
-      "publisher": {
-        "schema_version": 1,
-        "publisher_id": "kr36",
-        "name": "36Kr",
-        "domain": null,
-        "status": "identified",
-        "basis": [
-          "explicit_group"
-        ],
-        "evidence": {
-          "rss_source_name": null,
-          "rss_source_url": null,
-          "article_url": null,
-          "article_host": "news.google.com",
-          "expected_publisher_id": null,
-          "conflicts": []
-        }
-      },
-      "security_topic": false,
-      "source_policy": {
-        "schema_version": 1,
-        "policy_id": "publisher-governance-v1",
-        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
-        "scope_id": "unreviewed",
-        "publisher_kind": "unknown",
-        "admission_status": "unreviewed",
-        "source_tier": "watchlist",
-        "source_tier_label": "未審來源",
-        "source_tier_rank": 6,
-        "allow_general": true,
-        "allow_featured": false,
-        "allow_radar": false,
-        "reason_codes": [
-          "legacy_identity",
-          "scope_unknown",
-          "unreviewed_publisher",
-          "not_permitted_for_featured",
-          "not_permitted_for_radar"
-        ]
-      },
-      "article_key": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFB1UEltSEVVVjdXaTY2R3JSZzJWTzFCQ1dUSGpsUEFjV1UxX3k4YXU4RjJlNERCX19KWFBXVjM1dFowS2NVMmg0emlBeUdNT0sx?oc=5",
-      "business_events": [],
-      "ai_is_related": true,
-      "ai_score": 0.65,
-      "ai_label": "ai_product_update",
-      "ai_relevance_reason": "matched_ai_signal",
-      "ai_signals": [],
-      "ai_noise": [],
-      "source_tier": "watchlist",
-      "source_tier_label": "未審來源",
-      "source_tier_rank": 6,
-      "summary_zh": "8個AI 新術語，看懂領先90%的人-36氪 36kr",
-      "title_original": "8個AI 新術語，看懂領先90%的人-36氪 - 36kr",
-      "title_en": null,
-      "title_zh": "8個AI 新術語，看懂領先90%的人-36氪 - 36kr",
-      "title_bilingual": "8個AI 新術語，看懂領先90%的人-36氪 - 36kr",
-      "corroboration_key": "cn_aggregator",
-      "corroboration_status": "identified",
-      "source_material": {
-        "title_original": "",
-        "title": "8个AI 新术语，看懂领先90%的人-36氪 - 36kr",
-        "summary": "8个AI 新术语，看懂领先90%的人-36氪 36kr"
       },
       "qualification": {
         "scope": "in_scope",
@@ -12624,10 +13988,10 @@
     "schema_version": 2,
     "policy_id": "publisher-governance-v1",
     "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
-    "generated_at": "2026-11-23T02:05:34.638356Z",
-    "brief_generation_id": "bg1_08a693e875aa01cee6a6aea3",
-    "brief_state_revision": "bf448b4e2d9c4171bd87e65bb86f9eb725bfc25762cbd139950963cf8f9f7f2d",
-    "generation_id": "pg2_14bd7bf75fbe67b2fcb3a8f6",
+    "generated_at": "2026-11-23T02:35:37.930217Z",
+    "brief_generation_id": "bg1_6cd9a5bed09d21bb67016651",
+    "brief_state_revision": "0f9f81a24fbde714f9aef94a3bf9dba146fffc5708977498aded0e8be3e89178",
+    "generation_id": "pg2_dc7e70c20c8cfeea52690d00",
     "status": "ready",
     "selection_policy": "impact-v4-personnel-capital",
     "default_visible_limit": 5

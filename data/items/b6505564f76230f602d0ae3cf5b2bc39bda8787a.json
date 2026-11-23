@@ -1,0 +1,57 @@
+{
+  "id": "b6505564f76230f602d0ae3cf5b2bc39bda8787a",
+  "published_at": "2026-11-23T10:11:00Z",
+  "first_seen_at": "2026-11-23T02:35:37.930217Z",
+  "site_id": "tw_media",
+  "site_name": "TW Media",
+  "source": "iThome",
+  "title": "AI代理恐成駭客攻擊新目標，提示詞注入可誘使越權操作、誤導SOC事件判斷",
+  "url": "https://www.ithome.com.tw/news/180689",
+  "last_seen_at": "2026-11-23T02:35:37.930217Z",
+  "summary": "網路安全業者Fortinet發布2027年資安威脅預測報告，指出隨著企業擴大使用AI代理，駭客可能更積極利用提示詞注入攻擊，誘使AI代理利用原有的存取權限，執行未經授權的操作。其他值得關注的威脅還包括企業付費AI服務遭盜用、AI與自動化工具加快漏洞攻擊準備，以及資安營運中心（SOC）的AI分析系統受到惡意資料誤導。",
+  "source_updated_at": "2026-11-23T10:11:00Z",
+  "ingress": {
+    "kind": "public_feed",
+    "site_id": "tw_media",
+    "source_id": "ithome",
+    "name": "iThome",
+    "feed_url": "https://www.ithome.com.tw/rss"
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "ithome",
+    "name": "iThome",
+    "domain": "www.ithome.com.tw",
+    "status": "identified",
+    "basis": [
+      "article_host"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://www.ithome.com.tw/news/180689",
+      "article_host": "www.ithome.com.tw",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": true,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+    "scope_id": "ithome",
+    "publisher_kind": "media",
+    "admission_status": "limited",
+    "source_tier": "professional_media",
+    "source_tier_label": "專業科技媒體",
+    "source_tier_rank": 1,
+    "allow_general": true,
+    "allow_featured": true,
+    "allow_radar": true,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope"
+    ]
+  }
+}
