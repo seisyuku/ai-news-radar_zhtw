@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "IAM Identity Center 现在支持 VPC 端点和网络访问控制",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/iam-identity-center-vpc-endpoints",
-  "last_seen_at": "2026-11-23T15:35:31.330184Z",
+  "last_seen_at": "2026-11-23T16:05:34.311200Z",
   "summary": "AWS IAM Identity Center 现在支持由 AWS PrivateLink 提供支持的接口 VPC 端点和网络访问控制，使您能够保持 IAM Identity Center 流量的私密性并限制哪些网络可以访问您的 IAM Identity Center 服务。 以前，IAM Identity Center 拒绝通过 VPC 端点到达的流量，要求所有登录和 API 流量使用公共端点。通过此次发布，您可以为 AWS 访问门户和服务 API 创建接口 VPC 端点，以便通过 AWS 私有网络路由流量。IAM Identity Center 登录流量会流经 AWS 登录 VPC 端点。您可以将 VPC 端点策略附加到每个端点，以确定可通过您的私有连接访问哪些 AWS 组织、账户和资源。 网络访问控制在 IAM Identity Center 实例级别增加了第二层强制执行。启用后，您可以要求所有访问都通过 VPC 端点到达，允许特定 IP 地址范围或 VPC 作为可信来源，并将单个应用程序排除在强制执行之外，以适应从 VPC 外部连接的服务。来自外部身份提供方的 SCIM 配置流量可以单独限制在已知的 IP 地址范围内。网络访问控制通过 IAM Identity Center API 进行配置，默认情况下处于禁用状态。 此功能现已在所有商业 AWS 区域和 AWS GovCloud（美国）区域推出，无需额外付费。要了解更多信息，请参阅《IAM Identity Center 用户指南》中的 接口 VPC 端点 。 有关更多信息，请访问 IAM Identity Center 产品页面 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/singlesignon/latest/userguide/vpc-interface-endpoints.html",
