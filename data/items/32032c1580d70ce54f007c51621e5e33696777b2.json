@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "AWS Emulator 现已推出，可用于在本地构建和测试 AWS 应用程序",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/aws-emulator-now-available",
-  "last_seen_at": "2026-11-23T12:05:32.605919Z",
+  "last_seen_at": "2026-11-23T12:35:34.576655Z",
   "summary": "AWS Emulator 现已推出，可用于在本地构建和测试 AWS 应用程序。 从今天起，您可以使用 AWS Emulator 在您的计算机上或持续集成（CI）环境中构建和测试 AWS 应用程序。您现有的 AWS SDK 和 CLI 调用会发送到 AWS Emulator，并在数毫秒内返回，因此您和您的编程智能体可以在本地发现并修复错误，无需部署，也无需 AWS 账户。 您可以使用与操作 AWS 时的相同 AWS SDK 和 AWS CLI 调用来创建和管理资源，并使用模拟器提供的凭证进行签名。 对于其支持的操作，AWS Emulator 会对有效调用返回与 AWS 相同的结果，对无效调用返回相同的错误。对于尚不支持的操作，则会返回“501 Not Implemented”。 AWS Emulator 会将资源状态保存在内存中，直到您停止它。您启动的每个副本都有各自的端口、密钥和内存状态，因此智能体、测试套件和 CI 任务永远不会看到彼此的资源。例如，编程智能体可以创建 Amazon DynamoDB 表，离线对其进行测试，并在部署前修复其代码。 AWS Emulator 中的服务由 AWS 发布的 API 模型生成，这些模型与 AWS SDK 所基于的模型完全相同。当 AWS 新增服务或 API 时，相应服务或 API 会出现在 AWS Emulator 中，其行为随版本更迭逐步填充完善并验证。要了解其响应与 AWS 的对比情况，请查看 AWS Emulator 保真度报告 。 AWS Emulator 不依赖于 AWS 区域，也不收取额外服务费。只有当您部署到 AWS 时，才需为使用的 AWS 资源付费。其源代码根据 CC0 1.0 Universal 公共领域贡献协议发布。要开始使用，请参阅 AWS Emulator 文档 ，或在 AWS Emulator GitHub 存储库 中查看源代码。",
   "publisher_links": [
     "https://aws.amazon.com/products/developer-tools/emulator/",
