@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon CloudWatch Logs 宣布推出账户级保留策略",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/amazon-cloudwatch-log-retention",
-  "last_seen_at": "2026-11-23T02:35:37.930217Z",
+  "last_seen_at": "2026-11-23T03:05:31.769965Z",
   "summary": "Amazon CloudWatch Logs 现已支持账户级保留策略，您可使用一个策略来设置 AWS 账户中所有或部分日志组的日志数据保留时长。利用账户级策略，平台与安全团队可以让所有日志组的保留规则符合统一标准。 通过此次发布，您可以创建涵盖账户中所有日志组的策略，也可以将策略应用于名称以 /aws/lambda 等前缀开头的特定日志组集。此外，您可以选择策略将应用于现有日志组，还是仅应用于新日志组。当多个策略匹配同一日志组时，最长的保留期将适用。例如，中心平台团队可以为账户设置 90 天基线保留策略，并为以 /security 开头的日志组设置 1 年保留策略以满足审计要求，而无需跟踪各个日志组名称。 账户级保留策略已在除中东（巴林）和中东（阿联酋）之外的所有 AWS 商业区域推出，不额外收费。您可以使用 AWS 管理控制台、AWS CLI 和 AWS SDK 为每个账户和区域创建和管理最多 20 种策略。有关更多信息，请参阅 CloudWatch Logs 文档 和 API 参考 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Working-with-log-groups-and-streams.html#account-level-retention-policies",
