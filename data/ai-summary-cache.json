@@ -2,6 +2,18 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v3",
   "entries": {
+    "befe6cefa6c8b1047fc09dcfe56e2586d1d3d0d510611befe1da7fe6f416dbbe": {
+      "summary": "智譜據傳下週發佈GLM-5.4，參數7000多億；旗艦GLM-5.5參數超3萬億，或12月登場。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-23T02:05:34.638356Z"
+    },
+    "24fca2c9b0cb4619f3379de88c7cf0dd6a86ddf6ec0325e8bb6dba95a12194d4": {
+      "summary": "甲骨文稱已籌集與OpenAI合同所需資金，得州園區正訓練GPT-6 Astra。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-23T02:05:34.638356Z"
+    },
     "3cd38e965f1a5fe8d21595293a930211e90666180c4d3beabfc25d7621c31d7a": {
       "summary": "OpenAI首席科學家帕霍茨基提議設AI安全門檻，以困惑度指標劃定限制，彭博社11月23日報道。",
       "provider": "groq",
@@ -2989,21 +3001,17 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-11-07T03:35:28.378941Z"
-    },
-    "23cfa864573fad15a9d524fa5c2bcb88d50aadd51980898ea8f9a60576ae575d": {
-      "summary": "Runway 共同執行長 Germanidis 透露，該公司年營收達 145 億。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-11-07T03:05:31.343721Z"
-    },
-    "28cce3144a22507ef2100ee24220d7c6614c237f958e19b880168401c21382bd": {
-      "summary": "OpenAI與Hacktron合作，尋找系統漏洞、測試第三方服務連線，並強化前沿AI防禦。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-11-07T02:05:31.990132Z"
     }
   },
   "rejections": {
+    "8be1771ae5527492cdcd3cb3ca6056bd8acc200e488db4c8053c6de34f4987af": {
+      "reason": "validation_length",
+      "created_at": "2026-11-23T02:05:34.638356Z"
+    },
+    "c6222f3b61656e5ce4f64db330d4e042043c65e76de79e0245e3aa50e38e720c": {
+      "reason": "validation_numeric_grounding",
+      "created_at": "2026-11-23T02:05:34.638356Z"
+    },
     "2d289b83388a35560b4af46d4a530412aa3ae8aa28b6690258d9b1946c5f23a0": {
       "reason": "validation_numeric_grounding",
       "created_at": "2026-11-23T01:35:31.057443Z"
@@ -4995,14 +5003,6 @@
     "df1a801140fe9635bb3a1546e86c9a1db93bbc7553400c19b51c4d4c74ff7cde": {
       "reason": "validation_length",
       "created_at": "2026-08-21T15:53:35.907251Z"
-    },
-    "9b9c397158d50a24144fde401522146be348fa9477ac79e1d3178b48deb765f5": {
-      "reason": "insufficient_context",
-      "created_at": "2026-08-21T11:59:23.652630Z"
-    },
-    "380c9635f7f38fbfff84f89224491ce4cb6cf1f39bbe6b2048297f0d3859eacc": {
-      "reason": "validation_length",
-      "created_at": "2026-08-21T11:37:41.543155Z"
     }
   }
 }
