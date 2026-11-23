@@ -2,6 +2,36 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v3",
   "entries": {
+    "3cd38e965f1a5fe8d21595293a930211e90666180c4d3beabfc25d7621c31d7a": {
+      "summary": "OpenAI首席科學家帕霍茨基提議設AI安全門檻，以困惑度指標劃定限制，彭博社11月23日報道。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-23T01:35:31.057443Z"
+    },
+    "95769f845e0bb963085106d8930896d2f8df9f2dfead7ee50e167c379086b384": {
+      "summary": "OpenAI首席科學家帕喬茨基提議，AI公司應在滿足安全要求前，共同承諾不越過約定的模型能力紅線。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-23T01:35:31.057443Z"
+    },
+    "5a1d05a683d8855fb7885c957b0799b3b658db4ec1aec80bcf38559a38655e17": {
+      "summary": "微軟AI CEO蘇萊曼支持OpenAI透明度倡議，公開MAI-2模型關鍵指標。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-23T01:35:31.057443Z"
+    },
+    "c50e1e78b2c77422e2d1512feb32baa48e5c48d4584cb163dbe3465e9d8e3a3a": {
+      "summary": "數學家Alpöge與紐約大學教授發佈79頁論文，聲稱證明Navier–Stokes方程存在有限時間爆破，該工作全程與Claude合作完成。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-23T01:35:31.057443Z"
+    },
+    "6ffc294b1c8979b5dd19624655aa72e5d92e157631c18bb978bdb6eb87d95189": {
+      "summary": "微軟CEO納德拉坦言，Anthropic推出Claude Code後，傳統代碼編輯器約六個月便失去存在感，微軟未能立即應對。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-23T01:35:31.057443Z"
+    },
     "c9a854569c38886d45c616a2797185b1244c1c629ba9391ced17bb3ebad62da3": {
       "summary": "黃仁勳因婚外情牽涉疑似間諜的中國籍女商人，辭去輝達（NVIDIA）要職。",
       "provider": "groq",
@@ -2971,39 +3001,33 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-11-07T02:05:31.990132Z"
-    },
-    "7654d04ae083b385c6a1b3df451d8c41e9c311e3dde3a68a445fa2559ae18d47": {
-      "summary": "GitHub Copilot 可協助規劃、撰寫、審查程式碼及調查生產問題，但部分工作仍需開發者判斷。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-11-07T01:35:30.013653Z"
-    },
-    "96a01400849ab994616e4ac1d0b76c18c4ff1a85f87ac36348448692306656f0": {
-      "summary": "GitHub Copilot 支援 JetBrains Air 與 Xcode，並更新 Pull Request 與 Agent 管理功能。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-11-07T01:35:30.013653Z"
-    },
-    "61f794752b699728acc3db181f8fa51911941c402036739f84156d61d6c68711": {
-      "summary": "聯發科AI ASIC第四季營收上看25億美元，蔡力行稱AI投資回收仍有過渡期。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-11-07T01:05:30.243966Z"
-    },
-    "0bee5ed8910a389ad0875d5fa03b9b91644ec08a37d2dbb4e0e2594ab19100f4": {
-      "summary": "GitHub Copilot code review 現可透過 REST 與 GraphQL API 管理設定，涵蓋企業策略至個別儲存庫。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-11-07T01:05:30.243966Z"
-    },
-    "72162fc6d328cbd9146bbd1a993d616d2e378bc6233cb1b32556243b1ab2c318": {
-      "summary": "CoreWeave與Nebius財報及通膨數據，將影響Fed下次利率決策。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-11-06T23:35:29.473491Z"
     }
   },
   "rejections": {
+    "2d289b83388a35560b4af46d4a530412aa3ae8aa28b6690258d9b1946c5f23a0": {
+      "reason": "validation_numeric_grounding",
+      "created_at": "2026-11-23T01:35:31.057443Z"
+    },
+    "7a6fed4674b67adac84efcfba0e39eb55bc396a9cc4fd383da0c9d2886bc6f54": {
+      "reason": "validation_numeric_grounding",
+      "created_at": "2026-11-23T01:35:31.057443Z"
+    },
+    "d7bb8ee252ca813b29d29fc644db8d0e78944eeaa43697d4092dbc1ecf9e0949": {
+      "reason": "insufficient_context",
+      "created_at": "2026-11-22T22:35:32.752668Z"
+    },
+    "d29a988904208bf2add22ec0a7023f4048814de26c6a47c1cff6fb4ae47b68cb": {
+      "reason": "insufficient_context",
+      "created_at": "2026-11-22T20:05:41.750259Z"
+    },
+    "2e40a9ba3c0a69e188b9c00d3748e7a0703b6f20a74e5bf4f8edd56596bc539f": {
+      "reason": "insufficient_context",
+      "created_at": "2026-11-22T18:05:30.609295Z"
+    },
+    "8fda08d344eb0dcfdb456cc19995f2b2a3a5e349de9ae1790c88e3dc29c2c543": {
+      "reason": "insufficient_context",
+      "created_at": "2026-11-22T18:05:30.609295Z"
+    },
     "e0e36d38065c1b2417618441d9fb2805951b5df20c9a36543a396af32d6956a8": {
       "reason": "insufficient_context",
       "created_at": "2026-11-21T20:35:36.110465Z"
@@ -4979,30 +5003,6 @@
     "380c9635f7f38fbfff84f89224491ce4cb6cf1f39bbe6b2048297f0d3859eacc": {
       "reason": "validation_length",
       "created_at": "2026-08-21T11:37:41.543155Z"
-    },
-    "ffc89e270cb61115d34aaa1a6fa94780fc583399dd339a7c3c75b9842e3dfe95": {
-      "reason": "insufficient_context",
-      "created_at": "2026-08-21T11:37:41.543155Z"
-    },
-    "aa064138e11c8acd2ed5e4add2e2ea3d04bf92a12605160a15359baec04daed7": {
-      "reason": "insufficient_context",
-      "created_at": "2026-08-21T10:53:03.693396Z"
-    },
-    "2e40a9ba3c0a69e188b9c00d3748e7a0703b6f20a74e5bf4f8edd56596bc539f": {
-      "reason": "insufficient_context",
-      "created_at": "2026-11-22T18:05:30.609295Z"
-    },
-    "8fda08d344eb0dcfdb456cc19995f2b2a3a5e349de9ae1790c88e3dc29c2c543": {
-      "reason": "insufficient_context",
-      "created_at": "2026-11-22T18:05:30.609295Z"
-    },
-    "d29a988904208bf2add22ec0a7023f4048814de26c6a47c1cff6fb4ae47b68cb": {
-      "reason": "insufficient_context",
-      "created_at": "2026-11-22T20:05:41.750259Z"
-    },
-    "d7bb8ee252ca813b29d29fc644db8d0e78944eeaa43697d4092dbc1ecf9e0949": {
-      "reason": "insufficient_context",
-      "created_at": "2026-11-22T22:35:32.752668Z"
     }
   }
 }
