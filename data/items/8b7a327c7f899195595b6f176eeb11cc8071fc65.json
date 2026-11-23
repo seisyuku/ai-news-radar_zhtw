@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "AWS Glue 宣布推出针对 Apache Spark 作业的自动版本升级",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/glue-spark-auto-upgrades",
-  "last_seen_at": "2026-11-22T23:35:29.936280Z",
+  "last_seen_at": "2026-11-23T00:05:35.463096Z",
   "summary": "AWS Glue 推出了自动版本升级功能，可让 Apache Spark 作业始终在最新的 AWS Glue 运行时上运行，而无需手动协调。让作业在受支持的运行时上运行，可使作业获得最新的安全补丁、性能改进以及对不断演进的表格式（如 Apache Iceberg）的支持。自动升级包含多层验证，包括评测作业是否与升级后的运行时兼容、在较新版本上执行作业前征得您的同意，以及根据每个作业既定的输出配置文件验证升级后的作业运行情况，从而使您的作业能够在合适的护栏下完成升级。 只需将作业版本设置为“Auto”，过去需要数周规划和执行的升级现在就能自动完成。平台团队可以跨大量实例集统一运行时版本，无需逐个联系作业负责人；而没有集中升级团队的业务部门也能让作业自动保持最新，全程无需人工介入。每个作业在升级前都会对照其既定的输出架构、数据量、延迟和格式进行验证，让您可以放心推进升级。需要更改代码的作业可以继续在当前版本上安全运行；AWS Glue 会提供升级分析，并列出具体修复程序，您可以直接应用，也可以借助 Apache Spark 升级代理完成。 针对 AWS Glue 的自动升级已在所有 AWS 商业区域推出。 要开始使用，请在利用 AWS Glue Studio 或 AWS CLI、API 和 SDK 创建或更新 Apache Spark 作业时，选择“Auto”作为 AWS Glue 版本。或者，您也可以借助 AWS Glue 的 作业管理技能 一次性更新多个作业。要了解更多信息，请参阅 AWS Glue 文档。",
   "publisher_links": [
     "https://github.com/aws-samples/aws-glue-samples/blob/8d52b2c004d48b4d15c20cb1b0bd161da0c98a0d/utilities/skills/managing-glue-jobs/README.md",

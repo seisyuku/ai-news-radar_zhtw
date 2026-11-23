@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "AWS Marketplace 计量服务现在支持十进制使用量",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/aws-marketplace-metering-service-decimal-usage-quantities",
-  "last_seen_at": "2026-11-22T23:35:29.936280Z",
+  "last_seen_at": "2026-11-23T00:05:35.463096Z",
   "summary": "AWS Marketplace 计量服务现在支持 MeterUsage 和 BatchMeterUsage API 中的十进制使用量。以前，AWS Marketplace 卖家以整数报告这两个 API 的使用量，现在他们最多可以报告小数点后六位的使用量。 卖家可以按照与客户的产品消费方式相匹配的单位进行定价和计量，例如，报告存储空间为 1.5 太字节 (TB)，而不是 1 或 2 TB。要报告十进制数量，卖家应在 MeterUsage 中使用新的 UsageQuantityAsDecimal 参数，在 BatchMeterUsage 中使用 QuantityAsDecimal 参数，而报告整数数量的现有集成无需更改即可继续支持工作。使用量分配将报告的使用量按标签拆分成存储桶，还支持使用新的 AllocatedUsageQuantityAsDecimal 参数的十进制数量。 这项新功能现已在提供 AWS Marketplace 计量服务的所有 AWS 区域 推出。要了解更多信息，请参阅《AWS Marketplace API 参考》中的 MeterUsage 和 BatchMeterUsage 。",
   "publisher_links": [
     "https://aws.amazon.com/marketplace",
