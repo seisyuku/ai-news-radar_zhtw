@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon Route 53 现在支持记录集保护",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/amazon-route-53-record-set-protection",
-  "last_seen_at": "2026-11-24T03:35:34.506103Z",
+  "last_seen_at": "2026-11-24T04:05:39.344211Z",
   "summary": "Amazon Route 53 现在支持记录集保护，这可帮助 DNS 管理员防止意外更改其托管区中的关键 DNS 记录。利用此功能，您可以直接在托管区中保护 Zone Apex（机构根网域）的记录、MX 记录和生产端点等记录。在授权用户解除对受保护记录的保护之前，对该记录的任何更改都会被阻止。 以前，要锁定特定记录，您必须在所有可能更改托管区的用户和角色的 IAM 策略中写入记录级条件。当这些策略阻止更改时，调用方无法获知记录是否受到保护，也不会获知相关原因。现在，您可以直接在托管区中按名称和类型保护记录。单一保护可覆盖具有该名称和类型的所有记录，包括具有不同集合标识符的记录；加权、延迟和其他路由策略记录也会一起受到保护。您还可以在记录创建之前主动设置保护，防止创建具有该名称和类型的记录。每项保护可以包含一条可选注释，最多 256 个字符，用于说明设置保护的原因。您可以使用 Route 53 控制台、AWS CLI 或 AWS SDK，通过 CreateResourceRecordSetProtections、DeleteResourceRecordSetProtections 和 ListResourceRecordSetProtections API 操作来管理保护。要控制谁可以解除保护，请在 IAM 策略中限制 DeleteResourceRecordSetProtections 权限。 记录集保护已在目前提供公有和私有托管区的所有 AWS 商业区域推出。要了解更多信息，请参阅《Amazon Route 53 开发人员指南》中的 防止记录被更改 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/rrset-protection.html"
