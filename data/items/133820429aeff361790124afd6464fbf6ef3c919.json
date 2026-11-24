@@ -1,0 +1,65 @@
+{
+  "id": "133820429aeff361790124afd6464fbf6ef3c919",
+  "published_at": "2026-11-24T02:32:01Z",
+  "first_seen_at": "2026-11-24T02:35:34.578497Z",
+  "site_id": "curated_media",
+  "site_name": "精選媒體",
+  "source": "AIBASE",
+  "title": "騙子從郵件打到電話：微軟給 Teams 配了位 AI 反詐員",
+  "url": "https://news.aibase.com/tw/news/32488",
+  "last_seen_at": "2026-11-24T02:35:34.578497Z",
+  "summary": "釣魚攻擊正從郵件轉向通話，冒充IT支持的來電更難識破。11月24日，據Neowin報道，微軟正爲Teams開發AI防詐騙功能，可在通話時分析聊天內容，識別潛在釣魚詐騙跡象並向用戶警告，尤其針對冒充IT管理員的話術。按微軟路線圖，該功能計劃2027年1月向所有用戶開放。",
+  "ingress": {
+    "kind": "public_adapter",
+    "site_id": "curated_media",
+    "source_id": "aibase",
+    "name": "AIBASE",
+    "feed_url": null
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "aibase",
+    "name": "AIBASE",
+    "domain": "news.aibase.com",
+    "status": "identified",
+    "basis": [
+      "explicit_group"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://news.aibase.com/tw/news/32488",
+      "article_host": "news.aibase.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "aibase_article_id": "32488",
+  "field_languages": {
+    "title": "tw",
+    "url": "tw",
+    "summary": "tw"
+  },
+  "content_language": "tw",
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+    "scope_id": "aibase",
+    "publisher_kind": "aggregator",
+    "admission_status": "limited",
+    "source_tier": "advanced",
+    "source_tier_label": "次級AI媒體",
+    "source_tier_rank": 4,
+    "allow_general": true,
+    "allow_featured": false,
+    "allow_radar": false,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
+    ]
+  }
+}
