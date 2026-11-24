@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "新一代 AgentCore 运行时现已作为默认运行时",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/new-agentcore-runtime-default",
-  "last_seen_at": "2026-11-24T00:05:32.678197Z",
+  "last_seen_at": "2026-11-24T00:35:31.915922Z",
   "summary": "即日起，Amazon Bedrock AgentCore 中新建的运行时将默认使用新一代 AgentCore 运行时。新运行时可从已初始化智能体的快照中还原每个会话，随工作负载扩展计算与内存资源，并将空闲智能体缩容至零。每个会话仍会在其硬件隔离的 Firecracker microVM 中运行。您的智能体可以在会话内执行高负载任务，例如编译大型代码库、驱动浏览器或加载本地模型。 会话最多可扩展至 8 个 vCPU 和 32 GB 内存，并支持最多 10 GB 的容器映像。在 2 GB 映像上，会话的 P75 启动时间由上一代的 29.7 秒降至 2 秒以内。空闲智能体会缩容至零，释放后的内存在几分钟内回收。对于多轮智能体而言，这意味着每个会话的计费内存最多可减少 68%。 现有运行时将保持当前版本，直至您迁移它们。要迁移现有运行时，或在未将新一代运行时设为默认运行时的区域中使用新一代运行时，请在创建或更新运行时时，将 platformVersion 设置为 V2。要让新运行时保持当前版本，请将 platformVersion 设置为 V1。 新一代 AgentCore 运行时现已为以下 AWS 区域的默认运行时：美国东部（弗吉尼亚州北部）、美国东部（俄亥俄州）、美国西部（俄勒冈州）、加拿大（中部）、南美洲（圣保罗）、欧洲地区（法兰克福）、欧洲地区（爱尔兰）、欧洲地区（伦敦）、欧洲地区（米兰）、欧洲地区（巴黎）、欧洲（西班牙）、欧洲地区（斯德哥尔摩）、亚太地区（马来西亚）、亚太地区（孟买）、亚太地区（首尔）、亚太地区（新加坡）、亚太地区（悉尼）、亚太地区（泰国）和亚太地区（东京）。 要了解更多信息，请访问 AgentCore 运行时文档 或 AWS Blog。有关定价详细信息，请访问 AgentCore 定价 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/agents-tools-runtime.html",
