@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon S3 Vectors 现在支持混合搜索，结合向量和全文以获得更相关的搜索结果",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/s3-vectors-hybrid-search",
-  "last_seen_at": "2026-11-24T09:35:35.150267Z",
+  "last_seen_at": "2026-11-24T10:05:31.962354Z",
   "summary": "Amazon S3 Vectors 现在支持混合搜索，在单个查询中将向量相似度搜索与全文搜索相结合。 通过将语义含义和精确的术语匹配整合到单一的排名结果列表中，混合搜索可以捕获用于检索增强生成 (RAG)、智能体存储器和搜索应用程序的意图和精确术语。与单独使用任何一种方法相比，这可以提供更相关的排名结果。混合搜索使用相同的 S3 Vectors API，对于不频繁查询的延迟保持亚秒级延迟，对于频繁的查询则保持约 100 毫秒或更短的延迟。 S3 Vectors 旨在提供与 Amazon S3 相同的弹性、耐久性和可用性，与替代向量解决方案相比，将存储和查询向量的总成本降低多达 90%。通过混合搜索，客户现在可以将他们想要全文搜索的数据与向量一起存储。客户像现在一样使用 PutVectors API 写入数据，并将可搜索文本作为另一个元数据字段包括在内。然后，S3 Vectors 使用 BM25 相关性评分自动为该字段编制索引以进行全文搜索。默认情况下，S3 Vectors 使用与语言无关的文本分析器来索引适用于大多数语言的数据，客户可以选择选择特定于语言的分析器来进行更准确的语言感知匹配。要执行混合查询，客户可在单个 QueryVectors 调用中将查询文本字符串与查询向量一起发送；S3 Vectors 同时运行向量搜索和全文搜索，将两者与倒数排名融合 (RRF) 相融合，并返回请求的前 K 个结果的单一排名列表。客户还可以分别运行全文查询和向量查询，以应用自己的排名逻辑，在单个查询中跨多个文本字段进行搜索，并对现有数据启用全文搜索。 混合搜索功能现已在所有提供 Amazon S3 Vectors 的商用 AWS 区域以及 AWS 中国区域推出。要开始使用，请通过 AWS CLI、AWS SDK 或 Amazon S3 控制台进行操作。要了解更多信息，请访问 Amazon S3 Vectors 文档 和 Amazon S3 定价页面 了解定价。",
   "publisher_links": [
     "https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-vectors-hybrid-search.html",
