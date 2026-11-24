@@ -1,0 +1,78 @@
+{
+  "id": "5c5a026605121106d84a97e4000f6b02fd242109",
+  "published_at": "2026-11-23T23:40:49Z",
+  "first_seen_at": "2026-11-24T00:05:32.678197Z",
+  "site_id": "opmlrss",
+  "site_name": "OPML RSS",
+  "source": "Simon Willison",
+  "title": "GLM-5.4: Toward Generalized Coding with Our First Loop Transformer",
+  "url": "https://simonwillison.net/2026/Nov/23/glm-54",
+  "last_seen_at": "2026-11-24T00:05:32.678197Z",
+  "summary": "GLM-5.4: Toward Generalized Coding with Our First Loop Transformer GLM 5.4 is now available from Chinese AI lab Z.ai. It's their first model to use a looped transformer architecture, which they describe like this: In a standard Transformer, each layer runs once per forward pass. In a Loop Transformer, a group of weight-shared layers runs for multiple iterations, refining the hidden states from the previous pass. This gives us a deeper network without increasing the parameter count. This is the second mention of looped transformers I've seen in the past week - the first was Inkling 2 Mini from Thinking Machines Lab on November 20th, who said: Inkling 2 Mini is a looped transformer, running the middle layers of the model three times for every token. This allows the model to apply more reasoning and reach the right answer with fewer tokens, especially on tasks such as agentic coding that depend on reasoning quality. GLM 5.4 is not (yet?) available as open weights. I tried it out using the Z.ai API, for which I had to sign up for their Coding Plan subscription because 5.4 cannot currently be accessed through the regular API. It turns out both coding plan and regular API share the same OpenAI-compatible Responses API (at https://api.z.ai/api/v1 ), and the API key for the coding plan worked with that and gave me access to the new model. I built a llm-glm plugin , then realized that llm-zai by Tommy Hughes already exists! I've shipped mine purely because llm-zai doesn't yet support the new model, but I'll likely retire mine once that plugin catches up. Here are pelicans for GLM-5.",
+  "publisher_links": [
+    "https://z.ai/blog/glm-5.4",
+    "https://thinkingmachines.ai/news/inkling-2-mini/",
+    "https://docs.z.ai/devpack/overview",
+    "https://github.com/simonw/llm-glm",
+    "https://github.com/irthomasthomas/llm-zai",
+    "https://tools.simonwillison.net/markdown-svg-renderer?url=https%3A%2F%2Fgist.github.com%2Fsimonw%2Fae838c5a6837ca0a602c180c07ac0887",
+    "https://tools.simonwillison.net/markdown-svg-renderer?url=https%3A%2F%2Fgist.github.com%2Fsimonw%2F8826d1366dcc98783c7cbc593f6a6e77",
+    "https://simonwillison.net/2026/Apr/7/glm-51/",
+    "https://simonwillison.net/2026/Jun/17/glm-52/#excellent-pelican-disappointing-opossum",
+    "https://static.simonwillison.net/static/2026/glm-pelican-comparison.html",
+    "https://simonwillison.net/tags/ai",
+    "https://simonwillison.net/tags/generative-ai",
+    "https://simonwillison.net/tags/llms",
+    "https://simonwillison.net/tags/llm",
+    "https://simonwillison.net/tags/pelican-riding-a-bicycle",
+    "https://simonwillison.net/tags/llm-release",
+    "https://simonwillison.net/tags/ai-in-china",
+    "https://simonwillison.net/tags/glm"
+  ],
+  "source_updated_at": "2026-11-23T23:40:49Z",
+  "ingress": {
+    "kind": "private_opml",
+    "site_id": "opmlrss",
+    "source_id": null,
+    "name": "RSS/OPML",
+    "feed_url": null
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": null,
+    "name": null,
+    "domain": "simonwillison.net",
+    "status": "unknown",
+    "basis": [],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": null,
+      "article_host": "simonwillison.net",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+    "scope_id": "unreviewed",
+    "publisher_kind": "unknown",
+    "admission_status": "unreviewed",
+    "source_tier": "watchlist",
+    "source_tier_label": "未審來源",
+    "source_tier_rank": 6,
+    "allow_general": true,
+    "allow_featured": false,
+    "allow_radar": false,
+    "reason_codes": [
+      "missing_identity",
+      "scope_mismatch",
+      "unreviewed_publisher",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
+    ]
+  }
+}
