@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon Cognito 现已支持 OAuth 2.0 令牌交换",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/cognito-token-exchange",
-  "last_seen_at": "2026-11-25T11:35:38.572366Z",
+  "last_seen_at": "2026-11-25T11:42:57.198957Z",
   "summary": "Amazon Cognito 现已支持 OAuth 2.0 令牌交换（RFC 8693）。Amazon Cognito 可助您为 Web 应用程序、移动应用程序和智能体添加注册、登录和访问控制。利用令牌交换功能，代表用户执行操作的服务或智能体可将用户令牌交换为作用域限于特定下游服务的新令牌。以前，代表用户调用其他服务的服务必须转发用户的原始令牌，或自行构建并维护令牌签发逻辑。 借助令牌交换功能，您可以颁发作用域小于原始令牌的新令牌，该令牌绑定单一受众且不包含刷新令牌。当包含 actor 令牌时，Cognito 会添加一个 act 声明以标识中间方，这样下游服务便能区分由智能体代表用户发起的请求与用户直接发起的请求。例如，模型上下文协议（MCP）服务器可以将用户令牌交换为作用域受限的令牌以调用后端 API，同时 act 声明会将 MCP 服务器记录为 actor。 您可以通过令牌端点或使用新的 GetDerivedToken API 交换令牌。令牌交换功能适用于 Essentials 和 Plus 功能计划，并已在提供 Amazon Cognito 的所有 AWS 区域 推出。要了解更多信息，请参阅《Amazon Cognito 开发人员指南》中的 为下游服务交换令牌 。",
   "publisher_links": [
     "https://aws.amazon.com/cognito/",
