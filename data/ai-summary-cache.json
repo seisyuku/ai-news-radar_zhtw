@@ -2,6 +2,18 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v3",
   "entries": {
+    "8ca06e9fc2a7b145e619cfa30cb65e80493463f0efc81b7c7ee60ef5f1235779": {
+      "summary": "高德發佈ABot-World0.5，支持實時交互與聲音生成，WBench評測獲物理性與總分雙項第一。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-25T02:35:36.077830Z"
+    },
+    "260e068ff702212c511088b0a4c8ee479e9cce995e51514024506fe75bc122e1": {
+      "summary": "Google推出AI代理語意治理政策預覽版，利用LLM在執行前檢查工具操作，以阻擋違反企業規定的行為。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-25T02:35:36.077830Z"
+    },
     "c9fafd4d6a4ec9084dcec8c223117e5655fa0d54dccf953b6b7f2ccac3f60011": {
       "summary": "OpenAI GPT-6模型具蛋白質設計能力，實驗室測試顯示對五個目標具結合證據。",
       "provider": "groq",
@@ -2989,21 +3001,21 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-11-09T02:05:27.172062Z"
-    },
-    "09406f16dd981f25597541e980d57bb38801667d8388e198c9436e6c9c2e761f": {
-      "summary": "多名ChatGPT用戶反映賬號遭無預警停用，含200美元Pro訂閱者，導致資料無法訪問。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-11-09T02:05:27.172062Z"
-    },
-    "2ef21ab0e06638bceca7b0f943b726a6d8445a2d9b15d267b2b28ebbed3eab3c": {
-      "summary": "MiniMax閆俊傑稱中國頭部大模型性能達美國頂尖約95%，成本僅十分之一。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-11-09T02:05:27.172062Z"
     }
   },
   "rejections": {
+    "e5e55990072aff0ea80e8cbdb891167685849f648b767a9a5d2c8e97e0a65f67": {
+      "reason": "validation_length",
+      "created_at": "2026-11-25T02:35:36.077830Z"
+    },
+    "4d962998081fe11c64a4335c84ef750f817de3521d1232afac87f6e92b4e39f0": {
+      "reason": "validation_numeric_grounding",
+      "created_at": "2026-11-24T10:35:33.966774Z"
+    },
+    "8be1771ae5527492cdcd3cb3ca6056bd8acc200e488db4c8053c6de34f4987af": {
+      "reason": "validation_length",
+      "created_at": "2026-11-23T20:35:33.252139Z"
+    },
     "c6222f3b61656e5ce4f64db330d4e042043c65e76de79e0245e3aa50e38e720c": {
       "reason": "validation_numeric_grounding",
       "created_at": "2026-11-23T02:05:34.638356Z"
@@ -4991,18 +5003,6 @@
     "19a80116854b7f015a39441705b72b49cc2488411881691fd28e5fa3bd547baa": {
       "reason": "validation_length",
       "created_at": "2026-08-21T19:33:15.478312Z"
-    },
-    "63a6ea7212c77b57f81b04dc3a3b2cb30e51709ef76a35e8abda65955245810d": {
-      "reason": "insufficient_context",
-      "created_at": "2026-08-21T17:50:36.506070Z"
-    },
-    "8be1771ae5527492cdcd3cb3ca6056bd8acc200e488db4c8053c6de34f4987af": {
-      "reason": "validation_length",
-      "created_at": "2026-11-23T20:35:33.252139Z"
-    },
-    "4d962998081fe11c64a4335c84ef750f817de3521d1232afac87f6e92b4e39f0": {
-      "reason": "validation_numeric_grounding",
-      "created_at": "2026-11-24T10:35:33.966774Z"
     }
   }
 }
