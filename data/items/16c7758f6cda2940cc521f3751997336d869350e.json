@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "AWS STS 现已支持针对 AWS 身份的跨分区联合身份验证",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/aws-sts-cross-partition",
-  "last_seen_at": "2026-11-25T00:05:30.627442Z",
+  "last_seen_at": "2026-11-25T00:35:34.238670Z",
   "summary": "AWS Security Token Service（AWS STS）现在可让工作负载使用一个分区中的 AWS Identity and Access Management（IAM）身份，来获取另一个分区中 IAM 角色的临时凭证，而无需存储长期凭证，这有助于改善您的安全态势。 分区 是一组 AWS 区域（例如，商业区域和 AWS GovCloud（美国）区域），每个分区均拥有一个独立的 IAM 实例，而这会在它们之间建立硬边界。以前，跨分区运行工作负载的企业通常依赖长期凭证（例如 IAM 用户访问密钥），这些凭证不会自动过期。 通过此次发布，您的工作负载可在其分区中向 AWS STS 请求一个短期令牌，并借助现有的 GetWebIdentityToken 和 AssumeRoleWithWebIdentity API，将该令牌兑换为另一个分区中的临时 AWS 凭证。您可以控制哪些身份有权访问每个角色，在整个企业范围内实施治理，并在两个分区中通过 AWS CloudTrail 审计令牌使用情况。此次发布有助于满足安全性与合规性报告整合、运维工具集中化等场景的需求。如果您的企业已运营公钥基础设施（PKI），也可选择 IAM Roles Anywhere 来实现跨分区访问。 跨分区联合身份验证功能已在所有 AWS 商业区域、AWS GovCloud（美国）区域、中国区域和 AWS European Sovereign Cloud（德国）区域推出，不额外收费。要了解更多信息，请参阅《IAM 用户指南》中的 跨 AWS 分区对 AWS 身份进行联合身份验证 和博客文章 利用 AWS IAM 外站身份联合验证来简化跨分区访问 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/whitepapers/latest/aws-fault-isolation-boundaries/partitions.html",
