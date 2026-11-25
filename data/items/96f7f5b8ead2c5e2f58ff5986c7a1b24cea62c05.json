@@ -1,0 +1,65 @@
+{
+  "id": "96f7f5b8ead2c5e2f58ff5986c7a1b24cea62c05",
+  "published_at": "2026-11-25T07:21:28Z",
+  "first_seen_at": "2026-11-25T07:35:37.632472Z",
+  "site_id": "curated_media",
+  "site_name": "精選媒體",
+  "source": "AIBASE",
+  "title": "騰訊混元開源 Hy4 flash GGUF 量化權重：224B 大模型塞進 64GB Mac mini，分數幾乎沒掉",
+  "url": "https://news.aibase.com/tw/news/32527",
+  "last_seen_at": "2026-11-25T07:35:37.632472Z",
+  "summary": "騰訊混元借AngelSlim工具箱，於11月25日開源Hy4 flash的GGUF量化權重與推理代碼，使224B大模型能裝進64GB內存Mac mini。原始權重約410.27 GiB，最小量化僅留約30%。共四檔：Q4_K_M、Q3_K、IQ2-AH及面向Spark的兩個4-bit版；Q3_K約144.70 GiB，IQ2-AH約125.73 GiB，顯著降低存儲佔用。",
+  "ingress": {
+    "kind": "public_adapter",
+    "site_id": "curated_media",
+    "source_id": "aibase",
+    "name": "AIBASE",
+    "feed_url": null
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "aibase",
+    "name": "AIBASE",
+    "domain": "news.aibase.com",
+    "status": "identified",
+    "basis": [
+      "explicit_group"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://news.aibase.com/tw/news/32527",
+      "article_host": "news.aibase.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "aibase_article_id": "32527",
+  "field_languages": {
+    "title": "tw",
+    "url": "tw",
+    "summary": "tw"
+  },
+  "content_language": "tw",
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+    "scope_id": "aibase",
+    "publisher_kind": "aggregator",
+    "admission_status": "limited",
+    "source_tier": "advanced",
+    "source_tier_label": "次級AI媒體",
+    "source_tier_rank": 4,
+    "allow_general": true,
+    "allow_featured": false,
+    "allow_radar": false,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
+    ]
+  }
+}
