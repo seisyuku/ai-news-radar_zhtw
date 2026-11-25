@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "AWS KMS 现在支持与 AWS Resource Access Manager 共享密钥",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/kms-key-sharing-resource-access-manager",
-  "last_seen_at": "2026-11-25T16:35:40.546203Z",
+  "last_seen_at": "2026-11-25T17:05:50.615804Z",
   "summary": "AWS Key Management Service (KMS) 现已与 AWS Resource Access Manager (RAM) 集成，使您能够更简单、更一致地在您的 AWS 账户之间、AWS Organizations 中的组织内部以及与特定 IAM 角色和用户共享 KMS 密钥。现在，您可以让受信任方通过 RAM 中可重复使用的托管权限定义所需的访问权限，同时完全控制您的密钥和密钥策略。要共享密钥，请通过选择要共享的密钥、选择托管权限和指定主体来创建资源共享。您可以将 AWS 托管权限用于常见场景，也可以使用您或 SaaS 提供方和中央安全团队等受信任方创建的客户托管权限 (CMP)。 通过 RAM 共享 KMS 密钥可以更快地设置跨账户访问，维护起来也更安全。需要访问您的密钥的受信任方可以将该策略作为 CMP 发布一次，而无需您手动修改密钥策略。您只需填写使其适用于您的环境的值，然后将其附加到资源共享即可。您现有的密钥策略保持不变，因此随着环境的发展，您可以随时控制密钥。当通过更新后的 CMP 提供新的策略版本时，您可以决定何时将其应用于资源共享。 此增强功能建立在新的 AWS RAM 功能之上，这些功能适用于 RAM 支持的每种资源类型。CMP 现在支持多个策略声明和其他 IAM 条件运算符，包括 StringNotEquals、BoolIfExists 和 ArnLike，以及 ForAnyValue 和 ForAllValues 前缀，因此您可以表达精确、最低权限的访问权限。参数化托管权限允许您在 CMP 中放置一个临时占位符，允许每个资源共享所有者自定义 CMP 并将其范围缩小到其环境，从而使 CMP 可以重复使用并为许多账户提供服务。CMP 现在可以在账户之间发布和共享，因此作者可以保留一个权限，集中管理其版本并查看使用该权限的每个资源共享，而其他账户可以直接使用该权限，而无需保留自己的副本。 与 RAM 共享 KMS 密钥的功能现已在所有提供这两种服务的 AWS 区域推出，但中东（阿联酋）和中东（巴林）除外。 有关更多信息，请参阅《AWS KMS 开发人员指南》中的 与 AWS RAM 共享 KMS 密钥 和《AWS RAM 开发人员指南》中的 使用共享的 AWS 资源 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/kms/latest/developerguide/key-sharing-ram.html",
