@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v3",
   "entries": {
+    "b32d4578de5ff7e7e56af8441b94166c846b01516760f37be4331dbc2877687d": {
+      "summary": "馬斯克稱特斯拉AI5芯片將優先用於Optimus人形機器人，汽車產品繼續使用AI4芯片。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-25T03:05:34.851655Z"
+    },
     "8ca06e9fc2a7b145e619cfa30cb65e80493463f0efc81b7c7ee60ef5f1235779": {
       "summary": "高德發佈ABot-World0.5，支持實時交互與聲音生成，WBench評測獲物理性與總分雙項第一。",
       "provider": "groq",
@@ -2995,15 +3001,13 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-11-09T02:35:31.350992Z"
-    },
-    "2f3a723cd7a5bf5781f83b983d1c190eb886376db57e3580d7d80b9395309537": {
-      "summary": "阿里千問Qwen4在遊戲開發專項評測中，Flash型號跑分首度超越Opus 5.5。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-11-09T02:05:27.172062Z"
     }
   },
   "rejections": {
+    "b75334d600d877031a08f4cd430f5056df9decb3fc2c6144f59a473e04d37f99": {
+      "reason": "validation_length",
+      "created_at": "2026-11-25T03:05:34.851655Z"
+    },
     "e5e55990072aff0ea80e8cbdb891167685849f648b767a9a5d2c8e97e0a65f67": {
       "reason": "validation_length",
       "created_at": "2026-11-25T02:35:36.077830Z"
@@ -4999,10 +5003,6 @@
     "a28c69e027044ef9f034a774d75f6f1c003b13099d0ef0a26af6fa5991145adf": {
       "reason": "validation_length",
       "created_at": "2026-08-22T06:05:24.574924Z"
-    },
-    "19a80116854b7f015a39441705b72b49cc2488411881691fd28e5fa3bd547baa": {
-      "reason": "validation_length",
-      "created_at": "2026-08-21T19:33:15.478312Z"
     }
   }
 }
