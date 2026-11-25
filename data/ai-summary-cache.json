@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v3",
   "entries": {
+    "0fa8bca1c88e78f79ce364c13631aeab29f16bc945198a5b52880270506aec99": {
+      "summary": "Google DeepMind於Kaggle推出HFE基準測試，衡量AI模型穩定完成簡單日常任務的能力。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-25T09:05:52.494284Z"
+    },
     "819db1e8105d4166c7534d2b43cc6b4acd28fa8b65dd6d8c467a8992f9467821": {
       "summary": "小米CFO林世偉表示，今年AI投入160億元，MiMo API調用量與AI收入持續增加。",
       "provider": "groq",
@@ -2995,22 +3001,12 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-11-09T06:05:29.515215Z"
-    },
-    "f4309d2cd9b2332dad713644f80fabb44fc04972c9e552b92513d87b92eeea51": {
-      "summary": "Vulone揭露中國駭客利用AI代理Cairn，於9月24日至10月14日入侵亞洲政府機關，66起活動中48起成功取得存取權限。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-11-09T05:35:32.975258Z"
     }
   },
   "rejections": {
     "b75334d600d877031a08f4cd430f5056df9decb3fc2c6144f59a473e04d37f99": {
       "reason": "validation_length",
       "created_at": "2026-11-25T03:05:34.851655Z"
-    },
-    "e5e55990072aff0ea80e8cbdb891167685849f648b767a9a5d2c8e97e0a65f67": {
-      "reason": "validation_length",
-      "created_at": "2026-11-25T02:35:36.077830Z"
     },
     "4d962998081fe11c64a4335c84ef750f817de3521d1232afac87f6e92b4e39f0": {
       "reason": "validation_numeric_grounding",
@@ -5003,6 +4999,10 @@
     "a28c69e027044ef9f034a774d75f6f1c003b13099d0ef0a26af6fa5991145adf": {
       "reason": "validation_length",
       "created_at": "2026-08-22T06:05:24.574924Z"
+    },
+    "e5e55990072aff0ea80e8cbdb891167685849f648b767a9a5d2c8e97e0a65f67": {
+      "reason": "validation_length",
+      "created_at": "2026-11-25T09:05:52.494284Z"
     }
   }
 }

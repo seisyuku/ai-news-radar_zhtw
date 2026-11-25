@@ -7,7 +7,7 @@
   "source": "Simon Willison",
   "title": "llm 0.37.3",
   "url": "https://simonwillison.net/2026/Nov/16/llm",
-  "last_seen_at": "2026-11-25T08:35:34.020367Z",
+  "last_seen_at": "2026-11-25T09:05:52.494284Z",
   "summary": "Release: llm 0.37.3 A bug fix release for LLM , mainly to cover a problem with the most recent Homebrew package of the software. Homebrew now ships the latest SQLite, 3.54.1 , which includes a fix that broke LLM's logging code . Short version: in SQLite 3.54.0 the following SQL: Returns this: But in 3.54.1 the same query returns this: According to D. Richard Hipp : That was a bug fix. Per the documentation, (SELECT json_array(...)) returns SQL text, not JSON. Hence the 3.54.1 behavior is correct and 3.54.0 was a bug. The workaround looks like this: Tags: llm , webassembly , sqlite , generative-ai , ai , llms , d-richard-hipp",
   "publisher_links": [
     "https://github.com/simonw/llm/releases/tag/0.37.3",
