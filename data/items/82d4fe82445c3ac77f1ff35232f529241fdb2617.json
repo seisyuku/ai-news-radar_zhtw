@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "推出用于通过 Amazon Neptune Analytics 分析数据库引擎实施的数据湖图表分析的开源用户界面",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/aws-graphover-datalakes-generally-available",
-  "last_seen_at": "2026-11-25T08:05:30.420242Z",
+  "last_seen_at": "2026-11-25T08:35:34.020367Z",
   "summary": "今天，AWS 推出了一款带本地 Web 用户界面的开源解决方案，可帮助客户将数据湖记录转换为图表，以通过 Amazon Neptune Analytics 分析数据库引擎进行分析。通过投射选定的记录和关系，客户可以调查各个表之间的关联，并运行图表算法，而无需构建自己的 ETL 管道。 例如，客户可以将账户和交易投射到图表中，从而了解各个账户之间的关联方式或确定值得调查的社群。当前，要完成这项工作通常意味着需要编写查询来准备节点与关系数据、创建 Neptune Analytics 分析数据库引擎图表，并管理导入过程。客户可能还需要构建选择性投射，从而避免因范围较窄的问题而加载整个数据集。 新的用户界面将这些步骤整合到单一工作流中。要对 Iceberg 表运行图表分析，客户只需选择一个 Athena 目录和数据库，使用 SQL/PGQ 定义属性图表，并在导入前预览行。该解决方案通过 Athena 运行投射查询，将选定数据暂存到 Amazon S3 中，然后将其导入 Neptune Analytics 分析数据库引擎中。该用户界面可让客户更好地管理生成的图表。他们可以在图表资源管理器中打开加载的图表，对关系进行查询和可视化。 [1] 该用户界面在本地运行，并且已在提供 Amazon Neptune Analytics 分析数据库引擎的所有区域推出。要开始使用，请参阅 设置说明 。",
   "publisher_links": [
     "https://github.com/awslabs/nx-neptune",
