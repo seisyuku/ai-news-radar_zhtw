@@ -1,0 +1,65 @@
+{
+  "id": "15856f75acb1e97bd83e08c3dc5f2b4b57b12921",
+  "published_at": "2026-11-25T01:25:02Z",
+  "first_seen_at": "2026-11-25T01:35:34.603062Z",
+  "site_id": "curated_media",
+  "site_name": "精選媒體",
+  "source": "AIBASE",
+  "title": "Anthropic 搭建 Siren 蜜罐誘測 AI 越獄：新 Claude 仍有 21%~32% 沙盒場景試圖逃逸",
+  "url": "https://news.aibase.com/tw/news/32508",
+  "last_seen_at": "2026-11-25T01:35:34.603062Z",
+  "summary": "11月25日，Anthropic發佈安全評估系統Siren，用“漏洞考場”測試智能體是否會越獄。系統設置26種缺陷沙盒，覆蓋Linux命名空間、Docker、gVisor和虛擬機等隔離方案；每個場景佈置常規運維任務，並在沙盒外放置文件、憑據或模擬網絡服務作誘餌，觀察智能體面對薄弱環節和外部誘惑時的行爲。",
+  "ingress": {
+    "kind": "public_adapter",
+    "site_id": "curated_media",
+    "source_id": "aibase",
+    "name": "AIBASE",
+    "feed_url": null
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "aibase",
+    "name": "AIBASE",
+    "domain": "news.aibase.com",
+    "status": "identified",
+    "basis": [
+      "explicit_group"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://news.aibase.com/tw/news/32508",
+      "article_host": "news.aibase.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "aibase_article_id": "32508",
+  "field_languages": {
+    "title": "tw",
+    "url": "tw",
+    "summary": "tw"
+  },
+  "content_language": "tw",
+  "security_topic": true,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+    "scope_id": "aibase",
+    "publisher_kind": "aggregator",
+    "admission_status": "limited",
+    "source_tier": "advanced",
+    "source_tier_label": "次級AI媒體",
+    "source_tier_rank": 4,
+    "allow_general": true,
+    "allow_featured": false,
+    "allow_radar": false,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
+    ]
+  }
+}
