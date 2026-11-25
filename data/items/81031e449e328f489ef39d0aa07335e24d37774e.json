@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "推出在 Amazon EKS、ECS 和 EC2 上运行的 AWS Nitro Sandboxes，用于硬件隔离容器组、任务和虚拟机",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/nitro-sandboxes-eks-ecs-ec2",
-  "last_seen_at": "2026-11-25T06:05:32.489366Z",
+  "last_seen_at": "2026-11-25T06:35:33.552990Z",
   "summary": "AWS Nitro Sandboxes 现在可以用作轻量级虚拟机，由 Nitro 虚拟机监控器管理。您可以将 Nitro Sandboxes 用于 Amazon EKS 容器组（pod）、Amazon ECS 任务或轻量级虚拟机（VM），包括在其中运行的智能体，这些智能体运行在由 AWS Nitro System 驱动的、硬件隔离的独立虚拟机中。每个工作负载都能获得一个 Nitro 隔离虚拟机的隔离边界。这使您可以在单个实例的资源内安全地运行不受信任、多租户或受监管的工作负载。 Nitro Sandboxes 在您的 EC2 实例上运行，具有接近原生的 EC2 性能，并继承了 Nitro 虚拟机监控程序隔离。您还可以通过加密认证来验证您的工作负载，这样机密信息只能发布给已证明其完整性的 Nitro Sandboxes。使用 Nitro Sandboxes，您可以在隔离环境中安全地执行 LLM 生成的代码，同时通过在多个代理工作负载之间安全共享单个 EC2 实例来提高利用率并降低计算成本。您可以轻松地启用 EKS 容器组或 ECS 任务以在 Nitro Sandboxes 上运行，并且每个容器组或任务都有自己的隔离环境。在 EKS 或 ECS 中启用 Nitro Sandboxes 是一项单行更改，每个容器组或任务都有自己的虚拟机，您的工作负载保持完全原生状态（容器组身份、VPC CNI、EBS/EFS/S3 存储和 CloudWatch 均开箱即用）。如果您想要完全控制，可使用自己的 AMI、编排和虚拟机监视器（VMM）直接在 EC2 上运行 Nitro Sandboxes。Amazon Linux 和 Firecracker 有原生支持，其他选项的补丁现已推出。 AWS Nitro Sandboxes 目前可在全球所有商业区域的大多数基于 Nitro 的 EC2 实例上使用，无需额外付费。 要了解更多信息并开始使用，请参阅 EKS User Guide 或 ECS User Guide 。如需了解实施细节或完全自定义 Nitro Sandbox 用法，请参阅“EC2 User Guide”中的 Nitro Sandboxes 文档 。",
   "publisher_links": [
     "https://aws.amazon.com/ec2/nitro/",
