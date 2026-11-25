@@ -1,0 +1,65 @@
+{
+  "id": "4492706aa1b75ffa9ef0331ddd2f993c5f7b7b1f",
+  "published_at": "2026-11-25T10:02:42Z",
+  "first_seen_at": "2026-11-25T10:05:37.826467Z",
+  "site_id": "curated_media",
+  "site_name": "精選媒體",
+  "source": "AIBASE",
+  "title": "谷歌爲 Gemini 新增獨立隱私開關：保留聊天記錄的同時，可選擇退出 AI 訓練",
+  "url": "https://news.aibase.com/tw/news/32532",
+  "last_seen_at": "2026-11-25T10:05:37.826467Z",
+  "summary": "谷歌近日爲 Gemini 應用推出新隱私設置，允許用戶在保留聊天記錄的前提下，獨立控制聊天內容是否用於生成式 AI 模型訓練。此前，用戶若不想數據被用於訓練，通常需要刪除聊天記錄；現在記錄保留與訓練授權已可解耦。操作上，在 Gemini 點擊設置圖標，頁面底部新增“活動記錄”選項，點擊後跳轉至“Google 我的活動頁面”，通過下拉菜單即可開啓或關閉相關功能。",
+  "ingress": {
+    "kind": "public_adapter",
+    "site_id": "curated_media",
+    "source_id": "aibase",
+    "name": "AIBASE",
+    "feed_url": null
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": "aibase",
+    "name": "AIBASE",
+    "domain": "news.aibase.com",
+    "status": "identified",
+    "basis": [
+      "explicit_group"
+    ],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": "https://news.aibase.com/tw/news/32532",
+      "article_host": "news.aibase.com",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "aibase_article_id": "32532",
+  "field_languages": {
+    "title": "tw",
+    "url": "tw",
+    "summary": "tw"
+  },
+  "content_language": "tw",
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+    "scope_id": "aibase",
+    "publisher_kind": "aggregator",
+    "admission_status": "limited",
+    "source_tier": "advanced",
+    "source_tier_label": "次級AI媒體",
+    "source_tier_rank": 4,
+    "allow_general": true,
+    "allow_featured": false,
+    "allow_radar": false,
+    "reason_codes": [
+      "identified_host",
+      "limited_scope",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
+    ]
+  }
+}
