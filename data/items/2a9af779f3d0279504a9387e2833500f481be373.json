@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon EKS 预置控制面板现已在 4XL 和 8XL 层级提供 24 GB etcd 数据库",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/amazon-eks-provisioned-control-plane-larger-etcd-database",
-  "last_seen_at": "2026-11-25T17:35:37.503217Z",
+  "last_seen_at": "2026-11-25T18:05:36.040877Z",
   "summary": "Amazon Elastic Kubernetes Service（Amazon EKS） 现在为 4XL 和 8XL 预置控制面板 集群提供更大的 24 GB etcd 数据库（此前为 16 GB）。etcd 是 Kubernetes 控制面板中保存集群状态的键值存储，因此其大小限制了集群可存储的 Kubernetes 对象数量。容量增加 50% 后，您可以运行规模更大的集群，容纳更多容器组（pod）、作业、事件和自定义资源。 更大的数据库为创建和更新大量 Kubernetes 对象的工作负载提供了更充足的余量，适用场景包括大规模 AI/ML 训练和推理、批处理以及 CI/CD 管道等。当 etcd 数据库填满时，您将无法在集群中添加或更改对象，因此额外余量有助于此类工作负载在扩展时保持运行。 要获得更大的数据库，请在运行 EKS 1.34 或更高版本的集群上选择预置控制面板的 4XL 或 8XL 层级。运行这些版本的现有 4XL 和 8XL 层级集群可自动获得更大的数据库，无需执行任何操作。24 GB etcd 数据库现已在所有提供预置控制面板的 AWS 商业区域推出。要了解更多信息，请参阅 Amazon EKS 预置控制面板用户指南 。",
   "publisher_links": [
     "https://aws.amazon.com/pm/eks/",
