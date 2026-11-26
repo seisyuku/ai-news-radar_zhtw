@@ -1,0 +1,67 @@
+{
+  "id": "11eec6da8f742f5ed89ff9d51cdf108cc4a10fc5",
+  "published_at": "2026-11-25T18:16:50Z",
+  "first_seen_at": "2026-11-26T05:35:32.441675Z",
+  "site_id": "opmlrss",
+  "site_name": "OPML RSS",
+  "source": "Simon Willison",
+  "title": "datasette-charts 0.3a0",
+  "url": "https://simonwillison.net/2026/Nov/25/datasette-charts",
+  "last_seen_at": "2026-11-26T05:35:32.441675Z",
+  "summary": "Release: datasette-charts 0.3a0 I added chart annotations to datasette-charts ! You can now render a chart and then annotate it with lines, shaded areas, labels, or a combination of the three. A chart with annotations looks like this: Here's that same chart in Datasette Lite , where you can tweak the annotations using the chart builder UI: If you also install Datasette Agent the agent can build annotated charts for you. Here's what I got on the agent.datasette.io demo for this prompt: Show a chart comparing Simon's tagged content about LLMs with his tagged content about Datasette, with annotations Tags: datasette , visualization , datasette-charts",
+  "publisher_links": [
+    "https://github.com/datasette/datasette-charts/releases/tag/0.3a0",
+    "https://github.com/datasette/datasette-charts",
+    "https://lite.datasette.io/?install=datasette-charts&url=https://datasette.io/global-power-plants.db#/global-power-plants/-/query?sql=SELECT+CAST%28commissioning_year+%2F+10+AS+INTEGER%29+%2A+10+AS+decade%2C+capacity_mw+FROM+%22global-power-plants%22+WHERE+commissioning_year+BETWEEN+1950+AND+2019+AND+capacity_mw+IS+NOT+NULL#chart=%7B%22v%22%3A1%2C%22type%22%3A%22bar%22%2C%22encoding%22%3A%7B%22x%22%3A%7B%22column%22%3A%22decade%22%2C%22sort%22%3A%22key%22%2C%22limit%22%3A20%2C%22other%22%3Afalse%7D%2C%22y%22%3A%7B%22column%22%3A%22capacity_mw%22%2C%22aggregate%22%3A%22sum%22%7D%7D%2C%22options%22%3A%7B%22orientation%22%3A%22vertical%22%7D%2C%22annotations%22%3A%5B%7B%22type%22%3A%22point%22%2C%22x%22%3A2000%2C%22text%22%3A%22Largest%20decade%20total%20in%20these%20records%3A%201.157%20million%20MW%22%7D%2C%7B%22type%22%3A%22range%22%2C%22x%22%3A1950%2C%22x2%22%3A1990%2C%22text%22%3A%22Much%20smaller%20summed%20capacity%20in%20earlier%20decades%22%7D%2C%7B%22type%22%3A%22line%22%2C%22y%22%3A1000000%2C%22text%22%3A%221%2C000%2C000%20MW%20reference%22%7D%2C%7B%22type%22%3A%22text%22%2C%22left%22%3A0.02%2C%22top%22%3A0.04%2C%22text%22%3A%22Global%20plant%20records%20with%20commissioning%20years%201950–2019%3B%20coverage%20and%20missing%20years%20may%20affect%20comparisons.%22%7D%5D%7D",
+    "https://agent.datasette.io/",
+    "https://simonwillison.net/tags/datasette",
+    "https://simonwillison.net/tags/visualization",
+    "https://simonwillison.net/tags/datasette-charts"
+  ],
+  "source_updated_at": "2026-11-25T18:16:50Z",
+  "ingress": {
+    "kind": "private_opml",
+    "site_id": "opmlrss",
+    "source_id": null,
+    "name": "RSS/OPML",
+    "feed_url": null
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": null,
+    "name": null,
+    "domain": "simonwillison.net",
+    "status": "unknown",
+    "basis": [],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": null,
+      "article_host": "simonwillison.net",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+    "scope_id": "unreviewed",
+    "publisher_kind": "unknown",
+    "admission_status": "unreviewed",
+    "source_tier": "watchlist",
+    "source_tier_label": "未審來源",
+    "source_tier_rank": 6,
+    "allow_general": true,
+    "allow_featured": false,
+    "allow_radar": false,
+    "reason_codes": [
+      "missing_identity",
+      "scope_mismatch",
+      "unreviewed_publisher",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
+    ]
+  }
+}
