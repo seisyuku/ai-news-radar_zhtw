@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon RDS for SQL Server 现已支持 M8id 和 R8id 实例",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/rds-sqlserver-supports-m8id-r8id-instances",
-  "last_seen_at": "2026-11-26T19:05:33.245668Z",
+  "last_seen_at": "2026-11-26T19:35:37.551402Z",
   "summary": "Amazon Relational Database Service（Amazon RDS）for SQL Server 现已支持 M8id 和 R8id 实例。这些实例由定制的英特尔至强 6 处理器提供支持，仅在 AWS 上可用，并且包含本地 NVMe SSD 存储。它们可纵向扩展至最多 384 个 vCPU、3 TiB 内存和 22.8 TB 本地 NVMe SSD 存储空间。其 vCPU 与内存均为 M5d 和 R5d 实例的 4 倍，本地存储空间则为这两种实例的 6 倍以上。 当您创建或修改数据库实例以使用 M8id 或 R8id 时，RDS for SQL Server 会自动将 tempdb 数据和日志文件放置在本地 NVMe 实例存储中。这可使 tempdb 的读写延迟低于 Amazon EBS 存储。您的数据库数据和日志文件会保留在 Amazon EBS 上。由于快照不包含实例存储中的 tempdb 文件，因此您的快照更小，占用的免费备份存储空间也更少。要了解更多信息，请参阅 Amazon RDS for SQL Server 上的 tempdb 数据库的实例存储支持 。 要使用新的 M8id 和 R8id 实例，您可以修改现有的 RDS 数据库实例，或者使用 RDS 管理控制台、AWS SDK 或 CLI 创建新的 RDS 数据库实例。M8id 和 R8id 实例已在以下 AWS 区域推出：美国东部（弗吉尼亚州北部）、美国东部（俄亥俄州）、美国西部（俄勒冈州）、加拿大（中部）、欧洲地区（爱尔兰）、欧洲地区（伦敦）、欧洲地区（法兰克福）、欧洲地区（斯德哥尔摩）、欧洲（西班牙）、亚太地区（东京）、亚太地区（孟买）、亚太地区（悉尼）和亚太地区（马来西亚）。有关定价详情，请参阅 Amazon RDS for SQL Server 定价 。",
   "publisher_links": [
     "https://aws.amazon.com/rds/sqlserver/",
