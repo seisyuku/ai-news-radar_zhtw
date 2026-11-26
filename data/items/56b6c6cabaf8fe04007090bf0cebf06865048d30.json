@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "AWS Backup 增加了对 Amazon EBS 快照归档的逻辑上受物理隔离的保管库支持",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/aws-backup-lag-vault-ebs-archive",
-  "last_seen_at": "2026-11-26T06:35:33.546291Z",
+  "last_seen_at": "2026-11-26T07:05:38.410196Z",
   "summary": "AWS Backup 逻辑上受物理隔离的保管库现已支持 Amazon EBS 快照归档。逻辑上受物理隔离的保管库是一种 AWS Backup 保管库，允许跨账户和 AWS Organizations 安全共享备份，支持直接恢复，有助于缩短从数据丢失事件恢复所需的时间。 现在，您可以将保存在逻辑上受物理隔离的保管库中的 Amazon EBS 备份归档到 Amazon EBS 快照归档中，此归档是一个面向极少访问的快照的低成本存储层。逻辑上受物理隔离的保管库存储不可变的备份，这些备份在默认情况下处于锁定状态，并使用 AWS 拥有的密钥或客户管理的密钥进行加密隔离。这有助于您以较低的存储成本满足长期留存与合规要求。 您可以通过 AWS Backup 控制台、AWS 命令行界面（CLI）或 AWS SDK 开始使用。在运行频率为每月一次或更低的备份计划规则中，可将逻辑上受物理隔离的保管库指定为主要备份目标或副本目标。随后，在备份规则生命周期或副本生命周期中启用“归档 Amazon EBS 快照”，并设置备份转入归档前在热存储中保留的时长。 此支持现已在同时提供逻辑上受物理隔离的保管库和 Amazon EBS 快照归档的所有 AWS 区域推出。有关更多信息和详细的区域可用性，请访问 AWS Backup 文档 。要了解有关逻辑上受物理隔离的保管库的更多信息，请参阅 产品文档 和 定价页面 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/aws-backup/latest/devguide/backup-feature-availability.html#features-by-region",
