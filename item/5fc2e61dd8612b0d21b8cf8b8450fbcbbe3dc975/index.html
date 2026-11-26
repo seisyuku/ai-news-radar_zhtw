@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <title>AI News Radar Pulse｜新聞資訊</title>
+</head>
+<body>
+  <main>
+    <h1>AI News Radar Pulse｜新聞資訊</h1>
+    <dl>
+    <dt>新聞編號</dt>
+    <dd>5fc2e61dd8612b0d21b8cf8b8450fbcbbe3dc975</dd>
+
+    <dt>發布者辨識狀態</dt>
+    <dd>待辨識</dd>
+    <dt>來源收錄狀態</dt>
+    <dd>尚未審核</dd>
+    <dt>新聞標題（原文）</dt>
+    <dd>sqlite3_rsync: Database Remote-Copy Tool For SQLite</dd>
+    <dt>收錄來源</dt>
+    <dd>Simon Willison</dd>
+    <dt>發布時間（來源提供）</dt>
+    <dd>2026-11-26T06:08:25Z</dd>
+    <dt>來源摘要（原文）</dt>
+    <dd>sqlite3_rsync: Database Remote-Copy Tool For SQLite This additional SQLite tool has been around for a while now - it was added as &quot;experimental&quot; in SQLite 3.47.0 in October 2024 and enhanced in SQLite 3.50.0 in May 2025 . It was only today that I understood one of its most attractive characteristics. Normally, if you want to grab a snapshot copy of a SQLite database, you need to use either the backup API or VACUUM INTO . In both cases you need enough disk space to create a duplicate copy of your database, so if you&#x27;re on a small instance and you already use more than half of the available disk you are plain out of luck. sqlite3_rsync can copy a snapshot of your database over an SSH connection to another machine, without first needing to create a full local copy! It&#x27;s also good for synchronizing an existing copy of a database without re-transmitting the entire thing over the network. It works in a similar way to regular rsync: The core idea behind the protocol is that the replica sends cryptographic hashes for pages or groups of pages over to the origin side. The origin sends back page content that differs, or requests finer-grain hashes if a multi-page hash does not match. If the origin and replica start out being vastly different, the total network bandwidth can exceed the size of the entire database, due to the overhead of exchanging hashes, but the excess bandwidth is not great - a few percent at most. Update : Hah! Turns out I wrote about this application of sqlite_rsync back in October 2024 when the tool was first released. Tags: backups , sqlite</dd>
+    <dt>原文連結</dt>
+    <dd><a href="https://simonwillison.net/2026/Nov/26/sqlite3-rsync">https://simonwillison.net/2026/Nov/26/sqlite3-rsync</a></dd>
+    </dl>
+  </main>
+</body>
+</html>
