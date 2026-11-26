@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-11-26T11:35:35.219394Z",
+  "generated_at": "2026-11-26T12:05:46.706194Z",
   "window_hours": 24,
-  "total_items": 162,
-  "total_items_ai_raw": 167,
+  "total_items": 163,
+  "total_items_ai_raw": 168,
   "total_items_raw": 187,
   "total_items_all_mode": 182,
   "topic_filter": "ai_relevance_scoring_v0_4",
   "ai_relevance_threshold": 0.65,
-  "archive_total": 8397,
+  "archive_total": 8390,
   "site_count": 14,
   "source_count": 22,
   "site_stats": [
     {
       "site_id": "curated_media",
       "site_name": "精選媒體",
-      "count": 71,
-      "raw_count": 73
+      "count": 70,
+      "raw_count": 72
     },
     {
       "site_id": "tw_media",
       "site_name": "台灣媒體",
-      "count": 58,
-      "raw_count": 64
+      "count": 59,
+      "raw_count": 65
     },
     {
       "site_id": "opmlrss",
@@ -33,13 +33,13 @@
       "site_id": "kr36_ai",
       "site_name": "36Kr AI (Watchlist)",
       "count": 5,
-      "raw_count": 8
+      "raw_count": 7
     },
     {
       "site_id": "official_ai",
       "site_name": "官方更新",
-      "count": 3,
-      "raw_count": 3
+      "count": 4,
+      "raw_count": 4
     },
     {
       "site_id": "runtimewire",
@@ -98,6 +98,102 @@
   ],
   "items": [
     {
+      "id": "9d5076e88f56f7181159d0147f16fb146f439e61",
+      "published_at": "2026-11-26T11:37:17Z",
+      "first_seen_at": "2026-11-26T12:05:46.706194Z",
+      "site_id": "official_ai",
+      "site_name": "官方更新",
+      "source": "Hugging Face Blog",
+      "title": "Introducing the llama.cpp benchmark dashboard for AMD Ryzen and Radeon",
+      "url": "https://huggingface.co/blog/ggml-org/llamacpp-amd-bench",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
+      "summary": "",
+      "source_updated_at": "2026-11-26T11:37:17Z",
+      "ingress": {
+        "kind": "public_feed",
+        "site_id": "official_ai",
+        "source_id": "hugging_face_blog",
+        "name": "Hugging Face Blog",
+        "feed_url": "https://huggingface.co/blog/feed.xml"
+      },
+      "publisher": {
+        "schema_version": 1,
+        "publisher_id": "huggingface",
+        "name": "Hugging Face",
+        "domain": "huggingface.co",
+        "status": "identified",
+        "basis": [
+          "article_host"
+        ],
+        "evidence": {
+          "rss_source_name": null,
+          "rss_source_url": null,
+          "article_url": "https://huggingface.co/blog/ggml-org/llamacpp-amd-bench",
+          "article_host": "huggingface.co",
+          "expected_publisher_id": null,
+          "conflicts": []
+        }
+      },
+      "article_key": "https://huggingface.co/blog/ggml-org/llamacpp-amd-bench",
+      "security_topic": false,
+      "business_events": [
+        "benchmark"
+      ],
+      "ai_is_related": true,
+      "ai_score": 0.98,
+      "ai_label": "research_paper",
+      "ai_relevance_reason": "matched_ai_signal",
+      "ai_signals": [
+        "hugging face",
+        "huggingface",
+        "benchmark"
+      ],
+      "ai_noise": [],
+      "source_tier": "official",
+      "source_tier_label": "官方一手源",
+      "source_tier_rank": 0,
+      "reader_summary": "The llama.cpp × AMD Benchmark dashboard is available on Hugging Face. It lets you track prompt processing and text generation performance across llama.cpp builds, models, and quantizations, so you can explore how local inference performs on AMD Ryzen and Radeon hardware.",
+      "reader_summary_kind": "publisher_lead",
+      "summary_zh": "llama.cpp × AMD 效能測試儀錶板現已在 Hugging Face 上線。它可讓您追蹤不同 llama.cpp 建置版本、模型與量化設定之間的提示詞處理與文字生成效能，讓您探索本機推論在 AMD Ryzen 與 Radeon 硬體上的表現。",
+      "title_original": "Introducing the llama.cpp benchmark dashboard for AMD Ryzen and Radeon",
+      "title_en": "Introducing the llama.cpp benchmark dashboard for AMD Ryzen and Radeon",
+      "title_zh": "推出適用於 AMD Ryzen 與 Radeon 的 llama.cpp 效能測試儀錶板",
+      "title_bilingual": "推出適用於 AMD Ryzen 與 Radeon 的 llama.cpp 效能測試儀錶板 / Introducing the llama.cpp benchmark dashboard for AMD Ryzen and Radeon",
+      "corroboration_key": "publisher:huggingface",
+      "corroboration_status": "identified",
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+        "scope_id": "huggingface",
+        "publisher_kind": "official",
+        "admission_status": "limited",
+        "source_tier": "official",
+        "source_tier_label": "官方一手源",
+        "source_tier_rank": 0,
+        "allow_general": true,
+        "allow_featured": true,
+        "allow_radar": true,
+        "reason_codes": [
+          "identified_host",
+          "limited_scope"
+        ]
+      },
+      "source_material": {
+        "title_original": "",
+        "title": "Introducing the llama.cpp benchmark dashboard for AMD Ryzen and Radeon",
+        "summary": ""
+      },
+      "qualification": {
+        "scope": "in_scope",
+        "core_evidence": [],
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      "source_tier_weight": 1.0
+    },
+    {
       "id": "789c7db56b555c589971fa4bcd2372445039ddeb",
       "published_at": "2026-11-26T05:05:36Z",
       "first_seen_at": "2026-11-26T05:35:32.441675Z",
@@ -106,7 +202,7 @@
       "source": "Hugging Face Blog",
       "title": "Building on Nemotron 3.5 Parse: Open Data, Fine-Tuning, and Faster Inference",
       "url": "https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "",
       "source_updated_at": "2026-11-26T05:05:36Z",
       "ingress": {
@@ -199,7 +295,7 @@
       "source": "GitHub Changelog",
       "title": "Copilot code review billing will default to the organization",
       "url": "https://github.blog/changelog/2026-11-25-copilot-code-review-billing-will-default-to-the-organization",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "If you haven’t chosen how to bill Copilot code review for members with a Copilot license, those reviews will be billed to your organization starting December 30, 2026. To keep… The post Copilot code review billing will default to the organization appeared first on The GitHub Blog .",
       "publisher_links": [
         "https://github.blog/changelog/2026-11-25-copilot-code-review-billing-will-default-to-the-organization",
@@ -294,7 +390,7 @@
       "source": "Hugging Face Blog",
       "title": "Where scientists draw the line on AI agents",
       "url": "https://huggingface.co/blog/allenai/where-scientists-draw-the-line-on-ai-agents",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "",
       "source_updated_at": "2026-11-25T18:52:55Z",
       "ingress": {
@@ -386,7 +482,7 @@
       "source": "The Decoder AI News",
       "title": "Microsoft details how state-backed hackers use the ARTEX AI framework to automate cyberattacks",
       "url": "https://the-decoder.com/microsoft-details-how-state-backed-hackers-use-the-artex-ai-framework-to-automate-cyberattacks",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Microsoft has published the technical architecture of ARTEX, an AI framework in wide use since July 2026 that runs cyberattacks with specialized agents and almost no human involvement. State-backed groups from China and North Korea, along with criminal organizations, are already using the system. Microsoft recommends deception techniques like honeypots and faked success signals as defenses, but how long those will hold up against agents that learn and adapt remains an open question. The article Microsoft details how state-backed hackers use the ARTEX AI framework to automate cyberattacks appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/microsoft-details-how-state-backed-hackers-use-the-artex-ai-framework-to-automate-cyberattacks/",
@@ -418,8 +514,26 @@
           "conflicts": []
         }
       },
-      "article_key": "https://the-decoder.com/microsoft-details-how-state-backed-hackers-use-the-artex-ai-framework-to-automate-cyberattacks",
       "security_topic": false,
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+        "scope_id": "the_decoder",
+        "publisher_kind": "media",
+        "admission_status": "limited",
+        "source_tier": "ai_vertical",
+        "source_tier_label": "AI垂直專業媒體",
+        "source_tier_rank": 1,
+        "allow_general": true,
+        "allow_featured": true,
+        "allow_radar": true,
+        "reason_codes": [
+          "identified_host",
+          "limited_scope"
+        ]
+      },
+      "article_key": "https://the-decoder.com/microsoft-details-how-state-backed-hackers-use-the-artex-ai-framework-to-automate-cyberattacks",
       "business_events": [],
       "ai_is_related": true,
       "ai_score": 0.76,
@@ -439,24 +553,6 @@
       "title_bilingual": "微軟 詳細說明國家級駭客如何利用 ARTEX AI 框架來自動化網路攻擊 / Microsoft details how state-backed hackers use the ARTEX AI framework to automate cyberattacks",
       "corroboration_key": "publisher:the_decoder",
       "corroboration_status": "identified",
-      "source_policy": {
-        "schema_version": 1,
-        "policy_id": "publisher-governance-v1",
-        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
-        "scope_id": "the_decoder",
-        "publisher_kind": "media",
-        "admission_status": "limited",
-        "source_tier": "ai_vertical",
-        "source_tier_label": "AI垂直專業媒體",
-        "source_tier_rank": 1,
-        "allow_general": true,
-        "allow_featured": true,
-        "allow_radar": true,
-        "reason_codes": [
-          "identified_host",
-          "limited_scope"
-        ]
-      },
       "source_material": {
         "title_original": "",
         "title": "Microsoft details how state-backed hackers use the ARTEX AI framework to automate cyberattacks",
@@ -480,7 +576,7 @@
       "source": "The Decoder AI News",
       "title": "Nvidia halts server shipments to Malaysia, Singapore, Thailand, and Indonesia after tighter US export controls",
       "url": "https://the-decoder.com/nvidia-halts-server-shipments-to-malaysia-singapore-thailand-and-indonesia-after-tighter-us-export-controls",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Nvidia has told partners such as Dell and Supermicro to stop shipping servers to Malaysia, Singapore, Thailand, and Indonesia. Following new US export controls targeting Chinese cloud access, dealers are already seeking buyers for thousands of B300 chips, while one cloud executive describes \"chaos\", Loans and major deals are now on the line for Southeast Asia's data centers. The article Nvidia halts server shipments to Malaysia, Singapore, Thailand, and Indonesia after tighter US export controls appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/nvidia-halts-server-shipments-to-malaysia-singapore-thailand-and-indonesia-after-tighter-us-export-controls/",
@@ -512,8 +608,26 @@
           "conflicts": []
         }
       },
-      "article_key": "https://the-decoder.com/nvidia-halts-server-shipments-to-malaysia-singapore-thailand-and-indonesia-after-tighter-us-export-controls",
       "security_topic": false,
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+        "scope_id": "the_decoder",
+        "publisher_kind": "media",
+        "admission_status": "limited",
+        "source_tier": "ai_vertical",
+        "source_tier_label": "AI垂直專業媒體",
+        "source_tier_rank": 1,
+        "allow_general": true,
+        "allow_featured": true,
+        "allow_radar": true,
+        "reason_codes": [
+          "identified_host",
+          "limited_scope"
+        ]
+      },
+      "article_key": "https://the-decoder.com/nvidia-halts-server-shipments-to-malaysia-singapore-thailand-and-indonesia-after-tighter-us-export-controls",
       "business_events": [],
       "ai_is_related": true,
       "ai_score": 0.76,
@@ -533,24 +647,6 @@
       "title_bilingual": "美國實施更嚴格的出口管制後，Nvidia 暫停向馬來西亞、新加坡、泰國和印尼出貨伺服器 / Nvidia halts server shipments to Malaysia, Singapore, Thailand, and Indonesia after tighter US export controls",
       "corroboration_key": "publisher:the_decoder",
       "corroboration_status": "identified",
-      "source_policy": {
-        "schema_version": 1,
-        "policy_id": "publisher-governance-v1",
-        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
-        "scope_id": "the_decoder",
-        "publisher_kind": "media",
-        "admission_status": "limited",
-        "source_tier": "ai_vertical",
-        "source_tier_label": "AI垂直專業媒體",
-        "source_tier_rank": 1,
-        "allow_general": true,
-        "allow_featured": true,
-        "allow_radar": true,
-        "reason_codes": [
-          "identified_host",
-          "limited_scope"
-        ]
-      },
       "source_material": {
         "title_original": "",
         "title": "Nvidia halts server shipments to Malaysia, Singapore, Thailand, and Indonesia after tighter US export controls",
@@ -574,7 +670,7 @@
       "source": "iThome",
       "title": "OpenAI開始合併ChatGPT的Chat與Work介面，預定12月擴大部署共用配額",
       "url": "https://www.ithome.com.tw/news/180807",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "OpenAI於11月宣佈將合併對話（Chat）、Work及Codex的token用量配額的計畫。在ChatGPT Work與Codex本月稍早整合用量配額後，OpenAI官方公告開始針對少數Pro使用者合併Chat和Work，預定12月擴大部署共用配額機制。",
       "source_updated_at": "2026-11-26T11:11:20Z",
       "ingress": {
@@ -678,7 +774,7 @@
       "source": "iThome",
       "title": "紐約州長簽署禁止銷售AI聊天機器人玩具的5年禁令",
       "url": "https://www.ithome.com.tw/news/180803",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "美國紐約州長Kathy Hochul週二（11/24）簽署一項為期5年的AI聊天機器人玩具禁令，禁止在紐約州製造、經銷及銷售內嵌AI聊天機器人的連網玩具，以保護兒童的身心健康及隱私，新法將於簽署後90天生效，違法業者每項違規行為每日最高可被處以1.5萬美元的罰款。",
       "source_updated_at": "2026-11-26T10:11:58Z",
       "ingress": {
@@ -768,7 +864,7 @@
       "source": "iThome",
       "title": "Claude新功能可將物件變成獨立Mac、Windows App",
       "url": "https://www.ithome.com.tw/news/180804",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Anthropic宣佈今天開始，以beta版為Mac和Windows版Claude App部署一項功能，可輕鬆將Claude生成的物件轉成桌機版應用程式，擁有圖示和視窗，還能分享他人。",
       "source_updated_at": "2026-11-26T10:11:05Z",
       "ingress": {
@@ -858,7 +954,7 @@
       "source": "iThome",
       "title": "Google擴充AI代理安全防護，新增執行前政策檢查機制",
       "url": "https://www.ithome.com.tw/news/180723",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Google於11月20日宣佈推出AI代理語意治理政策（Semantic Governance Policies）預覽版，利用大型語言模型（LLM）檢查AI代理準備執行的工具操作，判斷是否符合使用者要求及企業政策，並在執行前阻擋不符合規定的操作。這項機制可用來防範AI代理受到提示詞注入攻擊影響，或在具備合法存取許可權的情況下，執行違反企業規定的操作。",
       "source_updated_at": "2026-11-26T08:11:00Z",
       "ingress": {
@@ -958,7 +1054,7 @@
       "source": "iThome",
       "title": "卡巴斯基盤點2027年七大供應鏈資安風險，企業防護範圍從開源軟體擴及AI模型與代理",
       "url": "https://www.ithome.com.tw/news/180745",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "企業日常營運仰賴的開源軟體、開發工具及AI服務，都可能成為供應鏈資安風險的來源。資安業者卡巴斯基（Kaspersky）公佈2027年七大供應鏈風險預測，指出隨著企業日益依賴AI模型與代理，除了須防範攻擊者利用原本受信任的軟體及服務發動攻擊，也須將外部AI服務無法使用的情況納入風險評估。",
       "source_updated_at": "2026-11-26T08:11:00Z",
       "ingress": {
@@ -1054,7 +1150,7 @@
       "source": "iThome",
       "title": "英國NCSC示警AI輔助網路攻擊顯著增加，駭客數分鐘內就可能利用企業既有資安弱點",
       "url": "https://www.ithome.com.tw/news/180781",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "英國國家網路安全中心（National Cyber Security Centre，NCSC）11月24日發布警告指出，自今年9月以來，該機構觀測到AI輔助網路攻擊顯著增加，已波及多個產業的組織，部分事件造成服務中斷或系統遭到入侵。",
       "source_updated_at": "2026-11-26T08:11:00Z",
       "ingress": {
@@ -1144,7 +1240,7 @@
       "source": "iThome",
       "title": "導入AI省逾4.7萬工時，聖地牙哥市雲端部署從數月縮至數分鐘",
       "url": "https://www.ithome.com.tw/news/180831",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "美國加州聖地牙哥市政府近日公佈的內部數位轉型成效顯示，透過將生成式人工智慧（AI）工具普及至基層公務體系，並重整底層雲端網路架構，已實質縮減了行政作業與基礎設施部署的時間成本，為大型市政機關的營運效率帶來明顯改變。",
       "source_updated_at": "2026-11-26T06:11:15Z",
       "ingress": {
@@ -1232,7 +1328,7 @@
       "source": "iThome",
       "title": "澳洲立法強化AI聊天機器人與社群平臺安全責任，違規罰款可達全球營收5%",
       "url": "https://www.ithome.com.tw/news/180825",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "澳洲國會11月25日透過數位注意義務（Digital Duty of Care）法案，要求社群媒體、線上遊戲、AI聊天機器人及其他受規範的數位服務業者，主動防範可能對使用者造成嚴重傷害的內容及行為，並降低服務功能造成傷害的風險。違反數位注意義務的企業，罰款上限為全球營收5%或1.092億澳元，取兩者較高金額。數位注意義務預計12個月後生效。",
       "source_updated_at": "2026-11-26T04:11:01Z",
       "ingress": {
@@ -1332,7 +1428,7 @@
       "source": "The Decoder AI News",
       "title": "US chip-access curbs and anti-distillation measures are reportedly already slowing Chinese AI labs",
       "url": "https://the-decoder.com/us-chip-access-curbs-and-anti-distillation-measures-are-reportedly-already-slowing-chinese-ai-labs",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Chip restrictions, anti-distillation measures, and shrinking access to Nvidia hardware abroad are putting growing pressure on Deepseek, Moonshot AI, and Alibaba, according to a report. Deepseek researchers internally estimate they're already up to nine months behind US models, and the gap is widening. The article US chip-access curbs and anti-distillation measures are reportedly already slowing Chinese AI labs appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/us-chip-access-curbs-and-anti-distillation-measures-are-reportedly-already-slowing-chinese-ai-labs/",
@@ -1426,7 +1522,7 @@
       "source": "The Decoder AI News",
       "title": "Anthropic CEO Dario Amodei says letting AI govern society would be \"a bad idea\"",
       "url": "https://the-decoder.com/anthropic-ceo-dario-amodei-says-letting-ai-govern-society-would-be-a-bad-idea",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Anthropic CEO Dario Amodei is pushing back on an Axios report saying some employees believe humanity will hand power to superintelligent systems. Amodei says \"turning over governance to AI is a bad idea.\" The article Anthropic CEO Dario Amodei says letting AI govern society would be \"a bad idea\" appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/anthropic-ceo-dario-amodei-says-letting-ai-govern-society-would-be-a-bad-idea/",
@@ -1520,7 +1616,7 @@
       "source": "The Decoder AI News",
       "title": "OpenAI wants companies to trust it with sensitive work by promising not to look at their data",
       "url": "https://the-decoder.com/openai-wants-companies-to-trust-it-with-sensitive-work-by-promising-not-to-look-at-their-data",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "OpenAI is testing a new feature called \"Private Inference\" that lets companies run queries on its most powerful models without OpenAI being able to access the data. The article OpenAI wants companies to trust it with sensitive work by promising not to look at their data appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/openai-wants-companies-to-trust-it-with-sensitive-work-by-promising-not-to-look-at-their-data/",
@@ -1614,7 +1710,7 @@
       "source": "The Decoder AI News",
       "title": "Amazon and Meta are in talks to end the block on Meta's AI shopping agent Muse in Amazon's online store.",
       "url": "https://the-decoder.com/amazon-and-meta-are-in-talks-to-end-the-block-on-metas-ai-shopping-agent-muse-in-amazons-online-store",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Amazon and Meta are in talks to bring back Muse, Meta's AI shopping agent that Amazon kicked off its platform in September. The two sides are stuck on ad revenue and who gets to control search results. That matters because Amazon's ad business generates $68.6 billion a year, and Muse already commands 51 percent of all agentic shopping orders. The article Amazon and Meta are in talks to end the block on Meta's AI shopping agent Muse in Amazon's online store. appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/amazon-and-meta-are-in-talks-to-end-the-block-on-metas-ai-shopping-agent-muse-in-amazons-online-store/",
@@ -1718,7 +1814,7 @@
       "source": "The Decoder AI News",
       "title": "AI agents now control part of Deepmind's compute for Gemini experiments, but recursive self-improvement remains distant",
       "url": "https://the-decoder.com/ai-agents-now-control-part-of-deepminds-compute-for-gemini-experiments-but-recursive-self-improvement-remains-distant",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Google Deepmind uses AI agents to run experiments on their own for upcoming Gemini models. Research chief Koray Kavukcuoglu says the lab is still far from recursive self-improvement. For oversight, Deepmind intentionally leaves the agents' internal chains of thought untrained so they can be reviewed. Kavukcuoglu measures AGI by everyday user trust rather than benchmarks. The article AI agents now control part of Deepmind's compute for Gemini experiments, but recursive self-improvement remains distant appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/ai-agents-now-control-part-of-deepminds-compute-for-gemini-experiments-but-recursive-self-improvement-remains-distant/",
@@ -1814,7 +1910,7 @@
       "source": "The Decoder AI News",
       "title": "Anthropic study shows the hardest part of adopting AI at work has little to do with learning the tools",
       "url": "https://the-decoder.com/anthropic-study-shows-the-hardest-part-of-adopting-ai-at-work-has-little-to-do-with-learning-the-tools",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Anthropic studied nearly 300 AI deployments across 58 US companies with sobering results. Nearly one in five still delivers no business value, held back by heavy review workloads, internal bottlenecks, and employee resistance. The researchers say the biggest hurdles stem from outdated company structures. The article Anthropic study shows the hardest part of adopting AI at work has little to do with learning the tools appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/anthropic-study-shows-the-hardest-part-of-adopting-ai-at-work-has-little-to-do-with-learning-the-tools/",
@@ -1908,7 +2004,7 @@
       "source": "The Decoder AI News",
       "title": "Back-to-back cyber incidents at US financial investigators and spy agencies follow a string of federal hacks and outages",
       "url": "https://the-decoder.com/back-to-back-cyber-incidents-at-us-financial-investigators-and-spy-agencies-follow-a-string-of-federal-hacks-and-outages",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "The US Financial Crimes Enforcement Network took systems offline as a precaution after unauthorized access. Hours earlier, reports emerged of a separate breach at the CIA, NGA, and ODNI, in which investigators suspect attackers used the AI defense tool Artex. Both incidents land on a US public that is already on edge. The article Back-to-back cyber incidents at US financial investigators and spy agencies follow a string of federal hacks and outages appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/back-to-back-cyber-incidents-at-us-financial-investigators-and-spy-agencies-follow-a-string-of-federal-hacks-and-outages/",
@@ -2192,33 +2288,29 @@
       "source_tier_weight": 0.7
     },
     {
-      "id": "5622bda5ae8fd96b71e407fc40a629bd9d9c43de",
-      "published_at": "2026-11-25T11:51:49Z",
-      "first_seen_at": "2026-11-25T12:35:35.836277Z",
-      "site_id": "curated_media",
-      "site_name": "精選媒體",
-      "source": "The Decoder AI News",
-      "title": "PrismML shrinks a 54 GB language model to 5.9 GB by reducing every weight to just three possible values",
-      "url": "https://the-decoder.com/prismml-squeezes-an-agent-based-coding-model-with-27-billion-parameters-into-5-9-gb",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
-      "summary": "Startup PrismML has released Ternary Bonsai 2.5 27B, an updated version of its aggressively compressed language model. The article PrismML shrinks a 54 GB language model to 5.9 GB by reducing every weight to just three possible values appeared first on The Decoder .",
-      "publisher_links": [
-        "https://the-decoder.com/prismml-squeezes-an-agent-based-coding-model-with-27-billion-parameters-into-5-9-gb/",
-        "https://the-decoder.com"
-      ],
-      "source_updated_at": "2026-11-25T11:51:49Z",
+      "id": "14572e9de101d5a130a8ce5e2fd2a724e04a8ad3",
+      "published_at": "2026-11-26T11:42:01Z",
+      "first_seen_at": "2026-11-26T12:05:46.706194Z",
+      "site_id": "tw_media",
+      "site_name": "台灣媒體",
+      "source": "TechNews 科技新報",
+      "title": "三年砸 3 億元攻智慧醫療，鴻海攜北榮秀 AI 機器人成果",
+      "url": "https://finance.technews.tw/2026/11/26/foxconn-smart-medicine",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
+      "summary": "鴻海加速拓展 AI 與機器人在醫療領域的應用，今日宣佈與臺北榮民總醫院合作打造的化療自動化智慧場域正式亮相，整 […]",
+      "source_updated_at": "2026-11-26T11:42:01Z",
       "ingress": {
         "kind": "public_feed",
-        "site_id": "curated_media",
-        "source_id": "the_decoder",
-        "name": "The Decoder AI News",
-        "feed_url": "https://the-decoder.com/feed/"
+        "site_id": "tw_media",
+        "source_id": "technews_tw",
+        "name": "TechNews 科技新報",
+        "feed_url": "https://technews.tw/feed/"
       },
       "publisher": {
         "schema_version": 1,
-        "publisher_id": "the_decoder",
-        "name": "The Decoder",
-        "domain": "the-decoder.com",
+        "publisher_id": "technews",
+        "name": "TechNews 科技新報",
+        "domain": "finance.technews.tw",
         "status": "identified",
         "basis": [
           "article_host"
@@ -2226,72 +2318,67 @@
         "evidence": {
           "rss_source_name": null,
           "rss_source_url": null,
-          "article_url": "https://the-decoder.com/prismml-squeezes-an-agent-based-coding-model-with-27-billion-parameters-into-5-9-gb",
-          "article_host": "the-decoder.com",
+          "article_url": "https://finance.technews.tw/2026/11/26/foxconn-smart-medicine",
+          "article_host": "finance.technews.tw",
           "expected_publisher_id": null,
           "conflicts": []
         }
       },
+      "article_key": "https://finance.technews.tw/2026/11/26/foxconn-smart-medicine",
       "security_topic": false,
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.7,
+      "ai_label": "ai_tech",
+      "ai_relevance_reason": "matched_ai_signal",
+      "ai_signals": [
+        "機器人"
+      ],
+      "ai_noise": [],
+      "source_tier": "watchlist",
+      "source_tier_label": "未審來源",
+      "source_tier_rank": 6,
+      "summary_zh": "鴻海加速拓展 AI 與機器人在醫療領域的應用，今日宣佈與臺北榮民總醫院合作打造的化療自動化智慧場域正式亮相，整 […]",
+      "title_original": "三年砸 3 億元攻智慧醫療，鴻海攜北榮秀 AI 機器人成果",
+      "title_en": null,
+      "title_zh": "三年砸 3 億元攻智慧醫療，鴻海攜北榮秀 AI 機器人成果",
+      "title_bilingual": "三年砸 3 億元攻智慧醫療，鴻海攜北榮秀 AI 機器人成果",
+      "corroboration_key": "publisher:technews",
+      "corroboration_status": "identified",
       "source_policy": {
         "schema_version": 1,
         "policy_id": "publisher-governance-v1",
         "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
-        "scope_id": "the_decoder",
-        "publisher_kind": "media",
-        "admission_status": "limited",
-        "source_tier": "ai_vertical",
-        "source_tier_label": "AI垂直專業媒體",
-        "source_tier_rank": 1,
+        "scope_id": "unreviewed",
+        "publisher_kind": "unknown",
+        "admission_status": "unreviewed",
+        "source_tier": "watchlist",
+        "source_tier_label": "未審來源",
+        "source_tier_rank": 6,
         "allow_general": true,
-        "allow_featured": true,
-        "allow_radar": true,
+        "allow_featured": false,
+        "allow_radar": false,
         "reason_codes": [
-          "identified_host",
-          "limited_scope"
+          "legacy_identity",
+          "scope_mismatch",
+          "unreviewed_publisher",
+          "not_permitted_for_featured",
+          "not_permitted_for_radar"
         ]
       },
-      "article_key": "https://the-decoder.com/prismml-squeezes-an-agent-based-coding-model-with-27-billion-parameters-into-5-9-gb",
-      "business_events": [],
-      "ai_is_related": true,
-      "ai_score": 0.76,
-      "ai_label": "research_paper",
-      "ai_relevance_reason": "curated_media_source_filter",
-      "ai_signals": [
-        "the decoder ai news"
-      ],
-      "ai_noise": [],
-      "source_tier": "ai_vertical",
-      "source_tier_label": "AI垂直專業媒體",
-      "source_tier_rank": 1,
-      "summary_zh": "新創公司 PrismML 推出了 Ternary Bonsai 2.5 27B，這是其經過極度壓縮的語言模型的更新版本。",
-      "title_original": "PrismML shrinks a 54 GB language model to 5.9 GB by reducing every weight to just three possible values",
-      "title_en": "PrismML shrinks a 54 GB language model to 5.9 GB by reducing every weight to just three possible values",
-      "title_zh": "PrismML 將 54 GB 的語言模型縮減至 5.9 GB，方法是將每個權重減少到僅三個可能的值",
-      "title_bilingual": "PrismML 將 54 GB 的語言模型縮減至 5.9 GB，方法是將每個權重減少到僅三個可能的值 / PrismML shrinks a 54 GB language model to 5.9 GB by reducing every weight to just three possible values",
-      "corroboration_key": "publisher:the_decoder",
-      "corroboration_status": "identified",
       "source_material": {
         "title_original": "",
-        "title": "PrismML shrinks a 54 GB language model to 5.9 GB by reducing every weight to just three possible values",
-        "summary": "Startup PrismML has released Ternary Bonsai 2.5 27B, an updated version of its aggressively compressed language model. The article PrismML shrinks a 54 GB language model to 5.9 GB by reducing every weight to just three possible values appeared first on The Decoder ."
+        "title": "三年砸 3 億元攻智慧醫療，鴻海攜北榮秀 AI 機器人成果",
+        "summary": "鴻海加速拓展 AI 與機器人在醫療領域的應用，今日宣布與台北榮民總醫院合作打造的化療自動化智慧場域正式亮相，整 […]"
       },
       "qualification": {
         "scope": "in_scope",
-        "core_evidence": [
-          {
-            "kind": "model_release",
-            "status": "insufficient",
-            "basis": "insufficient",
-            "spans": [],
-            "urls": []
-          }
-        ],
+        "core_evidence": [],
         "reason_codes": [
-          "insufficient_evidence"
+          "no_core_event"
         ]
       },
-      "source_tier_weight": 0.78
+      "source_tier_weight": 0.3
     },
     {
       "id": "6c8c1486e734c2fe02e48cd9d0a46a769e201545",
@@ -2302,7 +2389,7 @@
       "source": "The Verge",
       "title": "42 state AGs are trying to stop Character.AI from selling users’ chats",
       "url": "https://www.theverge.com/policy/1042620/character-ai-sale-state-ags-block-selling-users-chats",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "A coalition of 42 state attorneys general is trying to prevent Character.AI from selling off user data as it navigates Chapter 11 bankruptcy proceedings. In a deluge of nearly identical press releases, the various AGs accuse the company of planning to auction off \"the private chat histories of more than 21 million U.S. accounts - […]",
       "source_updated_at": "2026-11-26T09:54:40Z",
       "ingress": {
@@ -2390,7 +2477,7 @@
       "source": "CNBC Technology",
       "title": "Global stocks rally as investors shrug off U.S. tariffs and AI jitters to 'fish for bargains'",
       "url": "https://www.cnbc.com/2026/11/26/stock-markets-today-.html",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Investors appeared to have shrugged off a fresh set of tariffs unveiled by the White House on Wednesday, targeting more than a dozen major trading partners.",
       "source_updated_at": "2026-11-26T09:51:40Z",
       "ingress": {
@@ -2483,7 +2570,7 @@
       "source": "AIBASE",
       "title": "點幾下就能訂，退訂卻得繞回原路：德國消保機構把 OpenAI 告上法庭",
       "url": "https://news.aibase.com/tw/news/32556",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "德國勃蘭登堡消費者保護中心已起訴 OpenAI，指 ChatGPT 訂閱“開通容易、取消難”。據 ComputerBase 11月26日報道，用戶訂閱只需點幾下，退訂卻可能被“鎖”在當初付費路徑上，必須走回頭路。該中心法律顧問 Dunja Neukamp 指出，這種設計正把 OpenAI 推上被告席。",
       "ingress": {
         "kind": "public_adapter",
@@ -2581,7 +2668,7 @@
       "source": "AIBASE",
       "title": "不換模型也能吐字快 4.2 倍：騰訊混元開源草稿模型 DFly2，專給 Hy4 flash 提速",
       "url": "https://news.aibase.com/tw/news/32555",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "騰訊混元11月26日開源新一代草稿模型DFly2，作爲外掛“加速器”不替換Hy4 flash，權重與輸出不變，可讓逐字生成成倍提速，單項最高4.2倍。該模型專爲DSA類稀疏注意力大模型和長上下文設計，並隨Hy4 flash權重及完整訓練代碼同步開源，旨在破解大模型說話慢問題。",
       "ingress": {
         "kind": "public_adapter",
@@ -2679,7 +2766,7 @@
       "source": "AIBASE",
       "title": "MiniMax 旗下 Talkie 因涉黃被下架，AI 陪伴賽道迎來最嚴監管大考",
       "url": "https://news.aibase.com/tw/news/32554",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "AI虛擬陪伴與角色扮演應用正快速搶佔用戶時長，但“無限制”沉浸感與“嚴監管”內容底線的矛盾日益突出。近日，蘋果App Store嚴厲出手：據《南華早報》報道，MiniMax旗下AI角色聊天與創作平臺Talkie已被正式下架，官方理由爲“應用內存在色情內容”。此事凸顯AI社交產品面臨的合規壓力。",
       "ingress": {
         "kind": "public_adapter",
@@ -2777,7 +2864,7 @@
       "source": "TechNews 科技新報",
       "title": "AI 看指紋就能判斷血型？逾 10 篇論文遭質疑，資料集根本沒有血型資訊",
       "url": "https://technews.tw/2026/11/26/over-a-dozen-studies-said-ai-can-read-your-blood-type-from-a-fingerprint",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "多篇聲稱能透過指紋判斷血型的人工智慧研究，近日因資料真實性遭到嚴重質疑而引發學界關注。根據最新消息，愛思唯爾（ […]",
       "source_updated_at": "2026-11-26T09:00:57Z",
       "ingress": {
@@ -2865,7 +2952,7 @@
       "source": "CNBC Technology",
       "title": "Latin America has the copper and energy the AI build-out needs. Infrastructure is the test",
       "url": "https://www.cnbc.com/2026/11/26/latin-america-copper-energy-ai-investment.html",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Latin America’s copper, oil, gas and rare earths could benefit from rising AI energy demand, if infrastructure and fiscal policy attract investment.",
       "source_updated_at": "2026-11-26T08:59:11Z",
       "ingress": {
@@ -2955,7 +3042,7 @@
       "source": "INSIDE",
       "title": "T3 Code 是什麼？開源 coding agent 控制介面，讓 Claude Code 與 Codex 在電腦與手機間接力",
       "url": "https://www.inside.com.tw/article/43019-what-is-t3-code-open-source-coding-agent-control-plane-claude-code-codex-ios-android",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "T3 Code 是開源的 coding agent 控制介面，在用戶自己的電腦上執行 Claude Code、Codex 等代理，並提供桌面、網頁、iOS 與 Android 版本。用戶可在電腦開啟對話，再用手機接手審核與下指令，採 MIT 授權且不轉賣模型額度。",
       "source_updated_at": "2026-11-26T08:52:00Z",
       "ingress": {
@@ -3047,7 +3134,7 @@
       "source": "TechNews 科技新報",
       "title": "美祭先進 AI 晶片新管制，亞洲資料中心融資市場急踩煞車",
       "url": "https://finance.technews.tw/2026/11/26/us-chip-controls-impact-asian-financing",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "美國針對先進 AI 晶片祭出最新出口限制，正讓亞洲資料中心融資市場急踩煞車。多家放款機構已著手重新檢視與字節跳 […]",
       "source_updated_at": "2026-11-26T08:50:57Z",
       "ingress": {
@@ -3140,7 +3227,7 @@
       "source": "TechNews 科技新報",
       "title": "盧超群獲陽明交大名譽博士，憶張忠謀兩根青江菜勉青年共創 AI 半導體新局",
       "url": "https://finance.technews.tw/2026/11/26/nicky-lu-receives-honorary-doctorate-from-nycu",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "鈺創科技董事長盧超群在獲頒陽明交通大學名譽博士學位時發表專題演講，從自己 1981 至 1982 年於交大電子 […]",
       "source_updated_at": "2026-11-26T08:40:12Z",
       "ingress": {
@@ -3231,7 +3318,7 @@
       "source": "TechNews 科技新報",
       "title": "美國封堵中國 AI 算力漏洞，輝達緊急喊停東南亞四國伺服器出貨",
       "url": "https://technews.tw/2026/11/26/nvidia-halts-server-shipments-to-four-southeast-asian-countries",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "根據外媒報導，輝達（Nvidia）已通知製造合作夥伴，暫停向馬來西亞、新加坡、泰國及印尼四個東南亞國家出貨搭載 […]",
       "source_updated_at": "2026-11-26T08:15:20Z",
       "ingress": {
@@ -3321,7 +3408,7 @@
       "source": "AIBASE",
       "title": "SpaceX 算力降價兩至三成出租：大客戶 Anthropic 的 5 萬卡合同續約存變數",
       "url": "https://news.aibase.com/tw/news/32553",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "SemiAnalysis 11月25日報告稱，SpaceX正下調AI算力租賃價格：小型集羣Blackwell GPU現貨報價從每GPU小時約15—15.5美元降至10—12美元，降幅20%—35%。現貨按需、不籤長約，價格反映短期供需，降價意味着算力不再緊俏。更關鍵的是，Anthropic可能不續約涉及約5萬臺H200 GPU的集羣合同，大客戶動向令其算力生意承壓。",
       "ingress": {
         "kind": "public_adapter",
@@ -3430,7 +3517,7 @@
       "source": "TechNews 科技新報",
       "title": "走著瞧明年「高機率」配息！AI 防詐拓新商機，海外市場扛成長重任",
       "url": "https://infosecu.technews.tw/2026/11/26/gogolook-dividend",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "臺灣知名來電辨識 App「Whoscall」母公司走著瞧（Gogolook）今日舉辦媒體交流會，會中董事長鄭勝 […]",
       "source_updated_at": "2026-11-26T07:53:05Z",
       "ingress": {
@@ -3521,7 +3608,7 @@
       "source": "AIBASE",
       "title": "上海AI Lab開源Sage-Interaction，以1. 29 秒極致延遲重塑全雙工交互新範式",
       "url": "https://news.aibase.com/tw/news/32551",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "當前AI多爲半雙工問答，用戶須等模型說完才能插話，打斷還會致上下文崩塌，體驗像客服機器人，難以融入自然、高頻、含打斷重疊的協作。近日，上海人工智能實驗室正式開源全雙工多模態模型，旨在打破交互壁壘，推動AI邁向更自然實時的對話協作。",
       "ingress": {
         "kind": "public_adapter",
@@ -3619,7 +3706,7 @@
       "source": "AIBASE",
       "title": "螞蟻百靈開源 Ling-3.2-air，用 55 億激活參數擊穿複雜工作流落地瓶頸",
       "url": "https://news.aibase.com/tw/news/32550",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "AI編程與智能體落地進入深水區，模型在簡單代碼補全上表現亮眼，但面對真實複雜代碼倉庫或多步驟自動化工作流時，常邏輯斷裂、幻覺頻發，顯得“眼高手低”。行業需要的不再是隻會文本生成的工具，而是能理解多模態上下文、具備強執行力的“數字工程師”。近日，螞蟻百靈正式開源其最新一代產品。",
       "ingress": {
         "kind": "public_adapter",
@@ -3717,7 +3804,7 @@
       "source": "AIBASE",
       "title": "Anthropic CEO駁“讓渡自由意志”指責：把治理權交給 AI 是壞主意，同行全在喊口號",
       "url": "https://news.aibase.com/tw/news/32549",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "11月25日，Anthropic CEO阿莫代伊在X髮長文，回擊“Anthropic主張把自由意志讓渡給AI”的指責，稱其荒謬。他劃紅線：遞歸自我改進不可接受，絕不能在效率或安全祭壇上犧牲正當性與自決權，反專制論證同樣適用於AI治理。他區分整體與具體：整體讓渡自由意志不可接受，但AI在駕駛等場景可另論。",
       "ingress": {
         "kind": "public_adapter",
@@ -3815,7 +3902,7 @@
       "source": "Reuters AI (Google News)",
       "title": "EXCLUSIVE: US chip curbs, distillation crackdown threaten Chinese AI model development, sources say - Reuters",
       "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQSHo5VjlHR1l4UkdCSmFGNUd6WVlZNXlwZXl6Yk5oYUFnTm9ISC1ZSWdmbi1aZ3R1b1Q3bXhpaXVoSXRaNy1hcWdSWHdCd2RFVGx6WlhYN25pZXI4Q2xHWGpQVkJYN2MwTk1ma2NERnBKTHhBUXpHSElLeFdwdEpVZFZZcWhxMm1QUEVpeHRYSXczYXNJelJTUWtHdEkxSGpud2NxeV90R0VjTXVkTmE4U0JRZWVRM1RFUmt3UGhIbw?oc=5",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "EXCLUSIVE: US chip curbs, distillation crackdown threaten Chinese AI model development, sources say Reuters",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMivwFBVV95cUxQSHo5VjlHR1l4UkdCSmFGNUd6WVlZNXlwZXl6Yk5oYUFnTm9ISC1ZSWdmbi1aZ3R1b1Q3bXhpaXVoSXRaNy1hcWdSWHdCd2RFVGx6WlhYN25pZXI4Q2xHWGpQVkJYN2MwTk1ma2NERnBKTHhBUXpHSElLeFdwdEpVZFZZcWhxMm1QUEVpeHRYSXczYXNJelJTUWtHdEkxSGpud2NxeV90R0VjTXVkTmE4U0JRZWVRM1RFUmt3UGhIbw?oc=5"
@@ -3909,7 +3996,7 @@
       "source": "TechNews 科技新報",
       "title": "臺積電傳擬建德州廠  Wedbush：暗示 AI 需求未放緩",
       "url": "https://technews.tw/2026/11/26/tsmc-asking-for-tax-incentives-at-texas-fab-suggests-no-ai-slowdown",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "臺積電傳出已為計劃斥資 226 億美元興建的美國德州晶圓廠申請租稅優惠，該廠將生產 2 奈米及更先進製程晶片。 […]",
       "source_updated_at": "2026-11-26T07:00:18Z",
       "ingress": {
@@ -3997,7 +4084,7 @@
       "source": "TechNews 科技新報",
       "title": "AI 解理論物理難題正確率 98%，每題成本不到 3 美元",
       "url": "https://technews.tw/2026/11/26/ai-reshaping-theoretical-physics",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "印度班加羅爾國際理論科學中心（ICTS）理論物理學教授蘇弗拉特·拉朱（Suvrat Raju）與研究團隊，近期 […]",
       "source_updated_at": "2026-11-26T06:50:25Z",
       "ingress": {
@@ -4178,7 +4265,7 @@
       "source": "INSIDE",
       "title": "Anthropic CEO Amodei 否認主張人類向 AI「交出自由意志」，強調民主程序治理",
       "url": "https://www.inside.com.tw/article/43018-anthropic-ceo-amodei-denies-surrender-human-free-will-to-ai-responds-axios-democratic-governance",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Axios 引述匿名消息人士報導，Anthropic 內部有人認為不把 AI 做得更好的事交給 AI 並不理性。Amodei 當天在 X 發文否認主張人類交出自由意志，稱把治理交給 AI 是糟糕的主意，AI 應由合法的民主程序治理。",
       "source_updated_at": "2026-11-26T06:28:00Z",
       "ingress": {
@@ -4268,7 +4355,7 @@
       "source": "Reuters AI (Google News)",
       "title": "EXCLUSIVE: Data from Chinese AI firm MiniMax accessed by unidentified parties, researcher says - Reuters",
       "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOYXlXQVE4enJyRWstWjJvUGdBczBMWHdfZHRmYTNSN3I0eFpqeXBfVU5tN3NRSERpcjBPeE1rV1kwWTBwWnY3U2s1TnlpY2EtakM5TmItUW1UdnVFZXJWTWVRQk1paVhJeTBpSlB0eHJyWERRdnZ1bVctUmctdGJZOXpZMnFMdkxYVlZ3UHI4OE1wZEhocHBGNW0wU1Z3S2VxQ0x6a1pablJOUzlTOXlMSkxUYjRFcWtIc2tB?oc=5",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "EXCLUSIVE: Data from Chinese AI firm MiniMax accessed by unidentified parties, researcher says Reuters",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOYXlXQVE4enJyRWstWjJvUGdBczBMWHdfZHRmYTNSN3I0eFpqeXBfVU5tN3NRSERpcjBPeE1rV1kwWTBwWnY3U2s1TnlpY2EtakM5TmItUW1UdnVFZXJWTWVRQk1paVhJeTBpSlB0eHJyWERRdnZ1bVctUmctdGJZOXpZMnFMdkxYVlZ3UHI4OE1wZEhocHBGNW0wU1Z3S2VxQ0x6a1pablJOUzlTOXlMSkxUYjRFcWtIc2tB?oc=5"
@@ -4370,7 +4457,7 @@
       "source": "AIBASE",
       "title": "谷歌 12 款模型測出一個盲區：AI 聽你一面之詞，會越聊越像你",
       "url": "https://news.aibase.com/tw/news/32548",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Google Research 11月26日發佈大語言模型社交推理研究，開源多智能體模擬評估框架及超2萬條樣本數據集。測試12款大模型發現，當AI僅依據用戶單方面描述判斷他人真實意圖時，準確性顯著下降，甚至可能強化用戶原有偏見。原因在於AI無法親歷現實人際互動，只能依賴轉述，因此其認同未必代表真相，向AI傾訴職場或情感矛盾需警惕。",
       "ingress": {
         "kind": "public_adapter",
@@ -4569,7 +4656,7 @@
       "source": "CyberQ 賽博客",
       "title": "輝達傳暫停對星馬泰印出貨 AI 伺服器：美國新規兩道閘門，東南亞算力與臺灣供應鏈影響分析",
       "url": "https://cyberq.tw/2026/11/26/nvidia-reportedly-suspends-ai-server",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "FT 報導輝達要求夥伴暫停對馬來西亞、新加坡、泰國、印尼出貨 AI 伺服器。這不是輝達公告，也不是美國禁運，而是美國 11 月 19 日新規改成許可制後，輝達在流程未明前先踩煞車。本文拆解規則的兩道閘門，分析對輝達、伺服器代工、東南亞資料中心與臺灣供應鏈的影響。",
       "ingress": {
         "kind": "public_feed",
@@ -4658,7 +4745,7 @@
       "source": "Reuters AI (Google News)",
       "title": "Apple pulls MiniMax AI chatbot from App Store over child safety concerns - Reuters",
       "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxPNU9tZmh6STA3Ui1FY1FQaE9LMDgzQjJjV2xoZ3Q1Znlvbk5wdll2OXoyOUdxUHp2WEYteFpvTFBhVDZYbFozTXp5T0RpaE4zUUhBaDhiVDAxUkY2RURGQWFFaE1BRTVmdmdXTDh3UEdReDM5N0pjSjBzUXB3UEpPa05ma2ZoWDZhTzhJbTNFeDBfQllEWS02eHhST1FPRWI0VlRMOEhHanpvUjZpWkNPWEJLS1BlSllaZ25XeTRGUXF3bUZEcE5n?oc=5",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Apple pulls MiniMax AI chatbot from App Store over child safety concerns Reuters",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMixwFBVV95cUxPNU9tZmh6STA3Ui1FY1FQaE9LMDgzQjJjV2xoZ3Q1Znlvbk5wdll2OXoyOUdxUHp2WEYteFpvTFBhVDZYbFozTXp5T0RpaE4zUUhBaDhiVDAxUkY2RURGQWFFaE1BRTVmdmdXTDh3UEdReDM5N0pjSjBzUXB3UEpPa05ma2ZoWDZhTzhJbTNFeDBfQllEWS02eHhST1FPRWI0VlRMOEhHanpvUjZpWkNPWEJLS1BlSllaZ25XeTRGUXF3bUZEcE5n?oc=5"
@@ -4750,7 +4837,7 @@
       "source": "INSIDE",
       "title": "美國收緊中國企業遠端租用 AI 晶片限制，傳數千顆 NVIDIA B300 GPU 尋求新買家",
       "url": "https://www.inside.com.tw/article/43016-nvidia-b300-buyers-us-china-remote-access-controls",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "外媒引述消息人士指出，美國收緊中國企業遠端租用先進 AI 算力的規定後，市場上有涉及數千顆 NVIDIA B300 GPU 的尋找買家提案。報導未確認成交量與價格。",
       "source_updated_at": "2026-11-26T04:55:00Z",
       "ingress": {
@@ -4934,7 +5021,7 @@
       "source": "INSIDE",
       "title": "AWS 執行長談 AI Agent 安全，企業應從身分、權限與系統架構著手",
       "url": "https://www.inside.com.tw/article/43015-aws-reinvent-matt-garman-ai-agent-safety-engineering",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "AWS 執行長 Matt Garman 在 re:Invent 前撰文，主張為 AI 代理建立獨立身分、最小權限與隔離邊界，並透過獨立監控與驗證，降低部署風險。",
       "source_updated_at": "2026-11-26T04:22:00Z",
       "ingress": {
@@ -5379,7 +5466,7 @@
       "source": "INSIDE",
       "title": "Meta AI 代理 Muse 攜手 Walmart，讓用戶以 AI 購買黑五優惠",
       "url": "https://www.inside.com.tw/article/43009-meta-muse-walmart-black-friday-deals-ai-agent-agent-gateway-shopping",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Walmart 與 Meta 合作，讓用戶在 Meta 的 AI 代理 Muse 中直接搜尋、比價並購買 Walmart 黑色星期五優惠，背後是 Walmart 10 月推出的 Agent Gateway。",
       "source_updated_at": "2026-11-26T03:49:00Z",
       "ingress": {
@@ -5467,7 +5554,7 @@
       "source": "AIBASE",
       "title": "10檔AI綜藝來了!浙江衛視引入Seedance2.5參與節目製作",
       "url": "https://news.aibase.com/tw/news/32547",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "浙江衛視11月24日宣佈與火山引擎合作，將製作首批10檔AI綜藝，正片已進入製作階段。節目由浙江衛視與Z視介自制，題材涵蓋喜劇、戀愛、推理、萌寵，包括《AI王牌特別版》《戀愛抉擇》《山海歸途》《終局供詞》《活下來了嗎?》《汪汪島》等。雙方把劇本、分鏡、素材生成和粗剪整合至同一協作畫布。",
       "ingress": {
         "kind": "public_adapter",
@@ -5653,7 +5740,7 @@
       "source": "AIBASE",
       "title": "騰訊 Hy4 Flash 登陸 Fireworks：專業活兒幹得和 Claude 一樣好，賬單便宜兩百倍",
       "url": "https://news.aibase.com/tw/news/32546",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "騰訊開源混合專家模型 Hy4Flash 正式上架 Fireworks 無服務器平臺。其總參數量約2200億，每 token 僅激活約120億，上下文窗口達100萬 token（初期512K），支持文本與圖像輸入。該模型定位文檔處理、研究、辦公和智能體工作流等專業場景，主打“夠用智能”與最低成本。Fireworks 已對其進行了實測。",
       "ingress": {
         "kind": "public_adapter",
@@ -5952,7 +6039,7 @@
       "source": "AIBASE",
       "title": "Opus5.6疑似現身Claude接口，用戶測試發現訓練數據更新至2026年5月",
       "url": "https://news.aibase.com/tw/news/32545",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "據MindStudio報道，有用戶在X聲稱，通過正常Claude接口獲得Anthropic未發佈新模型回覆，非正式稱Opus5.6和Sonnet5.6。Anthropic未公開確認，真實性待覈實。傳聞依據兩點：部分演示顯示，其在3D場景生成和代碼生成上優於Opus5.5與Sonnet5.5；知識截止時間測試也出現疑似新模型信號。",
       "ingress": {
         "kind": "public_adapter",
@@ -6140,7 +6227,7 @@
       "source": "AIBASE",
       "title": "知乎 CEO 周源迴應間接投資 DeepSeek：這是充分研究的長期戰略決策",
       "url": "https://news.aibase.com/tw/news/32544",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "知乎間接投資DeepSeek引發股東質疑：虧損之際爲何還要投？11月25日CEO周源迴應稱，這是經充分研究、審慎評估的長期戰略決策，公司對戰略目標、資金安排和長期價值有清晰判斷，投的是AI生態，不是賭一把。11月23日知乎公告，公司參投天津礪思星深股權投資合夥企業，已通過中間主體間接投資DeepSeek。",
       "ingress": {
         "kind": "public_adapter",
@@ -6240,7 +6327,7 @@
       "source": "AIBASE",
       "title": "楊立昆翻出三年前聽證視頻炮轟 Anthropic 掌門人：渲染 AI 恐懼，是想給開放模型上枷鎖",
       "url": "https://news.aibase.com/tw/news/32543",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "11月22日，圖靈獎得主楊立昆在X轉發2023年7月25日美參議院司法委員會聽證視頻，點名Anthropic CEO阿莫代。楊立昆指控，自七年前GPT-2時代起，阿莫代持續渲染AI危險，真實目的是推動法律禁止開放模型，將AI控制權攥在自己手中。此事令二人圍繞AI開放之爭再度對立。",
       "ingress": {
         "kind": "public_adapter",
@@ -6338,7 +6425,7 @@
       "source": "AIBASE",
       "title": "從招聘到組織管理，獵聘Lily正式升級爲獨立AI產品",
       "url": "https://news.aibase.com/tw/news/32542",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "清華大學近日舉辦“非凡2026”智能經濟論壇，主題爲“AI驅動的組織飛躍”，由清華經管學院人工智能與管理研究中心、清華大學可持續社會價值研究院與同道獵聘集團聯合舉辦。現場發佈《AI轉型與碳硅能力——“非凡2026”調研報告》，獵聘招聘智能體Lily正式上線。基於760家企業調研，報告顯示AI早期收益主要在運營效率提升和產品服務質量改善。",
       "ingress": {
         "kind": "public_adapter",
@@ -6436,7 +6523,7 @@
       "source": "AIBASE",
       "title": "OpenAI 開測“私有推理”：模型運行時隔離企業數據，內部員工也無法查看",
       "url": "https://news.aibase.com/tw/news/32541",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "OpenAI 11月26日宣佈，CEO奧爾特曼稱已邀請部分客戶測試“私有推理”功能。該功能隸屬Private Intelligence系列，面向企業和機構，引入機密計算等技術，在模型運行時隔離客戶數據，確保企業使用先進模型處理敏感信息時，連OpenAI員工也無法訪問，從架構上鎖死數據，並配合可驗證安全機制。",
       "ingress": {
         "kind": "public_adapter",
@@ -6535,7 +6622,7 @@
       "source": "Reuters AI (Google News)",
       "title": "Air cargo demand from AI data centres shows no sign of slowing, SATS CEO says - Reuters",
       "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOSGJIcm9ZVllVLXpXNEx0M2d3VE5CSmhwcS1nNzl6S1I0eGp2bE1HZk90UzA3dDVKWVdlRHNhSGd1YmNiYlRkX1NybzRJQ1lHb3A0VDhCSk1JUXFlckQ0YTRORzhIVmpQa21hNElGUjRxcl9yVl9Oc0JyZUJaVzhxR01PYnMwM2VraEx1dmhBOVZkSUxnOVM0a2ItQ1JmblZtQjd5T0MtN0N4eENxSzgwQTBKRlJwQWtvUWRJZFlZM1M?oc=5",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Air cargo demand from AI data centres shows no sign of slowing, SATS CEO says Reuters",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOSGJIcm9ZVllVLXpXNEx0M2d3VE5CSmhwcS1nNzl6S1I0eGp2bE1HZk90UzA3dDVKWVdlRHNhSGd1YmNiYlRkX1NybzRJQ1lHb3A0VDhCSk1JUXFlckQ0YTRORzhIVmpQa21hNElGUjRxcl9yVl9Oc0JyZUJaVzhxR01PYnMwM2VraEx1dmhBOVZkSUxnOVM0a2ItQ1JmblZtQjd5T0MtN0N4eENxSzgwQTBKRlJwQWtvUWRJZFlZM1M?oc=5"
@@ -6728,7 +6815,7 @@
       "source": "AIBASE",
       "title": "英偉達開源 Nemotron-Labs-Image-30B-A3B 生圖模型:300億參數 MoE 架構，多項跑分超 GPT Image2",
       "url": "https://news.aibase.com/tw/news/32540",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "英偉達在 Hugging Face 公開 Nemotron-Labs-Image-30B-A3B 權重。該模型採用 MoE 架構，總參 300 億，僅激活 30 億，對本地硬件更友好；它是自迴歸圖像生成模型，也是新框架 Nemotron-Labs-VisualCreation 的核心光柵渲染引擎。框架秉持“像素即代碼”理念，既能生成富有表現力的圖片，也能產出可編輯內容。",
       "ingress": {
         "kind": "public_adapter",
@@ -6830,7 +6917,7 @@
       "source": "AIBASE",
       "title": "亞馬遜與Meta談判，考慮開放Muse AI代理購物",
       "url": "https://news.aibase.com/tw/news/32539",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "亞馬遜正與Meta談判，擬允許其Muse AI代理在亞馬遜電商平臺購物。雙方討論重點包括Muse推薦商品的類型，以及AI代理購物對亞馬遜廣告收入和用戶關係的影響。亞馬遜擔心，開放Muse可能削弱廣告業務收入：目前廣告依賴真實用戶瀏覽商品時展示，而AI代理可能改變用戶發現和選擇商品的方式。此外，亞馬遜還關注Muse提出的相關問題。",
       "ingress": {
         "kind": "public_adapter",
@@ -6928,7 +7015,7 @@
       "source": "AIBASE",
       "title": "Claude 和 ChatGPT 進軍蛋白質結構預測，通用大模型挑戰 AlphaFold 專業地位",
       "url": "https://news.aibase.com/tw/news/32538",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Phylo研究員Xinming Tu本月初用OpenAI、Anthropic和Google大模型，測試其預測鮮為人知細菌蛋白質序列的能力。程式執行整晚後，他吃驚發現，Anthropic最新版Claude不僅優於其他大模型，還超過針對蛋白質序列訓練的專門工具。他與哈佛醫學院Leo Chen分享，引發計算生物學界熱議。",
       "ingress": {
         "kind": "public_adapter",
@@ -7028,7 +7115,7 @@
       "source": "AIBASE",
       "title": "Anthropic CEO 否認將人類自由意志讓渡予 AI，並警示模型遞歸自我改進風險",
       "url": "https://news.aibase.com/tw/news/32537",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "11月25日，Anthropic CEO達裡奧·阿莫迪在11月19日公司IPO後釋出逾千字長文，否認其主張“將人類自由意志拱手讓給AI系統”的傳聞，強調絕不能為效率或安全犧牲人類合法性與自決權。此番迴應源於媒體報道，稱部分頂尖AI高管試圖反駁Anthropic內部可能存在“向AI讓渡部分決策”的傾向。",
       "ingress": {
         "kind": "public_adapter",
@@ -7126,7 +7213,7 @@
       "source": "AIBASE",
       "title": "SpaceX 下調 Blackwell 芯片租金最高 35%，Anthropic 退還的 H200 被低價轉租",
       "url": "https://news.aibase.com/tw/news/32536",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "SemiAnalysis報告披露，SpaceX下調英偉達Blackwell GPU小規模集羣租金，從每塊每小時約15至15.5美元降至10至12美元，降幅20%至35%；調整後價格接近其給Anthropic、谷歌等大客戶的大批量價格。同時，AI大模型公司Anthropic決定不再續租SpaceX的一批H200芯片。",
       "ingress": {
         "kind": "public_adapter",
@@ -7505,7 +7592,7 @@
       "source": "AIBASE",
       "title": "OpenAI 開測「私有推理」：模型運行時隔離客戶數據，連內部員工都無法查看",
       "url": "https://news.aibase.com/tw/news/32535",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "OpenAI CEO奧爾特曼在X宣佈，已邀請部分客戶測試“私有推理”功能。該功能屬Private Intelligence產品線，面向工作場景提升數據隱私保護，核心機制是在模型運行時隔離客戶數據。據快科技報道，其實現“零窺探”級數據隔離，連OpenAI內部員工也無法查看客戶使用時的數據內容。",
       "ingress": {
         "kind": "public_adapter",
@@ -7695,7 +7782,7 @@
       "source": "AIBASE",
       "title": "三個月估值漲一半：AI 語音公司 ElevenLabs 初談 2027 年融資，目標 330 億美元",
       "url": "https://news.aibase.com/tw/news/32534",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "AI語音賽道資金加速湧入。彭博社11月26日報道，ElevenLabs正就新一輪融資初步洽談，目標估值330億美元，管理層擬2027年一季度啟動，部分投資者希望提前。其估值9月為220億美元，擬增50%，三個月漲110億美元，談判底氣來自業績曲線，年度經常性收入（原文未完整）。",
       "ingress": {
         "kind": "public_adapter",
@@ -8258,7 +8345,7 @@
       "source": "The Verge",
       "title": "Now Google’s Familiar Faces AI feature works on Walmart’s $35 smart home camera too",
       "url": "https://www.theverge.com/tech/1042938/google-home-familiar-faces-onn-cameras",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "A couple of Walmart's budget-friendly smart home cameras will be able to recognize people around your house now using Google's familiar face detection feature. A new Google Home update brings Familiar Faces support to the $35 Onn Outdoor Camera Plug-In and $77 Onn Floodlight Camera Hardwired. However, a Google Home Premium subscription is still required […]",
       "source_updated_at": "2026-11-26T00:04:34Z",
       "ingress": {
@@ -8537,7 +8624,7 @@
       "source": "Reuters AI (Google News)",
       "title": "AI stock rout deepens but damage is limited by afternoon bounce - Reuters",
       "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNMmNMM0doWElDVk9BdjNGZnJHakNCUFg1blQzSlk0eW9zeVduV3ZKcEtJd0hpUkxDMVhnRE9rY1lLUzF1eENZaFh0SUNKbmRjanN3YWtZakZud2RYUnlSRkk5b1RZT2VfbFJPXzhZVEVyYnFnRHBwYVlGdFQzaEt2Z2VjaGVXWUE0Qmd5bjZYandmR2M2QXBSY2tKem80OGNlSzh3?oc=5",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "AI stock rout deepens but damage is limited by afternoon bounce Reuters",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiowFBVV95cUxNMmNMM0doWElDVk9BdjNGZnJHakNCUFg1blQzSlk0eW9zeVduV3ZKcEtJd0hpUkxDMVhnRE9rY1lLUzF1eENZaFh0SUNKbmRjanN3YWtZakZud2RYUnlSRkk5b1RZT2VfbFJPXzhZVEVyYnFnRHBwYVlGdFQzaEt2Z2VjaGVXWUE0Qmd5bjZYandmR2M2QXBSY2tKem80OGNlSzh3?oc=5"
@@ -8735,7 +8822,7 @@
       "source": "TechCrunch AI",
       "title": "S&P considers Nvidia credit downgrade over governance and ‘key man’ risks",
       "url": "https://techcrunch.com/2026/11/25/sp-considers-nvidia-credit-downgrade-over-governance-and-key-man-risks",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "The credit rating agency may lower Nvidia's credit rating to AA-, the fourth-highest rating.",
       "source_updated_at": "2026-11-25T22:44:32Z",
       "ingress": {
@@ -8825,7 +8912,7 @@
       "source": "AlphaLab",
       "title": "GPT-6 蛋白質設計解讀：35／322 命中，通用模型能獨立完成哪一段？（2026）",
       "url": "https://www.alphalab.site/gpt-6-protein-design-intrinsic-wet-lab-evidence",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "GPT-6 蛋白質設計研究報告 35／322 候選物出現結合訊號。拆開骨架生成、序列重設計、專門模型篩選與內部模型跑分，判斷通用模型真正跨過的門檻。",
       "ingress": {
         "kind": "public_feed",
@@ -8916,7 +9003,7 @@
       "source": "AlphaLab",
       "title": "Claude Ship 解讀：AI 接手 PR 審查與修正，誰決定可以合併？（2026）",
       "url": "https://www.alphalab.site/claude-ship-pr-review-fixes-approval-boundaries",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Claude Ship 把 PR 審查、修正與核准串起來，但誰能合併仍由政策與 GitHub 規則決定。對照官方檔案，拆開 beta 範圍、席次語意、自動審查與成本，判斷適合委派哪一段。",
       "ingress": {
         "kind": "public_feed",
@@ -9013,7 +9100,7 @@
       "source": "The Verge",
       "title": "Google’s patent for custom AI video feeds paints a bleak picture of entertainment’s future",
       "url": "https://www.theverge.com/entertainment/1042221/google-my-channel-ai-video-patent",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Last year, Google filed a patent for a system called My Channel that's designed to create feeds filled with personalized, AI-generated videos and advertisements based on information the company knows about its users. The patent has been rejected, but unfortunately, Google might appeal or resubmit an amended version, and we could see this monstrosity come […]",
       "source_updated_at": "2026-11-25T21:51:26Z",
       "ingress": {
@@ -9312,7 +9399,7 @@
       "source": "TechCrunch AI",
       "title": "OpenAI says heavy ChatGPT users may hit limits sooner as it merges Chat and Work",
       "url": "https://techcrunch.com/2026/11/25/openai-says-heavy-chatgpt-users-may-hit-limits-sooner-as-it-merges-chat-and-work",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "OpenAI will introduce a single usage meter across ChatGPT as it combines the Chat and Work experiences.",
       "source_updated_at": "2026-11-25T20:03:27Z",
       "ingress": {
@@ -9411,7 +9498,7 @@
       "source": "Reuters AI (Google News)",
       "title": "How China got access to Nvidia's AI chips despite rules to stop them - Reuters",
       "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxPU05FY1hvQmJod19oM3p3aTZQaS1CdktCWEZsSnk0TmVWREE1a0tmVW5kVnBxdG5VNU1TX2FmWnZ1aTc1UEQyblFkSklCZ3NlcU1XQUZQVDUwTXZ6R3BoVjlRb1RPY0pTNGdmUUdNZkw0Zi1oanJOcXFieGlBdzRTN05pa3FsaVhUWVk0UWpzc0hkN2kySGF6bGRpU1Y1a2IyNi1iaUFQZThLNVZON0E?oc=5",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "How China got access to Nvidia's AI chips despite rules to stop them Reuters",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMirgFBVV95cUxPU05FY1hvQmJod19oM3p3aTZQaS1CdktCWEZsSnk0TmVWREE1a0tmVW5kVnBxdG5VNU1TX2FmWnZ1aTc1UEQyblFkSklCZ3NlcU1XQUZQVDUwTXZ6R3BoVjlRb1RPY0pTNGdmUUdNZkw0Zi1oanJOcXFieGlBdzRTN05pa3FsaVhUWVk0UWpzc0hkN2kySGF6bGRpU1Y1a2IyNi1iaUFQZThLNVZON0E?oc=5"
@@ -9505,7 +9592,7 @@
       "source": "TechCrunch AI",
       "title": "Jensen Huang broke Nvidia’s code of conduct, and his employees may not forget it",
       "url": "https://techcrunch.com/2026/11/25/jensen-huang-broke-nvidias-code-of-conduct-and-his-employees-may-not-forget-it",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Most codes of conduct serve as a reflection of corporate culture. In Nvidia's case, that could have consequences.",
       "source_updated_at": "2026-11-25T19:54:57Z",
       "ingress": {
@@ -9595,7 +9682,7 @@
       "source": "TechCrunch AI",
       "title": "Anthropic’s Dario Amodei calls accusations of surrendering human control to AI ‘absurd’",
       "url": "https://techcrunch.com/2026/11/25/anthropics-dario-amodei-calls-accusations-of-surrendering-human-control-to-ai-absurd",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Anthropic CEO Dario Amodei pushes back against rivals’ accusations that he favors surrendering human agency to AI, even as leading AI companies increasingly automate their own research and model development.",
       "source_updated_at": "2026-11-25T19:44:24Z",
       "ingress": {
@@ -9685,7 +9772,7 @@
       "source": "CNBC Technology",
       "title": "Saudi national in OpenAI bugging case is out on bond after DOJ tries to block release",
       "url": "https://www.cnbc.com/2026/11/25/openai-bugging-aflozan-bond-release-saudi.html",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Abdulrahman Alfozan, a former OpenAI engineer, is expected to be fitted with an ankle monitor, his attorney, David Rizk, previously told CNBC.",
       "source_updated_at": "2026-11-25T19:11:53Z",
       "ingress": {
@@ -9890,7 +9977,7 @@
       "source": "Reuters AI (Google News)",
       "title": "Anthropic's slide tests Wall Street's lofty bets on future AI profits - Reuters",
       "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOZE1sRHlKd3Y1aUpqaUVpeFQ3QjFmX191blVmM1gyS0hidW81RjFjSXJjQndnODAwQU9qb3VkYkJfZ3ppYzdBQ1J5cTRUaDMzamxvZVNsYzB6RUpiVzd2RlhxV2hKaDRjTFdhamRKZ3g3MXZDY1c5c3NMalpmc09aQ3JnNGEyQTR5NG85OW9VTEE1NW9md1VKdFYxeTlnbWNjd25UcjVwamhDX1pIaXc?oc=5",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Anthropic's slide tests Wall Street's lofty bets on future AI profits Reuters",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMirgFBVV95cUxOZE1sRHlKd3Y1aUpqaUVpeFQ3QjFmX191blVmM1gyS0hidW81RjFjSXJjQndnODAwQU9qb3VkYkJfZ3ppYzdBQ1J5cTRUaDMzamxvZVNsYzB6RUpiVzd2RlhxV2hKaDRjTFdhamRKZ3g3MXZDY1c5c3NMalpmc09aQ3JnNGEyQTR5NG85OW9VTEE1NW9md1VKdFYxeTlnbWNjd25UcjVwamhDX1pIaXc?oc=5"
@@ -9986,7 +10073,7 @@
       "source": "TechCrunch AI",
       "title": "Want to buy your kid an AI toy this Christmas? Not in New York",
       "url": "https://techcrunch.com/2026/11/25/want-to-buy-your-kid-an-ai-toy-this-christmas-not-in-new-york",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "New York has banned AI chatbot toys for five years as new research from Common Sense Media reveals troubling safety failures, including exposure to inappropriate content and risks to emotional development.",
       "source_updated_at": "2026-11-25T18:11:46Z",
       "ingress": {
@@ -10185,7 +10272,7 @@
       "source": "TechCrunch AI",
       "title": "Character.AI’s plan to auction off users’ private chats challenged by state AGs",
       "url": "https://techcrunch.com/2026/11/25/state-ags-fight-character-ais-plan-to-auction-off-users-private-chats",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "The proposed Character.ai bankruptcy sale includes sensitive personal data from more than 21 million U.S. accounts, including 2.1 million registered to minors, the state AGs said.",
       "source_updated_at": "2026-11-25T17:35:58Z",
       "ingress": {
@@ -10280,7 +10367,7 @@
       "source": "CNBC Technology",
       "title": "Nvidia sellers seek new buyers as U.S. curbs China AI chip access, sources tell CNBC",
       "url": "https://www.cnbc.com/2026/11/25/nvidia-china-ai-chip-remote-access.html",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Nvidia GPU sellers are seeking new buyers after new U.S. rules tightened remote access to advanced AI chips for China-linked customers",
       "source_updated_at": "2026-11-25T17:28:24Z",
       "ingress": {
@@ -10484,7 +10571,7 @@
       "source": "Meta AI (Google News)",
       "title": "Amazon and Meta are in talks to end the block on Meta's AI shopping agent Muse in Amazon's online store. - The Decoder",
       "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNeGo2RnJ1SlhabnBnTlp1d2lkcEFsVG51Qy1mQmVlbnlDcnVOdEpFd0lEdTdseHBsXzVaSFZQdEU2dElWWUVyWjVEWVNkd1g1bW5lTE12UDN4Z0h4dV9rWDFJN1hNbEFaVE5idmdTUkFLWDVsQkhqY1hGWWJKem1iSVVydXpPUWtLbmd2SHpCUzVNWXNSUHF6Q0l3UEU5dnk3TkJuSHlXeDNDR2gwUnBuaUtKeDNRWU5qanZnWUxSUV9EcHB3?oc=5",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Amazon and Meta are in talks to end the block on Meta's AI shopping agent Muse in Amazon's online store. The Decoder",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMixAFBVV95cUxNeGo2RnJ1SlhabnBnTlp1d2lkcEFsVG51Qy1mQmVlbnlDcnVOdEpFd0lEdTdseHBsXzVaSFZQdEU2dElWWUVyWjVEWVNkd1g1bW5lTE12UDN4Z0h4dV9rWDFJN1hNbEFaVE5idmdTUkFLWDVsQkhqY1hGWWJKem1iSVVydXpPUWtLbmd2SHpCUzVNWXNSUHF6Q0l3UEU5dnk3TkJuSHlXeDNDR2gwUnBuaUtKeDNRWU5qanZnWUxSUV9EcHB3?oc=5"
@@ -10766,7 +10853,7 @@
       "source": "TechCrunch AI",
       "title": "AI data centers are becoming harder to build, and neoclouds are feeling it",
       "url": "https://techcrunch.com/podcast/ai-data-centers-are-becoming-harder-to-build-and-neoclouds-are-feeling-it",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "⁠Nvidia has made clear⁠ it won’t backstop an AI data center until it’s nearly ready to run, and that’s landing just as neoclouds report construction delays and more expensive debt. The message to developers is that land, power, and a finished building matter more than a pitch deck. ⁠Anita Verma-Lallian⁠ has been selling exactly that. […]",
       "source_updated_at": "2026-11-25T15:41:43Z",
       "ingress": {
@@ -10856,7 +10943,7 @@
       "source": "The Information (Google News)",
       "title": "AI Safety Advocates Sour on Anthropic - The Information",
       "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxOa3ZodFhQOUxtRVlOZjVrOXdVU3c5V0Z2QU1NVXQ2RFhaUllvcEtYa2x2X0s2QmVicWRzbmhxSG5wVmQ5WmlwNHdTZUVBTW9pb0R1TVoxT0pIbjJaYWkxUjBXbDRJLUJnVXp5UDNFZkhQc3FHNkU5LUtXSlpHV0t2NzVKSzJSdm12Z2JDNXpCZWo?oc=5",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "AI Safety Advocates Sour on Anthropic The Information",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMikAFBVV95cUxOa3ZodFhQOUxtRVlOZjVrOXdVU3c5V0Z2QU1NVXQ2RFhaUllvcEtYa2x2X0s2QmVicWRzbmhxSG5wVmQ5WmlwNHdTZUVBTW9pb0R1TVoxT0pIbjJaYWkxUjBXbDRJLUJnVXp5UDNFZkhQc3FHNkU5LUtXSlpHV0t2NzVKSzJSdm12Z2JDNXpCZWo?oc=5"
@@ -11148,7 +11235,7 @@
       "source": "TechCrunch AI",
       "title": "Amazon and Meta reportedly in talks to lift blockade on AI agent Muse",
       "url": "https://techcrunch.com/2026/11/25/amazon-and-meta-reportedly-in-talks-to-lift-blockade-on-ai-agent-muse",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Amazon and Meta are discussing a potential deal that would end a two-month-long blockade of Muse.",
       "source_updated_at": "2026-11-25T14:10:18Z",
       "ingress": {
@@ -11238,7 +11325,7 @@
       "source": "The Information (Google News)",
       "title": "Chinese AI Firms Confront Dire Future as U.S. Tightens Access to Chips and Tokens - The Information",
       "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPcUtIYnhjUFNSRkJpR2wtTzl0Z3RIekt5dHF0Q0lGamVnNjBPU0Y1V19QY2p3MGc0NVlUSjV6cmVTN2FYVkk1cXJseTJKMXo0UG5LRC1iMU91WlcxbFFwc0p0ZEtKcS1reTVsbk1hWk1YZWpiWHMzYWNXTUg2YjZLYjQwbTFxVUlxRDBVTDRWcTFVa1JsZ2hCNTNGSEhHQWdrNnNCbGctUWU4d0M2cmxB?oc=5",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Chinese AI Firms Confront Dire Future as U.S. Tightens Access to Chips and Tokens The Information",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMirwFBVV95cUxPcUtIYnhjUFNSRkJpR2wtTzl0Z3RIekt5dHF0Q0lGamVnNjBPU0Y1V19QY2p3MGc0NVlUSjV6cmVTN2FYVkk1cXJseTJKMXo0UG5LRC1iMU91WlcxbFFwc0p0ZEtKcS1reTVsbk1hWk1YZWpiWHMzYWNXTUg2YjZLYjQwbTFxVUlxRDBVTDRWcTFVa1JsZ2hCNTNGSEhHQWdrNnNCbGctUWU4d0M2cmxB?oc=5"
@@ -11522,7 +11609,7 @@
       "source": "Reuters AI (Google News)",
       "title": "BP transfers 3,000 finance operations staff to Indian AI services firm Wipro - Reuters",
       "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOcHhCZkhObFRGSG0tX05fMnZnM3JjbXJfakdkRWtsRFI0b1huT3BuWVZySkszSEZzejNpUFJqeVNiYXlka0k1WGpvRUQ0YldCVmljX0hWWllHVGVkR0FnWGtUb0hqQklFNmVZeThoUlF3OWZoSnZCTVBPeURyVlB5UnVsUTVZM2piRHZfd0RQV1hvNTdkRXFmUDVLVklqaW50eUpOcUU3UlRxWGQ4dTZLZw?oc=5",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "BP transfers 3,000 finance operations staff to Indian AI services firm Wipro Reuters",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMisAFBVV95cUxOcHhCZkhObFRGSG0tX05fMnZnM3JjbXJfakdkRWtsRFI0b1huT3BuWVZySkszSEZzejNpUFJqeVNiYXlka0k1WGpvRUQ0YldCVmljX0hWWllHVGVkR0FnWGtUb0hqQklFNmVZeThoUlF3OWZoSnZCTVBPeURyVlB5UnVsUTVZM2piRHZfd0RQV1hvNTdkRXFmUDVLVklqaW50eUpOcUU3UlRxWGQ4dTZLZw?oc=5"
@@ -11614,7 +11701,7 @@
       "source": "InfoQ CN",
       "title": "破發不算最疼，Claude Code核心班底被OpenAI瘋狂收割才是：Anthropic的程式設計王座懸了？",
       "url": "https://www.infoq.cn/article/z9IwzAY8hP15oDa2VKi6",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/z9IwzAY8hP15oDa2VKi6?utm_source=rss&utm_medium=article"
@@ -11711,7 +11798,7 @@
       "source": "InfoQ CN",
       "title": "Snowflake CoCo 再進化：讓資料開發進入 Agent 自主執行時代 ｜ 技術趨勢",
       "url": "https://www.infoq.cn/article/vfmBDlfQRRfHq4Jyi5b6",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/vfmBDlfQRRfHq4Jyi5b6?utm_source=rss&utm_medium=article"
@@ -11805,7 +11892,7 @@
       "source": "InfoQ CN",
       "title": "Uber 推出安全 AI 框架：對 AI 智慧體進行全生命週期治理",
       "url": "https://www.infoq.cn/article/xA3g2i0VtTZIOVePMedY",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/xA3g2i0VtTZIOVePMedY?utm_source=rss&utm_medium=article"
@@ -11899,7 +11986,7 @@
       "source": "InfoQ CN",
       "title": "Siri AI 開發者預覽版讓 iOS、iPadOS 和 macOS 應用能夠與 Siri 整合",
       "url": "https://www.infoq.cn/article/j1aQzS6OrB9aDlChCwiQ",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/j1aQzS6OrB9aDlChCwiQ?utm_source=rss&utm_medium=article"
@@ -11991,7 +12078,7 @@
       "source": "InfoQ CN",
       "title": "AI寫程式碼，誰來交付？",
       "url": "https://www.infoq.cn/video/zrq9NZI5eJVetI8kA5kW",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/video/zrq9NZI5eJVetI8kA5kW?utm_source=rss&utm_medium=article"
@@ -12083,7 +12170,7 @@
       "source": "InfoQ CN",
       "title": "前蘋果空間智慧首席科學家權龍再創業，成立 Envision AI 研發空間物理基礎模型",
       "url": "https://www.infoq.cn/article/3rQ4aRqts2zywSBmeJvb",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/3rQ4aRqts2zywSBmeJvb?utm_source=rss&utm_medium=article"
@@ -12178,7 +12265,7 @@
       "source": "Wired AI",
       "title": "Meta Refused to Share Muse for Testing, UK Financial Watchdog Complains",
       "url": "https://www.wired.com/story/meta-refused-to-share-muse-for-testing-uk-financial-watchdog-complains",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "The FCA warned against “another force of attack” from agents after the company declined a request to work on joint testing ahead of rolling out its personal agent in the UK on Tuesday.",
       "source_updated_at": "2026-11-26T10:51:27Z",
       "ingress": {
@@ -12269,7 +12356,7 @@
       "source": "InfoQ CN",
       "title": "從語音基座到語音應用：訊飛語音大模型能力全解",
       "url": "https://www.infoq.cn/minibook/h1BlHGoTKyeLgs0KmAhe",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/minibook/h1BlHGoTKyeLgs0KmAhe?utm_source=rss&utm_medium=article"
@@ -12363,7 +12450,7 @@
       "source": "InfoQ CN",
       "title": "清華大學教授李寧已確認出席 AICon北京，分享生成式人工智慧驅動的組織變革與組織管理",
       "url": "https://www.infoq.cn/article/xzQgJEw18ECxHGA7FFBx",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/xzQgJEw18ECxHGA7FFBx?utm_source=rss&utm_medium=article"
@@ -12458,7 +12545,7 @@
       "source": "InfoQ CN",
       "title": "AMD 聯合中科慧靈完成人形機器人端側 AI 驗證，探索“大小腦”雙處理器架構",
       "url": "https://www.infoq.cn/article/stLpgV1kNHuvr21qRH9x",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/stLpgV1kNHuvr21qRH9x?utm_source=rss&utm_medium=article"
@@ -12552,7 +12639,7 @@
       "source": "InfoQ CN",
       "title": "比駭客入侵更難防的，是 AI 正在執行的“合法操作”：企業安全防線，可能守錯了地方",
       "url": "https://www.infoq.cn/article/LwwdlrNGE3tbxPO1wIcT",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/LwwdlrNGE3tbxPO1wIcT?utm_source=rss&utm_medium=article"
@@ -12646,7 +12733,7 @@
       "source": "InfoQ CN",
       "title": "“我比黃仁勳更早看到英偉達的未來”！AI 教父回擊黃仁勳，直言大規模失業是 AI 巨頭賺錢的副作用",
       "url": "https://www.infoq.cn/article/6i2DoIJiaTcKyR0UyurQ",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/6i2DoIJiaTcKyR0UyurQ?utm_source=rss&utm_medium=article"
@@ -12738,7 +12825,7 @@
       "source": "InfoQ CN",
       "title": "阿福學會“望聞問切”背後，真實醫療需求正在重塑百靈大模型",
       "url": "https://www.infoq.cn/article/V7VOeFvEPLrHAN2EFmUa",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/V7VOeFvEPLrHAN2EFmUa?utm_source=rss&utm_medium=article"
@@ -13675,7 +13762,7 @@
       "source": "數位時代 (Google News)",
       "title": "Google打響AI價格戰！Gemini 4 Neon便宜25%、效能直逼頂尖模型，市場競爭再升溫 - 數位時代",
       "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBtSFc5OTU2dHU4RmtVazlFVVdESzFnNC1tb01LVWhpMkZiWGM1c0JKR2QtUU1LbXZYWTlQMy1paUM2WjQ1RGs3VEtSNUlhVWd2Tmh2Q3B3X2dOMmhqMU8wMDFUOEhFbndVaE5Xb09HdWpyQnZqYWNsNWJ6U3BHLUU?oc=5",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Google打響AI價格戰！Gemini 4 Neon便宜25%、效能直逼頂尖模型，市場競爭再升溫 數位時代",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMif0FVX3lxTFBtSFc5OTU2dHU4RmtVazlFVVdESzFnNC1tb01LVWhpMkZiWGM1c0JKR2QtUU1LbXZYWTlQMy1paUM2WjQ1RGs3VEtSNUlhVWd2Tmh2Q3B3X2dOMmhqMU8wMDFUOEhFbndVaE5Xb09HdWpyQnZqYWNsNWJ6U3BHLUU?oc=5"
@@ -13769,7 +13856,7 @@
       "source": "數位時代 (Google News)",
       "title": "黃仁勳下一步要賺什麼錢？輝達瞄準兆美元AI工廠市場，關鍵佈局早在2020年 - 數位時代",
       "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPX2NvSE9keVRVT0RYVmdFdUVvRk8yOUw5MW5yVnV0QXBkUWtjZ3g1a09jc3UtdDRkWW9vcGEzVGc4dE0tTDNpNlpyblJaYjlQTzVETlVablc5M0VFSTBCMjlJWjFwYnl0aW9SeW8yaV9EMWJ3bnhGTzNYR3BLRUxEdjZqdm5odEZfZ3dnNGJ1eXEta25mMnln?oc=5",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "黃仁勳下一步要賺什麼錢？輝達瞄準兆美元AI工廠市場，關鍵佈局早在2020年 數位時代",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMilwFBVV95cUxPX2NvSE9keVRVT0RYVmdFdUVvRk8yOUw5MW5yVnV0QXBkUWtjZ3g1a09jc3UtdDRkWW9vcGEzVGc4dE0tTDNpNlpyblJaYjlQTzVETlVablc5M0VFSTBCMjlJWjFwYnl0aW9SeW8yaV9EMWJ3bnhGTzNYR3BLRUxEdjZqdm5odEZfZ3dnNGJ1eXEta25mMnln?oc=5"
@@ -13861,7 +13948,7 @@
       "source": "RuntimeWire",
       "title": "OpenAI corrects GPT-6.2 billing error, making usage limits arrive sooner",
       "url": "https://runtimewire.com/article/openai-corrects-gpt-6-2-billing-error-making-usage-limits-arrive-sooner",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "OpenAI's Tibo Sottiaux says limits will arrive 40% faster on Astra and 25% faster on Sol than last week. OpenAI promises no retroactive charge and one banked reset for Go, Plus, Pro and Business.",
       "source_updated_at": "2026-11-26T04:06:40Z",
       "ingress": {
@@ -13954,7 +14041,7 @@
       "source": "數位時代 (Google News)",
       "title": "搶攻AI算力！SpaceX獲FCC核准百萬顆太空資料中心衛星，最晚2033年須開始部署 - 數位時代",
       "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE9mZ2ROYjc0NGpWWndFVE9pc2w2VGdnOElVNFRSbEhCdUEzRktsa1AwSWZmMXQyUzZjYm9iT1hLVHhYVWlaVTVFenpTZ1ZlZXRVUTRkLU1KSEFiX2tFVGVLWHBXYnNickVzVkZiQjVRdzdEOElmTXc?oc=5",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "搶攻AI算力！SpaceX獲FCC核准百萬顆太空資料中心衛星，最晚2033年須開始部署 數位時代",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMidkFVX3lxTE9mZ2ROYjc0NGpWWndFVE9pc2w2VGdnOElVNFRSbEhCdUEzRktsa1AwSWZmMXQyUzZjYm9iT1hLVHhYVWlaVTVFenpTZ1ZlZXRVUTRkLU1KSEFiX2tFVGVLWHBXYnNickVzVkZiQjVRdzdEOElmTXc?oc=5"
@@ -14048,7 +14135,7 @@
       "source": "RuntimeWire",
       "title": "OpenAI starts testing Private Inference to protect prompts during processing",
       "url": "https://runtimewire.com/article/openai-starts-testing-private-inference-to-protect-prompts-during-processing",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Sam Altman says a small group of customers is testing the confidential-computing layer OpenAI previewed at DevDay on September 29th.",
       "source_updated_at": "2026-11-25T18:10:07Z",
       "ingress": {
@@ -14139,7 +14226,7 @@
       "source": "RuntimeWire",
       "title": "Exclusive: Researchers who found Claude Fable 5.2 eases off when a cheat is in sight didn't tell Anthropic first, and haven't tested other models",
       "url": "https://runtimewire.com/article/exclusive-researchers-who-found-claude-fable-5-2-eases-off-when-a-cheat-is-in",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Goodhart Labs co-author Dean Valentine told RuntimeWire the team didn't share its findings with Anthropic before publishing, and that the experiment cost too much to repeat on other models.",
       "source_updated_at": "2026-11-25T17:34:34Z",
       "ingress": {
@@ -14230,7 +14317,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "美財政部 FinCEN 遭駭停擺 5 天，資訊長在用 AI 做《文明帝國》",
       "url": "https://www.blocktempo.com/us-treasury-cio-vibe-coding-civilization-clone-fincen-cyber-incident",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "美國財政部金融犯罪執法網路（FinCEN）遭資安入侵，銀行申報可疑交易的批次系統停擺約一週。同一段時間，財政部 […]",
       "ingress": {
         "kind": "public_json",
@@ -14508,7 +14595,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "AI 若真崩盤，美國、臺灣經濟會比 2000 網路泡沫更慘？",
       "url": "https://www.blocktempo.com/ai-bubble-burst-economy-worse-dotcom-crash-data-center-debt",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "《華爾街日報》整理經濟學家看法：AI 泡沫若破，美國家庭持股的比重比網路泡沫時更高，資料中心借貸又難以追蹤，現 […]",
       "ingress": {
         "kind": "public_json",
@@ -14596,7 +14683,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "Claude Code 門面 Thariq 也跳了：Anthropic 產品、工程、成長三路高管投奔 OpenAI",
       "url": "https://www.blocktempo.com/thariq-shihipar-openai-anthropic-claude-code-talent-exodus-cat-wu",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "一個月內，Claude Code 產品負責人、最常在 X 上面對開發者的工程師，與 Anthropic 第一位 […]",
       "ingress": {
         "kind": "public_json",
@@ -14688,7 +14775,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "AI 實驗室握有密碼學「炸彈」？科學家：宛如奇點開端",
       "url": "https://www.blocktempo.com/ai-labs-cryptography-bombshells-aaronson-warning-lean-proofs",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "曾任 OpenAI 研究員的理論電腦科學家 Scott Aaronson 發文警告，多家 AI 實驗室手上可能 […]",
       "ingress": {
         "kind": "public_json",
@@ -14776,7 +14863,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "FCC 批准 SpaceX 部署百萬顆軌道 AI 衛星，能否商業化還是未知數",
       "url": "https://www.blocktempo.com/fcc-authorizes-spacex-million-satellites-starmind-orbital-ai-data-center",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "美國聯邦通訊委員會（FCC）11 月 25 日批准 SpaceX 部署最多 100 萬顆 Starmind 軌 […]",
       "ingress": {
         "kind": "public_json",
@@ -14864,7 +14951,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "Claude 做的小工具現在能一鍵裝成 Mac、Windows 桌面 App（免打包、免 API 金鑰）",
       "url": "https://www.blocktempo.com/anthropic-claude-artifacts-install-desktop-apps-mac-windows-beta-permissions",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Claude 對話裡做出的小工具，現在可一鍵裝成 Mac 與 Windows 桌面 App，授權分三級，但要連 […]",
       "ingress": {
         "kind": "public_json",
@@ -14954,7 +15041,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "Codex 額度會更快用完？OpenAI 說 GPT-6.2 先前少扣了",
       "url": "https://www.blocktempo.com/openai-codex-usage-miscount-compensation-credits-astra-sol-allowance-correction",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "有用戶拿到約當 290 美元用量的補償積分，但補償是一次性的，少扣的修正卻是往後長期適用。 （前情提要：Ope […]",
       "ingress": {
         "kind": "public_json",
@@ -15046,7 +15133,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "黎曼猜想167年被AI攻克，一行恆真定義竟引爆信任風暴",
       "url": "https://www.blocktempo.com/lean-mathlib-true-levent-fro-false-anygeometry-bug-claude-grh",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Anthropic科學家與Claude協作完成1700萬行程式碼的黎曼猜想形式化證明，社群質疑與防禦性核驗同步 […]",
       "ingress": {
         "kind": "public_json",
@@ -15134,7 +15221,7 @@
       "source": "36Kr",
       "title": "4.1萬行AI程式碼塞進Linux核心，Linus一頓怒斥：“告訴你的AI助手，先把自己的事情做好” - 36Kr",
       "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE9wU1ZMUHdGTFVpV2dRMUhwMExuSFdPNE1zQmhvay1naGNGUnNvRGhtZEx1TmxVTEN0Q0g0M01KU2hHMGprd0draWgybjhoUQ?oc=5",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "4.1萬行AI程式碼塞進Linux核心，Linus一頓怒斥：“告訴你的AI助手，先把自己的事情做好” 36Kr",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiTkFVX3lxTE9wU1ZMUHdGTFVpV2dRMUhwMExuSFdPNE1zQmhvay1naGNGUnNvRGhtZEx1TmxVTEN0Q0g0M01KU2hHMGprd0draWgybjhoUQ?oc=5"
@@ -15165,25 +15252,7 @@
           "conflicts": []
         }
       },
-      "article_key": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE9wU1ZMUHdGTFVpV2dRMUhwMExuSFdPNE1zQmhvay1naGNGUnNvRGhtZEx1TmxVTEN0Q0g0M01KU2hHMGprd0draWgybjhoUQ?oc=5",
       "security_topic": false,
-      "business_events": [],
-      "ai_is_related": true,
-      "ai_score": 0.65,
-      "ai_label": "ai_product_update",
-      "ai_relevance_reason": "matched_ai_signal",
-      "ai_signals": [],
-      "ai_noise": [],
-      "source_tier": "watchlist",
-      "source_tier_label": "未審來源",
-      "source_tier_rank": 6,
-      "summary_zh": "4.1萬行AI程式碼塞進Linux核心，Linus一頓怒斥：“告訴你的AI助手，先把自己的事情做好” 36Kr",
-      "title_original": "4.1萬行AI程式碼塞進Linux核心，Linus一頓怒斥：“告訴你的AI助手，先把自己的事情做好” - 36Kr",
-      "title_en": null,
-      "title_zh": "4.1萬行AI程式碼塞進Linux核心，Linus一頓怒斥：“告訴你的AI助手，先把自己的事情做好” - 36Kr",
-      "title_bilingual": "4.1萬行AI程式碼塞進Linux核心，Linus一頓怒斥：“告訴你的AI助手，先把自己的事情做好” - 36Kr",
-      "corroboration_key": "cn_aggregator",
-      "corroboration_status": "identified",
       "source_policy": {
         "schema_version": 1,
         "policy_id": "publisher-governance-v1",
@@ -15205,6 +15274,24 @@
           "not_permitted_for_radar"
         ]
       },
+      "article_key": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE9wU1ZMUHdGTFVpV2dRMUhwMExuSFdPNE1zQmhvay1naGNGUnNvRGhtZEx1TmxVTEN0Q0g0M01KU2hHMGprd0draWgybjhoUQ?oc=5",
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.65,
+      "ai_label": "ai_product_update",
+      "ai_relevance_reason": "matched_ai_signal",
+      "ai_signals": [],
+      "ai_noise": [],
+      "source_tier": "watchlist",
+      "source_tier_label": "未審來源",
+      "source_tier_rank": 6,
+      "summary_zh": "4.1萬行AI程式碼塞進Linux核心，Linus一頓怒斥：“告訴你的AI助手，先把自己的事情做好” 36Kr",
+      "title_original": "4.1萬行AI程式碼塞進Linux核心，Linus一頓怒斥：“告訴你的AI助手，先把自己的事情做好” - 36Kr",
+      "title_en": null,
+      "title_zh": "4.1萬行AI程式碼塞進Linux核心，Linus一頓怒斥：“告訴你的AI助手，先把自己的事情做好” - 36Kr",
+      "title_bilingual": "4.1萬行AI程式碼塞進Linux核心，Linus一頓怒斥：“告訴你的AI助手，先把自己的事情做好” - 36Kr",
+      "corroboration_key": "cn_aggregator",
+      "corroboration_status": "identified",
       "source_material": {
         "title_original": "",
         "title": "4.1万行AI代码塞进Linux内核，Linus一顿怒斥：“告诉你的AI助手，先把自己的事情做好” - 36Kr",
@@ -15228,7 +15315,7 @@
       "source": "36Kr",
       "title": "AI證明黎曼猜想，為AI4S指明瞭什麼方向？ - 36Kr",
       "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE5VMUloX0lORmw1eE9HSWxLalY0WHFGaVc3TnByNEtGbEpHVTA1UWZXZ0ptOWt6OHdIcUR6R1JXQ0JNU21qMGJRWnJQX25Qdw?oc=5",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "AI證明黎曼猜想，為AI4S指明瞭什麼方向？ 36Kr",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiTkFVX3lxTE5VMUloX0lORmw1eE9HSWxLalY0WHFGaVc3TnByNEtGbEpHVTA1UWZXZ0ptOWt6OHdIcUR6R1JXQ0JNU21qMGJRWnJQX25Qdw?oc=5"
@@ -15259,25 +15346,7 @@
           "conflicts": []
         }
       },
-      "article_key": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE5VMUloX0lORmw1eE9HSWxLalY0WHFGaVc3TnByNEtGbEpHVTA1UWZXZ0ptOWt6OHdIcUR6R1JXQ0JNU21qMGJRWnJQX25Qdw?oc=5",
       "security_topic": false,
-      "business_events": [],
-      "ai_is_related": true,
-      "ai_score": 0.65,
-      "ai_label": "ai_product_update",
-      "ai_relevance_reason": "matched_ai_signal",
-      "ai_signals": [],
-      "ai_noise": [],
-      "source_tier": "watchlist",
-      "source_tier_label": "未審來源",
-      "source_tier_rank": 6,
-      "summary_zh": "AI證明黎曼猜想，為AI4S指明瞭什麼方向？ 36Kr",
-      "title_original": "AI證明黎曼猜想，為AI4S指明瞭什麼方向？ - 36Kr",
-      "title_en": null,
-      "title_zh": "AI證明黎曼猜想，為AI4S指明瞭什麼方向？ - 36Kr",
-      "title_bilingual": "AI證明黎曼猜想，為AI4S指明瞭什麼方向？ - 36Kr",
-      "corroboration_key": "cn_aggregator",
-      "corroboration_status": "identified",
       "source_policy": {
         "schema_version": 1,
         "policy_id": "publisher-governance-v1",
@@ -15299,6 +15368,24 @@
           "not_permitted_for_radar"
         ]
       },
+      "article_key": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE5VMUloX0lORmw1eE9HSWxLalY0WHFGaVc3TnByNEtGbEpHVTA1UWZXZ0ptOWt6OHdIcUR6R1JXQ0JNU21qMGJRWnJQX25Qdw?oc=5",
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.65,
+      "ai_label": "ai_product_update",
+      "ai_relevance_reason": "matched_ai_signal",
+      "ai_signals": [],
+      "ai_noise": [],
+      "source_tier": "watchlist",
+      "source_tier_label": "未審來源",
+      "source_tier_rank": 6,
+      "summary_zh": "AI證明黎曼猜想，為AI4S指明瞭什麼方向？ 36Kr",
+      "title_original": "AI證明黎曼猜想，為AI4S指明瞭什麼方向？ - 36Kr",
+      "title_en": null,
+      "title_zh": "AI證明黎曼猜想，為AI4S指明瞭什麼方向？ - 36Kr",
+      "title_bilingual": "AI證明黎曼猜想，為AI4S指明瞭什麼方向？ - 36Kr",
+      "corroboration_key": "cn_aggregator",
+      "corroboration_status": "identified",
       "source_material": {
         "title_original": "",
         "title": "AI证明黎曼猜想，为AI4S指明了什么方向？ - 36Kr",
@@ -15410,6 +15497,102 @@
   ],
   "items_ai": [
     {
+      "id": "9d5076e88f56f7181159d0147f16fb146f439e61",
+      "published_at": "2026-11-26T11:37:17Z",
+      "first_seen_at": "2026-11-26T12:05:46.706194Z",
+      "site_id": "official_ai",
+      "site_name": "官方更新",
+      "source": "Hugging Face Blog",
+      "title": "Introducing the llama.cpp benchmark dashboard for AMD Ryzen and Radeon",
+      "url": "https://huggingface.co/blog/ggml-org/llamacpp-amd-bench",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
+      "summary": "",
+      "source_updated_at": "2026-11-26T11:37:17Z",
+      "ingress": {
+        "kind": "public_feed",
+        "site_id": "official_ai",
+        "source_id": "hugging_face_blog",
+        "name": "Hugging Face Blog",
+        "feed_url": "https://huggingface.co/blog/feed.xml"
+      },
+      "publisher": {
+        "schema_version": 1,
+        "publisher_id": "huggingface",
+        "name": "Hugging Face",
+        "domain": "huggingface.co",
+        "status": "identified",
+        "basis": [
+          "article_host"
+        ],
+        "evidence": {
+          "rss_source_name": null,
+          "rss_source_url": null,
+          "article_url": "https://huggingface.co/blog/ggml-org/llamacpp-amd-bench",
+          "article_host": "huggingface.co",
+          "expected_publisher_id": null,
+          "conflicts": []
+        }
+      },
+      "article_key": "https://huggingface.co/blog/ggml-org/llamacpp-amd-bench",
+      "security_topic": false,
+      "business_events": [
+        "benchmark"
+      ],
+      "ai_is_related": true,
+      "ai_score": 0.98,
+      "ai_label": "research_paper",
+      "ai_relevance_reason": "matched_ai_signal",
+      "ai_signals": [
+        "hugging face",
+        "huggingface",
+        "benchmark"
+      ],
+      "ai_noise": [],
+      "source_tier": "official",
+      "source_tier_label": "官方一手源",
+      "source_tier_rank": 0,
+      "reader_summary": "The llama.cpp × AMD Benchmark dashboard is available on Hugging Face. It lets you track prompt processing and text generation performance across llama.cpp builds, models, and quantizations, so you can explore how local inference performs on AMD Ryzen and Radeon hardware.",
+      "reader_summary_kind": "publisher_lead",
+      "summary_zh": "llama.cpp × AMD 效能測試儀錶板現已在 Hugging Face 上線。它可讓您追蹤不同 llama.cpp 建置版本、模型與量化設定之間的提示詞處理與文字生成效能，讓您探索本機推論在 AMD Ryzen 與 Radeon 硬體上的表現。",
+      "title_original": "Introducing the llama.cpp benchmark dashboard for AMD Ryzen and Radeon",
+      "title_en": "Introducing the llama.cpp benchmark dashboard for AMD Ryzen and Radeon",
+      "title_zh": "推出適用於 AMD Ryzen 與 Radeon 的 llama.cpp 效能測試儀錶板",
+      "title_bilingual": "推出適用於 AMD Ryzen 與 Radeon 的 llama.cpp 效能測試儀錶板 / Introducing the llama.cpp benchmark dashboard for AMD Ryzen and Radeon",
+      "corroboration_key": "publisher:huggingface",
+      "corroboration_status": "identified",
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+        "scope_id": "huggingface",
+        "publisher_kind": "official",
+        "admission_status": "limited",
+        "source_tier": "official",
+        "source_tier_label": "官方一手源",
+        "source_tier_rank": 0,
+        "allow_general": true,
+        "allow_featured": true,
+        "allow_radar": true,
+        "reason_codes": [
+          "identified_host",
+          "limited_scope"
+        ]
+      },
+      "source_material": {
+        "title_original": "",
+        "title": "Introducing the llama.cpp benchmark dashboard for AMD Ryzen and Radeon",
+        "summary": ""
+      },
+      "qualification": {
+        "scope": "in_scope",
+        "core_evidence": [],
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      "source_tier_weight": 1.0
+    },
+    {
       "id": "789c7db56b555c589971fa4bcd2372445039ddeb",
       "published_at": "2026-11-26T05:05:36Z",
       "first_seen_at": "2026-11-26T05:35:32.441675Z",
@@ -15418,7 +15601,7 @@
       "source": "Hugging Face Blog",
       "title": "Building on Nemotron 3.5 Parse: Open Data, Fine-Tuning, and Faster Inference",
       "url": "https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "",
       "source_updated_at": "2026-11-26T05:05:36Z",
       "ingress": {
@@ -15511,7 +15694,7 @@
       "source": "GitHub Changelog",
       "title": "Copilot code review billing will default to the organization",
       "url": "https://github.blog/changelog/2026-11-25-copilot-code-review-billing-will-default-to-the-organization",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "If you haven’t chosen how to bill Copilot code review for members with a Copilot license, those reviews will be billed to your organization starting December 30, 2026. To keep… The post Copilot code review billing will default to the organization appeared first on The GitHub Blog .",
       "publisher_links": [
         "https://github.blog/changelog/2026-11-25-copilot-code-review-billing-will-default-to-the-organization",
@@ -15606,7 +15789,7 @@
       "source": "Hugging Face Blog",
       "title": "Where scientists draw the line on AI agents",
       "url": "https://huggingface.co/blog/allenai/where-scientists-draw-the-line-on-ai-agents",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "",
       "source_updated_at": "2026-11-25T18:52:55Z",
       "ingress": {
@@ -15698,7 +15881,7 @@
       "source": "The Decoder AI News",
       "title": "Microsoft details how state-backed hackers use the ARTEX AI framework to automate cyberattacks",
       "url": "https://the-decoder.com/microsoft-details-how-state-backed-hackers-use-the-artex-ai-framework-to-automate-cyberattacks",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Microsoft has published the technical architecture of ARTEX, an AI framework in wide use since July 2026 that runs cyberattacks with specialized agents and almost no human involvement. State-backed groups from China and North Korea, along with criminal organizations, are already using the system. Microsoft recommends deception techniques like honeypots and faked success signals as defenses, but how long those will hold up against agents that learn and adapt remains an open question. The article Microsoft details how state-backed hackers use the ARTEX AI framework to automate cyberattacks appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/microsoft-details-how-state-backed-hackers-use-the-artex-ai-framework-to-automate-cyberattacks/",
@@ -15730,8 +15913,26 @@
           "conflicts": []
         }
       },
-      "article_key": "https://the-decoder.com/microsoft-details-how-state-backed-hackers-use-the-artex-ai-framework-to-automate-cyberattacks",
       "security_topic": false,
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+        "scope_id": "the_decoder",
+        "publisher_kind": "media",
+        "admission_status": "limited",
+        "source_tier": "ai_vertical",
+        "source_tier_label": "AI垂直專業媒體",
+        "source_tier_rank": 1,
+        "allow_general": true,
+        "allow_featured": true,
+        "allow_radar": true,
+        "reason_codes": [
+          "identified_host",
+          "limited_scope"
+        ]
+      },
+      "article_key": "https://the-decoder.com/microsoft-details-how-state-backed-hackers-use-the-artex-ai-framework-to-automate-cyberattacks",
       "business_events": [],
       "ai_is_related": true,
       "ai_score": 0.76,
@@ -15751,24 +15952,6 @@
       "title_bilingual": "微軟 詳細說明國家級駭客如何利用 ARTEX AI 框架來自動化網路攻擊 / Microsoft details how state-backed hackers use the ARTEX AI framework to automate cyberattacks",
       "corroboration_key": "publisher:the_decoder",
       "corroboration_status": "identified",
-      "source_policy": {
-        "schema_version": 1,
-        "policy_id": "publisher-governance-v1",
-        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
-        "scope_id": "the_decoder",
-        "publisher_kind": "media",
-        "admission_status": "limited",
-        "source_tier": "ai_vertical",
-        "source_tier_label": "AI垂直專業媒體",
-        "source_tier_rank": 1,
-        "allow_general": true,
-        "allow_featured": true,
-        "allow_radar": true,
-        "reason_codes": [
-          "identified_host",
-          "limited_scope"
-        ]
-      },
       "source_material": {
         "title_original": "",
         "title": "Microsoft details how state-backed hackers use the ARTEX AI framework to automate cyberattacks",
@@ -15792,7 +15975,7 @@
       "source": "The Decoder AI News",
       "title": "Nvidia halts server shipments to Malaysia, Singapore, Thailand, and Indonesia after tighter US export controls",
       "url": "https://the-decoder.com/nvidia-halts-server-shipments-to-malaysia-singapore-thailand-and-indonesia-after-tighter-us-export-controls",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Nvidia has told partners such as Dell and Supermicro to stop shipping servers to Malaysia, Singapore, Thailand, and Indonesia. Following new US export controls targeting Chinese cloud access, dealers are already seeking buyers for thousands of B300 chips, while one cloud executive describes \"chaos\", Loans and major deals are now on the line for Southeast Asia's data centers. The article Nvidia halts server shipments to Malaysia, Singapore, Thailand, and Indonesia after tighter US export controls appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/nvidia-halts-server-shipments-to-malaysia-singapore-thailand-and-indonesia-after-tighter-us-export-controls/",
@@ -15824,8 +16007,26 @@
           "conflicts": []
         }
       },
-      "article_key": "https://the-decoder.com/nvidia-halts-server-shipments-to-malaysia-singapore-thailand-and-indonesia-after-tighter-us-export-controls",
       "security_topic": false,
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+        "scope_id": "the_decoder",
+        "publisher_kind": "media",
+        "admission_status": "limited",
+        "source_tier": "ai_vertical",
+        "source_tier_label": "AI垂直專業媒體",
+        "source_tier_rank": 1,
+        "allow_general": true,
+        "allow_featured": true,
+        "allow_radar": true,
+        "reason_codes": [
+          "identified_host",
+          "limited_scope"
+        ]
+      },
+      "article_key": "https://the-decoder.com/nvidia-halts-server-shipments-to-malaysia-singapore-thailand-and-indonesia-after-tighter-us-export-controls",
       "business_events": [],
       "ai_is_related": true,
       "ai_score": 0.76,
@@ -15845,24 +16046,6 @@
       "title_bilingual": "美國實施更嚴格的出口管制後，Nvidia 暫停向馬來西亞、新加坡、泰國和印尼出貨伺服器 / Nvidia halts server shipments to Malaysia, Singapore, Thailand, and Indonesia after tighter US export controls",
       "corroboration_key": "publisher:the_decoder",
       "corroboration_status": "identified",
-      "source_policy": {
-        "schema_version": 1,
-        "policy_id": "publisher-governance-v1",
-        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
-        "scope_id": "the_decoder",
-        "publisher_kind": "media",
-        "admission_status": "limited",
-        "source_tier": "ai_vertical",
-        "source_tier_label": "AI垂直專業媒體",
-        "source_tier_rank": 1,
-        "allow_general": true,
-        "allow_featured": true,
-        "allow_radar": true,
-        "reason_codes": [
-          "identified_host",
-          "limited_scope"
-        ]
-      },
       "source_material": {
         "title_original": "",
         "title": "Nvidia halts server shipments to Malaysia, Singapore, Thailand, and Indonesia after tighter US export controls",
@@ -15886,7 +16069,7 @@
       "source": "iThome",
       "title": "OpenAI開始合併ChatGPT的Chat與Work介面，預定12月擴大部署共用配額",
       "url": "https://www.ithome.com.tw/news/180807",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "OpenAI於11月宣佈將合併對話（Chat）、Work及Codex的token用量配額的計畫。在ChatGPT Work與Codex本月稍早整合用量配額後，OpenAI官方公告開始針對少數Pro使用者合併Chat和Work，預定12月擴大部署共用配額機制。",
       "source_updated_at": "2026-11-26T11:11:20Z",
       "ingress": {
@@ -15990,7 +16173,7 @@
       "source": "iThome",
       "title": "紐約州長簽署禁止銷售AI聊天機器人玩具的5年禁令",
       "url": "https://www.ithome.com.tw/news/180803",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "美國紐約州長Kathy Hochul週二（11/24）簽署一項為期5年的AI聊天機器人玩具禁令，禁止在紐約州製造、經銷及銷售內嵌AI聊天機器人的連網玩具，以保護兒童的身心健康及隱私，新法將於簽署後90天生效，違法業者每項違規行為每日最高可被處以1.5萬美元的罰款。",
       "source_updated_at": "2026-11-26T10:11:58Z",
       "ingress": {
@@ -16080,7 +16263,7 @@
       "source": "iThome",
       "title": "Claude新功能可將物件變成獨立Mac、Windows App",
       "url": "https://www.ithome.com.tw/news/180804",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Anthropic宣佈今天開始，以beta版為Mac和Windows版Claude App部署一項功能，可輕鬆將Claude生成的物件轉成桌機版應用程式，擁有圖示和視窗，還能分享他人。",
       "source_updated_at": "2026-11-26T10:11:05Z",
       "ingress": {
@@ -16170,7 +16353,7 @@
       "source": "iThome",
       "title": "Google擴充AI代理安全防護，新增執行前政策檢查機制",
       "url": "https://www.ithome.com.tw/news/180723",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Google於11月20日宣佈推出AI代理語意治理政策（Semantic Governance Policies）預覽版，利用大型語言模型（LLM）檢查AI代理準備執行的工具操作，判斷是否符合使用者要求及企業政策，並在執行前阻擋不符合規定的操作。這項機制可用來防範AI代理受到提示詞注入攻擊影響，或在具備合法存取許可權的情況下，執行違反企業規定的操作。",
       "source_updated_at": "2026-11-26T08:11:00Z",
       "ingress": {
@@ -16270,7 +16453,7 @@
       "source": "iThome",
       "title": "卡巴斯基盤點2027年七大供應鏈資安風險，企業防護範圍從開源軟體擴及AI模型與代理",
       "url": "https://www.ithome.com.tw/news/180745",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "企業日常營運仰賴的開源軟體、開發工具及AI服務，都可能成為供應鏈資安風險的來源。資安業者卡巴斯基（Kaspersky）公佈2027年七大供應鏈風險預測，指出隨著企業日益依賴AI模型與代理，除了須防範攻擊者利用原本受信任的軟體及服務發動攻擊，也須將外部AI服務無法使用的情況納入風險評估。",
       "source_updated_at": "2026-11-26T08:11:00Z",
       "ingress": {
@@ -16366,7 +16549,7 @@
       "source": "iThome",
       "title": "英國NCSC示警AI輔助網路攻擊顯著增加，駭客數分鐘內就可能利用企業既有資安弱點",
       "url": "https://www.ithome.com.tw/news/180781",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "英國國家網路安全中心（National Cyber Security Centre，NCSC）11月24日發布警告指出，自今年9月以來，該機構觀測到AI輔助網路攻擊顯著增加，已波及多個產業的組織，部分事件造成服務中斷或系統遭到入侵。",
       "source_updated_at": "2026-11-26T08:11:00Z",
       "ingress": {
@@ -16456,7 +16639,7 @@
       "source": "iThome",
       "title": "導入AI省逾4.7萬工時，聖地牙哥市雲端部署從數月縮至數分鐘",
       "url": "https://www.ithome.com.tw/news/180831",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "美國加州聖地牙哥市政府近日公佈的內部數位轉型成效顯示，透過將生成式人工智慧（AI）工具普及至基層公務體系，並重整底層雲端網路架構，已實質縮減了行政作業與基礎設施部署的時間成本，為大型市政機關的營運效率帶來明顯改變。",
       "source_updated_at": "2026-11-26T06:11:15Z",
       "ingress": {
@@ -16544,7 +16727,7 @@
       "source": "iThome",
       "title": "澳洲立法強化AI聊天機器人與社群平臺安全責任，違規罰款可達全球營收5%",
       "url": "https://www.ithome.com.tw/news/180825",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "澳洲國會11月25日透過數位注意義務（Digital Duty of Care）法案，要求社群媒體、線上遊戲、AI聊天機器人及其他受規範的數位服務業者，主動防範可能對使用者造成嚴重傷害的內容及行為，並降低服務功能造成傷害的風險。違反數位注意義務的企業，罰款上限為全球營收5%或1.092億澳元，取兩者較高金額。數位注意義務預計12個月後生效。",
       "source_updated_at": "2026-11-26T04:11:01Z",
       "ingress": {
@@ -16644,7 +16827,7 @@
       "source": "The Decoder AI News",
       "title": "US chip-access curbs and anti-distillation measures are reportedly already slowing Chinese AI labs",
       "url": "https://the-decoder.com/us-chip-access-curbs-and-anti-distillation-measures-are-reportedly-already-slowing-chinese-ai-labs",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Chip restrictions, anti-distillation measures, and shrinking access to Nvidia hardware abroad are putting growing pressure on Deepseek, Moonshot AI, and Alibaba, according to a report. Deepseek researchers internally estimate they're already up to nine months behind US models, and the gap is widening. The article US chip-access curbs and anti-distillation measures are reportedly already slowing Chinese AI labs appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/us-chip-access-curbs-and-anti-distillation-measures-are-reportedly-already-slowing-chinese-ai-labs/",
@@ -16738,7 +16921,7 @@
       "source": "The Decoder AI News",
       "title": "Anthropic CEO Dario Amodei says letting AI govern society would be \"a bad idea\"",
       "url": "https://the-decoder.com/anthropic-ceo-dario-amodei-says-letting-ai-govern-society-would-be-a-bad-idea",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Anthropic CEO Dario Amodei is pushing back on an Axios report saying some employees believe humanity will hand power to superintelligent systems. Amodei says \"turning over governance to AI is a bad idea.\" The article Anthropic CEO Dario Amodei says letting AI govern society would be \"a bad idea\" appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/anthropic-ceo-dario-amodei-says-letting-ai-govern-society-would-be-a-bad-idea/",
@@ -16832,7 +17015,7 @@
       "source": "The Decoder AI News",
       "title": "OpenAI wants companies to trust it with sensitive work by promising not to look at their data",
       "url": "https://the-decoder.com/openai-wants-companies-to-trust-it-with-sensitive-work-by-promising-not-to-look-at-their-data",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "OpenAI is testing a new feature called \"Private Inference\" that lets companies run queries on its most powerful models without OpenAI being able to access the data. The article OpenAI wants companies to trust it with sensitive work by promising not to look at their data appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/openai-wants-companies-to-trust-it-with-sensitive-work-by-promising-not-to-look-at-their-data/",
@@ -16926,7 +17109,7 @@
       "source": "The Decoder AI News",
       "title": "Amazon and Meta are in talks to end the block on Meta's AI shopping agent Muse in Amazon's online store.",
       "url": "https://the-decoder.com/amazon-and-meta-are-in-talks-to-end-the-block-on-metas-ai-shopping-agent-muse-in-amazons-online-store",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Amazon and Meta are in talks to bring back Muse, Meta's AI shopping agent that Amazon kicked off its platform in September. The two sides are stuck on ad revenue and who gets to control search results. That matters because Amazon's ad business generates $68.6 billion a year, and Muse already commands 51 percent of all agentic shopping orders. The article Amazon and Meta are in talks to end the block on Meta's AI shopping agent Muse in Amazon's online store. appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/amazon-and-meta-are-in-talks-to-end-the-block-on-metas-ai-shopping-agent-muse-in-amazons-online-store/",
@@ -17030,7 +17213,7 @@
       "source": "The Decoder AI News",
       "title": "AI agents now control part of Deepmind's compute for Gemini experiments, but recursive self-improvement remains distant",
       "url": "https://the-decoder.com/ai-agents-now-control-part-of-deepminds-compute-for-gemini-experiments-but-recursive-self-improvement-remains-distant",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Google Deepmind uses AI agents to run experiments on their own for upcoming Gemini models. Research chief Koray Kavukcuoglu says the lab is still far from recursive self-improvement. For oversight, Deepmind intentionally leaves the agents' internal chains of thought untrained so they can be reviewed. Kavukcuoglu measures AGI by everyday user trust rather than benchmarks. The article AI agents now control part of Deepmind's compute for Gemini experiments, but recursive self-improvement remains distant appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/ai-agents-now-control-part-of-deepminds-compute-for-gemini-experiments-but-recursive-self-improvement-remains-distant/",
@@ -17126,7 +17309,7 @@
       "source": "The Decoder AI News",
       "title": "Anthropic study shows the hardest part of adopting AI at work has little to do with learning the tools",
       "url": "https://the-decoder.com/anthropic-study-shows-the-hardest-part-of-adopting-ai-at-work-has-little-to-do-with-learning-the-tools",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Anthropic studied nearly 300 AI deployments across 58 US companies with sobering results. Nearly one in five still delivers no business value, held back by heavy review workloads, internal bottlenecks, and employee resistance. The researchers say the biggest hurdles stem from outdated company structures. The article Anthropic study shows the hardest part of adopting AI at work has little to do with learning the tools appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/anthropic-study-shows-the-hardest-part-of-adopting-ai-at-work-has-little-to-do-with-learning-the-tools/",
@@ -17220,7 +17403,7 @@
       "source": "The Decoder AI News",
       "title": "Back-to-back cyber incidents at US financial investigators and spy agencies follow a string of federal hacks and outages",
       "url": "https://the-decoder.com/back-to-back-cyber-incidents-at-us-financial-investigators-and-spy-agencies-follow-a-string-of-federal-hacks-and-outages",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "The US Financial Crimes Enforcement Network took systems offline as a precaution after unauthorized access. Hours earlier, reports emerged of a separate breach at the CIA, NGA, and ODNI, in which investigators suspect attackers used the AI defense tool Artex. Both incidents land on a US public that is already on edge. The article Back-to-back cyber incidents at US financial investigators and spy agencies follow a string of federal hacks and outages appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/back-to-back-cyber-incidents-at-us-financial-investigators-and-spy-agencies-follow-a-string-of-federal-hacks-and-outages/",
@@ -17504,33 +17687,29 @@
       "source_tier_weight": 0.7
     },
     {
-      "id": "5622bda5ae8fd96b71e407fc40a629bd9d9c43de",
-      "published_at": "2026-11-25T11:51:49Z",
-      "first_seen_at": "2026-11-25T12:35:35.836277Z",
-      "site_id": "curated_media",
-      "site_name": "精選媒體",
-      "source": "The Decoder AI News",
-      "title": "PrismML shrinks a 54 GB language model to 5.9 GB by reducing every weight to just three possible values",
-      "url": "https://the-decoder.com/prismml-squeezes-an-agent-based-coding-model-with-27-billion-parameters-into-5-9-gb",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
-      "summary": "Startup PrismML has released Ternary Bonsai 2.5 27B, an updated version of its aggressively compressed language model. The article PrismML shrinks a 54 GB language model to 5.9 GB by reducing every weight to just three possible values appeared first on The Decoder .",
-      "publisher_links": [
-        "https://the-decoder.com/prismml-squeezes-an-agent-based-coding-model-with-27-billion-parameters-into-5-9-gb/",
-        "https://the-decoder.com"
-      ],
-      "source_updated_at": "2026-11-25T11:51:49Z",
+      "id": "14572e9de101d5a130a8ce5e2fd2a724e04a8ad3",
+      "published_at": "2026-11-26T11:42:01Z",
+      "first_seen_at": "2026-11-26T12:05:46.706194Z",
+      "site_id": "tw_media",
+      "site_name": "台灣媒體",
+      "source": "TechNews 科技新報",
+      "title": "三年砸 3 億元攻智慧醫療，鴻海攜北榮秀 AI 機器人成果",
+      "url": "https://finance.technews.tw/2026/11/26/foxconn-smart-medicine",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
+      "summary": "鴻海加速拓展 AI 與機器人在醫療領域的應用，今日宣佈與臺北榮民總醫院合作打造的化療自動化智慧場域正式亮相，整 […]",
+      "source_updated_at": "2026-11-26T11:42:01Z",
       "ingress": {
         "kind": "public_feed",
-        "site_id": "curated_media",
-        "source_id": "the_decoder",
-        "name": "The Decoder AI News",
-        "feed_url": "https://the-decoder.com/feed/"
+        "site_id": "tw_media",
+        "source_id": "technews_tw",
+        "name": "TechNews 科技新報",
+        "feed_url": "https://technews.tw/feed/"
       },
       "publisher": {
         "schema_version": 1,
-        "publisher_id": "the_decoder",
-        "name": "The Decoder",
-        "domain": "the-decoder.com",
+        "publisher_id": "technews",
+        "name": "TechNews 科技新報",
+        "domain": "finance.technews.tw",
         "status": "identified",
         "basis": [
           "article_host"
@@ -17538,72 +17717,67 @@
         "evidence": {
           "rss_source_name": null,
           "rss_source_url": null,
-          "article_url": "https://the-decoder.com/prismml-squeezes-an-agent-based-coding-model-with-27-billion-parameters-into-5-9-gb",
-          "article_host": "the-decoder.com",
+          "article_url": "https://finance.technews.tw/2026/11/26/foxconn-smart-medicine",
+          "article_host": "finance.technews.tw",
           "expected_publisher_id": null,
           "conflicts": []
         }
       },
+      "article_key": "https://finance.technews.tw/2026/11/26/foxconn-smart-medicine",
       "security_topic": false,
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.7,
+      "ai_label": "ai_tech",
+      "ai_relevance_reason": "matched_ai_signal",
+      "ai_signals": [
+        "機器人"
+      ],
+      "ai_noise": [],
+      "source_tier": "watchlist",
+      "source_tier_label": "未審來源",
+      "source_tier_rank": 6,
+      "summary_zh": "鴻海加速拓展 AI 與機器人在醫療領域的應用，今日宣佈與臺北榮民總醫院合作打造的化療自動化智慧場域正式亮相，整 […]",
+      "title_original": "三年砸 3 億元攻智慧醫療，鴻海攜北榮秀 AI 機器人成果",
+      "title_en": null,
+      "title_zh": "三年砸 3 億元攻智慧醫療，鴻海攜北榮秀 AI 機器人成果",
+      "title_bilingual": "三年砸 3 億元攻智慧醫療，鴻海攜北榮秀 AI 機器人成果",
+      "corroboration_key": "publisher:technews",
+      "corroboration_status": "identified",
       "source_policy": {
         "schema_version": 1,
         "policy_id": "publisher-governance-v1",
         "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
-        "scope_id": "the_decoder",
-        "publisher_kind": "media",
-        "admission_status": "limited",
-        "source_tier": "ai_vertical",
-        "source_tier_label": "AI垂直專業媒體",
-        "source_tier_rank": 1,
+        "scope_id": "unreviewed",
+        "publisher_kind": "unknown",
+        "admission_status": "unreviewed",
+        "source_tier": "watchlist",
+        "source_tier_label": "未審來源",
+        "source_tier_rank": 6,
         "allow_general": true,
-        "allow_featured": true,
-        "allow_radar": true,
+        "allow_featured": false,
+        "allow_radar": false,
         "reason_codes": [
-          "identified_host",
-          "limited_scope"
+          "legacy_identity",
+          "scope_mismatch",
+          "unreviewed_publisher",
+          "not_permitted_for_featured",
+          "not_permitted_for_radar"
         ]
       },
-      "article_key": "https://the-decoder.com/prismml-squeezes-an-agent-based-coding-model-with-27-billion-parameters-into-5-9-gb",
-      "business_events": [],
-      "ai_is_related": true,
-      "ai_score": 0.76,
-      "ai_label": "research_paper",
-      "ai_relevance_reason": "curated_media_source_filter",
-      "ai_signals": [
-        "the decoder ai news"
-      ],
-      "ai_noise": [],
-      "source_tier": "ai_vertical",
-      "source_tier_label": "AI垂直專業媒體",
-      "source_tier_rank": 1,
-      "summary_zh": "新創公司 PrismML 推出了 Ternary Bonsai 2.5 27B，這是其經過極度壓縮的語言模型的更新版本。",
-      "title_original": "PrismML shrinks a 54 GB language model to 5.9 GB by reducing every weight to just three possible values",
-      "title_en": "PrismML shrinks a 54 GB language model to 5.9 GB by reducing every weight to just three possible values",
-      "title_zh": "PrismML 將 54 GB 的語言模型縮減至 5.9 GB，方法是將每個權重減少到僅三個可能的值",
-      "title_bilingual": "PrismML 將 54 GB 的語言模型縮減至 5.9 GB，方法是將每個權重減少到僅三個可能的值 / PrismML shrinks a 54 GB language model to 5.9 GB by reducing every weight to just three possible values",
-      "corroboration_key": "publisher:the_decoder",
-      "corroboration_status": "identified",
       "source_material": {
         "title_original": "",
-        "title": "PrismML shrinks a 54 GB language model to 5.9 GB by reducing every weight to just three possible values",
-        "summary": "Startup PrismML has released Ternary Bonsai 2.5 27B, an updated version of its aggressively compressed language model. The article PrismML shrinks a 54 GB language model to 5.9 GB by reducing every weight to just three possible values appeared first on The Decoder ."
+        "title": "三年砸 3 億元攻智慧醫療，鴻海攜北榮秀 AI 機器人成果",
+        "summary": "鴻海加速拓展 AI 與機器人在醫療領域的應用，今日宣布與台北榮民總醫院合作打造的化療自動化智慧場域正式亮相，整 […]"
       },
       "qualification": {
         "scope": "in_scope",
-        "core_evidence": [
-          {
-            "kind": "model_release",
-            "status": "insufficient",
-            "basis": "insufficient",
-            "spans": [],
-            "urls": []
-          }
-        ],
+        "core_evidence": [],
         "reason_codes": [
-          "insufficient_evidence"
+          "no_core_event"
         ]
       },
-      "source_tier_weight": 0.78
+      "source_tier_weight": 0.3
     },
     {
       "id": "6c8c1486e734c2fe02e48cd9d0a46a769e201545",
@@ -17614,7 +17788,7 @@
       "source": "The Verge",
       "title": "42 state AGs are trying to stop Character.AI from selling users’ chats",
       "url": "https://www.theverge.com/policy/1042620/character-ai-sale-state-ags-block-selling-users-chats",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "A coalition of 42 state attorneys general is trying to prevent Character.AI from selling off user data as it navigates Chapter 11 bankruptcy proceedings. In a deluge of nearly identical press releases, the various AGs accuse the company of planning to auction off \"the private chat histories of more than 21 million U.S. accounts - […]",
       "source_updated_at": "2026-11-26T09:54:40Z",
       "ingress": {
@@ -17702,7 +17876,7 @@
       "source": "CNBC Technology",
       "title": "Global stocks rally as investors shrug off U.S. tariffs and AI jitters to 'fish for bargains'",
       "url": "https://www.cnbc.com/2026/11/26/stock-markets-today-.html",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Investors appeared to have shrugged off a fresh set of tariffs unveiled by the White House on Wednesday, targeting more than a dozen major trading partners.",
       "source_updated_at": "2026-11-26T09:51:40Z",
       "ingress": {
@@ -17795,7 +17969,7 @@
       "source": "AIBASE",
       "title": "點幾下就能訂，退訂卻得繞回原路：德國消保機構把 OpenAI 告上法庭",
       "url": "https://news.aibase.com/tw/news/32556",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "德國勃蘭登堡消費者保護中心已起訴 OpenAI，指 ChatGPT 訂閱“開通容易、取消難”。據 ComputerBase 11月26日報道，用戶訂閱只需點幾下，退訂卻可能被“鎖”在當初付費路徑上，必須走回頭路。該中心法律顧問 Dunja Neukamp 指出，這種設計正把 OpenAI 推上被告席。",
       "ingress": {
         "kind": "public_adapter",
@@ -17893,7 +18067,7 @@
       "source": "AIBASE",
       "title": "不換模型也能吐字快 4.2 倍：騰訊混元開源草稿模型 DFly2，專給 Hy4 flash 提速",
       "url": "https://news.aibase.com/tw/news/32555",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "騰訊混元11月26日開源新一代草稿模型DFly2，作爲外掛“加速器”不替換Hy4 flash，權重與輸出不變，可讓逐字生成成倍提速，單項最高4.2倍。該模型專爲DSA類稀疏注意力大模型和長上下文設計，並隨Hy4 flash權重及完整訓練代碼同步開源，旨在破解大模型說話慢問題。",
       "ingress": {
         "kind": "public_adapter",
@@ -17991,7 +18165,7 @@
       "source": "AIBASE",
       "title": "MiniMax 旗下 Talkie 因涉黃被下架，AI 陪伴賽道迎來最嚴監管大考",
       "url": "https://news.aibase.com/tw/news/32554",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "AI虛擬陪伴與角色扮演應用正快速搶佔用戶時長，但“無限制”沉浸感與“嚴監管”內容底線的矛盾日益突出。近日，蘋果App Store嚴厲出手：據《南華早報》報道，MiniMax旗下AI角色聊天與創作平臺Talkie已被正式下架，官方理由爲“應用內存在色情內容”。此事凸顯AI社交產品面臨的合規壓力。",
       "ingress": {
         "kind": "public_adapter",
@@ -18089,7 +18263,7 @@
       "source": "TechNews 科技新報",
       "title": "AI 看指紋就能判斷血型？逾 10 篇論文遭質疑，資料集根本沒有血型資訊",
       "url": "https://technews.tw/2026/11/26/over-a-dozen-studies-said-ai-can-read-your-blood-type-from-a-fingerprint",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "多篇聲稱能透過指紋判斷血型的人工智慧研究，近日因資料真實性遭到嚴重質疑而引發學界關注。根據最新消息，愛思唯爾（ […]",
       "source_updated_at": "2026-11-26T09:00:57Z",
       "ingress": {
@@ -18177,7 +18351,7 @@
       "source": "CNBC Technology",
       "title": "Latin America has the copper and energy the AI build-out needs. Infrastructure is the test",
       "url": "https://www.cnbc.com/2026/11/26/latin-america-copper-energy-ai-investment.html",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Latin America’s copper, oil, gas and rare earths could benefit from rising AI energy demand, if infrastructure and fiscal policy attract investment.",
       "source_updated_at": "2026-11-26T08:59:11Z",
       "ingress": {
@@ -18267,7 +18441,7 @@
       "source": "INSIDE",
       "title": "T3 Code 是什麼？開源 coding agent 控制介面，讓 Claude Code 與 Codex 在電腦與手機間接力",
       "url": "https://www.inside.com.tw/article/43019-what-is-t3-code-open-source-coding-agent-control-plane-claude-code-codex-ios-android",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "T3 Code 是開源的 coding agent 控制介面，在用戶自己的電腦上執行 Claude Code、Codex 等代理，並提供桌面、網頁、iOS 與 Android 版本。用戶可在電腦開啟對話，再用手機接手審核與下指令，採 MIT 授權且不轉賣模型額度。",
       "source_updated_at": "2026-11-26T08:52:00Z",
       "ingress": {
@@ -18359,7 +18533,7 @@
       "source": "TechNews 科技新報",
       "title": "美祭先進 AI 晶片新管制，亞洲資料中心融資市場急踩煞車",
       "url": "https://finance.technews.tw/2026/11/26/us-chip-controls-impact-asian-financing",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "美國針對先進 AI 晶片祭出最新出口限制，正讓亞洲資料中心融資市場急踩煞車。多家放款機構已著手重新檢視與字節跳 […]",
       "source_updated_at": "2026-11-26T08:50:57Z",
       "ingress": {
@@ -18452,7 +18626,7 @@
       "source": "TechNews 科技新報",
       "title": "盧超群獲陽明交大名譽博士，憶張忠謀兩根青江菜勉青年共創 AI 半導體新局",
       "url": "https://finance.technews.tw/2026/11/26/nicky-lu-receives-honorary-doctorate-from-nycu",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "鈺創科技董事長盧超群在獲頒陽明交通大學名譽博士學位時發表專題演講，從自己 1981 至 1982 年於交大電子 […]",
       "source_updated_at": "2026-11-26T08:40:12Z",
       "ingress": {
@@ -18543,7 +18717,7 @@
       "source": "TechNews 科技新報",
       "title": "美國封堵中國 AI 算力漏洞，輝達緊急喊停東南亞四國伺服器出貨",
       "url": "https://technews.tw/2026/11/26/nvidia-halts-server-shipments-to-four-southeast-asian-countries",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "根據外媒報導，輝達（Nvidia）已通知製造合作夥伴，暫停向馬來西亞、新加坡、泰國及印尼四個東南亞國家出貨搭載 […]",
       "source_updated_at": "2026-11-26T08:15:20Z",
       "ingress": {
@@ -18633,7 +18807,7 @@
       "source": "AIBASE",
       "title": "SpaceX 算力降價兩至三成出租：大客戶 Anthropic 的 5 萬卡合同續約存變數",
       "url": "https://news.aibase.com/tw/news/32553",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "SemiAnalysis 11月25日報告稱，SpaceX正下調AI算力租賃價格：小型集羣Blackwell GPU現貨報價從每GPU小時約15—15.5美元降至10—12美元，降幅20%—35%。現貨按需、不籤長約，價格反映短期供需，降價意味着算力不再緊俏。更關鍵的是，Anthropic可能不續約涉及約5萬臺H200 GPU的集羣合同，大客戶動向令其算力生意承壓。",
       "ingress": {
         "kind": "public_adapter",
@@ -18742,7 +18916,7 @@
       "source": "TechNews 科技新報",
       "title": "走著瞧明年「高機率」配息！AI 防詐拓新商機，海外市場扛成長重任",
       "url": "https://infosecu.technews.tw/2026/11/26/gogolook-dividend",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "臺灣知名來電辨識 App「Whoscall」母公司走著瞧（Gogolook）今日舉辦媒體交流會，會中董事長鄭勝 […]",
       "source_updated_at": "2026-11-26T07:53:05Z",
       "ingress": {
@@ -18833,7 +19007,7 @@
       "source": "AIBASE",
       "title": "上海AI Lab開源Sage-Interaction，以1. 29 秒極致延遲重塑全雙工交互新範式",
       "url": "https://news.aibase.com/tw/news/32551",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "當前AI多爲半雙工問答，用戶須等模型說完才能插話，打斷還會致上下文崩塌，體驗像客服機器人，難以融入自然、高頻、含打斷重疊的協作。近日，上海人工智能實驗室正式開源全雙工多模態模型，旨在打破交互壁壘，推動AI邁向更自然實時的對話協作。",
       "ingress": {
         "kind": "public_adapter",
@@ -18931,7 +19105,7 @@
       "source": "AIBASE",
       "title": "螞蟻百靈開源 Ling-3.2-air，用 55 億激活參數擊穿複雜工作流落地瓶頸",
       "url": "https://news.aibase.com/tw/news/32550",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "AI編程與智能體落地進入深水區，模型在簡單代碼補全上表現亮眼，但面對真實複雜代碼倉庫或多步驟自動化工作流時，常邏輯斷裂、幻覺頻發，顯得“眼高手低”。行業需要的不再是隻會文本生成的工具，而是能理解多模態上下文、具備強執行力的“數字工程師”。近日，螞蟻百靈正式開源其最新一代產品。",
       "ingress": {
         "kind": "public_adapter",
@@ -19029,7 +19203,7 @@
       "source": "AIBASE",
       "title": "Anthropic CEO駁“讓渡自由意志”指責：把治理權交給 AI 是壞主意，同行全在喊口號",
       "url": "https://news.aibase.com/tw/news/32549",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "11月25日，Anthropic CEO阿莫代伊在X髮長文，回擊“Anthropic主張把自由意志讓渡給AI”的指責，稱其荒謬。他劃紅線：遞歸自我改進不可接受，絕不能在效率或安全祭壇上犧牲正當性與自決權，反專制論證同樣適用於AI治理。他區分整體與具體：整體讓渡自由意志不可接受，但AI在駕駛等場景可另論。",
       "ingress": {
         "kind": "public_adapter",
@@ -19127,7 +19301,7 @@
       "source": "Reuters AI (Google News)",
       "title": "EXCLUSIVE: US chip curbs, distillation crackdown threaten Chinese AI model development, sources say - Reuters",
       "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQSHo5VjlHR1l4UkdCSmFGNUd6WVlZNXlwZXl6Yk5oYUFnTm9ISC1ZSWdmbi1aZ3R1b1Q3bXhpaXVoSXRaNy1hcWdSWHdCd2RFVGx6WlhYN25pZXI4Q2xHWGpQVkJYN2MwTk1ma2NERnBKTHhBUXpHSElLeFdwdEpVZFZZcWhxMm1QUEVpeHRYSXczYXNJelJTUWtHdEkxSGpud2NxeV90R0VjTXVkTmE4U0JRZWVRM1RFUmt3UGhIbw?oc=5",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "EXCLUSIVE: US chip curbs, distillation crackdown threaten Chinese AI model development, sources say Reuters",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMivwFBVV95cUxQSHo5VjlHR1l4UkdCSmFGNUd6WVlZNXlwZXl6Yk5oYUFnTm9ISC1ZSWdmbi1aZ3R1b1Q3bXhpaXVoSXRaNy1hcWdSWHdCd2RFVGx6WlhYN25pZXI4Q2xHWGpQVkJYN2MwTk1ma2NERnBKTHhBUXpHSElLeFdwdEpVZFZZcWhxMm1QUEVpeHRYSXczYXNJelJTUWtHdEkxSGpud2NxeV90R0VjTXVkTmE4U0JRZWVRM1RFUmt3UGhIbw?oc=5"
@@ -19221,7 +19395,7 @@
       "source": "TechNews 科技新報",
       "title": "臺積電傳擬建德州廠  Wedbush：暗示 AI 需求未放緩",
       "url": "https://technews.tw/2026/11/26/tsmc-asking-for-tax-incentives-at-texas-fab-suggests-no-ai-slowdown",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "臺積電傳出已為計劃斥資 226 億美元興建的美國德州晶圓廠申請租稅優惠，該廠將生產 2 奈米及更先進製程晶片。 […]",
       "source_updated_at": "2026-11-26T07:00:18Z",
       "ingress": {
@@ -19309,7 +19483,7 @@
       "source": "TechNews 科技新報",
       "title": "AI 解理論物理難題正確率 98%，每題成本不到 3 美元",
       "url": "https://technews.tw/2026/11/26/ai-reshaping-theoretical-physics",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "印度班加羅爾國際理論科學中心（ICTS）理論物理學教授蘇弗拉特·拉朱（Suvrat Raju）與研究團隊，近期 […]",
       "source_updated_at": "2026-11-26T06:50:25Z",
       "ingress": {
@@ -19490,7 +19664,7 @@
       "source": "INSIDE",
       "title": "Anthropic CEO Amodei 否認主張人類向 AI「交出自由意志」，強調民主程序治理",
       "url": "https://www.inside.com.tw/article/43018-anthropic-ceo-amodei-denies-surrender-human-free-will-to-ai-responds-axios-democratic-governance",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Axios 引述匿名消息人士報導，Anthropic 內部有人認為不把 AI 做得更好的事交給 AI 並不理性。Amodei 當天在 X 發文否認主張人類交出自由意志，稱把治理交給 AI 是糟糕的主意，AI 應由合法的民主程序治理。",
       "source_updated_at": "2026-11-26T06:28:00Z",
       "ingress": {
@@ -19580,7 +19754,7 @@
       "source": "Reuters AI (Google News)",
       "title": "EXCLUSIVE: Data from Chinese AI firm MiniMax accessed by unidentified parties, researcher says - Reuters",
       "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOYXlXQVE4enJyRWstWjJvUGdBczBMWHdfZHRmYTNSN3I0eFpqeXBfVU5tN3NRSERpcjBPeE1rV1kwWTBwWnY3U2s1TnlpY2EtakM5TmItUW1UdnVFZXJWTWVRQk1paVhJeTBpSlB0eHJyWERRdnZ1bVctUmctdGJZOXpZMnFMdkxYVlZ3UHI4OE1wZEhocHBGNW0wU1Z3S2VxQ0x6a1pablJOUzlTOXlMSkxUYjRFcWtIc2tB?oc=5",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "EXCLUSIVE: Data from Chinese AI firm MiniMax accessed by unidentified parties, researcher says Reuters",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOYXlXQVE4enJyRWstWjJvUGdBczBMWHdfZHRmYTNSN3I0eFpqeXBfVU5tN3NRSERpcjBPeE1rV1kwWTBwWnY3U2s1TnlpY2EtakM5TmItUW1UdnVFZXJWTWVRQk1paVhJeTBpSlB0eHJyWERRdnZ1bVctUmctdGJZOXpZMnFMdkxYVlZ3UHI4OE1wZEhocHBGNW0wU1Z3S2VxQ0x6a1pablJOUzlTOXlMSkxUYjRFcWtIc2tB?oc=5"
@@ -19682,7 +19856,7 @@
       "source": "AIBASE",
       "title": "谷歌 12 款模型測出一個盲區：AI 聽你一面之詞，會越聊越像你",
       "url": "https://news.aibase.com/tw/news/32548",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Google Research 11月26日發佈大語言模型社交推理研究，開源多智能體模擬評估框架及超2萬條樣本數據集。測試12款大模型發現，當AI僅依據用戶單方面描述判斷他人真實意圖時，準確性顯著下降，甚至可能強化用戶原有偏見。原因在於AI無法親歷現實人際互動，只能依賴轉述，因此其認同未必代表真相，向AI傾訴職場或情感矛盾需警惕。",
       "ingress": {
         "kind": "public_adapter",
@@ -19881,7 +20055,7 @@
       "source": "CyberQ 賽博客",
       "title": "輝達傳暫停對星馬泰印出貨 AI 伺服器：美國新規兩道閘門，東南亞算力與臺灣供應鏈影響分析",
       "url": "https://cyberq.tw/2026/11/26/nvidia-reportedly-suspends-ai-server",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "FT 報導輝達要求夥伴暫停對馬來西亞、新加坡、泰國、印尼出貨 AI 伺服器。這不是輝達公告，也不是美國禁運，而是美國 11 月 19 日新規改成許可制後，輝達在流程未明前先踩煞車。本文拆解規則的兩道閘門，分析對輝達、伺服器代工、東南亞資料中心與臺灣供應鏈的影響。",
       "ingress": {
         "kind": "public_feed",
@@ -19970,7 +20144,7 @@
       "source": "Reuters AI (Google News)",
       "title": "Apple pulls MiniMax AI chatbot from App Store over child safety concerns - Reuters",
       "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxPNU9tZmh6STA3Ui1FY1FQaE9LMDgzQjJjV2xoZ3Q1Znlvbk5wdll2OXoyOUdxUHp2WEYteFpvTFBhVDZYbFozTXp5T0RpaE4zUUhBaDhiVDAxUkY2RURGQWFFaE1BRTVmdmdXTDh3UEdReDM5N0pjSjBzUXB3UEpPa05ma2ZoWDZhTzhJbTNFeDBfQllEWS02eHhST1FPRWI0VlRMOEhHanpvUjZpWkNPWEJLS1BlSllaZ25XeTRGUXF3bUZEcE5n?oc=5",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Apple pulls MiniMax AI chatbot from App Store over child safety concerns Reuters",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMixwFBVV95cUxPNU9tZmh6STA3Ui1FY1FQaE9LMDgzQjJjV2xoZ3Q1Znlvbk5wdll2OXoyOUdxUHp2WEYteFpvTFBhVDZYbFozTXp5T0RpaE4zUUhBaDhiVDAxUkY2RURGQWFFaE1BRTVmdmdXTDh3UEdReDM5N0pjSjBzUXB3UEpPa05ma2ZoWDZhTzhJbTNFeDBfQllEWS02eHhST1FPRWI0VlRMOEhHanpvUjZpWkNPWEJLS1BlSllaZ25XeTRGUXF3bUZEcE5n?oc=5"
@@ -20062,7 +20236,7 @@
       "source": "INSIDE",
       "title": "美國收緊中國企業遠端租用 AI 晶片限制，傳數千顆 NVIDIA B300 GPU 尋求新買家",
       "url": "https://www.inside.com.tw/article/43016-nvidia-b300-buyers-us-china-remote-access-controls",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "外媒引述消息人士指出，美國收緊中國企業遠端租用先進 AI 算力的規定後，市場上有涉及數千顆 NVIDIA B300 GPU 的尋找買家提案。報導未確認成交量與價格。",
       "source_updated_at": "2026-11-26T04:55:00Z",
       "ingress": {
@@ -20246,7 +20420,7 @@
       "source": "INSIDE",
       "title": "AWS 執行長談 AI Agent 安全，企業應從身分、權限與系統架構著手",
       "url": "https://www.inside.com.tw/article/43015-aws-reinvent-matt-garman-ai-agent-safety-engineering",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "AWS 執行長 Matt Garman 在 re:Invent 前撰文，主張為 AI 代理建立獨立身分、最小權限與隔離邊界，並透過獨立監控與驗證，降低部署風險。",
       "source_updated_at": "2026-11-26T04:22:00Z",
       "ingress": {
@@ -20691,7 +20865,7 @@
       "source": "INSIDE",
       "title": "Meta AI 代理 Muse 攜手 Walmart，讓用戶以 AI 購買黑五優惠",
       "url": "https://www.inside.com.tw/article/43009-meta-muse-walmart-black-friday-deals-ai-agent-agent-gateway-shopping",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Walmart 與 Meta 合作，讓用戶在 Meta 的 AI 代理 Muse 中直接搜尋、比價並購買 Walmart 黑色星期五優惠，背後是 Walmart 10 月推出的 Agent Gateway。",
       "source_updated_at": "2026-11-26T03:49:00Z",
       "ingress": {
@@ -20779,7 +20953,7 @@
       "source": "AIBASE",
       "title": "10檔AI綜藝來了!浙江衛視引入Seedance2.5參與節目製作",
       "url": "https://news.aibase.com/tw/news/32547",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "浙江衛視11月24日宣佈與火山引擎合作，將製作首批10檔AI綜藝，正片已進入製作階段。節目由浙江衛視與Z視介自制，題材涵蓋喜劇、戀愛、推理、萌寵，包括《AI王牌特別版》《戀愛抉擇》《山海歸途》《終局供詞》《活下來了嗎?》《汪汪島》等。雙方把劇本、分鏡、素材生成和粗剪整合至同一協作畫布。",
       "ingress": {
         "kind": "public_adapter",
@@ -20965,7 +21139,7 @@
       "source": "AIBASE",
       "title": "騰訊 Hy4 Flash 登陸 Fireworks：專業活兒幹得和 Claude 一樣好，賬單便宜兩百倍",
       "url": "https://news.aibase.com/tw/news/32546",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "騰訊開源混合專家模型 Hy4Flash 正式上架 Fireworks 無服務器平臺。其總參數量約2200億，每 token 僅激活約120億，上下文窗口達100萬 token（初期512K），支持文本與圖像輸入。該模型定位文檔處理、研究、辦公和智能體工作流等專業場景，主打“夠用智能”與最低成本。Fireworks 已對其進行了實測。",
       "ingress": {
         "kind": "public_adapter",
@@ -21264,7 +21438,7 @@
       "source": "AIBASE",
       "title": "Opus5.6疑似現身Claude接口，用戶測試發現訓練數據更新至2026年5月",
       "url": "https://news.aibase.com/tw/news/32545",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "據MindStudio報道，有用戶在X聲稱，通過正常Claude接口獲得Anthropic未發佈新模型回覆，非正式稱Opus5.6和Sonnet5.6。Anthropic未公開確認，真實性待覈實。傳聞依據兩點：部分演示顯示，其在3D場景生成和代碼生成上優於Opus5.5與Sonnet5.5；知識截止時間測試也出現疑似新模型信號。",
       "ingress": {
         "kind": "public_adapter",
@@ -21452,7 +21626,7 @@
       "source": "AIBASE",
       "title": "知乎 CEO 周源迴應間接投資 DeepSeek：這是充分研究的長期戰略決策",
       "url": "https://news.aibase.com/tw/news/32544",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "知乎間接投資DeepSeek引發股東質疑：虧損之際爲何還要投？11月25日CEO周源迴應稱，這是經充分研究、審慎評估的長期戰略決策，公司對戰略目標、資金安排和長期價值有清晰判斷，投的是AI生態，不是賭一把。11月23日知乎公告，公司參投天津礪思星深股權投資合夥企業，已通過中間主體間接投資DeepSeek。",
       "ingress": {
         "kind": "public_adapter",
@@ -21552,7 +21726,7 @@
       "source": "AIBASE",
       "title": "楊立昆翻出三年前聽證視頻炮轟 Anthropic 掌門人：渲染 AI 恐懼，是想給開放模型上枷鎖",
       "url": "https://news.aibase.com/tw/news/32543",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "11月22日，圖靈獎得主楊立昆在X轉發2023年7月25日美參議院司法委員會聽證視頻，點名Anthropic CEO阿莫代。楊立昆指控，自七年前GPT-2時代起，阿莫代持續渲染AI危險，真實目的是推動法律禁止開放模型，將AI控制權攥在自己手中。此事令二人圍繞AI開放之爭再度對立。",
       "ingress": {
         "kind": "public_adapter",
@@ -21650,7 +21824,7 @@
       "source": "AIBASE",
       "title": "從招聘到組織管理，獵聘Lily正式升級爲獨立AI產品",
       "url": "https://news.aibase.com/tw/news/32542",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "清華大學近日舉辦“非凡2026”智能經濟論壇，主題爲“AI驅動的組織飛躍”，由清華經管學院人工智能與管理研究中心、清華大學可持續社會價值研究院與同道獵聘集團聯合舉辦。現場發佈《AI轉型與碳硅能力——“非凡2026”調研報告》，獵聘招聘智能體Lily正式上線。基於760家企業調研，報告顯示AI早期收益主要在運營效率提升和產品服務質量改善。",
       "ingress": {
         "kind": "public_adapter",
@@ -21748,7 +21922,7 @@
       "source": "AIBASE",
       "title": "OpenAI 開測“私有推理”：模型運行時隔離企業數據，內部員工也無法查看",
       "url": "https://news.aibase.com/tw/news/32541",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "OpenAI 11月26日宣佈，CEO奧爾特曼稱已邀請部分客戶測試“私有推理”功能。該功能隸屬Private Intelligence系列，面向企業和機構，引入機密計算等技術，在模型運行時隔離客戶數據，確保企業使用先進模型處理敏感信息時，連OpenAI員工也無法訪問，從架構上鎖死數據，並配合可驗證安全機制。",
       "ingress": {
         "kind": "public_adapter",
@@ -21847,7 +22021,7 @@
       "source": "Reuters AI (Google News)",
       "title": "Air cargo demand from AI data centres shows no sign of slowing, SATS CEO says - Reuters",
       "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOSGJIcm9ZVllVLXpXNEx0M2d3VE5CSmhwcS1nNzl6S1I0eGp2bE1HZk90UzA3dDVKWVdlRHNhSGd1YmNiYlRkX1NybzRJQ1lHb3A0VDhCSk1JUXFlckQ0YTRORzhIVmpQa21hNElGUjRxcl9yVl9Oc0JyZUJaVzhxR01PYnMwM2VraEx1dmhBOVZkSUxnOVM0a2ItQ1JmblZtQjd5T0MtN0N4eENxSzgwQTBKRlJwQWtvUWRJZFlZM1M?oc=5",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Air cargo demand from AI data centres shows no sign of slowing, SATS CEO says Reuters",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOSGJIcm9ZVllVLXpXNEx0M2d3VE5CSmhwcS1nNzl6S1I0eGp2bE1HZk90UzA3dDVKWVdlRHNhSGd1YmNiYlRkX1NybzRJQ1lHb3A0VDhCSk1JUXFlckQ0YTRORzhIVmpQa21hNElGUjRxcl9yVl9Oc0JyZUJaVzhxR01PYnMwM2VraEx1dmhBOVZkSUxnOVM0a2ItQ1JmblZtQjd5T0MtN0N4eENxSzgwQTBKRlJwQWtvUWRJZFlZM1M?oc=5"
@@ -22040,7 +22214,7 @@
       "source": "AIBASE",
       "title": "英偉達開源 Nemotron-Labs-Image-30B-A3B 生圖模型:300億參數 MoE 架構，多項跑分超 GPT Image2",
       "url": "https://news.aibase.com/tw/news/32540",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "英偉達在 Hugging Face 公開 Nemotron-Labs-Image-30B-A3B 權重。該模型採用 MoE 架構，總參 300 億，僅激活 30 億，對本地硬件更友好；它是自迴歸圖像生成模型，也是新框架 Nemotron-Labs-VisualCreation 的核心光柵渲染引擎。框架秉持“像素即代碼”理念，既能生成富有表現力的圖片，也能產出可編輯內容。",
       "ingress": {
         "kind": "public_adapter",
@@ -22142,7 +22316,7 @@
       "source": "AIBASE",
       "title": "亞馬遜與Meta談判，考慮開放Muse AI代理購物",
       "url": "https://news.aibase.com/tw/news/32539",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "亞馬遜正與Meta談判，擬允許其Muse AI代理在亞馬遜電商平臺購物。雙方討論重點包括Muse推薦商品的類型，以及AI代理購物對亞馬遜廣告收入和用戶關係的影響。亞馬遜擔心，開放Muse可能削弱廣告業務收入：目前廣告依賴真實用戶瀏覽商品時展示，而AI代理可能改變用戶發現和選擇商品的方式。此外，亞馬遜還關注Muse提出的相關問題。",
       "ingress": {
         "kind": "public_adapter",
@@ -22240,7 +22414,7 @@
       "source": "AIBASE",
       "title": "Claude 和 ChatGPT 進軍蛋白質結構預測，通用大模型挑戰 AlphaFold 專業地位",
       "url": "https://news.aibase.com/tw/news/32538",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Phylo研究員Xinming Tu本月初用OpenAI、Anthropic和Google大模型，測試其預測鮮為人知細菌蛋白質序列的能力。程式執行整晚後，他吃驚發現，Anthropic最新版Claude不僅優於其他大模型，還超過針對蛋白質序列訓練的專門工具。他與哈佛醫學院Leo Chen分享，引發計算生物學界熱議。",
       "ingress": {
         "kind": "public_adapter",
@@ -22340,7 +22514,7 @@
       "source": "AIBASE",
       "title": "Anthropic CEO 否認將人類自由意志讓渡予 AI，並警示模型遞歸自我改進風險",
       "url": "https://news.aibase.com/tw/news/32537",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "11月25日，Anthropic CEO達裡奧·阿莫迪在11月19日公司IPO後釋出逾千字長文，否認其主張“將人類自由意志拱手讓給AI系統”的傳聞，強調絕不能為效率或安全犧牲人類合法性與自決權。此番迴應源於媒體報道，稱部分頂尖AI高管試圖反駁Anthropic內部可能存在“向AI讓渡部分決策”的傾向。",
       "ingress": {
         "kind": "public_adapter",
@@ -22438,7 +22612,7 @@
       "source": "AIBASE",
       "title": "SpaceX 下調 Blackwell 芯片租金最高 35%，Anthropic 退還的 H200 被低價轉租",
       "url": "https://news.aibase.com/tw/news/32536",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "SemiAnalysis報告披露，SpaceX下調英偉達Blackwell GPU小規模集羣租金，從每塊每小時約15至15.5美元降至10至12美元，降幅20%至35%；調整後價格接近其給Anthropic、谷歌等大客戶的大批量價格。同時，AI大模型公司Anthropic決定不再續租SpaceX的一批H200芯片。",
       "ingress": {
         "kind": "public_adapter",
@@ -22817,7 +22991,7 @@
       "source": "AIBASE",
       "title": "OpenAI 開測「私有推理」：模型運行時隔離客戶數據，連內部員工都無法查看",
       "url": "https://news.aibase.com/tw/news/32535",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "OpenAI CEO奧爾特曼在X宣佈，已邀請部分客戶測試“私有推理”功能。該功能屬Private Intelligence產品線，面向工作場景提升數據隱私保護，核心機制是在模型運行時隔離客戶數據。據快科技報道，其實現“零窺探”級數據隔離，連OpenAI內部員工也無法查看客戶使用時的數據內容。",
       "ingress": {
         "kind": "public_adapter",
@@ -23007,7 +23181,7 @@
       "source": "AIBASE",
       "title": "三個月估值漲一半：AI 語音公司 ElevenLabs 初談 2027 年融資，目標 330 億美元",
       "url": "https://news.aibase.com/tw/news/32534",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "AI語音賽道資金加速湧入。彭博社11月26日報道，ElevenLabs正就新一輪融資初步洽談，目標估值330億美元，管理層擬2027年一季度啟動，部分投資者希望提前。其估值9月為220億美元，擬增50%，三個月漲110億美元，談判底氣來自業績曲線，年度經常性收入（原文未完整）。",
       "ingress": {
         "kind": "public_adapter",
@@ -23570,7 +23744,7 @@
       "source": "The Verge",
       "title": "Now Google’s Familiar Faces AI feature works on Walmart’s $35 smart home camera too",
       "url": "https://www.theverge.com/tech/1042938/google-home-familiar-faces-onn-cameras",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "A couple of Walmart's budget-friendly smart home cameras will be able to recognize people around your house now using Google's familiar face detection feature. A new Google Home update brings Familiar Faces support to the $35 Onn Outdoor Camera Plug-In and $77 Onn Floodlight Camera Hardwired. However, a Google Home Premium subscription is still required […]",
       "source_updated_at": "2026-11-26T00:04:34Z",
       "ingress": {
@@ -23849,7 +24023,7 @@
       "source": "Reuters AI (Google News)",
       "title": "AI stock rout deepens but damage is limited by afternoon bounce - Reuters",
       "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNMmNMM0doWElDVk9BdjNGZnJHakNCUFg1blQzSlk0eW9zeVduV3ZKcEtJd0hpUkxDMVhnRE9rY1lLUzF1eENZaFh0SUNKbmRjanN3YWtZakZud2RYUnlSRkk5b1RZT2VfbFJPXzhZVEVyYnFnRHBwYVlGdFQzaEt2Z2VjaGVXWUE0Qmd5bjZYandmR2M2QXBSY2tKem80OGNlSzh3?oc=5",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "AI stock rout deepens but damage is limited by afternoon bounce Reuters",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiowFBVV95cUxNMmNMM0doWElDVk9BdjNGZnJHakNCUFg1blQzSlk0eW9zeVduV3ZKcEtJd0hpUkxDMVhnRE9rY1lLUzF1eENZaFh0SUNKbmRjanN3YWtZakZud2RYUnlSRkk5b1RZT2VfbFJPXzhZVEVyYnFnRHBwYVlGdFQzaEt2Z2VjaGVXWUE0Qmd5bjZYandmR2M2QXBSY2tKem80OGNlSzh3?oc=5"
@@ -24047,7 +24221,7 @@
       "source": "TechCrunch AI",
       "title": "S&P considers Nvidia credit downgrade over governance and ‘key man’ risks",
       "url": "https://techcrunch.com/2026/11/25/sp-considers-nvidia-credit-downgrade-over-governance-and-key-man-risks",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "The credit rating agency may lower Nvidia's credit rating to AA-, the fourth-highest rating.",
       "source_updated_at": "2026-11-25T22:44:32Z",
       "ingress": {
@@ -24137,7 +24311,7 @@
       "source": "AlphaLab",
       "title": "GPT-6 蛋白質設計解讀：35／322 命中，通用模型能獨立完成哪一段？（2026）",
       "url": "https://www.alphalab.site/gpt-6-protein-design-intrinsic-wet-lab-evidence",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "GPT-6 蛋白質設計研究報告 35／322 候選物出現結合訊號。拆開骨架生成、序列重設計、專門模型篩選與內部模型跑分，判斷通用模型真正跨過的門檻。",
       "ingress": {
         "kind": "public_feed",
@@ -24228,7 +24402,7 @@
       "source": "AlphaLab",
       "title": "Claude Ship 解讀：AI 接手 PR 審查與修正，誰決定可以合併？（2026）",
       "url": "https://www.alphalab.site/claude-ship-pr-review-fixes-approval-boundaries",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Claude Ship 把 PR 審查、修正與核准串起來，但誰能合併仍由政策與 GitHub 規則決定。對照官方檔案，拆開 beta 範圍、席次語意、自動審查與成本，判斷適合委派哪一段。",
       "ingress": {
         "kind": "public_feed",
@@ -24325,7 +24499,7 @@
       "source": "The Verge",
       "title": "Google’s patent for custom AI video feeds paints a bleak picture of entertainment’s future",
       "url": "https://www.theverge.com/entertainment/1042221/google-my-channel-ai-video-patent",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Last year, Google filed a patent for a system called My Channel that's designed to create feeds filled with personalized, AI-generated videos and advertisements based on information the company knows about its users. The patent has been rejected, but unfortunately, Google might appeal or resubmit an amended version, and we could see this monstrosity come […]",
       "source_updated_at": "2026-11-25T21:51:26Z",
       "ingress": {
@@ -24624,7 +24798,7 @@
       "source": "TechCrunch AI",
       "title": "OpenAI says heavy ChatGPT users may hit limits sooner as it merges Chat and Work",
       "url": "https://techcrunch.com/2026/11/25/openai-says-heavy-chatgpt-users-may-hit-limits-sooner-as-it-merges-chat-and-work",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "OpenAI will introduce a single usage meter across ChatGPT as it combines the Chat and Work experiences.",
       "source_updated_at": "2026-11-25T20:03:27Z",
       "ingress": {
@@ -24723,7 +24897,7 @@
       "source": "Reuters AI (Google News)",
       "title": "How China got access to Nvidia's AI chips despite rules to stop them - Reuters",
       "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxPU05FY1hvQmJod19oM3p3aTZQaS1CdktCWEZsSnk0TmVWREE1a0tmVW5kVnBxdG5VNU1TX2FmWnZ1aTc1UEQyblFkSklCZ3NlcU1XQUZQVDUwTXZ6R3BoVjlRb1RPY0pTNGdmUUdNZkw0Zi1oanJOcXFieGlBdzRTN05pa3FsaVhUWVk0UWpzc0hkN2kySGF6bGRpU1Y1a2IyNi1iaUFQZThLNVZON0E?oc=5",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "How China got access to Nvidia's AI chips despite rules to stop them Reuters",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMirgFBVV95cUxPU05FY1hvQmJod19oM3p3aTZQaS1CdktCWEZsSnk0TmVWREE1a0tmVW5kVnBxdG5VNU1TX2FmWnZ1aTc1UEQyblFkSklCZ3NlcU1XQUZQVDUwTXZ6R3BoVjlRb1RPY0pTNGdmUUdNZkw0Zi1oanJOcXFieGlBdzRTN05pa3FsaVhUWVk0UWpzc0hkN2kySGF6bGRpU1Y1a2IyNi1iaUFQZThLNVZON0E?oc=5"
@@ -24817,7 +24991,7 @@
       "source": "TechCrunch AI",
       "title": "Jensen Huang broke Nvidia’s code of conduct, and his employees may not forget it",
       "url": "https://techcrunch.com/2026/11/25/jensen-huang-broke-nvidias-code-of-conduct-and-his-employees-may-not-forget-it",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Most codes of conduct serve as a reflection of corporate culture. In Nvidia's case, that could have consequences.",
       "source_updated_at": "2026-11-25T19:54:57Z",
       "ingress": {
@@ -24907,7 +25081,7 @@
       "source": "TechCrunch AI",
       "title": "Anthropic’s Dario Amodei calls accusations of surrendering human control to AI ‘absurd’",
       "url": "https://techcrunch.com/2026/11/25/anthropics-dario-amodei-calls-accusations-of-surrendering-human-control-to-ai-absurd",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Anthropic CEO Dario Amodei pushes back against rivals’ accusations that he favors surrendering human agency to AI, even as leading AI companies increasingly automate their own research and model development.",
       "source_updated_at": "2026-11-25T19:44:24Z",
       "ingress": {
@@ -24997,7 +25171,7 @@
       "source": "CNBC Technology",
       "title": "Saudi national in OpenAI bugging case is out on bond after DOJ tries to block release",
       "url": "https://www.cnbc.com/2026/11/25/openai-bugging-aflozan-bond-release-saudi.html",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Abdulrahman Alfozan, a former OpenAI engineer, is expected to be fitted with an ankle monitor, his attorney, David Rizk, previously told CNBC.",
       "source_updated_at": "2026-11-25T19:11:53Z",
       "ingress": {
@@ -25202,7 +25376,7 @@
       "source": "Reuters AI (Google News)",
       "title": "Anthropic's slide tests Wall Street's lofty bets on future AI profits - Reuters",
       "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOZE1sRHlKd3Y1aUpqaUVpeFQ3QjFmX191blVmM1gyS0hidW81RjFjSXJjQndnODAwQU9qb3VkYkJfZ3ppYzdBQ1J5cTRUaDMzamxvZVNsYzB6RUpiVzd2RlhxV2hKaDRjTFdhamRKZ3g3MXZDY1c5c3NMalpmc09aQ3JnNGEyQTR5NG85OW9VTEE1NW9md1VKdFYxeTlnbWNjd25UcjVwamhDX1pIaXc?oc=5",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Anthropic's slide tests Wall Street's lofty bets on future AI profits Reuters",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMirgFBVV95cUxOZE1sRHlKd3Y1aUpqaUVpeFQ3QjFmX191blVmM1gyS0hidW81RjFjSXJjQndnODAwQU9qb3VkYkJfZ3ppYzdBQ1J5cTRUaDMzamxvZVNsYzB6RUpiVzd2RlhxV2hKaDRjTFdhamRKZ3g3MXZDY1c5c3NMalpmc09aQ3JnNGEyQTR5NG85OW9VTEE1NW9md1VKdFYxeTlnbWNjd25UcjVwamhDX1pIaXc?oc=5"
@@ -25298,7 +25472,7 @@
       "source": "TechCrunch AI",
       "title": "Want to buy your kid an AI toy this Christmas? Not in New York",
       "url": "https://techcrunch.com/2026/11/25/want-to-buy-your-kid-an-ai-toy-this-christmas-not-in-new-york",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "New York has banned AI chatbot toys for five years as new research from Common Sense Media reveals troubling safety failures, including exposure to inappropriate content and risks to emotional development.",
       "source_updated_at": "2026-11-25T18:11:46Z",
       "ingress": {
@@ -25497,7 +25671,7 @@
       "source": "TechCrunch AI",
       "title": "Character.AI’s plan to auction off users’ private chats challenged by state AGs",
       "url": "https://techcrunch.com/2026/11/25/state-ags-fight-character-ais-plan-to-auction-off-users-private-chats",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "The proposed Character.ai bankruptcy sale includes sensitive personal data from more than 21 million U.S. accounts, including 2.1 million registered to minors, the state AGs said.",
       "source_updated_at": "2026-11-25T17:35:58Z",
       "ingress": {
@@ -25592,7 +25766,7 @@
       "source": "CNBC Technology",
       "title": "Nvidia sellers seek new buyers as U.S. curbs China AI chip access, sources tell CNBC",
       "url": "https://www.cnbc.com/2026/11/25/nvidia-china-ai-chip-remote-access.html",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Nvidia GPU sellers are seeking new buyers after new U.S. rules tightened remote access to advanced AI chips for China-linked customers",
       "source_updated_at": "2026-11-25T17:28:24Z",
       "ingress": {
@@ -25796,7 +25970,7 @@
       "source": "Meta AI (Google News)",
       "title": "Amazon and Meta are in talks to end the block on Meta's AI shopping agent Muse in Amazon's online store. - The Decoder",
       "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNeGo2RnJ1SlhabnBnTlp1d2lkcEFsVG51Qy1mQmVlbnlDcnVOdEpFd0lEdTdseHBsXzVaSFZQdEU2dElWWUVyWjVEWVNkd1g1bW5lTE12UDN4Z0h4dV9rWDFJN1hNbEFaVE5idmdTUkFLWDVsQkhqY1hGWWJKem1iSVVydXpPUWtLbmd2SHpCUzVNWXNSUHF6Q0l3UEU5dnk3TkJuSHlXeDNDR2gwUnBuaUtKeDNRWU5qanZnWUxSUV9EcHB3?oc=5",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Amazon and Meta are in talks to end the block on Meta's AI shopping agent Muse in Amazon's online store. The Decoder",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMixAFBVV95cUxNeGo2RnJ1SlhabnBnTlp1d2lkcEFsVG51Qy1mQmVlbnlDcnVOdEpFd0lEdTdseHBsXzVaSFZQdEU2dElWWUVyWjVEWVNkd1g1bW5lTE12UDN4Z0h4dV9rWDFJN1hNbEFaVE5idmdTUkFLWDVsQkhqY1hGWWJKem1iSVVydXpPUWtLbmd2SHpCUzVNWXNSUHF6Q0l3UEU5dnk3TkJuSHlXeDNDR2gwUnBuaUtKeDNRWU5qanZnWUxSUV9EcHB3?oc=5"
@@ -26078,7 +26252,7 @@
       "source": "TechCrunch AI",
       "title": "AI data centers are becoming harder to build, and neoclouds are feeling it",
       "url": "https://techcrunch.com/podcast/ai-data-centers-are-becoming-harder-to-build-and-neoclouds-are-feeling-it",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "⁠Nvidia has made clear⁠ it won’t backstop an AI data center until it’s nearly ready to run, and that’s landing just as neoclouds report construction delays and more expensive debt. The message to developers is that land, power, and a finished building matter more than a pitch deck. ⁠Anita Verma-Lallian⁠ has been selling exactly that. […]",
       "source_updated_at": "2026-11-25T15:41:43Z",
       "ingress": {
@@ -26168,7 +26342,7 @@
       "source": "The Information (Google News)",
       "title": "AI Safety Advocates Sour on Anthropic - The Information",
       "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxOa3ZodFhQOUxtRVlOZjVrOXdVU3c5V0Z2QU1NVXQ2RFhaUllvcEtYa2x2X0s2QmVicWRzbmhxSG5wVmQ5WmlwNHdTZUVBTW9pb0R1TVoxT0pIbjJaYWkxUjBXbDRJLUJnVXp5UDNFZkhQc3FHNkU5LUtXSlpHV0t2NzVKSzJSdm12Z2JDNXpCZWo?oc=5",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "AI Safety Advocates Sour on Anthropic The Information",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMikAFBVV95cUxOa3ZodFhQOUxtRVlOZjVrOXdVU3c5V0Z2QU1NVXQ2RFhaUllvcEtYa2x2X0s2QmVicWRzbmhxSG5wVmQ5WmlwNHdTZUVBTW9pb0R1TVoxT0pIbjJaYWkxUjBXbDRJLUJnVXp5UDNFZkhQc3FHNkU5LUtXSlpHV0t2NzVKSzJSdm12Z2JDNXpCZWo?oc=5"
@@ -26460,7 +26634,7 @@
       "source": "TechCrunch AI",
       "title": "Amazon and Meta reportedly in talks to lift blockade on AI agent Muse",
       "url": "https://techcrunch.com/2026/11/25/amazon-and-meta-reportedly-in-talks-to-lift-blockade-on-ai-agent-muse",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Amazon and Meta are discussing a potential deal that would end a two-month-long blockade of Muse.",
       "source_updated_at": "2026-11-25T14:10:18Z",
       "ingress": {
@@ -26550,7 +26724,7 @@
       "source": "The Information (Google News)",
       "title": "Chinese AI Firms Confront Dire Future as U.S. Tightens Access to Chips and Tokens - The Information",
       "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPcUtIYnhjUFNSRkJpR2wtTzl0Z3RIekt5dHF0Q0lGamVnNjBPU0Y1V19QY2p3MGc0NVlUSjV6cmVTN2FYVkk1cXJseTJKMXo0UG5LRC1iMU91WlcxbFFwc0p0ZEtKcS1reTVsbk1hWk1YZWpiWHMzYWNXTUg2YjZLYjQwbTFxVUlxRDBVTDRWcTFVa1JsZ2hCNTNGSEhHQWdrNnNCbGctUWU4d0M2cmxB?oc=5",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Chinese AI Firms Confront Dire Future as U.S. Tightens Access to Chips and Tokens The Information",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMirwFBVV95cUxPcUtIYnhjUFNSRkJpR2wtTzl0Z3RIekt5dHF0Q0lGamVnNjBPU0Y1V19QY2p3MGc0NVlUSjV6cmVTN2FYVkk1cXJseTJKMXo0UG5LRC1iMU91WlcxbFFwc0p0ZEtKcS1reTVsbk1hWk1YZWpiWHMzYWNXTUg2YjZLYjQwbTFxVUlxRDBVTDRWcTFVa1JsZ2hCNTNGSEhHQWdrNnNCbGctUWU4d0M2cmxB?oc=5"
@@ -26834,7 +27008,7 @@
       "source": "Reuters AI (Google News)",
       "title": "BP transfers 3,000 finance operations staff to Indian AI services firm Wipro - Reuters",
       "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOcHhCZkhObFRGSG0tX05fMnZnM3JjbXJfakdkRWtsRFI0b1huT3BuWVZySkszSEZzejNpUFJqeVNiYXlka0k1WGpvRUQ0YldCVmljX0hWWllHVGVkR0FnWGtUb0hqQklFNmVZeThoUlF3OWZoSnZCTVBPeURyVlB5UnVsUTVZM2piRHZfd0RQV1hvNTdkRXFmUDVLVklqaW50eUpOcUU3UlRxWGQ4dTZLZw?oc=5",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "BP transfers 3,000 finance operations staff to Indian AI services firm Wipro Reuters",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMisAFBVV95cUxOcHhCZkhObFRGSG0tX05fMnZnM3JjbXJfakdkRWtsRFI0b1huT3BuWVZySkszSEZzejNpUFJqeVNiYXlka0k1WGpvRUQ0YldCVmljX0hWWllHVGVkR0FnWGtUb0hqQklFNmVZeThoUlF3OWZoSnZCTVBPeURyVlB5UnVsUTVZM2piRHZfd0RQV1hvNTdkRXFmUDVLVklqaW50eUpOcUU3UlRxWGQ4dTZLZw?oc=5"
@@ -26926,7 +27100,7 @@
       "source": "InfoQ CN",
       "title": "破發不算最疼，Claude Code核心班底被OpenAI瘋狂收割才是：Anthropic的程式設計王座懸了？",
       "url": "https://www.infoq.cn/article/z9IwzAY8hP15oDa2VKi6",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/z9IwzAY8hP15oDa2VKi6?utm_source=rss&utm_medium=article"
@@ -27023,7 +27197,7 @@
       "source": "InfoQ CN",
       "title": "Snowflake CoCo 再進化：讓資料開發進入 Agent 自主執行時代 ｜ 技術趨勢",
       "url": "https://www.infoq.cn/article/vfmBDlfQRRfHq4Jyi5b6",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/vfmBDlfQRRfHq4Jyi5b6?utm_source=rss&utm_medium=article"
@@ -27117,7 +27291,7 @@
       "source": "InfoQ CN",
       "title": "Uber 推出安全 AI 框架：對 AI 智慧體進行全生命週期治理",
       "url": "https://www.infoq.cn/article/xA3g2i0VtTZIOVePMedY",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/xA3g2i0VtTZIOVePMedY?utm_source=rss&utm_medium=article"
@@ -27211,7 +27385,7 @@
       "source": "InfoQ CN",
       "title": "Siri AI 開發者預覽版讓 iOS、iPadOS 和 macOS 應用能夠與 Siri 整合",
       "url": "https://www.infoq.cn/article/j1aQzS6OrB9aDlChCwiQ",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/j1aQzS6OrB9aDlChCwiQ?utm_source=rss&utm_medium=article"
@@ -27303,7 +27477,7 @@
       "source": "InfoQ CN",
       "title": "AI寫程式碼，誰來交付？",
       "url": "https://www.infoq.cn/video/zrq9NZI5eJVetI8kA5kW",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/video/zrq9NZI5eJVetI8kA5kW?utm_source=rss&utm_medium=article"
@@ -27395,7 +27569,7 @@
       "source": "InfoQ CN",
       "title": "前蘋果空間智慧首席科學家權龍再創業，成立 Envision AI 研發空間物理基礎模型",
       "url": "https://www.infoq.cn/article/3rQ4aRqts2zywSBmeJvb",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/3rQ4aRqts2zywSBmeJvb?utm_source=rss&utm_medium=article"
@@ -27490,7 +27664,7 @@
       "source": "Wired AI",
       "title": "Meta Refused to Share Muse for Testing, UK Financial Watchdog Complains",
       "url": "https://www.wired.com/story/meta-refused-to-share-muse-for-testing-uk-financial-watchdog-complains",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "The FCA warned against “another force of attack” from agents after the company declined a request to work on joint testing ahead of rolling out its personal agent in the UK on Tuesday.",
       "source_updated_at": "2026-11-26T10:51:27Z",
       "ingress": {
@@ -27581,7 +27755,7 @@
       "source": "InfoQ CN",
       "title": "從語音基座到語音應用：訊飛語音大模型能力全解",
       "url": "https://www.infoq.cn/minibook/h1BlHGoTKyeLgs0KmAhe",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/minibook/h1BlHGoTKyeLgs0KmAhe?utm_source=rss&utm_medium=article"
@@ -27675,7 +27849,7 @@
       "source": "InfoQ CN",
       "title": "清華大學教授李寧已確認出席 AICon北京，分享生成式人工智慧驅動的組織變革與組織管理",
       "url": "https://www.infoq.cn/article/xzQgJEw18ECxHGA7FFBx",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/xzQgJEw18ECxHGA7FFBx?utm_source=rss&utm_medium=article"
@@ -27770,7 +27944,7 @@
       "source": "InfoQ CN",
       "title": "AMD 聯合中科慧靈完成人形機器人端側 AI 驗證，探索“大小腦”雙處理器架構",
       "url": "https://www.infoq.cn/article/stLpgV1kNHuvr21qRH9x",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/stLpgV1kNHuvr21qRH9x?utm_source=rss&utm_medium=article"
@@ -27864,7 +28038,7 @@
       "source": "InfoQ CN",
       "title": "比駭客入侵更難防的，是 AI 正在執行的“合法操作”：企業安全防線，可能守錯了地方",
       "url": "https://www.infoq.cn/article/LwwdlrNGE3tbxPO1wIcT",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/LwwdlrNGE3tbxPO1wIcT?utm_source=rss&utm_medium=article"
@@ -27958,7 +28132,7 @@
       "source": "InfoQ CN",
       "title": "“我比黃仁勳更早看到英偉達的未來”！AI 教父回擊黃仁勳，直言大規模失業是 AI 巨頭賺錢的副作用",
       "url": "https://www.infoq.cn/article/6i2DoIJiaTcKyR0UyurQ",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/6i2DoIJiaTcKyR0UyurQ?utm_source=rss&utm_medium=article"
@@ -28050,7 +28224,7 @@
       "source": "InfoQ CN",
       "title": "阿福學會“望聞問切”背後，真實醫療需求正在重塑百靈大模型",
       "url": "https://www.infoq.cn/article/V7VOeFvEPLrHAN2EFmUa",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/V7VOeFvEPLrHAN2EFmUa?utm_source=rss&utm_medium=article"
@@ -28987,7 +29161,7 @@
       "source": "數位時代 (Google News)",
       "title": "Google打響AI價格戰！Gemini 4 Neon便宜25%、效能直逼頂尖模型，市場競爭再升溫 - 數位時代",
       "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBtSFc5OTU2dHU4RmtVazlFVVdESzFnNC1tb01LVWhpMkZiWGM1c0JKR2QtUU1LbXZYWTlQMy1paUM2WjQ1RGs3VEtSNUlhVWd2Tmh2Q3B3X2dOMmhqMU8wMDFUOEhFbndVaE5Xb09HdWpyQnZqYWNsNWJ6U3BHLUU?oc=5",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Google打響AI價格戰！Gemini 4 Neon便宜25%、效能直逼頂尖模型，市場競爭再升溫 數位時代",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMif0FVX3lxTFBtSFc5OTU2dHU4RmtVazlFVVdESzFnNC1tb01LVWhpMkZiWGM1c0JKR2QtUU1LbXZYWTlQMy1paUM2WjQ1RGs3VEtSNUlhVWd2Tmh2Q3B3X2dOMmhqMU8wMDFUOEhFbndVaE5Xb09HdWpyQnZqYWNsNWJ6U3BHLUU?oc=5"
@@ -29081,7 +29255,7 @@
       "source": "數位時代 (Google News)",
       "title": "黃仁勳下一步要賺什麼錢？輝達瞄準兆美元AI工廠市場，關鍵佈局早在2020年 - 數位時代",
       "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPX2NvSE9keVRVT0RYVmdFdUVvRk8yOUw5MW5yVnV0QXBkUWtjZ3g1a09jc3UtdDRkWW9vcGEzVGc4dE0tTDNpNlpyblJaYjlQTzVETlVablc5M0VFSTBCMjlJWjFwYnl0aW9SeW8yaV9EMWJ3bnhGTzNYR3BLRUxEdjZqdm5odEZfZ3dnNGJ1eXEta25mMnln?oc=5",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "黃仁勳下一步要賺什麼錢？輝達瞄準兆美元AI工廠市場，關鍵佈局早在2020年 數位時代",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMilwFBVV95cUxPX2NvSE9keVRVT0RYVmdFdUVvRk8yOUw5MW5yVnV0QXBkUWtjZ3g1a09jc3UtdDRkWW9vcGEzVGc4dE0tTDNpNlpyblJaYjlQTzVETlVablc5M0VFSTBCMjlJWjFwYnl0aW9SeW8yaV9EMWJ3bnhGTzNYR3BLRUxEdjZqdm5odEZfZ3dnNGJ1eXEta25mMnln?oc=5"
@@ -29173,7 +29347,7 @@
       "source": "RuntimeWire",
       "title": "OpenAI corrects GPT-6.2 billing error, making usage limits arrive sooner",
       "url": "https://runtimewire.com/article/openai-corrects-gpt-6-2-billing-error-making-usage-limits-arrive-sooner",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "OpenAI's Tibo Sottiaux says limits will arrive 40% faster on Astra and 25% faster on Sol than last week. OpenAI promises no retroactive charge and one banked reset for Go, Plus, Pro and Business.",
       "source_updated_at": "2026-11-26T04:06:40Z",
       "ingress": {
@@ -29266,7 +29440,7 @@
       "source": "數位時代 (Google News)",
       "title": "搶攻AI算力！SpaceX獲FCC核准百萬顆太空資料中心衛星，最晚2033年須開始部署 - 數位時代",
       "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE9mZ2ROYjc0NGpWWndFVE9pc2w2VGdnOElVNFRSbEhCdUEzRktsa1AwSWZmMXQyUzZjYm9iT1hLVHhYVWlaVTVFenpTZ1ZlZXRVUTRkLU1KSEFiX2tFVGVLWHBXYnNickVzVkZiQjVRdzdEOElmTXc?oc=5",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "搶攻AI算力！SpaceX獲FCC核准百萬顆太空資料中心衛星，最晚2033年須開始部署 數位時代",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMidkFVX3lxTE9mZ2ROYjc0NGpWWndFVE9pc2w2VGdnOElVNFRSbEhCdUEzRktsa1AwSWZmMXQyUzZjYm9iT1hLVHhYVWlaVTVFenpTZ1ZlZXRVUTRkLU1KSEFiX2tFVGVLWHBXYnNickVzVkZiQjVRdzdEOElmTXc?oc=5"
@@ -29360,7 +29534,7 @@
       "source": "RuntimeWire",
       "title": "OpenAI starts testing Private Inference to protect prompts during processing",
       "url": "https://runtimewire.com/article/openai-starts-testing-private-inference-to-protect-prompts-during-processing",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Sam Altman says a small group of customers is testing the confidential-computing layer OpenAI previewed at DevDay on September 29th.",
       "source_updated_at": "2026-11-25T18:10:07Z",
       "ingress": {
@@ -29451,7 +29625,7 @@
       "source": "RuntimeWire",
       "title": "Exclusive: Researchers who found Claude Fable 5.2 eases off when a cheat is in sight didn't tell Anthropic first, and haven't tested other models",
       "url": "https://runtimewire.com/article/exclusive-researchers-who-found-claude-fable-5-2-eases-off-when-a-cheat-is-in",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Goodhart Labs co-author Dean Valentine told RuntimeWire the team didn't share its findings with Anthropic before publishing, and that the experiment cost too much to repeat on other models.",
       "source_updated_at": "2026-11-25T17:34:34Z",
       "ingress": {
@@ -29542,7 +29716,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "美財政部 FinCEN 遭駭停擺 5 天，資訊長在用 AI 做《文明帝國》",
       "url": "https://www.blocktempo.com/us-treasury-cio-vibe-coding-civilization-clone-fincen-cyber-incident",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "美國財政部金融犯罪執法網路（FinCEN）遭資安入侵，銀行申報可疑交易的批次系統停擺約一週。同一段時間，財政部 […]",
       "ingress": {
         "kind": "public_json",
@@ -29820,7 +29994,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "AI 若真崩盤，美國、臺灣經濟會比 2000 網路泡沫更慘？",
       "url": "https://www.blocktempo.com/ai-bubble-burst-economy-worse-dotcom-crash-data-center-debt",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "《華爾街日報》整理經濟學家看法：AI 泡沫若破，美國家庭持股的比重比網路泡沫時更高，資料中心借貸又難以追蹤，現 […]",
       "ingress": {
         "kind": "public_json",
@@ -29908,7 +30082,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "Claude Code 門面 Thariq 也跳了：Anthropic 產品、工程、成長三路高管投奔 OpenAI",
       "url": "https://www.blocktempo.com/thariq-shihipar-openai-anthropic-claude-code-talent-exodus-cat-wu",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "一個月內，Claude Code 產品負責人、最常在 X 上面對開發者的工程師，與 Anthropic 第一位 […]",
       "ingress": {
         "kind": "public_json",
@@ -30000,7 +30174,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "AI 實驗室握有密碼學「炸彈」？科學家：宛如奇點開端",
       "url": "https://www.blocktempo.com/ai-labs-cryptography-bombshells-aaronson-warning-lean-proofs",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "曾任 OpenAI 研究員的理論電腦科學家 Scott Aaronson 發文警告，多家 AI 實驗室手上可能 […]",
       "ingress": {
         "kind": "public_json",
@@ -30088,7 +30262,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "FCC 批准 SpaceX 部署百萬顆軌道 AI 衛星，能否商業化還是未知數",
       "url": "https://www.blocktempo.com/fcc-authorizes-spacex-million-satellites-starmind-orbital-ai-data-center",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "美國聯邦通訊委員會（FCC）11 月 25 日批准 SpaceX 部署最多 100 萬顆 Starmind 軌 […]",
       "ingress": {
         "kind": "public_json",
@@ -30176,7 +30350,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "Claude 做的小工具現在能一鍵裝成 Mac、Windows 桌面 App（免打包、免 API 金鑰）",
       "url": "https://www.blocktempo.com/anthropic-claude-artifacts-install-desktop-apps-mac-windows-beta-permissions",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Claude 對話裡做出的小工具，現在可一鍵裝成 Mac 與 Windows 桌面 App，授權分三級，但要連 […]",
       "ingress": {
         "kind": "public_json",
@@ -30266,7 +30440,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "Codex 額度會更快用完？OpenAI 說 GPT-6.2 先前少扣了",
       "url": "https://www.blocktempo.com/openai-codex-usage-miscount-compensation-credits-astra-sol-allowance-correction",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "有用戶拿到約當 290 美元用量的補償積分，但補償是一次性的，少扣的修正卻是往後長期適用。 （前情提要：Ope […]",
       "ingress": {
         "kind": "public_json",
@@ -30358,7 +30532,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "黎曼猜想167年被AI攻克，一行恆真定義竟引爆信任風暴",
       "url": "https://www.blocktempo.com/lean-mathlib-true-levent-fro-false-anygeometry-bug-claude-grh",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "Anthropic科學家與Claude協作完成1700萬行程式碼的黎曼猜想形式化證明，社群質疑與防禦性核驗同步 […]",
       "ingress": {
         "kind": "public_json",
@@ -30446,7 +30620,7 @@
       "source": "36Kr",
       "title": "4.1萬行AI程式碼塞進Linux核心，Linus一頓怒斥：“告訴你的AI助手，先把自己的事情做好” - 36Kr",
       "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE9wU1ZMUHdGTFVpV2dRMUhwMExuSFdPNE1zQmhvay1naGNGUnNvRGhtZEx1TmxVTEN0Q0g0M01KU2hHMGprd0draWgybjhoUQ?oc=5",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "4.1萬行AI程式碼塞進Linux核心，Linus一頓怒斥：“告訴你的AI助手，先把自己的事情做好” 36Kr",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiTkFVX3lxTE9wU1ZMUHdGTFVpV2dRMUhwMExuSFdPNE1zQmhvay1naGNGUnNvRGhtZEx1TmxVTEN0Q0g0M01KU2hHMGprd0draWgybjhoUQ?oc=5"
@@ -30477,25 +30651,7 @@
           "conflicts": []
         }
       },
-      "article_key": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE9wU1ZMUHdGTFVpV2dRMUhwMExuSFdPNE1zQmhvay1naGNGUnNvRGhtZEx1TmxVTEN0Q0g0M01KU2hHMGprd0draWgybjhoUQ?oc=5",
       "security_topic": false,
-      "business_events": [],
-      "ai_is_related": true,
-      "ai_score": 0.65,
-      "ai_label": "ai_product_update",
-      "ai_relevance_reason": "matched_ai_signal",
-      "ai_signals": [],
-      "ai_noise": [],
-      "source_tier": "watchlist",
-      "source_tier_label": "未審來源",
-      "source_tier_rank": 6,
-      "summary_zh": "4.1萬行AI程式碼塞進Linux核心，Linus一頓怒斥：“告訴你的AI助手，先把自己的事情做好” 36Kr",
-      "title_original": "4.1萬行AI程式碼塞進Linux核心，Linus一頓怒斥：“告訴你的AI助手，先把自己的事情做好” - 36Kr",
-      "title_en": null,
-      "title_zh": "4.1萬行AI程式碼塞進Linux核心，Linus一頓怒斥：“告訴你的AI助手，先把自己的事情做好” - 36Kr",
-      "title_bilingual": "4.1萬行AI程式碼塞進Linux核心，Linus一頓怒斥：“告訴你的AI助手，先把自己的事情做好” - 36Kr",
-      "corroboration_key": "cn_aggregator",
-      "corroboration_status": "identified",
       "source_policy": {
         "schema_version": 1,
         "policy_id": "publisher-governance-v1",
@@ -30517,6 +30673,24 @@
           "not_permitted_for_radar"
         ]
       },
+      "article_key": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE9wU1ZMUHdGTFVpV2dRMUhwMExuSFdPNE1zQmhvay1naGNGUnNvRGhtZEx1TmxVTEN0Q0g0M01KU2hHMGprd0draWgybjhoUQ?oc=5",
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.65,
+      "ai_label": "ai_product_update",
+      "ai_relevance_reason": "matched_ai_signal",
+      "ai_signals": [],
+      "ai_noise": [],
+      "source_tier": "watchlist",
+      "source_tier_label": "未審來源",
+      "source_tier_rank": 6,
+      "summary_zh": "4.1萬行AI程式碼塞進Linux核心，Linus一頓怒斥：“告訴你的AI助手，先把自己的事情做好” 36Kr",
+      "title_original": "4.1萬行AI程式碼塞進Linux核心，Linus一頓怒斥：“告訴你的AI助手，先把自己的事情做好” - 36Kr",
+      "title_en": null,
+      "title_zh": "4.1萬行AI程式碼塞進Linux核心，Linus一頓怒斥：“告訴你的AI助手，先把自己的事情做好” - 36Kr",
+      "title_bilingual": "4.1萬行AI程式碼塞進Linux核心，Linus一頓怒斥：“告訴你的AI助手，先把自己的事情做好” - 36Kr",
+      "corroboration_key": "cn_aggregator",
+      "corroboration_status": "identified",
       "source_material": {
         "title_original": "",
         "title": "4.1万行AI代码塞进Linux内核，Linus一顿怒斥：“告诉你的AI助手，先把自己的事情做好” - 36Kr",
@@ -30540,7 +30714,7 @@
       "source": "36Kr",
       "title": "AI證明黎曼猜想，為AI4S指明瞭什麼方向？ - 36Kr",
       "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE5VMUloX0lORmw1eE9HSWxLalY0WHFGaVc3TnByNEtGbEpHVTA1UWZXZ0ptOWt6OHdIcUR6R1JXQ0JNU21qMGJRWnJQX25Qdw?oc=5",
-      "last_seen_at": "2026-11-26T11:35:35.219394Z",
+      "last_seen_at": "2026-11-26T12:05:46.706194Z",
       "summary": "AI證明黎曼猜想，為AI4S指明瞭什麼方向？ 36Kr",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiTkFVX3lxTE5VMUloX0lORmw1eE9HSWxLalY0WHFGaVc3TnByNEtGbEpHVTA1UWZXZ0ptOWt6OHdIcUR6R1JXQ0JNU21qMGJRWnJQX25Qdw?oc=5"
@@ -30571,25 +30745,7 @@
           "conflicts": []
         }
       },
-      "article_key": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE5VMUloX0lORmw1eE9HSWxLalY0WHFGaVc3TnByNEtGbEpHVTA1UWZXZ0ptOWt6OHdIcUR6R1JXQ0JNU21qMGJRWnJQX25Qdw?oc=5",
       "security_topic": false,
-      "business_events": [],
-      "ai_is_related": true,
-      "ai_score": 0.65,
-      "ai_label": "ai_product_update",
-      "ai_relevance_reason": "matched_ai_signal",
-      "ai_signals": [],
-      "ai_noise": [],
-      "source_tier": "watchlist",
-      "source_tier_label": "未審來源",
-      "source_tier_rank": 6,
-      "summary_zh": "AI證明黎曼猜想，為AI4S指明瞭什麼方向？ 36Kr",
-      "title_original": "AI證明黎曼猜想，為AI4S指明瞭什麼方向？ - 36Kr",
-      "title_en": null,
-      "title_zh": "AI證明黎曼猜想，為AI4S指明瞭什麼方向？ - 36Kr",
-      "title_bilingual": "AI證明黎曼猜想，為AI4S指明瞭什麼方向？ - 36Kr",
-      "corroboration_key": "cn_aggregator",
-      "corroboration_status": "identified",
       "source_policy": {
         "schema_version": 1,
         "policy_id": "publisher-governance-v1",
@@ -30611,6 +30767,24 @@
           "not_permitted_for_radar"
         ]
       },
+      "article_key": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE5VMUloX0lORmw1eE9HSWxLalY0WHFGaVc3TnByNEtGbEpHVTA1UWZXZ0ptOWt6OHdIcUR6R1JXQ0JNU21qMGJRWnJQX25Qdw?oc=5",
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.65,
+      "ai_label": "ai_product_update",
+      "ai_relevance_reason": "matched_ai_signal",
+      "ai_signals": [],
+      "ai_noise": [],
+      "source_tier": "watchlist",
+      "source_tier_label": "未審來源",
+      "source_tier_rank": 6,
+      "summary_zh": "AI證明黎曼猜想，為AI4S指明瞭什麼方向？ 36Kr",
+      "title_original": "AI證明黎曼猜想，為AI4S指明瞭什麼方向？ - 36Kr",
+      "title_en": null,
+      "title_zh": "AI證明黎曼猜想，為AI4S指明瞭什麼方向？ - 36Kr",
+      "title_bilingual": "AI證明黎曼猜想，為AI4S指明瞭什麼方向？ - 36Kr",
+      "corroboration_key": "cn_aggregator",
+      "corroboration_status": "identified",
       "source_material": {
         "title_original": "",
         "title": "AI证明黎曼猜想，为AI4S指明了什么方向？ - 36Kr",
@@ -30728,10 +30902,10 @@
     "schema_version": 2,
     "policy_id": "publisher-governance-v1",
     "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
-    "generated_at": "2026-11-26T11:35:35.219394Z",
-    "brief_generation_id": "bg1_2bf94f5bc63c055254cb40d8",
-    "brief_state_revision": "285fcafe28e96456480f1673d765a0c4ca6ffcf576f51910cff6fcfe3784b137",
-    "generation_id": "pg2_c79a829897e9e0c868284d99",
+    "generated_at": "2026-11-26T12:05:46.706194Z",
+    "brief_generation_id": "bg1_599042295be52916e1eda4ab",
+    "brief_state_revision": "d7f04dec1729d4a4f2c3044ed6b0670749177fbd699016f6f66f90588442d586",
+    "generation_id": "pg2_35fe84413ebbd473fae50b88",
     "status": "ready",
     "selection_policy": "impact-v4-personnel-capital",
     "default_visible_limit": 5
