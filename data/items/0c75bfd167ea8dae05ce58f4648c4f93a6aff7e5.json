@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon Athena 推出用于可观测性、审计和使用情况分析的系统表",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/athena-system-tables",
-  "last_seen_at": "2026-11-26T00:35:44.430457Z",
+  "last_seen_at": "2026-11-26T01:05:35.788263Z",
   "summary": "Amazon Athena 现已提供系统表，可自动捕获您的使用情况数据，并将该数据用于可观测性、使用情况分析和审计使用案例。启用系统表后，跨工作组查询完成数分钟内即可获取使用情况数据，这些数据以服务托管的只读 Iceberg 表形式存储在 Amazon S3 表类数据存储服务 中，并且支持配置保留期。您可以直接使用 Athena 查询数据，而 AWS 将为您管理这些表，包括模式定义、分区、压缩和快照维护，从而消除所有运维负担。 Athena 通过 GetQueryExecution 等 API、CloudWatch 指标和 CloudTrail 日志提供使用情况数据。通过此次发布，使用情况数据还可以 Iceberg 表的形式提供，您可以直接对其进行搜索、筛选、聚合和联接，而无需构建或维护自定义管道。平台团队可以查询 query_executions 表，使用简单的 SQL 语句构建成本分配控制面板，按工作组、用户或表显示扫描的数据，且无需自定义 ETL。此外，可通过 AWS Agent Toolkit 查询系统表数据，以呈现使用模式并提供优化建议。由于数据以开放的 Apache Iceberg 格式存储，因此您也可以使用 DuckDB 、 Amazon Redshift 、 Amazon EMR 或任何其他兼容 Iceberg 的引擎进行查询。 Athena 系统表已在提供 Athena 和 Amazon S3 表类数据存储服务的所有 AWS 区域推出。要开始使用，请从 Athena 控制台或 API 启用系统表。要了解更多信息，请参阅 Amazon Athena 文档 或 博客 。",
   "publisher_links": [
     "https://aws.amazon.com/athena/",

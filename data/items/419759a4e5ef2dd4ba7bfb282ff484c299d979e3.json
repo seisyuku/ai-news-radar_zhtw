@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "基于速率的 AWS WAF 高级规则现已在 AWS GovCloud（美国）、泰国和墨西哥推出",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/waf-advanced-rate-rules-available",
-  "last_seen_at": "2026-11-26T00:35:44.430457Z",
+  "last_seen_at": "2026-11-26T01:05:35.788263Z",
   "summary": "基于费率的 AWS WAF 高级规则现已在亚太地区（泰国）、墨西哥（中部）、AWS GovCloud（美国东部）和 AWS GovCloud（美国西部）区域推出。这些区域的客户现在可以使用自定义键来聚合请求，除了现有的 5 分钟和 10 分钟选项外，还可以选择 1 分钟或 2 分钟的评估时段，这些功能已经在其他 AWS 区域推出。 基于速率的规则会对请求进行计数，并在请求速率超过您设置的限制时应用诸如屏蔽或验证码之类的操作。以前，这些区域中基于速率的规则只能按 IP 地址来聚合请求，并使用 5 分钟或 10 分钟的评估时段。现在，您可以按请求组件（例如 HTTP 标头、cookie、查询字符串、URI 路径、HTTP 方法和标签命名空间）进行聚合，并将其中最多五个组合成一个复合键。例如，您可以限制每个 IP 地址和用户-代理对的登录尝试次数，或者限制每个会话 cookie 的登录尝试，这有助于抵御散布在许多 IP 地址上的攻击。较短的评估时段可以更早检测到请求洪泛，而较长的评估时段则能捕捉更缓慢的持续性攻击。 您可以在 AWS WAF 控制台、AWS CLI 和 SDK 以及 AWS CloudFormation 中配置这些选项。使用这些功能无需额外付费，适用标准 AWS WAF 定价。基于速率的高级规则现已在所有提供 AWS WAF 的商用 AWS 区域和 AWS GovCloud（美国）区域推出。要了解更多信息，请参阅《AWS WAF 开发人员指南》中的 使用基于速率的规则语句 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/waf/latest/developerguide/waf-rule-statement-type-rate-based.html"
