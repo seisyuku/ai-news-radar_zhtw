@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "AWS IAM Identity Center 现在支持 SAML 请求中的 ForceAuthn",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/iam-identity-center-reauth",
-  "last_seen_at": "2026-11-26T02:05:35.508453Z",
+  "last_seen_at": "2026-11-26T02:35:31.014630Z",
   "summary": "AWS IAM Identity Center 现在允许您选择要求工作人员用户在每次用户交互会话到期时向您的外部身份提供方 (IdP) 重新进行身份验证。默认情况下，当用户的会话到期时，IAM Identity Center 会通过用户的现有 IdP 会话对其进行续订，并且不会提示用户再次登录。对于具有严格安全或合规要求且要求定期进行明确用户验证的组织，这种自动续订可能不符合策略要求。 当您将用户重新身份验证设置为必需且用户的交互式会话到期时，IAM Identity Center 会提示用户使用您的外部 IdP 重新进行身份验证。这可以帮助您对受监管的工作负载执行更强的登录控制。IAM Identity Center 通过在发送给您的 IdP 的 SAML 请求中添加 SAML 2.0 ForceAuthn 属性来实现这一点。 您可以为连接到外部 IdP 作为其身份来源的任何 IAM Identity Center 实例（组织或账户）配置用户重新身份验证。该设置仅适用于服务提供方发起的登录，用户通过您的 AWS 访问门户 URL 登录。对用户重新身份验证设置的更改会记录在 AWS CloudTrail 中，因此您可以审核该设置的开启或关闭时间。 用户重新身份验证功能现已在提供 IAM Identity Center 的所有 AWS 区域推出，无需额外付费。要了解更多信息，请参阅《AWS IAM Identity Center 用户指南》中的 要求用户重新身份验证 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/singlesignon/latest/userguide/require-user-reauthentication.html"
