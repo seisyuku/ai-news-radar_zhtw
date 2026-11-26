@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon Cognito 现在支持用户池会话管理",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/amazon-cognito-session-management",
-  "last_seen_at": "2026-11-26T09:35:36.218696Z",
+  "last_seen_at": "2026-11-26T10:05:31.511520Z",
   "summary": "Amazon Cognito 现在支持用户池的会话管理，可让您查看并控制用户登录您的应用程序时建立的会话。单点登录（SSO）会话在用户通过托管登录进行登录时创建，使用户无需重新进行身份验证，即可访问其他应用程序客户端。令牌会话在用户登录应用程序客户端并收到令牌时创建。通过会话管理，您可以列出用户在所有设备和应用程序客户端上的活跃 SSO 会话和令牌会话，并按需撤销其中的任意会话。现在，您还可以配置每个应用程序客户端复用 SSO 会话的时长，指定多久后要求重新进行身份验证，取代了此前固定的一小时时长。 每个会话都包含会话类型、应用程序客户端 ID、设备类型、最后活动时间和位置以及初始登录时间等详细信息，因此您可以自行构建面向终端用户或管理员的会话体验。您可以撤销单个会话（可选择同时撤销与之关联的会话），或使用全局注销来结束与某个用户关联的所有会话。您还可以设置每个用户的活跃令牌会话数量上限。 会话管理适用于 Essentials 或 Plus 功能计划中的用户池，并已在所有提供 Amazon Cognito 的 AWS 区域推出。 您可以使用 AWS 管理控制台、API、AWS 命令行界面和 AWS 软件开发工具包管理会话，并使用 AWS CloudFormation 配置设置。要了解详细信息，请访问 开发人员指南 和 API 参考 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/cognito/latest/developerguide/managing-user-sessions.html",

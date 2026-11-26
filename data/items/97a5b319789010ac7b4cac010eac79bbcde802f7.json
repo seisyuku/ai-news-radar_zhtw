@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "DeepSeek-V4-Pro、DeepSeek-V4-Flash 和 DeepSeek-V4.1-Flash 模型现已在 Amazon SageMaker JumpStart 中提供",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/01/deepseek-v4-pro-v4-flash-v4.1-flash-on-sagemaker-jumpstart",
-  "last_seen_at": "2026-11-26T09:35:36.218696Z",
+  "last_seen_at": "2026-11-26T10:05:31.511520Z",
   "summary": "DeepSeek 的 DeepSeek-V4-Pro、DeepSeek-V4-Flash 和 DeepSeek-V4.1-Flash 模型现已在 Amazon SageMaker JumpStart 中提供，进一步扩充了 AWS 客户可用的基础模型组合。这三款开放权重混合专家（MoE）语言模型在 MIT 许可证下发布，可在推理、编程和智能体工作负载中实现前沿级别的性能，同时仅在每个 token 上激活其全部参数中的一小部分，从而在大规模应用中实现高效率。 这些模型利用专项能力应对不同的人工智能挑战： DeepSeek-V4-Pro 专为旗舰级复杂推理与高质量文本生成场景而设计。这款 1.6T 参数级 MoE 模型为每个 token 激活 49B 参数，并支持 100 万 token 上下文窗口，非常适合长文档分析、多步推理，以及需要最大模型容量的高要求生成任务。 DeepSeek-V4-Flash 是一款高效的 284B 参数级 MoE 模型，每个 token 激活 13B 参数，能够以显著更低的计算成本来提供强劲性能。它支持与 V4-Pro 相同的 100 万 token 上下文窗口，非常适合对延迟敏感、注重成本的生产部署，并且适用于各类语言任务。 DeepSeek-V4.1-Flash 提供新一代智能体效率与原生多模态支持。它基于新颖的因果编码器-解码器（CED）架构构建，主干参数量达 552B，在预填充期间仅激活 8B 参数，在解码期间激活 16B 参数，同时支持 100 万 token 上下文窗口和 38.4 万最大输出 token 数。其压缩稀疏注意力 2（CSA2）与 FP4 KV 缓存机制，将全局 KV 缓存占用降至 V4-Flash 的约 1/4，大幅提升了智能体工作负载、编程任务与视觉任务的成本效率。 借助 SageMaker JumpStart，客户只需点击几下即可部署这些模型中的任何一个，以解决其特定的人工智能使用案例。 要开始使用这些模型，请导航到 SageMaker 控制台中的 SageMaker JumpStart 模型目录，或使用 SageMaker Python SDK 将模型部署到您的 AWS 账户。有关在 SageMaker JumpStart 中部署和使用基础模型的更多信息，请参阅 Amazon SageMaker JumpStart 文档 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/sagemaker/latest/dg/studio-jumpstart.html"
