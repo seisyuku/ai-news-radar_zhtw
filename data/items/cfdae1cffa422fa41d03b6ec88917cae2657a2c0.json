@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "AWS 宣布为 Amazon VPC 提供网络灵活成本分配",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/networking-flexible-cost-allocation",
-  "last_seen_at": "2026-11-27T10:35:35.877247Z",
+  "last_seen_at": "2026-11-27T11:05:35.370822Z",
   "summary": "Amazon 虚拟私有云 (VPC) 现在支持网络灵活成本分配 (FCA)，该功能将共享网络成本按实际产生成本的资源进行分配，因此您可以查看每个团队或应用程序使用了哪些资源。到目前为止， AWS 成本和使用情况报告 (CUR)（包括 AWS Data Exports 中的 CUR 2.0）将网络使用情况显示为一个项目，大多数客户使用自定义脚本和手动估算在多个团队之间进行拆分。FCA 按生成该行项目的资源对其进行拆分。它支持 NAT 网关数据处理和数据传输，包括互联网流量，以及区域内 Amazon Elastic Compute Cloud (Amazon EC2) 和 VPC 对等数据传输。 如今，当多个团队共享诸如 NAT 网关之类的资源时，拥有该资源的账户需要承担全部费用，却看不到是哪个团队或应用程序产生了这些费用。为了解决这个问题，一些客户构建了自定义脚本来分析 VPC 流日志，这需要持续的工程工作。另一些客户则使用固定百分比的分配，这会导致对某些团队收费过高，而对另一些团队则收费过低。FCA 根据流量来源对使用情况进行细分，帮助您根据应用和团队准确跟踪财务指标。首先，将成本分配策略附加到 NAT 网关、VPC 对等连接或 Amazon EC2 实例，然后在 AWS 账单与成本管理控制台的拆分成本分配数据下选择联网灵活成本分配。分配的行项目将在 24 小时内显示在您的 CUR 中。FCA 仅更改费用在报告中的显示方式。您的账单和总费用保持不变。 FCA 不额外收费。该功能在所有 AWS 商业区域受支持，但中东（巴林）和中东（阿联酋）除外，也已在中国区域推出，未在 AWS GovCloud（美国）区域推出。要了解更多信息，请访问 网络 FCA 产品页面 。",
   "publisher_links": [
     "https://aws.amazon.com/aws-cost-management/aws-cost-and-usage-reporting/",
