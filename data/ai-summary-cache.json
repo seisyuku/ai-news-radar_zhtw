@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v3",
   "entries": {
+    "621fb4559c7f49d8f25f27f87db0b865228d6aa3b2aa51624709db2a10b817ab": {
+      "summary": "Sakana AI發布30B推理模型Namazu Small，基於NVIDIA Nemotron 3 Nano，25項基準平均60.1分。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-27T00:05:29.801407Z"
+    },
     "e10095405db3f35b364be53abd2c185842076eca96ef2317e46922070a56d078": {
       "summary": "前OpenAI研究員Aaronson稱，AI能產出黎曼猜想證明比證明本身更重要，並認為AI實驗室可能握有加密學重大突破。",
       "provider": "groq",
@@ -2995,15 +3001,21 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-11-10T02:48:04.832129Z"
-    },
-    "e5597d4b436abc9bd991ba5dfcb23a03f6fa6f73d7020905c1792d00f192853e": {
-      "summary": "Anthropic 於 2026 年 11 月 9 日推出 Claude Fable 5.2 與 Mythos 5.2。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-11-10T02:16:21.952861Z"
     }
   },
   "rejections": {
+    "13a226b0eb8d5569ee5615315a9608c2b5e40c6582522d0268e8061da129bad5": {
+      "reason": "validation_numeric_grounding",
+      "created_at": "2026-11-27T00:05:29.801407Z"
+    },
+    "2e3407a23ba0346037828840a0815280215cc4111562c84ee7abae781d2c181f": {
+      "reason": "validation_numeric_grounding",
+      "created_at": "2026-11-26T18:05:30.575644Z"
+    },
+    "c73ada9a3f52dd1c1f7ae0d807b5713d721a607d5536cd924376f14f998f3135": {
+      "reason": "insufficient_context",
+      "created_at": "2026-11-26T14:35:35.403033Z"
+    },
     "e5e55990072aff0ea80e8cbdb891167685849f648b767a9a5d2c8e97e0a65f67": {
       "reason": "validation_length",
       "created_at": "2026-11-25T22:05:36.464701Z"
@@ -4991,18 +5003,6 @@
     "e22ed692a5edd194eb9755e42312f4c01933b127b99a1a47ea632d0688a41bb1": {
       "reason": "validation_length",
       "created_at": "2026-08-22T10:08:16.286168Z"
-    },
-    "11a162cc30c9e84f937e9b557d05ccd72e4c2f5a9962ca1d17407018ab6d63f7": {
-      "reason": "insufficient_context",
-      "created_at": "2026-08-22T10:08:16.286168Z"
-    },
-    "c73ada9a3f52dd1c1f7ae0d807b5713d721a607d5536cd924376f14f998f3135": {
-      "reason": "insufficient_context",
-      "created_at": "2026-11-26T14:35:35.403033Z"
-    },
-    "2e3407a23ba0346037828840a0815280215cc4111562c84ee7abae781d2c181f": {
-      "reason": "validation_numeric_grounding",
-      "created_at": "2026-11-26T18:05:30.575644Z"
     }
   }
 }
