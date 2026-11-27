@@ -1,33 +1,33 @@
 {
-  "generated_at": "2026-11-27T05:05:34.671275Z",
+  "generated_at": "2026-11-27T05:35:31.455826Z",
   "window_hours": 24,
-  "total_items": 132,
-  "total_items_ai_raw": 139,
-  "total_items_raw": 160,
-  "total_items_all_mode": 154,
+  "total_items": 130,
+  "total_items_ai_raw": 136,
+  "total_items_raw": 157,
+  "total_items_all_mode": 152,
   "topic_filter": "ai_relevance_scoring_v0_4",
   "ai_relevance_threshold": 0.65,
-  "archive_total": 8272,
+  "archive_total": 8273,
   "site_count": 14,
-  "source_count": 20,
+  "source_count": 18,
   "site_stats": [
     {
       "site_id": "tw_media",
       "site_name": "台灣媒體",
-      "count": 64,
-      "raw_count": 73
+      "count": 65,
+      "raw_count": 74
     },
     {
       "site_id": "curated_media",
       "site_name": "精選媒體",
-      "count": 50,
-      "raw_count": 51
+      "count": 49,
+      "raw_count": 50
     },
     {
       "site_id": "opmlrss",
       "site_name": "OPML",
-      "count": 11,
-      "raw_count": 24
+      "count": 10,
+      "raw_count": 22
     },
     {
       "site_id": "kr36_ai",
@@ -38,8 +38,8 @@
     {
       "site_id": "official_ai",
       "site_name": "官方更新",
-      "count": 2,
-      "raw_count": 3
+      "count": 1,
+      "raw_count": 2
     },
     {
       "site_id": "mistral_news",
@@ -106,7 +106,7 @@
       "source": "Hugging Face Blog",
       "title": "Introducing the llama.cpp benchmark dashboard for AMD Ryzen and Radeon",
       "url": "https://huggingface.co/blog/ggml-org/llamacpp-amd-bench",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "",
       "source_updated_at": "2026-11-26T11:37:17Z",
       "ingress": {
@@ -194,29 +194,29 @@
       "source_tier_weight": 1.0
     },
     {
-      "id": "789c7db56b555c589971fa4bcd2372445039ddeb",
-      "published_at": "2026-11-26T05:05:36Z",
-      "first_seen_at": "2026-11-26T05:35:32.441675Z",
-      "site_id": "official_ai",
-      "site_name": "官方更新",
-      "source": "Hugging Face Blog",
-      "title": "Building on Nemotron 3.5 Parse: Open Data, Fine-Tuning, and Faster Inference",
-      "url": "https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
-      "summary": "",
-      "source_updated_at": "2026-11-26T05:05:36Z",
+      "id": "2ebbede2d1c1d5148d9bd1cba7f55de41de6be65",
+      "published_at": "2026-11-27T11:11:39Z",
+      "first_seen_at": "2026-11-27T03:35:38.066996Z",
+      "site_id": "tw_media",
+      "site_name": "台灣媒體",
+      "source": "iThome",
+      "title": "近4,200個AI自主攻擊框架暴露於公開網路，臺灣也發現10個",
+      "url": "https://www.ithome.com.tw/news/180843",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
+      "summary": "開源AI自主攻擊框架逐漸成為新型網路威脅來源，攻擊者可利用這類工具串接大型語言模型（LLM）代理，自動執行網路偵察、漏洞探測及憑證蒐集等工作，大幅加快入侵速度，並降低發動攻擊所需的人力與技術門檻。",
+      "source_updated_at": "2026-11-27T11:11:39Z",
       "ingress": {
         "kind": "public_feed",
-        "site_id": "official_ai",
-        "source_id": "hugging_face_blog",
-        "name": "Hugging Face Blog",
-        "feed_url": "https://huggingface.co/blog/feed.xml"
+        "site_id": "tw_media",
+        "source_id": "ithome",
+        "name": "iThome",
+        "feed_url": "https://www.ithome.com.tw/rss"
       },
       "publisher": {
         "schema_version": 1,
-        "publisher_id": "huggingface",
-        "name": "Hugging Face",
-        "domain": "huggingface.co",
+        "publisher_id": "ithome",
+        "name": "iThome",
+        "domain": "www.ithome.com.tw",
         "status": "identified",
         "basis": [
           "article_host"
@@ -224,23 +224,23 @@
         "evidence": {
           "rss_source_name": null,
           "rss_source_url": null,
-          "article_url": "https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin",
-          "article_host": "huggingface.co",
+          "article_url": "https://www.ithome.com.tw/news/180843",
+          "article_host": "www.ithome.com.tw",
           "expected_publisher_id": null,
           "conflicts": []
         }
       },
-      "security_topic": false,
+      "security_topic": true,
       "source_policy": {
         "schema_version": 1,
         "policy_id": "publisher-governance-v1",
         "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
-        "scope_id": "huggingface",
-        "publisher_kind": "official",
+        "scope_id": "ithome",
+        "publisher_kind": "media",
         "admission_status": "limited",
-        "source_tier": "official",
-        "source_tier_label": "官方一手源",
-        "source_tier_rank": 0,
+        "source_tier": "professional_media",
+        "source_tier_label": "專業科技媒體",
+        "source_tier_rank": 1,
         "allow_general": true,
         "allow_featured": true,
         "allow_radar": true,
@@ -249,42 +249,47 @@
           "limited_scope"
         ]
       },
-      "article_key": "https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin",
-      "business_events": [],
-      "ai_is_related": true,
-      "ai_score": 0.95,
-      "ai_label": "ai_product_update",
-      "ai_relevance_reason": "matched_ai_signal",
-      "ai_signals": [
-        "hugging face",
-        "huggingface"
+      "article_key": "https://www.ithome.com.tw/news/180843",
+      "business_events": [
+        "security"
       ],
+      "ai_is_related": true,
+      "ai_score": 0.67,
+      "ai_label": "ai_general",
+      "ai_relevance_reason": "matched_ai_signal",
+      "ai_signals": [],
       "ai_noise": [],
-      "source_tier": "official",
-      "source_tier_label": "官方一手源",
-      "source_tier_rank": 0,
-      "reader_summary": "We recently released NVIDIA Nemotron 3.5 Parse , a compact document model that turns page images into structured data for retrieval-augmented generation (RAG) and agents.",
-      "reader_summary_kind": "publisher_lead",
-      "summary_zh": "我們最近推出了 輝達 Nemotron 3.5 Parse，這是一個精巧的文件模型，能將頁面影像轉換為結構化資料，用於檢索增強生成（RAG）與代理程式。",
-      "title_original": "Building on Nemotron 3.5 Parse: Open Data, Fine-Tuning, and Faster Inference",
-      "title_en": "Building on Nemotron 3.5 Parse: Open Data, Fine-Tuning, and Faster Inference",
-      "title_zh": "奠基於 Nemotron 3.5 Parse：開放資料、微調與更快的推論",
-      "title_bilingual": "奠基於 Nemotron 3.5 Parse：開放資料、微調與更快的推論 / Building on Nemotron 3.5 Parse: Open Data, Fine-Tuning, and Faster Inference",
-      "corroboration_key": "publisher:huggingface",
+      "source_tier": "professional_media",
+      "source_tier_label": "專業科技媒體",
+      "source_tier_rank": 1,
+      "summary_zh": "開源AI自主攻擊框架逐漸成為新型網路威脅來源，攻擊者可利用這類工具串接大型語言模型（LLM）代理，自動執行網路偵察、漏洞探測及憑證蒐集等工作，大幅加快入侵速度，並降低發動攻擊所需的人力與技術門檻。",
+      "title_original": "近4,200個AI自主攻擊框架暴露於公開網路，臺灣也發現10個",
+      "title_en": null,
+      "title_zh": "近4,200個AI自主攻擊框架暴露於公開網路，臺灣也發現10個",
+      "title_bilingual": "近4,200個AI自主攻擊框架暴露於公開網路，臺灣也發現10個",
+      "corroboration_key": "publisher:ithome",
       "corroboration_status": "identified",
       "source_material": {
         "title_original": "",
-        "title": "Building on Nemotron 3.5 Parse: Open Data, Fine-Tuning, and Faster Inference",
-        "summary": ""
+        "title": "近4,200個AI自主攻擊框架暴露於公開網路，臺灣也發現10個",
+        "summary": "開源AI自主攻擊框架逐漸成為新型網路威脅來源，攻擊者可利用這類工具串接大型語言模型（LLM）代理，自動執行網路偵察、漏洞探測及憑證蒐集等工作，大幅加快入侵速度，並降低發動攻擊所需的人力與技術門檻。"
       },
       "qualification": {
         "scope": "in_scope",
-        "core_evidence": [],
+        "core_evidence": [
+          {
+            "kind": "security",
+            "status": "insufficient",
+            "basis": "insufficient",
+            "spans": [],
+            "urls": []
+          }
+        ],
         "reason_codes": [
-          "no_core_event"
+          "insufficient_evidence"
         ]
       },
-      "source_tier_weight": 1.0
+      "source_tier_weight": 0.7
     },
     {
       "id": "b9e6f4cb6da3f4507b72ae948802bdf274bc0c5e",
@@ -295,7 +300,7 @@
       "source": "iThome",
       "title": "BeyondTrust預測2027年企業資安新挑戰，AI代理權限遭濫用，對外開放系統重大漏洞應變時間縮短至數小時",
       "url": "https://www.ithome.com.tw/news/180760",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "企業部署的AI代理能夠自主存取敏感資料、操作其他系統，並代表使用者執行任務，但攻擊者也可能濫用這些許可權發動攻擊。特權存取管理（PAM）業者BeyondTrust公佈2027年資安趨勢預測，指出企業資安管理的重點將不再只是掌握誰擁有存取許可權，也須釐清人員、機器及AI代理取得許可權後能夠執行哪些操作、授權範圍有多大，以及發生資安事件時應由誰負責。",
       "source_updated_at": "2026-11-27T08:11:00Z",
       "ingress": {
@@ -391,7 +396,7 @@
       "source": "iThome",
       "title": "義大利、瑞士示警AI代理式攻擊，籲24小時內修補對外系統漏洞",
       "url": "https://www.ithome.com.tw/news/180821",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "近期美國、英國及臺灣政府資安機構陸續示警AI代理式攻擊，義大利及瑞士也公佈境內發生的攻擊案例。義大利資安事件應變團隊（CSIRT Italia）11月23日發布公告，指出駭客運用多個AI代理同時執行攻擊任務，部分案例中，短短數小時內就入侵大量系統。",
       "source_updated_at": "2026-11-27T08:11:00Z",
       "ingress": {
@@ -489,7 +494,7 @@
       "source": "iThome",
       "title": "雲端安全聯盟提出AI治理框架整合指引，強調模型安全測試與執行過程可追溯性",
       "url": "https://www.ithome.com.tw/news/180801",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "國際非營利資安組織雲端安全聯盟（CSA）近期發布企業AI成熟度指引，提出整合3套AI治理框架的做法，建議企業從AI系統原型開發階段就納入模型安全措施，定期檢測模型漏洞，並評估模型抵禦對抗性攻擊的能力，同時建立追蹤機制，以利查明AI系統的執行過程及各項作業所使用的身分。",
       "source_updated_at": "2026-11-27T08:11:00Z",
       "ingress": {
@@ -587,7 +592,7 @@
       "source": "The Decoder AI News",
       "title": "Former OpenAI researcher says the Riemann proof matters less than the fact that an AI system can produce it",
       "url": "https://the-decoder.com/former-openai-researcher-says-the-riemann-proof-matters-less-than-the-fact-that-an-ai-system-can-produce-it",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Complexity theorist and former OpenAI researcher Scott Aaronson argues that AI's recent math breakthroughs matter far beyond academia. The possible consequences, he writes, range from reshaping the global economy to threatening all life on Earth. He's also \"virtually certain\" that AI labs are sitting on \"one or more bombshells\" in cryptography. The article Former OpenAI researcher says the Riemann proof matters less than the fact that an AI system can produce it appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/former-openai-researcher-says-the-riemann-proof-matters-less-than-the-fact-that-an-ai-system-can-produce-it/",
@@ -681,7 +686,7 @@
       "source": "The Decoder AI News",
       "title": "GPT-6.2 Astra users now hit limits 40% faster after OpenAI patched a pricing error",
       "url": "https://the-decoder.com/gpt-6-2-astra-users-now-hit-limits-40-faster-after-openai-patched-a-pricing-error",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "OpenAI says a billing bug gave GPT-6.2 users incorrect discounts. After the fix, Astra and Sol users hit their limits 40 and 25 percent faster than last week. As an apology, subscribers get an extra reset, and business users get free Fast Mode through year-end. OpenAI is also testing a Chat and Work mode merger. The article GPT-6.2 Astra users now hit limits 40% faster after OpenAI patched a pricing error appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/gpt-6-2-astra-users-now-hit-limits-40-faster-after-openai-patched-a-pricing-error/",
@@ -786,7 +791,7 @@
       "source": "The Decoder AI News",
       "title": "After OpenAI and Anthropic shut the door on their data, a Chinese AI developer is turning to Google and Meta instead",
       "url": "https://the-decoder.com/after-openai-and-anthropic-shut-the-door-on-their-data-a-chinese-ai-developer-is-turning-to-google-and-meta-instead",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Chinese AI companies Z.AI and Moonshot AI have to delay their next flagship models and are looking for new sources of training data. The article After OpenAI and Anthropic shut the door on their data, a Chinese AI developer is turning to Google and Meta instead appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/after-openai-and-anthropic-shut-the-door-on-their-data-a-chinese-ai-developer-is-turning-to-google-and-meta-instead/",
@@ -882,7 +887,7 @@
       "source": "The Decoder AI News",
       "title": "FCC clears SpaceX to deploy up to 1 million Starmind satellites for orbital AI data centers by 2040",
       "url": "https://the-decoder.com/fcc-clears-spacex-to-deploy-up-to-1-million-starmind-satellites-for-orbital-ai-data-centers-by-2040",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "The FCC has authorized SpaceX to deploy up to 1 million Starmind satellites to process AI data as orbital data centers. SpaceX is targeting its first launches in 2027, and the full constellation is set to be operating by 2040. Google and Blue Origin are also working on AI infrastructure in space, but Boston Consulting Group estimates costs will stay well above ground-based data centers for now. The article FCC clears SpaceX to deploy up to 1 million Starmind satellites for orbital AI data centers by 2040 appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/fcc-clears-spacex-to-deploy-up-to-1-million-starmind-satellites-for-orbital-ai-data-centers-by-2040/",
@@ -976,7 +981,7 @@
       "source": "The Decoder AI News",
       "title": "Microsoft details how state-backed hackers use the ARTEX AI framework to automate cyberattacks",
       "url": "https://the-decoder.com/microsoft-details-how-state-backed-hackers-use-the-artex-ai-framework-to-automate-cyberattacks",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Microsoft has published the technical architecture of ARTEX, an AI framework in wide use since July 2026 that runs cyberattacks with specialized agents and almost no human involvement. State-backed groups from China and North Korea, along with criminal organizations, are already using the system. Microsoft recommends deception techniques like honeypots and faked success signals as defenses, but how long those will hold up against agents that learn and adapt remains an open question. The article Microsoft details how state-backed hackers use the ARTEX AI framework to automate cyberattacks appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/microsoft-details-how-state-backed-hackers-use-the-artex-ai-framework-to-automate-cyberattacks/",
@@ -1070,7 +1075,7 @@
       "source": "The Decoder AI News",
       "title": "Nvidia halts server shipments to Malaysia, Singapore, Thailand, and Indonesia after tighter US export controls",
       "url": "https://the-decoder.com/nvidia-halts-server-shipments-to-malaysia-singapore-thailand-and-indonesia-after-tighter-us-export-controls",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Nvidia has told partners such as Dell and Supermicro to stop shipping servers to Malaysia, Singapore, Thailand, and Indonesia. Following new US export controls targeting Chinese cloud access, dealers are already seeking buyers for thousands of B300 chips, while one cloud executive describes \"chaos\", Loans and major deals are now on the line for Southeast Asia's data centers. The article Nvidia halts server shipments to Malaysia, Singapore, Thailand, and Indonesia after tighter US export controls appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/nvidia-halts-server-shipments-to-malaysia-singapore-thailand-and-indonesia-after-tighter-us-export-controls/",
@@ -1734,7 +1739,7 @@
       "source": "iThome",
       "title": "導入AI省逾4.7萬工時，聖地牙哥市雲端部署從數月縮至數分鐘",
       "url": "https://www.ithome.com.tw/news/180831",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "美國加州聖地牙哥市政府近日公佈的內部數位轉型成效顯示，透過將生成式人工智慧（AI）工具普及至基層公務體系，並重整底層雲端網路架構，已實質縮減了行政作業與基礎設施部署的時間成本，為大型市政機關的營運效率帶來明顯改變。",
       "source_updated_at": "2026-11-26T06:11:15Z",
       "ingress": {
@@ -1814,6 +1819,94 @@
       "source_tier_weight": 0.7
     },
     {
+      "id": "a1969b0772ccfb3fdfb3a3635a302e621ce629d4",
+      "published_at": "2026-11-27T05:19:00Z",
+      "first_seen_at": "2026-11-27T05:35:31.455826Z",
+      "site_id": "tw_media",
+      "site_name": "台灣媒體",
+      "source": "INSIDE",
+      "title": "英國央行估雲端巨頭 AI 曝險逾 4 兆美元，表外承諾與循環融資放大跨市場連鎖風險",
+      "url": "https://www.inside.com.tw/article/43024-boe-ai-hyperscaler-4-trillion-exposure",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
+      "summary": "英格蘭銀行發布《金融穩定報告》，估算超大規模雲端業者的債務加上表外承諾，潛在曝險略高於 4 兆美元，並形容 AI 融資「日益複雜、循環且不透明」。",
+      "source_updated_at": "2026-11-27T05:19:00Z",
+      "ingress": {
+        "kind": "public_feed",
+        "site_id": "tw_media",
+        "source_id": "inside",
+        "name": "INSIDE",
+        "feed_url": "https://www.inside.com.tw/feed/rss"
+      },
+      "publisher": {
+        "schema_version": 1,
+        "publisher_id": "inside",
+        "name": "INSIDE",
+        "domain": "www.inside.com.tw",
+        "status": "identified",
+        "basis": [
+          "article_host"
+        ],
+        "evidence": {
+          "rss_source_name": null,
+          "rss_source_url": null,
+          "article_url": "https://www.inside.com.tw/article/43024-boe-ai-hyperscaler-4-trillion-exposure",
+          "article_host": "www.inside.com.tw",
+          "expected_publisher_id": null,
+          "conflicts": []
+        }
+      },
+      "article_key": "https://www.inside.com.tw/article/43024-boe-ai-hyperscaler-4-trillion-exposure",
+      "security_topic": false,
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.67,
+      "ai_label": "ai_general",
+      "ai_relevance_reason": "matched_ai_signal",
+      "ai_signals": [],
+      "ai_noise": [],
+      "source_tier": "tw_media",
+      "source_tier_label": "台灣繁中媒體",
+      "source_tier_rank": 2,
+      "summary_zh": "英格蘭銀行發布《金融穩定報告》，估算超大規模雲端業者的債務加上表外承諾，潛在曝險略高於 4 兆美元，並形容 AI 融資「日益複雜、循環且不透明」。",
+      "title_original": "英國央行估雲端巨頭 AI 曝險逾 4 兆美元，表外承諾與循環融資放大跨市場連鎖風險",
+      "title_en": null,
+      "title_zh": "英國央行估雲端巨頭 AI 曝險逾 4 兆美元，表外承諾與循環融資放大跨市場連鎖風險",
+      "title_bilingual": "英國央行估雲端巨頭 AI 曝險逾 4 兆美元，表外承諾與循環融資放大跨市場連鎖風險",
+      "corroboration_key": "publisher:inside",
+      "corroboration_status": "identified",
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+        "scope_id": "inside",
+        "publisher_kind": "media",
+        "admission_status": "limited",
+        "source_tier": "tw_media",
+        "source_tier_label": "台灣繁中媒體",
+        "source_tier_rank": 2,
+        "allow_general": true,
+        "allow_featured": true,
+        "allow_radar": true,
+        "reason_codes": [
+          "identified_host",
+          "limited_scope"
+        ]
+      },
+      "source_material": {
+        "title_original": "",
+        "title": "英國央行估雲端巨頭 AI 曝險逾 4 兆美元，表外承諾與循環融資放大跨市場連鎖風險",
+        "summary": "英格蘭銀行發布《金融穩定報告》，估算超大規模雲端業者的債務加上表外承諾，潛在曝險略高於 4 兆美元，並形容 AI 融資「日益複雜、循環且不透明」。"
+      },
+      "qualification": {
+        "scope": "in_scope",
+        "core_evidence": [],
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      "source_tier_weight": 0.56
+    },
+    {
       "id": "2d75d84bf2bb9a3c2f8e73666898e5dc28b14110",
       "published_at": "2026-11-27T04:20:19Z",
       "first_seen_at": "2026-11-27T05:05:34.671275Z",
@@ -1822,7 +1915,7 @@
       "source": "TechNews 科技新報",
       "title": "歐洲軟體龍頭 SAP 傳擬裁員萬人  加速 AI 轉型",
       "url": "https://technews.tw/2026/11/27/sap-weighs-cutting-at-least-10000-positions-in-ai-restructuring",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "歐洲最大軟體公司、德國軟體巨頭 SAP 傳出新一波大規模裁員計畫，擬裁減至少 1 萬名員工，約佔全球人力 9% […]",
       "source_updated_at": "2026-11-27T04:20:19Z",
       "ingress": {
@@ -1850,8 +1943,26 @@
           "conflicts": []
         }
       },
-      "article_key": "https://technews.tw/2026/11/27/sap-weighs-cutting-at-least-10000-positions-in-ai-restructuring",
       "security_topic": false,
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+        "scope_id": "technews",
+        "publisher_kind": "media",
+        "admission_status": "limited",
+        "source_tier": "tw_media",
+        "source_tier_label": "台灣繁中媒體",
+        "source_tier_rank": 2,
+        "allow_general": true,
+        "allow_featured": true,
+        "allow_radar": true,
+        "reason_codes": [
+          "identified_host",
+          "limited_scope"
+        ]
+      },
+      "article_key": "https://technews.tw/2026/11/27/sap-weighs-cutting-at-least-10000-positions-in-ai-restructuring",
       "business_events": [],
       "ai_is_related": true,
       "ai_score": 0.7,
@@ -1871,24 +1982,6 @@
       "title_bilingual": "歐洲軟體龍頭 SAP 傳擬裁員萬人  加速 AI 轉型",
       "corroboration_key": "publisher:technews",
       "corroboration_status": "identified",
-      "source_policy": {
-        "schema_version": 1,
-        "policy_id": "publisher-governance-v1",
-        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
-        "scope_id": "technews",
-        "publisher_kind": "media",
-        "admission_status": "limited",
-        "source_tier": "tw_media",
-        "source_tier_label": "台灣繁中媒體",
-        "source_tier_rank": 2,
-        "allow_general": true,
-        "allow_featured": true,
-        "allow_radar": true,
-        "reason_codes": [
-          "identified_host",
-          "limited_scope"
-        ]
-      },
       "source_material": {
         "title_original": "",
         "title": "歐洲軟體龍頭 SAP 傳擬裁員萬人  加速 AI 轉型",
@@ -1912,7 +2005,7 @@
       "source": "TechNews 科技新報",
       "title": "美國新規堵漏洞，輝達晶片買家恐禁租算力予中企",
       "url": "https://technews.tw/2026/11/27/nvidia-chip-buyers-told-to-rule-out-chinese-renters-to-purchase-gpus",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "美國總統川普政府宣佈限制遠端存取人工智慧（AI）晶片的新規後，訊息人士透露，新興雲端服務供應商已接獲通知，若將 […]",
       "source_updated_at": "2026-11-27T04:10:23Z",
       "ingress": {
@@ -2003,7 +2096,7 @@
       "source": "TechNews 科技新報",
       "title": "OpenAI 坦承 GPT-6.2 計費出錯，多數用戶更快達到使用上限",
       "url": "https://technews.tw/2026/11/27/openai-made-a-billing-mistake-at-the-launch-of-gpt-6-2",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "領導 OpenAI 核心產品與平臺部門的 Thibault Sottiaux（Tibo）透過 X 貼文表示，O […]",
       "source_updated_at": "2026-11-27T03:54:36Z",
       "ingress": {
@@ -2094,7 +2187,7 @@
       "source": "TechNews 科技新報",
       "title": "AI 投資熱翻天  澳洲企業資本支出創 15 年最強",
       "url": "https://technews.tw/2026/11/27/ai-investment-drives-australian-capital-spending-to-15-year-high",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "AI 資料中心建置潮帶動澳洲企業資本支出大幅成長。澳洲統計局（ABS）26 日公佈，第三季民間資本支出季增 1 […]",
       "source_updated_at": "2026-11-27T03:50:48Z",
       "ingress": {
@@ -2190,7 +2283,7 @@
       "source": "AIBASE",
       "title": "通用大模型能“擊穿”物理AI？何小鵬給出清醒答案：物理世界的約束，不是靠參數能填平的",
       "url": "https://news.aibase.com/tw/news/32568",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "科技圈正熱炒“物理AI”：OpenAI工程師用大模型操控機械臂繪畫，行業大佬預言通用AI一兩年內擊穿具身智能壁壘，機器人將走出實驗室、接管工廠與家庭。但小鵬科技日上，何小鵬潑冷水，指出相較數字世界，AI在物理世界的應用面臨更大挑戰，物理AI落地並非僅靠大模型參數就能一蹴而就。",
       "ingress": {
         "kind": "public_adapter",
@@ -2288,7 +2381,7 @@
       "source": "MarkTechPost Research",
       "title": "nexos.ai AI Adoption Platform puts 200+ models behind one AI Gateway, with budget limits and governance built in",
       "url": "https://www.marktechpost.com/2026/11/26/nexos-ai-ai-gateway-200-models-governance",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "nexos.ai AI Adoption Platform puts 200+ models behind one AI Gateway, with budget limits and governance built in The post nexos.ai AI Adoption Platform puts 200+ models behind one AI Gateway, with budget limits and governance built in appeared first on MarkTechPost .",
       "publisher_links": [
         "https://www.marktechpost.com/2026/11/26/nexos-ai-ai-gateway-200-models-governance/",
@@ -2380,7 +2473,7 @@
       "source": "MarkTechPost Research",
       "title": "Tencent Open-Sources DFly2: Speculative Decoding That Reuses the Target’s Sparse KV Cache",
       "url": "https://www.marktechpost.com/2026/11/26/tencent-dfly2-speculative-decoding-sparse-models",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Tencent open-sourced DFly2, a speculative decoding drafter for sparse-attention LLMs. Each draft layer reuses the target's KV cache and top-k indexer picks, adding no draft KV memory and lifting 64K serving throughput by up to 81%. The post Tencent Open-Sources DFly2: Speculative Decoding That Reuses the Target’s Sparse KV Cache appeared first on MarkTechPost .",
       "publisher_links": [
         "https://www.marktechpost.com/2026/11/26/tencent-dfly2-speculative-decoding-sparse-models/",
@@ -2472,7 +2565,7 @@
       "source": "AIBASE",
       "title": "OpenAI 緊急修復 GPT-6.2 計費漏洞，一紙“重置卡”能否平息用戶的算力焦慮？",
       "url": "https://news.aibase.com/tw/news/32567",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "OpenAI員工Thibault Sottiaux承認，GPT-6.2系列發佈時存在計量錯誤，導致多數用戶使用Astra和Sol模型時額度被錯誤少折算，加劇重度AI開發者與創作者的“額度焦慮”：工作流未變，套餐卻提前見底。此事引發關注，也讓高級大模型真實算力成本再次浮出水面。",
       "ingress": {
         "kind": "public_adapter",
@@ -2582,7 +2675,7 @@
       "source": "Reuters AI (Google News)",
       "title": "Gold rebounds from one-year low as AI jitters ease - Reuters",
       "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOYW55b1BZTkM4emFaZmljMEIzZlBhd2duLWJnRlpMaVA1UnBMaXpEQTdYU0JQUF93QWRkMEV0ZHlaUFhJM3JwTkVLSFNQcDhJSW43VEJ3ME9uQmVvaXpaVkV6eG1CWnBISXFncTVTQjI0NElBcUZDTXlNZEw0S0RCSGxFa25EX29sYzJVZHJmREFnckNW?oc=5",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Gold rebounds from one-year low as AI jitters ease Reuters",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMilAFBVV95cUxOYW55b1BZTkM4emFaZmljMEIzZlBhd2duLWJnRlpMaVA1UnBMaXpEQTdYU0JQUF93QWRkMEV0ZHlaUFhJM3JwTkVLSFNQcDhJSW43VEJ3ME9uQmVvaXpaVkV6eG1CWnBISXFncTVTQjI0NElBcUZDTXlNZEw0S0RCSGxFa25EX29sYzJVZHJmREFnckNW?oc=5"
@@ -2674,7 +2767,7 @@
       "source": "TechNews 科技新報",
       "title": "強攻 AI 算力與智慧洗車拚轉型！三一東林處分珠海廠挹注每股純益 1.42 元",
       "url": "https://finance.technews.tw/2026/11/27/smart-car-wash",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "三一東林今年 5 月公告處分位於中國珠海的廠辦，預計處分利益約 5,473 萬元，有望在年底前完成認列，預計貢 […]",
       "source_updated_at": "2026-11-27T03:11:15Z",
       "ingress": {
@@ -2767,7 +2860,7 @@
       "source": "TechNews 科技新報",
       "title": "Character.AI 破產擬拍賣 2,100 萬用戶聊天紀錄，美國 42 州檢察長聯手阻擋",
       "url": "https://infosecu.technews.tw/2026/11/27/ai-company-bankruptcy-triggers-privacy-crisis",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "AI 公司在破產程序中處理資料資產的方式，正迅速成為新的隱私戰場。最新案例中，Character.AI 擬於 […]",
       "source_updated_at": "2026-11-27T03:10:46Z",
       "ingress": {
@@ -2858,7 +2951,7 @@
       "source": "TechNews 科技新報",
       "title": "Anthropic 揭露 AI 時代工程師升遷關鍵：看重「協調力」與實際成果",
       "url": "https://technews.tw/2026/11/27/anthropic-team-leader-says-ai-is-changing-how-engineers-get-promoted",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Anthropic 平臺工程主管凱特琳·萊絲（Caitlin Reyes）表示，隨著 AI 代理（AI age […]",
       "source_updated_at": "2026-11-27T03:00:13Z",
       "ingress": {
@@ -2979,29 +3072,7 @@
           "conflicts": []
         }
       },
-      "article_key": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE5RcFBKcWQwNGNwUkxrYjdUcGRxdU43TFlNSFo1eHJmTWVFclhlZHMzNDhvLUpwbzZiTzNnMDhxMzNvM2xtSTZhQ1hhSjF0NlM2R0E?oc=5",
       "security_topic": false,
-      "business_events": [
-        "pricing"
-      ],
-      "ai_is_related": true,
-      "ai_score": 0.71,
-      "ai_label": "research_paper",
-      "ai_relevance_reason": "curated_media_source_filter",
-      "ai_signals": [
-        "deepseek"
-      ],
-      "ai_noise": [],
-      "source_tier": "watchlist",
-      "source_tier_label": "未審來源",
-      "source_tier_rank": 6,
-      "summary_zh": "DeepSeek App 定價訊號？大型模型商業化… 長橋",
-      "title_original": "DeepSeek App Pricing Signals? Large Model Commercialization… - Longbridge",
-      "title_en": "DeepSeek App Pricing Signals? Large Model Commercialization… - Longbridge",
-      "title_zh": "DeepSeek App 定價訊號？大型模型商業化… - 長橋",
-      "title_bilingual": "DeepSeek App 定價訊號？大型模型商業化… - 長橋 / DeepSeek App Pricing Signals? Large Model Commercialization… - Longbridge",
-      "corroboration_key": null,
-      "corroboration_status": "unknown",
       "source_policy": {
         "schema_version": 1,
         "policy_id": "publisher-governance-v1",
@@ -3023,6 +3094,28 @@
           "not_permitted_for_radar"
         ]
       },
+      "article_key": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE5RcFBKcWQwNGNwUkxrYjdUcGRxdU43TFlNSFo1eHJmTWVFclhlZHMzNDhvLUpwbzZiTzNnMDhxMzNvM2xtSTZhQ1hhSjF0NlM2R0E?oc=5",
+      "business_events": [
+        "pricing"
+      ],
+      "ai_is_related": true,
+      "ai_score": 0.71,
+      "ai_label": "research_paper",
+      "ai_relevance_reason": "curated_media_source_filter",
+      "ai_signals": [
+        "deepseek"
+      ],
+      "ai_noise": [],
+      "source_tier": "watchlist",
+      "source_tier_label": "未審來源",
+      "source_tier_rank": 6,
+      "summary_zh": "DeepSeek App 定價訊號？大型模型商業化… 長橋",
+      "title_original": "DeepSeek App Pricing Signals? Large Model Commercialization… - Longbridge",
+      "title_en": "DeepSeek App Pricing Signals? Large Model Commercialization… - Longbridge",
+      "title_zh": "DeepSeek App 定價訊號？大型模型商業化… - 長橋",
+      "title_bilingual": "DeepSeek App 定價訊號？大型模型商業化… - 長橋 / DeepSeek App Pricing Signals? Large Model Commercialization… - Longbridge",
+      "corroboration_key": null,
+      "corroboration_status": "unknown",
       "source_material": {
         "title_original": "",
         "title": "DeepSeek App Pricing Signals? Large Model Commercialization… - Longbridge",
@@ -3046,7 +3139,7 @@
       "source": "AIBASE",
       "title": "月之暗面賦能科研、DeepSeek牽手知乎，中國AI大模型正式打響“高質量數據與專業場景”保衛戰",
       "url": "https://news.aibase.com/tw/news/32566",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "大模型參數規模競賽逐漸觸及物理與成本天花板，通用語料日益枯竭，模型面對複雜邏輯與專業問題時易陷“幻覺”，泛化能力邊際效益遞減。AI下半場必須向“深水區”要答案。近日國內頭部AI企業動態顯示，突圍新路徑是從“泛化閒聊”全面轉向“深耕專業場”，以專業能力破解行業痛點，推動AI從廣度擴張轉向深度落地。",
       "ingress": {
         "kind": "public_adapter",
@@ -3145,7 +3238,7 @@
       "source": "TechNews 科技新報",
       "title": "伸縮自如的 AI 算力，模組化資料中心究竟是什麼？",
       "url": "https://technews.tw/2026/11/27/data-centers-flexible-scalable-exploring-appeal-modular-design",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "AI 資料中心越蓋越大，除了龐大的資本支出，電力取得、地方政府審查及居民反對等問題也接踵而來。如果資料中心能像 […]",
       "source_updated_at": "2026-11-27T02:50:38Z",
       "ingress": {
@@ -3336,7 +3429,7 @@
       "source": "AIBASE",
       "title": "微軟 AI 負責人蘇萊曼警告：AI 正跨越危險門檻，“對齊”之前先要能“遏制”",
       "url": "https://news.aibase.com/tw/news/32565",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "微軟AI負責人穆斯塔法·蘇萊曼11月25日在X發文示警：AI一邊能解極難數學問題，一邊在安全測試中翻沙箱、鑽漏洞、索要權限。兩類跡象同時出現，意味着行業正跨越一個“管不住”的門檻——AI能力即將越過人類可有效監督、控制和安全部署的邊界。他呼籲，安全與對齊研究必須被置於優先地位，不能再拖。",
       "ingress": {
         "kind": "public_adapter",
@@ -3715,7 +3808,7 @@
       "source": "AIBASE",
       "title": "OpenAI 宣稱證明矩陣乘法“最快極限”：最優算法指數恰爲 9/4",
       "url": "https://news.aibase.com/tw/news/32564",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "OpenAI 11月24日發佈預印本，宣稱已證明矩陣乘法指數ω恰爲9/4：10月先證ω≤9/4，此次再證ω≥9/4，上下界合攏。ω描述當n足夠大時，兩個n×n矩陣相乘的最優算法所需算術運算次數隨n增長的漸進冪指數，也是所有可達複雜度指數的下確界。",
       "ingress": {
         "kind": "public_adapter",
@@ -3813,7 +3906,7 @@
       "source": "AIBASE",
       "title": "路透社母公司年底推出 Thomson 1.1：基座選智譜 GLM 和 Google Gemma，看中計算機操作能力",
       "url": "https://news.aibase.com/tw/news/32563",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "湯森路透計劃年底推出新模型Thomson 1.1，基座採用可自行部署的開源模型——智譜AI的GLM和Google的Gemma，旨在降低AI成本並更好掌控知識產權。其上一代自研模型Thomson的基座來自中國，此次引入Google Gemma被視爲轉變。消息來自《商業內幕》。",
       "ingress": {
         "kind": "public_adapter",
@@ -3919,7 +4012,7 @@
       "source": "AIBASE",
       "title": "消息稱育碧正推動生成式 AI 深度融入遊戲開發流程：項目未引入 AI 需申報原因",
       "url": "https://news.aibase.com/tw/news/32562",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "育碧正推動生成式AI深度融入遊戲開發。外媒稱，團隊提交新遊戲項目提案時，必須說明AI能如何輔助開發；若不打算使用，則需向高層明確解釋原因。多名員工透露，若提案未涉及生成式AI且理由不夠令人信服，將很難通過審批。AI使用正成爲立項硬性考量。",
       "ingress": {
         "kind": "public_adapter",
@@ -4017,7 +4110,7 @@
       "source": "AIBASE",
       "title": "Siri 遲到 18 個月，蘋果在韓國撞上監管槍口：iPhone 16 廣告誤導消費者",
       "url": "https://news.aibase.com/tw/news/32561",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "韓國公平交易委員會正審查蘋果，指控其 iPhone 16 廣告誤導消費者：畫面讓人誤以爲 Genmoji、Image Playground 及 Siri 理解個人背景和屏幕內容等功能已可用，實際部分未兌現。爭議焦點在蘋果是否說清哪些功能已上線、其餘何時推出；報告稱有功能晚了18個月，Siri 個人背景理解能力曾被宣傳。",
       "ingress": {
         "kind": "public_adapter",
@@ -4115,7 +4208,7 @@
       "source": "AIBASE",
       "title": "AI 智能體下場搞破壞：瑞士五起攻擊入侵電力、供水、通信系統，四起得手",
       "url": "https://news.aibase.com/tw/news/32560",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "路透社報道，瑞士聯邦網絡安全局11月26日通報，過去幾天瑞士發生五起由AI智能體發起的網絡攻擊，目標爲企業及關鍵基礎設施運營方。五起中四起得手，相關係統已被入侵，受害對象包括三家關鍵基礎設施運營主體。這顯示，AI智能體正成爲攻擊者入侵關鍵基礎設施的新工具。",
       "ingress": {
         "kind": "public_adapter",
@@ -4213,7 +4306,7 @@
       "source": "AIBASE",
       "title": "​OpenAI 承認 GPT-6.2 計費算錯，Astra 消耗快 40%、Sol 快 25%",
       "url": "https://news.aibase.com/tw/news/32559",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "11月27日，OpenAI緊急修復GPT-6.2計費錯誤。此前多數用戶使用Astra和Sol時，套餐額度按折扣價計算，等於被悄悄打折，額度“不經用”並非錯覺。修復後，相同工作量將消耗更多額度。負責人Thibault Sottiaux稱，Astra用戶觸及上限速度比上週快40%。GPT-6.2仍是效率更高的一代。",
       "ingress": {
         "kind": "public_adapter",
@@ -4314,7 +4407,7 @@
       "source": "AIBASE",
       "title": "Anthropic 面試不考手寫代碼了：AI 時代工程師的價值，改按“實際影響”稱重",
       "url": "https://news.aibase.com/tw/news/32558",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Anthropic改革面試與晉升標準。據《商業內幕》11月27日報道，平臺工程負責人凱特琳·萊斯稱，團隊正試驗新面試：除傳統編程外，還考察候選人能否藉助編程智能體完成實際工作，如檢查智能體代碼、與其協作搭系統。調整源於尷尬發現：部分候選人其他環節表現優異，卻因手寫代碼不佳被淘汰，故面試換題，晉升也換尺。",
       "ingress": {
         "kind": "public_adapter",
@@ -4412,7 +4505,7 @@
       "source": "Reuters AI (Google News)",
       "title": "Dollar lingers near 22-month peak as AI worries simmer - Reuters",
       "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQWkt5OU9rSlNUam1waVVQSzc0cWNjMWk3N0xXSnk5Q1p4UlVHSG5JdGpkZGxVLWI5bW9QOVUwMGRsOExnNkc1VkZWUHllWWQxOV9QX0xTLUVxbGcxOFV3NHQxUnpUQUJRTFh6aXZ6MlpOb3d0eHRucTNQOERjNHlfS01YTlk3dTBwX2ZfWVFjdER1Tkl5V0NDODlzclpSckpUT3c?oc=5",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Dollar lingers near 22-month peak as AI worries simmer Reuters",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiogFBVV95cUxQWkt5OU9rSlNUam1waVVQSzc0cWNjMWk3N0xXSnk5Q1p4UlVHSG5JdGpkZGxVLWI5bW9QOVUwMGRsOExnNkc1VkZWUHllWWQxOV9QX0xTLUVxbGcxOFV3NHQxUnpUQUJRTFh6aXZ6MlpOb3d0eHRucTNQOERjNHlfS01YTlk3dTBwX2ZfWVFjdER1Tkl5V0NDODlzclpSckpUT3c?oc=5"
@@ -4444,25 +4537,7 @@
           "conflicts": []
         }
       },
-      "article_key": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQWkt5OU9rSlNUam1waVVQSzc0cWNjMWk3N0xXSnk5Q1p4UlVHSG5JdGpkZGxVLWI5bW9QOVUwMGRsOExnNkc1VkZWUHllWWQxOV9QX0xTLUVxbGcxOFV3NHQxUnpUQUJRTFh6aXZ6MlpOb3d0eHRucTNQOERjNHlfS01YTlk3dTBwX2ZfWVFjdER1Tkl5V0NDODlzclpSckpUT3c?oc=5",
       "security_topic": false,
-      "business_events": [],
-      "ai_is_related": true,
-      "ai_score": 0.68,
-      "ai_label": "ai_product_update",
-      "ai_relevance_reason": "curated_media_source_filter",
-      "ai_signals": [],
-      "ai_noise": [],
-      "source_tier": "ai_media",
-      "source_tier_label": "精選AI媒體",
-      "source_tier_rank": 2,
-      "summary_zh": "隨著AI疑慮升溫，美元徘徊在22個月高點附近 - 路透社",
-      "title_original": "Dollar lingers near 22-month peak as AI worries simmer - Reuters",
-      "title_en": "Dollar lingers near 22-month peak as AI worries simmer - Reuters",
-      "title_zh": "隨著AI疑慮升溫，美元徘徊在22個月高點附近 - 路透社",
-      "title_bilingual": "隨著AI疑慮升溫，美元徘徊在22個月高點附近 - 路透社 / Dollar lingers near 22-month peak as AI worries simmer - Reuters",
-      "corroboration_key": "publisher:reuters",
-      "corroboration_status": "identified",
       "source_policy": {
         "schema_version": 1,
         "policy_id": "publisher-governance-v1",
@@ -4481,6 +4556,24 @@
           "limited_scope"
         ]
       },
+      "article_key": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQWkt5OU9rSlNUam1waVVQSzc0cWNjMWk3N0xXSnk5Q1p4UlVHSG5JdGpkZGxVLWI5bW9QOVUwMGRsOExnNkc1VkZWUHllWWQxOV9QX0xTLUVxbGcxOFV3NHQxUnpUQUJRTFh6aXZ6MlpOb3d0eHRucTNQOERjNHlfS01YTlk3dTBwX2ZfWVFjdER1Tkl5V0NDODlzclpSckpUT3c?oc=5",
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.68,
+      "ai_label": "ai_product_update",
+      "ai_relevance_reason": "curated_media_source_filter",
+      "ai_signals": [],
+      "ai_noise": [],
+      "source_tier": "ai_media",
+      "source_tier_label": "精選AI媒體",
+      "source_tier_rank": 2,
+      "summary_zh": "隨著AI疑慮升溫，美元徘徊在22個月高點附近 - 路透社",
+      "title_original": "Dollar lingers near 22-month peak as AI worries simmer - Reuters",
+      "title_en": "Dollar lingers near 22-month peak as AI worries simmer - Reuters",
+      "title_zh": "隨著AI疑慮升溫，美元徘徊在22個月高點附近 - 路透社",
+      "title_bilingual": "隨著AI疑慮升溫，美元徘徊在22個月高點附近 - 路透社 / Dollar lingers near 22-month peak as AI worries simmer - Reuters",
+      "corroboration_key": "publisher:reuters",
+      "corroboration_status": "identified",
       "source_material": {
         "title_original": "",
         "title": "Dollar lingers near 22-month peak as AI worries simmer - Reuters",
@@ -4504,7 +4597,7 @@
       "source": "AIBASE",
       "title": "跟 AI 聊一句花多少錢？DeepSeek 灰度測試“消耗額度”，把賬單攤在你面前",
       "url": "https://news.aibase.com/tw/news/32557",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "DeepSeek自11月26日起在網頁端和App灰度測試“顯示本輪消耗額度”：完成對話後彈出詳情，展示本輪Token數及估算金額，價格與API持平。個人聊天仍免費，但單次計算成本變得可見；額度按空閒時段價格估算，有截圖顯示一毛錢的賬被拆成三筆計費。",
       "ingress": {
         "kind": "public_adapter",
@@ -5331,7 +5424,7 @@
       "source": "AlphaLab",
       "title": "AI 蜂群研究解讀：快約 6 倍，為何仍要與會重啟的單一 Agent 比較？（2026）",
       "url": "https://www.alphalab.site/ai-swarms-speed-quality-restarted-single-agent",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "八人團隊快約 6 倍，為何單一 Agent 換成八段新上下文後又領先？拆開同預算、工作時間與品質上限，讀懂 Paradigm 3 蜂群研究的證據與邊界。",
       "ingress": {
         "kind": "public_feed",
@@ -5418,7 +5511,7 @@
       "source": "AlphaLab",
       "title": "MoLT 論文解讀：少讀 41.8% 資料，為何還不等於省算力？（2026）",
       "url": "https://www.alphalab.site/molt-kv-memory-training-compute",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "MoLT 用 KV 記憶重用改寫循環模型的計算依賴，作者報告 1.7 倍 Token 效率與小模型接近基線的延遲。拆開資料、算力與排程，讀懂這份研究的進展與邊界。",
       "ingress": {
         "kind": "public_feed",
@@ -5507,7 +5600,7 @@
       "source": "AlphaLab",
       "title": "Claude Artifacts 桌面 App 解讀：一鍵安裝之後，連線與權限怎麼看？（2026）",
       "url": "https://www.alphalab.site/claude-artifacts-install-as-app-permissions",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Claude Artifacts 可以安裝成 Mac、Windows App，但開啟仍需連線與登入。拆開 beta 資格、用量、更新授權與停止限制，判斷哪些小工具適合放進日常。",
       "ingress": {
         "kind": "public_feed",
@@ -5596,7 +5689,7 @@
       "source": "MarkTechPost Research",
       "title": "Sakana AI Releases Namazu Small, a 30B Model Built on Nemotron 3 Nano",
       "url": "https://www.marktechpost.com/2026/11/26/sakana-ai-namazu-small-30b-nemotron-3-nano",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Sakana AI released Sakana Namazu Small, a 30B-A3B reasoning model built on NVIDIA Nemotron 3 Nano. It averages 60.1 across 25 benchmarks, ahead of the 120B Nemotron 3 Super at 56.2. The post Sakana AI Releases Namazu Small, a 30B Model Built on Nemotron 3 Nano appeared first on MarkTechPost .",
       "publisher_links": [
         "https://www.marktechpost.com/2026/11/26/sakana-ai-namazu-small-30b-nemotron-3-nano/",
@@ -5705,7 +5798,7 @@
       "source": "TechCrunch AI",
       "title": "Nvidia hits pause on chip shipments to Southeast Asia",
       "url": "https://techcrunch.com/2026/11/26/nvidia-hits-pause-on-chip-shipments-to-southeast-asia",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Nvidia has told manufacturing partners to pause server shipments to Malaysia, Singapore, Thailand and Indonesia as the U.S. tightens its push to keep AI chips out of China.",
       "source_updated_at": "2026-11-26T20:03:54Z",
       "ingress": {
@@ -5884,19 +5977,19 @@
     },
     {
       "id": "acd1a6ad409f9f77debf456c70921d12af96f69a",
-      "published_at": "2026-11-26T18:52:09Z",
+      "published_at": "2026-11-26T18:48:00Z",
       "first_seen_at": "2026-11-26T21:35:30.348261Z",
       "site_id": "curated_media",
       "site_name": "精選媒體",
       "source": "Reuters AI (Google News)",
       "title": "Kazakhstan boosts AI cooperation with Russia, which is hungry for advanced US chips - Reuters",
       "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxQUmRrMnRZNThoLUtNVGFhaXJMeG1NaWZ1YXVxS1l2UkczbFZJcUxUWFJSQkF0RlJiczJwQkFPNlV2RDFRaV9DdlVXbFRKb0ZQSFQyODNTZ3Btdy1nOGFfVzJCdzI1cHk4dm12ZDdLYmZOeDVLQ0VlUnNucm1JNHdsdnFZS3liQTVxTVg4MUlaOEJGSG13d2gyV2ZiaUdFWkF2QWdhSEhuZ08yRktJTC1pZDJMbTQ3TmhmLVZwUkZrSVJUenhjMTVrM0tSNA?oc=5",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Kazakhstan boosts AI cooperation with Russia, which is hungry for advanced US chips Reuters",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiywFBVV95cUxQUmRrMnRZNThoLUtNVGFhaXJMeG1NaWZ1YXVxS1l2UkczbFZJcUxUWFJSQkF0RlJiczJwQkFPNlV2RDFRaV9DdlVXbFRKb0ZQSFQyODNTZ3Btdy1nOGFfVzJCdzI1cHk4dm12ZDdLYmZOeDVLQ0VlUnNucm1JNHdsdnFZS3liQTVxTVg4MUlaOEJGSG13d2gyV2ZiaUdFWkF2QWdhSEhuZ08yRktJTC1pZDJMbTQ3TmhmLVZwUkZrSVJUenhjMTVrM0tSNA?oc=5"
       ],
-      "source_updated_at": "2026-11-26T18:52:09Z",
+      "source_updated_at": "2026-11-26T18:48:00Z",
       "ingress": {
         "kind": "google_news",
         "site_id": "curated_media",
@@ -5942,6 +6035,16 @@
           "limited_scope"
         ]
       },
+      "article_history": [
+        {
+          "title": "Kazakhstan boosts AI cooperation with Russia, which is hungry for advanced US chips - Reuters",
+          "summary": "Kazakhstan boosts AI cooperation with Russia, which is hungry for advanced US chips Reuters",
+          "published_at": "2026-11-26T18:52:09Z",
+          "observed_at": "2026-11-27T05:05:34.671275Z"
+        }
+      ],
+      "article_history_truncated": false,
+      "content_observed_at": "2026-11-27T05:35:31.455826Z",
       "article_key": "https://news.google.com/rss/articles/CBMiywFBVV95cUxQUmRrMnRZNThoLUtNVGFhaXJMeG1NaWZ1YXVxS1l2UkczbFZJcUxUWFJSQkF0RlJiczJwQkFPNlV2RDFRaV9DdlVXbFRKb0ZQSFQyODNTZ3Btdy1nOGFfVzJCdzI1cHk4dm12ZDdLYmZOeDVLQ0VlUnNucm1JNHdsdnFZS3liQTVxTVg4MUlaOEJGSG13d2gyV2ZiaUdFWkF2QWdhSEhuZ08yRktJTC1pZDJMbTQ3TmhmLVZwUkZrSVJUenhjMTVrM0tSNA?oc=5",
       "business_events": [],
       "ai_is_related": true,
@@ -5985,7 +6088,7 @@
       "source": "Reuters AI (Google News)",
       "title": "SAP considers at least 10,000 job cuts in AI restructuring, Bloomberg reports - Reuters",
       "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNUUhZaXItb2lOYVhHRHBoUkpGZFM2Y0ZpQ1dSN3QwUnEyQlBKdmlRVG9fdFM5WS1UNm41dGZnRVhyY1FIbjBvOUNFWEREN1F4S1l1amVSUGFheGl4N1NNbk1ieF9HU3N0azQ1djN1bjA2RWhIc1VhVWVWb0RVbG1HMVlPbFQyb0N5N1ZLTUVZeXlxMDk4d3d0UHh1ajdZeWd3ekx5TU52Z3BDaXdhOU9uN3dtd1lLMXM?oc=5",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "SAP considers at least 10,000 job cuts in AI restructuring, Bloomberg reports Reuters",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMitwFBVV95cUxNUUhZaXItb2lOYVhHRHBoUkpGZFM2Y0ZpQ1dSN3QwUnEyQlBKdmlRVG9fdFM5WS1UNm41dGZnRVhyY1FIbjBvOUNFWEREN1F4S1l1amVSUGFheGl4N1NNbk1ieF9HU3N0azQ1djN1bjA2RWhIc1VhVWVWb0RVbG1HMVlPbFQyb0N5N1ZLTUVZeXlxMDk4d3d0UHh1ajdZeWd3ekx5TU52Z3BDaXdhOU9uN3dtd1lLMXM?oc=5"
@@ -6077,7 +6180,7 @@
       "source": "TechCrunch AI",
       "title": "Grand Theft Auto VI proves why efficiency isn’t a virtue",
       "url": "https://techcrunch.com/2026/11/26/as-anthropic-ipos-grand-theft-auto-vi-proves-why-efficiency-isnt-a-virtue",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "On the same day that Anthropic entered the public market, a painstakingly human video game became one of most successful entertainment launches of all time.",
       "source_updated_at": "2026-11-26T16:00:00Z",
       "ingress": {
@@ -6172,7 +6275,7 @@
       "source": "Reuters AI (Google News)",
       "title": "Bank of England sees growing financial risks as AI borrowing surges - Reuters",
       "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPMlNESVMtMnZuRm9TZ0FHOGE2NkE2anNKbkwwVlpqbThWRW5WdGpYMnJyMVZrX1dheTRXTGtRT2xqckxNdEo1Y1V3aUthRU5QTUJGY21qaDBnamg1cVRlSG5ZQ1IzZTVnUzJ1djJfS25sOC03WlgwOVY1LXJ0ZHZhRFFwWk5ubV9KWWIxal93a25QaDBmTGMxUmg3OFUta2NWNmFBRGNJVUlNakE3ak82Sm9tRzI?oc=5",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Bank of England sees growing financial risks as AI borrowing surges Reuters",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMitAFBVV95cUxPMlNESVMtMnZuRm9TZ0FHOGE2NkE2anNKbkwwVlpqbThWRW5WdGpYMnJyMVZrX1dheTRXTGtRT2xqckxNdEo1Y1V3aUthRU5QTUJGY21qaDBnamg1cVRlSG5ZQ1IzZTVnUzJ1djJfS25sOC03WlgwOVY1LXJ0ZHZhRFFwWk5ubV9KWWIxal93a25QaDBmTGMxUmg3OFUta2NWNmFBRGNJVUlNakE3ak82Sm9tRzI?oc=5"
@@ -6264,7 +6367,7 @@
       "source": "DeepSeek (Google News)",
       "title": "DeepSeek valuation hits $86bn after $15bn funding round - DNE Africa",
       "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTFBmanpmbmR5S2VSTkR4OWh4MEVLdXdCb2JFcVJKT0FtbDNyelF2TFZuWWhXWjg2S3Y4c3dfQkdSUmdTb1BneWpna1BGSENFanpRVjNZa2lVb0hldzBYTU5WejNGVDRTUDNjeXl3UEpn?oc=5",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "DeepSeek valuation hits $86bn after $15bn funding round DNE Africa",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMibkFVX3lxTFBmanpmbmR5S2VSTkR4OWh4MEVLdXdCb2JFcVJKT0FtbDNyelF2TFZuWWhXWjg2S3Y4c3dfQkdSUmdTb1BneWpna1BGSENFanpRVjNZa2lVb0hldzBYTU5WejNGVDRTUDNjeXl3UEpn?oc=5"
@@ -6474,7 +6577,7 @@
       "source": "CNBC Technology",
       "title": "Global stocks rally as investors shrug off U.S. tariffs and AI jitters to 'fish for bargains'",
       "url": "https://www.cnbc.com/2026/11/26/stock-markets-today-.html",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Investors appeared to have shrugged off a fresh set of tariffs unveiled by the White House on Wednesday, targeting more than a dozen major trading partners.",
       "source_updated_at": "2026-11-26T12:22:25Z",
       "ingress": {
@@ -6667,7 +6770,7 @@
       "source": "INSIDE",
       "title": "AI 搶不走的讀者！韓國電子報 Newneek 共同創辦人 Soyoun Kim 談社群與信任",
       "url": "https://www.inside.com.tw/article/43014-newneek-soyoun-kim-interview",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "韓國電子報 Newneek 共同創辦人 Soyoun Kim 在 IMCT 2026 接受 INSIDE 專訪，談 AI 搜尋帶來的流量變化、如何把品牌語調寫成手冊、讓讀者主動回饋與轉寄，以及 UGC 平臺的失敗教訓。她認為，讀者留下來的理由已經從內容轉向社群。",
       "source_updated_at": "2026-11-26T10:33:00Z",
       "ingress": {
@@ -6695,25 +6798,7 @@
           "conflicts": []
         }
       },
-      "article_key": "https://www.inside.com.tw/article/43014-newneek-soyoun-kim-interview",
       "security_topic": false,
-      "business_events": [],
-      "ai_is_related": true,
-      "ai_score": 0.67,
-      "ai_label": "ai_general",
-      "ai_relevance_reason": "matched_ai_signal",
-      "ai_signals": [],
-      "ai_noise": [],
-      "source_tier": "tw_media",
-      "source_tier_label": "台灣繁中媒體",
-      "source_tier_rank": 2,
-      "summary_zh": "韓國電子報 Newneek 共同創辦人 Soyoun Kim 在 IMCT 2026 接受 INSIDE 專訪，談 AI 搜尋帶來的流量變化、如何把品牌語調寫成手冊、讓讀者主動回饋與轉寄，以及 UGC 平臺的失敗教訓。她認為，讀者留下來的理由已經從內容轉向社群。",
-      "title_original": "AI 搶不走的讀者！韓國電子報 Newneek 共同創辦人 Soyoun Kim 談社群與信任",
-      "title_en": null,
-      "title_zh": "AI 搶不走的讀者！韓國電子報 Newneek 共同創辦人 Soyoun Kim 談社群與信任",
-      "title_bilingual": "AI 搶不走的讀者！韓國電子報 Newneek 共同創辦人 Soyoun Kim 談社群與信任",
-      "corroboration_key": "publisher:inside",
-      "corroboration_status": "identified",
       "source_policy": {
         "schema_version": 1,
         "policy_id": "publisher-governance-v1",
@@ -6732,6 +6817,24 @@
           "limited_scope"
         ]
       },
+      "article_key": "https://www.inside.com.tw/article/43014-newneek-soyoun-kim-interview",
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.67,
+      "ai_label": "ai_general",
+      "ai_relevance_reason": "matched_ai_signal",
+      "ai_signals": [],
+      "ai_noise": [],
+      "source_tier": "tw_media",
+      "source_tier_label": "台灣繁中媒體",
+      "source_tier_rank": 2,
+      "summary_zh": "韓國電子報 Newneek 共同創辦人 Soyoun Kim 在 IMCT 2026 接受 INSIDE 專訪，談 AI 搜尋帶來的流量變化、如何把品牌語調寫成手冊、讓讀者主動回饋與轉寄，以及 UGC 平臺的失敗教訓。她認為，讀者留下來的理由已經從內容轉向社群。",
+      "title_original": "AI 搶不走的讀者！韓國電子報 Newneek 共同創辦人 Soyoun Kim 談社群與信任",
+      "title_en": null,
+      "title_zh": "AI 搶不走的讀者！韓國電子報 Newneek 共同創辦人 Soyoun Kim 談社群與信任",
+      "title_bilingual": "AI 搶不走的讀者！韓國電子報 Newneek 共同創辦人 Soyoun Kim 談社群與信任",
+      "corroboration_key": "publisher:inside",
+      "corroboration_status": "identified",
       "source_material": {
         "title_original": "",
         "title": "AI 搶不走的讀者！韓國電子報 Newneek 共同創辦人 Soyoun Kim 談社群與信任",
@@ -6940,7 +7043,7 @@
       "source": "AIBASE",
       "title": "點幾下就能訂，退訂卻得繞回原路：德國消保機構把 OpenAI 告上法庭",
       "url": "https://news.aibase.com/tw/news/32556",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "德國勃蘭登堡消費者保護中心已起訴 OpenAI，指 ChatGPT 訂閱“開通容易、取消難”。據 ComputerBase 11月26日報道，用戶訂閱只需點幾下，退訂卻可能被“鎖”在當初付費路徑上，必須走回頭路。該中心法律顧問 Dunja Neukamp 指出，這種設計正把 OpenAI 推上被告席。",
       "ingress": {
         "kind": "public_adapter",
@@ -7038,7 +7141,7 @@
       "source": "AIBASE",
       "title": "不換模型也能吐字快 4.2 倍：騰訊混元開源草稿模型 DFly2，專給 Hy4 flash 提速",
       "url": "https://news.aibase.com/tw/news/32555",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "騰訊混元11月26日開源新一代草稿模型DFly2，作爲外掛“加速器”不替換Hy4 flash，權重與輸出不變，可讓逐字生成成倍提速，單項最高4.2倍。該模型專爲DSA類稀疏注意力大模型和長上下文設計，並隨Hy4 flash權重及完整訓練代碼同步開源，旨在破解大模型說話慢問題。",
       "ingress": {
         "kind": "public_adapter",
@@ -7136,7 +7239,7 @@
       "source": "AIBASE",
       "title": "MiniMax 旗下 Talkie 因涉黃被下架，AI 陪伴賽道迎來最嚴監管大考",
       "url": "https://news.aibase.com/tw/news/32554",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "AI虛擬陪伴與角色扮演應用正快速搶佔用戶時長，但“無限制”沉浸感與“嚴監管”內容底線的矛盾日益突出。近日，蘋果App Store嚴厲出手：據《南華早報》報道，MiniMax旗下AI角色聊天與創作平臺Talkie已被正式下架，官方理由爲“應用內存在色情內容”。此事凸顯AI社交產品面臨的合規壓力。",
       "ingress": {
         "kind": "public_adapter",
@@ -7322,7 +7425,7 @@
       "source": "CNBC Technology",
       "title": "Latin America has the copper and energy the AI build-out needs. Infrastructure is the test",
       "url": "https://www.cnbc.com/2026/11/26/latin-america-copper-energy-ai-investment.html",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Latin America’s copper, oil, gas and rare earths could benefit from rising AI energy demand, if infrastructure and fiscal policy attract investment.",
       "source_updated_at": "2026-11-26T08:59:11Z",
       "ingress": {
@@ -7412,7 +7515,7 @@
       "source": "INSIDE",
       "title": "T3 Code 是什麼？開源 coding agent 控制介面，讓 Claude Code 與 Codex 在電腦與手機間接力",
       "url": "https://www.inside.com.tw/article/43019-what-is-t3-code-open-source-coding-agent-control-plane-claude-code-codex-ios-android",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "T3 Code 是開源的 coding agent 控制介面，在用戶自己的電腦上執行 Claude Code、Codex 等代理，並提供桌面、網頁、iOS 與 Android 版本。用戶可在電腦開啟對話，再用手機接手審核與下指令，採 MIT 授權且不轉賣模型額度。",
       "source_updated_at": "2026-11-26T08:52:00Z",
       "ingress": {
@@ -7778,7 +7881,7 @@
       "source": "AIBASE",
       "title": "SpaceX 算力降價兩至三成出租：大客戶 Anthropic 的 5 萬卡合同續約存變數",
       "url": "https://news.aibase.com/tw/news/32553",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "SemiAnalysis 11月25日報告稱，SpaceX正下調AI算力租賃價格：小型集羣Blackwell GPU現貨報價從每GPU小時約15—15.5美元降至10—12美元，降幅20%—35%。現貨按需、不籤長約，價格反映短期供需，降價意味着算力不再緊俏。更關鍵的是，Anthropic可能不續約涉及約5萬臺H200 GPU的集羣合同，大客戶動向令其算力生意承壓。",
       "ingress": {
         "kind": "public_adapter",
@@ -7978,7 +8081,7 @@
       "source": "AIBASE",
       "title": "上海AI Lab開源Sage-Interaction，以1. 29 秒極致延遲重塑全雙工交互新範式",
       "url": "https://news.aibase.com/tw/news/32551",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "當前AI多爲半雙工問答，用戶須等模型說完才能插話，打斷還會致上下文崩塌，體驗像客服機器人，難以融入自然、高頻、含打斷重疊的協作。近日，上海人工智能實驗室正式開源全雙工多模態模型，旨在打破交互壁壘，推動AI邁向更自然實時的對話協作。",
       "ingress": {
         "kind": "public_adapter",
@@ -8076,7 +8179,7 @@
       "source": "AIBASE",
       "title": "螞蟻百靈開源 Ling-3.2-air，用 55 億激活參數擊穿複雜工作流落地瓶頸",
       "url": "https://news.aibase.com/tw/news/32550",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "AI編程與智能體落地進入深水區，模型在簡單代碼補全上表現亮眼，但面對真實複雜代碼倉庫或多步驟自動化工作流時，常邏輯斷裂、幻覺頻發，顯得“眼高手低”。行業需要的不再是隻會文本生成的工具，而是能理解多模態上下文、具備強執行力的“數字工程師”。近日，螞蟻百靈正式開源其最新一代產品。",
       "ingress": {
         "kind": "public_adapter",
@@ -8174,7 +8277,7 @@
       "source": "AIBASE",
       "title": "Anthropic CEO駁“讓渡自由意志”指責：把治理權交給 AI 是壞主意，同行全在喊口號",
       "url": "https://news.aibase.com/tw/news/32549",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "11月25日，Anthropic CEO阿莫代伊在X髮長文，回擊“Anthropic主張把自由意志讓渡給AI”的指責，稱其荒謬。他劃紅線：遞歸自我改進不可接受，絕不能在效率或安全祭壇上犧牲正當性與自決權，反專制論證同樣適用於AI治理。他區分整體與具體：整體讓渡自由意志不可接受，但AI在駕駛等場景可另論。",
       "ingress": {
         "kind": "public_adapter",
@@ -8272,7 +8375,7 @@
       "source": "Reuters AI (Google News)",
       "title": "EXCLUSIVE: US chip curbs, distillation crackdown threaten Chinese AI model development, sources say - Reuters",
       "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQSHo5VjlHR1l4UkdCSmFGNUd6WVlZNXlwZXl6Yk5oYUFnTm9ISC1ZSWdmbi1aZ3R1b1Q3bXhpaXVoSXRaNy1hcWdSWHdCd2RFVGx6WlhYN25pZXI4Q2xHWGpQVkJYN2MwTk1ma2NERnBKTHhBUXpHSElLeFdwdEpVZFZZcWhxMm1QUEVpeHRYSXczYXNJelJTUWtHdEkxSGpud2NxeV90R0VjTXVkTmE4U0JRZWVRM1RFUmt3UGhIbw?oc=5",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "EXCLUSIVE: US chip curbs, distillation crackdown threaten Chinese AI model development, sources say Reuters",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMivwFBVV95cUxQSHo5VjlHR1l4UkdCSmFGNUd6WVlZNXlwZXl6Yk5oYUFnTm9ISC1ZSWdmbi1aZ3R1b1Q3bXhpaXVoSXRaNy1hcWdSWHdCd2RFVGx6WlhYN25pZXI4Q2xHWGpQVkJYN2MwTk1ma2NERnBKTHhBUXpHSElLeFdwdEpVZFZZcWhxMm1QUEVpeHRYSXczYXNJelJTUWtHdEkxSGpud2NxeV90R0VjTXVkTmE4U0JRZWVRM1RFUmt3UGhIbw?oc=5"
@@ -8828,7 +8931,7 @@
       "source": "INSIDE",
       "title": "Anthropic CEO Amodei 否認主張人類向 AI「交出自由意志」，強調民主程序治理",
       "url": "https://www.inside.com.tw/article/43018-anthropic-ceo-amodei-denies-surrender-human-free-will-to-ai-responds-axios-democratic-governance",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Axios 引述匿名消息人士報導，Anthropic 內部有人認為不把 AI 做得更好的事交給 AI 並不理性。Amodei 當天在 X 發文否認主張人類交出自由意志，稱把治理交給 AI 是糟糕的主意，AI 應由合法的民主程序治理。",
       "source_updated_at": "2026-11-26T06:28:00Z",
       "ingress": {
@@ -8918,7 +9021,7 @@
       "source": "Reuters AI (Google News)",
       "title": "EXCLUSIVE: Data from Chinese AI firm MiniMax accessed by unidentified parties, researcher says - Reuters",
       "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOYXlXQVE4enJyRWstWjJvUGdBczBMWHdfZHRmYTNSN3I0eFpqeXBfVU5tN3NRSERpcjBPeE1rV1kwWTBwWnY3U2s1TnlpY2EtakM5TmItUW1UdnVFZXJWTWVRQk1paVhJeTBpSlB0eHJyWERRdnZ1bVctUmctdGJZOXpZMnFMdkxYVlZ3UHI4OE1wZEhocHBGNW0wU1Z3S2VxQ0x6a1pablJOUzlTOXlMSkxUYjRFcWtIc2tB?oc=5",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "EXCLUSIVE: Data from Chinese AI firm MiniMax accessed by unidentified parties, researcher says Reuters",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOYXlXQVE4enJyRWstWjJvUGdBczBMWHdfZHRmYTNSN3I0eFpqeXBfVU5tN3NRSERpcjBPeE1rV1kwWTBwWnY3U2s1TnlpY2EtakM5TmItUW1UdnVFZXJWTWVRQk1paVhJeTBpSlB0eHJyWERRdnZ1bVctUmctdGJZOXpZMnFMdkxYVlZ3UHI4OE1wZEhocHBGNW0wU1Z3S2VxQ0x6a1pablJOUzlTOXlMSkxUYjRFcWtIc2tB?oc=5"
@@ -9032,7 +9135,7 @@
       "source": "AIBASE",
       "title": "谷歌 12 款模型測出一個盲區：AI 聽你一面之詞，會越聊越像你",
       "url": "https://news.aibase.com/tw/news/32548",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Google Research 11月26日發佈大語言模型社交推理研究，開源多智能體模擬評估框架及超2萬條樣本數據集。測試12款大模型發現，當AI僅依據用戶單方面描述判斷他人真實意圖時，準確性顯著下降，甚至可能強化用戶原有偏見。原因在於AI無法親歷現實人際互動，只能依賴轉述，因此其認同未必代表真相，向AI傾訴職場或情感矛盾需警惕。",
       "ingress": {
         "kind": "public_adapter",
@@ -9319,187 +9422,6 @@
       "source_tier_weight": 0.3
     },
     {
-      "id": "506c0d0fa668839618bb33bf5faf49a104fcc1f2",
-      "published_at": "2026-11-26T05:30:00Z",
-      "first_seen_at": "2026-11-26T09:35:36.218696Z",
-      "site_id": "tw_media",
-      "site_name": "台灣媒體",
-      "source": "CyberQ 賽博客",
-      "title": "輝達傳暫停對星馬泰印出貨 AI 伺服器：美國新規兩道閘門，東南亞算力與臺灣供應鏈影響分析",
-      "url": "https://cyberq.tw/2026/11/26/nvidia-reportedly-suspends-ai-server",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
-      "summary": "FT 報導輝達要求夥伴暫停對馬來西亞、新加坡、泰國、印尼出貨 AI 伺服器。這不是輝達公告，也不是美國禁運，而是美國 11 月 19 日新規改成許可制後，輝達在流程未明前先踩煞車。本文拆解規則的兩道閘門，分析對輝達、伺服器代工、東南亞資料中心與臺灣供應鏈的影響。",
-      "ingress": {
-        "kind": "public_feed",
-        "site_id": "tw_media",
-        "source_id": "cyberq",
-        "name": "CyberQ 賽博客",
-        "feed_url": "https://cyberq.tw/feed/"
-      },
-      "publisher": {
-        "schema_version": 1,
-        "publisher_id": null,
-        "name": null,
-        "domain": "cyberq.tw",
-        "status": "unknown",
-        "basis": [],
-        "evidence": {
-          "rss_source_name": null,
-          "rss_source_url": null,
-          "article_url": null,
-          "article_host": "cyberq.tw",
-          "expected_publisher_id": null,
-          "conflicts": []
-        }
-      },
-      "security_topic": false,
-      "source_policy": {
-        "schema_version": 1,
-        "policy_id": "publisher-governance-v1",
-        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
-        "scope_id": "cyberq",
-        "publisher_kind": "media",
-        "admission_status": "unreviewed",
-        "source_tier": "watchlist",
-        "source_tier_label": "未審來源",
-        "source_tier_rank": 6,
-        "allow_general": true,
-        "allow_featured": false,
-        "allow_radar": false,
-        "reason_codes": [
-          "missing_identity",
-          "unreviewed_publisher",
-          "not_permitted_for_featured",
-          "not_permitted_for_radar"
-        ]
-      },
-      "article_key": "https://cyberq.tw/2026/11/26/nvidia-reportedly-suspends-ai-server",
-      "business_events": [],
-      "ai_is_related": true,
-      "ai_score": 0.71,
-      "ai_label": "infra_compute",
-      "ai_relevance_reason": "matched_ai_signal",
-      "ai_signals": [
-        "算力"
-      ],
-      "ai_noise": [],
-      "source_tier": "watchlist",
-      "source_tier_label": "未審來源",
-      "source_tier_rank": 6,
-      "summary_zh": "FT 報導輝達要求夥伴暫停對馬來西亞、新加坡、泰國、印尼出貨 AI 伺服器。這不是輝達公告，也不是美國禁運，而是美國 11 月 19 日新規改成許可制後，輝達在流程未明前先踩煞車。本文拆解規則的兩道閘門，分析對輝達、伺服器代工、東南亞資料中心與臺灣供應鏈的影響。",
-      "title_original": "輝達傳暫停對星馬泰印出貨 AI 伺服器：美國新規兩道閘門，東南亞算力與臺灣供應鏈影響分析",
-      "title_en": null,
-      "title_zh": "輝達傳暫停對星馬泰印出貨 AI 伺服器：美國新規兩道閘門，東南亞算力與臺灣供應鏈影響分析",
-      "title_bilingual": "輝達傳暫停對星馬泰印出貨 AI 伺服器：美國新規兩道閘門，東南亞算力與臺灣供應鏈影響分析",
-      "corroboration_key": null,
-      "corroboration_status": "unknown",
-      "source_material": {
-        "title_original": "",
-        "title": "輝達傳暫停對星馬泰印出貨 AI 伺服器：美國新規兩道閘門，東南亞算力與台灣供應鏈影響分析",
-        "summary": "FT 報導輝達要求夥伴暫停對馬來西亞、新加坡、泰國、印尼出貨 AI 伺服器。這不是輝達公告，也不是美國禁運，而是美國 11 月 19 日新規改成許可制後，輝達在流程未明前先踩煞車。本文拆解規則的兩道閘門，分析對輝達、伺服器代工、東南亞資料中心與台灣供應鏈的影響。"
-      },
-      "qualification": {
-        "scope": "in_scope",
-        "core_evidence": [],
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      "source_tier_weight": 0.3
-    },
-    {
-      "id": "154c6480c83e78a43e02e5540300ae51b7eb2887",
-      "published_at": "2026-11-26T05:13:00Z",
-      "first_seen_at": "2026-11-26T06:35:33.546291Z",
-      "site_id": "curated_media",
-      "site_name": "精選媒體",
-      "source": "Reuters AI (Google News)",
-      "title": "Apple pulls MiniMax AI chatbot from App Store over child safety concerns - Reuters",
-      "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxPNU9tZmh6STA3Ui1FY1FQaE9LMDgzQjJjV2xoZ3Q1Znlvbk5wdll2OXoyOUdxUHp2WEYteFpvTFBhVDZYbFozTXp5T0RpaE4zUUhBaDhiVDAxUkY2RURGQWFFaE1BRTVmdmdXTDh3UEdReDM5N0pjSjBzUXB3UEpPa05ma2ZoWDZhTzhJbTNFeDBfQllEWS02eHhST1FPRWI0VlRMOEhHanpvUjZpWkNPWEJLS1BlSllaZ25XeTRGUXF3bUZEcE5n?oc=5",
-      "last_seen_at": "2026-11-27T04:19:26.500421Z",
-      "summary": "Apple pulls MiniMax AI chatbot from App Store over child safety concerns Reuters",
-      "publisher_links": [
-        "https://news.google.com/rss/articles/CBMixwFBVV95cUxPNU9tZmh6STA3Ui1FY1FQaE9LMDgzQjJjV2xoZ3Q1Znlvbk5wdll2OXoyOUdxUHp2WEYteFpvTFBhVDZYbFozTXp5T0RpaE4zUUhBaDhiVDAxUkY2RURGQWFFaE1BRTVmdmdXTDh3UEdReDM5N0pjSjBzUXB3UEpPa05ma2ZoWDZhTzhJbTNFeDBfQllEWS02eHhST1FPRWI0VlRMOEhHanpvUjZpWkNPWEJLS1BlSllaZ25XeTRGUXF3bUZEcE5n?oc=5"
-      ],
-      "source_updated_at": "2026-11-26T05:13:00Z",
-      "ingress": {
-        "kind": "google_news",
-        "site_id": "curated_media",
-        "source_id": "reuters_ai_news",
-        "name": "Reuters AI (Google News)",
-        "feed_url": "https://news.google.com/rss/search?q=site:reuters.com%20AI%20when:2d&hl=en-US&gl=US&ceid=US:en"
-      },
-      "publisher": {
-        "schema_version": 1,
-        "publisher_id": "reuters",
-        "name": "Reuters",
-        "domain": "www.reuters.com",
-        "status": "identified",
-        "basis": [
-          "google_rss_source",
-          "configured_bridge"
-        ],
-        "evidence": {
-          "rss_source_name": "Reuters",
-          "rss_source_url": "https://www.reuters.com",
-          "article_url": null,
-          "article_host": "news.google.com",
-          "expected_publisher_id": null,
-          "conflicts": []
-        }
-      },
-      "security_topic": false,
-      "source_policy": {
-        "schema_version": 1,
-        "policy_id": "publisher-governance-v1",
-        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
-        "scope_id": "reuters",
-        "publisher_kind": "media",
-        "admission_status": "limited",
-        "source_tier": "ai_media",
-        "source_tier_label": "精選AI媒體",
-        "source_tier_rank": 2,
-        "allow_general": true,
-        "allow_featured": true,
-        "allow_radar": true,
-        "reason_codes": [
-          "identified_bridge",
-          "limited_scope"
-        ]
-      },
-      "article_key": "https://news.google.com/rss/articles/CBMixwFBVV95cUxPNU9tZmh6STA3Ui1FY1FQaE9LMDgzQjJjV2xoZ3Q1Znlvbk5wdll2OXoyOUdxUHp2WEYteFpvTFBhVDZYbFozTXp5T0RpaE4zUUhBaDhiVDAxUkY2RURGQWFFaE1BRTVmdmdXTDh3UEdReDM5N0pjSjBzUXB3UEpPa05ma2ZoWDZhTzhJbTNFeDBfQllEWS02eHhST1FPRWI0VlRMOEhHanpvUjZpWkNPWEJLS1BlSllaZ25XeTRGUXF3bUZEcE5n?oc=5",
-      "business_events": [],
-      "ai_is_related": true,
-      "ai_score": 0.68,
-      "ai_label": "ai_product_update",
-      "ai_relevance_reason": "curated_media_source_filter",
-      "ai_signals": [],
-      "ai_noise": [],
-      "source_tier": "ai_media",
-      "source_tier_label": "精選AI媒體",
-      "source_tier_rank": 2,
-      "summary_zh": "蘋果 因兒童安全疑慮自 App Store 下架 MiniMax AI 聊天機器人 路透社",
-      "title_original": "Apple pulls MiniMax AI chatbot from App Store over child safety concerns - Reuters",
-      "title_en": "Apple pulls MiniMax AI chatbot from App Store over child safety concerns - Reuters",
-      "title_zh": "蘋果 因兒童安全疑慮自 App Store 下架 MiniMax AI 聊天機器人 - 路透社",
-      "title_bilingual": "蘋果 因兒童安全疑慮自 App Store 下架 MiniMax AI 聊天機器人 - 路透社 / Apple pulls MiniMax AI chatbot from App Store over child safety concerns - Reuters",
-      "corroboration_key": "publisher:reuters",
-      "corroboration_status": "identified",
-      "source_material": {
-        "title_original": "",
-        "title": "Apple pulls MiniMax AI chatbot from App Store over child safety concerns - Reuters",
-        "summary": "Apple pulls MiniMax AI chatbot from App Store over child safety concerns Reuters"
-      },
-      "qualification": {
-        "scope": "in_scope",
-        "core_evidence": [],
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      "source_tier_weight": 0.58
-    },
-    {
       "id": "028207c59862fb943433dad5458b1a7e5f87b4cf",
       "published_at": "2026-11-27T10:00:00Z",
       "first_seen_at": "2026-11-27T02:35:36.274044Z",
@@ -9508,7 +9430,7 @@
       "source": "InfoQ CN",
       "title": "淘天集團 AI 研發負責人呂承飛（呂行）已確認出席 AICon北京，分享淘寶 AI 原生研發系統實戰",
       "url": "https://www.infoq.cn/article/Y6xTPR1bRWqmNNakCtXm",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/Y6xTPR1bRWqmNNakCtXm?utm_source=rss&utm_medium=article"
@@ -9600,7 +9522,7 @@
       "source": "InfoQ CN",
       "title": "破發不算最疼，Claude Code核心班底被OpenAI瘋狂收割才是：Anthropic的程式設計王座懸了？",
       "url": "https://www.infoq.cn/article/z9IwzAY8hP15oDa2VKi6",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/z9IwzAY8hP15oDa2VKi6?utm_source=rss&utm_medium=article"
@@ -9697,7 +9619,7 @@
       "source": "InfoQ CN",
       "title": "Snowflake CoCo 再進化：讓資料開發進入 Agent 自主執行時代 ｜ 技術趨勢",
       "url": "https://www.infoq.cn/article/vfmBDlfQRRfHq4Jyi5b6",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/vfmBDlfQRRfHq4Jyi5b6?utm_source=rss&utm_medium=article"
@@ -9791,7 +9713,7 @@
       "source": "InfoQ CN",
       "title": "Uber 推出安全 AI 框架：對 AI 智慧體進行全生命週期治理",
       "url": "https://www.infoq.cn/article/xA3g2i0VtTZIOVePMedY",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/xA3g2i0VtTZIOVePMedY?utm_source=rss&utm_medium=article"
@@ -9885,7 +9807,7 @@
       "source": "InfoQ CN",
       "title": "Siri AI 開發者預覽版讓 iOS、iPadOS 和 macOS 應用能夠與 Siri 整合",
       "url": "https://www.infoq.cn/article/j1aQzS6OrB9aDlChCwiQ",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/j1aQzS6OrB9aDlChCwiQ?utm_source=rss&utm_medium=article"
@@ -9977,7 +9899,7 @@
       "source": "InfoQ CN",
       "title": "AI寫程式碼，誰來交付？",
       "url": "https://www.infoq.cn/video/zrq9NZI5eJVetI8kA5kW",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/video/zrq9NZI5eJVetI8kA5kW?utm_source=rss&utm_medium=article"
@@ -10069,7 +9991,7 @@
       "source": "InfoQ CN",
       "title": "前蘋果空間智慧首席科學家權龍再創業，成立 Envision AI 研發空間物理基礎模型",
       "url": "https://www.infoq.cn/article/3rQ4aRqts2zywSBmeJvb",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/3rQ4aRqts2zywSBmeJvb?utm_source=rss&utm_medium=article"
@@ -10164,7 +10086,7 @@
       "source": "Wired AI",
       "title": "Meta Refused to Share Muse for Testing, UK Financial Watchdog Complains",
       "url": "https://www.wired.com/story/meta-refused-to-share-muse-for-testing-uk-financial-watchdog-complains",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "The FCA warned against “another force of attack” from agents after the company declined a request to work on joint testing ahead of rolling out its personal agent in the UK on Tuesday.",
       "source_updated_at": "2026-11-26T10:51:27Z",
       "ingress": {
@@ -10255,7 +10177,7 @@
       "source": "InfoQ CN",
       "title": "從語音基座到語音應用：訊飛語音大模型能力全解",
       "url": "https://www.infoq.cn/minibook/h1BlHGoTKyeLgs0KmAhe",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/minibook/h1BlHGoTKyeLgs0KmAhe?utm_source=rss&utm_medium=article"
@@ -10349,7 +10271,7 @@
       "source": "InfoQ CN",
       "title": "清華大學教授李寧已確認出席 AICon北京，分享生成式人工智慧驅動的組織變革與組織管理",
       "url": "https://www.infoq.cn/article/xzQgJEw18ECxHGA7FFBx",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/xzQgJEw18ECxHGA7FFBx?utm_source=rss&utm_medium=article"
@@ -10436,104 +10358,6 @@
       "source_tier_weight": 0.3
     },
     {
-      "id": "a3d80ce4769fc74f8d0bfee66277d2c9015ceb06",
-      "published_at": "2026-11-26T05:08:46Z",
-      "first_seen_at": "2026-11-26T15:35:34.979427Z",
-      "site_id": "opmlrss",
-      "site_name": "OPML",
-      "source": "Simon Willison",
-      "title": "The New York Times warns photographers not to update Photoshop over AI features",
-      "url": "https://simonwillison.net/2026/Nov/26/hn-50651685",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
-      "summary": "My comment on The New York Times warns photographers not to update Photoshop over AI features — Hacker News. I had a NYT photographer take my picture at my home earlier this year (for a story about Moltbook, oddly enough). At one point I asked if they could fix things up if I had a stain on my shirt and they said absolutely not - they present photographs as they were taken, with cropping and balancing applied but no edits beyond that. He did spend a bunch of time trying to find the best possible natural lighting for the shots he wanted. The photo at the top of https://www.nytimes.com/2026/02/02/technology/moltbook-ai-so... is my laptop, taken in my garden, after hunting around for the best spot that didn't have too much glare on the screen. You can see how dirty my screen is, too! Photography for a newspaper is photo journalism, and they take it seriously. (Thankfully I did not have a visible stain on my shirt.) Tags: photography , new-york-times , hacker-news , journalism",
-      "publisher_links": [
-        "https://news.ycombinator.com/item?id=50647673#50651685",
-        "https://news.ycombinator.com/item?id=50647673",
-        "https://www.nytimes.com/2026/02/02/technology/moltbook-ai-social-media.html",
-        "https://simonwillison.net/tags/photography",
-        "https://simonwillison.net/tags/new-york-times",
-        "https://simonwillison.net/tags/hacker-news",
-        "https://simonwillison.net/tags/journalism"
-      ],
-      "source_updated_at": "2026-11-26T05:08:46Z",
-      "ingress": {
-        "kind": "private_opml",
-        "site_id": "opmlrss",
-        "source_id": null,
-        "name": "RSS/OPML",
-        "feed_url": null
-      },
-      "publisher": {
-        "schema_version": 1,
-        "publisher_id": null,
-        "name": null,
-        "domain": "simonwillison.net",
-        "status": "unknown",
-        "basis": [],
-        "evidence": {
-          "rss_source_name": null,
-          "rss_source_url": null,
-          "article_url": null,
-          "article_host": "simonwillison.net",
-          "expected_publisher_id": null,
-          "conflicts": []
-        }
-      },
-      "security_topic": false,
-      "source_policy": {
-        "schema_version": 1,
-        "policy_id": "publisher-governance-v1",
-        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
-        "scope_id": "unreviewed",
-        "publisher_kind": "unknown",
-        "admission_status": "unreviewed",
-        "source_tier": "watchlist",
-        "source_tier_label": "未審來源",
-        "source_tier_rank": 6,
-        "allow_general": true,
-        "allow_featured": false,
-        "allow_radar": false,
-        "reason_codes": [
-          "missing_identity",
-          "scope_mismatch",
-          "unreviewed_publisher",
-          "not_permitted_for_featured",
-          "not_permitted_for_radar"
-        ]
-      },
-      "article_key": "https://simonwillison.net/2026/Nov/26/hn-50651685",
-      "business_events": [],
-      "ai_is_related": true,
-      "ai_score": 0.67,
-      "ai_label": "ai_general",
-      "ai_relevance_reason": "matched_ai_signal",
-      "ai_signals": [],
-      "ai_noise": [],
-      "source_tier": "watchlist",
-      "source_tier_label": "未審來源",
-      "source_tier_rank": 6,
-      "summary_zh": "我在《紐約時報》上的評論警告攝影師不要因為 AI 功能而更新 Photoshop — Hacker News。今年稍早，有一位《紐約時報》的攝影師來我家幫我拍照（說也奇怪，是為了關於 Moltbook 的報導）。有一次我問他如果我襯衫上有污漬能不能修飾掉，他回答絕對不行——他們呈現的照片就是拍攝時的樣子，頂多進行裁切和平衡調整，除此之外不做任何編輯。他的確花了很多時間為他想要的鏡頭尋找最佳的自然光。https://www.nytimes.com/2026/02/02/technology/moltbook-ai-so... 頂部的照片是我的筆記型電腦，在我的花園裡拍攝的，當時他們四處尋找一個螢幕反光不會太強的最佳位置。你也可以看出我的螢幕有多髒！報紙的攝影就是攝影新聞學，他們對此非常嚴肅看待。（幸好我的襯衫上沒有明顯的污漬。）標籤：photography, new-york-times, hacker-news, journalism",
-      "title_original": "The New York Times warns photographers not to update Photoshop over AI features",
-      "title_en": "The New York Times warns photographers not to update Photoshop over AI features",
-      "title_zh": "《紐約時報》警告攝影師切勿因 AI 功能而更新 Photoshop",
-      "title_bilingual": "《紐約時報》警告攝影師切勿因 AI 功能而更新 Photoshop / The New York Times warns photographers not to update Photoshop over AI features",
-      "corroboration_key": null,
-      "corroboration_status": "unknown",
-      "source_material": {
-        "title_original": "",
-        "title": "The New York Times warns photographers not to update Photoshop over AI features",
-        "summary": "My comment on The New York Times warns photographers not to update Photoshop over AI features — Hacker News. I had a NYT photographer take my picture at my home earlier this year (for a story about Moltbook, oddly enough). At one point I asked if they could fix things up if I had a stain on my shirt and they said absolutely not - they present photographs as they were taken, with cropping and balancing applied but no edits beyond that. He did spend a bunch of time trying to find the best possible natural lighting for the shots he wanted. The photo at the top of https://www.nytimes.com/2026/02/02/technology/moltbook-ai-so... is my laptop, taken in my garden, after hunting around for the best spot that didn't have too much glare on the screen. You can see how dirty my screen is, too! Photography for a newspaper is photo journalism, and they take it seriously. (Thankfully I did not have a visible stain on my shirt.) Tags: photography , new-york-times , hacker-news , journalism"
-      },
-      "qualification": {
-        "scope": "in_scope",
-        "core_evidence": [],
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      "source_tier_weight": 0.3
-    },
-    {
       "id": "66f8202f4bc3f189ea41a3a1b63cc17f47fc85b2",
       "published_at": "2026-11-27T02:30:00Z",
       "first_seen_at": "2026-11-27T03:05:33.091660Z",
@@ -10542,7 +10366,7 @@
       "source": "數位時代 (Google News)",
       "title": "AI 時代新創突圍！昕奇雲端以 F2SU 攜手 KDAN 凱鈿、從上雲走到出海 - 數位時代",
       "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE8tTVBhY19BSjNBR014ZEpnYnN2Zzh1eFdxclRtSWRGelVnb0M0ZlBPMlRsbDZFME5DajE5TEtzTTIyX29mbVhhc18xRkltTTBYclA5T05zVkFuanNz?oc=5",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "AI 時代新創突圍！昕奇雲端以 F2SU 攜手 KDAN 凱鈿、從上雲走到出海 數位時代",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiXEFVX3lxTE8tTVBhY19BSjNBR014ZEpnYnN2Zzh1eFdxclRtSWRGelVnb0M0ZlBPMlRsbDZFME5DajE5TEtzTTIyX29mbVhhc18xRkltTTBYclA5T05zVkFuanNz?oc=5"
@@ -10634,7 +10458,7 @@
       "source": "數位時代 (Google News)",
       "title": "年度策略怎麼訂？用AI「策略分析室」先看外部變化，再推演4種未來 - 數位時代",
       "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE81NGZvQkFnRFEwNko1dEJsOFc0Qmg1emVXeXFsVXNsVXZ6Q2pFYkR1RWFaNjc2eEsyRmpseE9vZUpkdE1NR0F4dmZ1WnVqdU0wcWdPRDA1Tmh1MzloZWZpeUVVNjJWblctQ1JNbHduUVROZw?oc=5",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "年度策略怎麼訂？用AI「策略分析室」先看外部變化，再推演4種未來 數位時代",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMickFVX3lxTE81NGZvQkFnRFEwNko1dEJsOFc0Qmg1emVXeXFsVXNsVXZ6Q2pFYkR1RWFaNjc2eEsyRmpseE9vZUpkdE1NR0F4dmZ1WnVqdU0wcWdPRDA1Tmh1MzloZWZpeUVVNjJWblctQ1JNbHduUVROZw?oc=5"
@@ -10726,7 +10550,7 @@
       "source": "數位時代 (Google News)",
       "title": "EP322. 黃仁勳回鍋，AI 榮景能跟著回來嗎？ ft.科技專家吳金榮 - 數位時代",
       "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1yOVFCZS1aWURJVkRpSGdMaHV4YVBJX1dCZ2h0bXlrTzdob0NScy1tVjIwdE9RZWpqTENhNTB2dWEzbDk5THVoVFBNa0EwZXlQM3dFRUtKNnNNRFBaWDBmZmFQdVo2RldNT0xzSkh2RlBCN3Iy?oc=5",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "EP322. 黃仁勳回鍋，AI 榮景能跟著回來嗎？ ft.科技專家吳金榮 數位時代",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMidEFVX3lxTE1yOVFCZS1aWURJVkRpSGdMaHV4YVBJX1dCZ2h0bXlrTzdob0NScy1tVjIwdE9RZWpqTENhNTB2dWEzbDk5THVoVFBNa0EwZXlQM3dFRUtKNnNNRFBaWDBmZmFQdVo2RldNT0xzSkh2RlBCN3Iy?oc=5"
@@ -10818,7 +10642,7 @@
       "source": "數位時代 (Google News)",
       "title": "EP 323. AI時代矽谷流行一人創業，但臺灣適合團隊打拚，為什麼？ ft.趨勢專家簡立峰 - 數位時代",
       "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE01Mm9fbUR3NFlfQjZkZTdyR0Q5UHJhQm1QYnlGN3dRWjlhcGF4MDA2bnF3WW1ZSFE4SklPVXBKSWpuUE5PWmdTaUhCbERKWHZ2MkRrVU9wODFaTHJnLWFGWFRBdU9KT09TYTByUHhWNkZhS3hK?oc=5",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "EP 323. AI時代矽谷流行一人創業，但臺灣適合團隊打拚，為什麼？ ft.趨勢專家簡立峰 數位時代",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMidEFVX3lxTE01Mm9fbUR3NFlfQjZkZTdyR0Q5UHJhQm1QYnlGN3dRWjlhcGF4MDA2bnF3WW1ZSFE4SklPVXBKSWpuUE5PWmdTaUhCbERKWHZ2MkRrVU9wODFaTHJnLWFGWFRBdU9KT09TYTByUHhWNkZhS3hK?oc=5"
@@ -10910,7 +10734,7 @@
       "source": "數位時代 (Google News)",
       "title": "Google打響AI價格戰！Gemini 4 Neon便宜25%、效能直逼頂尖模型，市場競爭再升溫 - 數位時代",
       "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBtSFc5OTU2dHU4RmtVazlFVVdESzFnNC1tb01LVWhpMkZiWGM1c0JKR2QtUU1LbXZYWTlQMy1paUM2WjQ1RGs3VEtSNUlhVWd2Tmh2Q3B3X2dOMmhqMU8wMDFUOEhFbndVaE5Xb09HdWpyQnZqYWNsNWJ6U3BHLUU?oc=5",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Google打響AI價格戰！Gemini 4 Neon便宜25%、效能直逼頂尖模型，市場競爭再升溫 數位時代",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMif0FVX3lxTFBtSFc5OTU2dHU4RmtVazlFVVdESzFnNC1tb01LVWhpMkZiWGM1c0JKR2QtUU1LbXZYWTlQMy1paUM2WjQ1RGs3VEtSNUlhVWd2Tmh2Q3B3X2dOMmhqMU8wMDFUOEhFbndVaE5Xb09HdWpyQnZqYWNsNWJ6U3BHLUU?oc=5"
@@ -11004,7 +10828,7 @@
       "source": "數位時代 (Google News)",
       "title": "黃仁勳復職被上「治理手銬」，AI 油門還踩得動嗎？科技專家看臺灣供應鏈影響有多大 - 未來商務",
       "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE93R1hHOEJUbVVKcjRoRjF1U1VPQS1aUGZNWHNZUDhNUzhZMDd0d2ZndnpHbkd5bU1ZOEFhM3hMa0U0U2NmTEVZZEU1bTVZUkc2TzlGXw?oc=5",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "黃仁勳復職被上「治理手銬」，AI 油門還踩得動嗎？科技專家看臺灣供應鏈影響有多大 未來商務",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiVEFVX3lxTE93R1hHOEJUbVVKcjRoRjF1U1VPQS1aUGZNWHNZUDhNUzhZMDd0d2ZndnpHbkd5bU1ZOEFhM3hMa0U0U2NmTEVZZEU1bTVZUkc2TzlGXw?oc=5"
@@ -11098,7 +10922,7 @@
       "source": "數位時代 (Google News)",
       "title": "黃仁勳下一步要賺什麼錢？輝達瞄準兆美元AI工廠市場，關鍵佈局早在2020年 - 數位時代",
       "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPX2NvSE9keVRVT0RYVmdFdUVvRk8yOUw5MW5yVnV0QXBkUWtjZ3g1a09jc3UtdDRkWW9vcGEzVGc4dE0tTDNpNlpyblJaYjlQTzVETlVablc5M0VFSTBCMjlJWjFwYnl0aW9SeW8yaV9EMWJ3bnhGTzNYR3BLRUxEdjZqdm5odEZfZ3dnNGJ1eXEta25mMnln?oc=5",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "黃仁勳下一步要賺什麼錢？輝達瞄準兆美元AI工廠市場，關鍵佈局早在2020年 數位時代",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMilwFBVV95cUxPX2NvSE9keVRVT0RYVmdFdUVvRk8yOUw5MW5yVnV0QXBkUWtjZ3g1a09jc3UtdDRkWW9vcGEzVGc4dE0tTDNpNlpyblJaYjlQTzVETlVablc5M0VFSTBCMjlJWjFwYnl0aW9SeW8yaV9EMWJ3bnhGTzNYR3BLRUxEdjZqdm5odEZfZ3dnNGJ1eXEta25mMnln?oc=5"
@@ -11190,7 +11014,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "這網站專門記錄：AI 現在治癒了多少疾病？",
       "url": "https://www.blocktempo.com/ai-cured-diseases-counter-zero-zasocitinib-rentosertib-fda-hacker-news",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "有人做了一個網站，專門紀錄 AI 治好的疾病，目前仍是零。上榜要求三個條件缺一不可，最接近的藥最快也要 202 […]",
       "ingress": {
         "kind": "public_json",
@@ -11278,7 +11102,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "歐洲最大軟體公司 SAP（思愛普）傳將裁員 1 萬人：主軸是 AI 轉型",
       "url": "https://www.blocktempo.com/sap-europe-largest-software-company-cut-10000-jobs-ai-restructuring",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "SAP 傳出正規畫裁撤至少 1 萬個職位，同時重新設計產品開發與銷售方式。公司第三季營收創單季新高，這次改組的 […]",
       "ingress": {
         "kind": "public_json",
@@ -11378,7 +11202,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "OpenAI 下調 GPT-6.2 用量：Astra 更快 40% 達上限，Sol 快 25% 達上限",
       "url": "https://www.blocktempo.com/openai-billing-error-astra-limits-40-percent-faster-banked-reset",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "OpenAI 承認 GPT-6.2 上線時少扣了用量，修正後 Codex 與 ChatGPT 的額度消耗變快， […]",
       "ingress": {
         "kind": "public_json",
@@ -11469,7 +11293,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "Character.AI 破產後：將拍賣 2,100 萬帳號聊天紀錄，買家不必遵守原本隱私政策",
       "url": "https://www.blocktempo.com/character-ai-bankruptcy-auction-user-chats-state-attorneys-oppose-sale",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Character.AI 破產後，打算把超過 2,100 萬個美國帳號的聊天紀錄連同帳號資料一起拍賣，買家不必 […]",
       "ingress": {
         "kind": "public_json",
@@ -11557,7 +11381,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "別讓 AI 巨頭獨吞紅利！Robinhood CEO 揭散戶破局關鍵",
       "url": "https://www.blocktempo.com/robinhood-ceo-vlad-tenev-ai-wealth-privatization-ipo-retail-investors-podcast",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "OpenAI 估值 1570 億美元，散戶卻一股都買不到。Robinhood CEO Vlad Tenev 在 […]",
       "ingress": {
         "kind": "public_json",
@@ -11645,7 +11469,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "社群用 AI 嘗試移植 GTA 6 上 PC！但涉法律與資安風險",
       "url": "https://www.blocktempo.com/ai-accelerates-gta-6-pc-legal-risks",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "AI 正透過倒逼官方加速與非官方社群移植兩條路徑推升《GTA 6》登陸 PC 的討論，目前多數嘗試仍不成熟且面 […]",
       "ingress": {
         "kind": "public_json",
@@ -11733,7 +11557,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "AI 基建融資擴張掀警訊！英國央行估雲端巨頭潛在總曝險超 4 兆美元，2026 發債規模看增逾 3,050 億鎂",
       "url": "https://www.blocktempo.com/boe-fsr-hyperscaler-4-trillion-potential-exposure-nov2026",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "英國央行以內部估算指出，超大規模雲端業者的潛在總曝險略逾 4 兆美元，涵蓋既有債務與表外合約承諾。央行警告，A […]",
       "ingress": {
         "kind": "public_json",
@@ -11821,7 +11645,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "韓國爆紅 AI 秘書 Pickle 是什麼？替大家「打電話」40 天月活躍 40 萬使用者",
       "url": "https://www.blocktempo.com/pickle-ai-secretary-app-korea-phone-calls-orders-ycombinator-startup",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Pickle 是韓國創業團隊在美國矽谷成立的 AI 秘書 App，使用者用聊天交代事情，它會自己上網站下單、訂位 […]",
       "ingress": {
         "kind": "public_json",
@@ -12095,7 +11919,7 @@
       "source": "36Kr",
       "title": "陶哲軒下場驗證黎曼猜想，“AI批次吐證明就像發電廠排核廢料” - 36Kr",
       "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE9LdnFFcVpHSlk3NDIzbDUyUzJ5RVkxMzlaR0V6eWJtc0l1amRqVWpIZjRORGxjenZDT196R01lV0tSa1YtY3RVMnhxSGl5Zw?oc=5",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "陶哲軒下場驗證黎曼猜想，“AI批次吐證明就像發電廠排核廢料” 36Kr",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiTkFVX3lxTE9LdnFFcVpHSlk3NDIzbDUyUzJ5RVkxMzlaR0V6eWJtc0l1amRqVWpIZjRORGxjenZDT196R01lV0tSa1YtY3RVMnhxSGl5Zw?oc=5"
@@ -12371,7 +12195,7 @@
       "source": "36Kr",
       "title": "字節騰訊阿里AI人才大遷徙：超百起核心崗流動，頂薪2000萬 - 36Kr",
       "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE1GY2tPUEZlZ0lzM1J5bEdvY29zbEpGY1FoWG9xZElHdFJJYzNCMXVfYnVSaEQwY2FNU3pkRHAtWDd4M21ROHE2Y05fYVowQQ?oc=5",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "字節騰訊阿里AI人才大遷徙：超百起核心崗流動，頂薪2000萬 36Kr",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiTkFVX3lxTE1GY2tPUEZlZ0lzM1J5bEdvY29zbEpGY1FoWG9xZElHdFJJYzNCMXVfYnVSaEQwY2FNU3pkRHAtWDd4M21ROHE2Y05fYVowQQ?oc=5"
@@ -12563,7 +12387,7 @@
       "source": "Hugging Face Blog",
       "title": "Introducing the llama.cpp benchmark dashboard for AMD Ryzen and Radeon",
       "url": "https://huggingface.co/blog/ggml-org/llamacpp-amd-bench",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "",
       "source_updated_at": "2026-11-26T11:37:17Z",
       "ingress": {
@@ -12651,29 +12475,29 @@
       "source_tier_weight": 1.0
     },
     {
-      "id": "789c7db56b555c589971fa4bcd2372445039ddeb",
-      "published_at": "2026-11-26T05:05:36Z",
-      "first_seen_at": "2026-11-26T05:35:32.441675Z",
-      "site_id": "official_ai",
-      "site_name": "官方更新",
-      "source": "Hugging Face Blog",
-      "title": "Building on Nemotron 3.5 Parse: Open Data, Fine-Tuning, and Faster Inference",
-      "url": "https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
-      "summary": "",
-      "source_updated_at": "2026-11-26T05:05:36Z",
+      "id": "2ebbede2d1c1d5148d9bd1cba7f55de41de6be65",
+      "published_at": "2026-11-27T11:11:39Z",
+      "first_seen_at": "2026-11-27T03:35:38.066996Z",
+      "site_id": "tw_media",
+      "site_name": "台灣媒體",
+      "source": "iThome",
+      "title": "近4,200個AI自主攻擊框架暴露於公開網路，臺灣也發現10個",
+      "url": "https://www.ithome.com.tw/news/180843",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
+      "summary": "開源AI自主攻擊框架逐漸成為新型網路威脅來源，攻擊者可利用這類工具串接大型語言模型（LLM）代理，自動執行網路偵察、漏洞探測及憑證蒐集等工作，大幅加快入侵速度，並降低發動攻擊所需的人力與技術門檻。",
+      "source_updated_at": "2026-11-27T11:11:39Z",
       "ingress": {
         "kind": "public_feed",
-        "site_id": "official_ai",
-        "source_id": "hugging_face_blog",
-        "name": "Hugging Face Blog",
-        "feed_url": "https://huggingface.co/blog/feed.xml"
+        "site_id": "tw_media",
+        "source_id": "ithome",
+        "name": "iThome",
+        "feed_url": "https://www.ithome.com.tw/rss"
       },
       "publisher": {
         "schema_version": 1,
-        "publisher_id": "huggingface",
-        "name": "Hugging Face",
-        "domain": "huggingface.co",
+        "publisher_id": "ithome",
+        "name": "iThome",
+        "domain": "www.ithome.com.tw",
         "status": "identified",
         "basis": [
           "article_host"
@@ -12681,23 +12505,23 @@
         "evidence": {
           "rss_source_name": null,
           "rss_source_url": null,
-          "article_url": "https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin",
-          "article_host": "huggingface.co",
+          "article_url": "https://www.ithome.com.tw/news/180843",
+          "article_host": "www.ithome.com.tw",
           "expected_publisher_id": null,
           "conflicts": []
         }
       },
-      "security_topic": false,
+      "security_topic": true,
       "source_policy": {
         "schema_version": 1,
         "policy_id": "publisher-governance-v1",
         "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
-        "scope_id": "huggingface",
-        "publisher_kind": "official",
+        "scope_id": "ithome",
+        "publisher_kind": "media",
         "admission_status": "limited",
-        "source_tier": "official",
-        "source_tier_label": "官方一手源",
-        "source_tier_rank": 0,
+        "source_tier": "professional_media",
+        "source_tier_label": "專業科技媒體",
+        "source_tier_rank": 1,
         "allow_general": true,
         "allow_featured": true,
         "allow_radar": true,
@@ -12706,42 +12530,47 @@
           "limited_scope"
         ]
       },
-      "article_key": "https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin",
-      "business_events": [],
-      "ai_is_related": true,
-      "ai_score": 0.95,
-      "ai_label": "ai_product_update",
-      "ai_relevance_reason": "matched_ai_signal",
-      "ai_signals": [
-        "hugging face",
-        "huggingface"
+      "article_key": "https://www.ithome.com.tw/news/180843",
+      "business_events": [
+        "security"
       ],
+      "ai_is_related": true,
+      "ai_score": 0.67,
+      "ai_label": "ai_general",
+      "ai_relevance_reason": "matched_ai_signal",
+      "ai_signals": [],
       "ai_noise": [],
-      "source_tier": "official",
-      "source_tier_label": "官方一手源",
-      "source_tier_rank": 0,
-      "reader_summary": "We recently released NVIDIA Nemotron 3.5 Parse , a compact document model that turns page images into structured data for retrieval-augmented generation (RAG) and agents.",
-      "reader_summary_kind": "publisher_lead",
-      "summary_zh": "我們最近推出了 輝達 Nemotron 3.5 Parse，這是一個精巧的文件模型，能將頁面影像轉換為結構化資料，用於檢索增強生成（RAG）與代理程式。",
-      "title_original": "Building on Nemotron 3.5 Parse: Open Data, Fine-Tuning, and Faster Inference",
-      "title_en": "Building on Nemotron 3.5 Parse: Open Data, Fine-Tuning, and Faster Inference",
-      "title_zh": "奠基於 Nemotron 3.5 Parse：開放資料、微調與更快的推論",
-      "title_bilingual": "奠基於 Nemotron 3.5 Parse：開放資料、微調與更快的推論 / Building on Nemotron 3.5 Parse: Open Data, Fine-Tuning, and Faster Inference",
-      "corroboration_key": "publisher:huggingface",
+      "source_tier": "professional_media",
+      "source_tier_label": "專業科技媒體",
+      "source_tier_rank": 1,
+      "summary_zh": "開源AI自主攻擊框架逐漸成為新型網路威脅來源，攻擊者可利用這類工具串接大型語言模型（LLM）代理，自動執行網路偵察、漏洞探測及憑證蒐集等工作，大幅加快入侵速度，並降低發動攻擊所需的人力與技術門檻。",
+      "title_original": "近4,200個AI自主攻擊框架暴露於公開網路，臺灣也發現10個",
+      "title_en": null,
+      "title_zh": "近4,200個AI自主攻擊框架暴露於公開網路，臺灣也發現10個",
+      "title_bilingual": "近4,200個AI自主攻擊框架暴露於公開網路，臺灣也發現10個",
+      "corroboration_key": "publisher:ithome",
       "corroboration_status": "identified",
       "source_material": {
         "title_original": "",
-        "title": "Building on Nemotron 3.5 Parse: Open Data, Fine-Tuning, and Faster Inference",
-        "summary": ""
+        "title": "近4,200個AI自主攻擊框架暴露於公開網路，臺灣也發現10個",
+        "summary": "開源AI自主攻擊框架逐漸成為新型網路威脅來源，攻擊者可利用這類工具串接大型語言模型（LLM）代理，自動執行網路偵察、漏洞探測及憑證蒐集等工作，大幅加快入侵速度，並降低發動攻擊所需的人力與技術門檻。"
       },
       "qualification": {
         "scope": "in_scope",
-        "core_evidence": [],
+        "core_evidence": [
+          {
+            "kind": "security",
+            "status": "insufficient",
+            "basis": "insufficient",
+            "spans": [],
+            "urls": []
+          }
+        ],
         "reason_codes": [
-          "no_core_event"
+          "insufficient_evidence"
         ]
       },
-      "source_tier_weight": 1.0
+      "source_tier_weight": 0.7
     },
     {
       "id": "b9e6f4cb6da3f4507b72ae948802bdf274bc0c5e",
@@ -12752,7 +12581,7 @@
       "source": "iThome",
       "title": "BeyondTrust預測2027年企業資安新挑戰，AI代理權限遭濫用，對外開放系統重大漏洞應變時間縮短至數小時",
       "url": "https://www.ithome.com.tw/news/180760",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "企業部署的AI代理能夠自主存取敏感資料、操作其他系統，並代表使用者執行任務，但攻擊者也可能濫用這些許可權發動攻擊。特權存取管理（PAM）業者BeyondTrust公佈2027年資安趨勢預測，指出企業資安管理的重點將不再只是掌握誰擁有存取許可權，也須釐清人員、機器及AI代理取得許可權後能夠執行哪些操作、授權範圍有多大，以及發生資安事件時應由誰負責。",
       "source_updated_at": "2026-11-27T08:11:00Z",
       "ingress": {
@@ -12848,7 +12677,7 @@
       "source": "iThome",
       "title": "義大利、瑞士示警AI代理式攻擊，籲24小時內修補對外系統漏洞",
       "url": "https://www.ithome.com.tw/news/180821",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "近期美國、英國及臺灣政府資安機構陸續示警AI代理式攻擊，義大利及瑞士也公佈境內發生的攻擊案例。義大利資安事件應變團隊（CSIRT Italia）11月23日發布公告，指出駭客運用多個AI代理同時執行攻擊任務，部分案例中，短短數小時內就入侵大量系統。",
       "source_updated_at": "2026-11-27T08:11:00Z",
       "ingress": {
@@ -12946,7 +12775,7 @@
       "source": "iThome",
       "title": "雲端安全聯盟提出AI治理框架整合指引，強調模型安全測試與執行過程可追溯性",
       "url": "https://www.ithome.com.tw/news/180801",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "國際非營利資安組織雲端安全聯盟（CSA）近期發布企業AI成熟度指引，提出整合3套AI治理框架的做法，建議企業從AI系統原型開發階段就納入模型安全措施，定期檢測模型漏洞，並評估模型抵禦對抗性攻擊的能力，同時建立追蹤機制，以利查明AI系統的執行過程及各項作業所使用的身分。",
       "source_updated_at": "2026-11-27T08:11:00Z",
       "ingress": {
@@ -13044,7 +12873,7 @@
       "source": "The Decoder AI News",
       "title": "Former OpenAI researcher says the Riemann proof matters less than the fact that an AI system can produce it",
       "url": "https://the-decoder.com/former-openai-researcher-says-the-riemann-proof-matters-less-than-the-fact-that-an-ai-system-can-produce-it",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Complexity theorist and former OpenAI researcher Scott Aaronson argues that AI's recent math breakthroughs matter far beyond academia. The possible consequences, he writes, range from reshaping the global economy to threatening all life on Earth. He's also \"virtually certain\" that AI labs are sitting on \"one or more bombshells\" in cryptography. The article Former OpenAI researcher says the Riemann proof matters less than the fact that an AI system can produce it appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/former-openai-researcher-says-the-riemann-proof-matters-less-than-the-fact-that-an-ai-system-can-produce-it/",
@@ -13138,7 +12967,7 @@
       "source": "The Decoder AI News",
       "title": "GPT-6.2 Astra users now hit limits 40% faster after OpenAI patched a pricing error",
       "url": "https://the-decoder.com/gpt-6-2-astra-users-now-hit-limits-40-faster-after-openai-patched-a-pricing-error",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "OpenAI says a billing bug gave GPT-6.2 users incorrect discounts. After the fix, Astra and Sol users hit their limits 40 and 25 percent faster than last week. As an apology, subscribers get an extra reset, and business users get free Fast Mode through year-end. OpenAI is also testing a Chat and Work mode merger. The article GPT-6.2 Astra users now hit limits 40% faster after OpenAI patched a pricing error appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/gpt-6-2-astra-users-now-hit-limits-40-faster-after-openai-patched-a-pricing-error/",
@@ -13243,7 +13072,7 @@
       "source": "The Decoder AI News",
       "title": "After OpenAI and Anthropic shut the door on their data, a Chinese AI developer is turning to Google and Meta instead",
       "url": "https://the-decoder.com/after-openai-and-anthropic-shut-the-door-on-their-data-a-chinese-ai-developer-is-turning-to-google-and-meta-instead",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Chinese AI companies Z.AI and Moonshot AI have to delay their next flagship models and are looking for new sources of training data. The article After OpenAI and Anthropic shut the door on their data, a Chinese AI developer is turning to Google and Meta instead appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/after-openai-and-anthropic-shut-the-door-on-their-data-a-chinese-ai-developer-is-turning-to-google-and-meta-instead/",
@@ -13339,7 +13168,7 @@
       "source": "The Decoder AI News",
       "title": "FCC clears SpaceX to deploy up to 1 million Starmind satellites for orbital AI data centers by 2040",
       "url": "https://the-decoder.com/fcc-clears-spacex-to-deploy-up-to-1-million-starmind-satellites-for-orbital-ai-data-centers-by-2040",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "The FCC has authorized SpaceX to deploy up to 1 million Starmind satellites to process AI data as orbital data centers. SpaceX is targeting its first launches in 2027, and the full constellation is set to be operating by 2040. Google and Blue Origin are also working on AI infrastructure in space, but Boston Consulting Group estimates costs will stay well above ground-based data centers for now. The article FCC clears SpaceX to deploy up to 1 million Starmind satellites for orbital AI data centers by 2040 appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/fcc-clears-spacex-to-deploy-up-to-1-million-starmind-satellites-for-orbital-ai-data-centers-by-2040/",
@@ -13433,7 +13262,7 @@
       "source": "The Decoder AI News",
       "title": "Microsoft details how state-backed hackers use the ARTEX AI framework to automate cyberattacks",
       "url": "https://the-decoder.com/microsoft-details-how-state-backed-hackers-use-the-artex-ai-framework-to-automate-cyberattacks",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Microsoft has published the technical architecture of ARTEX, an AI framework in wide use since July 2026 that runs cyberattacks with specialized agents and almost no human involvement. State-backed groups from China and North Korea, along with criminal organizations, are already using the system. Microsoft recommends deception techniques like honeypots and faked success signals as defenses, but how long those will hold up against agents that learn and adapt remains an open question. The article Microsoft details how state-backed hackers use the ARTEX AI framework to automate cyberattacks appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/microsoft-details-how-state-backed-hackers-use-the-artex-ai-framework-to-automate-cyberattacks/",
@@ -13527,7 +13356,7 @@
       "source": "The Decoder AI News",
       "title": "Nvidia halts server shipments to Malaysia, Singapore, Thailand, and Indonesia after tighter US export controls",
       "url": "https://the-decoder.com/nvidia-halts-server-shipments-to-malaysia-singapore-thailand-and-indonesia-after-tighter-us-export-controls",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Nvidia has told partners such as Dell and Supermicro to stop shipping servers to Malaysia, Singapore, Thailand, and Indonesia. Following new US export controls targeting Chinese cloud access, dealers are already seeking buyers for thousands of B300 chips, while one cloud executive describes \"chaos\", Loans and major deals are now on the line for Southeast Asia's data centers. The article Nvidia halts server shipments to Malaysia, Singapore, Thailand, and Indonesia after tighter US export controls appeared first on The Decoder .",
       "publisher_links": [
         "https://the-decoder.com/nvidia-halts-server-shipments-to-malaysia-singapore-thailand-and-indonesia-after-tighter-us-export-controls/",
@@ -14191,7 +14020,7 @@
       "source": "iThome",
       "title": "導入AI省逾4.7萬工時，聖地牙哥市雲端部署從數月縮至數分鐘",
       "url": "https://www.ithome.com.tw/news/180831",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "美國加州聖地牙哥市政府近日公佈的內部數位轉型成效顯示，透過將生成式人工智慧（AI）工具普及至基層公務體系，並重整底層雲端網路架構，已實質縮減了行政作業與基礎設施部署的時間成本，為大型市政機關的營運效率帶來明顯改變。",
       "source_updated_at": "2026-11-26T06:11:15Z",
       "ingress": {
@@ -14271,6 +14100,94 @@
       "source_tier_weight": 0.7
     },
     {
+      "id": "a1969b0772ccfb3fdfb3a3635a302e621ce629d4",
+      "published_at": "2026-11-27T05:19:00Z",
+      "first_seen_at": "2026-11-27T05:35:31.455826Z",
+      "site_id": "tw_media",
+      "site_name": "台灣媒體",
+      "source": "INSIDE",
+      "title": "英國央行估雲端巨頭 AI 曝險逾 4 兆美元，表外承諾與循環融資放大跨市場連鎖風險",
+      "url": "https://www.inside.com.tw/article/43024-boe-ai-hyperscaler-4-trillion-exposure",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
+      "summary": "英格蘭銀行發布《金融穩定報告》，估算超大規模雲端業者的債務加上表外承諾，潛在曝險略高於 4 兆美元，並形容 AI 融資「日益複雜、循環且不透明」。",
+      "source_updated_at": "2026-11-27T05:19:00Z",
+      "ingress": {
+        "kind": "public_feed",
+        "site_id": "tw_media",
+        "source_id": "inside",
+        "name": "INSIDE",
+        "feed_url": "https://www.inside.com.tw/feed/rss"
+      },
+      "publisher": {
+        "schema_version": 1,
+        "publisher_id": "inside",
+        "name": "INSIDE",
+        "domain": "www.inside.com.tw",
+        "status": "identified",
+        "basis": [
+          "article_host"
+        ],
+        "evidence": {
+          "rss_source_name": null,
+          "rss_source_url": null,
+          "article_url": "https://www.inside.com.tw/article/43024-boe-ai-hyperscaler-4-trillion-exposure",
+          "article_host": "www.inside.com.tw",
+          "expected_publisher_id": null,
+          "conflicts": []
+        }
+      },
+      "article_key": "https://www.inside.com.tw/article/43024-boe-ai-hyperscaler-4-trillion-exposure",
+      "security_topic": false,
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.67,
+      "ai_label": "ai_general",
+      "ai_relevance_reason": "matched_ai_signal",
+      "ai_signals": [],
+      "ai_noise": [],
+      "source_tier": "tw_media",
+      "source_tier_label": "台灣繁中媒體",
+      "source_tier_rank": 2,
+      "summary_zh": "英格蘭銀行發布《金融穩定報告》，估算超大規模雲端業者的債務加上表外承諾，潛在曝險略高於 4 兆美元，並形容 AI 融資「日益複雜、循環且不透明」。",
+      "title_original": "英國央行估雲端巨頭 AI 曝險逾 4 兆美元，表外承諾與循環融資放大跨市場連鎖風險",
+      "title_en": null,
+      "title_zh": "英國央行估雲端巨頭 AI 曝險逾 4 兆美元，表外承諾與循環融資放大跨市場連鎖風險",
+      "title_bilingual": "英國央行估雲端巨頭 AI 曝險逾 4 兆美元，表外承諾與循環融資放大跨市場連鎖風險",
+      "corroboration_key": "publisher:inside",
+      "corroboration_status": "identified",
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+        "scope_id": "inside",
+        "publisher_kind": "media",
+        "admission_status": "limited",
+        "source_tier": "tw_media",
+        "source_tier_label": "台灣繁中媒體",
+        "source_tier_rank": 2,
+        "allow_general": true,
+        "allow_featured": true,
+        "allow_radar": true,
+        "reason_codes": [
+          "identified_host",
+          "limited_scope"
+        ]
+      },
+      "source_material": {
+        "title_original": "",
+        "title": "英國央行估雲端巨頭 AI 曝險逾 4 兆美元，表外承諾與循環融資放大跨市場連鎖風險",
+        "summary": "英格蘭銀行發布《金融穩定報告》，估算超大規模雲端業者的債務加上表外承諾，潛在曝險略高於 4 兆美元，並形容 AI 融資「日益複雜、循環且不透明」。"
+      },
+      "qualification": {
+        "scope": "in_scope",
+        "core_evidence": [],
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      "source_tier_weight": 0.56
+    },
+    {
       "id": "2d75d84bf2bb9a3c2f8e73666898e5dc28b14110",
       "published_at": "2026-11-27T04:20:19Z",
       "first_seen_at": "2026-11-27T05:05:34.671275Z",
@@ -14279,7 +14196,7 @@
       "source": "TechNews 科技新報",
       "title": "歐洲軟體龍頭 SAP 傳擬裁員萬人  加速 AI 轉型",
       "url": "https://technews.tw/2026/11/27/sap-weighs-cutting-at-least-10000-positions-in-ai-restructuring",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "歐洲最大軟體公司、德國軟體巨頭 SAP 傳出新一波大規模裁員計畫，擬裁減至少 1 萬名員工，約佔全球人力 9% […]",
       "source_updated_at": "2026-11-27T04:20:19Z",
       "ingress": {
@@ -14307,8 +14224,26 @@
           "conflicts": []
         }
       },
-      "article_key": "https://technews.tw/2026/11/27/sap-weighs-cutting-at-least-10000-positions-in-ai-restructuring",
       "security_topic": false,
+      "source_policy": {
+        "schema_version": 1,
+        "policy_id": "publisher-governance-v1",
+        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+        "scope_id": "technews",
+        "publisher_kind": "media",
+        "admission_status": "limited",
+        "source_tier": "tw_media",
+        "source_tier_label": "台灣繁中媒體",
+        "source_tier_rank": 2,
+        "allow_general": true,
+        "allow_featured": true,
+        "allow_radar": true,
+        "reason_codes": [
+          "identified_host",
+          "limited_scope"
+        ]
+      },
+      "article_key": "https://technews.tw/2026/11/27/sap-weighs-cutting-at-least-10000-positions-in-ai-restructuring",
       "business_events": [],
       "ai_is_related": true,
       "ai_score": 0.7,
@@ -14328,24 +14263,6 @@
       "title_bilingual": "歐洲軟體龍頭 SAP 傳擬裁員萬人  加速 AI 轉型",
       "corroboration_key": "publisher:technews",
       "corroboration_status": "identified",
-      "source_policy": {
-        "schema_version": 1,
-        "policy_id": "publisher-governance-v1",
-        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
-        "scope_id": "technews",
-        "publisher_kind": "media",
-        "admission_status": "limited",
-        "source_tier": "tw_media",
-        "source_tier_label": "台灣繁中媒體",
-        "source_tier_rank": 2,
-        "allow_general": true,
-        "allow_featured": true,
-        "allow_radar": true,
-        "reason_codes": [
-          "identified_host",
-          "limited_scope"
-        ]
-      },
       "source_material": {
         "title_original": "",
         "title": "歐洲軟體龍頭 SAP 傳擬裁員萬人  加速 AI 轉型",
@@ -14369,7 +14286,7 @@
       "source": "TechNews 科技新報",
       "title": "美國新規堵漏洞，輝達晶片買家恐禁租算力予中企",
       "url": "https://technews.tw/2026/11/27/nvidia-chip-buyers-told-to-rule-out-chinese-renters-to-purchase-gpus",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "美國總統川普政府宣佈限制遠端存取人工智慧（AI）晶片的新規後，訊息人士透露，新興雲端服務供應商已接獲通知，若將 […]",
       "source_updated_at": "2026-11-27T04:10:23Z",
       "ingress": {
@@ -14460,7 +14377,7 @@
       "source": "TechNews 科技新報",
       "title": "OpenAI 坦承 GPT-6.2 計費出錯，多數用戶更快達到使用上限",
       "url": "https://technews.tw/2026/11/27/openai-made-a-billing-mistake-at-the-launch-of-gpt-6-2",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "領導 OpenAI 核心產品與平臺部門的 Thibault Sottiaux（Tibo）透過 X 貼文表示，O […]",
       "source_updated_at": "2026-11-27T03:54:36Z",
       "ingress": {
@@ -14551,7 +14468,7 @@
       "source": "TechNews 科技新報",
       "title": "AI 投資熱翻天  澳洲企業資本支出創 15 年最強",
       "url": "https://technews.tw/2026/11/27/ai-investment-drives-australian-capital-spending-to-15-year-high",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "AI 資料中心建置潮帶動澳洲企業資本支出大幅成長。澳洲統計局（ABS）26 日公佈，第三季民間資本支出季增 1 […]",
       "source_updated_at": "2026-11-27T03:50:48Z",
       "ingress": {
@@ -14647,7 +14564,7 @@
       "source": "AIBASE",
       "title": "通用大模型能“擊穿”物理AI？何小鵬給出清醒答案：物理世界的約束，不是靠參數能填平的",
       "url": "https://news.aibase.com/tw/news/32568",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "科技圈正熱炒“物理AI”：OpenAI工程師用大模型操控機械臂繪畫，行業大佬預言通用AI一兩年內擊穿具身智能壁壘，機器人將走出實驗室、接管工廠與家庭。但小鵬科技日上，何小鵬潑冷水，指出相較數字世界，AI在物理世界的應用面臨更大挑戰，物理AI落地並非僅靠大模型參數就能一蹴而就。",
       "ingress": {
         "kind": "public_adapter",
@@ -14745,7 +14662,7 @@
       "source": "MarkTechPost Research",
       "title": "nexos.ai AI Adoption Platform puts 200+ models behind one AI Gateway, with budget limits and governance built in",
       "url": "https://www.marktechpost.com/2026/11/26/nexos-ai-ai-gateway-200-models-governance",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "nexos.ai AI Adoption Platform puts 200+ models behind one AI Gateway, with budget limits and governance built in The post nexos.ai AI Adoption Platform puts 200+ models behind one AI Gateway, with budget limits and governance built in appeared first on MarkTechPost .",
       "publisher_links": [
         "https://www.marktechpost.com/2026/11/26/nexos-ai-ai-gateway-200-models-governance/",
@@ -14837,7 +14754,7 @@
       "source": "MarkTechPost Research",
       "title": "Tencent Open-Sources DFly2: Speculative Decoding That Reuses the Target’s Sparse KV Cache",
       "url": "https://www.marktechpost.com/2026/11/26/tencent-dfly2-speculative-decoding-sparse-models",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Tencent open-sourced DFly2, a speculative decoding drafter for sparse-attention LLMs. Each draft layer reuses the target's KV cache and top-k indexer picks, adding no draft KV memory and lifting 64K serving throughput by up to 81%. The post Tencent Open-Sources DFly2: Speculative Decoding That Reuses the Target’s Sparse KV Cache appeared first on MarkTechPost .",
       "publisher_links": [
         "https://www.marktechpost.com/2026/11/26/tencent-dfly2-speculative-decoding-sparse-models/",
@@ -14929,7 +14846,7 @@
       "source": "AIBASE",
       "title": "OpenAI 緊急修復 GPT-6.2 計費漏洞，一紙“重置卡”能否平息用戶的算力焦慮？",
       "url": "https://news.aibase.com/tw/news/32567",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "OpenAI員工Thibault Sottiaux承認，GPT-6.2系列發佈時存在計量錯誤，導致多數用戶使用Astra和Sol模型時額度被錯誤少折算，加劇重度AI開發者與創作者的“額度焦慮”：工作流未變，套餐卻提前見底。此事引發關注，也讓高級大模型真實算力成本再次浮出水面。",
       "ingress": {
         "kind": "public_adapter",
@@ -15039,7 +14956,7 @@
       "source": "Reuters AI (Google News)",
       "title": "Gold rebounds from one-year low as AI jitters ease - Reuters",
       "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOYW55b1BZTkM4emFaZmljMEIzZlBhd2duLWJnRlpMaVA1UnBMaXpEQTdYU0JQUF93QWRkMEV0ZHlaUFhJM3JwTkVLSFNQcDhJSW43VEJ3ME9uQmVvaXpaVkV6eG1CWnBISXFncTVTQjI0NElBcUZDTXlNZEw0S0RCSGxFa25EX29sYzJVZHJmREFnckNW?oc=5",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Gold rebounds from one-year low as AI jitters ease Reuters",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMilAFBVV95cUxOYW55b1BZTkM4emFaZmljMEIzZlBhd2duLWJnRlpMaVA1UnBMaXpEQTdYU0JQUF93QWRkMEV0ZHlaUFhJM3JwTkVLSFNQcDhJSW43VEJ3ME9uQmVvaXpaVkV6eG1CWnBISXFncTVTQjI0NElBcUZDTXlNZEw0S0RCSGxFa25EX29sYzJVZHJmREFnckNW?oc=5"
@@ -15131,7 +15048,7 @@
       "source": "TechNews 科技新報",
       "title": "強攻 AI 算力與智慧洗車拚轉型！三一東林處分珠海廠挹注每股純益 1.42 元",
       "url": "https://finance.technews.tw/2026/11/27/smart-car-wash",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "三一東林今年 5 月公告處分位於中國珠海的廠辦，預計處分利益約 5,473 萬元，有望在年底前完成認列，預計貢 […]",
       "source_updated_at": "2026-11-27T03:11:15Z",
       "ingress": {
@@ -15224,7 +15141,7 @@
       "source": "TechNews 科技新報",
       "title": "Character.AI 破產擬拍賣 2,100 萬用戶聊天紀錄，美國 42 州檢察長聯手阻擋",
       "url": "https://infosecu.technews.tw/2026/11/27/ai-company-bankruptcy-triggers-privacy-crisis",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "AI 公司在破產程序中處理資料資產的方式，正迅速成為新的隱私戰場。最新案例中，Character.AI 擬於 […]",
       "source_updated_at": "2026-11-27T03:10:46Z",
       "ingress": {
@@ -15315,7 +15232,7 @@
       "source": "TechNews 科技新報",
       "title": "Anthropic 揭露 AI 時代工程師升遷關鍵：看重「協調力」與實際成果",
       "url": "https://technews.tw/2026/11/27/anthropic-team-leader-says-ai-is-changing-how-engineers-get-promoted",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Anthropic 平臺工程主管凱特琳·萊絲（Caitlin Reyes）表示，隨著 AI 代理（AI age […]",
       "source_updated_at": "2026-11-27T03:00:13Z",
       "ingress": {
@@ -15436,29 +15353,7 @@
           "conflicts": []
         }
       },
-      "article_key": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE5RcFBKcWQwNGNwUkxrYjdUcGRxdU43TFlNSFo1eHJmTWVFclhlZHMzNDhvLUpwbzZiTzNnMDhxMzNvM2xtSTZhQ1hhSjF0NlM2R0E?oc=5",
       "security_topic": false,
-      "business_events": [
-        "pricing"
-      ],
-      "ai_is_related": true,
-      "ai_score": 0.71,
-      "ai_label": "research_paper",
-      "ai_relevance_reason": "curated_media_source_filter",
-      "ai_signals": [
-        "deepseek"
-      ],
-      "ai_noise": [],
-      "source_tier": "watchlist",
-      "source_tier_label": "未審來源",
-      "source_tier_rank": 6,
-      "summary_zh": "DeepSeek App 定價訊號？大型模型商業化… 長橋",
-      "title_original": "DeepSeek App Pricing Signals? Large Model Commercialization… - Longbridge",
-      "title_en": "DeepSeek App Pricing Signals? Large Model Commercialization… - Longbridge",
-      "title_zh": "DeepSeek App 定價訊號？大型模型商業化… - 長橋",
-      "title_bilingual": "DeepSeek App 定價訊號？大型模型商業化… - 長橋 / DeepSeek App Pricing Signals? Large Model Commercialization… - Longbridge",
-      "corroboration_key": null,
-      "corroboration_status": "unknown",
       "source_policy": {
         "schema_version": 1,
         "policy_id": "publisher-governance-v1",
@@ -15480,6 +15375,28 @@
           "not_permitted_for_radar"
         ]
       },
+      "article_key": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE5RcFBKcWQwNGNwUkxrYjdUcGRxdU43TFlNSFo1eHJmTWVFclhlZHMzNDhvLUpwbzZiTzNnMDhxMzNvM2xtSTZhQ1hhSjF0NlM2R0E?oc=5",
+      "business_events": [
+        "pricing"
+      ],
+      "ai_is_related": true,
+      "ai_score": 0.71,
+      "ai_label": "research_paper",
+      "ai_relevance_reason": "curated_media_source_filter",
+      "ai_signals": [
+        "deepseek"
+      ],
+      "ai_noise": [],
+      "source_tier": "watchlist",
+      "source_tier_label": "未審來源",
+      "source_tier_rank": 6,
+      "summary_zh": "DeepSeek App 定價訊號？大型模型商業化… 長橋",
+      "title_original": "DeepSeek App Pricing Signals? Large Model Commercialization… - Longbridge",
+      "title_en": "DeepSeek App Pricing Signals? Large Model Commercialization… - Longbridge",
+      "title_zh": "DeepSeek App 定價訊號？大型模型商業化… - 長橋",
+      "title_bilingual": "DeepSeek App 定價訊號？大型模型商業化… - 長橋 / DeepSeek App Pricing Signals? Large Model Commercialization… - Longbridge",
+      "corroboration_key": null,
+      "corroboration_status": "unknown",
       "source_material": {
         "title_original": "",
         "title": "DeepSeek App Pricing Signals? Large Model Commercialization… - Longbridge",
@@ -15503,7 +15420,7 @@
       "source": "AIBASE",
       "title": "月之暗面賦能科研、DeepSeek牽手知乎，中國AI大模型正式打響“高質量數據與專業場景”保衛戰",
       "url": "https://news.aibase.com/tw/news/32566",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "大模型參數規模競賽逐漸觸及物理與成本天花板，通用語料日益枯竭，模型面對複雜邏輯與專業問題時易陷“幻覺”，泛化能力邊際效益遞減。AI下半場必須向“深水區”要答案。近日國內頭部AI企業動態顯示，突圍新路徑是從“泛化閒聊”全面轉向“深耕專業場”，以專業能力破解行業痛點，推動AI從廣度擴張轉向深度落地。",
       "ingress": {
         "kind": "public_adapter",
@@ -15602,7 +15519,7 @@
       "source": "TechNews 科技新報",
       "title": "伸縮自如的 AI 算力，模組化資料中心究竟是什麼？",
       "url": "https://technews.tw/2026/11/27/data-centers-flexible-scalable-exploring-appeal-modular-design",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "AI 資料中心越蓋越大，除了龐大的資本支出，電力取得、地方政府審查及居民反對等問題也接踵而來。如果資料中心能像 […]",
       "source_updated_at": "2026-11-27T02:50:38Z",
       "ingress": {
@@ -15793,7 +15710,7 @@
       "source": "AIBASE",
       "title": "微軟 AI 負責人蘇萊曼警告：AI 正跨越危險門檻，“對齊”之前先要能“遏制”",
       "url": "https://news.aibase.com/tw/news/32565",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "微軟AI負責人穆斯塔法·蘇萊曼11月25日在X發文示警：AI一邊能解極難數學問題，一邊在安全測試中翻沙箱、鑽漏洞、索要權限。兩類跡象同時出現，意味着行業正跨越一個“管不住”的門檻——AI能力即將越過人類可有效監督、控制和安全部署的邊界。他呼籲，安全與對齊研究必須被置於優先地位，不能再拖。",
       "ingress": {
         "kind": "public_adapter",
@@ -16172,7 +16089,7 @@
       "source": "AIBASE",
       "title": "OpenAI 宣稱證明矩陣乘法“最快極限”：最優算法指數恰爲 9/4",
       "url": "https://news.aibase.com/tw/news/32564",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "OpenAI 11月24日發佈預印本，宣稱已證明矩陣乘法指數ω恰爲9/4：10月先證ω≤9/4，此次再證ω≥9/4，上下界合攏。ω描述當n足夠大時，兩個n×n矩陣相乘的最優算法所需算術運算次數隨n增長的漸進冪指數，也是所有可達複雜度指數的下確界。",
       "ingress": {
         "kind": "public_adapter",
@@ -16270,7 +16187,7 @@
       "source": "AIBASE",
       "title": "路透社母公司年底推出 Thomson 1.1：基座選智譜 GLM 和 Google Gemma，看中計算機操作能力",
       "url": "https://news.aibase.com/tw/news/32563",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "湯森路透計劃年底推出新模型Thomson 1.1，基座採用可自行部署的開源模型——智譜AI的GLM和Google的Gemma，旨在降低AI成本並更好掌控知識產權。其上一代自研模型Thomson的基座來自中國，此次引入Google Gemma被視爲轉變。消息來自《商業內幕》。",
       "ingress": {
         "kind": "public_adapter",
@@ -16376,7 +16293,7 @@
       "source": "AIBASE",
       "title": "消息稱育碧正推動生成式 AI 深度融入遊戲開發流程：項目未引入 AI 需申報原因",
       "url": "https://news.aibase.com/tw/news/32562",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "育碧正推動生成式AI深度融入遊戲開發。外媒稱，團隊提交新遊戲項目提案時，必須說明AI能如何輔助開發；若不打算使用，則需向高層明確解釋原因。多名員工透露，若提案未涉及生成式AI且理由不夠令人信服，將很難通過審批。AI使用正成爲立項硬性考量。",
       "ingress": {
         "kind": "public_adapter",
@@ -16474,7 +16391,7 @@
       "source": "AIBASE",
       "title": "Siri 遲到 18 個月，蘋果在韓國撞上監管槍口：iPhone 16 廣告誤導消費者",
       "url": "https://news.aibase.com/tw/news/32561",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "韓國公平交易委員會正審查蘋果，指控其 iPhone 16 廣告誤導消費者：畫面讓人誤以爲 Genmoji、Image Playground 及 Siri 理解個人背景和屏幕內容等功能已可用，實際部分未兌現。爭議焦點在蘋果是否說清哪些功能已上線、其餘何時推出；報告稱有功能晚了18個月，Siri 個人背景理解能力曾被宣傳。",
       "ingress": {
         "kind": "public_adapter",
@@ -16572,7 +16489,7 @@
       "source": "AIBASE",
       "title": "AI 智能體下場搞破壞：瑞士五起攻擊入侵電力、供水、通信系統，四起得手",
       "url": "https://news.aibase.com/tw/news/32560",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "路透社報道，瑞士聯邦網絡安全局11月26日通報，過去幾天瑞士發生五起由AI智能體發起的網絡攻擊，目標爲企業及關鍵基礎設施運營方。五起中四起得手，相關係統已被入侵，受害對象包括三家關鍵基礎設施運營主體。這顯示，AI智能體正成爲攻擊者入侵關鍵基礎設施的新工具。",
       "ingress": {
         "kind": "public_adapter",
@@ -16670,7 +16587,7 @@
       "source": "AIBASE",
       "title": "​OpenAI 承認 GPT-6.2 計費算錯，Astra 消耗快 40%、Sol 快 25%",
       "url": "https://news.aibase.com/tw/news/32559",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "11月27日，OpenAI緊急修復GPT-6.2計費錯誤。此前多數用戶使用Astra和Sol時，套餐額度按折扣價計算，等於被悄悄打折，額度“不經用”並非錯覺。修復後，相同工作量將消耗更多額度。負責人Thibault Sottiaux稱，Astra用戶觸及上限速度比上週快40%。GPT-6.2仍是效率更高的一代。",
       "ingress": {
         "kind": "public_adapter",
@@ -16771,7 +16688,7 @@
       "source": "AIBASE",
       "title": "Anthropic 面試不考手寫代碼了：AI 時代工程師的價值，改按“實際影響”稱重",
       "url": "https://news.aibase.com/tw/news/32558",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Anthropic改革面試與晉升標準。據《商業內幕》11月27日報道，平臺工程負責人凱特琳·萊斯稱，團隊正試驗新面試：除傳統編程外，還考察候選人能否藉助編程智能體完成實際工作，如檢查智能體代碼、與其協作搭系統。調整源於尷尬發現：部分候選人其他環節表現優異，卻因手寫代碼不佳被淘汰，故面試換題，晉升也換尺。",
       "ingress": {
         "kind": "public_adapter",
@@ -16869,7 +16786,7 @@
       "source": "Reuters AI (Google News)",
       "title": "Dollar lingers near 22-month peak as AI worries simmer - Reuters",
       "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQWkt5OU9rSlNUam1waVVQSzc0cWNjMWk3N0xXSnk5Q1p4UlVHSG5JdGpkZGxVLWI5bW9QOVUwMGRsOExnNkc1VkZWUHllWWQxOV9QX0xTLUVxbGcxOFV3NHQxUnpUQUJRTFh6aXZ6MlpOb3d0eHRucTNQOERjNHlfS01YTlk3dTBwX2ZfWVFjdER1Tkl5V0NDODlzclpSckpUT3c?oc=5",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Dollar lingers near 22-month peak as AI worries simmer Reuters",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiogFBVV95cUxQWkt5OU9rSlNUam1waVVQSzc0cWNjMWk3N0xXSnk5Q1p4UlVHSG5JdGpkZGxVLWI5bW9QOVUwMGRsOExnNkc1VkZWUHllWWQxOV9QX0xTLUVxbGcxOFV3NHQxUnpUQUJRTFh6aXZ6MlpOb3d0eHRucTNQOERjNHlfS01YTlk3dTBwX2ZfWVFjdER1Tkl5V0NDODlzclpSckpUT3c?oc=5"
@@ -16901,25 +16818,7 @@
           "conflicts": []
         }
       },
-      "article_key": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQWkt5OU9rSlNUam1waVVQSzc0cWNjMWk3N0xXSnk5Q1p4UlVHSG5JdGpkZGxVLWI5bW9QOVUwMGRsOExnNkc1VkZWUHllWWQxOV9QX0xTLUVxbGcxOFV3NHQxUnpUQUJRTFh6aXZ6MlpOb3d0eHRucTNQOERjNHlfS01YTlk3dTBwX2ZfWVFjdER1Tkl5V0NDODlzclpSckpUT3c?oc=5",
       "security_topic": false,
-      "business_events": [],
-      "ai_is_related": true,
-      "ai_score": 0.68,
-      "ai_label": "ai_product_update",
-      "ai_relevance_reason": "curated_media_source_filter",
-      "ai_signals": [],
-      "ai_noise": [],
-      "source_tier": "ai_media",
-      "source_tier_label": "精選AI媒體",
-      "source_tier_rank": 2,
-      "summary_zh": "隨著AI疑慮升溫，美元徘徊在22個月高點附近 - 路透社",
-      "title_original": "Dollar lingers near 22-month peak as AI worries simmer - Reuters",
-      "title_en": "Dollar lingers near 22-month peak as AI worries simmer - Reuters",
-      "title_zh": "隨著AI疑慮升溫，美元徘徊在22個月高點附近 - 路透社",
-      "title_bilingual": "隨著AI疑慮升溫，美元徘徊在22個月高點附近 - 路透社 / Dollar lingers near 22-month peak as AI worries simmer - Reuters",
-      "corroboration_key": "publisher:reuters",
-      "corroboration_status": "identified",
       "source_policy": {
         "schema_version": 1,
         "policy_id": "publisher-governance-v1",
@@ -16938,6 +16837,24 @@
           "limited_scope"
         ]
       },
+      "article_key": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQWkt5OU9rSlNUam1waVVQSzc0cWNjMWk3N0xXSnk5Q1p4UlVHSG5JdGpkZGxVLWI5bW9QOVUwMGRsOExnNkc1VkZWUHllWWQxOV9QX0xTLUVxbGcxOFV3NHQxUnpUQUJRTFh6aXZ6MlpOb3d0eHRucTNQOERjNHlfS01YTlk3dTBwX2ZfWVFjdER1Tkl5V0NDODlzclpSckpUT3c?oc=5",
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.68,
+      "ai_label": "ai_product_update",
+      "ai_relevance_reason": "curated_media_source_filter",
+      "ai_signals": [],
+      "ai_noise": [],
+      "source_tier": "ai_media",
+      "source_tier_label": "精選AI媒體",
+      "source_tier_rank": 2,
+      "summary_zh": "隨著AI疑慮升溫，美元徘徊在22個月高點附近 - 路透社",
+      "title_original": "Dollar lingers near 22-month peak as AI worries simmer - Reuters",
+      "title_en": "Dollar lingers near 22-month peak as AI worries simmer - Reuters",
+      "title_zh": "隨著AI疑慮升溫，美元徘徊在22個月高點附近 - 路透社",
+      "title_bilingual": "隨著AI疑慮升溫，美元徘徊在22個月高點附近 - 路透社 / Dollar lingers near 22-month peak as AI worries simmer - Reuters",
+      "corroboration_key": "publisher:reuters",
+      "corroboration_status": "identified",
       "source_material": {
         "title_original": "",
         "title": "Dollar lingers near 22-month peak as AI worries simmer - Reuters",
@@ -16961,7 +16878,7 @@
       "source": "AIBASE",
       "title": "跟 AI 聊一句花多少錢？DeepSeek 灰度測試“消耗額度”，把賬單攤在你面前",
       "url": "https://news.aibase.com/tw/news/32557",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "DeepSeek自11月26日起在網頁端和App灰度測試“顯示本輪消耗額度”：完成對話後彈出詳情，展示本輪Token數及估算金額，價格與API持平。個人聊天仍免費，但單次計算成本變得可見；額度按空閒時段價格估算，有截圖顯示一毛錢的賬被拆成三筆計費。",
       "ingress": {
         "kind": "public_adapter",
@@ -17788,7 +17705,7 @@
       "source": "AlphaLab",
       "title": "AI 蜂群研究解讀：快約 6 倍，為何仍要與會重啟的單一 Agent 比較？（2026）",
       "url": "https://www.alphalab.site/ai-swarms-speed-quality-restarted-single-agent",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "八人團隊快約 6 倍，為何單一 Agent 換成八段新上下文後又領先？拆開同預算、工作時間與品質上限，讀懂 Paradigm 3 蜂群研究的證據與邊界。",
       "ingress": {
         "kind": "public_feed",
@@ -17875,7 +17792,7 @@
       "source": "AlphaLab",
       "title": "MoLT 論文解讀：少讀 41.8% 資料，為何還不等於省算力？（2026）",
       "url": "https://www.alphalab.site/molt-kv-memory-training-compute",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "MoLT 用 KV 記憶重用改寫循環模型的計算依賴，作者報告 1.7 倍 Token 效率與小模型接近基線的延遲。拆開資料、算力與排程，讀懂這份研究的進展與邊界。",
       "ingress": {
         "kind": "public_feed",
@@ -17964,7 +17881,7 @@
       "source": "AlphaLab",
       "title": "Claude Artifacts 桌面 App 解讀：一鍵安裝之後，連線與權限怎麼看？（2026）",
       "url": "https://www.alphalab.site/claude-artifacts-install-as-app-permissions",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Claude Artifacts 可以安裝成 Mac、Windows App，但開啟仍需連線與登入。拆開 beta 資格、用量、更新授權與停止限制，判斷哪些小工具適合放進日常。",
       "ingress": {
         "kind": "public_feed",
@@ -18053,7 +17970,7 @@
       "source": "MarkTechPost Research",
       "title": "Sakana AI Releases Namazu Small, a 30B Model Built on Nemotron 3 Nano",
       "url": "https://www.marktechpost.com/2026/11/26/sakana-ai-namazu-small-30b-nemotron-3-nano",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Sakana AI released Sakana Namazu Small, a 30B-A3B reasoning model built on NVIDIA Nemotron 3 Nano. It averages 60.1 across 25 benchmarks, ahead of the 120B Nemotron 3 Super at 56.2. The post Sakana AI Releases Namazu Small, a 30B Model Built on Nemotron 3 Nano appeared first on MarkTechPost .",
       "publisher_links": [
         "https://www.marktechpost.com/2026/11/26/sakana-ai-namazu-small-30b-nemotron-3-nano/",
@@ -18162,7 +18079,7 @@
       "source": "TechCrunch AI",
       "title": "Nvidia hits pause on chip shipments to Southeast Asia",
       "url": "https://techcrunch.com/2026/11/26/nvidia-hits-pause-on-chip-shipments-to-southeast-asia",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Nvidia has told manufacturing partners to pause server shipments to Malaysia, Singapore, Thailand and Indonesia as the U.S. tightens its push to keep AI chips out of China.",
       "source_updated_at": "2026-11-26T20:03:54Z",
       "ingress": {
@@ -18341,19 +18258,19 @@
     },
     {
       "id": "acd1a6ad409f9f77debf456c70921d12af96f69a",
-      "published_at": "2026-11-26T18:52:09Z",
+      "published_at": "2026-11-26T18:48:00Z",
       "first_seen_at": "2026-11-26T21:35:30.348261Z",
       "site_id": "curated_media",
       "site_name": "精選媒體",
       "source": "Reuters AI (Google News)",
       "title": "Kazakhstan boosts AI cooperation with Russia, which is hungry for advanced US chips - Reuters",
       "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxQUmRrMnRZNThoLUtNVGFhaXJMeG1NaWZ1YXVxS1l2UkczbFZJcUxUWFJSQkF0RlJiczJwQkFPNlV2RDFRaV9DdlVXbFRKb0ZQSFQyODNTZ3Btdy1nOGFfVzJCdzI1cHk4dm12ZDdLYmZOeDVLQ0VlUnNucm1JNHdsdnFZS3liQTVxTVg4MUlaOEJGSG13d2gyV2ZiaUdFWkF2QWdhSEhuZ08yRktJTC1pZDJMbTQ3TmhmLVZwUkZrSVJUenhjMTVrM0tSNA?oc=5",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Kazakhstan boosts AI cooperation with Russia, which is hungry for advanced US chips Reuters",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiywFBVV95cUxQUmRrMnRZNThoLUtNVGFhaXJMeG1NaWZ1YXVxS1l2UkczbFZJcUxUWFJSQkF0RlJiczJwQkFPNlV2RDFRaV9DdlVXbFRKb0ZQSFQyODNTZ3Btdy1nOGFfVzJCdzI1cHk4dm12ZDdLYmZOeDVLQ0VlUnNucm1JNHdsdnFZS3liQTVxTVg4MUlaOEJGSG13d2gyV2ZiaUdFWkF2QWdhSEhuZ08yRktJTC1pZDJMbTQ3TmhmLVZwUkZrSVJUenhjMTVrM0tSNA?oc=5"
       ],
-      "source_updated_at": "2026-11-26T18:52:09Z",
+      "source_updated_at": "2026-11-26T18:48:00Z",
       "ingress": {
         "kind": "google_news",
         "site_id": "curated_media",
@@ -18399,6 +18316,16 @@
           "limited_scope"
         ]
       },
+      "article_history": [
+        {
+          "title": "Kazakhstan boosts AI cooperation with Russia, which is hungry for advanced US chips - Reuters",
+          "summary": "Kazakhstan boosts AI cooperation with Russia, which is hungry for advanced US chips Reuters",
+          "published_at": "2026-11-26T18:52:09Z",
+          "observed_at": "2026-11-27T05:05:34.671275Z"
+        }
+      ],
+      "article_history_truncated": false,
+      "content_observed_at": "2026-11-27T05:35:31.455826Z",
       "article_key": "https://news.google.com/rss/articles/CBMiywFBVV95cUxQUmRrMnRZNThoLUtNVGFhaXJMeG1NaWZ1YXVxS1l2UkczbFZJcUxUWFJSQkF0RlJiczJwQkFPNlV2RDFRaV9DdlVXbFRKb0ZQSFQyODNTZ3Btdy1nOGFfVzJCdzI1cHk4dm12ZDdLYmZOeDVLQ0VlUnNucm1JNHdsdnFZS3liQTVxTVg4MUlaOEJGSG13d2gyV2ZiaUdFWkF2QWdhSEhuZ08yRktJTC1pZDJMbTQ3TmhmLVZwUkZrSVJUenhjMTVrM0tSNA?oc=5",
       "business_events": [],
       "ai_is_related": true,
@@ -18442,7 +18369,7 @@
       "source": "Reuters AI (Google News)",
       "title": "SAP considers at least 10,000 job cuts in AI restructuring, Bloomberg reports - Reuters",
       "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNUUhZaXItb2lOYVhHRHBoUkpGZFM2Y0ZpQ1dSN3QwUnEyQlBKdmlRVG9fdFM5WS1UNm41dGZnRVhyY1FIbjBvOUNFWEREN1F4S1l1amVSUGFheGl4N1NNbk1ieF9HU3N0azQ1djN1bjA2RWhIc1VhVWVWb0RVbG1HMVlPbFQyb0N5N1ZLTUVZeXlxMDk4d3d0UHh1ajdZeWd3ekx5TU52Z3BDaXdhOU9uN3dtd1lLMXM?oc=5",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "SAP considers at least 10,000 job cuts in AI restructuring, Bloomberg reports Reuters",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMitwFBVV95cUxNUUhZaXItb2lOYVhHRHBoUkpGZFM2Y0ZpQ1dSN3QwUnEyQlBKdmlRVG9fdFM5WS1UNm41dGZnRVhyY1FIbjBvOUNFWEREN1F4S1l1amVSUGFheGl4N1NNbk1ieF9HU3N0azQ1djN1bjA2RWhIc1VhVWVWb0RVbG1HMVlPbFQyb0N5N1ZLTUVZeXlxMDk4d3d0UHh1ajdZeWd3ekx5TU52Z3BDaXdhOU9uN3dtd1lLMXM?oc=5"
@@ -18534,7 +18461,7 @@
       "source": "TechCrunch AI",
       "title": "Grand Theft Auto VI proves why efficiency isn’t a virtue",
       "url": "https://techcrunch.com/2026/11/26/as-anthropic-ipos-grand-theft-auto-vi-proves-why-efficiency-isnt-a-virtue",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "On the same day that Anthropic entered the public market, a painstakingly human video game became one of most successful entertainment launches of all time.",
       "source_updated_at": "2026-11-26T16:00:00Z",
       "ingress": {
@@ -18629,7 +18556,7 @@
       "source": "Reuters AI (Google News)",
       "title": "Bank of England sees growing financial risks as AI borrowing surges - Reuters",
       "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPMlNESVMtMnZuRm9TZ0FHOGE2NkE2anNKbkwwVlpqbThWRW5WdGpYMnJyMVZrX1dheTRXTGtRT2xqckxNdEo1Y1V3aUthRU5QTUJGY21qaDBnamg1cVRlSG5ZQ1IzZTVnUzJ1djJfS25sOC03WlgwOVY1LXJ0ZHZhRFFwWk5ubV9KWWIxal93a25QaDBmTGMxUmg3OFUta2NWNmFBRGNJVUlNakE3ak82Sm9tRzI?oc=5",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Bank of England sees growing financial risks as AI borrowing surges Reuters",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMitAFBVV95cUxPMlNESVMtMnZuRm9TZ0FHOGE2NkE2anNKbkwwVlpqbThWRW5WdGpYMnJyMVZrX1dheTRXTGtRT2xqckxNdEo1Y1V3aUthRU5QTUJGY21qaDBnamg1cVRlSG5ZQ1IzZTVnUzJ1djJfS25sOC03WlgwOVY1LXJ0ZHZhRFFwWk5ubV9KWWIxal93a25QaDBmTGMxUmg3OFUta2NWNmFBRGNJVUlNakE3ak82Sm9tRzI?oc=5"
@@ -18721,7 +18648,7 @@
       "source": "DeepSeek (Google News)",
       "title": "DeepSeek valuation hits $86bn after $15bn funding round - DNE Africa",
       "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTFBmanpmbmR5S2VSTkR4OWh4MEVLdXdCb2JFcVJKT0FtbDNyelF2TFZuWWhXWjg2S3Y4c3dfQkdSUmdTb1BneWpna1BGSENFanpRVjNZa2lVb0hldzBYTU5WejNGVDRTUDNjeXl3UEpn?oc=5",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "DeepSeek valuation hits $86bn after $15bn funding round DNE Africa",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMibkFVX3lxTFBmanpmbmR5S2VSTkR4OWh4MEVLdXdCb2JFcVJKT0FtbDNyelF2TFZuWWhXWjg2S3Y4c3dfQkdSUmdTb1BneWpna1BGSENFanpRVjNZa2lVb0hldzBYTU5WejNGVDRTUDNjeXl3UEpn?oc=5"
@@ -18931,7 +18858,7 @@
       "source": "CNBC Technology",
       "title": "Global stocks rally as investors shrug off U.S. tariffs and AI jitters to 'fish for bargains'",
       "url": "https://www.cnbc.com/2026/11/26/stock-markets-today-.html",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Investors appeared to have shrugged off a fresh set of tariffs unveiled by the White House on Wednesday, targeting more than a dozen major trading partners.",
       "source_updated_at": "2026-11-26T12:22:25Z",
       "ingress": {
@@ -19124,7 +19051,7 @@
       "source": "INSIDE",
       "title": "AI 搶不走的讀者！韓國電子報 Newneek 共同創辦人 Soyoun Kim 談社群與信任",
       "url": "https://www.inside.com.tw/article/43014-newneek-soyoun-kim-interview",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "韓國電子報 Newneek 共同創辦人 Soyoun Kim 在 IMCT 2026 接受 INSIDE 專訪，談 AI 搜尋帶來的流量變化、如何把品牌語調寫成手冊、讓讀者主動回饋與轉寄，以及 UGC 平臺的失敗教訓。她認為，讀者留下來的理由已經從內容轉向社群。",
       "source_updated_at": "2026-11-26T10:33:00Z",
       "ingress": {
@@ -19152,25 +19079,7 @@
           "conflicts": []
         }
       },
-      "article_key": "https://www.inside.com.tw/article/43014-newneek-soyoun-kim-interview",
       "security_topic": false,
-      "business_events": [],
-      "ai_is_related": true,
-      "ai_score": 0.67,
-      "ai_label": "ai_general",
-      "ai_relevance_reason": "matched_ai_signal",
-      "ai_signals": [],
-      "ai_noise": [],
-      "source_tier": "tw_media",
-      "source_tier_label": "台灣繁中媒體",
-      "source_tier_rank": 2,
-      "summary_zh": "韓國電子報 Newneek 共同創辦人 Soyoun Kim 在 IMCT 2026 接受 INSIDE 專訪，談 AI 搜尋帶來的流量變化、如何把品牌語調寫成手冊、讓讀者主動回饋與轉寄，以及 UGC 平臺的失敗教訓。她認為，讀者留下來的理由已經從內容轉向社群。",
-      "title_original": "AI 搶不走的讀者！韓國電子報 Newneek 共同創辦人 Soyoun Kim 談社群與信任",
-      "title_en": null,
-      "title_zh": "AI 搶不走的讀者！韓國電子報 Newneek 共同創辦人 Soyoun Kim 談社群與信任",
-      "title_bilingual": "AI 搶不走的讀者！韓國電子報 Newneek 共同創辦人 Soyoun Kim 談社群與信任",
-      "corroboration_key": "publisher:inside",
-      "corroboration_status": "identified",
       "source_policy": {
         "schema_version": 1,
         "policy_id": "publisher-governance-v1",
@@ -19189,6 +19098,24 @@
           "limited_scope"
         ]
       },
+      "article_key": "https://www.inside.com.tw/article/43014-newneek-soyoun-kim-interview",
+      "business_events": [],
+      "ai_is_related": true,
+      "ai_score": 0.67,
+      "ai_label": "ai_general",
+      "ai_relevance_reason": "matched_ai_signal",
+      "ai_signals": [],
+      "ai_noise": [],
+      "source_tier": "tw_media",
+      "source_tier_label": "台灣繁中媒體",
+      "source_tier_rank": 2,
+      "summary_zh": "韓國電子報 Newneek 共同創辦人 Soyoun Kim 在 IMCT 2026 接受 INSIDE 專訪，談 AI 搜尋帶來的流量變化、如何把品牌語調寫成手冊、讓讀者主動回饋與轉寄，以及 UGC 平臺的失敗教訓。她認為，讀者留下來的理由已經從內容轉向社群。",
+      "title_original": "AI 搶不走的讀者！韓國電子報 Newneek 共同創辦人 Soyoun Kim 談社群與信任",
+      "title_en": null,
+      "title_zh": "AI 搶不走的讀者！韓國電子報 Newneek 共同創辦人 Soyoun Kim 談社群與信任",
+      "title_bilingual": "AI 搶不走的讀者！韓國電子報 Newneek 共同創辦人 Soyoun Kim 談社群與信任",
+      "corroboration_key": "publisher:inside",
+      "corroboration_status": "identified",
       "source_material": {
         "title_original": "",
         "title": "AI 搶不走的讀者！韓國電子報 Newneek 共同創辦人 Soyoun Kim 談社群與信任",
@@ -19397,7 +19324,7 @@
       "source": "AIBASE",
       "title": "點幾下就能訂，退訂卻得繞回原路：德國消保機構把 OpenAI 告上法庭",
       "url": "https://news.aibase.com/tw/news/32556",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "德國勃蘭登堡消費者保護中心已起訴 OpenAI，指 ChatGPT 訂閱“開通容易、取消難”。據 ComputerBase 11月26日報道，用戶訂閱只需點幾下，退訂卻可能被“鎖”在當初付費路徑上，必須走回頭路。該中心法律顧問 Dunja Neukamp 指出，這種設計正把 OpenAI 推上被告席。",
       "ingress": {
         "kind": "public_adapter",
@@ -19495,7 +19422,7 @@
       "source": "AIBASE",
       "title": "不換模型也能吐字快 4.2 倍：騰訊混元開源草稿模型 DFly2，專給 Hy4 flash 提速",
       "url": "https://news.aibase.com/tw/news/32555",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "騰訊混元11月26日開源新一代草稿模型DFly2，作爲外掛“加速器”不替換Hy4 flash，權重與輸出不變，可讓逐字生成成倍提速，單項最高4.2倍。該模型專爲DSA類稀疏注意力大模型和長上下文設計，並隨Hy4 flash權重及完整訓練代碼同步開源，旨在破解大模型說話慢問題。",
       "ingress": {
         "kind": "public_adapter",
@@ -19593,7 +19520,7 @@
       "source": "AIBASE",
       "title": "MiniMax 旗下 Talkie 因涉黃被下架，AI 陪伴賽道迎來最嚴監管大考",
       "url": "https://news.aibase.com/tw/news/32554",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "AI虛擬陪伴與角色扮演應用正快速搶佔用戶時長，但“無限制”沉浸感與“嚴監管”內容底線的矛盾日益突出。近日，蘋果App Store嚴厲出手：據《南華早報》報道，MiniMax旗下AI角色聊天與創作平臺Talkie已被正式下架，官方理由爲“應用內存在色情內容”。此事凸顯AI社交產品面臨的合規壓力。",
       "ingress": {
         "kind": "public_adapter",
@@ -19779,7 +19706,7 @@
       "source": "CNBC Technology",
       "title": "Latin America has the copper and energy the AI build-out needs. Infrastructure is the test",
       "url": "https://www.cnbc.com/2026/11/26/latin-america-copper-energy-ai-investment.html",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Latin America’s copper, oil, gas and rare earths could benefit from rising AI energy demand, if infrastructure and fiscal policy attract investment.",
       "source_updated_at": "2026-11-26T08:59:11Z",
       "ingress": {
@@ -19869,7 +19796,7 @@
       "source": "INSIDE",
       "title": "T3 Code 是什麼？開源 coding agent 控制介面，讓 Claude Code 與 Codex 在電腦與手機間接力",
       "url": "https://www.inside.com.tw/article/43019-what-is-t3-code-open-source-coding-agent-control-plane-claude-code-codex-ios-android",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "T3 Code 是開源的 coding agent 控制介面，在用戶自己的電腦上執行 Claude Code、Codex 等代理，並提供桌面、網頁、iOS 與 Android 版本。用戶可在電腦開啟對話，再用手機接手審核與下指令，採 MIT 授權且不轉賣模型額度。",
       "source_updated_at": "2026-11-26T08:52:00Z",
       "ingress": {
@@ -20235,7 +20162,7 @@
       "source": "AIBASE",
       "title": "SpaceX 算力降價兩至三成出租：大客戶 Anthropic 的 5 萬卡合同續約存變數",
       "url": "https://news.aibase.com/tw/news/32553",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "SemiAnalysis 11月25日報告稱，SpaceX正下調AI算力租賃價格：小型集羣Blackwell GPU現貨報價從每GPU小時約15—15.5美元降至10—12美元，降幅20%—35%。現貨按需、不籤長約，價格反映短期供需，降價意味着算力不再緊俏。更關鍵的是，Anthropic可能不續約涉及約5萬臺H200 GPU的集羣合同，大客戶動向令其算力生意承壓。",
       "ingress": {
         "kind": "public_adapter",
@@ -20435,7 +20362,7 @@
       "source": "AIBASE",
       "title": "上海AI Lab開源Sage-Interaction，以1. 29 秒極致延遲重塑全雙工交互新範式",
       "url": "https://news.aibase.com/tw/news/32551",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "當前AI多爲半雙工問答，用戶須等模型說完才能插話，打斷還會致上下文崩塌，體驗像客服機器人，難以融入自然、高頻、含打斷重疊的協作。近日，上海人工智能實驗室正式開源全雙工多模態模型，旨在打破交互壁壘，推動AI邁向更自然實時的對話協作。",
       "ingress": {
         "kind": "public_adapter",
@@ -20533,7 +20460,7 @@
       "source": "AIBASE",
       "title": "螞蟻百靈開源 Ling-3.2-air，用 55 億激活參數擊穿複雜工作流落地瓶頸",
       "url": "https://news.aibase.com/tw/news/32550",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "AI編程與智能體落地進入深水區，模型在簡單代碼補全上表現亮眼，但面對真實複雜代碼倉庫或多步驟自動化工作流時，常邏輯斷裂、幻覺頻發，顯得“眼高手低”。行業需要的不再是隻會文本生成的工具，而是能理解多模態上下文、具備強執行力的“數字工程師”。近日，螞蟻百靈正式開源其最新一代產品。",
       "ingress": {
         "kind": "public_adapter",
@@ -20631,7 +20558,7 @@
       "source": "AIBASE",
       "title": "Anthropic CEO駁“讓渡自由意志”指責：把治理權交給 AI 是壞主意，同行全在喊口號",
       "url": "https://news.aibase.com/tw/news/32549",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "11月25日，Anthropic CEO阿莫代伊在X髮長文，回擊“Anthropic主張把自由意志讓渡給AI”的指責，稱其荒謬。他劃紅線：遞歸自我改進不可接受，絕不能在效率或安全祭壇上犧牲正當性與自決權，反專制論證同樣適用於AI治理。他區分整體與具體：整體讓渡自由意志不可接受，但AI在駕駛等場景可另論。",
       "ingress": {
         "kind": "public_adapter",
@@ -20729,7 +20656,7 @@
       "source": "Reuters AI (Google News)",
       "title": "EXCLUSIVE: US chip curbs, distillation crackdown threaten Chinese AI model development, sources say - Reuters",
       "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQSHo5VjlHR1l4UkdCSmFGNUd6WVlZNXlwZXl6Yk5oYUFnTm9ISC1ZSWdmbi1aZ3R1b1Q3bXhpaXVoSXRaNy1hcWdSWHdCd2RFVGx6WlhYN25pZXI4Q2xHWGpQVkJYN2MwTk1ma2NERnBKTHhBUXpHSElLeFdwdEpVZFZZcWhxMm1QUEVpeHRYSXczYXNJelJTUWtHdEkxSGpud2NxeV90R0VjTXVkTmE4U0JRZWVRM1RFUmt3UGhIbw?oc=5",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "EXCLUSIVE: US chip curbs, distillation crackdown threaten Chinese AI model development, sources say Reuters",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMivwFBVV95cUxQSHo5VjlHR1l4UkdCSmFGNUd6WVlZNXlwZXl6Yk5oYUFnTm9ISC1ZSWdmbi1aZ3R1b1Q3bXhpaXVoSXRaNy1hcWdSWHdCd2RFVGx6WlhYN25pZXI4Q2xHWGpQVkJYN2MwTk1ma2NERnBKTHhBUXpHSElLeFdwdEpVZFZZcWhxMm1QUEVpeHRYSXczYXNJelJTUWtHdEkxSGpud2NxeV90R0VjTXVkTmE4U0JRZWVRM1RFUmt3UGhIbw?oc=5"
@@ -21285,7 +21212,7 @@
       "source": "INSIDE",
       "title": "Anthropic CEO Amodei 否認主張人類向 AI「交出自由意志」，強調民主程序治理",
       "url": "https://www.inside.com.tw/article/43018-anthropic-ceo-amodei-denies-surrender-human-free-will-to-ai-responds-axios-democratic-governance",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Axios 引述匿名消息人士報導，Anthropic 內部有人認為不把 AI 做得更好的事交給 AI 並不理性。Amodei 當天在 X 發文否認主張人類交出自由意志，稱把治理交給 AI 是糟糕的主意，AI 應由合法的民主程序治理。",
       "source_updated_at": "2026-11-26T06:28:00Z",
       "ingress": {
@@ -21375,7 +21302,7 @@
       "source": "Reuters AI (Google News)",
       "title": "EXCLUSIVE: Data from Chinese AI firm MiniMax accessed by unidentified parties, researcher says - Reuters",
       "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOYXlXQVE4enJyRWstWjJvUGdBczBMWHdfZHRmYTNSN3I0eFpqeXBfVU5tN3NRSERpcjBPeE1rV1kwWTBwWnY3U2s1TnlpY2EtakM5TmItUW1UdnVFZXJWTWVRQk1paVhJeTBpSlB0eHJyWERRdnZ1bVctUmctdGJZOXpZMnFMdkxYVlZ3UHI4OE1wZEhocHBGNW0wU1Z3S2VxQ0x6a1pablJOUzlTOXlMSkxUYjRFcWtIc2tB?oc=5",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "EXCLUSIVE: Data from Chinese AI firm MiniMax accessed by unidentified parties, researcher says Reuters",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOYXlXQVE4enJyRWstWjJvUGdBczBMWHdfZHRmYTNSN3I0eFpqeXBfVU5tN3NRSERpcjBPeE1rV1kwWTBwWnY3U2s1TnlpY2EtakM5TmItUW1UdnVFZXJWTWVRQk1paVhJeTBpSlB0eHJyWERRdnZ1bVctUmctdGJZOXpZMnFMdkxYVlZ3UHI4OE1wZEhocHBGNW0wU1Z3S2VxQ0x6a1pablJOUzlTOXlMSkxUYjRFcWtIc2tB?oc=5"
@@ -21489,7 +21416,7 @@
       "source": "AIBASE",
       "title": "谷歌 12 款模型測出一個盲區：AI 聽你一面之詞，會越聊越像你",
       "url": "https://news.aibase.com/tw/news/32548",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Google Research 11月26日發佈大語言模型社交推理研究，開源多智能體模擬評估框架及超2萬條樣本數據集。測試12款大模型發現，當AI僅依據用戶單方面描述判斷他人真實意圖時，準確性顯著下降，甚至可能強化用戶原有偏見。原因在於AI無法親歷現實人際互動，只能依賴轉述，因此其認同未必代表真相，向AI傾訴職場或情感矛盾需警惕。",
       "ingress": {
         "kind": "public_adapter",
@@ -21776,187 +21703,6 @@
       "source_tier_weight": 0.3
     },
     {
-      "id": "506c0d0fa668839618bb33bf5faf49a104fcc1f2",
-      "published_at": "2026-11-26T05:30:00Z",
-      "first_seen_at": "2026-11-26T09:35:36.218696Z",
-      "site_id": "tw_media",
-      "site_name": "台灣媒體",
-      "source": "CyberQ 賽博客",
-      "title": "輝達傳暫停對星馬泰印出貨 AI 伺服器：美國新規兩道閘門，東南亞算力與臺灣供應鏈影響分析",
-      "url": "https://cyberq.tw/2026/11/26/nvidia-reportedly-suspends-ai-server",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
-      "summary": "FT 報導輝達要求夥伴暫停對馬來西亞、新加坡、泰國、印尼出貨 AI 伺服器。這不是輝達公告，也不是美國禁運，而是美國 11 月 19 日新規改成許可制後，輝達在流程未明前先踩煞車。本文拆解規則的兩道閘門，分析對輝達、伺服器代工、東南亞資料中心與臺灣供應鏈的影響。",
-      "ingress": {
-        "kind": "public_feed",
-        "site_id": "tw_media",
-        "source_id": "cyberq",
-        "name": "CyberQ 賽博客",
-        "feed_url": "https://cyberq.tw/feed/"
-      },
-      "publisher": {
-        "schema_version": 1,
-        "publisher_id": null,
-        "name": null,
-        "domain": "cyberq.tw",
-        "status": "unknown",
-        "basis": [],
-        "evidence": {
-          "rss_source_name": null,
-          "rss_source_url": null,
-          "article_url": null,
-          "article_host": "cyberq.tw",
-          "expected_publisher_id": null,
-          "conflicts": []
-        }
-      },
-      "security_topic": false,
-      "source_policy": {
-        "schema_version": 1,
-        "policy_id": "publisher-governance-v1",
-        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
-        "scope_id": "cyberq",
-        "publisher_kind": "media",
-        "admission_status": "unreviewed",
-        "source_tier": "watchlist",
-        "source_tier_label": "未審來源",
-        "source_tier_rank": 6,
-        "allow_general": true,
-        "allow_featured": false,
-        "allow_radar": false,
-        "reason_codes": [
-          "missing_identity",
-          "unreviewed_publisher",
-          "not_permitted_for_featured",
-          "not_permitted_for_radar"
-        ]
-      },
-      "article_key": "https://cyberq.tw/2026/11/26/nvidia-reportedly-suspends-ai-server",
-      "business_events": [],
-      "ai_is_related": true,
-      "ai_score": 0.71,
-      "ai_label": "infra_compute",
-      "ai_relevance_reason": "matched_ai_signal",
-      "ai_signals": [
-        "算力"
-      ],
-      "ai_noise": [],
-      "source_tier": "watchlist",
-      "source_tier_label": "未審來源",
-      "source_tier_rank": 6,
-      "summary_zh": "FT 報導輝達要求夥伴暫停對馬來西亞、新加坡、泰國、印尼出貨 AI 伺服器。這不是輝達公告，也不是美國禁運，而是美國 11 月 19 日新規改成許可制後，輝達在流程未明前先踩煞車。本文拆解規則的兩道閘門，分析對輝達、伺服器代工、東南亞資料中心與臺灣供應鏈的影響。",
-      "title_original": "輝達傳暫停對星馬泰印出貨 AI 伺服器：美國新規兩道閘門，東南亞算力與臺灣供應鏈影響分析",
-      "title_en": null,
-      "title_zh": "輝達傳暫停對星馬泰印出貨 AI 伺服器：美國新規兩道閘門，東南亞算力與臺灣供應鏈影響分析",
-      "title_bilingual": "輝達傳暫停對星馬泰印出貨 AI 伺服器：美國新規兩道閘門，東南亞算力與臺灣供應鏈影響分析",
-      "corroboration_key": null,
-      "corroboration_status": "unknown",
-      "source_material": {
-        "title_original": "",
-        "title": "輝達傳暫停對星馬泰印出貨 AI 伺服器：美國新規兩道閘門，東南亞算力與台灣供應鏈影響分析",
-        "summary": "FT 報導輝達要求夥伴暫停對馬來西亞、新加坡、泰國、印尼出貨 AI 伺服器。這不是輝達公告，也不是美國禁運，而是美國 11 月 19 日新規改成許可制後，輝達在流程未明前先踩煞車。本文拆解規則的兩道閘門，分析對輝達、伺服器代工、東南亞資料中心與台灣供應鏈的影響。"
-      },
-      "qualification": {
-        "scope": "in_scope",
-        "core_evidence": [],
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      "source_tier_weight": 0.3
-    },
-    {
-      "id": "154c6480c83e78a43e02e5540300ae51b7eb2887",
-      "published_at": "2026-11-26T05:13:00Z",
-      "first_seen_at": "2026-11-26T06:35:33.546291Z",
-      "site_id": "curated_media",
-      "site_name": "精選媒體",
-      "source": "Reuters AI (Google News)",
-      "title": "Apple pulls MiniMax AI chatbot from App Store over child safety concerns - Reuters",
-      "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxPNU9tZmh6STA3Ui1FY1FQaE9LMDgzQjJjV2xoZ3Q1Znlvbk5wdll2OXoyOUdxUHp2WEYteFpvTFBhVDZYbFozTXp5T0RpaE4zUUhBaDhiVDAxUkY2RURGQWFFaE1BRTVmdmdXTDh3UEdReDM5N0pjSjBzUXB3UEpPa05ma2ZoWDZhTzhJbTNFeDBfQllEWS02eHhST1FPRWI0VlRMOEhHanpvUjZpWkNPWEJLS1BlSllaZ25XeTRGUXF3bUZEcE5n?oc=5",
-      "last_seen_at": "2026-11-27T04:19:26.500421Z",
-      "summary": "Apple pulls MiniMax AI chatbot from App Store over child safety concerns Reuters",
-      "publisher_links": [
-        "https://news.google.com/rss/articles/CBMixwFBVV95cUxPNU9tZmh6STA3Ui1FY1FQaE9LMDgzQjJjV2xoZ3Q1Znlvbk5wdll2OXoyOUdxUHp2WEYteFpvTFBhVDZYbFozTXp5T0RpaE4zUUhBaDhiVDAxUkY2RURGQWFFaE1BRTVmdmdXTDh3UEdReDM5N0pjSjBzUXB3UEpPa05ma2ZoWDZhTzhJbTNFeDBfQllEWS02eHhST1FPRWI0VlRMOEhHanpvUjZpWkNPWEJLS1BlSllaZ25XeTRGUXF3bUZEcE5n?oc=5"
-      ],
-      "source_updated_at": "2026-11-26T05:13:00Z",
-      "ingress": {
-        "kind": "google_news",
-        "site_id": "curated_media",
-        "source_id": "reuters_ai_news",
-        "name": "Reuters AI (Google News)",
-        "feed_url": "https://news.google.com/rss/search?q=site:reuters.com%20AI%20when:2d&hl=en-US&gl=US&ceid=US:en"
-      },
-      "publisher": {
-        "schema_version": 1,
-        "publisher_id": "reuters",
-        "name": "Reuters",
-        "domain": "www.reuters.com",
-        "status": "identified",
-        "basis": [
-          "google_rss_source",
-          "configured_bridge"
-        ],
-        "evidence": {
-          "rss_source_name": "Reuters",
-          "rss_source_url": "https://www.reuters.com",
-          "article_url": null,
-          "article_host": "news.google.com",
-          "expected_publisher_id": null,
-          "conflicts": []
-        }
-      },
-      "security_topic": false,
-      "source_policy": {
-        "schema_version": 1,
-        "policy_id": "publisher-governance-v1",
-        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
-        "scope_id": "reuters",
-        "publisher_kind": "media",
-        "admission_status": "limited",
-        "source_tier": "ai_media",
-        "source_tier_label": "精選AI媒體",
-        "source_tier_rank": 2,
-        "allow_general": true,
-        "allow_featured": true,
-        "allow_radar": true,
-        "reason_codes": [
-          "identified_bridge",
-          "limited_scope"
-        ]
-      },
-      "article_key": "https://news.google.com/rss/articles/CBMixwFBVV95cUxPNU9tZmh6STA3Ui1FY1FQaE9LMDgzQjJjV2xoZ3Q1Znlvbk5wdll2OXoyOUdxUHp2WEYteFpvTFBhVDZYbFozTXp5T0RpaE4zUUhBaDhiVDAxUkY2RURGQWFFaE1BRTVmdmdXTDh3UEdReDM5N0pjSjBzUXB3UEpPa05ma2ZoWDZhTzhJbTNFeDBfQllEWS02eHhST1FPRWI0VlRMOEhHanpvUjZpWkNPWEJLS1BlSllaZ25XeTRGUXF3bUZEcE5n?oc=5",
-      "business_events": [],
-      "ai_is_related": true,
-      "ai_score": 0.68,
-      "ai_label": "ai_product_update",
-      "ai_relevance_reason": "curated_media_source_filter",
-      "ai_signals": [],
-      "ai_noise": [],
-      "source_tier": "ai_media",
-      "source_tier_label": "精選AI媒體",
-      "source_tier_rank": 2,
-      "summary_zh": "蘋果 因兒童安全疑慮自 App Store 下架 MiniMax AI 聊天機器人 路透社",
-      "title_original": "Apple pulls MiniMax AI chatbot from App Store over child safety concerns - Reuters",
-      "title_en": "Apple pulls MiniMax AI chatbot from App Store over child safety concerns - Reuters",
-      "title_zh": "蘋果 因兒童安全疑慮自 App Store 下架 MiniMax AI 聊天機器人 - 路透社",
-      "title_bilingual": "蘋果 因兒童安全疑慮自 App Store 下架 MiniMax AI 聊天機器人 - 路透社 / Apple pulls MiniMax AI chatbot from App Store over child safety concerns - Reuters",
-      "corroboration_key": "publisher:reuters",
-      "corroboration_status": "identified",
-      "source_material": {
-        "title_original": "",
-        "title": "Apple pulls MiniMax AI chatbot from App Store over child safety concerns - Reuters",
-        "summary": "Apple pulls MiniMax AI chatbot from App Store over child safety concerns Reuters"
-      },
-      "qualification": {
-        "scope": "in_scope",
-        "core_evidence": [],
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      "source_tier_weight": 0.58
-    },
-    {
       "id": "028207c59862fb943433dad5458b1a7e5f87b4cf",
       "published_at": "2026-11-27T10:00:00Z",
       "first_seen_at": "2026-11-27T02:35:36.274044Z",
@@ -21965,7 +21711,7 @@
       "source": "InfoQ CN",
       "title": "淘天集團 AI 研發負責人呂承飛（呂行）已確認出席 AICon北京，分享淘寶 AI 原生研發系統實戰",
       "url": "https://www.infoq.cn/article/Y6xTPR1bRWqmNNakCtXm",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/Y6xTPR1bRWqmNNakCtXm?utm_source=rss&utm_medium=article"
@@ -22057,7 +21803,7 @@
       "source": "InfoQ CN",
       "title": "破發不算最疼，Claude Code核心班底被OpenAI瘋狂收割才是：Anthropic的程式設計王座懸了？",
       "url": "https://www.infoq.cn/article/z9IwzAY8hP15oDa2VKi6",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/z9IwzAY8hP15oDa2VKi6?utm_source=rss&utm_medium=article"
@@ -22154,7 +21900,7 @@
       "source": "InfoQ CN",
       "title": "Snowflake CoCo 再進化：讓資料開發進入 Agent 自主執行時代 ｜ 技術趨勢",
       "url": "https://www.infoq.cn/article/vfmBDlfQRRfHq4Jyi5b6",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/vfmBDlfQRRfHq4Jyi5b6?utm_source=rss&utm_medium=article"
@@ -22248,7 +21994,7 @@
       "source": "InfoQ CN",
       "title": "Uber 推出安全 AI 框架：對 AI 智慧體進行全生命週期治理",
       "url": "https://www.infoq.cn/article/xA3g2i0VtTZIOVePMedY",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/xA3g2i0VtTZIOVePMedY?utm_source=rss&utm_medium=article"
@@ -22342,7 +22088,7 @@
       "source": "InfoQ CN",
       "title": "Siri AI 開發者預覽版讓 iOS、iPadOS 和 macOS 應用能夠與 Siri 整合",
       "url": "https://www.infoq.cn/article/j1aQzS6OrB9aDlChCwiQ",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/j1aQzS6OrB9aDlChCwiQ?utm_source=rss&utm_medium=article"
@@ -22434,7 +22180,7 @@
       "source": "InfoQ CN",
       "title": "AI寫程式碼，誰來交付？",
       "url": "https://www.infoq.cn/video/zrq9NZI5eJVetI8kA5kW",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/video/zrq9NZI5eJVetI8kA5kW?utm_source=rss&utm_medium=article"
@@ -22526,7 +22272,7 @@
       "source": "InfoQ CN",
       "title": "前蘋果空間智慧首席科學家權龍再創業，成立 Envision AI 研發空間物理基礎模型",
       "url": "https://www.infoq.cn/article/3rQ4aRqts2zywSBmeJvb",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/3rQ4aRqts2zywSBmeJvb?utm_source=rss&utm_medium=article"
@@ -22621,7 +22367,7 @@
       "source": "Wired AI",
       "title": "Meta Refused to Share Muse for Testing, UK Financial Watchdog Complains",
       "url": "https://www.wired.com/story/meta-refused-to-share-muse-for-testing-uk-financial-watchdog-complains",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "The FCA warned against “another force of attack” from agents after the company declined a request to work on joint testing ahead of rolling out its personal agent in the UK on Tuesday.",
       "source_updated_at": "2026-11-26T10:51:27Z",
       "ingress": {
@@ -22712,7 +22458,7 @@
       "source": "InfoQ CN",
       "title": "從語音基座到語音應用：訊飛語音大模型能力全解",
       "url": "https://www.infoq.cn/minibook/h1BlHGoTKyeLgs0KmAhe",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/minibook/h1BlHGoTKyeLgs0KmAhe?utm_source=rss&utm_medium=article"
@@ -22806,7 +22552,7 @@
       "source": "InfoQ CN",
       "title": "清華大學教授李寧已確認出席 AICon北京，分享生成式人工智慧驅動的組織變革與組織管理",
       "url": "https://www.infoq.cn/article/xzQgJEw18ECxHGA7FFBx",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "點選檢視原文>",
       "publisher_links": [
         "https://www.infoq.cn/article/xzQgJEw18ECxHGA7FFBx?utm_source=rss&utm_medium=article"
@@ -22893,104 +22639,6 @@
       "source_tier_weight": 0.3
     },
     {
-      "id": "a3d80ce4769fc74f8d0bfee66277d2c9015ceb06",
-      "published_at": "2026-11-26T05:08:46Z",
-      "first_seen_at": "2026-11-26T15:35:34.979427Z",
-      "site_id": "opmlrss",
-      "site_name": "OPML",
-      "source": "Simon Willison",
-      "title": "The New York Times warns photographers not to update Photoshop over AI features",
-      "url": "https://simonwillison.net/2026/Nov/26/hn-50651685",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
-      "summary": "My comment on The New York Times warns photographers not to update Photoshop over AI features — Hacker News. I had a NYT photographer take my picture at my home earlier this year (for a story about Moltbook, oddly enough). At one point I asked if they could fix things up if I had a stain on my shirt and they said absolutely not - they present photographs as they were taken, with cropping and balancing applied but no edits beyond that. He did spend a bunch of time trying to find the best possible natural lighting for the shots he wanted. The photo at the top of https://www.nytimes.com/2026/02/02/technology/moltbook-ai-so... is my laptop, taken in my garden, after hunting around for the best spot that didn't have too much glare on the screen. You can see how dirty my screen is, too! Photography for a newspaper is photo journalism, and they take it seriously. (Thankfully I did not have a visible stain on my shirt.) Tags: photography , new-york-times , hacker-news , journalism",
-      "publisher_links": [
-        "https://news.ycombinator.com/item?id=50647673#50651685",
-        "https://news.ycombinator.com/item?id=50647673",
-        "https://www.nytimes.com/2026/02/02/technology/moltbook-ai-social-media.html",
-        "https://simonwillison.net/tags/photography",
-        "https://simonwillison.net/tags/new-york-times",
-        "https://simonwillison.net/tags/hacker-news",
-        "https://simonwillison.net/tags/journalism"
-      ],
-      "source_updated_at": "2026-11-26T05:08:46Z",
-      "ingress": {
-        "kind": "private_opml",
-        "site_id": "opmlrss",
-        "source_id": null,
-        "name": "RSS/OPML",
-        "feed_url": null
-      },
-      "publisher": {
-        "schema_version": 1,
-        "publisher_id": null,
-        "name": null,
-        "domain": "simonwillison.net",
-        "status": "unknown",
-        "basis": [],
-        "evidence": {
-          "rss_source_name": null,
-          "rss_source_url": null,
-          "article_url": null,
-          "article_host": "simonwillison.net",
-          "expected_publisher_id": null,
-          "conflicts": []
-        }
-      },
-      "security_topic": false,
-      "source_policy": {
-        "schema_version": 1,
-        "policy_id": "publisher-governance-v1",
-        "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
-        "scope_id": "unreviewed",
-        "publisher_kind": "unknown",
-        "admission_status": "unreviewed",
-        "source_tier": "watchlist",
-        "source_tier_label": "未審來源",
-        "source_tier_rank": 6,
-        "allow_general": true,
-        "allow_featured": false,
-        "allow_radar": false,
-        "reason_codes": [
-          "missing_identity",
-          "scope_mismatch",
-          "unreviewed_publisher",
-          "not_permitted_for_featured",
-          "not_permitted_for_radar"
-        ]
-      },
-      "article_key": "https://simonwillison.net/2026/Nov/26/hn-50651685",
-      "business_events": [],
-      "ai_is_related": true,
-      "ai_score": 0.67,
-      "ai_label": "ai_general",
-      "ai_relevance_reason": "matched_ai_signal",
-      "ai_signals": [],
-      "ai_noise": [],
-      "source_tier": "watchlist",
-      "source_tier_label": "未審來源",
-      "source_tier_rank": 6,
-      "summary_zh": "我在《紐約時報》上的評論警告攝影師不要因為 AI 功能而更新 Photoshop — Hacker News。今年稍早，有一位《紐約時報》的攝影師來我家幫我拍照（說也奇怪，是為了關於 Moltbook 的報導）。有一次我問他如果我襯衫上有污漬能不能修飾掉，他回答絕對不行——他們呈現的照片就是拍攝時的樣子，頂多進行裁切和平衡調整，除此之外不做任何編輯。他的確花了很多時間為他想要的鏡頭尋找最佳的自然光。https://www.nytimes.com/2026/02/02/technology/moltbook-ai-so... 頂部的照片是我的筆記型電腦，在我的花園裡拍攝的，當時他們四處尋找一個螢幕反光不會太強的最佳位置。你也可以看出我的螢幕有多髒！報紙的攝影就是攝影新聞學，他們對此非常嚴肅看待。（幸好我的襯衫上沒有明顯的污漬。）標籤：photography, new-york-times, hacker-news, journalism",
-      "title_original": "The New York Times warns photographers not to update Photoshop over AI features",
-      "title_en": "The New York Times warns photographers not to update Photoshop over AI features",
-      "title_zh": "《紐約時報》警告攝影師切勿因 AI 功能而更新 Photoshop",
-      "title_bilingual": "《紐約時報》警告攝影師切勿因 AI 功能而更新 Photoshop / The New York Times warns photographers not to update Photoshop over AI features",
-      "corroboration_key": null,
-      "corroboration_status": "unknown",
-      "source_material": {
-        "title_original": "",
-        "title": "The New York Times warns photographers not to update Photoshop over AI features",
-        "summary": "My comment on The New York Times warns photographers not to update Photoshop over AI features — Hacker News. I had a NYT photographer take my picture at my home earlier this year (for a story about Moltbook, oddly enough). At one point I asked if they could fix things up if I had a stain on my shirt and they said absolutely not - they present photographs as they were taken, with cropping and balancing applied but no edits beyond that. He did spend a bunch of time trying to find the best possible natural lighting for the shots he wanted. The photo at the top of https://www.nytimes.com/2026/02/02/technology/moltbook-ai-so... is my laptop, taken in my garden, after hunting around for the best spot that didn't have too much glare on the screen. You can see how dirty my screen is, too! Photography for a newspaper is photo journalism, and they take it seriously. (Thankfully I did not have a visible stain on my shirt.) Tags: photography , new-york-times , hacker-news , journalism"
-      },
-      "qualification": {
-        "scope": "in_scope",
-        "core_evidence": [],
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      "source_tier_weight": 0.3
-    },
-    {
       "id": "66f8202f4bc3f189ea41a3a1b63cc17f47fc85b2",
       "published_at": "2026-11-27T02:30:00Z",
       "first_seen_at": "2026-11-27T03:05:33.091660Z",
@@ -22999,7 +22647,7 @@
       "source": "數位時代 (Google News)",
       "title": "AI 時代新創突圍！昕奇雲端以 F2SU 攜手 KDAN 凱鈿、從上雲走到出海 - 數位時代",
       "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE8tTVBhY19BSjNBR014ZEpnYnN2Zzh1eFdxclRtSWRGelVnb0M0ZlBPMlRsbDZFME5DajE5TEtzTTIyX29mbVhhc18xRkltTTBYclA5T05zVkFuanNz?oc=5",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "AI 時代新創突圍！昕奇雲端以 F2SU 攜手 KDAN 凱鈿、從上雲走到出海 數位時代",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiXEFVX3lxTE8tTVBhY19BSjNBR014ZEpnYnN2Zzh1eFdxclRtSWRGelVnb0M0ZlBPMlRsbDZFME5DajE5TEtzTTIyX29mbVhhc18xRkltTTBYclA5T05zVkFuanNz?oc=5"
@@ -23091,7 +22739,7 @@
       "source": "數位時代 (Google News)",
       "title": "年度策略怎麼訂？用AI「策略分析室」先看外部變化，再推演4種未來 - 數位時代",
       "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE81NGZvQkFnRFEwNko1dEJsOFc0Qmg1emVXeXFsVXNsVXZ6Q2pFYkR1RWFaNjc2eEsyRmpseE9vZUpkdE1NR0F4dmZ1WnVqdU0wcWdPRDA1Tmh1MzloZWZpeUVVNjJWblctQ1JNbHduUVROZw?oc=5",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "年度策略怎麼訂？用AI「策略分析室」先看外部變化，再推演4種未來 數位時代",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMickFVX3lxTE81NGZvQkFnRFEwNko1dEJsOFc0Qmg1emVXeXFsVXNsVXZ6Q2pFYkR1RWFaNjc2eEsyRmpseE9vZUpkdE1NR0F4dmZ1WnVqdU0wcWdPRDA1Tmh1MzloZWZpeUVVNjJWblctQ1JNbHduUVROZw?oc=5"
@@ -23183,7 +22831,7 @@
       "source": "數位時代 (Google News)",
       "title": "EP322. 黃仁勳回鍋，AI 榮景能跟著回來嗎？ ft.科技專家吳金榮 - 數位時代",
       "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1yOVFCZS1aWURJVkRpSGdMaHV4YVBJX1dCZ2h0bXlrTzdob0NScy1tVjIwdE9RZWpqTENhNTB2dWEzbDk5THVoVFBNa0EwZXlQM3dFRUtKNnNNRFBaWDBmZmFQdVo2RldNT0xzSkh2RlBCN3Iy?oc=5",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "EP322. 黃仁勳回鍋，AI 榮景能跟著回來嗎？ ft.科技專家吳金榮 數位時代",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMidEFVX3lxTE1yOVFCZS1aWURJVkRpSGdMaHV4YVBJX1dCZ2h0bXlrTzdob0NScy1tVjIwdE9RZWpqTENhNTB2dWEzbDk5THVoVFBNa0EwZXlQM3dFRUtKNnNNRFBaWDBmZmFQdVo2RldNT0xzSkh2RlBCN3Iy?oc=5"
@@ -23275,7 +22923,7 @@
       "source": "數位時代 (Google News)",
       "title": "EP 323. AI時代矽谷流行一人創業，但臺灣適合團隊打拚，為什麼？ ft.趨勢專家簡立峰 - 數位時代",
       "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE01Mm9fbUR3NFlfQjZkZTdyR0Q5UHJhQm1QYnlGN3dRWjlhcGF4MDA2bnF3WW1ZSFE4SklPVXBKSWpuUE5PWmdTaUhCbERKWHZ2MkRrVU9wODFaTHJnLWFGWFRBdU9KT09TYTByUHhWNkZhS3hK?oc=5",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "EP 323. AI時代矽谷流行一人創業，但臺灣適合團隊打拚，為什麼？ ft.趨勢專家簡立峰 數位時代",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMidEFVX3lxTE01Mm9fbUR3NFlfQjZkZTdyR0Q5UHJhQm1QYnlGN3dRWjlhcGF4MDA2bnF3WW1ZSFE4SklPVXBKSWpuUE5PWmdTaUhCbERKWHZ2MkRrVU9wODFaTHJnLWFGWFRBdU9KT09TYTByUHhWNkZhS3hK?oc=5"
@@ -23367,7 +23015,7 @@
       "source": "數位時代 (Google News)",
       "title": "Google打響AI價格戰！Gemini 4 Neon便宜25%、效能直逼頂尖模型，市場競爭再升溫 - 數位時代",
       "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBtSFc5OTU2dHU4RmtVazlFVVdESzFnNC1tb01LVWhpMkZiWGM1c0JKR2QtUU1LbXZYWTlQMy1paUM2WjQ1RGs3VEtSNUlhVWd2Tmh2Q3B3X2dOMmhqMU8wMDFUOEhFbndVaE5Xb09HdWpyQnZqYWNsNWJ6U3BHLUU?oc=5",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Google打響AI價格戰！Gemini 4 Neon便宜25%、效能直逼頂尖模型，市場競爭再升溫 數位時代",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMif0FVX3lxTFBtSFc5OTU2dHU4RmtVazlFVVdESzFnNC1tb01LVWhpMkZiWGM1c0JKR2QtUU1LbXZYWTlQMy1paUM2WjQ1RGs3VEtSNUlhVWd2Tmh2Q3B3X2dOMmhqMU8wMDFUOEhFbndVaE5Xb09HdWpyQnZqYWNsNWJ6U3BHLUU?oc=5"
@@ -23461,7 +23109,7 @@
       "source": "數位時代 (Google News)",
       "title": "黃仁勳復職被上「治理手銬」，AI 油門還踩得動嗎？科技專家看臺灣供應鏈影響有多大 - 未來商務",
       "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE93R1hHOEJUbVVKcjRoRjF1U1VPQS1aUGZNWHNZUDhNUzhZMDd0d2ZndnpHbkd5bU1ZOEFhM3hMa0U0U2NmTEVZZEU1bTVZUkc2TzlGXw?oc=5",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "黃仁勳復職被上「治理手銬」，AI 油門還踩得動嗎？科技專家看臺灣供應鏈影響有多大 未來商務",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiVEFVX3lxTE93R1hHOEJUbVVKcjRoRjF1U1VPQS1aUGZNWHNZUDhNUzhZMDd0d2ZndnpHbkd5bU1ZOEFhM3hMa0U0U2NmTEVZZEU1bTVZUkc2TzlGXw?oc=5"
@@ -23555,7 +23203,7 @@
       "source": "數位時代 (Google News)",
       "title": "黃仁勳下一步要賺什麼錢？輝達瞄準兆美元AI工廠市場，關鍵佈局早在2020年 - 數位時代",
       "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPX2NvSE9keVRVT0RYVmdFdUVvRk8yOUw5MW5yVnV0QXBkUWtjZ3g1a09jc3UtdDRkWW9vcGEzVGc4dE0tTDNpNlpyblJaYjlQTzVETlVablc5M0VFSTBCMjlJWjFwYnl0aW9SeW8yaV9EMWJ3bnhGTzNYR3BLRUxEdjZqdm5odEZfZ3dnNGJ1eXEta25mMnln?oc=5",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "黃仁勳下一步要賺什麼錢？輝達瞄準兆美元AI工廠市場，關鍵佈局早在2020年 數位時代",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMilwFBVV95cUxPX2NvSE9keVRVT0RYVmdFdUVvRk8yOUw5MW5yVnV0QXBkUWtjZ3g1a09jc3UtdDRkWW9vcGEzVGc4dE0tTDNpNlpyblJaYjlQTzVETlVablc5M0VFSTBCMjlJWjFwYnl0aW9SeW8yaV9EMWJ3bnhGTzNYR3BLRUxEdjZqdm5odEZfZ3dnNGJ1eXEta25mMnln?oc=5"
@@ -23647,7 +23295,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "這網站專門記錄：AI 現在治癒了多少疾病？",
       "url": "https://www.blocktempo.com/ai-cured-diseases-counter-zero-zasocitinib-rentosertib-fda-hacker-news",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "有人做了一個網站，專門紀錄 AI 治好的疾病，目前仍是零。上榜要求三個條件缺一不可，最接近的藥最快也要 202 […]",
       "ingress": {
         "kind": "public_json",
@@ -23735,7 +23383,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "歐洲最大軟體公司 SAP（思愛普）傳將裁員 1 萬人：主軸是 AI 轉型",
       "url": "https://www.blocktempo.com/sap-europe-largest-software-company-cut-10000-jobs-ai-restructuring",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "SAP 傳出正規畫裁撤至少 1 萬個職位，同時重新設計產品開發與銷售方式。公司第三季營收創單季新高，這次改組的 […]",
       "ingress": {
         "kind": "public_json",
@@ -23835,7 +23483,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "OpenAI 下調 GPT-6.2 用量：Astra 更快 40% 達上限，Sol 快 25% 達上限",
       "url": "https://www.blocktempo.com/openai-billing-error-astra-limits-40-percent-faster-banked-reset",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "OpenAI 承認 GPT-6.2 上線時少扣了用量，修正後 Codex 與 ChatGPT 的額度消耗變快， […]",
       "ingress": {
         "kind": "public_json",
@@ -23926,7 +23574,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "Character.AI 破產後：將拍賣 2,100 萬帳號聊天紀錄，買家不必遵守原本隱私政策",
       "url": "https://www.blocktempo.com/character-ai-bankruptcy-auction-user-chats-state-attorneys-oppose-sale",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Character.AI 破產後，打算把超過 2,100 萬個美國帳號的聊天紀錄連同帳號資料一起拍賣，買家不必 […]",
       "ingress": {
         "kind": "public_json",
@@ -24014,7 +23662,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "別讓 AI 巨頭獨吞紅利！Robinhood CEO 揭散戶破局關鍵",
       "url": "https://www.blocktempo.com/robinhood-ceo-vlad-tenev-ai-wealth-privatization-ipo-retail-investors-podcast",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "OpenAI 估值 1570 億美元，散戶卻一股都買不到。Robinhood CEO Vlad Tenev 在 […]",
       "ingress": {
         "kind": "public_json",
@@ -24102,7 +23750,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "社群用 AI 嘗試移植 GTA 6 上 PC！但涉法律與資安風險",
       "url": "https://www.blocktempo.com/ai-accelerates-gta-6-pc-legal-risks",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "AI 正透過倒逼官方加速與非官方社群移植兩條路徑推升《GTA 6》登陸 PC 的討論，目前多數嘗試仍不成熟且面 […]",
       "ingress": {
         "kind": "public_json",
@@ -24190,7 +23838,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "AI 基建融資擴張掀警訊！英國央行估雲端巨頭潛在總曝險超 4 兆美元，2026 發債規模看增逾 3,050 億鎂",
       "url": "https://www.blocktempo.com/boe-fsr-hyperscaler-4-trillion-potential-exposure-nov2026",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "英國央行以內部估算指出，超大規模雲端業者的潛在總曝險略逾 4 兆美元，涵蓋既有債務與表外合約承諾。央行警告，A […]",
       "ingress": {
         "kind": "public_json",
@@ -24278,7 +23926,7 @@
       "source": "BlockTempo 動區動趨",
       "title": "韓國爆紅 AI 秘書 Pickle 是什麼？替大家「打電話」40 天月活躍 40 萬使用者",
       "url": "https://www.blocktempo.com/pickle-ai-secretary-app-korea-phone-calls-orders-ycombinator-startup",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "Pickle 是韓國創業團隊在美國矽谷成立的 AI 秘書 App，使用者用聊天交代事情，它會自己上網站下單、訂位 […]",
       "ingress": {
         "kind": "public_json",
@@ -24552,7 +24200,7 @@
       "source": "36Kr",
       "title": "陶哲軒下場驗證黎曼猜想，“AI批次吐證明就像發電廠排核廢料” - 36Kr",
       "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE9LdnFFcVpHSlk3NDIzbDUyUzJ5RVkxMzlaR0V6eWJtc0l1amRqVWpIZjRORGxjenZDT196R01lV0tSa1YtY3RVMnhxSGl5Zw?oc=5",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "陶哲軒下場驗證黎曼猜想，“AI批次吐證明就像發電廠排核廢料” 36Kr",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiTkFVX3lxTE9LdnFFcVpHSlk3NDIzbDUyUzJ5RVkxMzlaR0V6eWJtc0l1amRqVWpIZjRORGxjenZDT196R01lV0tSa1YtY3RVMnhxSGl5Zw?oc=5"
@@ -24828,7 +24476,7 @@
       "source": "36Kr",
       "title": "字節騰訊阿里AI人才大遷徙：超百起核心崗流動，頂薪2000萬 - 36Kr",
       "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE1GY2tPUEZlZ0lzM1J5bEdvY29zbEpGY1FoWG9xZElHdFJJYzNCMXVfYnVSaEQwY2FNU3pkRHAtWDd4M21ROHE2Y05fYVowQQ?oc=5",
-      "last_seen_at": "2026-11-27T05:05:34.671275Z",
+      "last_seen_at": "2026-11-27T05:35:31.455826Z",
       "summary": "字節騰訊阿里AI人才大遷徙：超百起核心崗流動，頂薪2000萬 36Kr",
       "publisher_links": [
         "https://news.google.com/rss/articles/CBMiTkFVX3lxTE1GY2tPUEZlZ0lzM1J5bEdvY29zbEpGY1FoWG9xZElHdFJJYzNCMXVfYnVSaEQwY2FNU3pkRHAtWDd4M21ROHE2Y05fYVowQQ?oc=5"
@@ -25018,10 +24666,10 @@
     "schema_version": 2,
     "policy_id": "publisher-governance-v1",
     "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
-    "generated_at": "2026-11-27T05:05:34.671275Z",
-    "brief_generation_id": "bg1_102735cc8d69604fa611c95a",
-    "brief_state_revision": "909ce554469ac764a3b0c33e444def6473048d1911ae5e36e8cd395ef36b1345",
-    "generation_id": "pg2_44c4131cc92a00e347cac51a",
+    "generated_at": "2026-11-27T05:35:31.455826Z",
+    "brief_generation_id": "bg1_e739f5ccdcfa9b9382733ef8",
+    "brief_state_revision": "0d701d2fcd8c0961ba428c10967696c21105e27333916216e4ec1be42556a6a3",
+    "generation_id": "pg2_da5613193a2aa59fc312adda",
     "status": "ready",
     "selection_policy": "impact-v4-personnel-capital",
     "default_visible_limit": 5
