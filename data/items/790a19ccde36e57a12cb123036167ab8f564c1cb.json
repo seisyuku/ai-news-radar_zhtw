@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon Route 53 Profiles 现已支持每个 VPC 关联多个配置文件",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/route-53-profiles-multiple-per-vpc",
-  "last_seen_at": "2026-11-27T17:57:49.870248Z",
+  "last_seen_at": "2026-11-27T18:35:33.285369Z",
   "summary": "Amazon Route 53 Profiles 现可让您将多个配置文件与一个 VPC 关联。以前，一个 VPC 只能关联一个配置文件，导致单独管理不同的 Route 53 配置的各个团队（例如，安全团队负责管理 DNS Firewall 规则组，云基础设施和网络管理团队负责管理私有托管区和 Resolver 转发规则）都必须共享同一个配置文件，并将各自的私有托管区、Resolver 规则和 DNS Firewall 规则组与此配置文件关联。 通过此次发布，您现在可以将多个配置文件与同一个 VPC 关联，并为每个配置文件设置优先级。Route 53 按优先顺序（从最低数值开始）评估一个 VPC 关联的多个配置文件，这使您能够将多个共享的 Route 53 配置保留在一个配置文件中，并将团队特定的配置保留在另一个配置文件中，而无需合并这两个配置文件，同时为二者分配适当的优先级。结合 2026 年 3 月发布的 精细化 IAM 权限 ，每个 VPC 关联多个配置文件可让每个团队以最低权限原则拥有并管理自己的配置文件，从而进一步改善安全态势。 此功能已在提供 Route 53 Profiles 的所有 AWS 区域推出。 每个配置文件与 VPC 的关联均按标准 Route 53 Profiles 定价计费。有关详细信息，请参阅 Amazon Route 53 定价 。要了解更多信息，请参阅《Amazon Route 53 开发人员指南》中的 Route 53 Profiles 。",
   "publisher_links": [
     "https://aws.amazon.com/route53/",
