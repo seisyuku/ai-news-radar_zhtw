@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon S3 访问权限管控现在支持跨多个 AWS 账户列出授权",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/amazon-s3-access-grants-list-across-regions",
-  "last_seen_at": "2026-11-27T13:05:37.711573Z",
+  "last_seen_at": "2026-11-27T13:35:35.995933Z",
   "summary": "Amazon S3 访问权限管控现在可以通过单次 API 调用发现并列出您在多个 AWS 账户中的所有授权，无需单独查询每个账户。单次 ListCallerAccessGrants 调用即可返回来自您自己的 S3 访问授权实例以及与您共享的每个实例的授权，从而使您可以全面了解可以访问的 S3 数据。 通过将 ListCallerAccessGrants 请求中的新 InstanceScope 参数设为 ALL ，S3 访问权限管控会查询通过 AWS Resource Access Manager（AWS RAM）与您共享的每个实例，并将所有授权合并到一个响应中返回，每个授权都会标明其所属账户。此外，当您使用 GetDataAccess 请求某个 S3 路径的凭证，并将 InstanceScope 设为 ALL 时，S3 访问权限管控会为您定位所属账户，将请求路由到该账户的实例，并返回与该授权匹配的凭证。 此功能现已在所有提供 S3 访问权限管控的 AWS 区域中推出，无需额外付费。您可以使用 AWS SDK、API 或 CLI 来列出和访问多个账户的授权。要了解更多信息，请访问 S3 访问权限管控概览页面 和 S3 文档 。",
   "publisher_links": [
     "https://aws.amazon.com/s3/features/access-grants/",
