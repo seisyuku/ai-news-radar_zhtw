@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon DocumentDB（兼容 MongoDB）8.0.3 版现已支持后量子 TLS、通配符索引和 $unionWith",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/amazon-documentdb-8-0-3",
-  "last_seen_at": "2026-11-27T02:05:39.492112Z",
+  "last_seen_at": "2026-11-27T02:35:36.274044Z",
   "summary": "Amazon DocumentDB（兼容 MongoDB）8.0.3 新增了用于 TLS 的混合后量子密钥交换、通配符索引、$unionWith 聚合阶段以及新的变更流事件。后量子 TLS 可保护传输中数据，以防范当下先记录、日后再用量子计算机解密的流量攻击。新的 MongoDB API 让您无需修改应用程序代码，即可将更多 MongoDB 工作负载迁移到 Amazon DocumentDB。 8.0.3 中的新增功能： 后量子 TLS：当客户端支持时，TLS 1.3 连接将采用以基于模块格的密钥封装机制（ML-KEM）为基础的混合密钥交换。其他客户端继续使用经典密钥交换。新增两项 Amazon CloudWatch 指标，即 TLSHandshakesClassical 和 TLSHandshakesPostQuantum，分别统计两类握手的次数。 通配符索引：为每个字段或某路径下的每个字段建立索引，以查询具有动态架构的文档。 聚合：$unionWith 可在单个管道中合并多个集合的结果。$lookup 和 $graphLookup 可在视图中使用，且相关联的 $lookup 子管道可接受 $unionWith 和 $facet。 变更流：dropIndex() 和 dropIndexes() 现在会发出 dropIndexes 事件。 压缩指标：collStats 和 stats() 报告每个集合的输入字节、输出字节和压缩比。 Amazon DocumentDB 8.0.3 现已在所有提供 Amazon DocumentDB 的 AWS 区域推出。要了解更多信息，请参阅 Amazon DocumentDB 开发人员指南 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/documentdb/latest/developerguide/"
