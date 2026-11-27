@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "AWS Secrets Manager 新增对 Auth0、Okta 和 Palo Alto Networks 的托管式外部密钥支持",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/secrets-manager-managed-external-secrets-auth0-okta-palo-alto",
-  "last_seen_at": "2026-11-27T04:19:26.500421Z",
+  "last_seen_at": "2026-11-27T05:05:34.671275Z",
   "summary": "AWS Secrets Manager 现在支持 Auth0、Okta 和 Palo Alto Networks 的托管式外部密钥。未轮换的长期凭证如果被暴露，会增加未经授权访问的风险。轮换第三方凭证需要对外部服务以及使用该服务的每个应用程序进行协调更新。您可以通过 AWS 管理控制台或 API 设置轮换时间表。Secrets Manager 会轮换凭证并存储当前值，而无需自定义轮换 Lambda 函数。 Secrets Manager 提供 Auth0 凭证的自轮换和管理员辅助轮换。通过自轮换，目标应用程序会替换自己的密钥。通过管理员辅助轮换，具有管理 API 权限的单独的 Auth0 应用程序会替换目标应用程序的密钥。对于 Okta，Secrets Manager 通过单独的管理员 JSON Web 令牌 (JWT) 密钥提供管理员辅助轮换，并在停用旧密钥之前对替换进行验证。对于 Palo Alto Networks，Secrets Manager 提供自轮换功能，由当前 API 密钥授权替换自身。 已经从 Secrets Manager 检索凭证的应用程序无需代码更改或部署即可获得轮换后的值。 这些集成加入了现有的托管式外部密钥支持范围，该支持已覆盖：BigID、Cisco Security Platform、Confluent Cloud、Databricks、Datadog、GitLab、Jenkins、MongoDB Atlas、Netskope、Paddle、Salesforce、Snowflake、SonarQube 和 Twilio。 Auth0、Okta 和 Palo Alto Networks 托管式外部密钥现已在支持 AWS Secrets Manager 托管式外部密钥的所有 AWS 区域推出。要了解更多信息，请访问 AWS Secrets Manager 托管式外部密钥文档 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/secretsmanager/latest/userguide/managed-external-secrets.html"
