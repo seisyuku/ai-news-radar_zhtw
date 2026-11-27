@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon EKS 自动模式现已支持容器组（Pod）的安全组",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/amazon-eks-auto-mode-security-groups-for-pods",
-  "last_seen_at": "2026-11-27T19:35:33.762245Z",
+  "last_seen_at": "2026-11-27T20:05:46.774010Z",
   "summary": "Amazon EKS 自动模式现已支持容器组（Pod）的安全组，允许您针对各个 Pod 应用专用的 Amazon EC2 安全组规则。同一节点上的不同工作负载可以携带不同的安全组，从而为您的 Pod 提供网络级分段，而无需为每个应用程序单独创建节点池。 Pod 安全组将您现有的 AWS 网络控制扩展到 Pod 级别，因此您的 Pod 可以访问 Amazon RDS 和 Amazon ElastiCache 数据库等按安全组授权连接的资源，这些资源遵循 VPC 内其余资源所使用的相同规则。您可以通过 SecurityGroupPolicy 资源定义哪些 Pod 接收哪些安全组，而未被任何策略匹配的 Pod 继续使用其节点的安全组。 Pod 安全组作为 EKS 自动模式的一部分提供，无需额外付费，适用于运行 Kubernetes 1.36 或更高版本的集群，并在支持 EKS 自动模式的所有 AWS 区域推出。要了解更多信息，请参阅《Amazon EKS 用户指南》中的 Pod 安全组 ，以及 Amazon EKS 自动模式 产品页面。",
   "publisher_links": [
     "https://docs.aws.amazon.com/eks/latest/userguide/auto-sgp.html",
