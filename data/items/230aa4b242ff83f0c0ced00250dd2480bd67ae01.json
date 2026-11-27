@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon MWAA 现已支持通过 IAM Identity Center 与多团队环境实现精细化访问控制",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/mwaa-fine-grained-access-control",
-  "last_seen_at": "2026-11-27T09:35:32.739506Z",
+  "last_seen_at": "2026-11-27T10:05:47.859494Z",
   "summary": "Amazon Managed Workflows for Apache Airflow（Amazon MWAA）现已支持精细化访问控制，使管理员能够精确控制谁可以访问 Apache Airflow 环境中的哪些工作流和资源。通过两项新功能实现精细化访问控制：IAM Identity Center 集成和多团队环境。 利用 IAM Identity Center 集成，用户可以通过其企业身份提供商登录 Apache Airflow 用户界面。使用附加到 IAM Identity Center 权限集的 IAM 策略针对每次请求评估授权，条件键按资源类型（DAG、连接、变量、池等）、操作和特定资源 ID 来确定访问范围。 利用多团队环境，多个团队可以共享同一个 MWAA 环境。每个团队在 Amazon S3 中都拥有自己的 DAG 文件夹，根据 IAM Identity Center 组成员资格，用户只能看到共享的 DAG 及其团队的 DAG。团队可通过共享的基础设施降低成本，并且只需配置一次环境设置即可简化管理。多团队环境基于 Apache Airflow 多团队功能而构建，此功能目前处于预览阶段。 这些功能已在提供 Amazon MWAA 的所有 AWS 区域 推出。 要了解更多信息，请访问 IAM Identity Center 集成文档 和 多团队环境文档 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/mwaa/latest/userguide/get-started.html#regions",
