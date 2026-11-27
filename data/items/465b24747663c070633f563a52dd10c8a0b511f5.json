@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "AWS Secrets Manager 现在支持跨账户复制",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/secrets-manager-cross-account",
-  "last_seen_at": "2026-11-27T09:05:38.422622Z",
+  "last_seen_at": "2026-11-27T09:35:32.739506Z",
   "summary": "AWS Secrets Manager 现在支持跨账户复制，使您能够在辅助 AWS 账户中维护主密钥的同步副本，用于跨账户访问、备份和灾难恢复。跨账户复制将现有的多区域复制能力拓展到账户边界之外。 利用跨账户复制，平台或安全团队可以集中管理和轮换密钥，每个消费账户都会获得一个始终最新的本地副本，无需任何共享 KMS 密钥或跨账户密钥策略。副本密钥是一项完整且独立的资源，使用副本账户拥有的客户托管式 KMS 密钥进行加密。每当主密钥的值发生变化（包括轮换）时，Secrets Manager 都会自动更新副本密钥。 您可以将关键密钥的实时副本保存在专用的恢复或失效转移账户中，与勒索软件或已遭入侵的主账户隔离。如果需要，可以将副本提升为独立密钥。 跨账户复制已在提供 Secrets Manager 的所有 AWS 区域推出。有关提供 Secrets Manager 的区域的列表，请参阅 AWS 区域表 。 要了解更多信息，请参阅《Secrets Manager 用户指南》中的 跨 AWS 账户复制密钥 和 AssociateCrossAccountReplica API 参考 。有关定价详细信息，请参阅 AWS Secrets Manager 定价 。",
   "publisher_links": [
     "https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/",
