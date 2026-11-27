@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon EKS 上的 AWS Batch 新增 Linux capabilities、seccomp 和容器组（pod）级设置",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/aws-batch-eks-security-context",
-  "last_seen_at": "2026-11-27T05:35:31.455826Z",
+  "last_seen_at": "2026-11-27T06:05:35.429911Z",
   "summary": "AWS Batch 现在支持在 Amazon EKS 作业定义中配置更多 Kubernetes 安全上下文设置，包括 Linux capabilities、seccomp 配置文件和容器组（pod）级设置。 对于强制执行 Kubernetes 容器组（pod）安全标准受限配置文件的 EKS 集群，您现在可以运行 AWS Batch 作业，并且仅使用其所需的权限和系统调用。 要开始使用，请使用 RegisterJobDefinition API 设置 capabilities 和 seccompProfile （位于容器的 securityContext 中），或设置 securityContext （位于 podProperties 中）来定义容器组（pod）级设置，例如 fsGroup 。容器级设置会覆盖容器组（pod）级默认设置。您可以通过 AWS 管理控制台、AWS CLI、AWS SDK 或 AWS CloudFormation 配置这些设置。 Amazon EKS 上的 AWS Batch 的这些新增安全上下文设置现已在提供 AWS Batch 的所有 AWS 区域 推出。有关更多信息，请参阅 AWS Batch 用户指南 中的 Amazon EKS 属性部分。",
   "publisher_links": [
     "https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/",
