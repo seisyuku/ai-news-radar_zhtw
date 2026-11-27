@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "CloudWatch PromQL 警报现在支持 EC2 和 Application Auto Scaling",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/amazon-cloudwatch-alarms-autoscaling-group-actions",
-  "last_seen_at": "2026-11-27T20:35:38.478771Z",
+  "last_seen_at": "2026-11-27T21:05:35.088165Z",
   "summary": "使用 Prometheus Query Language（PromQL）的 Amazon CloudWatch 警报现在可以触发 Amazon EC2 和 Application Auto Scaling 分步以及简单扩展策略。您可以使用与仪表板和警报相同的 PromQL 查询，基于 CloudWatch OpenTelemetry 指标扩展您的 EC2 Auto Scaling 组。 在此次发布中，PromQL 警报还支持 EC2 Auto Scaling 简单和分步扩展策略。PromQL 警报目前不支持目标跟踪策略类型。迁移到 OpenTelemetry 的团队可以根据与其他监控相同的指标来扩展容量，而不必单独保留经典指标警报以进行扩展。对于分步扩展，PromQL 查询中该数值超出阈值的程度将决定应用哪个分步。查询必须返回单个序列并将其与阈值进行比较。 您可以在创建或编辑警报时在 CloudWatch 控制台中添加 EC2 Auto Scaling 和 Application Auto Scaling 操作，也可以使用 PutMetricAlarm API、AWS CLI、 AWS SDK 或 AWS CloudFormation 进行添加。您还可以使用 PutMetricAlarm API、AWS CLI、 AWS SDK 或 AWS CloudFormation。 此功能适用于所有提供 CloudWatch PromQL 警报的 AWS 区域。标准的 CloudWatch 警报定价将适用。要开始使用，请参阅“Amazon CloudWatch User Guide”中的 Using PromQL in alarms 和 Alarm actions 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-PromQL-Alarms.html",
