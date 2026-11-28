@@ -6,8 +6,6 @@
 
 全系統狀態機重構已完成正式驗收。
 
-- Sulat Evaluation RSS 已接入並完成本機驗證，待正式發布。[來源覆蓋](SOURCE_COVERAGE.md#2026-11-28-sulat-evaluation-一般新聞來源)
-
 ## 例行維護與可選整理
 
 | 項目 | 現況／處理邊界 |
@@ -21,6 +19,7 @@
 
 | 完成日期 | 工作 | 結果／依據 |
 | --- | --- | --- |
+| 11/28 | Sulat Evaluation RSS | 已發布。正式快照 `64cc1bbdf856` 收件 8 篇，2 篇進一般 AI 新聞，11 份公開檔與生成提交一致。[來源覆蓋](SOURCE_COVERAGE.md#2026-11-28-sulat-evaluation-一般新聞來源) |
 | 11/28 | 全系統狀態機重構 R01–R12 | `6914f48cc0e2` 後端、`aca6e13bab42` 正常刷新、`a2b936eaf015` 前端依序發布，24 檔正式讀回及桌面／手機驗收通過。[交接摘要](HANDOVER.md) |
 | 11/27 | Groq 第五項逐項健康紀錄／總請求上限 | 依維護者裁決結案，不再追蹤。沿用每輪彙總狀態、20 則候選與成功新增 6 則上限。[操作文件](OPERATIONS.md#optional-groq-news-summaries) |
 | 11/20 | Anthropic Newsroom 修復與模型公告收錄 | `f51deb13cf18` 已發布。正式快照 `f90593a6f071` 收到 Anthropic News 18 篇，正式站 17 檔吻合生成提交。Claude Desktop 更新頻道依裁決不收錄。[來源覆蓋](SOURCE_COVERAGE.md#2026-11-20-anthropic-news-列表修復與模型公告收錄) |

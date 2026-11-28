@@ -4,8 +4,9 @@
 
 依維護者裁決接入 `curated_media/sulat_evaluation`。例行收件只讀 [Sulat Evaluation RSS](https://news.sulat.com/category/ai/evaluation/feed/)，每輪最多接收 8 篇 `news.sulat.com` 文章。沿用未審來源 rank 6，僅供一般新聞，適用既有去重、範圍與時間窗。
 
-臺北 11/28 21:56 實網回應 HTTP 200。以正式快照 `5036b613b874` 隔離生成，來源健康成功且連續失敗為 0，封存新增 8 篇。近 24 小時的一般 AI 新聞 61→63 篇、全部 74→77 篇，原有文章順序相同，重點與雷達各為 0。新增的一般 AI 新聞包含 [Claude 研究工作爭議與 Edwin Arbus 回應](https://news.sulat.com/2026/11/28/claude-ml-research-sabotage-claims)。完整 Python 測試 2,423 項通過。本機已驗證，正式站待發布。
+臺北 11/28 21:56 實網回應 HTTP 200。以正式快照 `5036b613b874` 隔離生成，來源健康成功且連續失敗為 0，封存新增 8 篇。近 24 小時的一般 AI 新聞 61→63 篇、全部 74→77 篇，原有文章順序相同，重點與雷達各為 0。完整 Python 測試 2,423 項通過。
 
+程式 `074b2261ef94` 已發布。臺北 11/28 21:59:27 正式快照 `64cc1bbdf856` 收到 8 篇、連續失敗 0 次，近 24 小時一般 AI 顯示 2 篇、全量顯示 3 篇。正式首頁、公開資料及 Claude 報導的兩種永久連結共 11 檔與生成提交逐檔一致，治理為 ready。[Pulse 的 Claude 報導](https://seisyuku.github.io/ai-news-radar_zhtw/item/8b6a4184750ff589a2e273d3ed2bdedffaaec1a5/) · [離線 CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/46152267324) · [正式刷新](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/46152296925) · [資料部署](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/46152438166)
 
 ## 2026-11-20 Anthropic News 列表修復與模型公告收錄
 
