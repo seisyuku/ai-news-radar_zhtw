@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "AWS Backup 增加了对 Amazon RDS 的逻辑上受物理隔离的保管库支持",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/aws-backup-air-gapped-vault-rds",
-  "last_seen_at": "2026-11-28T01:20:15.200552Z",
+  "last_seen_at": "2026-11-28T02:05:31.175916Z",
   "summary": "AWS Backup 逻辑上受物理隔离的保管库现在支持 Amazon Relational Database Service (Amazon RDS) 数据库实例。逻辑上受物理隔离的保管库是一种 AWS Backup 保管库，用于存储不可变的隔离备份，默认情况下，这些备份在合规模式下使用 AWS 备份保管库锁。账户与 AWS Organizations 之间的安全共享支持直接还原，从而缩短了数据丢失事件的恢复时间。 现在，您可以在逻辑上受物理隔离的保管库中保护您的 Amazon RDS 数据库实例。逻辑上受物理隔离的保管库存储不可变的备份，这些备份在默认情况下处于锁定状态，并使用 AWS 拥有的密钥或客户管理的密钥进行加密隔离。这有助于降低停机风险，确保实现业务连续性，并满足合规性要求。 要开始使用，请使用 AWS Backup 控制台、AWS 命令行界面 (CLI) 或 AWS SDK。将您的 RDS 数据库实例分配到备份计划，并在与复制目标相同的 AWS 区域中指定一个逻辑上受物理隔离的保管库。使用 AWS Resource Access Manager（RAM）与其他账户共享保管库，以便进行恢复或还原测试；或在账户遭到入侵时利用 多方审批功能 保护保管库的访问权限。共享后，您可以通过该账户启动直接还原作业。 此项支持现已在提供适用于逻辑上受物理隔离的保管库和 Amazon RDS 的大多数 AWS 区域推出。有关更多信息和详细的区域可用性，请访问 AWS Backup 文档 。要详细了解 RDS 的逻辑上受物理隔离的保管库，请阅读 发布博客 并访问 功能文档 和 定价页面 。",
   "publisher_links": [
     "https://docs.aws.amazon.com/aws-backup/latest/devguide/multipartyapproval.html",
