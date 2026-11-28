@@ -7,7 +7,7 @@
   "source": "AWS News",
   "title": "Amazon EKS 自动模式和 Karpenter 现已支持动态资源分配",
   "url": "https://aws.amazon.com/cn/about-aws/whats-new/2026/11/amazon-eks-auto-mode-karpenter-dra",
-  "last_seen_at": "2026-11-28T12:35:31.467165Z",
+  "last_seen_at": "2026-11-28T13:05:31.638910Z",
   "summary": "在使用 Amazon EKS 自动模式和 Karpenter 时，Amazon Elastic Kubernetes Service（Amazon EKS）现已支持针对 NVIDIA GPU 和 Elastic Fabric Adapter（EFA）网络设备的动态资源分配（DRA）。现在，您可以使用 DRA 定义 Kubernetes 工作负载所需的设备属性，在容器组（pod）之间共享 GPU 设备，分配与拓扑对齐的 GPU 和 EFA 设备，而 Amazon EKS 自动模式和 Karpenter 会根据工作负载需求动态扩展 Amazon EC2 实例。 利用 DRA，您可以定义 ResourceClaim 或 ResourceClaimTemplate 对象，这些对象按型号、架构或其他属性描述可分配给工作负载的 GPU 或 EFA 设备。在运行分布式训练或推理时，您可以定义与 PCIe 对齐的 GPU 和 EFA 设备以实现最佳性能。工作负载随后会在其配置中请求这些 DRA 对象，并且 Karpenter 会自动启动与之匹配的成本最低的实例。在使用 Amazon EKS 自动模式时，已内置 NVIDIA DRA 驱动程序和 EFA DRA 驱动程序（DRANET），您只需定义 DRA 对象并在工作负载中使用它们即可。Amazon EKS 自动模式会自动阻止使用 DRA 的工作负载以及使用同一设备类型的设备插件的工作负载在相同的节点上运行，从而降低迁移期间发生静默设备超额订阅的风险。 对 Amazon EKS 自动模式和 Karpenter 的 DRA 支持已在所有 AWS 区域推出，但 AWS GovCloud（美国）区域和中国区域除外。在 Karpenter 中，所有 Kubernetes 版本都支持 DRA；在 Amazon EKS 自动模式 中，Kubernetes 1.36 及更新版本支持 DRA。要了解更多信息，请参阅 Amazon EKS 用户指南 中的 DRA 文档和 Karpenter 文档 。",
   "publisher_links": [
     "https://aws.amazon.com/eks/auto-mode/",
