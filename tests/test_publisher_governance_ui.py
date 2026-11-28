@@ -138,3 +138,25 @@ def test_all_mode_loader_carries_policy_revision_without_adding_a_request():
  await api.loadAllModeData();await api.loadAllModeData();console.log(JSON.stringify({calls,revision:state.allGovernanceMeta.registry_revision}));})();
 ''')
     assert result == {'calls': 1, 'revision': 'new-revision'}
+
+
+def test_conflict_observed_between_renders_releases_only_for_newer_generation():
+    assert run_js(harness() + """
+G.update(state);
+state.allGovernanceMeta={...state.latestGovernanceMeta,registry_revision:'f'.repeat(64)};
+G.update(state);
+delete state.allGovernanceMeta;
+G.update(state);
+const blocked=G.read(state).projection===null;
+const newer=new Date(now+1000).toISOString();
+parent.generated_at=parent.brief_events.generated_at=meta.generated_at=newer;
+state.generatedAt=state.latestGovernanceMeta.generated_at=newer;
+daily.generated_at=daily.brief_event_meta.generated_at=newer;
+G.update(state);
+const restored=G.read(state).projection?.events.length;
+state.storiesMerged=null;
+G.update(state);
+const cached=G.read(state);
+console.log(JSON.stringify({blocked,restored,cached:cached.cached,
+  primary:cached.projection?.events.every(event=>event.selection_tier==='primary')}));
+""") == {"blocked": True, "restored": 1, "cached": True, "primary": True}

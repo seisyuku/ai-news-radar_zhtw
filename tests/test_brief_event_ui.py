@@ -7,11 +7,13 @@ from tests.js_bridge import extract_declarations, run_js
 def harness():
     return extract_declarations('validBriefProjection', 'resolveBriefProjection',
         'currentStoryPools', 'briefEventMatchesFilters', 'storySourceCount',
-        'formatStoryTime', 'storyDurationLabel', 'scheduleBriefExpiry',
+        'formatStoryTime', 'storyDurationLabel', 'scheduleReaderRefresh', 'refreshReaderTime',
+        'STALE_DATA_WARN_HOURS', 'STALE_DATA_BAD_HOURS',
         'sourceDisplayName', 'readerSiteName', 'readerSiteId') + r'''
 const epoch=Date.parse('2026-10-22T12:00:00Z'); let now=epoch;
 Date.now=()=>now;
-const state={activeSection:'hot',query:'',siteFilter:'',sourceTypeFilter:'',authorFilter:'',signalLevelFilter:''};
+const document={hidden:false};
+const state={llmRadar:[],modelReleases24h:[],activeSection:'hot',query:'',siteFilter:'',sourceTypeFilter:'',authorFilter:'',signalLevelFilter:''};
 function isUnsafeStory(){return false;}
 function generalReaderSource(i){return {level:i.site_id};}
 function isHighPriorityItem(i){return i.score>=.75;}
@@ -22,7 +24,8 @@ function setStats(){statRenders+=1;}
 function setTimeout(fn,delay){timer={fn,delay};return 1;}
 function clearTimeout(){timer=null;}
 function renderBriefPicks(){rendered++;}
-function renderLlmRadar(){}
+function renderGovernedViews(){renderBriefPicks();setStats();}
+function renderStaleBanner(){}
 const id='be1_'+'1'.repeat(24), phase='bp1_'+'2'.repeat(24);
 function event(){return {brief_event_id:id,story_id:id,identity:{key:'model-release'},
  member_article_ids:['a','b'],member_story_ids:['raw-a','raw-b'],
@@ -73,10 +76,18 @@ console.log(JSON.stringify({full:full.merged.length,unique:full.brief.length+ful
 
 def test_expiry_schedules_only_local_render_and_replaces_old_timer():
     result=run_js(harness()+'''
-scheduleBriefExpiry(projection());const delay=timer.delay;timer.fn();
-now=Date.parse('2026-10-23T11:00:00Z');scheduleBriefExpiry(projection());
-console.log(JSON.stringify({delay,rendered,noTimer:timer===null,statRenders}));''')
-    assert result == {'delay':23*3600000,'rendered':1,'noTimer':True,'statRenders':1}
+const validProjection=projection();
+const expectedExpiry=Date.parse(event().expires_at);
+const modelExpiry=expectedExpiry+1000;
+resolveBriefProjection=()=>({projection:now<expectedExpiry ? validProjection : null});
+state.llmRadar=[{effective_at:new Date(modelExpiry-86400000).toISOString()}];
+scheduleReaderRefresh();
+const delay=timer.delay;
+now=expectedExpiry;timer.fn();
+const modelDelay=timer.delay;
+now=modelExpiry;timer.fn();
+console.log(JSON.stringify({delay,modelDelay,rendered,noTimer:timer===null,statRenders}));''')
+    assert result == {'delay':23*3600000,'modelDelay':1000,'rendered':2,'noTimer':True,'statRenders':2}
 
 
 @pytest.mark.parametrize(('basis','expected'), [('source_report','首次報導'),('first_observed','本系統初見'),('reported_day_upper_bound','報導日期 2026-10-21（時刻不明）')])

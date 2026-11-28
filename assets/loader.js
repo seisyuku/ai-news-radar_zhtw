@@ -12,6 +12,7 @@
 
   function createLoader({
     state,
+    onAllDataLoaded,
     fetchImpl = (...args) => globalThis.fetch(...args),
     now = () => Date.now(),
     setTimeoutFn = (...args) => globalThis.setTimeout(...args),
@@ -66,6 +67,7 @@
             state.totalAllMode = payload.total_items_all_mode || state.itemsAll.length;
             state.allGovernanceMeta = payload.publisher_governance_meta || null;
             state.allDataLoaded = true;
+            onAllDataLoaded?.();
           })
           .catch((err) => {
             state.allDataPromise = null;

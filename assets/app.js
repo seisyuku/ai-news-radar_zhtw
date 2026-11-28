@@ -884,8 +884,8 @@ function modeItems(sectionId = state.activeSection, mode = state.mode) {
   if (mode === "all") return effectiveAllItems();
   const aiItems = safeItems(state.itemsAi);
   const base = mode === "selected" ? aiItems.filter((item) => isHighPriorityItem(item)) : aiItems;
-  const releases = sectionId !== "models" || typeof AiRadarGovernance === "undefined" ? []
-    : AiRadarGovernance.radarEvents(state.modelReleases24h, state.latestGovernanceMeta, state);
+  const releases = sectionId !== "models" || typeof AiRadarGovernance === "undefined" || !AiRadarGovernance.readRadarEvents ? []
+    : AiRadarGovernance.readRadarEvents(state.modelReleases24h, state.latestGovernanceMeta, state);
   return mergeModelReleaseItems(base, releases, sectionId);
 }
 
@@ -1729,8 +1729,8 @@ function validBriefProjection(p) {
 }
 
 function resolveBriefProjection() {
-  if (typeof AiRadarGovernance === "undefined") return { projection: null, governance: null, cached: false };
-  return AiRadarGovernance.resolve(state);
+  if (typeof AiRadarGovernance === "undefined" || !AiRadarGovernance.read) return { projection: null, governance: null, cached: false };
+  return AiRadarGovernance.read(state);
 }
 
 function briefEventMatchesFilters(story) {
@@ -1750,23 +1750,33 @@ function briefEventMatchesFilters(story) {
   });
 }
 
-function scheduleBriefExpiry(projection) {
-  if (state.briefExpiryTimer) clearTimeout(state.briefExpiryTimer);
-  const deadlines = (projection?.events || []).filter((e) => e.eligible)
-    .map((e) => Date.parse(e.expires_at)).filter((t) => t > Date.now());
-  [...(state.llmRadar || []), ...(state.modelReleases24h || [])].forEach((e) => {
-    const expiry = Date.parse(e.effective_at || e.published_at || e.first_seen_at) + 86400000;
-    if (expiry > Date.now()) deadlines.push(expiry);
-  });
-  if (!deadlines.length) return;
-  // Local rendering only; no fetch or background job. Recheck on tab resume too.
-  state.briefExpiryTimer = setTimeout(() => {
-    renderBriefPicks({ animate: false });
-    renderLlmRadar();
-    setStats();
-    if (state.activeSection === "models") renderList();
-  }, Math.min(2147483647, Math.max(1, Math.min(...deadlines) - Date.now())));
-  state.briefExpiryTimer?.unref?.();
+function scheduleReaderRefresh() {
+  clearTimeout(state.readerRefreshTimer);
+  state.readerRefreshTimer = null;
+  if (document.hidden) return;
+
+  const now = Date.now();
+  const generated = Date.parse(state.generatedAt);
+  const deadlines = [STALE_DATA_WARN_HOURS, STALE_DATA_BAD_HOURS]
+    .map(hours => generated + hours * 3600000);
+  for (const event of resolveBriefProjection().projection?.events || []) {
+    if (event.eligible) deadlines.push(Date.parse(event.expires_at));
+  }
+  for (const model of [...state.llmRadar, ...state.modelReleases24h]) {
+    deadlines.push(Date.parse(model.effective_at || model.published_at || model.first_seen_at) + 86400000);
+  }
+  const next = Math.min(...deadlines.filter(time => time > now));
+  if (!Number.isFinite(next)) return;
+  state.readerRefreshTimer = setTimeout(refreshReaderTime, Math.min(2147483647, next - now));
+  state.readerRefreshTimer?.unref?.();
+}
+
+function refreshReaderTime() {
+  if (!document.hidden) {
+    renderStaleBanner();
+    renderGovernedViews();
+  }
+  scheduleReaderRefresh();
 }
 
 // feature/featured-source-diversity-cap: the initial five visible cards and
@@ -1999,6 +2009,7 @@ function storyCandidateSiteId(story) {
 
 function renderBriefPicks({ animate = true } = {}) {
   if (!briefPicksListEl || !briefPicksMetaEl) return;
+  document.dispatchEvent(new CustomEvent("aiRadar:briefWillRender"));
   briefPicksListEl.innerHTML = "";
   briefPicksListEl.className = "top-stories-grid";
   if (briefViewToggleEl) briefViewToggleEl.hidden = true;
@@ -2017,7 +2028,6 @@ function renderBriefPicks({ animate = true } = {}) {
     state.briefView = "timeline";
   }
   const rows = storyRowsForPool(availableStoryPool);
-  scheduleBriefExpiry(storyPools.projection);
   const top = rows.slice(0, 3);
   if (topStoriesTitleEl) topStoriesTitleEl.textContent = state.activeSection === "hot" ? "今日重點新聞" : `${section.label}重點新聞`;
   const storyMeta = `過去 24 小時 · ${fmtNumber(rows.length)} 則重點新聞`;
@@ -2712,6 +2722,7 @@ function renderSiteGroups(items) {
 }
 
 function renderList() {
+  document.dispatchEvent(new CustomEvent("aiRadar:listWillRender"));
   renderModeSwitch();
   newsListEl.innerHTML = "";
   const token = ++_renderListToken;
@@ -2969,8 +2980,8 @@ function renderMarketSignals() {
 }
 
 function renderLlmRadar() {
-  const events = typeof AiRadarGovernance === "undefined" ? []
-    : AiRadarGovernance.radarEvents(state.llmRadar, state.llmRadarGovernanceMeta, state);
+  const events = typeof AiRadarGovernance === "undefined" || !AiRadarGovernance.readRadarEvents ? []
+    : AiRadarGovernance.readRadarEvents(state.llmRadar, state.llmRadarGovernanceMeta, state);
   renderCompactSignalGroup(
     llmRadarWrapEl,
     llmRadarListEl,
@@ -2984,10 +2995,23 @@ function renderLlmRadar() {
   }
 }
 
+function renderGovernedViews() {
+  renderBriefPicks({ animate: false });
+  renderLlmRadar();
+  setStats();
+  if (state.activeSection === "models") renderList();
+}
+
+function refreshGovernedViews() {
+  if (typeof AiRadarGovernance !== "undefined") AiRadarGovernance.update?.(state);
+  renderGovernedViews();
+  scheduleReaderRefresh();
+}
+
 const {
   loadNewsData, loadAllModeData, loadSourceStatusData, loadDailyBriefData,
   loadStoriesData, loadMarketSignalsData, loadLlmRadarData,
-} = AiRadarLoader.createLoader({ state });
+} = AiRadarLoader.createLoader({ state, onAllDataLoaded: refreshGovernedViews });
 
 async function init() {
   let payload;
@@ -3015,6 +3039,7 @@ async function init() {
   state.allDataLoaded = Boolean(payload.items_all || payload.items_all_raw);
   state.generatedAt = payload.generated_at;
   state.latestGovernanceMeta = payload.publisher_governance_meta || null;
+  if (typeof AiRadarGovernance !== "undefined") AiRadarGovernance.update?.(state);
 
   setStats();
   renderStaleBanner();
@@ -3028,6 +3053,7 @@ async function init() {
   renderMarketSignals();
   renderLlmRadar();
   updatedAtEl.textContent = fmtTime(state.generatedAt);
+  scheduleReaderRefresh();
 
   document.dispatchEvent(new CustomEvent("aiRadar:ready"));
 
@@ -3048,18 +3074,18 @@ async function init() {
   });
   void loadDailyBriefData().then((brief) => {
     state.dailyBrief = brief;
-    renderBriefPicks({ animate: false });
-    renderLlmRadar();
-    setStats();
-  }, () => { state.dailyBrief = null; });
+    refreshGovernedViews();
+  }, () => {
+    state.dailyBrief = null;
+    refreshGovernedViews();
+  });
   void loadStoriesData().then((stories) => {
     state.storiesMerged = stories;
-    renderBriefPicks({ animate: false });
-    renderLlmRadar();
-    setStats();
-    if (state.activeSection === "models") renderList();
-    setStats();
-  }, () => { state.storiesMerged = null; renderBriefPicks({ animate: false }); });
+    refreshGovernedViews();
+  }, () => {
+    state.storiesMerged = null;
+    refreshGovernedViews();
+  });
   void loadMarketSignalsData().then((signals) => {
     state.marketSignals = signals.signals || [];
     state.marketSignalsGeneratedAt = signals.generated_at || null;
@@ -3069,9 +3095,12 @@ async function init() {
     state.llmRadar = radar.events || [];
     state.llmRadarGeneratedAt = radar.generated_at || null;
     state.llmRadarGovernanceMeta = radar.publisher_governance_meta || null;
-    renderLlmRadar();
-    renderBriefPicks({ animate: false });
-  }, () => { state.llmRadar = []; });
+    refreshGovernedViews();
+  }, () => {
+    state.llmRadar = [];
+    state.llmRadarGovernanceMeta = null;
+    refreshGovernedViews();
+  });
 }
 
 searchInputEl.addEventListener("input", (e) => {
@@ -3187,12 +3216,8 @@ function renderAppVersion() {
 }
 
 renderAppVersion();
-document.addEventListener?.("visibilitychange", () => {
-  if (!document.hidden) {
-    renderBriefPicks({ animate: false });
-    renderLlmRadar();
-    setStats();
-    if (state.activeSection === "models") renderList();
-  }
+document.addEventListener?.("visibilitychange", refreshReaderTime);
+globalThis.addEventListener?.("pageshow", (event) => {
+  if (event.persisted) refreshReaderTime();
 });
 init();

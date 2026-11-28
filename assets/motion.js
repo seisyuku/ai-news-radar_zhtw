@@ -32,24 +32,32 @@
       }
     }, { once: true });
 
+    let briefAnimation, listAnimation;
+    document.addEventListener("aiRadar:briefWillRender", () => { briefAnimation?.revert(); briefAnimation = null; });
+    document.addEventListener("aiRadar:listWillRender", () => { listAnimation?.revert(); listAnimation = null; });
+
     // Top stories render after data loads; keep legacy selectors for old data views.
     document.addEventListener("aiRadar:briefRendered", function () {
       const brief = document.querySelector(".brief-picks-wrap");
       const cards = Array.from(document.querySelectorAll(".top-story-card, .story-row, .brief-row")).slice(0, 24);
-      if (brief) {
-        gsap.fromTo(brief, { y: 12 }, { y: 0, duration: 0.35, clearProps: "transform" });
-      }
-      if (!cards.length) return;
-      gsap.killTweensOf(cards);
-      gsap.set(cards, { clearProps: "transform" });
-      gsap.from(cards, { autoAlpha: 0, stagger: 0.035, duration: 0.28, clearProps: "opacity,visibility" });
+      briefAnimation = gsap.context(() => {
+        if (brief) {
+          gsap.fromTo(brief, { y: 12 }, { y: 0, duration: 0.35, clearProps: "transform" });
+        }
+        if (cards.length) {
+          gsap.from(cards, { autoAlpha: 0, stagger: 0.035, duration: 0.28, clearProps: "opacity,visibility" });
+        }
+      });
     });
 
     // List: animate first 30 visible cards on render/mode switch
     document.addEventListener("aiRadar:listRendered", function () {
       const cards = Array.from(document.querySelectorAll(".intel-card, .news-card")).slice(0, 30);
-      if (!cards.length) return;
-      gsap.from(cards, { autoAlpha: 0, y: 12, stagger: 0.03, duration: 0.4, clearProps: "transform,opacity,visibility" });
+      if (cards.length) {
+        listAnimation = gsap.context(() => {
+          gsap.from(cards, { autoAlpha: 0, y: 12, stagger: 0.03, duration: 0.4, clearProps: "transform,opacity,visibility" });
+        });
+      }
     });
 
     // Section scroll reveal via IntersectionObserver. Keep sections visible:

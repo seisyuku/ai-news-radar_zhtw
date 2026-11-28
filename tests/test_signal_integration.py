@@ -2,6 +2,9 @@
 import hashlib
 import json
 import sys
+import subprocess
+from datetime import timedelta
+from pathlib import Path
 
 import pytest
 
@@ -78,6 +81,24 @@ def browser_result(output):
         + "count:r.projection?.events.length||0,radar:G.radarEvents(radar.events,radar.publisher_governance_meta,state,now).length}));")
 
 
+@pytest.mark.parametrize("case", ["healthy", "degraded", "mixed-all"])
+def test_app_governance_is_independent_of_auxiliary_arrival_order(generation, monkeypatch, case):
+    output, *_ = generation
+    if case == "degraded":
+        write = u.atomic_write_text
+
+        def fail_history(path, text):
+            if path.name == "brief-event-state.json":
+                raise OSError("event history unavailable")
+            return write(path, text)
+
+        monkeypatch.setattr(u, "atomic_write_text", fail_history)
+    assert u.main() == 0
+    subprocess.run(["node", str(Path(__file__).with_name("frontend_loader_scenarios.cjs")),
+                    "governance-arrivals", str(output), "2" if case == "healthy" else "-1",
+                    "1" if case == "healthy" else "0", case], check=True, timeout=30)
+
+
 def test_main_writes_one_v2_bundle_and_preserves_price_sensor(generation):
     output, calls, _, previous = generation
     assert u.main() == 0
@@ -137,7 +158,6 @@ def test_partial_write_cannot_serve_new_generation_with_old_qualified_views(gene
     assert u.main() == 0
     before = read(output,name)
     # Give the second write a new generation, while retaining all item clocks.
-    from datetime import timedelta
     monkeypatch.setattr(u,"utc_now",lambda: NOW+timedelta(minutes=1))
     write = u.atomic_write_text
     def fail(path,text):
@@ -152,8 +172,28 @@ def test_partial_write_cannot_serve_new_generation_with_old_qualified_views(gene
     assert browser_result(output) == {"ready":False,"count":0,"radar":0}
 
 
+def test_history_write_failure_hides_governed_views_and_keeps_price_signal(generation, monkeypatch):
+    output, *_ = generation
+    write = u.atomic_write_text
+
+    def fail_state(path, text):
+        if path.name == "brief-event-state.json":
+            raise OSError("synthetic event history failure")
+        return write(path, text)
+
+    with monkeypatch.context() as fault:
+        fault.setattr(u, "atomic_write_text", fail_state)
+        assert u.main() == 0
+    assert browser_result(output) == {"ready": False, "count": 0, "radar": 0}
+    assert read(output, "market-signals.json")["signals"]
+    assert read(output, "latest-24h.json")["items_ai"]
+    assert u.main() == 0
+    assert browser_result(output) == {"ready": True, "count": 2, "radar": 1}
+
+
 def test_price_sensor_failure_isolated_from_dplus(generation):
     output, _, failures, _ = generation
+    baseline = (output / "market-sensor-state.json").read_bytes()
     failures.add(sensors.PRICE_URL)
     assert u.main() == 0
     assert browser_result(output) == {"ready":True,"count":2,"radar":1}
@@ -161,3 +201,104 @@ def test_price_sensor_failure_isolated_from_dplus(generation):
     assert len(status["failed_sites"]) == 1
     types = [x["event_type"] for x in read(output,"market-signals.json")["signals"]]
     assert types == []
+    assert (output / "market-sensor-state.json").read_bytes() == baseline
+
+
+@pytest.mark.parametrize("broken", [b"{", b"\xff", b'{"price":{"models":[]}}', b'{"schema_version":2}', None],
+                         ids=["json", "encoding", "shape", "version", "read-error"])
+def test_main_protects_unreadable_price_baseline_and_resumes_from_verified_copy(
+    generation, monkeypatch, broken,
+):
+    output, calls, _, _ = generation
+    state_path = output / "market-sensor-state.json"
+    saved = state_path.read_bytes()
+    if broken is not None:
+        state_path.write_bytes(broken)
+    before = state_path.read_bytes()
+    (output / "market-signals.json").write_text(json.dumps({"signals": [
+        {"id": "recent", "category": "price", "detected_at": u.iso(NOW - timedelta(hours=1))},
+        {"id": "boundary", "category": "price", "detected_at": u.iso(NOW - timedelta(hours=24))},
+        {"id": "expired", "category": "price", "detected_at": u.iso(NOW - timedelta(hours=24, seconds=1))},
+    ]}))
+    original_read = Path.read_text
+
+    def fail_baseline_read(path, *args, **kwargs):
+        if path == state_path:
+            raise PermissionError("simulated read failure")
+        return original_read(path, *args, **kwargs)
+
+    with monkeypatch.context() as failed:
+        if broken is None:
+            failed.setattr(Path, "read_text", fail_baseline_read)
+        assert u.main() == 0
+
+    assert state_path.read_bytes() == before
+    assert calls == []
+    status = read(output, "source-status.json")
+    assert status["failed_sites"] == ["market_price"]
+    assert status["degraded_sites"] == ["market_price"]
+    price = next(row for row in status["sites"] if row["site_id"] == "market_price")
+    assert price["error"] == "price_baseline_unavailable"
+    assert read(output, "latest-24h.json")["items_ai"]
+    assert {row["id"] for row in read(output, "market-signals.json")["signals"]} == {"recent", "boundary"}
+
+    if broken is not None:
+        state_path.write_bytes(saved)
+    monkeypatch.setattr(u, "utc_now", lambda: NOW + timedelta(minutes=1))
+    assert u.main() == 0
+    assert calls == [sensors.PRICE_URL]
+    recovered = read(output, "market-signals.json")["signals"]
+    assert len(recovered) == 2
+    assert any(row["id"] == "recent" for row in recovered)
+    assert not any(row["id"] == "boundary" for row in recovered)
+    change = next(row for row in recovered if row.get("event_type") == "API_PRICE_CHANGE")
+    assert (change["old_value"], change["new_value"]) == (1.5, 1.0)
+    status = read(output, "source-status.json")
+    price = next(row for row in status["sites"] if row["site_id"] == "market_price")
+    assert price["ok"] and price["consecutive_failures"] == 0
+    assert status["degraded_sites"] == []
+
+
+def test_main_establishes_missing_price_baseline_only_after_success(generation, monkeypatch):
+    output, _, _, _ = generation
+    state_path = output / "market-sensor-state.json"
+    state_path.unlink()
+    with monkeypatch.context() as failed:
+        failed.setattr(sensors, "_fetch_json", lambda *_: {"models": []})
+        assert u.main() == 0
+    assert not state_path.exists()
+    assert read(output, "market-signals.json")["signals"] == []
+    assert read(output, "latest-24h.json")["items_ai"]
+
+    assert u.main() == 0
+    state = read(output, state_path.name)
+    assert state["price"] == sensors.build_price_snapshot(price_payload(input_per_1m_usd=1.0))
+    assert read(output, "market-signals.json")["signals"] == []
+
+
+def test_main_keeps_price_baseline_when_catalog_shrinks(generation, monkeypatch):
+    output, _, _, previous = generation
+    state_path = output / "market-sensor-state.json"
+    catalog = price_payload()
+    first = catalog["models"][0]
+    catalog["models"].extend({**first, "model_id": f"example-{n}"} for n in range(2, 6))
+    state_path.write_text(json.dumps({**previous, "price": sensors.build_price_snapshot(catalog)}))
+    baseline = state_path.read_bytes()
+
+    smaller = {**catalog, "models": catalog["models"][:3]}
+    with monkeypatch.context() as failed:
+        failed.setattr(sensors, "_fetch_json", lambda *_: smaller)
+        assert u.main() == 0
+    assert state_path.read_bytes() == baseline
+    assert read(output, "market-signals.json")["signals"] == []
+    assert read(output, "source-status.json")["failed_sites"] == ["market_price"]
+    assert read(output, "latest-24h.json")["items_ai"]
+
+    valid = {**catalog, "models": [{**first, "input_per_1m_usd": 1.0}, *catalog["models"][1:4]]}
+    monkeypatch.setattr(sensors, "_fetch_json", lambda *_: valid)
+    assert u.main() == 0
+    signals = read(output, "market-signals.json")["signals"]
+    assert {row["event_type"] for row in signals} == {"API_PRICE_CHANGE", "MODEL_PRICE_REMOVED"}
+    change = next(row for row in signals if row["event_type"] == "API_PRICE_CHANGE")
+    assert (change["old_value"], change["new_value"]) == (1.5, 1.0)
+    assert read(output, state_path.name)["price"] == sensors.build_price_snapshot(valid)

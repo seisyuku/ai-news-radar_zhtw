@@ -23,9 +23,10 @@ const defaults = {
 };
 const flush = () => new Promise((resolve) => setImmediate(resolve));
 
-function environment({ pending = [], failures = [], sequence = {} } = {}) {
+function environment({ pending = [], failures = [], sequence = {}, clock } = {}) {
   const gates = {};
   const events = [];
+  const listeners = {};
   const calls = [];
   const observed = { list: 0, brief: [], stale: 0, health: [], coverage: [], stats: [] };
   const elements = {};
@@ -52,9 +53,12 @@ function environment({ pending = [], failures = [], sequence = {} } = {}) {
     return Promise.resolve({ ok: true, json: async () => defaults[key] });
   };
   const context = {
-    fetch, AbortController, setTimeout, clearTimeout, Date,
+    fetch, AbortController, setTimeout, clearTimeout, Date, URL, TextEncoder, ...clock,
+    addEventListener(type, handler) { listeners[type] = handler; },
     document: {
       currentScript: null,
+      hidden: false,
+      addEventListener(type, handler) { listeners[type] = handler; },
       getElementById: element,
       dispatchEvent(event) { events.push(event.type); },
       createElement() { return { className: "", textContent: "" }; },
@@ -68,6 +72,7 @@ function environment({ pending = [], failures = [], sequence = {} } = {}) {
   vm.runInContext(app, context, { filename: "assets/app.js" });
   const state = vm.runInContext("state", context);
   const renderList = context.renderList;
+  const renderStaleBanner = context.renderStaleBanner;
   context.fetchJson = vm.runInContext("AiRadarLoader.createLoader({ state }).fetchJson", context);
   context.fmtTime = (value) => value;
   context.renderList = () => { observed.list += 1; };
@@ -77,7 +82,7 @@ function environment({ pending = [], failures = [], sequence = {} } = {}) {
   context.renderCoverageStrip = (error) => { observed.coverage.push(error || ""); };
   context.setStats = () => { observed.stats.push({ status: state.sourceStatus, error: state.sourceStatusError }); };
   for (const name of ["renderMarketSignals", "renderLlmRadar", "renderSectionTabs", "renderModeSwitch", "renderSiteFilters"]) context[name] = () => {};
-  return { context, state, observed, events, calls, gates, updatedAtEl, newsListEl, modeAllBtnEl, renderList,
+  return { context, state, observed, events, calls, gates, updatedAtEl, newsListEl, modeAllBtnEl, renderList, renderStaleBanner, listeners, modeAiBtnEl: element("modeAiBtn"),
     release(key, payload = defaults[key]) { gates[key].resolve({ ok: true, json: async () => payload }); },
   };
 }
@@ -158,6 +163,117 @@ async function main() {
     assert.deepEqual(env.events, ["aiRadar:ready"]);
     if (env.gates["./data/stories-merged.json"]) env.release("./data/stories-merged.json");
     await started;
+  } else if (scenario === "governance-arrivals") {
+    const [directory, expectedCount, expectedRadar] = process.argv.slice(3);
+    const data = name => JSON.parse(fs.readFileSync(path.join(directory, name + ".json")));
+    const latest = data("latest-24h");
+    const payloads = Object.fromEntries(["daily-brief", "stories-merged", "llm-radar", "latest-24h-all"]
+      .map(name => [`./data/${name}.json`, data(name)]));
+    function permutations(keys) {
+      return keys.length === 0 ? [[]] : keys.flatMap(key =>
+        permutations(keys.filter(other => other !== key)).map(tail => [key, ...tail]));
+    }
+    if (process.argv[6] === "mixed-all") {
+      payloads["./data/latest-24h-all.json"].publisher_governance_meta.registry_revision = "f".repeat(64);
+    }
+    for (const order of permutations(Object.keys(payloads))) {
+      const env = environment({ sequence: { "./data/latest-24h.json": [latest] }, pending: order });
+      const { state, context } = env;
+      context.Date = class extends Date { static now() { return Date.parse(latest.generated_at); } };
+      vm.runInContext(fs.readFileSync(path.join(__dirname, "../assets/publisher-governance.js"), "utf8"), context);
+      await context.init();
+      const all = env.modeAllBtnEl.click();
+      state.mode = "ai"; // The late all-mode metadata still participates in governance.
+      for (const key of order) {
+        env.release(key, payloads[key]);
+        await flush();
+      }
+      await all;
+      const snapshot = state.publisherGovernanceCache;
+      const watermark = state.publisherGovernanceWatermark;
+      assert.equal(!!snapshot, +expectedCount >= 0);
+      const guard = context.AiRadarGovernance;
+      for (const section of ["hot", "models", "hot"]) {
+        state.activeSection = section;
+        context.rerenderCurrentView();
+        assert.equal(context.resolveBriefProjection().projection?.events.length ?? -1, +expectedCount);
+        assert.equal(guard.readRadarEvents(state.llmRadar, state.llmRadarGovernanceMeta, state).length, +expectedRadar);
+        assert.strictEqual(state.publisherGovernanceCache, snapshot);
+        assert.strictEqual(state.publisherGovernanceWatermark, watermark);
+        assert.deepEqual(Array.from(state.itemsAi, row => row.id), latest.items_ai.map(row => row.id));
+      }
+    }
+  } else if (scenario === "all-ai-all") {
+    const key = "./data/latest-24h-all.json";
+    const env = environment({ pending: [key] });
+    const first = env.modeAllBtnEl.click();
+    env.modeAiBtnEl.click();
+    const latest = env.modeAllBtnEl.click();
+    assert.equal(env.calls.filter(call => call.key === key).length, 1);
+    const rendersBefore = env.observed.list;
+    env.release(key);
+    await Promise.all([first, latest]);
+    assert.equal(env.state.mode, "all");
+    assert.equal(env.state.itemsAll[0].id, "all");
+    assert.equal(env.observed.list, rendersBefore + 1);
+  } else if (scenario === "stale-boundaries" || scenario === "aux-timeout") {
+    const key = process.argv[3];
+    const start = Date.parse(news.generated_at), hour = 3600000;
+    let now = start;
+    const timers = new Map();
+    const clock = {
+      Date: class extends Date { static now() { return now; } },
+      setTimeout(fn, delay) {
+        const id = Symbol();
+        timers.set(id, { fn, at: now + delay });
+        return id;
+      },
+      clearTimeout(id) { timers.delete(id); },
+    };
+    const env = environment({ pending: key ? [key] : [], clock });
+    const advance = async (time) => {
+      now = time;
+      for (const [id, timer] of timers) {
+        if (timer.at > now) continue;
+        timers.delete(id);
+        timer.fn();
+      }
+      await flush();
+    };
+    const banner = env.context.document.getElementById("staleBanner");
+    env.context.renderStaleBanner = env.renderStaleBanner;
+    await env.context.init();
+    await flush();
+    if (key) {
+      assert.equal(env.observed.list, 1);
+      assert.equal(env.calls.find(call => call.key === key).signal.aborted, false);
+      await advance(start + 8000);
+      assert.equal(env.calls.find(call => call.key === key).signal.aborted, true);
+      assert.equal(env.observed.list, 1);
+      assert.equal(env.updatedAtEl.textContent, news.generated_at);
+      assert.equal(env.events.filter(event => event === "aiRadar:ready").length, 1);
+    } else {
+      assert.equal(banner.hidden, true);
+      await advance(start + 2 * hour - 1);
+      assert.equal(banner.hidden, true);
+      await advance(start + 2 * hour);
+      assert.match(banner.className, /warn/);
+      await advance(start + 6 * hour - 1);
+      assert.match(banner.className, /warn/);
+      await advance(start + 6 * hour);
+      assert.match(banner.className, /bad/);
+      const previous = env.calls.length;
+      env.context.document.hidden = true;
+      env.listeners.visibilitychange();
+      now = start + 25 * hour;
+      env.context.document.hidden = false;
+      env.listeners.visibilitychange();
+      assert.match(banner.textContent, /25 小時/);
+      now = start + 26 * hour;
+      env.listeners.pageshow({ persisted: true });
+      assert.match(banner.textContent, /26 小時/);
+      assert.equal(env.calls.length, previous);
+    }
   } else if (scenario === "all-race") {
     const key = "./data/latest-24h-all.json";
     const env = environment({ pending: [key] });

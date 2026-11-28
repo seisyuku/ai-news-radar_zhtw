@@ -363,7 +363,7 @@
     });
   }
 
-  function resolve(state, now = Date.now()) {
+  function update(state, now = Date.now()) {
     const parent = state.storiesMerged, incoming = parent?.publisher_governance;
     const signals = [state.latestGovernanceMeta, state.dailyBrief?.publisher_governance_meta, state.llmRadarGovernanceMeta, state.allGovernanceMeta].filter(Boolean);
     const previous = state.publisherGovernanceWatermark;
@@ -375,35 +375,50 @@
       else if (time === watermark.time && m.registry_revision !== watermark.revision) watermark = { ...watermark, conflict: true };
     }
     state.publisherGovernanceWatermark = watermark;
-    const reject = () => { state.publisherGovernanceCache = null; return { projection: null, governance: null, cached: false }; };
-    const acceptable = (candidate) => {
+    const candidate = incoming ? parent : state.publisherGovernanceCache?.parent;
+    const acceptable = () => {
       const g = candidate.publisher_governance;
       return valid(candidate, now) && (!watermark || (Date.parse(g.generated_at) >= watermark.time && !watermark.conflict && g.registry_revision === watermark.revision))
         && metaMatches(state.latestGovernanceMeta, g) && (!state.generatedAt || state.generatedAt === g.generated_at)
         && (!state.dailyBrief || validDaily(state.dailyBrief, candidate))
         && signals.every((s) => metaMatches(s, g));
     };
-    if (incoming?.status === "unavailable" || signals.some((s) => s.status !== "ready") || watermark?.conflict) return reject();
-    if (incoming) {
-      if (!acceptable(parent)) return reject();
-      state.publisherGovernanceCache = JSON.parse(JSON.stringify(parent));
-    } else if (parent?.brief_events || parent?.publisher_governance) return reject();
-    const candidate = state.publisherGovernanceCache;
-    if (!candidate || !acceptable(candidate)) return reject();
-    const g = candidate.publisher_governance, p = candidate.brief_events;
-    const decisions = new Map(g.events.map((d) => [d.brief_event_id, d]));
+    if (!candidate || incoming?.status === "unavailable" || signals.some((s) => s.status !== "ready")
+      || watermark?.conflict || (!incoming && parent?.brief_events) || !acceptable()) {
+      state.publisherGovernanceCache = null;
+    } else if (incoming) {
+      const accepted = JSON.parse(JSON.stringify({
+        generated_at: parent.generated_at, brief_events: parent.brief_events, publisher_governance: incoming,
+      }));
+      const decisions = new Map(accepted.publisher_governance.events.map(d => [d.brief_event_id, d]));
+      state.publisherGovernanceCache = { parent: accepted, decisions, cached: false };
+    } else {
+      state.publisherGovernanceCache.cached = true;
+    }
+  }
+
+  function currentBundle(state, now) {
+    const bundle = state.publisherGovernanceCache;
+    return bundle && Date.parse(bundle.parent.generated_at) <= now + 300000 ? bundle : null;
+  }
+
+  function read(state, now = Date.now()) {
+    const bundle = currentBundle(state, now);
+    if (!bundle) return { projection: null, governance: null, cached: false };
+    const { parent, decisions, cached } = bundle;
+    const g = parent.publisher_governance, p = parent.brief_events;
     const active = p.events.filter((e) => decisions.get(e.brief_event_id).featured_eligible
       && Date.parse(e.effective_at) <= now && now < Date.parse(e.expires_at));
     // Decide globally before reader filters. An unavailable incoming bundle
     // may reuse primary news, but must not activate fallback from cache.
     const pool = selectionPool(active.map(e => decisions.get(e.brief_event_id)));
-    const ids = new Set(pool.filter(d => incoming || d.selection_tier === "primary").map(d => d.brief_event_id));
+    const ids = new Set(pool.filter(d => !cached || d.selection_tier === "primary").map(d => d.brief_event_id));
     const events = active.filter(e => ids.has(e.brief_event_id)).map((e) => view(e, decisions.get(e.brief_event_id)));
-    return { projection: { ...p, events }, governance: g, cached: !incoming };
+    return { projection: { ...p, events }, governance: g, cached };
   }
 
-  function radarEvents(events, meta, state, now = Date.now()) {
-    const resolved = resolve(state, now), g = resolved.governance;
+  function readRadarEvents(events, meta, state, now = Date.now()) {
+    const g = currentBundle(state, now)?.parent.publisher_governance;
     if (!g || !metaMatches(meta, g)) return [];
     return (Array.isArray(events) ? events : []).filter((e) => {
       const when = Date.parse(e.effective_at || e.published_at || e.first_seen_at);
@@ -412,5 +427,16 @@
         && (tracking || (e.qualification?.scope === "in_scope" && supported(e).includes("model_release")));
     });
   }
-  return { valid, resolve, view, metaMatches, radarEvents, rank, impactScore, selectionTier, selectionPool, selectIds };
+  // Earlier app assets call these combined entry points during rendering.
+  function resolve(state, now = Date.now()) {
+    update(state, now);
+    return read(state, now);
+  }
+
+  function radarEvents(events, meta, state, now = Date.now()) {
+    update(state, now);
+    return readRadarEvents(events, meta, state, now);
+  }
+
+  return { valid, update, read, readRadarEvents, resolve, view, metaMatches, radarEvents, rank, impactScore, selectionTier, selectionPool, selectIds };
 });

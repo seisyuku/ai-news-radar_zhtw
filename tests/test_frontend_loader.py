@@ -28,7 +28,7 @@ def test_auxiliary_rejection_does_not_hide_news(asset):
 
 @pytest.mark.parametrize("scenario", [
     "main-fail", "all-race", "all-error-race", "all-retry", "all-pending-render",
-    "timeout-abort", "timeout-json", "stories-url",
+    "timeout-abort", "timeout-json", "stories-url", "all-ai-all", "stale-boundaries",
 ])
 def test_loader_scenarios(scenario):
     result = subprocess.run(["node", str(SCRIPT), scenario], capture_output=True, text=True, timeout=10)
@@ -50,3 +50,9 @@ def test_selection_module_direct_contracts():
 def test_section_filters_keep_source_search_and_modes():
     result = subprocess.run(["node", str(SCRIPT), "section-filters"], capture_output=True, text=True, timeout=10)
     assert result.returncode == 0, result.stdout + result.stderr
+
+
+@pytest.mark.parametrize("asset", DATA)
+def test_auxiliary_timeout_preserves_rendered_news(asset):
+    result = subprocess.run(["node", str(SCRIPT), "aux-timeout", asset], capture_output=True, text=True, timeout=10)
+    assert result.returncode == 0, result.stderr
