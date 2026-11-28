@@ -2,6 +2,12 @@
   "version": 1,
   "prompt_version": "zh-tw-news-summary-v3",
   "entries": {
+    "e1c46a6d133f27e0b3e0d2648181b3ccb2d7adf1d60d957eae5f7648c7ea1393": {
+      "summary": "生成式AI與雲端需求成長，全球半導體先進製程與封裝產能爭奪戰白熱化。",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "created_at": "2026-11-28T09:35:35.872429Z"
+    },
     "ccc6c656de7a63ce2b3a9796a598e29c740c1bbc3c807d86e73b08bf12e58f63": {
       "summary": "OpenAI 12 月起合併 ChatGPT 與 Codex 額度，改以 Token 計算，引發用戶擔憂實際可用額度縮水。",
       "provider": "groq",
@@ -2995,15 +3001,13 @@
       "provider": "groq",
       "model": "qwen/qwen3.8-27b",
       "created_at": "2026-11-12T01:35:32.482686Z"
-    },
-    "4b251a1abe0b8a51a5fd65b47ee07fbbcb90ec9cbda8e8c6a4a195d6a9b2adff": {
-      "summary": "CoreWeave財報與展望亮眼，緩解市場對AI資料中心投資前景疑慮，CRWV與BE股價飆漲。",
-      "provider": "groq",
-      "model": "qwen/qwen3.8-27b",
-      "created_at": "2026-11-12T01:35:32.482686Z"
     }
   },
   "rejections": {
+    "4714e57539f7b195e7ca91c42d8ed552eebc757ed6ade9cf4503e30cc46965a7": {
+      "reason": "validation_length",
+      "created_at": "2026-11-28T09:35:35.872429Z"
+    },
     "13a226b0eb8d5569ee5615315a9608c2b5e40c6582522d0268e8061da129bad5": {
       "reason": "validation_numeric_grounding",
       "created_at": "2026-11-27T00:05:29.801407Z"
@@ -4999,10 +5003,6 @@
     "999147c5a0dd82e5e9e730d5b246520a5245ddd7dacbc3c82d6e453350fbdcb8": {
       "reason": "insufficient_context",
       "created_at": "2026-08-22T13:35:21.201596Z"
-    },
-    "e22ed692a5edd194eb9755e42312f4c01933b127b99a1a47ea632d0688a41bb1": {
-      "reason": "validation_length",
-      "created_at": "2026-08-22T10:08:16.286168Z"
     }
   }
 }
