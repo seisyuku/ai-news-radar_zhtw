@@ -1,0 +1,81 @@
+{
+  "id": "3f43ed7b1570440043847a66c227165c56a6702d",
+  "published_at": "2026-11-28T17:45:40Z",
+  "first_seen_at": "2026-11-28T18:05:31.659863Z",
+  "site_id": "opmlrss",
+  "site_name": "OPML RSS",
+  "source": "Simon Willison",
+  "title": "Code-driven AI illustrations are more useful than images from dedicated image models",
+  "url": "https://simonwillison.net/2026/Nov/28/code-driven-ai-illustrations",
+  "last_seen_at": "2026-11-28T18:05:31.659863Z",
+  "summary": "An interesting trend in frontier LLMs released in the second half of 2026 is that they tend to be much better at visual reasoning and creative \"design\" than their predecessors. If you ask these text-output models to create a 2D image (or a 3D model, as discussed here previously ), you're very likely to get a useful result, and you may even get one that's aesthetically impressive. Most importantly, because these images are defined using code you (or the model) can make further edits to them without any of the weirdness that comes from iterating with a text-input, image-output model. Poster design with Gemini 4 Neon Gemini 4 Neon is getting some buzz for its 2D design skills, so I decided to try it out in AI Studio starting with the prompt: Create an SVG poster promoting the Kakapo recovery project, research details first, make the poster look really cool and give it a 1970s graphic design It took some iteration, partly because AI Studio doesn't render SVGs, so the models there can't spot visual mistakes without assistance. Make the kakapo a bit more realistic, especially the face (image search for references) Then: [IMAGE] The text here doesn't fit the pill, fix it And: [IMAGE 2], [IMAGE 3] Also these Here's the full transcript , exported from AI Studio as Markdown because I couldn't find a way to share a session that didn't require a Google login to view. The end result is pretty solid: AI Studio ran Google searches to find those numbers - I've checked and they are all correct. I like that it included red rimu tree fruit on the branch, since those are essential for the bree",
+  "publisher_links": [
+    "https://simonwillison.net/2026/Nov/24/llm-inflection-points/#3d-modeling-and-game-development-in-september-october",
+    "https://tools.simonwillison.net/markdown-svg-renderer?url=https%3A%2F%2Fgist.github.com%2Fsimonw%2F0ee45eec7763782019cd20f571e4a7be",
+    "https://www.theguardian.com/world/2026/jan/13/nz-kakapo-mating-season",
+    "https://boxy-svg.com/app",
+    "https://simonwillison.net/tags/pelican-riding-a-bicycle/",
+    "https://simonwillison.net/2026/Oct/28/vibe-game-development/",
+    "https://deepmind.google/models/gemini-omni/",
+    "https://help.openai.com/en/articles/20001152-what-to-know-about-the-sora-discontinuation",
+    "https://claude.com/product/design",
+    "https://en.wikipedia.org/wiki/Bitter_lesson",
+    "https://simonwillison.net/tags/design",
+    "https://simonwillison.net/tags/svg",
+    "https://simonwillison.net/tags/ai",
+    "https://simonwillison.net/tags/openai",
+    "https://simonwillison.net/tags/generative-ai",
+    "https://simonwillison.net/tags/llms",
+    "https://simonwillison.net/tags/anthropic",
+    "https://simonwillison.net/tags/claude",
+    "https://simonwillison.net/tags/gemini",
+    "https://simonwillison.net/tags/text-to-image",
+    "https://simonwillison.net/tags/coding-agents"
+  ],
+  "source_updated_at": "2026-11-28T17:45:40Z",
+  "ingress": {
+    "kind": "private_opml",
+    "site_id": "opmlrss",
+    "source_id": null,
+    "name": "RSS/OPML",
+    "feed_url": null
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": null,
+    "name": null,
+    "domain": "simonwillison.net",
+    "status": "unknown",
+    "basis": [],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": null,
+      "article_host": "simonwillison.net",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+    "scope_id": "unreviewed",
+    "publisher_kind": "unknown",
+    "admission_status": "unreviewed",
+    "source_tier": "watchlist",
+    "source_tier_label": "未審來源",
+    "source_tier_rank": 6,
+    "allow_general": true,
+    "allow_featured": false,
+    "allow_radar": false,
+    "reason_codes": [
+      "missing_identity",
+      "scope_mismatch",
+      "unreviewed_publisher",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
+    ]
+  }
+}
