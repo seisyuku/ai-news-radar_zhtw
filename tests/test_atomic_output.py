@@ -9,7 +9,7 @@ from pathlib import Path
 
 import pytest
 
-from scripts import update_news as u
+from scripts import news_summaries, update_news as u
 
 
 NOW = datetime(2026, 9, 28, tzinfo=timezone.utc)
@@ -132,7 +132,7 @@ def offline_generation(tmp_path, monkeypatch):
     for name in (
         "latest-24h.json", "latest-24h-all.json", "daily-brief.json", "stories-merged.json",
         "source-status.json", "market-signals.json", "llm-radar.json", "market-sensor-state.json",
-        "paid-source-state.json", "title-zh-cache.json", "translation-state.json", "ai-summary-cache.json",
+        "paid-source-state.json", "title-zh-cache.json", "reader-excerpt-cache.json", "translation-state.json", "ai-summary-cache.json",
     ):
         (output_dir / name).write_text("{}")
     u.write_item_resolvers(output_dir, archive)
@@ -152,12 +152,150 @@ def offline_generation(tmp_path, monkeypatch):
     return output_dir
 
 
+def test_main_uses_same_archive_read_for_event_recovery(offline_generation, monkeypatch):
+    archive = offline_generation / "archive.json"
+    saved = json.loads(archive.read_text())
+    saved["generated_at"] = u.iso(NOW)
+    archive.write_text(json.dumps(saved))
+    read = Path.read_text
+    reads = []
+
+    def read_once(path, *args, **kwargs):
+        if path == archive:
+            reads.append(path)
+            assert len(reads) == 1
+        return read(path, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", read_once)
+    assert u.main() == 0
+    status = json.loads((offline_generation / "source-status.json").read_text())
+    assert status["brief_events"]["recovery_mode"] == "archive"
+    assert reads == [archive]
+
+
+def test_empty_archive_cannot_supply_history_for_newly_fetched_items(offline_generation, monkeypatch):
+    archive = offline_generation / "archive.json"
+    archive.write_text(json.dumps({"generated_at": u.iso(NOW), "items": []}))
+    raw = u.RawItem(site_id="test", site_name="test", source="test", title="AI launch",
+                    url="https://example.com/new", published_at=NOW, meta={})
+    monkeypatch.setattr(u, "collect_all", lambda *_: ([raw], []))
+    assert u.main() == 0
+    assert json.loads(archive.read_text())["total_items"] == 1
+    status = json.loads((offline_generation / "source-status.json").read_text())
+    assert status["brief_events"]["errors"] == ["insufficient_history"]
+
+
+@pytest.mark.parametrize("filename,bad_state", [
+    ("translation-state.json", {"version": "bad", "rejections": {}}),
+    ("ai-summary-cache.json", {"version": "bad", "entries": {}}),
+    ("source-status.json", {"sites": [
+        {"site_id": "broken", "ok": False, "consecutive_failures": "bad"},
+        {"site_id": "peer", "ok": False, "consecutive_failures": "2"},
+    ]}),
+    ("source-status.json", {"sites": None}),
+])
+def test_main_isolates_bad_optional_state(offline_generation, monkeypatch, filename, bad_state):
+    (offline_generation / filename).write_text(json.dumps(bad_state))
+    monkeypatch.setattr(u, "collect_all", lambda *_: ([], [
+        {"site_id": "broken", "ok": True, "item_count": 0},
+        {"site_id": "peer", "ok": False, "item_count": 0, "error": "fixture"},
+    ]))
+
+    assert u.main() == 0
+    assert json.loads((offline_generation / "latest-24h.json").read_text())["items_ai"]
+    result = json.loads((offline_generation / filename).read_text())
+    if filename == "source-status.json":
+        sites = {row["site_id"]: row for row in result["sites"]}
+        assert sites["broken"]["consecutive_failures"] == 0
+        assert sites["peer"]["consecutive_failures"] == (3 if bad_state["sites"] else 1)
+    else:
+        version = (u.TRANSLATION_STATE_VERSION if filename == "translation-state.json"
+                   else news_summaries.SUMMARY_CACHE_VERSION)
+        assert result["version"] == version
+        assert result["rejections"] == {}
+
+
+def test_main_isolates_bad_child_history_on_skipped_group(offline_generation, monkeypatch):
+    output = offline_generation / "source-status.json"
+    output.write_text(json.dumps({"sites": [
+        {"site_id": "group", "subsources": [
+            None,
+            {"source_id": "broken", "ok": False, "consecutive_failures": {"bad": True}},
+            {"source_id": "shared", "ok": False, "consecutive_failures": 2},
+        ]},
+        {"site_id": "other", "subsources": [
+            {"source_id": "shared", "ok": False, "consecutive_failures": 1},
+        ]},
+    ]}))
+    monkeypatch.setattr(u, "collect_all", lambda *_: ([], [
+        {"site_id": name, "ok": None, "skipped": True, "subsources": []}
+        for name in ("group", "other")
+    ]))
+
+    assert u.main() == 0
+    result = json.loads(output.read_text())
+    streaks = {(site["site_id"], row["source_id"]): row["consecutive_failures"]
+               for site in result["sites"] for row in site["subsources"]}
+    assert streaks == {("group", "broken"): 1, ("group", "shared"): 2, ("other", "shared"): 1}
+    assert result["persistent_failures"] == []
+
+
+def test_main_retains_valid_rows_in_partly_corrupt_caches(offline_generation):
+    rejected = {"reason": "invalid_translation", "created_at": u.iso(NOW)}
+    groq_rejected = {**rejected, "reason": "insufficient_context"}
+    summary = {"summary": "有效摘要"}
+    caches = {
+        "title-zh-cache.json": {"valid": "有效翻譯", "broken": {"value": "無效"}},
+        "translation-state.json": {
+            "version": str(u.TRANSLATION_STATE_VERSION),
+            "rejections": {"valid": rejected, "broken": {**rejected, "title_retry_attempted": []}},
+        },
+        "ai-summary-cache.json": {
+            "version": str(news_summaries.SUMMARY_CACHE_VERSION),
+            "entries": {"valid": summary, "broken": {"summary": ["無效"]}},
+            "rejections": {"valid": groq_rejected, "broken": {"reason": "insufficient_context"}},
+        },
+    }
+    for name, payload in caches.items():
+        (offline_generation / name).write_text(json.dumps(payload))
+
+    assert u.main() == 0
+
+    def read(name):
+        return json.loads((offline_generation / name).read_text())
+
+    assert read("title-zh-cache.json") == {"valid": "有效翻譯"}
+    assert read("translation-state.json")["rejections"] == {"valid": rejected}
+    result = read("ai-summary-cache.json")
+    assert result["entries"] == {"valid": summary}
+    assert result["rejections"] == {"valid": groq_rejected}
+
+
+@pytest.mark.parametrize("payload", [b"\xff", b'{"version": []}', b'{"version": true}'])
+def test_unreadable_or_invalid_cache_version_is_discarded(tmp_path, payload):
+    path = tmp_path / "cache.json"
+    path.write_bytes(payload)
+    assert u.load_translation_state(path) == u.empty_translation_state()
+    assert news_summaries.load_summary_cache(path) == news_summaries.empty_summary_cache()
+
+
+def test_main_stops_before_replacing_outputs_when_archive_is_bad(offline_generation):
+    (offline_generation / "archive.json").write_text('{"items": null}')
+    paths = [path for path in offline_generation.parent.rglob("*") if path.is_file()]
+    before = {path: path.read_bytes() for path in paths}
+
+    with pytest.raises(ValueError, match="Invalid archive"):
+        u.main()
+
+    assert {path: path.read_bytes() for path in paths} == before
+
+
 @pytest.mark.parametrize("relative", [
     "data/latest-24h.json", "data/latest-24h-all.json", "data/daily-brief.json",
     "data/stories-merged.json", "data/archive.json", f"data/items/{ACTIVE_ID}.json",
     f"item/{ACTIVE_ID}/index.html", "data/source-status.json", "data/market-signals.json",
     "data/llm-radar.json", "data/market-sensor-state.json",
-    "data/title-zh-cache.json", "data/translation-state.json", "data/ai-summary-cache.json",
+    "data/title-zh-cache.json", "data/reader-excerpt-cache.json", "data/translation-state.json", "data/ai-summary-cache.json",
 ])
 def test_main_replace_failure_preserves_failed_target_and_both_expired_links(offline_generation, monkeypatch, relative):
     root = offline_generation.parent
@@ -226,6 +364,20 @@ def test_brief_state_write_failure_defers_cleanup_until_next_success(offline_gen
 
     status = json.loads((output / "source-status.json").read_text())
     daily = json.loads((output / "daily-brief.json").read_text())
+    def check_governance(expected):
+        merged = json.loads((output / "stories-merged.json").read_text())
+        meta = u.signal_selection.metadata(merged["publisher_governance"])
+        assert meta["status"] == expected
+        assert meta["brief_generation_id"] == merged["brief_events"]["generation_id"]
+        for name in ("latest-24h", "latest-24h-all", "daily-brief", "llm-radar"):
+            payload = json.loads((output / f"{name}.json").read_text())
+            assert payload["publisher_governance_meta"] == meta, name
+            assert payload["generated_at"] == meta["generated_at"]
+
+    check_governance("unavailable")
+    assert daily["items"] == []
+    assert daily["selection_diagnostics"]["empty_reason"] == "governance_unavailable"
+    assert json.loads((output / "market-signals.json").read_text())["generated_at"] == u.iso(NOW)
     assert status["brief_events"]["errors"] == ["state_write_failed"]
     assert expired_json.read_bytes() == old_json
     assert expired_html.read_bytes() == old_html
@@ -233,6 +385,7 @@ def test_brief_state_write_failure_defers_cleanup_until_next_success(offline_gen
     assert json.loads((output / "latest-24h.json").read_text())["items_ai"]
 
     assert u.main() == 0
+    check_governance("ready")
     assert not expired_json.exists()
     assert not expired_html.exists()
     assert (output / "brief-event-state.json").is_file()

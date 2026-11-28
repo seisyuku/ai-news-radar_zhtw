@@ -9,6 +9,7 @@ from __future__ import annotations
 from datetime import datetime, timedelta, timezone
 import hashlib
 import json
+from pathlib import Path
 import re
 import time
 from typing import Any
@@ -118,7 +119,7 @@ def build_price_snapshot(payload: dict[str, Any]) -> dict[str, Any]:
         model = {
             "provider": provider,
             "model_id": model_id,
-            "model_name": str(raw.get("model_name") or model_id).strip(),
+            "model_name": str(raw.get("model_name") or "").strip() or model_id,
         }
         for field in PRICE_FIELDS:
             model[field] = raw.get(field)
@@ -408,6 +409,33 @@ def _kept_signals(previous: Any, now: datetime) -> list[dict[str, Any]]:
     return kept
 
 
+def load_market_sensor_state(path: Path) -> dict[str, Any] | None:
+    """Return an empty seed for a missing file and None for unavailable state."""
+    try:
+        state = json.loads(path.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        return {}
+    except (OSError, ValueError, RecursionError):
+        return None
+    if not isinstance(state, dict):
+        return None
+    version = state.get("schema_version", 1)
+    if isinstance(version, bool) or version != 1:
+        return None
+    if "price" in state:
+        price = state["price"]
+        models = price.get("models") if isinstance(price, dict) else None
+        if not isinstance(models, dict) or not models or any(
+            not isinstance(model, dict) or not all(
+                isinstance(model.get(field), str) and model[field].strip()
+                for field in ("provider", "model_id", "model_name")
+            )
+            for model in models.values()
+        ):
+            return None
+    return state
+
+
 def run_market_sensors(
     session: requests.Session,
     now: datetime,
@@ -426,20 +454,27 @@ def run_market_sensors(
 
     started = time.perf_counter()
     try:
+        if previous_state is None:
+            raise ValueError("price_baseline_unavailable")
         current_price = build_price_snapshot(_fetch_json(session, PRICE_URL))
         old_price = state.get("price") if isinstance(state.get("price"), dict) else {}
-        price_signals = diff_price_snapshots(old_price, current_price, detected_at)
         if old_price and len(current_price.get("models") or {}) < max(1, int(len(old_price.get("models") or {}) * DATASET_MIN_RETAINED_RATIO)):
             raise ValueError("Price dataset shrank below the 80% safety gate")
+        if not current_price["models"]:
+            raise ValueError("price_catalog_empty")
+        price_signals = diff_price_snapshots(old_price, current_price, detected_at)
         state["price"] = current_price
         signals.extend(price_signals)
         statuses.append({"site_id": "market_price", "site_name": "LLM Price Tracker", "ok": True,
                          "item_count": len(current_price.get("models") or {}), "signal_count": len(price_signals),
                          "duration_ms": int((time.perf_counter() - started) * 1000), "error": None})
     except Exception as exc:
-        statuses.append({"site_id": "market_price", "site_name": "LLM Price Tracker", "ok": False,
-                         "item_count": 0, "signal_count": 0,
-                         "duration_ms": int((time.perf_counter() - started) * 1000), "error": str(exc)})
+        failure = {"site_id": "market_price", "site_name": "LLM Price Tracker", "ok": False,
+                   "item_count": 0, "signal_count": 0,
+                   "duration_ms": int((time.perf_counter() - started) * 1000), "error": str(exc)}
+        if previous_state is None:
+            failure.update(degraded=True, degraded_reason="price_baseline_unavailable")
+        statuses.append(failure)
 
     state["schema_version"] = 1
     state["updated_at"] = detected_at

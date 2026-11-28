@@ -1,3 +1,4 @@
+import json
 from copy import deepcopy
 from datetime import datetime, timezone
 
@@ -7,6 +8,7 @@ from scripts.market_sensors import (
     build_price_snapshot,
     diff_free_tier_snapshots,
     diff_price_snapshots,
+    load_market_sensor_state,
 )
 
 
@@ -47,6 +49,15 @@ def free_provider(**overrides):
 def test_price_bootstrap_does_not_emit_existing_catalog():
     current = build_price_snapshot(price_payload())
     assert diff_price_snapshots({}, current, NOW) == []
+
+
+def test_price_baseline_round_trips_blank_upstream_display_name(tmp_path):
+    price = build_price_snapshot(price_payload(model_name="  "))
+    path = tmp_path / "market-sensor-state.json"
+    state = {"schema_version": 1, "price": price}
+    path.write_text(json.dumps(state))
+    assert price["models"]["example ai::example-1"]["model_name"] == "example-1"
+    assert load_market_sensor_state(path) == state
 
 
 def test_price_numeric_change_emits_exact_old_and_new_values():

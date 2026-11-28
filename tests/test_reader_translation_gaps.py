@@ -135,6 +135,43 @@ def test_excerpt_failure_and_per_run_cap_keep_original_rows():
     assert ai == rows and len(calls) == 6 and status["failed"] == 6
 
 
+def test_repeated_failed_excerpt_leaves_room_for_other_urls_and_retries_next_run():
+    rows = [{"url": URL} for _ in range(6)] + [{"url": FINANCE_URL}]
+    calls = []
+
+    def fetch(url):
+        calls.append(url)
+        if url == URL and calls.count(URL) == 1:
+            raise ValueError("unavailable")
+        return LEAD
+
+    ai, _, cache, status = r.enrich(rows, rows, None, {}, fetcher=fetch)
+    assert calls == [URL, FINANCE_URL]
+    assert [row.get("reader_summary") for row in ai] == [None] * 6 + [LEAD]
+    assert status["failed"] == 1
+    ai, _, _, status = r.enrich(rows, rows, None, cache, fetcher=fetch)
+    assert calls == [URL, FINANCE_URL, URL]
+    assert all(row["reader_summary"] == LEAD for row in ai)
+    assert status["attempted"] == 1 and status["cache_hits"] == 1
+
+
+def test_excerpt_deadline_stops_new_fetches_but_keeps_cached_leads(monkeypatch):
+    clock = [0.0]
+    calls = []
+    rows = [{"url": url} for url in (URL, URL + "-uncached", FINANCE_URL)]
+
+    def fetch(url):
+        calls.append(url)
+        clock[0] = 20.0
+        return LEAD
+
+    monkeypatch.setattr(r.time, "monotonic", lambda: clock[0])
+    ai, _, _, status = r.enrich(rows, rows, None, {FINANCE_URL: LEAD}, fetcher=fetch)
+    assert calls == [URL]
+    assert [row.get("reader_summary") for row in ai] == [LEAD, None, LEAD]
+    assert status["cache_hits"] == 1
+
+
 def test_visible_primary_precedes_higher_scoring_ordinary_stories_without_reordering():
     stories = [{"story_id": str(i), "score": 1-i/100, "title": "模型更新", "primary_item": {"id": str(i)},
                 "sources": [{"source": "Official", "summary": "模型新功能已向所有開發者開放，官方公告說明新版本的使用方式與適用範圍。"}]} for i in range(30)]

@@ -515,6 +515,22 @@ def _personnel_article_anchors(claims: list[Claim], allowed: Callable[[dict[str,
     return {str(copy.row["id"]): anchor for anchor, _, copies in groups for copy in copies}
 
 
+def recover_history(state: StateInput, archive: ArchiveMeta, has_records: bool,
+                    now: datetime) -> tuple[dict[str, Any] | None, str | None]:
+    """Return saved history, permission to rebuild (None, None), or a failure code."""
+    latest = now + timedelta(hours=6)
+    if state.status == "unsupported":
+        return None, "unsupported_state_schema"
+    if state.status == "valid" and validate_state(state.payload):
+        if parse(state.payload["generated_at"]) > latest:
+            return None, "future_state"
+        return state.payload, None
+    archive_time = parse(archive.generated_at)
+    if archive.status == "valid" and has_records and archive_time and archive_time <= latest:
+        return None, None
+    return None, "insufficient_history"
+
+
 def build_brief_events(*, stories: list[dict[str, Any]], archive_records: list[dict[str, Any]],
                        archive_meta: ArchiveMeta | dict[str, Any],
                        previous_state: StateInput | dict[str, Any], now: datetime,
@@ -530,14 +546,9 @@ def build_brief_events(*, stories: list[dict[str, Any]], archive_records: list[d
     now = now.astimezone(UTC)
     state_in = previous_state if isinstance(previous_state, StateInput) else StateInput(**previous_state)
     meta = archive_meta if isinstance(archive_meta, ArchiveMeta) else ArchiveMeta(**archive_meta)
-    if state_in.status == "unsupported":
-        return _empty(now, "unsupported_state_schema")
-    old_payload = state_in.payload if state_in.status == "valid" and validate_state(state_in.payload) else None
-    if old_payload and parse(old_payload["generated_at"]) > now + timedelta(hours=6):
-        return _empty(now, "future_state")
-    if not old_payload and (meta.status != "valid" or not archive_records
-                            or not parse(meta.generated_at) or parse(meta.generated_at) > now + timedelta(hours=6)):
-        return _empty(now, "insufficient_history")
+    old_payload, error = recover_history(state_in, meta, bool(archive_records), now)
+    if error:
+        return _empty(now, error)
     recovery = "none" if old_payload else "archive"
     by_id = {str(r["id"]): copy.deepcopy(r) for r in archive_records if r.get("id")}
     seed_stories: dict[str, set[str]] = defaultdict(set)

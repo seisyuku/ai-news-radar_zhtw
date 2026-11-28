@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from contextlib import contextmanager
+from functools import partial
 from email.utils import parseaddr
 import html
 import hashlib
@@ -58,9 +59,10 @@ _group_source_details = source_health.summarize_subsources
 
 
 @contextmanager
-def record_generation_phase(metrics: dict[str, Any], name: str):
+def record_generation_phase(metrics: dict[str, Any], name: str, *, clock=None):
     """Observe wall time without changing failures, retries or provider policy."""
-    started = time.perf_counter()
+    clock = time.perf_counter if clock is None else clock
+    started = clock()
     observation: dict[str, Any] = {"state": "completed"}
     try:
         yield observation
@@ -68,7 +70,7 @@ def record_generation_phase(metrics: dict[str, Any], name: str):
         observation["state"] = "failed"
         raise
     finally:
-        observation["duration_ms"] = max(0, round((time.perf_counter() - started) * 1000))
+        observation["duration_ms"] = max(0, round((clock() - started) * 1000))
         metrics[name] = observation
 
 
@@ -111,9 +113,9 @@ except ModuleNotFoundError:  # pragma: no cover - direct `python scripts/update_
     )
 
 try:
-    from scripts.market_sensors import run_market_sensors
+    from scripts.market_sensors import load_market_sensor_state, run_market_sensors
 except ModuleNotFoundError:  # pragma: no cover - direct `python scripts/update_news.py`
-    from market_sensors import run_market_sensors
+    from market_sensors import load_market_sensor_state, run_market_sensors
 
 try:
     import feedparser
@@ -3818,15 +3820,13 @@ def is_ai_related_record(record: dict[str, Any]) -> bool:
 
 
 def load_title_zh_cache(path: Path) -> dict[str, str]:
-    if not path.exists():
-        return {}
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
-        if isinstance(data, dict):
-            return {str(k): str(v) for k, v in data.items() if str(k).strip() and str(v).strip()}
-    except Exception:
-        pass
-    return {}
+    except (OSError, ValueError):
+        return {}
+    if not isinstance(data, dict):
+        return {}
+    return {key: value for key, value in data.items() if key.strip() and isinstance(value, str) and value.strip()}
 
 
 def empty_translation_state() -> dict[str, Any]:
@@ -3836,14 +3836,24 @@ def empty_translation_state() -> dict[str, Any]:
 def load_translation_state(path: Path) -> dict[str, Any]:
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
-    except (FileNotFoundError, OSError, ValueError, TypeError):
+        version = payload.get("version") if isinstance(payload, dict) else None
+        if isinstance(version, str):
+            version = int(version)
+    except (OSError, ValueError):
         return empty_translation_state()
-    if not isinstance(payload, dict) or int(payload.get("version") or 0) != TRANSLATION_STATE_VERSION:
+    if isinstance(version, bool) or version != TRANSLATION_STATE_VERSION:
         return empty_translation_state()
     rejections = payload.get("rejections")
-    if not isinstance(rejections, dict):
-        rejections = {}
-    return {"version": TRANSLATION_STATE_VERSION, "rejections": dict(rejections)}
+    return {
+        "version": TRANSLATION_STATE_VERSION,
+        "rejections": {
+            key: entry for key, entry in rejections.items()
+            if key.strip() and isinstance(entry, dict)
+            and all(isinstance(entry.get(field), str) and entry[field].strip()
+                    for field in ("reason", "created_at"))
+            and isinstance(entry.get("title_retry_attempted", False), bool)
+        } if isinstance(rejections, dict) else {},
+    }
 
 
 def _translation_rejection_is_fresh(entry: Any, now: datetime) -> bool:
@@ -3857,7 +3867,8 @@ def _translation_rejection_is_fresh(entry: Any, now: datetime) -> bool:
         if entry.get("reason") == "provider_unavailable"
         else TRANSLATION_REJECTION_TTL_SECONDS
     )
-    return (now - created_at).total_seconds() < ttl_seconds
+    age_seconds = (now - created_at).total_seconds()
+    return 0 <= age_seconds < ttl_seconds
 
 
 def _translation_title_retry_due(entry: Any, now: datetime) -> bool:
@@ -4092,7 +4103,7 @@ def translate_candidate_batches(
             if remaining <= 0 or status["request_count"] >= TRANSLATION_MAX_REQUESTS:
                 status["budget_exhausted"] = True
                 break
-            timeout_seconds = max(1.0, min(float(TRANSLATION_REQUEST_TIMEOUT_SECONDS), remaining))
+            timeout_seconds = min(float(TRANSLATION_REQUEST_TIMEOUT_SECONDS), remaining)
             try:
                 if any(candidate.get("repair_retry") for candidate in batch):
                     translated_batch = _translate_gemini_batch(session, texts, gemini_api_key, timeout_seconds, repair=True)
@@ -4100,14 +4111,13 @@ def translate_candidate_batches(
                     translated_batch = _translate_gemini_batch(session, texts, gemini_api_key, timeout_seconds)
             except Exception as exc:
                 status["request_count"] += 1
-                retry_after = _translation_retry_after_seconds(exc)
-                if _translation_is_rate_limited(exc):
+                rate_limited = _translation_is_rate_limited(exc)
+                if rate_limited:
+                    retry_after = _translation_retry_after_seconds(exc)
                     remaining = TRANSLATION_TOTAL_BUDGET_SECONDS - (time.monotonic() - started)
-                    if retry_after is not None and retry_after <= remaining and status["request_count"] < TRANSLATION_MAX_REQUESTS:
+                    if retry_after is not None and retry_after < remaining and status["request_count"] < TRANSLATION_MAX_REQUESTS:
                         time.sleep(retry_after)
                         continue
-                    rate_limited = True
-                    status["rate_limited"] = True
                 status["last_error_type"] = _translation_provider_failure_type(exc)
                 break
             status["request_count"] += 1
@@ -4124,6 +4134,7 @@ def translate_candidate_batches(
                         "created_at": iso(now),
                     }
             else:
+                status["rate_limited"] = True
                 break
             continue
 
@@ -5751,14 +5762,13 @@ def apply_brief_event_result(result, daily, merged):
     """One authoritative projection; the daily file is a compatible adapter."""
     daily["items"] = result.daily_items
     daily["total_items"] = len(result.daily_items)
-    daily["brief_event_meta"] = brief_events.selection_meta(result.projection)
     governance = getattr(result, "publisher_governance", None)
     if governance is None:
         governance = signal_selection.unavailable(result.projection,
             publisher_policy.current_registry().revision, "invalid_projection")
         result.daily_items = []
         daily["items"], daily["total_items"] = [], 0
-        daily["brief_event_meta"] = brief_events.selection_meta(result.projection)
+    daily["brief_event_meta"] = brief_events.selection_meta(result.projection)
     governance_api = signal_selection if governance["schema_version"] == 2 else publisher_governance
     daily["publisher_governance_meta"] = governance_api.metadata(governance)
     candidates = [d for d in governance["events"] if d["featured_eligible"]]
@@ -5772,6 +5782,8 @@ def apply_brief_event_result(result, daily, merged):
         "max_source_count": max((d["qualified_source_count"] for d in qualified), default=None),
         "score_gate": None if governance["schema_version"] == 2 else BRIEF_SCORE_GATE,
         "empty_reason": None if result.daily_items else "no_qualified_events"}
+    if governance["status"] == "unavailable":
+        daily["selection_diagnostics"]["empty_reason"] = "governance_unavailable"
     if governance["schema_version"] == 2:
         daily["selection_diagnostics"].update(
             selection_policy=signal_selection.SELECTION_POLICY,
@@ -5785,16 +5797,26 @@ def apply_brief_event_result(result, daily, merged):
 BRIEF_STATE_WRITE_FAILED = "state_write_failed"
 
 
-def write_brief_event_bundle(result, daily, merged, *, state_path, merged_path, daily_path, now):
-    """Archive is written first by the caller. State precedes its projection."""
+def finalize_brief_event_result(result, daily, merged, *, state_path, now):
+    """Bind all public projections to the outcome of the event history write."""
     if result.next_state is not None:
         try:
             atomic_write_text(state_path, brief_events.canonical(result.next_state).decode("utf-8"))
         except OSError:
             result = brief_events.unavailable(now, BRIEF_STATE_WRITE_FAILED)
-            apply_brief_event_result(result, daily, merged)
+    apply_brief_event_result(result, daily, merged)
+    return result
+
+
+def write_brief_projections(merged_path, merged, daily_path, daily):
     atomic_write_text(merged_path, json.dumps(sanitize_public_payload(merged), ensure_ascii=False, separators=(",", ":")))
     atomic_write_text(daily_path, json.dumps(sanitize_public_payload(daily), ensure_ascii=False, indent=2))
+
+
+def write_brief_event_bundle(result, daily, merged, *, state_path, merged_path, daily_path, now):
+    """Write a standalone event bundle in the same order as the full snapshot."""
+    result = finalize_brief_event_result(result, daily, merged, state_path=state_path, now=now)
+    write_brief_projections(merged_path, merged, daily_path, daily)
     return result
 
 
@@ -6020,29 +6042,25 @@ def main() -> int:
     llm_radar_path = output_dir / "llm-radar.json"
 
     phase_metrics: dict[str, Any] = {}
-    with record_generation_phase(phase_metrics, "inputs") as phase:
-        archive = load_archive(archive_path)
+    phase_timer = partial(record_generation_phase, phase_metrics, clock=time.perf_counter)
+    with phase_timer("inputs") as phase:
+        archive, archive_time = archive_output.load_archive_generation(
+            archive_path, normalize_record=normalize_reader_source_identity)
+        brief_archive_meta = brief_events.ArchiveMeta("valid" if archive_time and archive else "missing", archive_time)
         brief_event_state = brief_events.load_state(brief_event_state_path)
-        try:
-            brief_archive_meta = brief_events.ArchiveMeta("valid", json.loads(archive_path.read_text(encoding="utf-8"))["generated_at"])
-        except (OSError, ValueError, KeyError, TypeError):
-            brief_archive_meta = brief_events.ArchiveMeta("missing")
         previous_source_status = load_source_status(status_path)
         try:
             previous_market_signals = json.loads(market_signals_path.read_text(encoding="utf-8"))
         except (OSError, ValueError, TypeError):
             previous_market_signals = {}
-        try:
-            previous_market_state = json.loads(market_sensor_state_path.read_text(encoding="utf-8"))
-        except (OSError, ValueError, TypeError):
-            previous_market_state = {}
+        previous_market_state = load_market_sensor_state(market_sensor_state_path)
 
         session = create_session()
 
-    with record_generation_phase(phase_metrics, "collect") as phase:
+    with phase_timer("collect") as phase:
         raw_items, statuses = collect_all(session, now)
 
-    with record_generation_phase(phase_metrics, "sensors") as phase:
+    with phase_timer("sensors") as phase:
         market_signals_payload, market_sensor_state, market_sensor_statuses = run_market_sensors(
             session,
             now,
@@ -6052,7 +6070,7 @@ def main() -> int:
         statuses.extend(market_sensor_statuses)
 
     rss_feed_statuses: list[dict[str, Any]] = []
-    with record_generation_phase(phase_metrics, "opml") as phase:
+    with phase_timer("opml") as phase:
         if args.rss_opml:
             opml_path = Path(args.rss_opml).expanduser()
             if opml_path.exists():
@@ -6082,7 +6100,7 @@ def main() -> int:
         elif not opml_path.exists():
             phase["state"] = "failed"
 
-    with record_generation_phase(phase_metrics, "preparation") as phase:
+    with phase_timer("preparation") as phase:
         incoming_format_holds = {}
         for raw in raw_items:
             reason = evidence_policy.exclusion_reason({**(raw.meta or {}), "url": raw.url, "source": raw.source})
@@ -6141,7 +6159,7 @@ def main() -> int:
         translation_status: dict[str, Any] = {}
         ai_summary_cache = load_summary_cache(ai_summary_cache_path)
 
-    with record_generation_phase(phase_metrics, "translations") as phase:
+    with phase_timer("translations") as phase:
         try:
             reader_excerpt_cache = json.loads(reader_excerpt_cache_path.read_text(encoding="utf-8"))
         except (OSError, ValueError):
@@ -6160,7 +6178,7 @@ def main() -> int:
         )
         phase["provider_request_count"] = int(translation_status.get("request_count") or 0)
 
-    with record_generation_phase(phase_metrics, "aggregation") as phase:
+    with phase_timer("aggregation") as phase:
         # Copy current views; archive rows keep their historical schema.
         latest_items = [corroboration.annotate(add_publisher_identity_fields(item)) for item in latest_items]
         latest_items_all = [corroboration.annotate(add_publisher_identity_fields(item)) for item in latest_items_all]
@@ -6176,7 +6194,7 @@ def main() -> int:
         groq_api_key = str(os.environ.get("GROQ_API_KEY") or "").strip()
         groq_summary_model = str(os.environ.get("GROQ_SUMMARY_MODEL") or DEFAULT_GROQ_MODEL).strip()
 
-    with record_generation_phase(phase_metrics, "summaries") as phase:
+    with phase_timer("summaries") as phase:
         # Event selection and ordinary story ranking differ. Prioritize the
         # actual visible primaries without changing selection or API limits.
         try:
@@ -6196,7 +6214,7 @@ def main() -> int:
         )
         phase["provider_enabled"] = bool(ai_summary_status.get("enabled"))
 
-    with record_generation_phase(phase_metrics, "payloads") as phase:
+    with phase_timer("payloads") as phase:
         generated_at = iso(now)
         daily_brief_payload = build_daily_brief_payload(stories, generated_at=generated_at, window_hours=args.window_hours)
         stories_merged_payload = build_stories_payload(stories, generated_at=generated_at, window_hours=args.window_hours)
@@ -6207,7 +6225,6 @@ def main() -> int:
             # Logical event failures don't stop the ordinary news reader. Do
             # not log raw source text or exception messages containing it.
             brief_result = brief_events.unavailable(now, "event_build_" + type(exc).__name__)
-        apply_brief_event_result(brief_result, daily_brief_payload, stories_merged_payload)
 
         # Apply effective source tiers only after all event inputs and scores
         # are fixed. Preserve full archive/references; forbidden scopes leave
@@ -6352,18 +6369,20 @@ def main() -> int:
             "allowed_primary_formats": sorted(evidence_policy.TEXT_FORMATS),
             "archive_hold_counts": text_evidence_holds, "incoming_hold_counts": incoming_format_holds}
         latest_payload, latest_all_payload = build_latest_payloads(latest_payload)
-        for public_payload in (latest_payload, latest_all_payload, llm_radar_payload):
-            public_payload["publisher_governance_meta"] = daily_brief_payload["publisher_governance_meta"]
 
-    with record_generation_phase(phase_metrics, "output") as phase:
+    with phase_timer("output") as phase:
         atomic_write_text(
             archive_path,
             json.dumps(sanitize_public_payload(archive_payload), ensure_ascii=False, separators=(",", ":")),
         )
+        brief_result = finalize_brief_event_result(brief_result, daily_brief_payload, stories_merged_payload,
+            state_path=brief_event_state_path, now=now)
+        cleanup_allowed = BRIEF_STATE_WRITE_FAILED not in brief_result.diagnostics["errors"]
+        for public_payload in (latest_payload, latest_all_payload, llm_radar_payload):
+            public_payload["publisher_governance_meta"] = daily_brief_payload["publisher_governance_meta"]
         atomic_write_text(latest_path, json.dumps(sanitize_public_payload(latest_payload), ensure_ascii=False, indent=2))
         atomic_write_text(latest_all_path, json.dumps(sanitize_public_payload(latest_all_payload), ensure_ascii=False, separators=(",", ":")))
-        brief_result = write_brief_event_bundle(brief_result, daily_brief_payload, stories_merged_payload,
-            state_path=brief_event_state_path, merged_path=stories_merged_path, daily_path=daily_brief_path, now=now)
+        write_brief_projections(stories_merged_path, stories_merged_payload, daily_brief_path, daily_brief_payload)
         status_payload["brief_events"] = brief_result.diagnostics
         status_payload["brief_selection"] = daily_brief_payload["selection_diagnostics"]
         status_payload["news_quality"] = news_quality.build(list(archive.values()), latest_items_all_dedup,
@@ -6379,10 +6398,12 @@ def main() -> int:
             llm_radar_path,
             json.dumps(sanitize_public_payload(llm_radar_payload), ensure_ascii=False, indent=2),
         )
-        atomic_write_text(
-            market_sensor_state_path,
-            json.dumps(sanitize_public_payload(market_sensor_state), ensure_ascii=False, separators=(",", ":")),
-        )
+        market_state_ready = all(status["ok"] for status in market_sensor_statuses)
+        if market_state_ready:
+            atomic_write_text(
+                market_sensor_state_path,
+                json.dumps(sanitize_public_payload(market_sensor_state), ensure_ascii=False, separators=(",", ":")),
+            )
         report_persistent_source_failures(persistent_failures)
         atomic_write_text(title_cache_path, json.dumps(sanitize_public_payload(title_cache), ensure_ascii=False, indent=2))
         atomic_write_text(reader_excerpt_cache_path, json.dumps(sanitize_public_payload(reader_excerpt_cache), ensure_ascii=False, indent=2))
@@ -6400,7 +6421,7 @@ def main() -> int:
     atomic_write_text(status_path, json.dumps(sanitize_public_payload(status_payload), ensure_ascii=False, indent=2))
 
     # The event state write can fail without aborting the public snapshot.
-    if BRIEF_STATE_WRITE_FAILED not in brief_result.diagnostics["errors"]:
+    if cleanup_allowed:
         prune_item_outputs(output_dir, archive)
 
     print(f"Wrote: {latest_path} ({latest_payload['total_items']} items)")
@@ -6415,7 +6436,8 @@ def main() -> int:
     print(f"Wrote: {status_path}")
     print(f"Wrote: {market_signals_path} ({len(market_signals_payload.get('signals', []))} signals)")
     print(f"Wrote: {llm_radar_path} ({llm_radar_payload.get('total_events', 0)} events)")
-    print(f"Wrote: {market_sensor_state_path}")
+    if market_state_ready:
+        print(f"Wrote: {market_sensor_state_path}")
     print(f"Wrote: {title_cache_path} ({len(title_cache)} entries)")
     if translation_state_path.exists():
         print(f"Wrote: {translation_state_path} ({len(translation_state.get('rejections') or {})} recent rejections)")

@@ -55,11 +55,12 @@ def enrich(items_ai, items_all, session, cache, *, fetcher=None):
     cache = dict(cache) if isinstance(cache, dict) else {}
     fetcher = fetcher or (lambda url: fetch_lead(session, url))
     texts = {}
+    attempted_urls = set()
     status = {"attempted": 0, "cache_hits": 0, "available": 0, "failed": 0}
     started = time.monotonic()
     for item in items_ai:
         url = article_url(item.get("url"))
-        if not url or item.get("summary") or url in texts:
+        if not url or item.get("summary") or url in texts or url in attempted_urls:
             continue
         cached = cache.get(url)
         if isinstance(cached, str) and 80 <= len(cached) <= 1600:
@@ -68,6 +69,7 @@ def enrich(items_ai, items_all, session, cache, *, fetcher=None):
             continue
         if status["attempted"] >= 6 or time.monotonic() - started >= 20:
             continue
+        attempted_urls.add(url)
         status["attempted"] += 1
         try:
             text = fetcher(url)

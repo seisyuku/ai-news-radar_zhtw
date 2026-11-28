@@ -311,15 +311,29 @@ def empty_summary_cache() -> dict[str, Any]:
 def load_summary_cache(path: Path) -> dict[str, Any]:
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
-    except (FileNotFoundError, json.JSONDecodeError, OSError):
+        version = payload.get("version") if isinstance(payload, dict) else None
+        if isinstance(version, str):
+            version = int(version)
+    except (OSError, ValueError):
         return empty_summary_cache()
-    if not isinstance(payload, dict) or not isinstance(payload.get("entries"), dict):
-        return empty_summary_cache()
-    if int(payload.get("version") or 0) != SUMMARY_CACHE_VERSION:
+    if isinstance(version, bool) or version != SUMMARY_CACHE_VERSION:
         return empty_summary_cache()
     payload["prompt_version"] = SUMMARY_PROMPT_VERSION
-    if not isinstance(payload.get("rejections"), dict):
-        payload["rejections"] = {}
+    entries = payload.get("entries")
+    payload["entries"] = {
+        key: entry for key, entry in entries.items()
+        if key.strip() and isinstance(entry, dict)
+        and isinstance(entry.get("summary"), str) and entry["summary"].strip()
+        and all(entry.get(field) is None or isinstance(entry[field], str)
+                for field in ("provider", "model", "created_at"))
+    } if isinstance(entries, dict) else {}
+    rejections = payload.get("rejections")
+    payload["rejections"] = {
+        key: entry for key, entry in rejections.items()
+        if key.strip() and isinstance(entry, dict)
+        and all(isinstance(entry.get(field), str) and entry[field].strip()
+                for field in ("reason", "created_at"))
+    } if isinstance(rejections, dict) else {}
     return payload
 
 
@@ -333,7 +347,8 @@ def _negative_cache_is_fresh(entry: Mapping[str, Any], now: datetime) -> bool:
         return False
     if created_at.tzinfo is None:
         created_at = created_at.replace(tzinfo=UTC)
-    return (now - created_at.astimezone(UTC)).total_seconds() < SUMMARY_REJECTION_TTL_SECONDS
+    age_seconds = (now - created_at).total_seconds()
+    return 0 <= age_seconds < SUMMARY_REJECTION_TTL_SECONDS
 
 
 def summary_cache_key(story: Mapping[str, Any], source_context: str, model: str,

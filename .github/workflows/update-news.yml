@@ -78,22 +78,14 @@ jobs:
   # independent tick source - see docs/OPERATIONS.md "External heartbeat"
   # for the operator-facing setup.
   #
-  # This job is a no-op for every other trigger (schedule, plain manual
-  # dispatch, watchdog's dispatch - none of which set source=heartbeat, so
-  # they fall through the `!= "heartbeat"` branch immediately below and
-  # always run the full job). It only does real work when source==heartbeat:
-  # check whether a successful run has landed in the last
-  # FRESHNESS_THRESHOLD_MINUTES regardless of who triggered it. If the
-  # internal schedule (or watchdog) is healthy, the heartbeat tick is a
-  # deliberate no-op - it must not stack extra work on top of an
-  # already-healthy 4-ticks/hour internal cadence. If nothing successful has
-  # landed inside the threshold, the internal layers have likely decayed and
-  # the heartbeat takes over, running the job in full.
+  # Heartbeat skips only when the publishing branch already has a fresh
+  # generated snapshot. An Actions run can succeed while skipping the update,
+  # so its timestamps do not indicate that the snapshot moved.
   freshness-check:
     runs-on: ubuntu-latest
     timeout-minutes: 2
     permissions:
-      actions: read
+      contents: read
     outputs:
       should_run: ${{ steps.guard.outputs.should_run }}
     steps:
@@ -112,28 +104,32 @@ jobs:
             exit 0
           fi
 
-          last_created_at=$(gh api \
-            "repos/${{ github.repository }}/actions/workflows/update-news.yml/runs?status=success&per_page=1" \
-            --jq '.workflow_runs[0].created_at // empty')
-
-          if [ -z "$last_created_at" ]; then
+          # Use the generated timestamp in the committed daily snapshot. This
+          # endpoint reads the publishing ref and does not depend on Pages cache.
+          if ! last_generated_at=$(gh api \
+              "repos/$GITHUB_REPOSITORY/contents/data/daily-brief.json" --method GET \
+              -f "ref=$GITHUB_REF_NAME" -H 'Accept: application/vnd.github.raw+json' | \
+              jq -er '.generated_at | strings | select(test("^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}([.][0-9]+)?Z$"))') ||
+             ! last_epoch=$(date -u -d "$last_generated_at" +%s); then
             echo "should_run=true" >> "$GITHUB_OUTPUT"
-            echo "::warning::No prior successful update-news.yml run found; heartbeat running the full job."
+            echo "::warning::Could not verify the last published snapshot. Running a refresh."
             exit 0
           fi
 
-          last_epoch=$(date -u -d "$last_created_at" +%s)
           now_epoch=$(date -u +%s)
+          if [ "$last_epoch" -gt "$now_epoch" ]; then
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
+            echo "::warning::The last published snapshot has a future timestamp. Running a refresh."
+            exit 0
+          fi
           age_minutes=$(( (now_epoch - last_epoch) / 60 ))
-
-          echo "Last successful update-news.yml run: $last_created_at ($age_minutes minutes ago; heartbeat freshness threshold ${FRESHNESS_THRESHOLD_MINUTES} min)"
 
           if [ "$age_minutes" -lt "$FRESHNESS_THRESHOLD_MINUTES" ]; then
             echo "should_run=false" >> "$GITHUB_OUTPUT"
-            echo "Internal schedule looks healthy ($age_minutes min < $FRESHNESS_THRESHOLD_MINUTES min) - heartbeat tick is a no-op backstop, skipping the update job."
+            echo "Published snapshot age: $age_minutes min (< $FRESHNESS_THRESHOLD_MINUTES min). Skipping the update job."
           else
             echo "should_run=true" >> "$GITHUB_OUTPUT"
-            echo "::warning::heartbeat 接管: 最近一次成功 run 已 ${age_minutes} 分鐘(門檻 ${FRESHNESS_THRESHOLD_MINUTES} 分鐘),內部排程可能已衰變,heartbeat 執行完整更新。"
+            echo "::warning::Published snapshot age: $age_minutes min (threshold $FRESHNESS_THRESHOLD_MINUTES min). Running a refresh."
           fi
 
   update:
@@ -172,10 +168,10 @@ jobs:
             echo "No OPML file available; RSS OPML is optional"
           fi
 
-      - name: Remember input event history revision
+      - name: Remember generation base
         run: |
-          state_blob=$(git rev-parse --verify HEAD:data/brief-event-state.json 2>/dev/null || echo MISSING)
-          echo "BRIEF_INPUT_STATE_BLOB=$state_blob" >> "$GITHUB_ENV"
+          base=$(git rev-parse --verify HEAD)
+          echo "GENERATION_BASE=$base" >> "$GITHUB_ENV"
 
       - name: Update data
         env:
@@ -200,6 +196,12 @@ jobs:
 
       - name: Commit and push changes
         run: |
+          set -euo pipefail
+          branch=$(git symbolic-ref --short HEAD)
+          if [ "$(git rev-parse HEAD)" != "$GENERATION_BASE" ]; then
+            echo "::error::Local checkout changed since generation began"
+            exit 1
+          fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           # Stage only generated public snapshot roots. This includes new,
@@ -221,24 +223,28 @@ jobs:
 
           max_attempts=3
           attempt=1
-          until git push; do
+          until git push origin "HEAD:refs/heads/$branch"; do
             if [ "$attempt" -ge "$max_attempts" ]; then
               echo "::error::git push failed after $max_attempts attempts"
               exit 1
             fi
-            echo "::warning::git push failed (attempt $attempt/$max_attempts), rebasing onto origin/master and retrying"
-            git fetch origin master
-            remote_state_blob=$(git rev-parse --verify origin/master:data/brief-event-state.json 2>/dev/null || echo MISSING)
-            if [ "$remote_state_blob" != "$BRIEF_INPUT_STATE_BLOB" ]; then
-              echo "::error::Event history changed remotely; stop retry to preserve it. The next normal refresh will continue from the new history."
+            echo "::warning::Push attempt $attempt/$max_attempts failed. Checking the generation base."
+            git fetch --no-tags origin "refs/heads/$branch"
+            remote_tip=$(git rev-parse --verify FETCH_HEAD)
+            if git merge-base --is-ancestor HEAD "$remote_tip"; then
+              echo "Snapshot already published"
+              exit 0
+            fi
+            # Only these documentation paths are independent of generation.
+            # Unknown inputs, generated roots and rewritten ancestry fail closed.
+            if ! git merge-base --is-ancestor "$GENERATION_BASE" "$remote_tip" ||
+               ! git diff --quiet --no-ext-diff --ignore-submodules=none "$GENERATION_BASE" "$remote_tip" -- \
+                   . ':(top,exclude)README.md' ':(top,glob,exclude)docs/**/*.md'; then
+              echo "::error::Generation inputs or ancestry changed remotely. The next refresh must regenerate."
               exit 1
             fi
-            # Rebase's ours/theirs is inverted from merge: "ours" is the
-            # branch being rebased onto (origin/master), "theirs" is the
-            # commit being replayed (this run's own commit). -X theirs keeps
-            # this run's freshly generated data/*.json snapshot and lets the
-            # older remote snapshot step aside on conflict, which is the
-            # correct outcome since data/ is fully regenerated every run.
-            git rebase origin/master -X theirs
+            if [ "$(git rev-parse HEAD^)" != "$remote_tip" ]; then
+              git rebase --onto "$remote_tip" HEAD^
+            fi
             attempt=$((attempt + 1))
           done

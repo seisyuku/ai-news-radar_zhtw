@@ -62,18 +62,21 @@ class ArchiveSnapshot(TypedDict):
 
 
 def load_archive(path: Path, *, normalize_record: RecordTransform) -> Archive:
-    """Load retained items; only a missing file represents first generation.
+    records, _ = load_archive_generation(path, normalize_record=normalize_record)
+    return records
 
-    An existing but unreadable or malformed archive must stop the update
-    before resolver cleanup can remove previously published item links.
-    """
-    if not path.exists():
-        return {}
+
+def load_archive_generation(path: Path, *, normalize_record: RecordTransform) -> tuple[Archive, str | None]:
+    """Read retained records and their recovery timestamp from one generation."""
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        return {}, None
     except (UnicodeError, json.JSONDecodeError) as exc:
         raise ValueError(f"Invalid archive at {path}: cannot decode JSON") from exc
-    return archive_from_payload(payload, normalize_record=normalize_record, label=str(path))
+    records = archive_from_payload(payload, normalize_record=normalize_record, label=str(path))
+    generated_at = payload.get("generated_at")
+    return records, generated_at if isinstance(generated_at, str) else None
 
 
 def archive_from_payload(
