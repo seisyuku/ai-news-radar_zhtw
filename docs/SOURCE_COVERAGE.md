@@ -1,5 +1,12 @@
 # Source Coverage
 
+## 2026-11-28 Sulat Evaluation 一般新聞來源
+
+依維護者裁決接入 `curated_media/sulat_evaluation`。例行收件只讀 [Sulat Evaluation RSS](https://news.sulat.com/category/ai/evaluation/feed/)，每輪最多接收 8 篇 `news.sulat.com` 文章。沿用未審來源 rank 6，僅供一般新聞，適用既有去重、範圍與時間窗。
+
+臺北 11/28 21:56 實網回應 HTTP 200。以正式快照 `5036b613b874` 隔離生成，來源健康成功且連續失敗為 0，封存新增 8 篇。近 24 小時的一般 AI 新聞 61→63 篇、全部 74→77 篇，原有文章順序相同，重點與雷達各為 0。新增的一般 AI 新聞包含 [Claude 研究工作爭議與 Edwin Arbus 回應](https://news.sulat.com/2026/11/28/claude-ml-research-sabotage-claims)。完整 Python 測試 2,423 項通過。本機已驗證，正式站待發布。
+
+
 ## 2026-11-20 Anthropic News 列表修復與模型公告收錄
 
 Anthropic Newsroom 改用 `data-listing-row` 標記新聞列。原解析器只讀到 2 篇舊置頂卡片，健康仍顯示成功。新版按同一列的標題網址與唯一日期配對，且在日期窗口與網址去重之前檢查列表是否可解析。有符合範圍的候選、但整個列表無有效日期時，該子來源回報 `invalid_source`。

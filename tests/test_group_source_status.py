@@ -124,6 +124,34 @@ def test_configured_subsource_ids_are_stable_and_secret_safe():
     assert all(re.fullmatch(r"[a-z][a-z0-9_]*", source_id) for source_id in ids)
 
 
+def test_sulat_evaluation_collects_only_same_host_and_keeps_unreviewed_use(monkeypatch):
+    feed = next(f for f in update_news.CURATED_AI_MEDIA_FEEDS if f["source_id"] == "sulat_evaluation")
+    assert feed["xml_url"] == "https://news.sulat.com/category/ai/evaluation/feed/"
+    monkeypatch.setattr(update_news, "CURATED_AI_MEDIA_FEEDS", (feed,))
+    primary = "https://news.sulat.com/2026/09/25/claude-research-response/"
+    links = ["https://example.org/redirected-article", primary, primary + "?utm_source=rss"]
+    entries = "".join(
+        f"<item><title>Anthropic responds to Claude research reports</title>"
+        f"<link>{link}</link><pubDate>{RECENT}</pubDate>"
+        "<description>Anthropic explains how Claude handles research tasks.</description></item>"
+        for link in links
+    )
+    payload = f"<rss version='2.0'><channel><title>Evaluation</title>{entries}</channel></rss>".encode()
+    items, details = update_news.fetch_curated_ai_media_with_status(Session({feed["xml_url"]: payload}), NOW)
+    assert [(item.url, item.site_id, item.source) for item in items] == [
+        (primary, "curated_media", "Sulat Evaluation"),
+    ]
+    assert details["ok"] and details["subsources"][0]["source_id"] == "sulat_evaluation"
+    assert details["subsources"][0]["item_count"] == 1
+    archive = {}
+    update_news.merge_raw_items_into_archive(archive, items, NOW)
+    record = next(iter(archive.values()))
+    assert record["ingress"]["feed_url"] == feed["xml_url"]
+    assert update_news.source_tier_for_record(record)["source_tier_rank"] == 6
+    policy = update_news.add_reader_source_policy_fields(record)["source_policy"]
+    assert policy["allow_general"] and not policy["allow_featured"] and not policy["allow_radar"]
+
+
 def test_valid_empty_rss_is_healthy_but_malformed_rss_fails():
     empty = b"<rss version='2.0'><channel><title>Quiet feed</title></channel></rss>"
     assert update_news.parse_group_feed_entries(empty, NOW) == []

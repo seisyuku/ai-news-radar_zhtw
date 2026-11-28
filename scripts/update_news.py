@@ -417,6 +417,14 @@ CURATED_AI_MEDIA_FEEDS: tuple[dict[str, Any], ...] = (
         "html_url": "https://epoch.ai/",
         "max_entries": 8,
     },
+    {
+        "source_id": "sulat_evaluation",
+        "title": "Sulat Evaluation",
+        "xml_url": "https://news.sulat.com/category/ai/evaluation/feed/",
+        "html_url": "https://news.sulat.com/category/ai/evaluation/",
+        "allowed_host": "news.sulat.com",
+        "max_entries": 8,
+    },
 )
 
 # Model Release Radar v1 watchlist sources. These stay outside the trusted
@@ -2256,9 +2264,12 @@ def parse_curated_ai_media_feed_items(
     out: list[RawItem] = []
     seen_urls: set[str] = set()
     max_entries = max(1, int(feed.get("max_entries") or 8))
+    allowed_host = feed.get("allowed_host")
     for entry in entries:
         title, link, published = feed_entry_title_link_published(entry, now)
         if not title or not link or not published:
+            continue
+        if allowed_host and publisher_identity.public_url(link)[1] != allowed_host:
             continue
         if published < now - timedelta(days=CURATED_AI_MEDIA_MAX_AGE_DAYS):
             continue
@@ -3517,6 +3528,7 @@ SOURCE_TIER_BY_SITE: dict[str, tuple[str, str, int]] = {
 # every source in the same transport group.
 SOURCE_TIER_BY_PUBLISHER: dict[tuple[str, str], tuple[str, str, int]] = {
     ("tw_media", blocktempo_source.SOURCE_NAME.casefold()): ("watchlist", "未審來源", 6),
+    ("curated_media", "sulat evaluation"): ("watchlist", "未審來源", 6),
     ("curated_media", "the decoder ai news"): ("ai_vertical", "AI垂直專業媒體", 1),
     ("tw_media", "ithome"): ("professional_media", "專業科技媒體", 1),
     ("tw_media", "數位時代 (google news)"): ("advanced", "台灣媒體觀察源", 4),

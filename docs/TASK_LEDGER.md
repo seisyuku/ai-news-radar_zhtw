@@ -6,6 +6,8 @@
 
 全系統狀態機重構已完成正式驗收。
 
+- Sulat Evaluation RSS 已接入並完成本機驗證，待正式發布。[來源覆蓋](SOURCE_COVERAGE.md#2026-11-28-sulat-evaluation-一般新聞來源)
+
 ## 例行維護與可選整理
 
 | 項目 | 現況／處理邊界 |
