@@ -1,0 +1,69 @@
+{
+  "id": "1459296a70e17031ca769695680d5814b8831423",
+  "published_at": "2026-11-27T23:57:17Z",
+  "first_seen_at": "2026-11-28T00:35:35.950520Z",
+  "site_id": "opmlrss",
+  "site_name": "OPML RSS",
+  "source": "Simon Willison",
+  "title": "datasette-charts 0.4a0",
+  "url": "https://simonwillison.net/2026/Nov/27/datasette-charts",
+  "last_seen_at": "2026-11-28T00:35:35.950520Z",
+  "summary": "Release: datasette-charts 0.4a0 The new datasette-charts plugin has its own plugin hook to allow other plugins to define new chart types, but I hadn't actually used it for anything yet. I had Claude Opus 5.5 build an experimental plugins just to try out the hook and it came up with a bunch of friction points in the design. This release addresses those, which should make building additional chart plugins a whole lot more ergonomic. I've also added a website for the plugin, at charts.datasette.io . The new website includes a tutorial for plugin authors , and a gallery showing all of the core charts and annotations, each one linking to an interactive demo on Datasette Lite . Tags: datasette-charts , datasette , visualization , datasette-lite",
+  "publisher_links": [
+    "https://github.com/datasette/datasette-charts/releases/tag/0.4a0",
+    "https://charts.datasette.io/",
+    "https://charts.datasette.io/docs/plugins/",
+    "https://charts.datasette.io/gallery/",
+    "https://lite.datasette.io/",
+    "https://simonwillison.net/tags/datasette-charts",
+    "https://simonwillison.net/tags/datasette",
+    "https://simonwillison.net/tags/visualization",
+    "https://simonwillison.net/tags/datasette-lite"
+  ],
+  "source_updated_at": "2026-11-27T23:57:17Z",
+  "ingress": {
+    "kind": "private_opml",
+    "site_id": "opmlrss",
+    "source_id": null,
+    "name": "RSS/OPML",
+    "feed_url": null
+  },
+  "publisher": {
+    "schema_version": 1,
+    "publisher_id": null,
+    "name": null,
+    "domain": "simonwillison.net",
+    "status": "unknown",
+    "basis": [],
+    "evidence": {
+      "rss_source_name": null,
+      "rss_source_url": null,
+      "article_url": null,
+      "article_host": "simonwillison.net",
+      "expected_publisher_id": null,
+      "conflicts": []
+    }
+  },
+  "security_topic": false,
+  "source_policy": {
+    "schema_version": 1,
+    "policy_id": "publisher-governance-v1",
+    "registry_revision": "fb695dde945d0f77a46a79428a2d70669c768e7585b22b08e849900fb6103622",
+    "scope_id": "unreviewed",
+    "publisher_kind": "unknown",
+    "admission_status": "unreviewed",
+    "source_tier": "watchlist",
+    "source_tier_label": "未審來源",
+    "source_tier_rank": 6,
+    "allow_general": true,
+    "allow_featured": false,
+    "allow_radar": false,
+    "reason_codes": [
+      "missing_identity",
+      "scope_mismatch",
+      "unreviewed_publisher",
+      "not_permitted_for_featured",
+      "not_permitted_for_radar"
+    ]
+  }
+}
