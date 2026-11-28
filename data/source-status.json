@@ -4,45 +4,45 @@
     "phases": {
       "inputs": {
         "state": "completed",
-        "duration_ms": 459
+        "duration_ms": 438
       },
       "collect": {
         "state": "completed",
-        "duration_ms": 18925
+        "duration_ms": 19135
       },
       "sensors": {
         "state": "completed",
-        "duration_ms": 23
+        "duration_ms": 221
       },
       "opml": {
         "state": "completed",
-        "duration_ms": 1831
+        "duration_ms": 1553
       },
       "preparation": {
         "state": "completed",
-        "duration_ms": 3227
+        "duration_ms": 2597
       },
       "translations": {
         "state": "completed",
-        "provider_request_count": 1,
-        "duration_ms": 1419
+        "provider_request_count": 0,
+        "duration_ms": 138
       },
       "aggregation": {
         "state": "completed",
-        "duration_ms": 550
+        "duration_ms": 444
       },
       "summaries": {
         "state": "completed",
         "provider_enabled": true,
-        "duration_ms": 7320
+        "duration_ms": 6172
       },
       "payloads": {
         "state": "completed",
-        "duration_ms": 12609
+        "duration_ms": 11228
       },
       "output": {
         "state": "completed",
-        "duration_ms": 21462
+        "duration_ms": 19397
       }
     },
     "output_excludes": [
@@ -50,14 +50,14 @@
       "resolver_cleanup"
     ]
   },
-  "generated_at": "2026-11-28T09:59:00.906683Z",
+  "generated_at": "2026-11-28T10:35:31.633654Z",
   "sites": [
     {
       "site_id": "official_ai",
       "site_name": "官方更新",
       "ok": true,
       "item_count": 450,
-      "duration_ms": 5939,
+      "duration_ms": 5357,
       "error": null,
       "degraded": false,
       "degraded_reason": null,
@@ -67,80 +67,20 @@
           "ok": true,
           "item_count": 138,
           "error": null,
-          "duration_ms": 859,
+          "duration_ms": 668,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-11-28T09:59:00.906683Z",
+          "last_success_at": "2026-11-28T10:35:31.633654Z",
           "persistent_failure": false
         },
         {
           "source_id": "google_deepmind",
           "ok": true,
           "item_count": 17,
-          "error": null,
-          "duration_ms": 223,
-          "skipped": false,
-          "attempted": true,
-          "last_attempt_ok": true,
-          "consecutive_failures": 0,
-          "first_failure_at": null,
-          "last_failure_at": null,
-          "last_success_at": "2026-11-28T09:59:00.906683Z",
-          "persistent_failure": false
-        },
-        {
-          "source_id": "google_ai_blog",
-          "ok": true,
-          "item_count": 18,
-          "error": null,
-          "duration_ms": 254,
-          "skipped": false,
-          "attempted": true,
-          "last_attempt_ok": true,
-          "consecutive_failures": 0,
-          "first_failure_at": null,
-          "last_failure_at": null,
-          "last_success_at": "2026-11-28T09:59:00.906683Z",
-          "persistent_failure": false
-        },
-        {
-          "source_id": "google_gemini_blog",
-          "ok": true,
-          "item_count": 20,
-          "error": null,
-          "duration_ms": 68,
-          "skipped": false,
-          "attempted": true,
-          "last_attempt_ok": true,
-          "consecutive_failures": 0,
-          "first_failure_at": null,
-          "last_failure_at": null,
-          "last_success_at": "2026-11-28T09:59:00.906683Z",
-          "persistent_failure": false
-        },
-        {
-          "source_id": "hugging_face_blog",
-          "ok": true,
-          "item_count": 45,
-          "error": null,
-          "duration_ms": 405,
-          "skipped": false,
-          "attempted": true,
-          "last_attempt_ok": true,
-          "consecutive_failures": 0,
-          "first_failure_at": null,
-          "last_failure_at": "2026-10-14T04:44:41.283260Z",
-          "last_success_at": "2026-11-28T09:59:00.906683Z",
-          "persistent_failure": false
-        },
-        {
-          "source_id": "github_ai_ml",
-          "ok": true,
-          "item_count": 5,
           "error": null,
           "duration_ms": 207,
           "skipped": false,
@@ -149,7 +89,67 @@
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-11-28T09:59:00.906683Z",
+          "last_success_at": "2026-11-28T10:35:31.633654Z",
+          "persistent_failure": false
+        },
+        {
+          "source_id": "google_ai_blog",
+          "ok": true,
+          "item_count": 18,
+          "error": null,
+          "duration_ms": 273,
+          "skipped": false,
+          "attempted": true,
+          "last_attempt_ok": true,
+          "consecutive_failures": 0,
+          "first_failure_at": null,
+          "last_failure_at": null,
+          "last_success_at": "2026-11-28T10:35:31.633654Z",
+          "persistent_failure": false
+        },
+        {
+          "source_id": "google_gemini_blog",
+          "ok": true,
+          "item_count": 20,
+          "error": null,
+          "duration_ms": 44,
+          "skipped": false,
+          "attempted": true,
+          "last_attempt_ok": true,
+          "consecutive_failures": 0,
+          "first_failure_at": null,
+          "last_failure_at": null,
+          "last_success_at": "2026-11-28T10:35:31.633654Z",
+          "persistent_failure": false
+        },
+        {
+          "source_id": "hugging_face_blog",
+          "ok": true,
+          "item_count": 45,
+          "error": null,
+          "duration_ms": 353,
+          "skipped": false,
+          "attempted": true,
+          "last_attempt_ok": true,
+          "consecutive_failures": 0,
+          "first_failure_at": null,
+          "last_failure_at": "2026-10-14T04:44:41.283260Z",
+          "last_success_at": "2026-11-28T10:35:31.633654Z",
+          "persistent_failure": false
+        },
+        {
+          "source_id": "github_ai_ml",
+          "ok": true,
+          "item_count": 5,
+          "error": null,
+          "duration_ms": 216,
+          "skipped": false,
+          "attempted": true,
+          "last_attempt_ok": true,
+          "consecutive_failures": 0,
+          "first_failure_at": null,
+          "last_failure_at": null,
+          "last_success_at": "2026-11-28T10:35:31.633654Z",
           "persistent_failure": false
         },
         {
@@ -157,14 +157,14 @@
           "ok": true,
           "item_count": 10,
           "error": null,
-          "duration_ms": 31,
+          "duration_ms": 25,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-11-28T09:59:00.906683Z",
+          "last_success_at": "2026-11-28T10:35:31.633654Z",
           "persistent_failure": false
         },
         {
@@ -172,14 +172,14 @@
           "ok": true,
           "item_count": 0,
           "error": null,
-          "duration_ms": 159,
+          "duration_ms": 226,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-11-27T18:35:33.285369Z",
-          "last_success_at": "2026-11-28T09:59:00.906683Z",
+          "last_success_at": "2026-11-28T10:35:31.633654Z",
           "persistent_failure": false
         },
         {
@@ -187,14 +187,14 @@
           "ok": true,
           "item_count": 18,
           "error": null,
-          "duration_ms": 206,
+          "duration_ms": 299,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-11-28T09:59:00.906683Z",
+          "last_success_at": "2026-11-28T10:35:31.633654Z",
           "persistent_failure": false
         },
         {
@@ -202,14 +202,14 @@
           "ok": true,
           "item_count": 8,
           "error": null,
-          "duration_ms": 158,
+          "duration_ms": 154,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-11-19T20:16:22.345513Z",
-          "last_success_at": "2026-11-28T09:59:00.906683Z",
+          "last_success_at": "2026-11-28T10:35:31.633654Z",
           "persistent_failure": false
         },
         {
@@ -217,14 +217,14 @@
           "ok": true,
           "item_count": 100,
           "error": null,
-          "duration_ms": 366,
+          "duration_ms": 297,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-11-28T09:59:00.906683Z",
+          "last_success_at": "2026-11-28T10:35:31.633654Z",
           "persistent_failure": false
         },
         {
@@ -232,14 +232,14 @@
           "ok": true,
           "item_count": 0,
           "error": null,
-          "duration_ms": 218,
+          "duration_ms": 223,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-11-27T17:05:41.281010Z",
-          "last_success_at": "2026-11-28T09:59:00.906683Z",
+          "last_success_at": "2026-11-28T10:35:31.633654Z",
           "persistent_failure": false
         },
         {
@@ -247,14 +247,14 @@
           "ok": true,
           "item_count": 12,
           "error": null,
-          "duration_ms": 155,
+          "duration_ms": 219,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-10-27T18:05:39.870087Z",
-          "last_success_at": "2026-11-28T09:59:00.906683Z",
+          "last_success_at": "2026-11-28T10:35:31.633654Z",
           "persistent_failure": false
         },
         {
@@ -262,14 +262,14 @@
           "ok": true,
           "item_count": 17,
           "error": null,
-          "duration_ms": 875,
+          "duration_ms": 622,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-11-07T13:05:35.748058Z",
-          "last_success_at": "2026-11-28T09:59:00.906683Z",
+          "last_success_at": "2026-11-28T10:35:31.633654Z",
           "persistent_failure": false
         },
         {
@@ -277,14 +277,14 @@
           "ok": true,
           "item_count": 31,
           "error": null,
-          "duration_ms": 1520,
+          "duration_ms": 1247,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-11-28T09:59:00.906683Z",
+          "last_success_at": "2026-11-28T10:35:31.633654Z",
           "persistent_failure": false
         },
         {
@@ -292,14 +292,14 @@
           "ok": true,
           "item_count": 11,
           "error": null,
-          "duration_ms": 235,
+          "duration_ms": 284,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-11-18T03:27:29.364116Z",
-          "last_success_at": "2026-11-28T09:59:00.906683Z",
+          "last_success_at": "2026-11-28T10:35:31.633654Z",
           "persistent_failure": false
         }
       ],
@@ -307,7 +307,7 @@
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": null,
-      "last_success_at": "2026-11-28T09:59:00.906683Z",
+      "last_success_at": "2026-11-28T10:35:31.633654Z",
       "persistent_failure": false
     },
     {
@@ -315,13 +315,13 @@
       "site_name": "Mistral News",
       "ok": true,
       "item_count": 5,
-      "duration_ms": 91,
+      "duration_ms": 165,
       "error": null,
       "last_attempt_ok": true,
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": null,
-      "last_success_at": "2026-11-28T09:59:00.906683Z",
+      "last_success_at": "2026-11-28T10:35:31.633654Z",
       "persistent_failure": false
     },
     {
@@ -329,13 +329,13 @@
       "site_name": "MCP Blog",
       "ok": true,
       "item_count": 2,
-      "duration_ms": 583,
+      "duration_ms": 511,
       "error": null,
       "last_attempt_ok": true,
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": null,
-      "last_success_at": "2026-11-28T09:59:00.906683Z",
+      "last_success_at": "2026-11-28T10:35:31.633654Z",
       "persistent_failure": false
     },
     {
@@ -343,13 +343,13 @@
       "site_name": "ARC Prize",
       "ok": true,
       "item_count": 0,
-      "duration_ms": 269,
+      "duration_ms": 320,
       "error": null,
       "last_attempt_ok": true,
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": null,
-      "last_success_at": "2026-11-28T09:59:00.906683Z",
+      "last_success_at": "2026-11-28T10:35:31.633654Z",
       "persistent_failure": false
     },
     {
@@ -357,7 +357,7 @@
       "site_name": "精選媒體",
       "ok": true,
       "item_count": 82,
-      "duration_ms": 3251,
+      "duration_ms": 3325,
       "error": null,
       "degraded": false,
       "degraded_reason": null,
@@ -367,14 +367,14 @@
           "ok": true,
           "item_count": 10,
           "error": null,
-          "duration_ms": 566,
+          "duration_ms": 596,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-10-20T11:05:28.474205Z",
-          "last_success_at": "2026-11-28T09:59:00.906683Z",
+          "last_success_at": "2026-11-28T10:35:31.633654Z",
           "persistent_failure": false
         },
         {
@@ -382,14 +382,14 @@
           "ok": true,
           "item_count": 8,
           "error": null,
-          "duration_ms": 83,
+          "duration_ms": 66,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-11-28T09:59:00.906683Z",
+          "last_success_at": "2026-11-28T10:35:31.633654Z",
           "persistent_failure": false
         },
         {
@@ -397,14 +397,14 @@
           "ok": true,
           "item_count": 0,
           "error": null,
-          "duration_ms": 235,
+          "duration_ms": 223,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-11-28T09:59:00.906683Z",
+          "last_success_at": "2026-11-28T10:35:31.633654Z",
           "persistent_failure": false
         },
         {
@@ -412,14 +412,14 @@
           "ok": true,
           "item_count": 6,
           "error": null,
-          "duration_ms": 175,
+          "duration_ms": 155,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-11-18T01:05:27.531409Z",
-          "last_success_at": "2026-11-28T09:59:00.906683Z",
+          "last_success_at": "2026-11-28T10:35:31.633654Z",
           "persistent_failure": false
         },
         {
@@ -427,14 +427,14 @@
           "ok": true,
           "item_count": 6,
           "error": null,
-          "duration_ms": 82,
+          "duration_ms": 165,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-11-28T09:59:00.906683Z",
+          "last_success_at": "2026-11-28T10:35:31.633654Z",
           "persistent_failure": false
         },
         {
@@ -442,14 +442,14 @@
           "ok": true,
           "item_count": 10,
           "error": null,
-          "duration_ms": 408,
+          "duration_ms": 428,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-11-27T17:05:41.281010Z",
-          "last_success_at": "2026-11-28T09:59:00.906683Z",
+          "last_success_at": "2026-11-28T10:35:31.633654Z",
           "persistent_failure": false
         },
         {
@@ -457,14 +457,14 @@
           "ok": true,
           "item_count": 10,
           "error": null,
-          "duration_ms": 315,
+          "duration_ms": 257,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-11-27T17:05:41.281010Z",
-          "last_success_at": "2026-11-28T09:59:00.906683Z",
+          "last_success_at": "2026-11-28T10:35:31.633654Z",
           "persistent_failure": false
         },
         {
@@ -472,14 +472,14 @@
           "ok": true,
           "item_count": 8,
           "error": null,
-          "duration_ms": 460,
+          "duration_ms": 454,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-11-27T17:05:41.281010Z",
-          "last_success_at": "2026-11-28T09:59:00.906683Z",
+          "last_success_at": "2026-11-28T10:35:31.633654Z",
           "persistent_failure": false
         },
         {
@@ -487,14 +487,14 @@
           "ok": true,
           "item_count": 8,
           "error": null,
-          "duration_ms": 290,
+          "duration_ms": 379,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-11-27T17:05:41.281010Z",
-          "last_success_at": "2026-11-28T09:59:00.906683Z",
+          "last_success_at": "2026-11-28T10:35:31.633654Z",
           "persistent_failure": false
         },
         {
@@ -502,14 +502,14 @@
           "ok": true,
           "item_count": 8,
           "error": null,
-          "duration_ms": 444,
+          "duration_ms": 390,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-11-27T17:05:41.281010Z",
-          "last_success_at": "2026-11-28T09:59:00.906683Z",
+          "last_success_at": "2026-11-28T10:35:31.633654Z",
           "persistent_failure": false
         },
         {
@@ -517,14 +517,14 @@
           "ok": true,
           "item_count": 8,
           "error": null,
-          "duration_ms": 193,
+          "duration_ms": 211,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-11-27T17:05:41.281010Z",
-          "last_success_at": "2026-11-28T09:59:00.906683Z",
+          "last_success_at": "2026-11-28T10:35:31.633654Z",
           "persistent_failure": false
         }
       ],
@@ -532,7 +532,7 @@
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": null,
-      "last_success_at": "2026-11-28T09:59:00.906683Z",
+      "last_success_at": "2026-11-28T10:35:31.633654Z",
       "persistent_failure": false
     },
     {
@@ -540,14 +540,14 @@
       "site_name": "LLM Stats 模型查漏",
       "ok": true,
       "item_count": 0,
-      "duration_ms": 1295,
+      "duration_ms": 1451,
       "error": null,
       "empty_reason": "no_recent_allowlisted_models",
       "last_attempt_ok": true,
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": "2026-11-24T19:05:32.937530Z",
-      "last_success_at": "2026-11-28T09:59:00.906683Z",
+      "last_success_at": "2026-11-28T10:35:31.633654Z",
       "persistent_failure": false
     },
     {
@@ -555,13 +555,13 @@
       "site_name": "LLM Rumors 模型分析",
       "ok": true,
       "item_count": 6,
-      "duration_ms": 718,
+      "duration_ms": 892,
       "error": null,
       "last_attempt_ok": true,
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": null,
-      "last_success_at": "2026-11-28T09:59:00.906683Z",
+      "last_success_at": "2026-11-28T10:35:31.633654Z",
       "persistent_failure": false
     },
     {
@@ -569,13 +569,13 @@
       "site_name": "RuntimeWire AI媒體",
       "ok": true,
       "item_count": 2,
-      "duration_ms": 300,
+      "duration_ms": 419,
       "error": null,
       "last_attempt_ok": true,
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": "2026-11-26T04:05:35.576146Z",
-      "last_success_at": "2026-11-28T09:59:00.906683Z",
+      "last_success_at": "2026-11-28T10:35:31.633654Z",
       "persistent_failure": false
     },
     {
@@ -583,7 +583,7 @@
       "site_name": "AIBASE",
       "ok": true,
       "item_count": 23,
-      "duration_ms": 1618,
+      "duration_ms": 1846,
       "error": null,
       "language_status": {
         "tw": {
@@ -605,7 +605,7 @@
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": "2026-11-02T05:35:38.072013Z",
-      "last_success_at": "2026-11-28T09:59:00.906683Z",
+      "last_success_at": "2026-11-28T10:35:31.633654Z",
       "persistent_failure": false
     },
     {
@@ -613,7 +613,7 @@
       "site_name": "台灣媒體",
       "ok": true,
       "item_count": 49,
-      "duration_ms": 4151,
+      "duration_ms": 4159,
       "error": null,
       "degraded": false,
       "degraded_reason": null,
@@ -623,14 +623,14 @@
           "ok": true,
           "item_count": 8,
           "error": null,
-          "duration_ms": 124,
+          "duration_ms": 237,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-11-28T09:59:00.906683Z",
+          "last_success_at": "2026-11-28T10:35:31.633654Z",
           "persistent_failure": false
         },
         {
@@ -638,14 +638,14 @@
           "ok": true,
           "item_count": 6,
           "error": null,
-          "duration_ms": 1016,
+          "duration_ms": 129,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-11-28T09:59:00.906683Z",
+          "last_success_at": "2026-11-28T10:35:31.633654Z",
           "persistent_failure": false
         },
         {
@@ -653,14 +653,14 @@
           "ok": true,
           "item_count": 8,
           "error": null,
-          "duration_ms": 833,
+          "duration_ms": 658,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-11-28T09:59:00.906683Z",
+          "last_success_at": "2026-11-28T10:35:31.633654Z",
           "persistent_failure": false
         },
         {
@@ -668,14 +668,14 @@
           "ok": true,
           "item_count": 8,
           "error": null,
-          "duration_ms": 455,
+          "duration_ms": 715,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-11-27T16:05:41.743919Z",
-          "last_success_at": "2026-11-28T09:59:00.906683Z",
+          "last_success_at": "2026-11-28T10:35:31.633654Z",
           "persistent_failure": false
         },
         {
@@ -683,14 +683,14 @@
           "ok": true,
           "item_count": 8,
           "error": null,
-          "duration_ms": 344,
+          "duration_ms": 1376,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-11-27T17:05:41.281010Z",
-          "last_success_at": "2026-11-28T09:59:00.906683Z",
+          "last_success_at": "2026-11-28T10:35:31.633654Z",
           "persistent_failure": false
         },
         {
@@ -698,14 +698,14 @@
           "ok": true,
           "item_count": 8,
           "error": null,
-          "duration_ms": 212,
+          "duration_ms": 179,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": null,
-          "last_success_at": "2026-11-28T09:59:00.906683Z",
+          "last_success_at": "2026-11-28T10:35:31.633654Z",
           "persistent_failure": false
         },
         {
@@ -713,14 +713,14 @@
           "ok": true,
           "item_count": 3,
           "error": null,
-          "duration_ms": 1167,
+          "duration_ms": 867,
           "skipped": false,
           "attempted": true,
           "last_attempt_ok": true,
           "consecutive_failures": 0,
           "first_failure_at": null,
           "last_failure_at": "2026-11-24T18:05:34.047554Z",
-          "last_success_at": "2026-11-28T09:59:00.906683Z",
+          "last_success_at": "2026-11-28T10:35:31.633654Z",
           "persistent_failure": false
         }
       ],
@@ -728,7 +728,7 @@
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": null,
-      "last_success_at": "2026-11-28T09:59:00.906683Z",
+      "last_success_at": "2026-11-28T10:35:31.633654Z",
       "persistent_failure": false
     },
     {
@@ -736,7 +736,7 @@
       "site_name": "36Kr AI (Watchlist)",
       "ok": true,
       "item_count": 5,
-      "duration_ms": 394,
+      "duration_ms": 383,
       "error": null,
       "fetch_path": "google_news",
       "degraded": false,
@@ -744,7 +744,7 @@
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": "2026-11-27T17:05:41.281010Z",
-      "last_success_at": "2026-11-28T09:59:00.906683Z",
+      "last_success_at": "2026-11-28T10:35:31.633654Z",
       "persistent_failure": false
     },
     {
@@ -752,13 +752,13 @@
       "site_name": "橘鴉AI早報 (Watchlist)",
       "ok": true,
       "item_count": 5,
-      "duration_ms": 310,
+      "duration_ms": 300,
       "error": null,
       "last_attempt_ok": true,
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": "2026-10-14T16:05:44.503854Z",
-      "last_success_at": "2026-11-28T09:59:00.906683Z",
+      "last_success_at": "2026-11-28T10:35:31.633654Z",
       "persistent_failure": false
     },
     {
@@ -767,13 +767,13 @@
       "ok": true,
       "item_count": 64,
       "signal_count": 0,
-      "duration_ms": 23,
+      "duration_ms": 221,
       "error": null,
       "last_attempt_ok": true,
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": "2026-10-15T06:35:47.527651Z",
-      "last_success_at": "2026-11-28T09:59:00.906683Z",
+      "last_success_at": "2026-11-28T10:35:31.633654Z",
       "persistent_failure": false
     },
     {
@@ -782,7 +782,7 @@
       "ok": true,
       "partial_failures": 0,
       "item_count": 2689,
-      "duration_ms": 7552,
+      "duration_ms": 5497,
       "error": null,
       "feed_count": 10,
       "effective_feed_count": 10,
@@ -794,7 +794,7 @@
       "consecutive_failures": 0,
       "first_failure_at": null,
       "last_failure_at": null,
-      "last_success_at": "2026-11-28T09:59:00.906683Z",
+      "last_success_at": "2026-11-28T10:35:31.633654Z",
       "persistent_failure": false
     }
   ],
@@ -808,22 +808,23 @@
     "llm_stats_models"
   ],
   "fetched_raw_items": 3318,
-  "items_before_topic_filter": 83,
-  "items_in_24h": 68,
+  "items_before_topic_filter": 77,
+  "items_in_24h": 63,
   "translations": {
     "enabled": true,
     "primary_provider": "gemini",
     "model": "gemini-3.5-flash-lite",
-    "candidate_count": 2,
-    "request_count": 1,
-    "translated_count": 2,
+    "candidate_count": 0,
+    "request_count": 0,
+    "translated_count": 0,
     "failed_count": 0,
-    "negative_cache_hits": 1,
+    "negative_cache_hits": 0,
     "request_timeout_seconds": 45,
     "total_budget_seconds": 120,
     "max_requests": 6,
-    "provider_used": "gemini",
-    "cache_hits": 66,
+    "skipped": true,
+    "skip_reason": "no_translation_candidates",
+    "cache_hits": 62,
     "candidate_limit": 80
   },
   "rss_opml": {
@@ -845,7 +846,7 @@
         "effective_feed_url": "https://blog.google/technology/ai/rss/",
         "ok": true,
         "item_count": 20,
-        "duration_ms": 222,
+        "duration_ms": 155,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -860,7 +861,7 @@
         "effective_feed_url": "https://deepmind.google/blog/rss.xml",
         "ok": true,
         "item_count": 100,
-        "duration_ms": 603,
+        "duration_ms": 104,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -875,7 +876,7 @@
         "effective_feed_url": "https://huggingface.co/blog/feed.xml",
         "ok": true,
         "item_count": 919,
-        "duration_ms": 712,
+        "duration_ms": 540,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -890,7 +891,7 @@
         "effective_feed_url": "https://www.infoq.cn/feed",
         "ok": true,
         "item_count": 20,
-        "duration_ms": 1821,
+        "duration_ms": 1544,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -905,7 +906,7 @@
         "effective_feed_url": "https://news.microsoft.com/source/topics/ai/feed/",
         "ok": true,
         "item_count": 10,
-        "duration_ms": 240,
+        "duration_ms": 134,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -920,7 +921,7 @@
         "effective_feed_url": "https://developer.nvidia.com/blog/category/generative-ai/feed/",
         "ok": true,
         "item_count": 100,
-        "duration_ms": 885,
+        "duration_ms": 703,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -935,7 +936,7 @@
         "effective_feed_url": "https://openai.com/news/rss.xml",
         "ok": true,
         "item_count": 1430,
-        "duration_ms": 1575,
+        "duration_ms": 1211,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -950,7 +951,7 @@
         "effective_feed_url": "https://simonwillison.net/atom/everything/",
         "ok": true,
         "item_count": 30,
-        "duration_ms": 639,
+        "duration_ms": 439,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -965,7 +966,7 @@
         "effective_feed_url": "https://www.wired.com/feed/tag/ai/latest/rss",
         "ok": true,
         "item_count": 10,
-        "duration_ms": 138,
+        "duration_ms": 126,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -980,7 +981,7 @@
         "effective_feed_url": "https://baoyu.io/feed.xml",
         "ok": true,
         "item_count": 50,
-        "duration_ms": 717,
+        "duration_ms": 541,
         "error": null,
         "skipped": false,
         "skip_reason": null,
@@ -993,11 +994,11 @@
     "provider": "groq",
     "model": "qwen/qwen3.8-27b",
     "enabled": true,
-    "cache_hits": 18,
-    "generated": 1,
+    "cache_hits": 19,
+    "generated": 0,
     "failed": 0,
     "rejection_cache_hits": 1,
-    "ineligible": 20,
+    "ineligible": 18,
     "max_new": 6
   },
   "reader_excerpts": {
@@ -1019,19 +1020,19 @@
   "brief_events": {
     "recovery_mode": "none",
     "errors": [],
-    "candidate_article_count": 69,
-    "root_count": 69,
-    "expired_count": 6,
+    "candidate_article_count": 64,
+    "root_count": 64,
+    "expired_count": 5,
     "context_attachment_count": 0,
-    "unresolved_count": 8151,
+    "unresolved_count": 8146,
     "state_bytes": 3205119,
     "capacity_warning": false
   },
   "brief_selection": {
-    "candidate_count": 69,
+    "candidate_count": 64,
     "eligible_count": 0,
     "selected_count": 0,
-    "below_gate_count": 69,
+    "below_gate_count": 64,
     "diversity_or_limit_count": 0,
     "max_score": null,
     "max_source_count": null,
@@ -1044,15 +1045,15 @@
   },
   "news_quality": {
     "schema_version": 1,
-    "generated_at": "2026-11-28T09:59:00.906683Z",
+    "generated_at": "2026-11-28T10:35:31.633654Z",
     "counts": {
       "fetched_raw_records": 3318,
-      "window_raw_records": 89,
-      "current_records": 86,
-      "unique_articles": 86,
-      "public_raw_pool_articles": 83,
-      "ai_pool_articles": 68,
-      "events": 69,
+      "window_raw_records": 82,
+      "current_records": 79,
+      "unique_articles": 79,
+      "public_raw_pool_articles": 77,
+      "ai_pool_articles": 63,
+      "events": 64,
       "selected_events": 0,
       "same_url_version_groups": 3,
       "superseded_records": 3,
@@ -1060,15 +1061,15 @@
       "summary_stale_preview": 0,
       "summary_stale_preview_visible": 0,
       "summary_placeholder": 0,
-      "events_single_publisher": 43,
-      "events_without_identified_publisher": 26,
+      "events_single_publisher": 41,
+      "events_without_identified_publisher": 23,
       "duplicate_event_id_count": 0,
       "articles_in_multiple_active_events": 0,
       "high_impact_review_leads": 1
     },
     "event_generation_status": "ready",
     "source_health": {
-      "generated_at": "2026-11-28T09:59:00.906683Z",
+      "generated_at": "2026-11-28T10:35:31.633654Z",
       "scope": "top_level_source_groups",
       "success_rate": 1.0,
       "sources": [
@@ -1078,7 +1079,7 @@
           "item_count": 450,
           "error": null,
           "latest_published_at": "2026-11-27T00:00:00Z",
-          "latest_observed_at": "2026-11-28T09:59:00.906683Z",
+          "latest_observed_at": "2026-11-28T10:35:31.633654Z",
           "observation_age_seconds": 0
         },
         {
@@ -1114,7 +1115,7 @@
           "item_count": 82,
           "error": null,
           "latest_published_at": "2026-11-28T09:45:33Z",
-          "latest_observed_at": "2026-11-28T09:59:00.906683Z",
+          "latest_observed_at": "2026-11-28T10:35:31.633654Z",
           "observation_age_seconds": 0
         },
         {
@@ -1124,7 +1125,7 @@
           "error": null,
           "latest_published_at": "2026-11-18T00:00:00Z",
           "latest_observed_at": "2026-11-24T23:35:31.640754Z",
-          "observation_age_seconds": 296609.265929
+          "observation_age_seconds": 298799.9929
         },
         {
           "site_id": "llm_rumors",
@@ -1132,7 +1133,7 @@
           "item_count": 6,
           "error": null,
           "latest_published_at": "2026-11-28T00:00:00Z",
-          "latest_observed_at": "2026-11-28T09:59:00.906683Z",
+          "latest_observed_at": "2026-11-28T10:35:31.633654Z",
           "observation_age_seconds": 0
         },
         {
@@ -1141,7 +1142,7 @@
           "item_count": 2,
           "error": null,
           "latest_published_at": "2026-11-27T16:07:12Z",
-          "latest_observed_at": "2026-11-28T09:59:00.906683Z",
+          "latest_observed_at": "2026-11-28T10:35:31.633654Z",
           "observation_age_seconds": 0
         },
         {
@@ -1158,8 +1159,8 @@
           "ok": true,
           "item_count": 49,
           "error": null,
-          "latest_published_at": "2026-11-28T08:10:00Z",
-          "latest_observed_at": "2026-11-28T09:59:00.906683Z",
+          "latest_published_at": "2026-11-28T10:10:36Z",
+          "latest_observed_at": "2026-11-28T10:35:31.633654Z",
           "observation_age_seconds": 0
         },
         {
@@ -1168,7 +1169,7 @@
           "item_count": 5,
           "error": null,
           "latest_published_at": "2026-11-28T01:54:58Z",
-          "latest_observed_at": "2026-11-28T09:59:00.906683Z",
+          "latest_observed_at": "2026-11-28T10:35:31.633654Z",
           "observation_age_seconds": 0
         },
         {
@@ -1177,7 +1178,7 @@
           "item_count": 5,
           "error": null,
           "latest_published_at": "2026-11-28T01:31:16Z",
-          "latest_observed_at": "2026-11-28T09:59:00.906683Z",
+          "latest_observed_at": "2026-11-28T10:35:31.633654Z",
           "observation_age_seconds": 0
         },
         {
@@ -1195,76 +1196,19 @@
           "item_count": 2689,
           "error": null,
           "latest_published_at": "2026-11-28T12:07:43Z",
-          "latest_observed_at": "2026-11-28T09:59:00.906683Z",
+          "latest_observed_at": "2026-11-28T10:35:31.633654Z",
           "observation_age_seconds": 0
         }
       ]
     },
     "articles": [
       {
-        "article_id": "a64c73a2a44b6eb3fb5e7f71096319488a52740e",
-        "url": "https://www.infoq.cn/article/ASHxIY37Q9IFf52OWmo3",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-27T02:35:36.274044Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
-        "in_window": true,
-        "in_raw_pool": false,
-        "in_ai_pool": false,
-        "superseded_by": null,
-        "event_ids": [],
-        "aggregation_status": "not_in_event_projection",
-        "reason_codes": [
-          "ai_relevance_below_floor",
-          "missing_meaningful_ai_signal",
-          "out_of_scope"
-        ]
-      },
-      {
-        "article_id": "028207c59862fb943433dad5458b1a7e5f87b4cf",
-        "url": "https://www.infoq.cn/article/Y6xTPR1bRWqmNNakCtXm",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-27T02:35:36.274044Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_7ac5f74d33461b2ad155c71c"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "3577816133cb41f3fcaefd9566feb6251fb6808b",
-        "url": "https://www.infoq.cn/article/dgyrhBUSBtDo85O5cXiU",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-27T02:35:36.274044Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": false,
-        "superseded_by": null,
-        "event_ids": [],
-        "aggregation_status": "not_in_event_projection",
-        "reason_codes": [
-          "ai_relevance_below_floor",
-          "missing_meaningful_ai_signal",
-          "no_core_event"
-        ]
-      },
-      {
         "article_id": "2ebbede2d1c1d5148d9bd1cba7f55de41de6be65",
         "url": "https://www.ithome.com.tw/news/180843",
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-27T03:35:38.066996Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1283,7 +1227,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-27T03:35:38.066996Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": false,
@@ -1302,7 +1246,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-27T04:19:26.500421Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": false,
@@ -1321,7 +1265,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-27T05:05:34.671275Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1340,7 +1284,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-27T05:35:31.455826Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1359,7 +1303,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-27T06:35:34.725881Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": false,
@@ -1378,7 +1322,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-27T07:35:33.131355Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1397,7 +1341,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-27T08:35:32.832844Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1416,7 +1360,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-27T09:35:32.739506Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": false,
         "in_ai_pool": false,
@@ -1435,7 +1379,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-27T11:05:35.370822Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1454,7 +1398,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-27T12:05:43.806076Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1468,31 +1412,12 @@
         ]
       },
       {
-        "article_id": "b5191a96af053611f0fd4f266fc2b962bf64a5af",
-        "url": "https://www.blocktempo.com/japanese-founder-ai-agents-twenty-million-yen-income-gemini-bangkok",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-27T12:05:43.806076Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_9bb4503457bcb16ab10b7b03"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
         "article_id": "4b1bf96d1cef6c86e2d2fd5a9e082e32c8aa01a4",
         "url": "https://www.infoq.cn/article/FDR8k5bNu9eWklHh9NmI",
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-27T12:05:43.806076Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1511,7 +1436,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-27T12:35:34.340507Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1530,7 +1455,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-27T15:05:32.317368Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1549,7 +1474,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-27T15:05:32.317368Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1568,7 +1493,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-27T16:05:41.743919Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1587,7 +1512,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-27T16:05:41.743919Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1606,7 +1531,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-27T16:05:41.743919Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1625,7 +1550,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-27T16:35:32.196367Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1644,7 +1569,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-27T16:35:32.196367Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1663,7 +1588,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-27T16:35:32.196367Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1682,7 +1607,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-27T17:05:41.281010Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1701,7 +1626,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-27T15:05:32.317368Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1720,7 +1645,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-27T13:35:35.995933Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1739,7 +1664,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-27T18:35:33.285369Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1753,31 +1678,12 @@
         ]
       },
       {
-        "article_id": "3f0a65033e0e99d8f5fe2110b68036a8abb6873e",
-        "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOd1dnSTQ3VU85MDhEdGZ4SG5BbG12U1ZDM09zYmtCeVRqTEsxYnpTZjFnLWxVT1N1c3h4dHJZQVpaaDM4T1VhTlZWU3BlMlBYZjB5dFVIWlhuU25vWVE3NFZaYTlsQ3VuYjVSbDA1aWFDT2l1eUVXekFVTlBwQWZpWElzYjZ1SlU?oc=5",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-27T18:35:33.285369Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_416da646a6aa6a52c2734e30"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
         "article_id": "7bddd5c90b7fdb8b1de8e747be22f76e5df6eaea",
         "url": "https://www.cnbc.com/investingclub/2026/11/27/jensen-huangs-return-did-little-to-ease-ai-jitters-we-bought-on-weakness.html",
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-27T19:35:33.762245Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1796,7 +1702,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-27T20:05:46.774010Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1815,7 +1721,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-27T21:05:35.088165Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1834,7 +1740,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-27T21:35:33.895235Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1848,31 +1754,12 @@
         ]
       },
       {
-        "article_id": "baa1c6458c7ffda32f69e477796f8f9b4f92ae45",
-        "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPOUhkOFctdmNWVmE4V25NYVFPXy1fbmpLZnJubGRnZDZQVkk1alZaNE1hMjNJMkVxMFY5aFZVclJnTmM5WkhEVjM0OUFlMEVXc2pLX3VGMzBZOVFuZ0JqWHFTWWROTmY5dkFzMDdSTFR4THE2WEt6dmd6ZVVob1kwOFdyUHpvaVZndmExTTEtbG80VVN4?oc=5",
-        "fetch_observed": false,
-        "archived": true,
-        "first_seen_at": "2026-11-27T16:35:32.196367Z",
-        "last_seen_at": "2026-11-28T09:35:35.872429Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_5084be6bfbbb1c5bf28ecef0"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
         "article_id": "c9ac11d34ab28252286235bc732ffade55026e22",
         "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5iZ01EZUxtMTFZb09vZlJ4V1Y5Qk13WGJ1Vmg2U2xMc3ZxVUN4V0pRNHNpRzZTb01FNFoyZjh2LU91Rl92OE83OE5UeUxIQTR0cGNtNjZZSlVINmU5LTZkanh5RENteDdiZzJfQTZzaTVRVzM4dG91R3dvVQ?oc=5",
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-27T22:05:40.079981Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1886,31 +1773,12 @@
         ]
       },
       {
-        "article_id": "e403dc186f9b6de5402bfe5447e4fbce6cc8bb5f",
-        "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOdHRLUHp4YS1OR1BBTUdpVnpmdmlwUGg5Y0I2VWl2cmJpQlZwV0ZkUlpkR05yLWg1bmhIZHBESlJ5LVhCZ1VvWE9YYkJsR0dhM09tRklOOExzTEFQMDlZZWFpY0QxQ19NYkR3ajNoaE8yc0t1QnZMbXFOb0c1OVpyVmhCdmt1U0REM2ZMdkoyWVJsbkk5ODlUQjg2azQzaDNVR3JVSWNNRVhwYk0zT3JmRlNTelBtdUFSa05OZlkxVDU?oc=5",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-27T19:05:32.389060Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_93b9edaef90c6e902957f162"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
         "article_id": "e66159ac072d67b724d716cdb26b693ca62f0b2d",
         "url": "https://www.llmrumors.com/news/anthropic-ipo-compute-capital",
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-27T23:35:33.331323Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1927,7 +1795,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-27T23:35:33.331323Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1946,7 +1814,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-27T23:35:33.331323Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -1965,7 +1833,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T00:05:34.793365Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": false,
@@ -1984,7 +1852,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T00:35:35.950520Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": false,
@@ -2003,7 +1871,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T01:05:34.012001Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2022,7 +1890,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T02:05:31.175916Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2041,7 +1909,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T02:05:31.175916Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": false,
         "in_ai_pool": false,
@@ -2064,7 +1932,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T02:05:31.175916Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2083,7 +1951,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T02:05:31.175916Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": false,
@@ -2102,7 +1970,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T02:35:33.695068Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2121,7 +1989,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T03:05:31.634543Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2140,7 +2008,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T03:05:31.634543Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2159,7 +2027,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T04:05:37.746910Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2178,7 +2046,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T04:20:01.520308Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2197,7 +2065,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T04:20:01.520308Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2216,7 +2084,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T04:20:01.520308Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2235,7 +2103,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T04:20:01.520308Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2254,7 +2122,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T04:20:01.520308Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2273,7 +2141,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T04:20:01.520308Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": false,
@@ -2292,7 +2160,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T05:05:35.420727Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2311,7 +2179,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T05:05:35.420727Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2330,7 +2198,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T05:35:32.221202Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2349,7 +2217,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T05:35:32.221202Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2368,7 +2236,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T06:05:30.412081Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2387,7 +2255,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T06:05:30.412081Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2406,7 +2274,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T06:05:30.412081Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2425,7 +2293,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T06:35:30.830564Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": false,
@@ -2444,7 +2312,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T07:05:39.592257Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": false,
@@ -2463,7 +2331,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T07:05:39.592257Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2477,31 +2345,12 @@
         ]
       },
       {
-        "article_id": "9e401623d478a077776733b9e52316921a52aaf1",
-        "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNQjE5WDFpRW9HTXZvS0dTbF9MTjBwQXh0VUVGcUEzeTc3QllSWm9tMUVvWHl4Tl9veFhhamxPUXVWbzhnRTdpTFRhOTRyNFh6Y3pXcXloN3lHNlZaemNhQ2kyVnZkR3U0LUVuSklGNDN3b0tVMEloSEY1N2dwWFhlMnFpRkpudTJNMjJz?oc=5",
-        "fetch_observed": true,
-        "archived": true,
-        "first_seen_at": "2026-11-28T07:35:31.426298Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_a1903249885a1700510182d5"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
         "article_id": "223fef9d87d3518098721bcd2c060c640428503a",
         "url": "https://www.inside.com.tw/article/43036-fcc-approves-spacex-plan-to-put-ai-data-centers-in-space",
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T07:35:31.426298Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2520,7 +2369,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T07:35:31.426298Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2539,7 +2388,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T08:05:32.802306Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": false,
@@ -2558,7 +2407,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T08:05:32.802306Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2577,7 +2426,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T05:35:32.221202Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2596,7 +2445,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T08:35:41.502391Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2615,7 +2464,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T09:05:35.264255Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2634,7 +2483,7 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T07:05:39.592257Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2653,13 +2502,51 @@
         "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T09:35:35.872429Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
         "superseded_by": null,
         "event_ids": [
           "be1_dec6133917b434004b4fb6c2"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "no_core_event"
+        ]
+      },
+      {
+        "article_id": "62e446d93eb00d51f36ecc97853b17718a1c338c",
+        "url": "https://www.marktechpost.com/2026/11/28/ant-group-lingsante-3-1-flash-open-source-medical-ai",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-28T09:59:00.906683Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_1d2f14960e9bc4678f0f8396"
+        ],
+        "aggregation_status": "aggregated",
+        "reason_codes": [
+          "insufficient_evidence"
+        ]
+      },
+      {
+        "article_id": "baa1c6458c7ffda32f69e477796f8f9b4f92ae45",
+        "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPOUhkOFctdmNWVmE4V25NYVFPXy1fbmpLZnJubGRnZDZQVkk1alZaNE1hMjNJMkVxMFY5aFZVclJnTmM5WkhEVjM0OUFlMEVXc2pLX3VGMzBZOVFuZ0JqWHFTWWROTmY5dkFzMDdSTFR4THE2WEt6dmd6ZVVob1kwOFdyUHpvaVZndmExTTEtbG80VVN4?oc=5",
+        "fetch_observed": true,
+        "archived": true,
+        "first_seen_at": "2026-11-27T16:35:32.196367Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
+        "in_window": true,
+        "in_raw_pool": true,
+        "in_ai_pool": true,
+        "superseded_by": null,
+        "event_ids": [
+          "be1_5084be6bfbbb1c5bf28ecef0"
         ],
         "aggregation_status": "aggregated",
         "reason_codes": [
@@ -2706,10 +2593,10 @@
       {
         "article_id": "533f5e7f2ba1ce3c51782be082b8b648780bc0cc",
         "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPUWxqUk9SLWRKQW9peHJnNlF2UHp6ZTZkenlLR1I3eEtnQVJDblZYaDZydmVQcERFSDdGT2IyZFdPTjJoa19idWJOelNtbVB3UzBkZXlWZ3BobFF0Wk1WX3ZvaVFTR016eGplaEN3RDVJMXgtYlVNMnYwNVhNcU9HdThTYW9BRFRIVy1rN192Umt0ckctS0E?oc=5",
-        "fetch_observed": false,
+        "fetch_observed": true,
         "archived": true,
         "first_seen_at": "2026-11-28T07:05:39.592257Z",
-        "last_seen_at": "2026-11-28T08:05:32.802306Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
@@ -2773,25 +2660,6 @@
         "superseded_by": null,
         "event_ids": [
           "be1_780c306ce75788c4e7c67724"
-        ],
-        "aggregation_status": "aggregated",
-        "reason_codes": [
-          "no_core_event"
-        ]
-      },
-      {
-        "article_id": "242bb6a20902f93578b0963ebfae14a46c1cdb81",
-        "url": "https://finance.technews.tw/2026/11/27/ai-supply-shortage-dgbass-forecasts-next-year-exports-1-trillion-record-high",
-        "fetch_observed": false,
-        "archived": true,
-        "first_seen_at": "2026-11-27T10:35:35.877247Z",
-        "last_seen_at": "2026-11-28T06:05:30.412081Z",
-        "in_window": true,
-        "in_raw_pool": true,
-        "in_ai_pool": true,
-        "superseded_by": null,
-        "event_ids": [
-          "be1_e38694ae1d47511771d7d015"
         ],
         "aggregation_status": "aggregated",
         "reason_codes": [
@@ -2877,22 +2745,22 @@
         ]
       },
       {
-        "article_id": "62e446d93eb00d51f36ecc97853b17718a1c338c",
-        "url": "https://www.marktechpost.com/2026/11/28/ant-group-lingsante-3-1-flash-open-source-medical-ai",
+        "article_id": "b487b03b2867b56c52a69af74177266f185f2893",
+        "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE8ta0dBSGo3ZXc1c3BWZUNPRjRKLUdOdW5ZNUVKNmdPUEpOY0Jkd3E2UEtLc3RVY0xjRVlyeVBTN201TUtHbVYySTN3QTdWcHA3SzdLZVF1Y1c?oc=5",
         "fetch_observed": true,
         "archived": true,
-        "first_seen_at": "2026-11-28T09:59:00.906683Z",
-        "last_seen_at": "2026-11-28T09:59:00.906683Z",
+        "first_seen_at": "2026-11-28T10:35:31.633654Z",
+        "last_seen_at": "2026-11-28T10:35:31.633654Z",
         "in_window": true,
         "in_raw_pool": true,
         "in_ai_pool": true,
         "superseded_by": null,
         "event_ids": [
-          "be1_1d2f14960e9bc4678f0f8396"
+          "be1_558d43e9a1a8469341bf9fe1"
         ],
         "aggregation_status": "aggregated",
         "reason_codes": [
-          "insufficient_evidence"
+          "no_core_event"
         ]
       }
     ],
@@ -3426,31 +3294,6 @@
         "supplement_impact": null
       },
       {
-        "event_id": "be1_416da646a6aa6a52c2734e30",
-        "article_ids": [
-          "3f0a65033e0e99d8f5fe2110b68036a8abb6873e"
-        ],
-        "eligible": false,
-        "selected": false,
-        "selection_class": null,
-        "featured_score": null,
-        "effective_at": "2026-11-27T10:23:00Z",
-        "expires_at": "2026-11-28T10:23:00Z",
-        "reason_codes": [
-          "no_current_qualified_article"
-        ],
-        "article_reasons": {
-          "3f0a65033e0e99d8f5fe2110b68036a8abb6873e": [
-            "no_core_event"
-          ]
-        },
-        "raw_record_count": 1,
-        "article_count": 1,
-        "independent_publisher_count": 1,
-        "qualified_publisher_count": 0,
-        "supplement_impact": null
-      },
-      {
         "event_id": "be1_4209f44276e223c89f8493f3",
         "article_ids": [
           "75d1fdb668352232bf48d64b3cd620e9eac2db4f"
@@ -3492,6 +3335,32 @@
         "article_reasons": {
           "baa1c6458c7ffda32f69e477796f8f9b4f92ae45": [
             "no_core_event"
+          ]
+        },
+        "raw_record_count": 1,
+        "article_count": 1,
+        "independent_publisher_count": 1,
+        "qualified_publisher_count": 0,
+        "supplement_impact": null
+      },
+      {
+        "event_id": "be1_558d43e9a1a8469341bf9fe1",
+        "article_ids": [
+          "b487b03b2867b56c52a69af74177266f185f2893"
+        ],
+        "eligible": false,
+        "selected": false,
+        "selection_class": null,
+        "featured_score": null,
+        "effective_at": "2026-11-28T10:10:36Z",
+        "expires_at": "2026-11-29T10:10:36Z",
+        "reason_codes": [
+          "no_current_qualified_article"
+        ],
+        "article_reasons": {
+          "b487b03b2867b56c52a69af74177266f185f2893": [
+            "no_core_event",
+            "not_permitted_for_featured"
           ]
         },
         "raw_record_count": 1,
@@ -3710,33 +3579,6 @@
         "supplement_impact": null
       },
       {
-        "event_id": "be1_7ac5f74d33461b2ad155c71c",
-        "article_ids": [
-          "028207c59862fb943433dad5458b1a7e5f87b4cf"
-        ],
-        "eligible": false,
-        "selected": false,
-        "selection_class": null,
-        "featured_score": null,
-        "effective_at": "2026-11-27T04:05:35.447308Z",
-        "expires_at": "2026-11-28T04:05:35.447308Z",
-        "reason_codes": [
-          "outside_reader_window"
-        ],
-        "article_reasons": {
-          "028207c59862fb943433dad5458b1a7e5f87b4cf": [
-            "no_core_event",
-            "publisher_identity_not_countable",
-            "not_permitted_for_featured"
-          ]
-        },
-        "raw_record_count": 1,
-        "article_count": 1,
-        "independent_publisher_count": 0,
-        "qualified_publisher_count": 0,
-        "supplement_impact": null
-      },
-      {
         "event_id": "be1_7c814a1871634011ac99d983",
         "article_ids": [
           "9d550ae7180ac76c6704f09333694af63ca9b2f9"
@@ -3868,60 +3710,6 @@
         "supplement_impact": null
       },
       {
-        "event_id": "be1_93b9edaef90c6e902957f162",
-        "article_ids": [
-          "e403dc186f9b6de5402bfe5447e4fbce6cc8bb5f"
-        ],
-        "eligible": false,
-        "selected": false,
-        "selection_class": null,
-        "featured_score": null,
-        "effective_at": "2026-11-27T10:07:30Z",
-        "expires_at": "2026-11-28T10:07:30Z",
-        "reason_codes": [
-          "no_current_qualified_article"
-        ],
-        "article_reasons": {
-          "e403dc186f9b6de5402bfe5447e4fbce6cc8bb5f": [
-            "no_core_event",
-            "publisher_identity_not_countable",
-            "not_permitted_for_featured"
-          ]
-        },
-        "raw_record_count": 1,
-        "article_count": 1,
-        "independent_publisher_count": 0,
-        "qualified_publisher_count": 0,
-        "supplement_impact": null
-      },
-      {
-        "event_id": "be1_9bb4503457bcb16ab10b7b03",
-        "article_ids": [
-          "b5191a96af053611f0fd4f266fc2b962bf64a5af"
-        ],
-        "eligible": false,
-        "selected": false,
-        "selection_class": null,
-        "featured_score": null,
-        "effective_at": "2026-11-27T10:12:18Z",
-        "expires_at": "2026-11-28T10:12:18Z",
-        "reason_codes": [
-          "no_current_qualified_article"
-        ],
-        "article_reasons": {
-          "b5191a96af053611f0fd4f266fc2b962bf64a5af": [
-            "no_core_event",
-            "publisher_identity_not_countable",
-            "not_permitted_for_featured"
-          ]
-        },
-        "raw_record_count": 1,
-        "article_count": 1,
-        "independent_publisher_count": 0,
-        "qualified_publisher_count": 0,
-        "supplement_impact": null
-      },
-      {
         "event_id": "be1_9bfde571970f472d24a4e803",
         "article_ids": [
           "3ead2102d24ab7c0581288b7ffdcbaeef527eb88"
@@ -3945,31 +3733,6 @@
         "raw_record_count": 1,
         "article_count": 1,
         "independent_publisher_count": 0,
-        "qualified_publisher_count": 0,
-        "supplement_impact": null
-      },
-      {
-        "event_id": "be1_a1903249885a1700510182d5",
-        "article_ids": [
-          "9e401623d478a077776733b9e52316921a52aaf1"
-        ],
-        "eligible": false,
-        "selected": false,
-        "selection_class": null,
-        "featured_score": null,
-        "effective_at": "2026-11-27T10:30:12Z",
-        "expires_at": "2026-11-28T10:30:12Z",
-        "reason_codes": [
-          "no_current_qualified_article"
-        ],
-        "article_reasons": {
-          "9e401623d478a077776733b9e52316921a52aaf1": [
-            "no_core_event"
-          ]
-        },
-        "raw_record_count": 1,
-        "article_count": 1,
-        "independent_publisher_count": 1,
         "qualified_publisher_count": 0,
         "supplement_impact": null
       },
@@ -4506,32 +4269,6 @@
         ],
         "article_reasons": {
           "27569f1c2f223f3bf45678101fa065b2fb9a81bd": [
-            "no_core_event",
-            "not_permitted_for_featured"
-          ]
-        },
-        "raw_record_count": 1,
-        "article_count": 1,
-        "independent_publisher_count": 1,
-        "qualified_publisher_count": 0,
-        "supplement_impact": null
-      },
-      {
-        "event_id": "be1_e38694ae1d47511771d7d015",
-        "article_ids": [
-          "242bb6a20902f93578b0963ebfae14a46c1cdb81"
-        ],
-        "eligible": false,
-        "selected": false,
-        "selection_class": null,
-        "featured_score": null,
-        "effective_at": "2026-11-27T10:10:06Z",
-        "expires_at": "2026-11-28T10:10:06Z",
-        "reason_codes": [
-          "no_current_qualified_article"
-        ],
-        "article_reasons": {
-          "242bb6a20902f93578b0963ebfae14a46c1cdb81": [
             "no_core_event",
             "not_permitted_for_featured"
           ]
