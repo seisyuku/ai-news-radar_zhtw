@@ -27,6 +27,7 @@ The loader accepts historical non-hex IDs; resolver writers accept only
 | API | Behavior |
 | --- | --- |
 | `load_archive(path, *, normalize_record)` | Validate the existing input structure, then apply the supplied record identity policy. |
+| `load_archive_generation(path, *, normalize_record)` | Return retained records and their generation timestamp from the same read. A missing file returns empty records and no timestamp. A legacy archive without a timestamp remains readable. |
 | `archive_from_payload(payload, *, normalize_record, label="archive")` | Apply the same structural/ID validation and identity policy to an already decoded payload; no file access. The path loader delegates here after its existing read/decode step. |
 | `atomic_write_text(path, text)` | UTF-8 text to a same-directory temporary file, close, then replace. The target directory must already exist. |
 | `write_item_resolvers(output_dir, archive, *, sanitize_record, prune=True)` | Write `output_dir/items/<id>.json`, using the supplied public policy, and return the valid ID count. |

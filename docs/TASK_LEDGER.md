@@ -1,19 +1,17 @@
 # 任務台帳
 
-更新：2026-11-18（臺北）。本頁只保留目前有效狀態與2026-11-09起的任務紀錄；超過十天的項目與歷程不在本頁累積。產品、來源與操作規則分別依README、SOURCE_COVERAGE及OPERATIONS；發布證據與續接入口見[交接摘要](HANDOVER.md)。
+更新：2026-11-28（臺北）。本頁保留目前有效狀態與 2026-11-19 起的任務紀錄。產品、來源與操作規則分別依 README、SOURCE_COVERAGE 及 OPERATIONS。發布證據與續接入口見 [交接摘要](HANDOVER.md)。
 
 ## 目前待辦
 
-Claude 官方公告入口已在本機修復，待發布後由正常刷新確認正式健康。
-
-11/18 融資過度入選、動區一般收錄與 Pulse 來源邊界、人事異動已合為一份本機修改。兩輪正式快照離線驗證與七天回放通過，完整測試 2,328 項通過。整合版進入正式發布驗收。 [交接摘要](HANDOVER.md)
+全系統狀態機重構已完成正式驗收。
 
 ## 例行維護與可選整理
 
 | 項目 | 現況／處理邊界 |
 | --- | --- |
 | 公開刷新與來源健康 | 沿用既有source-status、刷新、watchdog、heartbeat及Pages處理，不另建監控或提醒。 |
-| Groq第五項詳細健康紀錄／總請求上限 | 10/31裁決暫緩，不加入本輪例行處理；未來健康盤點有更多證據時再衡量運算／維護成本與價值，不自動啟動。 |
+| 阿梨 AI 早晚報 | 保留為人工查漏參考。 |
 | 七日來源觀察／報告／SMTP工具 | 三份workflow均停用，設定enabled=false；可另案整組清理，目前沒有必刪裁決，不補D7／D8或寄信。 |
 | 舊Gemini翻譯工作目錄 | 功能已在master；/Users/lordmi/Downloads/ai-news-radar-gemini仍保留，可另行指定清理。 |
 
@@ -21,11 +19,9 @@ Claude 官方公告入口已在本機修復，待發布後由正常刷新確認�
 
 | 完成日期 | 工作 | 結果／依據 |
 | --- | --- | --- |
-| 11/18 | vLLM、LiberAI、Thinking Machines Lab 收錄取消 | 三案依維護者裁決結案，停止追蹤。Thinking Machines Lab 官方 Feed 已從本機收件設定移除。[來源覆蓋](SOURCE_COVERAGE.md) |
-| 11/18 | Claude Product Announcements 入口修復 | 收件器改讀官方 Product updates，沿用既有子來源 ID。本機已修改，待發布。[來源覆蓋](SOURCE_COVERAGE.md) |
-| 11/18 | 全站收錄、分類與排序分工 | 一般排序以可追溯原始文章為來源條件。例行刷新停止追索對照源的引用，讀者主題使用原始標題，優先閱讀分採來源政策對應的權重。事實查核由自媒體編輯助理處理。詳見[產品規則](../README.md#資訊來源與可信度)。 |
-| 11/18 | BlockTempo 提前驗收及 Pulse 來源查核邊界 | 試接封存 78 篇。維護者依顯示價值裁決保留一般收錄，適用全站分類與評級。Pulse 檢查原始來源是否可取得，自媒體編輯助理負責事實查核。詳見[來源覆蓋](SOURCE_COVERAGE.md#提前驗收結論)。 |
-| 11/10 | Hugging Face 語言版本合併與 Actions Node.js 24 | `19d145b0ab08`、`461919eedee4` 已推送 master，2,302 項本機測試及 [GitHub 離線 CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/42746198196) 通過。臺北 10:57:52 快照 `e3e94f7e2674` 與正式站五檔一致，合併列表一張繁中卡片，未合併資料保留兩版。[資料部署](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/42746390542) 成功，GitHub 自管 Pages 建置仍回報其內部 `upload-artifact@v4` 的 Node 20 警告。 |
+| 11/28 | 全系統狀態機重構 R01–R12 | `6914f48cc0e2` 後端、`aca6e13bab42` 正常刷新、`a2b936eaf015` 前端依序發布，24 檔正式讀回及桌面／手機驗收通過。[交接摘要](HANDOVER.md) |
+| 11/27 | Groq 第五項逐項健康紀錄／總請求上限 | 依維護者裁決結案，不再追蹤。沿用每輪彙總狀態、20 則候選與成功新增 6 則上限。[操作文件](OPERATIONS.md#optional-groq-news-summaries) |
+| 11/20 | Anthropic Newsroom 修復與模型公告收錄 | `f51deb13cf18` 已發布。正式快照 `f90593a6f071` 收到 Anthropic News 18 篇，正式站 17 檔吻合生成提交。Claude Desktop 更新頻道依裁決不收錄。[來源覆蓋](SOURCE_COVERAGE.md#2026-11-20-anthropic-news-列表修復與模型公告收錄) |
 
 ## 現行保留與限制
 

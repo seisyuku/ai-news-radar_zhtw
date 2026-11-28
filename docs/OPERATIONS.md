@@ -1,5 +1,11 @@
 # Operations Notes
 
+## 2026-11-28 全系統狀態機重構正式發布
+
+`6914f48cc0e2` 後端、`aca6e13bab42` 正常刷新、`a2b936eaf015` 前端依序發布。[後端離線 CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/46101020209)、[後端 Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/46101019558)、[正常刷新](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/46101142952)、[資料 Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/46101277612)、[前端離線 CI](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/46101403543)、[資產版本](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/46101403526)、[前端 Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/46101402847)均成功。前端六份共同資產採 `20261128-reader-time1`。
+
+臺北 11:05:31 快照共 95 篇一般 AI 新聞、108 篇全量新聞、0 則重點、0 則模型雷達。治理為 ready，14 個來源成功，失敗及降級各 0／0，OPML 失敗 0。24 個正式 HTTP 檔與部署提交逐位元相符，包含首頁、共同資產、公開資料及三篇舊文章的雙格式永久連結。Chrome 1440×1000 與 390×844 通過一般／全量切換、去重、來源篩選、清除與同代治理。生成故障與從較新資料回退的結果見 [R11 交接摘要](HANDOVER.md#1128-全系統狀態機重構-r11-已驗收)。本次發布證據見 `/Users/lordmi/Downloads/ai-news-radar-refactor-r12-20261128/HANDOFF.md`。
+
 ## BlockTempo 一般來源
 
 `tw_media/blocktempo_ai`使用固定原站WordPress AI分類JSON（分類309），不在每次刷新重試已確認落後的RSS，也不以靜默RSS回退掩蓋JSON失效。單次最多2MB／30筆、每輪最多8篇；只收原生標題／GMT發布時間／短摘要，不補抓正文、附件或引用。來源空值與失敗沿用既有子來源健康；有效但無近期候選可成功回零，結構或必要欄位失效則報錯。
@@ -26,7 +32,7 @@
 
 [正常公開刷新](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41182725807)產生940aaf86a7ee，[資料Pages](https://github.com/seisyuku/ai-news-radar_zhtw/actions/runs/41182843549)成功。臺北15:59:35快照105篇AI新聞、30篇精選、0則重點，來源失敗／降級及RSS訂閱失敗皆0；治理ready。首頁、manifest、六資產、九份JSON及中文新聞資訊頁共18檔正式HTTP與生成提交一致，1440桌面／390手機實際切換模式、來源篩選與合併開關皆正常，無JS例外或整頁橫向溢出。證據位於 /Users/lordmi/Downloads/ai-news-wording-review-20261031/release/。
 
-[正式站](https://seisyuku.github.io/ai-news-radar_zhtw/?review=20261031-wording1)已通過維護者人工審閱，用詞統一結案，無需後續追蹤。只改呈現與入口命名；70分、來源／材料資格、排序、新鮮度、24小時窗口與資料契約不變，正式data／item由既有正常刷新生成。Groq第五項仍暫緩；沒有新增監控或排程。
+[正式站](https://seisyuku.github.io/ai-news-radar_zhtw/?review=20261031-wording1)已通過維護者人工審閱，用詞統一結案，無需後續追蹤。只改呈現與入口命名；70分、來源／材料資格、排序、新鮮度、24小時窗口與資料契約不變，正式data／item由既有正常刷新生成。沒有新增監控或排程。
 
 ## 10/31 Groq修正與影響排序發布驗收完成
 
@@ -34,7 +40,7 @@ Groq修正程式[5e911b10e93e](https://github.com/seisyuku/ai-news-radar_zhtw/co
 
 臺北10:47:34快照：Groq新增6則、失敗0次、成功快取重用14筆，prompt版本v3；來源失敗／降級皆0。一般AI139篇，事件與治理ready，重點0則符合維持70分的裁決。首頁＋六資產＋八份公開JSON與摘要快取共16檔HTTP bytes和生成提交一致；正式下載資料通過讀者端guard與實際混排選集檢查。這是單次正式執行結果，不宣稱長期成功率或獨立新聞precision。
 
-先前影響排序的GitHub事故待辦已核對解除：impact-v2與共同資產20261031-impact3正式上線，原CI及資產檢查成功，本輪同代HTTP與讀者guard再驗通過。維持70分與24小時規則；降標研究結案，不更動門檻或中文E判讀。第五項詳細健康紀錄／總請求上限仍暫緩。發布證據位於 /Users/lordmi/Downloads/ai-news-groq-fixes-20261031/release/。
+先前影響排序的GitHub事故待辦已核對解除：impact-v2與共同資產20261031-impact3正式上線，原CI及資產檢查成功，本輪同代HTTP與讀者guard再驗通過。維持70分與24小時規則；降標研究結案，不更動門檻或中文E判讀。發布證據位於 /Users/lordmi/Downloads/ai-news-groq-fixes-20261031/release/。
 
 ## 2026-10-31 正式發布與驗收完成
 
@@ -190,7 +196,10 @@ invocation's temporary file and leaves the previous target intact.
 The main generation run prunes expired JSON and HTML resolvers only after all
 snapshot, resolver, state and optional cache writes succeed. A brief-event
 history write failure can still publish general news and prices with the
-governed views unavailable. That run defers resolver cleanup until a subsequent
+governed views unavailable. The merged projection, daily brief, latest lists
+and radar all use the governance result after the history write attempt.
+Selection diagnostics distinguish `governance_unavailable` from a ready
+selection with zero qualifying events. That run defers resolver cleanup until a subsequent
 successful write sequence. Standalone resolver
 writers retain their default cleanup behavior after their own writes succeed;
 callers coordinating multiple outputs can pass `prune=False` and call
@@ -202,6 +211,17 @@ back. Resolver cleanup itself is not transactional. This does not guarantee
 durability after power loss, and forced termination may leave a recognizable
 temporary file. Offline audit/evaluation reports and diagnostic outputs are
 outside this scheduled-generation protection.
+
+### Concurrent snapshot pushes
+
+The update job records the checked-out commit before generation. On a rejected
+push it fetches the same branch and compares the fetched tree with that original
+commit on every retry. Only changes confined to the root `README.md` and Markdown
+under `docs/` can be rebased. A changed archive, event history, market state,
+resolver, generator, dependency, feed, workflow, policy or unrecognized path
+ends the run. The next normal refresh regenerates from the newer checkout.
+A retry replays only the generated commit onto the inspected tip and uses a
+normal fast-forward push, with at most three push attempts.
 
 ## Front-end asset cache busting
 
@@ -296,7 +316,8 @@ T03 既有資料跨期回顧已完成，維持每輪成功新增六則上限與�
   污染來源事實；當原始標題與舊顯示標題不同時，只重建對應內容鍵。
 - `data/ai-summary-cache.json` 以模型、prompt版本、標題與來源摘要的內容雜湊為鍵，最多保留500筆。10/31正式版v3按金額／幣別／百分比與支援的數量單位驗證，不用數字子字串判斷；v2成功快取通過完整新驗證後可沿用。提示目標50～90個總字元，硬性30～120，包含英文、數字、空白與標點。
 - 10/31正式版先排除只重述標題／媒體名稱的摘要。長度、數字、版本、語言與格式拒收最多補試一次；最終內容拒收（含資訊不足與安全拒收）同鍵冷卻六小時，期間仍不展示被拒摘要，使用既有來源摘要回退。資訊不足／安全拒收直接冷卻，暫時provider故障不套六小時內容冷卻；材料更新會改鍵立即可試。補試只加入固定允許的原因提示，不引用失敗回應。failed仍計每次失敗嘗試，可與補試成功generated同時增加。
-- 維護者暫緩第五項逐項健康紀錄與新增總請求上限，本輪不新增事件紀錄、監控或例行報告；保留現行彙總狀態、20候選／6則成功新增限制。未來健康盤點有更多證據時再評估額外處理能力是否值得。
+- Groq 拒絕快取的有效期間從紀錄建立當下起算，滿六小時立即失效。晚於本輪時間的紀錄視為無效。
+- 2026-11-27 維護者裁決第五項逐項健康紀錄與總請求上限結案，不再追蹤。沿用每輪彙總狀態、20 則候選與成功新增 6 則上限。
 - Provider timeout、額度或輸出驗證失敗只記錄公開安全的錯誤類型；本地
   驗證失敗另以 allowlist `last_error_detail` 標示長度、語言、數字事實、
   必要版本名、格式或安全 gate，絕不寫入 provider 回覆或來源原文。狀態位於
@@ -481,21 +502,29 @@ cron-job.org（每 30 分鐘，GitHub schedule 機制之外）
     ▼
 update-news.yml: freshness-check job
     │  只在 inputs.source == "heartbeat" 時查詢
-    │  「任何觸發來源」最近一次成功 run 距今幾分鐘
+    │  讀發布分支 data/daily-brief.json 的 generated_at
     │
-    ├─ < 25 分鐘（內部排程健康）──▶ should_run=false
+    ├─ < 25 分鐘 ─────────────────▶ should_run=false
     │                              update job 整個跳過（needs+if）
     │                              心跳這次只留一筆輕量 run 足跡
     │
-    └─ ≥ 25 分鐘（內部排程疑似衰變）──▶ should_run=true
+    └─ ≥ 25 分鐘或無法驗證快照 ─────▶ should_run=true
                                        update job 全量執行，等同
                                        接管一次排程 tick
 ```
 
-`schedule` 觸發、一般手動 `workflow_dispatch`（不帶 `source` 或帶
-`source=manual`）、watchdog.yml 的代觸發（同樣不帶 `source`，見該檔
-案內註解）一律落在 `!= "heartbeat"` 分支，`freshness-check` 直接
-`should_run=true`、完全不查 API，行為與心跳接入前完全相同。
+`generated_at` 代表已提交到 Git 發布分支的資料。本判據涵蓋各觸發
+來源寫入的快照，Pages 部署及 CDN 的讀回另依發布驗證處理。成功但跳過
+更新的 heartbeat、還在進行的刷新及未推送的產物都無法推進此時間。
+缺檔、API 失敗、時間無效或在未來時，heartbeat 放行一次完整刷新。
+整秒差取整分鐘，25 分鐘整即放行。
+
+排程、一般手動及 watchdog 代觸發直接通過 `freshness-check`。Watchdog
+按最新一筆 `schedule` run 的建立時間獨立檢查排程是否還有觸發，涵蓋
+失敗與進行中的 run。以既有整分鐘商大於 90 的規則代觸發，首次通過
+點為 91:00。缺歷史時跳過，API 失敗時該 job 失敗。所有更新觸發共用
+`update-news` 工作流併發群組，已開始的刷新可以跑完。等候中的
+heartbeat 取得執行機會時，以當時已提交的快照重新判定。
 
 ### 使用者交接材料
 
@@ -564,10 +593,8 @@ update-news.yml: freshness-check job
    上面「設定完成後驗證速查」表格排查
 3. **guard 行為**：確認 API 有成功送達後，去
    `gh run list --workflow=update-news.yml -L 10 --json event,createdAt,conclusion`
-   看有沒有出現 `workflow_dispatch` 的 run；如果有 run 但
-   `freshness-check` job 一直判定 `should_run=false`（因為內部排程
-   剛好一直健康），這是**設計上的正常行為**，不是故障——心跳本來
-   就只在內部排程衰變時才接管
+   看是否出現 `workflow_dispatch` 的 run。再到 `freshness-check` log
+   核對發布分支的快照年齡、`should_run` 結果及更新 job 是否啟動。
 
 **5. PAT 到期續期操作**（90 天到期前）
 
@@ -597,8 +624,8 @@ update-news.yml: freshness-check job
 2026-10-28 依維護者要求補修 Hugging Face 閱讀內容：該站 RSS 只有標題，
 標題翻譯本來正常；僅針對已在當期 AI 閱讀池、缺 RSS 簡介的該站文章，
 補讀固定 HTTPS 官方 `/blog/` 網址 `.blog-content` 中第一個完整實質段落。
-每輪最多 6 篇、啟動新請求前檢查 20 秒預算、單頁上限 1 MiB、不跟隨轉址，
-失敗安全略過。當期首段快取於 `reader-excerpt-cache.json`，用 `reader_summary`
+每輪最多嘗試 6 個網址，同一網址每輪只嘗試一次。啟動新請求前檢查 20 秒預算，
+單頁上限 1 MiB，不跟隨轉址。失敗網址在後續符合條件的刷新可再試。當期首段快取於 `reader-excerpt-cache.json`，用 `reader_summary`
 提供既有 Gemini 翻譯與「來源首段譯文」顯示；原始 RSS `summary`／archive
 保持，首段不參與相關度、事件資格、選題或 Groq 摘要。健康另記
 `source-status.json.reader_excerpts`。其他來源仍不補讀文章。
@@ -609,14 +636,17 @@ Hugging Face Blog 若同時收錄同一路徑的英文文章與帶 `-ja` 後綴�
 
 ### Provider 與失效界線
 
-- 每輪最多處理 `--translate-max-new`（預設 80）個候選；每個請求最多 30
-  段、4,800 字元，單次逾時 45 秒，整個翻譯階段最多 120 秒與 6 次請求。
-  請求依序執行。429 只會在 `Retry-After` 落在剩餘預算內時重試，重試仍計入
-  六次上限；否則保留來源語言且不寫入六小時拒絕快取。Gemini endpoint 使用獨立的
+- 每輪最多處理 `--translate-max-new`（預設 80）個候選。每個請求最多 30
+  段、4,800 字元；連線與讀取套用單次逾時設定，上限 45 秒。每輪以 120 秒
+  及 6 次請求為送出新請求的預算。
+  請求依序執行。429 的 `Retry-After` 必須短於剩餘時間，且尚有請求額度，才會等待重試。
+  重試計入六次上限，並以實際剩餘時間限制逾時。停在 429 時保留來源語言。
+  Gemini endpoint 使用獨立的
   no-retry adapter，避免共用 feed session 把一次 POST transport timeout 暗中重試三次、
   吃完整輪預算；是否重試只由這裡的明確上限控制。
 - 失敗候選會寫入 `data/translation-state.json` 的短期拒絕快取：暫時性
-  provider 故障保留 30 分鐘，無效譯文保留六小時。10/31標題補修：無效標題
+  provider 故障保留 30 分鐘，無效譯文保留六小時。冷卻從建立當下開始，到期當下失效。
+  晚於本輪時間的紀錄視為無效。10/31標題補修：無效標題
   在既有6次／120秒上限內可補試一次；舊拒絕或預算不足而未送出的補試，
   滿30分鐘可取得一次補救，實際再次失敗後維持六小時冷卻。摘要不新增補試。
   補試只加入固定指示，不引用失敗回應；成功後自動移除拒絕記錄。429 限流例外，避免正常額度恢復後
@@ -751,17 +781,17 @@ watchdog／external heartbeat 三層排程影響。
   與主新聞及 LLM 雷達一致。舊 Canary 卡片不再沿用。
 - `data/llm-radar.json`：首頁讀者層的 24 小時模型發布雷達；模型僅標示
   偵測證據層級。價格只保留在 `market-signals.json`，不影響新聞排序。
-- `data/market-sensor-state.json`：價格比較快照；退役 Canary seen IDs 於首次刷新移除。
+- `data/market-sensor-state.json` 是最後一次成功比較或初始化的價格基線。缺檔或舊格式尚無價格資料時，由第一份有效價格目錄建立基線。既有檔讀取失敗、格式無效、抓取失敗或觸發目錄縮水門檻時，原檔保留。退役 Canary seen IDs 隨下一次成功寫入移除。
   既有免費額度歷史 baseline 仍保留，不含 token、cookies、帳號或個人 quota。
-- `data/source-status.json`：只保留價格這一個活躍 Market Sensor 的成功、解析筆數、
-  當輪事件數與 exact error；失敗時 fail-soft，不中止新聞主流程。
+- `data/source-status.json` 記錄價格感測器的成功、解析筆數和當輪事件數。基線不可讀時記為 `price_baseline_unavailable` 並將價格來源標為降級。一般新聞照常生成，既有價格訊號依原窗口到期。
+
+暫時性讀取失敗排除後，刷新會與原檔比較。檔案內容確實損壞時，從最後一個可驗證的正常生成提交取回同一路徑的基線，先核對版本與價格目錄，再依既有發布流程修復。記下取回的提交及檔案雜湊，並在下一輪核對價差及來源健康。當前價格目錄只有在基線首次有效建立時才作初始化用途。
 
 首頁只呈現 `price` 事件於「價格變更」，以約 3–4 列高的可捲動標題框
 保留完整清單，沒有新事件時整區隱藏。前端對舊資料也只接受 `price`，
 避免退役的 Usage policy Canary 候選重新顯示。
 
-A04退役`market_free_tier`自動fetch/diff，舊基準保留於state但不是新觀察；頂層`updated_at`
-僅代表當輪其他工作，不表示free-tier新鮮。活躍status／failed_sites／persistent_failures不再包含退役分支。
+A04 退役 `market_free_tier` 自動 fetch／diff。舊基準保留於 state，頂層 `updated_at` 記錄最後一次成功寫入價格狀態的時間。活躍的 status／failed_sites／persistent_failures 只涵蓋價格感測器。
 原payload先封存於Downloads；當期payload及舊JSON前端過濾不呈現free-tier卡片，不生成供應商全部退場通知。
 回復發布者計數批次時保留免費額度與 Canary 的退役；不得因回復而恢復舊來源。價格的失敗隔離與24小時窗口維持。
 

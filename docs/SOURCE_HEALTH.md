@@ -33,6 +33,13 @@ and `consecutive_failures`. `HealthHistory` describes optional history fields.
 Fields are optional to support observations before calculation and older
 snapshots. The lenient loader does not validate nested field types.
 
+The transition treats a malformed historical site or child collection as empty
+and ignores rows without a nonblank string identity. It accepts nonnegative
+integer streaks and legacy integer strings. A malformed streak contributes
+zero, while a separately recorded failed attempt still counts as one known
+failure. Timestamp fields with a wrong type or blank value are treated as
+missing. These checks apply only to the affected historical site or child.
+
 History is scoped by `site_id` and then by the exact `source_id`. A new or renamed
 child starts fresh; a removed child is absent from an attempted group's current
 rows. An old group snapshot without children cannot supply a child's streak.
